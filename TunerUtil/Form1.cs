@@ -74,7 +74,7 @@ namespace TunerUtil
                 checkBoxRelay3Enabled.Checked = Properties.Settings.Default.Relay3Enabled;
                 checkBoxRelay4Enabled.Checked = Properties.Settings.Default.Relay4Enabled;
                 //Set selected items
-                comboBoxTunerModel.SelectedIndex = comboBoxTunerModel.FindStringExact(Properties.Settings.Default.TunerModel);
+                comboboxTunerModel.SelectedIndex = comboboxTunerModel.FindStringExact(Properties.Settings.Default.TunerModel);
                 comboBoxComTuner.SelectedIndex   = comboBoxComRelay1.FindStringExact(Properties.Settings.Default.Relay1Com);
                 comboBoxBaudTuner.SelectedIndex  = comboBoxBaudRelay1.FindStringExact(Properties.Settings.Default.Relay1Baud);
                 comboBoxComRelay1.SelectedIndex  = comboBoxComRelay1.FindStringExact(Properties.Settings.Default.Relay1Com);
@@ -103,8 +103,14 @@ namespace TunerUtil
                 MessageBox.Show("Error loading TunerUtil:\n" + ex.Message);
             }
             tabControl1.SelectedIndex = 2;
-            relay1 = new Relay("com15", "9600");
-            Tuner1 = new Tuner(comboBoxTunerModel.SelectedText, comboBoxComTuner.SelectedText, comboBoxBaudTuner.Text);
+            if (checkBoxRelay1Enabled.Checked)
+            {
+                relay1 = new Relay("com15", "9600");
+            }
+            if (checkBoxTunerEnabled.Checked)
+            {
+                Tuner1 = new Tuner(comboboxTunerModel.SelectedText, comboBoxComTuner.SelectedText, comboBoxBaudTuner.Text);
+            }
         }
 
         private void LoadBaudRates()
@@ -304,9 +310,11 @@ namespace TunerUtil
                         int offset2 = responseData.IndexOf("</value>");
                         string freqString = responseData.Substring(offset1, offset2 - offset1);
                         frequency = Double.Parse(freqString);
-                        labelFreq.Text = (frequency/1000).ToString()+"kHz";
+                        labelFreq.Text = (frequency / 1000).ToString() + "kHz";
+                        if (lastfrequency == 0) lastfrequency = frequency;
                         if (frequency != lastfrequency && Math.Abs(frequency - lastfrequency) > tolTune)
                         {
+                            lastfrequency = frequency;
                             richTextBoxTuner.AppendText("Tuning to " + labelFreq.Text + "\n");
                             if (checkBoxTunerEnabled.Checked)
                             {
@@ -317,11 +325,13 @@ namespace TunerUtil
                                 else if (response == 'M') buttonTunerStatus.BackColor = Color.Yellow;
                                 else if (response == 'F') buttonTunerStatus.BackColor = Color.Red;
                                 else MessageBox.Show("Unknown response from tuner = '" + response + "'");
-                                lastfrequency = frequency;
                             }
                         }
                     }
-                    labelFreq.Text = "?";
+                    else
+                    {
+                        labelFreq.Text = "?";
+                    }
                 }
                 catch (Exception)
                 {
@@ -373,7 +383,7 @@ namespace TunerUtil
             Properties.Settings.Default.tolTune = textBoxFreqTol.Text;
             Properties.Settings.Default.rigEnabled = checkBoxRig.Checked;
             Properties.Settings.Default.TunerEnabled = checkBoxTunerEnabled.Checked;
-            Properties.Settings.Default.TunerModel = comboBoxTunerModel.Text;
+            Properties.Settings.Default.TunerModel = comboboxTunerModel.Text;
             Properties.Settings.Default.Relay1Enabled = checkBoxRelay1Enabled.Checked;
             Properties.Settings.Default.Relay2Enabled = checkBoxRelay2Enabled.Checked;
             Properties.Settings.Default.Relay3Enabled = checkBoxRelay2Enabled.Checked;
@@ -504,6 +514,26 @@ namespace TunerUtil
             else if (response == 'M') buttonTunerStatus.BackColor = Color.Yellow;
             else if (response == 'F') buttonTunerStatus.BackColor = Color.Red;
             else MessageBox.Show("Unknown response from tuner = '" + response + "'");
+        }
+
+        private void checkBoxTunerEnabled_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBoxTunerEnabled.Checked)
+            {
+                Tuner1 = new Tuner(comboboxTunerModel.SelectedText, comboBoxComTuner.SelectedText, comboBoxBaudTuner.SelectedText);
+            }
+        }
+
+        private void comboBoxTunerModel_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string s = comboboxTunerModel.SelectedText;
+            MessageBox.Show(s);
+        }
+
+        private void comboBoxComTuner_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string s = comboboxTunerModel.SelectedIndex+"\n"+comboBoxBaudTuner.SelectedIndex+"\n";
+            MessageBox.Show(s);
         }
     }
 }

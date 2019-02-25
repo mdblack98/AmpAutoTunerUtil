@@ -14,6 +14,9 @@ namespace TunerUtil
         private SerialPort SerialPortTuner = null;
         public Tuner(string model, string comport, string baud)
         {
+            comport = "com4";
+            model = "LDG";
+            baud = "38400";
             if (comport.Length==0 || baud.Length==0)
             {
                 return;
@@ -28,7 +31,7 @@ namespace TunerUtil
                     DataBits = 8,
                     StopBits = StopBits.One,
                     Handshake = Handshake.None,
-                    ReadTimeout = 500,
+                    ReadTimeout = 30000,
                     WriteTimeout = 500
                 };
                 SerialPortTuner.Open();
@@ -45,11 +48,21 @@ namespace TunerUtil
             // T < 1.5
             // M 1.5-3.1
             // F Failed
-            char response = '?';
+            char response = 'X';
+            byte[] buf = new byte[19];
+            int n = 0;
             try
             {
                 // Need leading space to wake up the tuner
-                SerialPortTuner.Write(" T");
+                while(SerialPortTuner.BytesToRead > 0)
+                {
+                    SerialPortTuner.ReadChar();
+                }
+                SerialPortTuner.Write("  ");
+                Thread.Sleep(50);
+                SerialPortTuner.Write("T");
+                Thread.Sleep(100);
+                //n = SerialPortTuner.Read(buf, 0, buf.Length);
                 response = (char)SerialPortTuner.ReadChar();
                 Thread.Sleep(200);
             }

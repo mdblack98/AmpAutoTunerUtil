@@ -12,6 +12,7 @@ namespace TunerUtil
 
         public Relay(string comPort, string baud)
         {
+            return;
             ftdi = new FTDI();
             ftdi.SetBaudRate(9600);
             uint devcount = 0;
@@ -20,7 +21,7 @@ namespace TunerUtil
             {
                 return;
             }
-            FT_DEVICE_INFO_NODE[] nodes = new FT_DEVICE_INFO_NODE[1];
+            FT_DEVICE_INFO_NODE[] nodes = new FT_DEVICE_INFO_NODE[devcount];
             FT_STATUS status = ftdi.GetDeviceList(nodes);
             ftdi.OpenByIndex(0);
             ftdi.SetBitMode(0xff, 0x01);
@@ -32,7 +33,7 @@ namespace TunerUtil
 
         ~Relay()
         {
-            ftdi.Close();
+            if (ftdi != null && ftdi.IsOpen) ftdi.Close();
         }
 
         public bool Status(int nRelay)
