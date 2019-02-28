@@ -638,8 +638,14 @@ namespace TunerUtil
                             {
                                 lastfrequencyTuned = frequency;
                                 buttonTunerStatus.BackColor = Color.LightGray;
+                                RelaySet(relay1, 1, 1);
                                 Application.DoEvents();
+                                Thread.Sleep(500);
                                 char response = tuner1.Tune();
+                                Application.DoEvents();
+                                Thread.Sleep(500);
+                                RelaySet(relay1, 1, 0);
+                                Application.DoEvents();
                                 lastfrequencyTuned = frequency;
                                 if (response == 'T') buttonTunerStatus.BackColor = Color.Green;
                                 else if (response == 'M') buttonTunerStatus.BackColor = Color.Yellow;
