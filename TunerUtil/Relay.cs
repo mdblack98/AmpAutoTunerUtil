@@ -12,6 +12,7 @@ namespace TunerUtil
         private FTDI ftdi = new FTDI();
         private bool disposed = true;
         List<string> comList = new List<string>();
+        List<uint> comIndex = new List<uint>();
         readonly uint devcount = 0;
         string comPort = "";
         int relayNum = 0;
@@ -36,15 +37,16 @@ namespace TunerUtil
                     ftdi.GetCOMPort(out string comport);
                     ftdi.Close();
                     comList.Add(comport);
-                    ++index;
+                    comIndex.Add(index);
                 }
+                ++index;
             }
         }
 
         public void Open(string comPortNew)
         {
-            uint index = (uint)comList.IndexOf(comPortNew);
-            ftdi.OpenByIndex(index);
+            int index = comList.IndexOf(comPortNew);
+            ftdi.OpenByIndex(comIndex[index]);
             ftdi.SetBitMode(0xff, 0x01);
             comPort = comPortNew;
             relayNum = (int)index + 1; // index is 0-based, our relayNum is 1-based for the GUI
