@@ -21,8 +21,8 @@ namespace TunerUtil
             {
                 return;
             }
-            try
-            {
+            //try
+            //{
                 SerialPortTuner = new SerialPort
                 {
                     PortName = comport,
@@ -35,11 +35,11 @@ namespace TunerUtil
                     WriteTimeout = 500
                 };
                 SerialPortTuner.Open();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show(ex.Message);
+            //}
         }
 
         public char Tune()
@@ -50,7 +50,7 @@ namespace TunerUtil
             // F Failed
             char response = 'X';
             byte[] buf = new byte[19];
-            int n = 0;
+            //int n = 0;
             try
             {
                 // Need leading space to wake up the tuner
@@ -59,6 +59,7 @@ namespace TunerUtil
                     SerialPortTuner.ReadChar();
                 }
                 SerialPortTuner.Write("  ");
+                // Documentation doesn't mention you need to wait a bit after the wakeup char
                 Thread.Sleep(50);
                 SerialPortTuner.Write("T");
                 Thread.Sleep(100);

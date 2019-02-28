@@ -406,5 +406,641 @@ namespace TunerUtil.Properties {
                 this["Location"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool VFOA {
+            get {
+                return ((bool)(this["VFOA"]));
+            }
+            set {
+                this["VFOA"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool VFOB {
+            get {
+                return ((bool)(this["VFOB"]));
+            }
+            set {
+                this["VFOB"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("2")]
+        public int TunerSensitivity {
+            get {
+                return ((int)(this["TunerSensitivity"]));
+            }
+            set {
+                this["TunerSensitivity"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string textBoxAntennaFreq1From {
+            get {
+                return ((string)(this["textBoxAntennaFreq1From"]));
+            }
+            set {
+                this["textBoxAntennaFreq1From"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string textBoxAntennaFreq2From {
+            get {
+                return ((string)(this["textBoxAntennaFreq2From"]));
+            }
+            set {
+                this["textBoxAntennaFreq2From"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string textBoxAntennaFreq3From {
+            get {
+                return ((string)(this["textBoxAntennaFreq3From"]));
+            }
+            set {
+                this["textBoxAntennaFreq3From"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string textBoxAntennaFreq4From {
+            get {
+                return ((string)(this["textBoxAntennaFreq4From"]));
+            }
+            set {
+                this["textBoxAntennaFreq4From"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string textBoxAntennaFreq5From {
+            get {
+                return ((string)(this["textBoxAntennaFreq5From"]));
+            }
+            set {
+                this["textBoxAntennaFreq5From"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string textBoxAntennaFreq6From {
+            get {
+                return ((string)(this["textBoxAntennaFreq6From"]));
+            }
+            set {
+                this["textBoxAntennaFreq6From"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string textBoxAntennaFreq7From {
+            get {
+                return ((string)(this["textBoxAntennaFreq7From"]));
+            }
+            set {
+                this["textBoxAntennaFreq7From"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string textBoxAntennaFreq8From {
+            get {
+                return ((string)(this["textBoxAntennaFreq8From"]));
+            }
+            set {
+                this["textBoxAntennaFreq8From"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string textBoxAntennaFreq1To {
+            get {
+                return ((string)(this["textBoxAntennaFreq1To"]));
+            }
+            set {
+                this["textBoxAntennaFreq1To"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string textBoxAntennaFreq2To {
+            get {
+                return ((string)(this["textBoxAntennaFreq2To"]));
+            }
+            set {
+                this["textBoxAntennaFreq2To"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string textBoxAntennaFreq3To {
+            get {
+                return ((string)(this["textBoxAntennaFreq3To"]));
+            }
+            set {
+                this["textBoxAntennaFreq3To"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string textBoxAntennaFreq4To {
+            get {
+                return ((string)(this["textBoxAntennaFreq4To"]));
+            }
+            set {
+                this["textBoxAntennaFreq4To"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string textBoxAntennaFreq5To {
+            get {
+                return ((string)(this["textBoxAntennaFreq5To"]));
+            }
+            set {
+                this["textBoxAntennaFreq5To"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string textBoxAntennaFreq6To {
+            get {
+                return ((string)(this["textBoxAntennaFreq6To"]));
+            }
+            set {
+                this["textBoxAntennaFreq6To"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string textBoxAntennaFreq7To {
+            get {
+                return ((string)(this["textBoxAntennaFreq7To"]));
+            }
+            set {
+                this["textBoxAntennaFreq7To"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string textBoxAntennaFreq8To {
+            get {
+                return ((string)(this["textBoxAntennaFreq8To"]));
+            }
+            set {
+                this["textBoxAntennaFreq8To"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool checkBoxAntenna1 {
+            get {
+                return ((bool)(this["checkBoxAntenna1"]));
+            }
+            set {
+                this["checkBoxAntenna1"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool checkBoxAntenna2 {
+            get {
+                return ((bool)(this["checkBoxAntenna2"]));
+            }
+            set {
+                this["checkBoxAntenna2"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool checkBoxAntenna3 {
+            get {
+                return ((bool)(this["checkBoxAntenna3"]));
+            }
+            set {
+                this["checkBoxAntenna3"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool checkBoxAntenna4 {
+            get {
+                return ((bool)(this["checkBoxAntenna4"]));
+            }
+            set {
+                this["checkBoxAntenna4"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool checkBoxAntenna5 {
+            get {
+                return ((bool)(this["checkBoxAntenna5"]));
+            }
+            set {
+                this["checkBoxAntenna5"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool checkBoxAntenna6 {
+            get {
+                return ((bool)(this["checkBoxAntenna6"]));
+            }
+            set {
+                this["checkBoxAntenna6"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool checkBoxAntenna7 {
+            get {
+                return ((bool)(this["checkBoxAntenna7"]));
+            }
+            set {
+                this["checkBoxAntenna7"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool checkBoxAntenna8 {
+            get {
+                return ((bool)(this["checkBoxAntenna8"]));
+            }
+            set {
+                this["checkBoxAntenna8"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string textBoxAntenna1 {
+            get {
+                return ((string)(this["textBoxAntenna1"]));
+            }
+            set {
+                this["textBoxAntenna1"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string textBoxAntenna2 {
+            get {
+                return ((string)(this["textBoxAntenna2"]));
+            }
+            set {
+                this["textBoxAntenna2"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string textBoxAntenna3 {
+            get {
+                return ((string)(this["textBoxAntenna3"]));
+            }
+            set {
+                this["textBoxAntenna3"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string textBoxAntenna4 {
+            get {
+                return ((string)(this["textBoxAntenna4"]));
+            }
+            set {
+                this["textBoxAntenna4"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string textBoxAntenna5 {
+            get {
+                return ((string)(this["textBoxAntenna5"]));
+            }
+            set {
+                this["textBoxAntenna5"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string textBoxAntenna6 {
+            get {
+                return ((string)(this["textBoxAntenna6"]));
+            }
+            set {
+                this["textBoxAntenna6"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string textBoxAntenna7 {
+            get {
+                return ((string)(this["textBoxAntenna7"]));
+            }
+            set {
+                this["textBoxAntenna7"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string textBoxAntenna8 {
+            get {
+                return ((string)(this["textBoxAntenna8"]));
+            }
+            set {
+                this["textBoxAntenna8"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string comboBoxAntenna1Relay {
+            get {
+                return ((string)(this["comboBoxAntenna1Relay"]));
+            }
+            set {
+                this["comboBoxAntenna1Relay"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string comboBoxAntenna2Relay {
+            get {
+                return ((string)(this["comboBoxAntenna2Relay"]));
+            }
+            set {
+                this["comboBoxAntenna2Relay"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string comboBoxAntenna3Relay {
+            get {
+                return ((string)(this["comboBoxAntenna3Relay"]));
+            }
+            set {
+                this["comboBoxAntenna3Relay"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string comboBoxAntenna4Relay {
+            get {
+                return ((string)(this["comboBoxAntenna4Relay"]));
+            }
+            set {
+                this["comboBoxAntenna4Relay"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string comboBoxAntenna5Relay {
+            get {
+                return ((string)(this["comboBoxAntenna5Relay"]));
+            }
+            set {
+                this["comboBoxAntenna5Relay"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string comboBoxAntenna6Relay {
+            get {
+                return ((string)(this["comboBoxAntenna6Relay"]));
+            }
+            set {
+                this["comboBoxAntenna6Relay"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string comboBoxAntenna7Relay {
+            get {
+                return ((string)(this["comboBoxAntenna7Relay"]));
+            }
+            set {
+                this["comboBoxAntenna7Relay"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string comboBoxAntenna8Relay {
+            get {
+                return ((string)(this["comboBoxAntenna8Relay"]));
+            }
+            set {
+                this["comboBoxAntenna8Relay"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string textBoxAntenna1Bits {
+            get {
+                return ((string)(this["textBoxAntenna1Bits"]));
+            }
+            set {
+                this["textBoxAntenna1Bits"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string textBoxAntenna2Bits {
+            get {
+                return ((string)(this["textBoxAntenna2Bits"]));
+            }
+            set {
+                this["textBoxAntenna2Bits"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string textBoxAntenna3Bits {
+            get {
+                return ((string)(this["textBoxAntenna3Bits"]));
+            }
+            set {
+                this["textBoxAntenna3Bits"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string textBoxAntenna4Bits {
+            get {
+                return ((string)(this["textBoxAntenna4Bits"]));
+            }
+            set {
+                this["textBoxAntenna4Bits"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string textBoxAntenna5Bits {
+            get {
+                return ((string)(this["textBoxAntenna5Bits"]));
+            }
+            set {
+                this["textBoxAntenna5Bits"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string textBoxAntenna6Bits {
+            get {
+                return ((string)(this["textBoxAntenna6Bits"]));
+            }
+            set {
+                this["textBoxAntenna6Bits"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string textBoxAntenna7Bits {
+            get {
+                return ((string)(this["textBoxAntenna7Bits"]));
+            }
+            set {
+                this["textBoxAntenna7Bits"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string textBoxAntenna8Bits {
+            get {
+                return ((string)(this["textBoxAntenna8Bits"]));
+            }
+            set {
+                this["textBoxAntenna8Bits"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool radioButtonAntennaWire3 {
+            get {
+                return ((bool)(this["radioButtonAntennaWire3"]));
+            }
+            set {
+                this["radioButtonAntennaWire3"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool radioButtonAntennaWire8 {
+            get {
+                return ((bool)(this["radioButtonAntennaWire8"]));
+            }
+            set {
+                this["radioButtonAntennaWire8"] = value;
+            }
+        }
     }
 }

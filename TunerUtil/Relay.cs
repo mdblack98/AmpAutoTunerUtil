@@ -1,5 +1,6 @@
 ﻿using FTD2XX_NET;
 using System;
+using System.Collections.Generic;
 using System.IO.Ports;
 using System.Threading;
 using static FTD2XX_NET.FTDI;
@@ -8,19 +9,64 @@ namespace TunerUtil
 {
     class Relay
     {
-        private FTDI ftdi;
+        private FTDI ftdi = new FTDI();
+        private bool disposed = true;
+        List<string> comList = new List<string>();
+        readonly uint devcount = 0;
+        string comPort = "";
+        int relayNum = 0;
 
-        public Relay(string comPort, string baud)
+        public Relay()
         {
-            return;
-            ftdi = new FTDI();
+            disposed = false;
             ftdi.SetBaudRate(9600);
-            uint devcount = 0;
             ftdi.GetNumberOfDevices(ref devcount);
             if (devcount == 0)
             {
                 return;
             }
+            FT_DEVICE_INFO_NODE[] nodes = new FT_DEVICE_INFO_NODE[devcount];
+            FT_STATUS status = ftdi.GetDeviceList(nodes);
+            uint index = 0;
+           foreach (FT_DEVICE_INFO_NODE node in nodes)
+            {
+                if (node.Description.Contains("FT245R"))
+                {
+                    ftdi.OpenByIndex(index);
+                    ftdi.GetCOMPort(out string comport);
+                    ftdi.Close();
+                    comList.Add(comport);
+                    ++index;
+                }
+            }
+        }
+
+        public void Open(string comPortNew)
+        {
+            uint index = (uint)comList.IndexOf(comPortNew);
+            ftdi.OpenByIndex(index);
+            ftdi.SetBitMode(0xff, 0x01);
+            comPort = comPortNew;
+            relayNum = (int)index + 1; // index is 0-based, our relayNum is 1-based for the GUI
+        }
+
+        public int RelayNumber()
+        {
+            return relayNum;
+        }
+
+        public List<string> ComList()
+        {
+            return comList;
+        }
+
+        public uint DevCount()
+        {
+            return devcount;
+        }
+        /*
+        public Relay(string comPort, string baud)
+        {
             FT_DEVICE_INFO_NODE[] nodes = new FT_DEVICE_INFO_NODE[devcount];
             FT_STATUS status = ftdi.GetDeviceList(nodes);
             ftdi.OpenByIndex(0);
@@ -30,12 +76,43 @@ namespace TunerUtil
             //richTextBox1.AppendText("COM Port: " + comport + "\n" + nodes[0].Description + "\n");
             //Init();
         }
+        */
 
         ~Relay()
         {
-            if (ftdi != null && ftdi.IsOpen) ftdi.Close();
+            if (ftdi != null && ftdi.IsOpen)
+                ftdi.Close();
         }
 
+        public void Close()
+        {
+            if (ftdi != null)
+                ftdi.Close();
+        }
+
+        public bool IsOpen()
+        {
+            if (ftdi == null) return false;
+            return ftdi.IsOpen;
+        }
+
+        public void Dispose()
+        {
+            this.Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        public void Dispose(bool disposing)
+        {
+            if (this.disposed)
+            {
+                return;
+            }
+            if (disposing)
+            {
+                return;
+            }
+        }
         public bool Status(int nRelay)
         {
             byte bitModes = 0;
@@ -81,7 +158,7 @@ namespace TunerUtil
             }
             data[2] = flags;
             ftdi.Write(data, data.Length, ref nWritten);
-            Thread.Sleep(1);
+            Thread.Sleep(2);
         }
     }
 }
