@@ -39,6 +39,14 @@
             this.buttonTunerStatus = new System.Windows.Forms.Button();
             this.checkBoxRig = new System.Windows.Forms.CheckBox();
             this.comboBoxComRelay1 = new System.Windows.Forms.ComboBox();
+            this.button1_8 = new System.Windows.Forms.Button();
+            this.button1_7 = new System.Windows.Forms.Button();
+            this.button1_6 = new System.Windows.Forms.Button();
+            this.button1_5 = new System.Windows.Forms.Button();
+            this.button1_4 = new System.Windows.Forms.Button();
+            this.button1_3 = new System.Windows.Forms.Button();
+            this.button1_2 = new System.Windows.Forms.Button();
+            this.button1_1 = new System.Windows.Forms.Button();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPageTuner = new System.Windows.Forms.TabPage();
@@ -56,14 +64,6 @@
             this.tabPageRelay1 = new System.Windows.Forms.TabPage();
             this.linkLabel2 = new System.Windows.Forms.LinkLabel();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
-            this.button1_8 = new System.Windows.Forms.Button();
-            this.button1_7 = new System.Windows.Forms.Button();
-            this.button1_6 = new System.Windows.Forms.Button();
-            this.button1_5 = new System.Windows.Forms.Button();
-            this.button1_4 = new System.Windows.Forms.Button();
-            this.button1_3 = new System.Windows.Forms.Button();
-            this.button1_2 = new System.Windows.Forms.Button();
-            this.button1_1 = new System.Windows.Forms.Button();
             this.richTextBoxRelay1 = new System.Windows.Forms.RichTextBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label4 = new System.Windows.Forms.Label();
@@ -305,6 +305,7 @@
             this.checkBoxRig.Text = "Enabled";
             this.toolTip1.SetToolTip(this.checkBoxRig, "Enable FLRig for freq reading");
             this.checkBoxRig.UseVisualStyleBackColor = true;
+            //this.checkBoxRig.CheckedChanged += new System.EventHandler(this.checkBoxRig_CheckedChanged);
             // 
             // comboBoxComRelay1
             // 
@@ -317,6 +318,110 @@
             this.comboBoxComRelay1.TabIndex = 0;
             this.comboBoxComRelay1.Text = global::TunerUtil.Properties.Settings.Default.Relay1Com;
             this.toolTip1.SetToolTip(this.comboBoxComRelay1, "FT245R Com Ports");
+            // 
+            // button1_8
+            // 
+            this.button1_8.BackColor = System.Drawing.Color.Silver;
+            this.button1_8.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.button1_8.Location = new System.Drawing.Point(389, 8);
+            this.button1_8.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button1_8.Name = "button1_8";
+            this.button1_8.Size = new System.Drawing.Size(16, 23);
+            this.button1_8.TabIndex = 20;
+            this.toolTip1.SetToolTip(this.button1_8, "Toggle relay\r\nGreen when switched");
+            this.button1_8.UseVisualStyleBackColor = false;
+            this.button1_8.Click += new System.EventHandler(this.button1_8_Click);
+            // 
+            // button1_7
+            // 
+            this.button1_7.BackColor = System.Drawing.Color.Silver;
+            this.button1_7.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.button1_7.Location = new System.Drawing.Point(369, 8);
+            this.button1_7.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button1_7.Name = "button1_7";
+            this.button1_7.Size = new System.Drawing.Size(16, 23);
+            this.button1_7.TabIndex = 19;
+            this.toolTip1.SetToolTip(this.button1_7, "Toggle relay\r\nGreen when switched");
+            this.button1_7.UseVisualStyleBackColor = false;
+            this.button1_7.Click += new System.EventHandler(this.button1_7_Click);
+            // 
+            // button1_6
+            // 
+            this.button1_6.BackColor = System.Drawing.Color.Silver;
+            this.button1_6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.button1_6.Location = new System.Drawing.Point(348, 8);
+            this.button1_6.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button1_6.Name = "button1_6";
+            this.button1_6.Size = new System.Drawing.Size(16, 23);
+            this.button1_6.TabIndex = 18;
+            this.toolTip1.SetToolTip(this.button1_6, "Toggle relay\r\nGreen when switched");
+            this.button1_6.UseVisualStyleBackColor = false;
+            this.button1_6.Click += new System.EventHandler(this.button1_6_Click);
+            // 
+            // button1_5
+            // 
+            this.button1_5.BackColor = System.Drawing.Color.Silver;
+            this.button1_5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.button1_5.Location = new System.Drawing.Point(327, 8);
+            this.button1_5.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button1_5.Name = "button1_5";
+            this.button1_5.Size = new System.Drawing.Size(16, 23);
+            this.button1_5.TabIndex = 17;
+            this.toolTip1.SetToolTip(this.button1_5, "Toggle relay\r\nGreen when switched");
+            this.button1_5.UseVisualStyleBackColor = false;
+            this.button1_5.Click += new System.EventHandler(this.button1_5_Click);
+            // 
+            // button1_4
+            // 
+            this.button1_4.BackColor = System.Drawing.Color.Silver;
+            this.button1_4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.button1_4.Location = new System.Drawing.Point(307, 8);
+            this.button1_4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button1_4.Name = "button1_4";
+            this.button1_4.Size = new System.Drawing.Size(16, 23);
+            this.button1_4.TabIndex = 16;
+            this.toolTip1.SetToolTip(this.button1_4, "Toggle relay\r\nGreen when switched");
+            this.button1_4.UseVisualStyleBackColor = false;
+            this.button1_4.Click += new System.EventHandler(this.button1_4_Click);
+            // 
+            // button1_3
+            // 
+            this.button1_3.BackColor = System.Drawing.Color.Silver;
+            this.button1_3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.button1_3.Location = new System.Drawing.Point(285, 8);
+            this.button1_3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button1_3.Name = "button1_3";
+            this.button1_3.Size = new System.Drawing.Size(16, 23);
+            this.button1_3.TabIndex = 15;
+            this.toolTip1.SetToolTip(this.button1_3, "Toggle relay\r\nGreen when switched");
+            this.button1_3.UseVisualStyleBackColor = false;
+            this.button1_3.Click += new System.EventHandler(this.button1_3_Click);
+            // 
+            // button1_2
+            // 
+            this.button1_2.BackColor = System.Drawing.Color.Silver;
+            this.button1_2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.button1_2.Location = new System.Drawing.Point(264, 8);
+            this.button1_2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button1_2.Name = "button1_2";
+            this.button1_2.Size = new System.Drawing.Size(16, 23);
+            this.button1_2.TabIndex = 14;
+            this.toolTip1.SetToolTip(this.button1_2, "Toggle relay\r\nGreen when switched");
+            this.button1_2.UseVisualStyleBackColor = false;
+            this.button1_2.Click += new System.EventHandler(this.button1_2_Click);
+            // 
+            // button1_1
+            // 
+            this.button1_1.BackColor = System.Drawing.Color.Silver;
+            this.button1_1.ForeColor = System.Drawing.Color.Silver;
+            this.button1_1.Location = new System.Drawing.Point(243, 8);
+            this.button1_1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button1_1.Name = "button1_1";
+            this.button1_1.Size = new System.Drawing.Size(16, 23);
+            this.button1_1.TabIndex = 13;
+            this.toolTip1.SetToolTip(this.button1_1, "Toggle relay\r\nGreen when switched");
+            this.button1_1.UseVisualStyleBackColor = false;
+            this.button1_1.Click += new System.EventHandler(this.button1_1_Click);
             // 
             // timer1
             // 
@@ -535,110 +640,6 @@
             this.linkLabel1.TabStop = true;
             this.linkLabel1.Text = "Sainsmart 4CH USB Relay";
             this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
-            // 
-            // button1_8
-            // 
-            this.button1_8.BackColor = System.Drawing.Color.Silver;
-            this.button1_8.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.button1_8.Location = new System.Drawing.Point(389, 8);
-            this.button1_8.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button1_8.Name = "button1_8";
-            this.button1_8.Size = new System.Drawing.Size(16, 23);
-            this.button1_8.TabIndex = 20;
-            this.toolTip1.SetToolTip(this.button1_8, "Toggle relay\r\nGreen when switched");
-            this.button1_8.UseVisualStyleBackColor = false;
-            this.button1_8.Click += new System.EventHandler(this.button1_8_Click);
-            // 
-            // button1_7
-            // 
-            this.button1_7.BackColor = System.Drawing.Color.Silver;
-            this.button1_7.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.button1_7.Location = new System.Drawing.Point(369, 8);
-            this.button1_7.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button1_7.Name = "button1_7";
-            this.button1_7.Size = new System.Drawing.Size(16, 23);
-            this.button1_7.TabIndex = 19;
-            this.toolTip1.SetToolTip(this.button1_7, "Toggle relay\r\nGreen when switched");
-            this.button1_7.UseVisualStyleBackColor = false;
-            this.button1_7.Click += new System.EventHandler(this.button1_7_Click);
-            // 
-            // button1_6
-            // 
-            this.button1_6.BackColor = System.Drawing.Color.Silver;
-            this.button1_6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.button1_6.Location = new System.Drawing.Point(348, 8);
-            this.button1_6.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button1_6.Name = "button1_6";
-            this.button1_6.Size = new System.Drawing.Size(16, 23);
-            this.button1_6.TabIndex = 18;
-            this.toolTip1.SetToolTip(this.button1_6, "Toggle relay\r\nGreen when switched");
-            this.button1_6.UseVisualStyleBackColor = false;
-            this.button1_6.Click += new System.EventHandler(this.button1_6_Click);
-            // 
-            // button1_5
-            // 
-            this.button1_5.BackColor = System.Drawing.Color.Silver;
-            this.button1_5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.button1_5.Location = new System.Drawing.Point(327, 8);
-            this.button1_5.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button1_5.Name = "button1_5";
-            this.button1_5.Size = new System.Drawing.Size(16, 23);
-            this.button1_5.TabIndex = 17;
-            this.toolTip1.SetToolTip(this.button1_5, "Toggle relay\r\nGreen when switched");
-            this.button1_5.UseVisualStyleBackColor = false;
-            this.button1_5.Click += new System.EventHandler(this.button1_5_Click);
-            // 
-            // button1_4
-            // 
-            this.button1_4.BackColor = System.Drawing.Color.Silver;
-            this.button1_4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.button1_4.Location = new System.Drawing.Point(307, 8);
-            this.button1_4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button1_4.Name = "button1_4";
-            this.button1_4.Size = new System.Drawing.Size(16, 23);
-            this.button1_4.TabIndex = 16;
-            this.toolTip1.SetToolTip(this.button1_4, "Toggle relay\r\nGreen when switched");
-            this.button1_4.UseVisualStyleBackColor = false;
-            this.button1_4.Click += new System.EventHandler(this.button1_4_Click);
-            // 
-            // button1_3
-            // 
-            this.button1_3.BackColor = System.Drawing.Color.Silver;
-            this.button1_3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.button1_3.Location = new System.Drawing.Point(285, 8);
-            this.button1_3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button1_3.Name = "button1_3";
-            this.button1_3.Size = new System.Drawing.Size(16, 23);
-            this.button1_3.TabIndex = 15;
-            this.toolTip1.SetToolTip(this.button1_3, "Toggle relay\r\nGreen when switched");
-            this.button1_3.UseVisualStyleBackColor = false;
-            this.button1_3.Click += new System.EventHandler(this.button1_3_Click);
-            // 
-            // button1_2
-            // 
-            this.button1_2.BackColor = System.Drawing.Color.Silver;
-            this.button1_2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.button1_2.Location = new System.Drawing.Point(264, 8);
-            this.button1_2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button1_2.Name = "button1_2";
-            this.button1_2.Size = new System.Drawing.Size(16, 23);
-            this.button1_2.TabIndex = 14;
-            this.toolTip1.SetToolTip(this.button1_2, "Toggle relay\r\nGreen when switched");
-            this.button1_2.UseVisualStyleBackColor = false;
-            this.button1_2.Click += new System.EventHandler(this.button1_2_Click);
-            // 
-            // button1_1
-            // 
-            this.button1_1.BackColor = System.Drawing.Color.Silver;
-            this.button1_1.ForeColor = System.Drawing.Color.Silver;
-            this.button1_1.Location = new System.Drawing.Point(243, 8);
-            this.button1_1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button1_1.Name = "button1_1";
-            this.button1_1.Size = new System.Drawing.Size(16, 23);
-            this.button1_1.TabIndex = 13;
-            this.toolTip1.SetToolTip(this.button1_1, "Toggle relay\r\nGreen when switched");
-            this.button1_1.UseVisualStyleBackColor = false;
-            this.button1_1.Click += new System.EventHandler(this.button1_1_Click);
             // 
             // richTextBoxRelay1
             // 
@@ -2026,7 +2027,7 @@
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.MaximumSize = new System.Drawing.Size(537, 337);
             this.Name = "Form1";
-            this.Text = "TunerUtil V0.3";
+            this.Text = "TunerUtil V0.4";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
             this.Load += new System.EventHandler(this.Form1_Load);

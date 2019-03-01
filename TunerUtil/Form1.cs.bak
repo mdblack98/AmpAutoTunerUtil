@@ -22,7 +22,7 @@ namespace TunerUtil
         TcpClient rigClient;
         NetworkStream rigStream;
         double frequency = 0;
-        double lastfrequency = 0;
+        double lastFrequency = 0;
         double lastfrequencyTuned = 0;
         int tolTune = 0;
         Dictionary<int,int> bandTolerance = new Dictionary<int,int>();
@@ -35,7 +35,7 @@ namespace TunerUtil
         Stopwatch stopWatchTuner = new Stopwatch();
         int freqStableCount = 0; // 
         int freqStableCountNeeded = 2; //need this number of repeat freqs before tuning starts
-        Form2 form2;
+        //Form2 form2;
 
         public Form1()
         {
@@ -56,8 +56,8 @@ namespace TunerUtil
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            Thread t = new Thread(new ThreadStart(SplashStart));
-            t.Start();
+            //Thread t = new Thread(new ThreadStart(SplashStart));
+            //t.Start();
             //Form2 form2 = new Form2();
             //form2.Show();
 
@@ -152,9 +152,10 @@ namespace TunerUtil
             }
             catch (Exception ex)
             {
-                MyMessageBox("Error loading TunerUtil:\n" + ex.Message);
+                MessageBoxHelper.PrepToCenterMessageBoxOnForm(this);
+                MessageBox.Show("Error loading TunerUtil:\n" + ex.Message);
             }
-            //relay1 = new Relay(comboBoxComRelay1.SelectedText, comboBoxBaudRelay1.SelectedText);
+            //relay1 = new Relay(comboBoxComRelay1.Text, comboBoxBaudRelay1.Text);
             relay1 = new Relay();
             if (relay1.DevCount() > 1) relay2 = new Relay();
             if (relay1.DevCount() > 2) relay3 = new Relay();
@@ -167,22 +168,23 @@ namespace TunerUtil
                     tabControl1.TabPages.Remove(tabPageRelay2);
                     tabControl1.TabPages.Remove(tabPageRelay3);
                     tabControl1.TabPages.Remove(tabPageRelay4);
-                    form2.ProgressBarSetMax(2);
+                    //form2.ProgressBarSetMax(2);
                     break;
                 case 2:
                     tabControl1.TabPages.Remove(tabPageRelay3);
                     tabControl1.TabPages.Remove(tabPageRelay4);
-                    form2.ProgressBarSetMax(3);
+                    //form2.ProgressBarSetMax(3);
                     break;
                 case 3:
                     tabControl1.TabPages.Remove(tabPageRelay4);
-                    form2.ProgressBarSetMax(4);
+                    //form2.ProgressBarSetMax(4);
                     break;
             }
-            form2.ProgressBar(1);
+            //form2.ProgressBar(1);
             if (comPorts.Count == 0)
             {
-                MyMessageBox("No FTDI relay switches found on USB bus");
+                MessageBoxHelper.PrepToCenterMessageBoxOnForm(this);
+                MessageBox.Show("No FTDI relay switches found on USB bus");
             }
             else
             {
@@ -222,12 +224,14 @@ namespace TunerUtil
                 if (relay1 == null)
                 {
                     checkBoxRelay1Enabled.Checked = false;
-                    MyMessageBox("Relay 1 not found...disabled");
-                    return;
+                    MessageBox.Show("Relay 1 not found...disabled");
                 }
-                relay1.Open(comboBoxComRelay1.Text);
-                richTextBoxRelay1.AppendText("Relay 1 opened\n");
-                form2.ProgressBar(2);
+                else
+                {
+                    relay1.Open(comboBoxComRelay1.Text);
+                    richTextBoxRelay1.AppendText("Relay 1 opened\n");
+                    //form2.ProgressBar(2);
+                }
             }
             else
             {
@@ -240,12 +244,14 @@ namespace TunerUtil
                 if (relay2 == null)
                 {
                     checkBoxRelay2Enabled.Checked = false;
-                    MyMessageBox("Relay 2 not found...disabled");
-                    return;
+                    MessageBox.Show("Relay 2 not found...disabled");
                 }
-                relay2.Open(comboBoxComRelay2.Text);
-                richTextBoxRelay2.AppendText("Relay 2 opened\n");
-                form2.ProgressBar(3);
+                else
+                {
+                    relay2.Open(comboBoxComRelay2.Text);
+                    richTextBoxRelay2.AppendText("Relay 2 opened\n");
+                    //form2.ProgressBar(3);
+                }
             }
             else
             {
@@ -258,12 +264,14 @@ namespace TunerUtil
                 if (relay3 == null)
                 {
                     checkBoxRelay3Enabled.Checked = false;
-                    MyMessageBox("Relay 3 not found...disabled");
-                    return;
+                    MessageBox.Show("Relay 3 not found...disabled");
                 }
-                relay3.Open(comboBoxComRelay3.Text);
-                richTextBoxRelay3.AppendText("Relay 3 opened\n");
-                form2.ProgressBar(4);
+                else
+                {
+                    relay3.Open(comboBoxComRelay3.Text);
+                    richTextBoxRelay3.AppendText("Relay 3 opened\n");
+                    //form2.ProgressBar(4);
+                }
             }
             else
             {
@@ -276,12 +284,14 @@ namespace TunerUtil
                 if (relay4 == null)
                 {
                     checkBoxRelay4Enabled.Checked = false;
-                    MyMessageBox("Relay 4 not found...disabled");
-                    return;
+                    MessageBox.Show("Relay 4 not found...disabled");
                 }
-                relay4.Open(comboBoxComRelay4.Text);
-                richTextBoxRelay4.AppendText("Relay 4 opened\n");
-                form2.ProgressBar(5);
+                else
+                {
+                    relay4.Open(comboBoxComRelay4.Text);
+                    richTextBoxRelay4.AppendText("Relay 4 opened\n");
+                    //form2.ProgressBar(5);
+                }
             }
             else
             {
@@ -292,25 +302,26 @@ namespace TunerUtil
             {
                 try
                 {
-                    tuner1 = new Tuner(comboBoxTunerModel.SelectedText, comboBoxComTuner.SelectedText, comboBoxBaudTuner.Text);
+                    tuner1 = new Tuner(comboBoxTunerModel.Text, comboBoxComTuner.Text, comboBoxBaudTuner.Text);
                 }
                 catch (Exception ex)
                 {
-                    MyMessageBox("Error starting tuner\nFix and reenable the Tuner"+ex.Message);
+                    MessageBoxHelper.PrepToCenterMessageBoxOnForm(this);
+                    MessageBox.Show("Error starting tuner\nFix and reenable the Tuner"+ex.Message);
                     checkBoxTunerEnabled.Checked = false;
 
                 }
             }
             //form2.Close();
-            t.Abort();
+            //t.Abort();
             formLoading = false;
         }
 
-        public void SplashStart()
-        {
-            form2 = new Form2();
-            Application.Run(form2);
-        }
+        //public void SplashStart()
+        //{
+            //form2 = new Form2();
+            //Application.Run(form2);
+        //}
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -460,11 +471,11 @@ namespace TunerUtil
             if (on == true)
             {
                 // turn relay on
-                MyMessageBox("Relay On");
+                MessageBox.Show("Relay On");
             }
             else
             {
-                MyMessageBox("Relay Off");
+                MessageBox.Show("Relay Off");
                 // turn relay off
             }
         }
@@ -538,8 +549,15 @@ namespace TunerUtil
             }
             catch (Exception ex)
             {
-                checkBoxRig.Checked = false;
-                richTextBoxRig.AppendText("Rig error:\n" + ex.Message+"\n");
+                if (ex.Message.Contains("No connection could be made"))
+                {
+                    richTextBoxRig.AppendText("FLRig connection error\n");
+                }
+                else
+                {
+                    //checkBoxRig.Checked = false;
+                    richTextBoxRig.AppendText("Rig error:\n" + ex.Message + "\n");
+                }
             }
         }
 
@@ -551,10 +569,17 @@ namespace TunerUtil
             {
                 //LingerOption lingerOption = new LingerOption(true, 0);
                 //rigClient.LingerState = lingerOption;
-                //rigStream.Close(0);
-                //rigClient.Close();
-                //rigStream = null;
-                //rigClient = null;
+                rigStream.Close(1);
+                Thread.Sleep(100);
+                rigStream.Dispose();
+                rigStream = null;
+
+                rigClient.Close();
+                Thread.Sleep(100);
+                rigClient.Dispose();
+                rigClient = null;
+
+                richTextBoxRig.AppendText("FLRig disconnected\n");
             }
             catch (Exception)
             {
@@ -582,7 +607,8 @@ namespace TunerUtil
                     this.WindowState = FormWindowState.Normal;
                 tabControl1.SelectedTab = tabPageRig;
                 buttonTunerStatus.BackColor = Color.Transparent;
-                MyMessageBox("Unknown response from tuner = '" + response + "'");
+                MessageBoxHelper.PrepToCenterMessageBoxOnForm(this);
+                MessageBox.Show("Unknown response from tuner = '" + response + "'");
             }
         }
 
@@ -605,9 +631,10 @@ namespace TunerUtil
             {
                 rigStream.Write(data, 0, data.Length);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                richTextBoxRig.AppendText("FLRig error:\n"+ex.Message+"\n");
+                richTextBoxRig.AppendText("FLRig error:\n");
+                Thread.Sleep(1000);
                 if (rigClient != null)
                 {
                     rigStream.Close();
@@ -615,7 +642,7 @@ namespace TunerUtil
                     rigStream = null;
                     rigClient = null;
                 }
-                checkBoxRig.Checked = false;
+                //checkBoxRig.Checked = false;
                 tabControl1.SelectedTab = tabPageRig;
                 //DisconnectFLRig();
                 return;
@@ -636,42 +663,53 @@ namespace TunerUtil
                         string freqString = responseData.Substring(offset1, offset2 - offset1);
                         frequency = Double.Parse(freqString);
                         labelFreq.Text = (frequency / 1000).ToString() + "kHz";
-                        if (lastfrequency == 0) lastfrequency = lastfrequencyTuned = frequency;
-                        if (lastfrequency == frequency && freqStableCount < freqStableCountNeeded)
+                        if (lastFrequency == 0)
                         {
-                            ++freqStableCount;
-                            stopWatchTuner.Restart();
+                            lastFrequency = lastfrequencyTuned = frequency;
                         }
-                        if (freqStableCount >= freqStableCountNeeded && frequency != lastfrequencyTuned && Math.Abs(frequency - lastfrequencyTuned) > tolTune)
+                        //if (lastfrequency == frequency && freqStableCount < freqStableCountNeeded)
+                        int elapsedMSWanted = (int)numericUpDownSensitivity.Value * 500;
+                        bool freqIsStable = frequency == lastFrequency && stopWatchTuner.ElapsedMilliseconds > elapsedMSWanted;
+                        bool freqChanged = frequency != lastFrequency;
+                        if (freqChanged)
+                        bool freqNeedsTuning = Math.Abs(frequency - lastfrequencyTuned) > tolTune;
+                        if (!freqIsStable) // if freq is changing we won't do anything
                         {
-                            if (stopWatchTuner.IsRunning && stopWatchTuner.ElapsedMilliseconds < 5 * 1000)
-                            {
-                                stopWatchTuner.Stop();
-                                MyMessageBox("Rapid frequency changes...click OK when ready to tune");
-                                stopWatchTuner.Reset();
-                                stopWatchTuner.Stop();
-                                return; // we'll tune on next poll
-                            }
+                            stopWatchTuner.Restart();
+                            //return;
+                        }
+                        if (freqNeedsTuning && freqChanged && stopWatchTuner.IsRunning && stopWatchTuner.ElapsedMilliseconds < elapsedMSWanted)
+                        {
+                            stopWatchTuner.Stop();
+                            MessageBoxHelper.PrepToCenterMessageBoxOnForm(this);
+                            MessageBox.Show("Rapid frequency changes...click OK when ready to tune");
+                            stopWatchTuner.Reset();
+                            stopWatchTuner.Stop();
+                            lastFrequency = frequency;
+                            return; // we'll tune on next poll
+                        }
+                        if (freqIsStable && freqChanged && freqNeedsTuning)
+                        {
                             freqStableCount = 0;
                             stopWatchTuner.Restart();
                             if (checkBoxTunerEnabled.Checked)
                             {
                                 lastfrequencyTuned = frequency;
                                 Tune();
+                                freqStableCount = 0;
                             }
                             else
                             {
                                 richTextBoxTuner.AppendText("Tuner not enabled\n");
                                 richTextBoxTuner.AppendText("Simulate tuning to " + frequency + "\n");
-                                lastfrequencyTuned = lastfrequency = frequency;
-                                if (this.WindowState == FormWindowState.Minimized)
-                                    this.WindowState = FormWindowState.Normal;
-                                MyMessageBox("Click OK to continue");
+                                lastfrequencyTuned = lastFrequency = frequency;
+                                MessageBoxHelper.PrepToCenterMessageBoxOnForm(this);
+                                MessageBox.Show("Click OK to continue");
                             }
                         }
-                        else
+                        else if (lastFrequency != frequency)
                         {
-                            lastfrequency = frequency;
+                            //lastFrequency = frequency;
                         }
                     }
                     else
@@ -765,7 +803,8 @@ namespace TunerUtil
             }
             if (!ToHex(s, out byte[] data))
             {
-                MyMessageBox("Invalid command format\nExcpected string or hex values e.g. 0x08 0x01");
+                MessageBoxHelper.PrepToCenterMessageBoxOnForm(this);
+                MessageBox.Show("Invalid command format\nExcpected string or hex values e.g. 0x08 0x01");
             }
         }
 
@@ -854,19 +893,11 @@ namespace TunerUtil
         {
             if (tuner1 == null)
             {
-                MyMessageBox("Tuner not enabled");
+                MessageBoxHelper.PrepToCenterMessageBoxOnForm(this);
+                MessageBox.Show("Tuner not enabled");
                 return;
             }
             Tune();
-        }
-
-        private void MyMessageBox(string message)
-        {
-            if (this.WindowState == FormWindowState.Minimized)
-                this.WindowState = FormWindowState.Normal;
-            MessageBoxHelper.PrepToCenterMessageBoxOnForm(this);
-            MessageBox.Show(message);
-
         }
 
         private void checkBoxTunerEnabled_CheckedChanged(object sender, EventArgs e)
@@ -876,26 +907,27 @@ namespace TunerUtil
             {
                 try
                 {
-                    tuner1 = new Tuner(comboBoxTunerModel.SelectedText, comboBoxComTuner.SelectedText, comboBoxBaudTuner.SelectedText);
+                    tuner1 = new Tuner(comboBoxTunerModel.Text, comboBoxComTuner.Text, comboBoxBaudTuner.Text);
                 }
                 catch (Exception ex)
                 {
                     checkBoxTunerEnabled.Checked = false;
-                    MyMessageBox("Error starting tuner\nFix problem and reenable the Tuner" + ex.Message);
+                    MessageBoxHelper.PrepToCenterMessageBoxOnForm(this);
+                    MessageBox.Show("Error starting tuner\nFix problem and reenable the Tuner" + ex.Message);
                 }
             }
         }
 
         private void comboBoxTunerModel_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //string s = comboBoxTunerModel.SelectedText;
-            //MyMessageBox(s);
+            //string s = comboBoxTunerModel.Text;
+            //MessageBox.Show(s);
         }
 
         private void comboBoxComTuner_SelectedIndexChanged(object sender, EventArgs e)
         {
             //string s = comboBoxTunerModel.SelectedIndex+"\n"+comboBoxBaudTuner.SelectedIndex+"\n";
-            //MyMessageBox(s);
+            //MessageBox.Show(s);
         }
 
         private void checkBoxRelay1Enabled_CheckedChanged(object sender, EventArgs e)
@@ -904,11 +936,11 @@ namespace TunerUtil
                 return;
             if (checkBoxRelay1Enabled.Checked && comboBoxComRelay1.SelectedIndex >= 0)
             {
-                //if (relay1 != null) MyMessageBox("Relay1 != null??");
+                //if (relay1 != null) MessageBox.Show("Relay1 != null??");
                 //relay1 = new Relay();
                 relay1.Open(comboBoxComRelay1.Text);
                 richTextBoxRelay1.AppendText("Relay1 opened\n");
-                //relay1 = new Relay(comboBoxComRelay1.SelectedText, comboBoxBaudRelay1.SelectedText);
+                //relay1 = new Relay(comboBoxComRelay1.Text, comboBoxBaudRelay1.Text);
             }
             else if (!checkBoxRelay1Enabled.Checked && comboBoxComRelay1.SelectedIndex >= 0)
             {
@@ -916,7 +948,8 @@ namespace TunerUtil
             }
             else if (checkBoxRelay1Enabled.Checked && comboBoxComRelay1.SelectedIndex < 0)
             {
-                MyMessageBox("Select COM port before enabling Relay");
+                MessageBoxHelper.PrepToCenterMessageBoxOnForm(this);
+                MessageBox.Show("Select COM port before enabling Relay");
                 checkBoxRelay1Enabled.Checked = false;
             }
         }
@@ -998,7 +1031,8 @@ namespace TunerUtil
             }
             catch (Exception)
             {
-                MyMessageBox("Unable to open link that was clicked.");
+                MessageBoxHelper.PrepToCenterMessageBoxOnForm(this);
+                MessageBox.Show("Unable to open link that was clicked.");
             }
         }
 
@@ -1013,7 +1047,8 @@ namespace TunerUtil
             }
             catch (Exception ex)
             {
-                MyMessageBox("Unable to open link that was clicked\n"+ex.Message);
+                MessageBoxHelper.PrepToCenterMessageBoxOnForm(this);
+                MessageBox.Show("Unable to open link that was clicked\n"+ex.Message);
             }
         }
 
@@ -1072,8 +1107,21 @@ namespace TunerUtil
             }
             else if (checkBoxRelay2Enabled.Checked && comboBoxComRelay2.SelectedIndex < 0)
             {
-                MyMessageBox("Select COM port before enabling Relay2");
+                MessageBoxHelper.PrepToCenterMessageBoxOnForm(this);
+                MessageBox.Show("Select COM port before enabling Relay2");
                 checkBoxRelay1Enabled.Checked = false;
+            }
+        }
+
+        private void checkBoxRig_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBoxRig.Checked)
+            {
+                ConnectFLRig();
+            }
+            else
+            {
+                DisconnectFLRig();
             }
         }
     }

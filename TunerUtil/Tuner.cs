@@ -14,9 +14,9 @@ namespace TunerUtil
         private SerialPort SerialPortTuner = null;
         public Tuner(string model, string comport, string baud)
         {
-            comport = "com4";
-            model = "LDG";
-            baud = "38400";
+            //comport = "com4";
+            //model = "LDG";
+            //baud = "38400";
             if (comport.Length==0 || baud.Length==0)
             {
                 return;
