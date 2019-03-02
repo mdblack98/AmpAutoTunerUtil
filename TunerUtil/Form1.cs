@@ -633,6 +633,15 @@ namespace TunerUtil
             if (radioButtonVFOA.Checked) vfo = 'B';
             string xml = FLRigXML("rig.set_vfo"+vfo,"<params><param><value><double> "+frequency+" </double></value></param></params");
             if (FLRigSend(xml) == false) return false; // Abort if FLRig is giving an error
+
+            string mode = FLRigGetMode();
+            string myparam = "<params><param><value>" + mode + "</value></param></params>";
+            xml = FLRigXML("rig.set_modeB", myparam);
+            if (FLRigSend(xml) == false)
+            { // Abort if FLRig is giving an error
+                richTextBoxRig.AppendText(MyTime() + "FLRigSend got an error??\n");
+            }
+
             buttonTunerStatus.BackColor = Color.LightGray;
             RelaySet(relay1, 1, 1);
             Application.DoEvents();

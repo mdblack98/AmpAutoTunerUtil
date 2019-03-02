@@ -20,3 +20,4 @@ C:\Users\cfogr\Source\Repos\TunerUtil\TunerUtil\obj\x86\Release\TunerUtil.applic
 C:\Users\cfogr\Source\Repos\TunerUtil\TunerUtil\obj\x86\Release\TunerUtil.csproj.CopyComplete
 C:\Users\cfogr\Source\Repos\TunerUtil\TunerUtil\obj\x86\Release\TunerUtil.exe
 C:\Users\cfogr\Source\Repos\TunerUtil\TunerUtil\obj\x86\Release\TunerUtil.pdb
+C:\Users\cfogr\Source\Repos\TunerUtil\TunerUtil\obj\x86\Release\TunerUtil.csprojAssemblyReference.cache
