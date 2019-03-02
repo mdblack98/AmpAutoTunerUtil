@@ -78,26 +78,17 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="TunerUtil.exe" size="1496064">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="TunerUtil.exe" size="1497600">
       <assemblyIdentity name="TunerUtil" version="1.0.0.0" language="neutral" processorArchitecture="x86" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>BJCg8u3kqrokZ3HuRelC2xT89esZL0FeZLLaF3E3glg=</dsig:DigestValue>
+        <dsig:DigestValue>t7VcyPGYu+hfWqPleYblNxeS+2nFV5iWVSNjZfblErA=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
-  <file name="FTD2XX_NET.XML" size="109627" writeableType="applicationData">
-    <hash>
-      <dsig:Transforms>
-        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-      </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>yjwVsAtggD5c6KpcZeIoKUB/NXsu79rQz2Cskb4sksM=</dsig:DigestValue>
-    </hash>
-  </file>
   <file name="swr.wav" size="64970">
     <hash>
       <dsig:Transforms>

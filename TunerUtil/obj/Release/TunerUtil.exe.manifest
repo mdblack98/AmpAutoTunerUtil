@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <asmv1:assembly xsi:schemaLocation="urn:schemas-microsoft-com:asm.v1 assembly.adaptive.xsd" manifestVersion="1.0" xmlns:asmv1="urn:schemas-microsoft-com:asm.v1" xmlns="urn:schemas-microsoft-com:asm.v2" xmlns:asmv2="urn:schemas-microsoft-com:asm.v2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:co.v1="urn:schemas-microsoft-com:clickonce.v1" xmlns:asmv3="urn:schemas-microsoft-com:asm.v3" xmlns:dsig="http://www.w3.org/2000/09/xmldsig#" xmlns:co.v2="urn:schemas-microsoft-com:clickonce.v2">
-  <asmv1:assemblyIdentity name="TunerUtil.exe" version="1.0.0.8" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="x86" type="win32" />
+  <asmv1:assemblyIdentity name="TunerUtil.exe" version="1.0.0.9" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="x86" type="win32" />
   <application />
   <entryPoint>
     <assemblyIdentity name="TunerUtil" version="1.0.0.0" language="neutral" processorArchitecture="x86" />
@@ -78,26 +78,17 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="TunerUtil.exe" size="1489408">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="TunerUtil.exe" size="1492480">
       <assemblyIdentity name="TunerUtil" version="1.0.0.0" language="neutral" processorArchitecture="x86" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>6F89mlvTqotjYLdE4Th6W90CjNP/uLbHW2uKlB2POG0=</dsig:DigestValue>
+        <dsig:DigestValue>KIgCej6vqoR5fmPTAxAok6W+QNnuW0fNsvWO9VxO23A=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
-  <file name="FTD2XX_NET.XML" size="109627" writeableType="applicationData">
-    <hash>
-      <dsig:Transforms>
-        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-      </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>yjwVsAtggD5c6KpcZeIoKUB/NXsu79rQz2Cskb4sksM=</dsig:DigestValue>
-    </hash>
-  </file>
   <file name="swr.wav" size="64970">
     <hash>
       <dsig:Transforms>

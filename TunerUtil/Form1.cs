@@ -228,7 +228,7 @@ namespace TunerUtil
                 }
                 relay1.Open(comboBoxComRelay1.Text);
                 richTextBoxRelay1.AppendText(MyTime() + "Relay 1 opened\n");
-                richTextBoxRelay1.AppendText(MyTime() + "Serial number " + relay1.SerialNumber());
+                richTextBoxRelay1.AppendText(MyTime() + "Serial number " + relay1.SerialNumber() + "\n");
                 form2.ProgressBar(2);
             }
             else
@@ -247,7 +247,7 @@ namespace TunerUtil
                 }
                 relay2.Open(comboBoxComRelay2.Text);
                 richTextBoxRelay2.AppendText(MyTime() + "Relay 2 opened\n");
-                richTextBoxRelay2.AppendText(MyTime() + "Serial number " + relay2.SerialNumber());
+                richTextBoxRelay2.AppendText(MyTime() + "Serial number " + relay2.SerialNumber() + "\n");
                 form2.ProgressBar(3);
             }
             else
@@ -266,7 +266,7 @@ namespace TunerUtil
                 }
                 relay3.Open(comboBoxComRelay3.Text);
                 richTextBoxRelay3.AppendText(MyTime() + "Relay 3 opened\n");
-                richTextBoxRelay3.AppendText(MyTime() + "Serial number " + relay3.SerialNumber());
+                richTextBoxRelay3.AppendText(MyTime() + "Serial number " + relay3.SerialNumber() + "\n");
                 form2.ProgressBar(4);
             }
             else
@@ -285,7 +285,7 @@ namespace TunerUtil
                 }
                 relay4.Open(comboBoxComRelay4.Text);
                 richTextBoxRelay4.AppendText(MyTime() + "Relay 4 opened\n");
-                richTextBoxRelay4.AppendText(MyTime() + "Serial number " + relay4.SerialNumber());
+                richTextBoxRelay4.AppendText(MyTime() + "Serial number " + relay4.SerialNumber() + "\n");
                 form2.ProgressBar(5);
             }
             else
@@ -710,7 +710,7 @@ namespace TunerUtil
             {
                 Int32 bytes = rigStream.Read(data, 0, data.Length);
                 responseData = Encoding.ASCII.GetString(data, 0, bytes);
-                //richTextBoxRig.AppendText(responseData);
+                //richTextBoxRig.AppendText(responseData + "\n");
                 try
                 {
                     if (responseData.Contains("<value>")) // then we have a frequency
@@ -722,13 +722,13 @@ namespace TunerUtil
                     else
                     {
                         labelFreq.Text = "?";
-                        richTextBoxRig.AppendText(MyTime() + responseData);
+                        richTextBoxRig.AppendText(MyTime() + responseData + "\n");
                         tabControl1.SelectedTab = tabPageRig;
                     }
                 }
                 catch (Exception)
                 {
-                    richTextBoxRig.AppendText(MyTime() + "Error parsing freq from answer:\n" + responseData);
+                    richTextBoxRig.AppendText(MyTime() + "Error parsing freq from answer:\n" + responseData + "\n");
                     frequency = 0;
                 }
             }
@@ -738,6 +738,70 @@ namespace TunerUtil
                 frequency = 0;
             }
             return xcvr;
+        }
+
+        private string FLRigGetMode()
+        {
+            string mode = "Unknown";
+
+            if (!checkBoxRig.Checked) return null;
+            if (rigClient == null) { ConnectFLRig(); }
+            string xml2 = FLRigXML("rig.get_modeA", null);
+            Byte[] data = System.Text.Encoding.ASCII.GetBytes(xml2);
+            try
+            {
+                rigStream.Write(data, 0, data.Length);
+            }
+            catch (Exception ex)
+            {
+                richTextBoxRig.AppendText(MyTime() + "FLRig error:\n" + ex.Message + "\n");
+                if (rigClient != null)
+                {
+                    rigStream.Close();
+                    rigClient.Close();
+                    rigStream = null;
+                    rigClient = null;
+                }
+                //checkBoxRig.Checked = false;
+                tabControl1.SelectedTab = tabPageRig;
+                //DisconnectFLRig();
+                return null;
+            }
+            data = new Byte[4096];
+            String responseData = String.Empty;
+            rigStream.ReadTimeout = 2000;
+            try
+            {
+                Int32 bytes = rigStream.Read(data, 0, data.Length);
+                responseData = Encoding.ASCII.GetString(data, 0, bytes);
+                //richTextBoxRig.AppendText(responseData + "\n");
+                try
+                {
+                    if (responseData.Contains("<value>")) // then we have a frequency
+                    {
+                        int offset1 = responseData.IndexOf("<value>") + "<value>".Length;
+                        int offset2 = responseData.IndexOf("</value>");
+                        mode = responseData.Substring(offset1, offset2 - offset1);
+                    }
+                    else
+                    {
+                        labelFreq.Text = "?";
+                        richTextBoxRig.AppendText(MyTime() + responseData + "\n");
+                        tabControl1.SelectedTab = tabPageRig;
+                    }
+                }
+                catch (Exception)
+                {
+                    richTextBoxRig.AppendText(MyTime() + "Error parsing freq from answer:\n" + responseData + "\n");
+                    frequency = 0;
+                }
+            }
+            catch (Exception ex)
+            {
+                richTextBoxRig.AppendText(MyTime() + "Rig not responding\n" + ex.Message + "\n");
+                frequency = 0;
+            }
+            return mode;
         }
 
         private string MyTime()
@@ -786,7 +850,7 @@ namespace TunerUtil
             try {
                 Int32 bytes = rigStream.Read(data, 0, data.Length);
                 responseData = Encoding.ASCII.GetString(data, 0, bytes);
-                //richTextBoxRig.AppendText(responseData);
+                //richTextBoxRig.AppendText(responseData + "\n");
                 try
                 {
                     if (responseData.Contains("<value>")) // then we have a frequency
@@ -829,8 +893,17 @@ namespace TunerUtil
                                 string xml = FLRigXML("rig.set_vfo" + vfoOther, myparam);
                                 if (FLRigSend(xml) == false)
                                 { // Abort if FLRig is giving an error
-                                    richTextBoxRig.AppendText(MyTime() + "FLRigSend got an error??");
+                                    richTextBoxRig.AppendText(MyTime() + "FLRigSend got an error??\n");
                                 }
+                                // Set VFOB mode to match VFOa
+                                string mode = FLRigGetMode();
+                                myparam = "<params><param><value>" + mode + "</value></param></params>";
+                                xml = FLRigXML("rig.set_modeB", myparam);
+                                if (FLRigSend(xml) == false)
+                                { // Abort if FLRig is giving an error
+                                    richTextBoxRig.AppendText(MyTime() + "FLRigSend got an error??\n");
+                                }
+
                                 lastfrequencyTuned = lastfrequency = frequency;
                                 relay1.Set(1, 1);
                                 MyMessageBox("Click OK to continue");
@@ -846,18 +919,18 @@ namespace TunerUtil
                     else
                     {
                         labelFreq.Text = "?";
-                        richTextBoxRig.AppendText(MyTime() + responseData);
+                        richTextBoxRig.AppendText(MyTime() + responseData + "\n");
                         tabControl1.SelectedTab = tabPageRig;
                     }
                 }
                 catch (Exception)
                 {
-                    richTextBoxRig.AppendText(MyTime() + "Error parsing freq from answer:\n" + responseData);
+                    richTextBoxRig.AppendText(MyTime() + "Error parsing freq from answer:\n" + responseData + "\n");
                     frequency = 0;
                 }
             }
             catch (Exception ex) {
-                richTextBoxRig.AppendText(MyTime() + "Rig not responding\n" + ex.Message+"\n");
+                richTextBoxRig.AppendText(MyTime() + "Rig not responding\n" + ex.Message + "\n");
                 frequency = 0;
             }
         }
