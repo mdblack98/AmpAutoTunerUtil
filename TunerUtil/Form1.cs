@@ -297,7 +297,15 @@ namespace TunerUtil
             {
                 try
                 {
-                    tuner1 = new Tuner(comboBoxTunerModel.SelectedText, comboBoxComTuner.SelectedText, comboBoxBaudTuner.Text);
+                    tuner1 = new Tuner(comboBoxTunerModel.Text, comboBoxComTuner.Text, comboBoxBaudTuner.Text);
+                    if (tuner1.GetSerialPortTuner() == null)
+                    {
+                        MyMessageBox("Error starting tuner!!!");
+                    }
+                    else
+                    {
+                        richTextBoxTuner.AppendText(MyTime() + "tuner opened\n");
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -620,10 +628,10 @@ namespace TunerUtil
         // returns true when Tuner and FLRig are talking to us
         private bool Tune()
         {
-            richTextBoxTuner.AppendText(MyTime() + "Tuning to" + frequency+"\n");
+            richTextBoxTuner.AppendText(MyTime() + "Tuning to " + frequency+"\n");
             char vfo = 'A';
             if (radioButtonVFOA.Checked) vfo = 'B';
-            string xml = FLRigXML("rig.set_vfo"+vfo,frequency.ToString());
+            string xml = FLRigXML("rig.set_vfo"+vfo,"<params><param><value><double> "+frequency+" </double></value></param></params");
             if (FLRigSend(xml) == false) return false; // Abort if FLRig is giving an error
             buttonTunerStatus.BackColor = Color.LightGray;
             RelaySet(relay1, 1, 1);
@@ -1060,6 +1068,13 @@ namespace TunerUtil
                 try
                 {
                     tuner1 = new Tuner(comboBoxTunerModel.Text, comboBoxComTuner.Text, comboBoxBaudTuner.Text);
+                    if (tuner1.GetSerialPortTuner() == null)
+                    {
+                        richTextBoxTuner.AppendText(MyTime() + " tuner open failed\n");
+                        MyMessageBox("Tuner open failed");
+                        return;
+                    }
+                    richTextBoxTuner.AppendText(MyTime() + "tuner opened\n");
                 }
                 catch (Exception ex)
                 {

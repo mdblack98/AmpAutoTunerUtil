@@ -95,7 +95,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="FTD2XX_NET">
-      <HintPath>..\..\ftdi\ftdi\FTD2XX_NET.dll</HintPath>
+      <HintPath>.\FTD2XX_NET.dll</HintPath>
     </Reference>
     <Reference Include="HidUtilityNuget, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
       <HintPath>..\packages\HidUtilityNuget.1.0.0\lib\net46\HidUtilityNuget.dll</HintPath>
@@ -184,10 +184,12 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="FTD2XX_NET.XML" />
     <Content Include="swr.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="FTD2XX_NET.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

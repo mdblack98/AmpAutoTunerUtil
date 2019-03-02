@@ -12,6 +12,7 @@ namespace TunerUtil
     class Tuner
     {
         private SerialPort SerialPortTuner = null;
+
         public Tuner(string model, string comport, string baud)
         {
             //comport = "com4";
@@ -40,6 +41,15 @@ namespace TunerUtil
             //{
             //    MessageBox.Show(ex.Message);
             //}
+        }
+
+        public string GetSerialPortTuner()
+        {
+            if (SerialPortTuner == null)
+            {
+                return (string)null;
+            }
+            return SerialPortTuner.PortName;
         }
 
         public char Tune()
