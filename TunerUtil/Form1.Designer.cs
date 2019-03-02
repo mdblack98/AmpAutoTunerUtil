@@ -244,7 +244,7 @@
             0,
             0});
             this.numericUpDownSensitivity.Minimum = new decimal(new int[] {
-            2,
+            1,
             0,
             0,
             0});
@@ -305,7 +305,6 @@
             this.checkBoxRig.Text = "Enabled";
             this.toolTip1.SetToolTip(this.checkBoxRig, "Enable FLRig for freq reading");
             this.checkBoxRig.UseVisualStyleBackColor = true;
-            //this.checkBoxRig.CheckedChanged += new System.EventHandler(this.checkBoxRig_CheckedChanged);
             // 
             // comboBoxComRelay1
             // 
@@ -592,9 +591,8 @@
             this.labelFreq.Font = new System.Drawing.Font("MS Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelFreq.Location = new System.Drawing.Point(17, 53);
             this.labelFreq.Name = "labelFreq";
-            this.labelFreq.Size = new System.Drawing.Size(97, 20);
+            this.labelFreq.Size = new System.Drawing.Size(0, 20);
             this.labelFreq.TabIndex = 2;
-            this.labelFreq.Text = "14074000";
             // 
             // tabPageRelay1
             // 
@@ -649,7 +647,7 @@
             this.richTextBoxRelay1.Name = "richTextBoxRelay1";
             this.richTextBoxRelay1.Size = new System.Drawing.Size(256, 137);
             this.richTextBoxRelay1.TabIndex = 4;
-            this.richTextBoxRelay1.Text = "Works with SainSmart USB relays...see links below";
+            this.richTextBoxRelay1.Text = "Works with SainSmart USB relays...see links below\n";
             // 
             // panel1
             // 
@@ -2027,7 +2025,7 @@
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.MaximumSize = new System.Drawing.Size(537, 337);
             this.Name = "Form1";
-            this.Text = "TunerUtil V0.4";
+            this.Text = "TunerUtil V0.5";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
             this.Load += new System.EventHandler(this.Form1_Load);

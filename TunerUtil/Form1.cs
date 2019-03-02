@@ -5,6 +5,7 @@ using System.Data;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
+using System.Media;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
@@ -226,7 +227,8 @@ namespace TunerUtil
                     return;
                 }
                 relay1.Open(comboBoxComRelay1.Text);
-                richTextBoxRelay1.AppendText("Relay 1 opened\n");
+                richTextBoxRelay1.AppendText(MyTime() + "Relay 1 opened\n");
+                richTextBoxRelay1.AppendText(MyTime() + "Serial number " + relay1.SerialNumber());
                 form2.ProgressBar(2);
             }
             else
@@ -244,7 +246,8 @@ namespace TunerUtil
                     return;
                 }
                 relay2.Open(comboBoxComRelay2.Text);
-                richTextBoxRelay2.AppendText("Relay 2 opened\n");
+                richTextBoxRelay2.AppendText(MyTime() + "Relay 2 opened\n");
+                richTextBoxRelay2.AppendText(MyTime() + "Serial number " + relay2.SerialNumber());
                 form2.ProgressBar(3);
             }
             else
@@ -262,7 +265,8 @@ namespace TunerUtil
                     return;
                 }
                 relay3.Open(comboBoxComRelay3.Text);
-                richTextBoxRelay3.AppendText("Relay 3 opened\n");
+                richTextBoxRelay3.AppendText(MyTime() + "Relay 3 opened\n");
+                richTextBoxRelay3.AppendText(MyTime() + "Serial number " + relay3.SerialNumber());
                 form2.ProgressBar(4);
             }
             else
@@ -280,7 +284,8 @@ namespace TunerUtil
                     return;
                 }
                 relay4.Open(comboBoxComRelay4.Text);
-                richTextBoxRelay4.AppendText("Relay 4 opened\n");
+                richTextBoxRelay4.AppendText(MyTime() + "Relay 4 opened\n");
+                richTextBoxRelay4.AppendText(MyTime() + "Serial number " + relay4.SerialNumber());
                 form2.ProgressBar(5);
             }
             else
@@ -326,6 +331,8 @@ namespace TunerUtil
             Properties.Settings.Default.TunerSensitivity = Convert.ToInt32(numericUpDownSensitivity.Value);
 
             Properties.Settings.Default.Relay1Enabled = checkBoxRelay1Enabled.Checked;
+            if (!checkBoxRelay1Enabled.Checked) MyMessageBox("Relay 1 not set???");
+            if (!comboBoxComRelay1.Text.Contains("COM")) MyMessageBox("Relay 1 missing COM Port???");
             Properties.Settings.Default.Relay2Enabled = checkBoxRelay2Enabled.Checked;
             Properties.Settings.Default.Relay3Enabled = checkBoxRelay2Enabled.Checked;
             Properties.Settings.Default.Relay4Enabled = checkBoxRelay4Enabled.Checked;
@@ -484,31 +491,31 @@ namespace TunerUtil
 
         private void buttonTune_Click(object sender, EventArgs e)
         {
-            richTextBoxTuner.AppendText("Tuning\n");
+            richTextBoxTuner.AppendText(MyTime() + "Tuning\n");
         }
 
         private void comboBoxRelayCom_SelectedIndexChanged(object sender, EventArgs e)
         {
             comPortRelay = comboBoxComRelay1.Text;
-            if (baudRelay != 0) richTextBoxRelay1.AppendText("Opening Relay "+comPortRelay +":"+baudRelay+"\n");
+            if (baudRelay != 0) richTextBoxRelay1.AppendText(MyTime() + "Opening Relay " + comPortRelay +":"+baudRelay+"\n");
         }
 
         private void comboBoxRelayBaud_SelectedIndexChanged(object sender, EventArgs e)
         {
             baudRelay = Int32.Parse(comboBoxBaudRelay1.Text);
-            if (comPortRelay.Length > 0) richTextBoxRelay1.AppendText("Opening Relay "+comPortRelay+":"+baudRelay+"\n");
+            if (comPortRelay.Length > 0) richTextBoxRelay1.AppendText(MyTime() + "Opening Relay " + comPortRelay+":"+baudRelay+"\n");
         }
 
         private void comboBoxTunerCom_SelectedIndexChanged(object sender, EventArgs e)
         {
             comPortTuner = comboBoxComTuner.Text;
-            if (baudTuner > 0) richTextBoxTuner.AppendText("Opening Tuner " + comPortTuner+":"+baudTuner+"\n");
+            if (baudTuner > 0) richTextBoxTuner.AppendText(MyTime() + "Opening Tuner " + comPortTuner+":"+baudTuner+"\n");
         }
 
         private void comboBoxTunerBaud_SelectedIndexChanged(object sender, EventArgs e)
         {
             baudTuner = Int32.Parse(comboBoxBaudTuner.Text);
-            if (comPortTuner.Length > 0) richTextBoxTuner.AppendText("Opening Tuner " + comPortTuner + ":" + baudTuner+"\n");
+            if (comPortTuner.Length > 0) richTextBoxTuner.AppendText(MyTime() + "Opening Tuner " + comPortTuner + ":" + baudTuner+"\n");
 
         }
 
@@ -534,12 +541,20 @@ namespace TunerUtil
             {
                 rigClient = new TcpClient("127.0.0.1", port);
                 rigStream = rigClient.GetStream();
+                FLRigWait();
                 richTextBoxRig.AppendText("FLRig connected\n");
             }
             catch (Exception ex)
             {
-                checkBoxRig.Checked = false;
-                richTextBoxRig.AppendText("Rig error:\n" + ex.Message+"\n");
+                //checkBoxRig.Checked = false;
+                if (ex.Message.Contains("actively refused"))
+                {
+                    richTextBoxRig.AppendText(MyTime() + "FLRig not responding...\n");
+                }
+                else
+                {
+                    richTextBoxRig.AppendText(MyTime() + "FLRig unexpected error:\n" + ex.Message + "\n");
+                }
             }
         }
 
@@ -562,8 +577,54 @@ namespace TunerUtil
             }
         }
 
-        private void Tune()
+        // Returns true if send is OK
+        private bool FLRigSend(string xml)
         {
+            Byte[] data = System.Text.Encoding.ASCII.GetBytes(xml);
+            try
+            {
+                rigStream.Write(data, 0, data.Length);
+                if (xml.Contains("rig.set"))
+                {
+                    int saveTimeout = rigStream.ReadTimeout;
+                    // Just read the response and ignore it for now
+                    rigStream.ReadTimeout = 100;
+                    byte[] data2 = new byte[4096];
+                    Int32 bytes = rigStream.Read(data2, 0, data2.Length);
+                    String responseData = Encoding.ASCII.GetString(data2, 0, bytes);
+                    if (!responseData.Contains("200 OK"))
+                    {
+                        MyMessageBox("Unknown response from FLRig\n" + responseData);
+                        return false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                richTextBoxRig.AppendText(MyTime() + "FLRig error:\n" + ex.Message + "\n");
+                if (rigClient != null)
+                {
+                    rigStream.Close();
+                    rigClient.Close();
+                    rigStream = null;
+                    rigClient = null;
+                }
+                //checkBoxRig.Checked = false;
+                tabControl1.SelectedTab = tabPageRig;
+                //DisconnectFLRig();
+                return false;
+            }
+            return true;
+        }
+
+        // returns true when Tuner and FLRig are talking to us
+        private bool Tune()
+        {
+            richTextBoxTuner.AppendText(MyTime() + "Tuning to" + frequency+"\n");
+            char vfo = 'A';
+            if (radioButtonVFOA.Checked) vfo = 'B';
+            string xml = FLRigXML("rig.set_vfo"+vfo,frequency.ToString());
+            if (FLRigSend(xml) == false) return false; // Abort if FLRig is giving an error
             buttonTunerStatus.BackColor = Color.LightGray;
             RelaySet(relay1, 1, 1);
             Application.DoEvents();
@@ -574,8 +635,18 @@ namespace TunerUtil
             RelaySet(relay1, 1, 0);
             Application.DoEvents();
             if (response == 'T') buttonTunerStatus.BackColor = Color.Green;
-            else if (response == 'M') buttonTunerStatus.BackColor = Color.Yellow;
-            else if (response == 'F') buttonTunerStatus.BackColor = Color.Red;
+            else if (response == 'M')
+            {
+                SoundPlayer simpleSound = new SoundPlayer("swr.wav");
+                simpleSound.Play();
+                buttonTunerStatus.BackColor = Color.Yellow;
+            }
+            else if (response == 'F')
+            {
+                SoundPlayer simpleSound = new SoundPlayer("swr.wav");
+                simpleSound.Play();
+                buttonTunerStatus.BackColor = Color.Red;
+            }
             else
             {
                 if (this.WindowState == FormWindowState.Minimized)
@@ -584,6 +655,87 @@ namespace TunerUtil
                 buttonTunerStatus.BackColor = Color.Transparent;
                 MyMessageBox("Unknown response from tuner = '" + response + "'");
             }
+            return true;
+        }
+
+        // Wait for FLRig to return valid data
+        private void FLRigWait()
+        {
+            string xcvr = "";
+            while((xcvr=FLRigGetXcvr()) == null) {
+                Thread.Sleep(500);
+            }
+            richTextBoxRig.AppendText(MyTime() + "Rig is " + xcvr +"\n");
+        }
+
+        private string FLRigGetXcvr()
+        {
+            string xcvr = "Unknown";
+
+            if (!checkBoxRig.Checked) return null;
+            if (rigClient == null) { ConnectFLRig(); }
+            string xml2 = FLRigXML("rig.get_xcvr", null);
+            Byte[] data = System.Text.Encoding.ASCII.GetBytes(xml2);
+            try
+            {
+                rigStream.Write(data, 0, data.Length);
+            }
+            catch (Exception ex)
+            {
+                richTextBoxRig.AppendText(MyTime() + "FLRig error:\n" + ex.Message + "\n");
+                if (rigClient != null)
+                {
+                    rigStream.Close();
+                    rigClient.Close();
+                    rigStream = null;
+                    rigClient = null;
+                }
+                //checkBoxRig.Checked = false;
+                tabControl1.SelectedTab = tabPageRig;
+                //DisconnectFLRig();
+                return null;
+            }
+            data = new Byte[4096];
+            String responseData = String.Empty;
+            rigStream.ReadTimeout = 2000;
+            try
+            {
+                Int32 bytes = rigStream.Read(data, 0, data.Length);
+                responseData = Encoding.ASCII.GetString(data, 0, bytes);
+                //richTextBoxRig.AppendText(responseData);
+                try
+                {
+                    if (responseData.Contains("<value>")) // then we have a frequency
+                    {
+                        int offset1 = responseData.IndexOf("<value>") + "<value>".Length;
+                        int offset2 = responseData.IndexOf("</value>");
+                        xcvr = responseData.Substring(offset1, offset2 - offset1);
+                    }
+                    else
+                    {
+                        labelFreq.Text = "?";
+                        richTextBoxRig.AppendText(MyTime() + responseData);
+                        tabControl1.SelectedTab = tabPageRig;
+                    }
+                }
+                catch (Exception)
+                {
+                    richTextBoxRig.AppendText(MyTime() + "Error parsing freq from answer:\n" + responseData);
+                    frequency = 0;
+                }
+            }
+            catch (Exception ex)
+            {
+                richTextBoxRig.AppendText(MyTime() + "Rig not responding\n" + ex.Message + "\n");
+                frequency = 0;
+            }
+            return xcvr;
+        }
+
+        private string MyTime()
+        {
+            string time = DateTime.Now.ToString("HH:mm:ss.f") + ": "; 
+            return time;
         }
 
         private void FLRigGetFreq()
@@ -592,22 +744,22 @@ namespace TunerUtil
             if (rigClient == null) { ConnectFLRig(); }
             string vfo = "B";
             if (radioButtonVFOA.Checked) vfo = "A";
-            string xml = "POST /RPC2 HTTP/1.1\r\n";
-            xml += "User-Agent: XMLRPC++ 0.8\r\n";
-            xml += "Host: 127.0.0.1:12345\r\n";
-            xml += "Content-type: text/xml\r\n";
-            xml += "Content-Length: 89\r\n\r\n";
-            xml += "<?xml version=\"1.0\"?>\r\n";
-            xml += "<methodCall><methodName>rig.get_vfo"+vfo+"</methodName>\r\n";
-            xml += "</methodCall>\r\n";
-            Byte[] data = System.Text.Encoding.ASCII.GetBytes(xml);
+            string xml2 = FLRigXML("rig.get_vfo" + vfo, null);
+            Byte[] data = System.Text.Encoding.ASCII.GetBytes(xml2);
             try
             {
                 rigStream.Write(data, 0, data.Length);
             }
             catch (Exception ex)
             {
-                richTextBoxRig.AppendText("FLRig error:\n"+ex.Message+"\n");
+                if (rigStream == null || ex.Message.Contains("Unable to write"))
+                {
+                    richTextBoxRig.AppendText(MyTime() + "Did FLRig shut down?\n");
+                }
+                else
+                {
+                    richTextBoxRig.AppendText(MyTime() + "FLRig unexpected error:\n" + ex.Message + "\n");
+                }
                 if (rigClient != null)
                 {
                     rigStream.Close();
@@ -615,7 +767,7 @@ namespace TunerUtil
                     rigStream = null;
                     rigClient = null;
                 }
-                checkBoxRig.Checked = false;
+                //checkBoxRig.Checked = false;
                 tabControl1.SelectedTab = tabPageRig;
                 //DisconnectFLRig();
                 return;
@@ -644,15 +796,15 @@ namespace TunerUtil
                         }
                         if (freqStableCount >= freqStableCountNeeded && frequency != lastfrequencyTuned && Math.Abs(frequency - lastfrequencyTuned) > tolTune)
                         {
-                            if (stopWatchTuner.IsRunning && stopWatchTuner.ElapsedMilliseconds < 5 * 1000)
+                            if (stopWatchTuner.IsRunning && stopWatchTuner.ElapsedMilliseconds < 1 * 1000)
                             {
                                 stopWatchTuner.Stop();
-                                MyMessageBox("Rapid frequency changes...click OK when ready to tune");
+                                //MyMessageBox("Rapid frequency changes...click OK when ready to tune");
+                                richTextBoxRig.AppendText(MyTime() + "Rapid frequency changes\n");
                                 stopWatchTuner.Reset();
                                 stopWatchTuner.Stop();
                                 return; // we'll tune on next poll
                             }
-                            freqStableCount = 0;
                             stopWatchTuner.Restart();
                             if (checkBoxTunerEnabled.Checked)
                             {
@@ -661,12 +813,21 @@ namespace TunerUtil
                             }
                             else
                             {
-                                richTextBoxTuner.AppendText("Tuner not enabled\n");
-                                richTextBoxTuner.AppendText("Simulate tuning to " + frequency + "\n");
+                                richTextBoxTuner.AppendText(MyTime() + "Tuner not enabled\n");
+                                richTextBoxTuner.AppendText(MyTime() + "Simulate tuning to " + frequency + "\n");
+                                char vfoOther = 'A';
+                                if (radioButtonVFOA.Checked) vfoOther = 'B';
+                                string myparam = "<params><param><value><double>"+frequency+"</double></value></param></params";
+                                string xml = FLRigXML("rig.set_vfo" + vfoOther, myparam);
+                                if (FLRigSend(xml) == false)
+                                { // Abort if FLRig is giving an error
+                                    richTextBoxRig.AppendText(MyTime() + "FLRigSend got an error??");
+                                }
                                 lastfrequencyTuned = lastfrequency = frequency;
-                                if (this.WindowState == FormWindowState.Minimized)
-                                    this.WindowState = FormWindowState.Normal;
+                                relay1.Set(1, 1);
                                 MyMessageBox("Click OK to continue");
+                                relay1.Set(1, 0);
+                                freqStableCount = 0;
                             }
                         }
                         else
@@ -677,18 +838,19 @@ namespace TunerUtil
                     else
                     {
                         labelFreq.Text = "?";
-                        richTextBoxRig.AppendText(responseData);
+                        richTextBoxRig.AppendText(MyTime() + responseData);
                         tabControl1.SelectedTab = tabPageRig;
                     }
                 }
                 catch (Exception)
                 {
-                    richTextBoxRig.AppendText("Error parsing freq from answer:\n" + responseData);
+                    richTextBoxRig.AppendText(MyTime() + "Error parsing freq from answer:\n" + responseData);
                     frequency = 0;
                 }
             }
             catch (Exception ex) {
-                richTextBoxRig.AppendText("Rig not responding\n" + ex.Message+"\n");
+                richTextBoxRig.AppendText(MyTime() + "Rig not responding\n" + ex.Message+"\n");
+                frequency = 0;
             }
         }
 
@@ -776,9 +938,10 @@ namespace TunerUtil
 
         private void button1_Click(object sender, EventArgs e)
         {
+            string currTime = MyTime();
             for (int i = 1; i <= 8; ++i)
             {
-                richTextBoxRelay1.AppendText(i + " On\n");
+                richTextBoxRelay1.AppendText(MyTime() + i + " On\n");
                 //relay1.Set(i, 1);
                 RelaySet(relay1, i, 1);
                 Application.DoEvents();
@@ -786,7 +949,7 @@ namespace TunerUtil
             }
             for (int i = 1; i <= 8; ++i)
             {
-                richTextBoxRelay1.AppendText(i + " Off\n");
+                richTextBoxRelay1.AppendText(MyTime() + i + " Off\n");
                 //relay1.Set(i, 0);
                 RelaySet(relay1, i, 0);
                 Application.DoEvents();
@@ -847,7 +1010,7 @@ namespace TunerUtil
             else button.BackColor = Color.Green;
             relay.Set(nRelay, (byte)flag);
             byte status = relay.Status();
-            richTextBoxRelay1.AppendText("status=0x" + status.ToString("X")+"\n");
+            richTextBoxRelay1.AppendText(MyTime() + "status=0x" + status.ToString("X")+"\n");
         }
 
         private void buttonTune_Click_1(object sender, EventArgs e)
@@ -858,6 +1021,26 @@ namespace TunerUtil
                 return;
             }
             Tune();
+        }
+
+        private string FLRigXML(string cmd, string value)
+        {
+            string xmlHeader = "POST / RPC2 HTTP / 1.1\r\n";
+            xmlHeader += "User - Agent: XMLRPC++ 0.8\r\n";
+            xmlHeader += "Host: 127.0.0.1:12345\r\n";
+            xmlHeader += "Content-type: text/xml\r\n";
+            string xmlContent = "<?xml version=\"1.0\"?>\r\n";
+            xmlContent += "<methodCall><methodName>";
+            xmlContent += cmd;
+            xmlContent += "</methodName>\r\n";
+            if (value != null && value.Length > 0)
+            {
+                xmlContent += value;
+            }
+            xmlContent += "</methodCall>\r\n";
+            xmlHeader += "Content-length: "+xmlContent.Length+"\r\n\r\n";
+            string xml = xmlHeader + xmlContent;
+            return xml;
         }
 
         private void MyMessageBox(string message)
@@ -876,7 +1059,7 @@ namespace TunerUtil
             {
                 try
                 {
-                    tuner1 = new Tuner(comboBoxTunerModel.SelectedText, comboBoxComTuner.SelectedText, comboBoxBaudTuner.SelectedText);
+                    tuner1 = new Tuner(comboBoxTunerModel.Text, comboBoxComTuner.Text, comboBoxBaudTuner.Text);
                 }
                 catch (Exception ex)
                 {
@@ -907,7 +1090,8 @@ namespace TunerUtil
                 //if (relay1 != null) MyMessageBox("Relay1 != null??");
                 //relay1 = new Relay();
                 relay1.Open(comboBoxComRelay1.Text);
-                richTextBoxRelay1.AppendText("Relay1 opened\n");
+                richTextBoxRelay1.AppendText(MyTime() + "Relay1 opened\n");
+                richTextBoxRelay1.AppendText(MyTime() + "Serial number " + relay1.SerialNumber() +"\n");
                 //relay1 = new Relay(comboBoxComRelay1.SelectedText, comboBoxBaudRelay1.SelectedText);
             }
             else if (!checkBoxRelay1Enabled.Checked && comboBoxComRelay1.SelectedIndex >= 0)
@@ -1064,7 +1248,8 @@ namespace TunerUtil
             if (checkBoxRelay2Enabled.Checked && comboBoxComRelay2.SelectedIndex >= 0)
             {
                 relay2.Open(comboBoxComRelay2.Text);
-                richTextBoxRelay2.AppendText("Relay2 opened\n");
+                richTextBoxRelay2.AppendText(MyTime() + "Relay2 opened\n");
+                richTextBoxRelay1.AppendText(MyTime() + "Serial number " + relay2.SerialNumber() + "\n");
             }
             else if (!checkBoxRelay2Enabled.Checked && comboBoxComRelay2.SelectedIndex >= 0)
             {

@@ -20,3 +20,4 @@ C:\Users\mike\Dropbox\Projects\TunerUtil\TunerUtil\obj\Debug\TunerUtil.applicati
 C:\Users\mike\Dropbox\Projects\TunerUtil\TunerUtil\obj\Debug\TunerUtil.csproj.CopyComplete
 C:\Users\mike\Dropbox\Projects\TunerUtil\TunerUtil\obj\Debug\TunerUtil.exe
 C:\Users\mike\Dropbox\Projects\TunerUtil\TunerUtil\obj\Debug\TunerUtil.pdb
+C:\users\mike\dropbox\projects\TunerUtil\TunerUtil\bin\Debug\swr.wav

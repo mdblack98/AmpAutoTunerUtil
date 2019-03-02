@@ -16,6 +16,8 @@ namespace TunerUtil
         readonly uint devcount = 0;
         string comPort = "";
         int relayNum = 0;
+        string serialNumber = "";
+        List<string> serialNums = new List<string>();
 
         public Relay()
         {
@@ -38,6 +40,7 @@ namespace TunerUtil
                     ftdi.Close();
                     comList.Add(comport);
                     comIndex.Add(index);
+                    serialNums.Add(node.SerialNumber);
                 }
                 ++index;
             }
@@ -50,6 +53,12 @@ namespace TunerUtil
             ftdi.SetBitMode(0xff, 0x01);
             comPort = comPortNew;
             relayNum = (int)index + 1; // index is 0-based, our relayNum is 1-based for the GUI
+            serialNumber = serialNums[index];
+        }
+
+        public string SerialNumber()
+        {
+            return serialNumber;
         }
 
         public int RelayNumber()
