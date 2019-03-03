@@ -1346,7 +1346,7 @@ namespace TunerUtil
             {
                 relay2.Open(comboBoxComRelay2.Text);
                 richTextBoxRelay2.AppendText(MyTime() + "Relay2 opened\n");
-                richTextBoxRelay1.AppendText(MyTime() + "Serial number " + relay2.SerialNumber() + "\n");
+                richTextBoxRelay2.AppendText(MyTime() + "Serial number " + relay2.SerialNumber() + "\n");
             }
             else if (!checkBoxRelay2Enabled.Checked && comboBoxComRelay2.SelectedIndex >= 0)
             {
@@ -1355,7 +1355,7 @@ namespace TunerUtil
             else if (checkBoxRelay2Enabled.Checked && comboBoxComRelay2.SelectedIndex < 0)
             {
                 MyMessageBox("Select COM port before enabling Relay2");
-                checkBoxRelay1Enabled.Checked = false;
+                checkBoxRelay2Enabled.Checked = false;
             }
         }
     }
