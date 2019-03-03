@@ -43,6 +43,16 @@ namespace TunerUtil
             //}
         }
 
+        public void Close()
+        {
+            if (SerialPortTuner != null)
+            {
+                SerialPortTuner.Close();
+                SerialPortTuner.Dispose();
+                SerialPortTuner = null;
+            }
+        }
+
         public string GetSerialPortTuner()
         {
             if (SerialPortTuner == null)

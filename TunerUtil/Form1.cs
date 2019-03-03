@@ -55,9 +55,25 @@ namespace TunerUtil
             return false;
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+
+
+    private void Application_ThreadException(object sender, ThreadExceptionEventArgs e)
+    {
+        // Log the exception, display it, etc
+        MyMessageBox(e.Exception.Message);
+    }
+
+    private void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+    {
+        // Log the exception, display it, etc
+        MyMessageBox((e.ExceptionObject as Exception).Message);
+    }
+    private void Form1_Load(object sender, EventArgs e)
         {
-            Thread t = new Thread(new ThreadStart(SplashStart));
+        Application.ThreadException += new ThreadExceptionEventHandler(Application_ThreadException);
+        AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
+
+        Thread t = new Thread(new ThreadStart(SplashStart));
             t.Start();
             //Form2 form2 = new Form2();
             //form2.Show();
@@ -67,10 +83,6 @@ namespace TunerUtil
                 stopWatchTuner.Start(); // Assume we're already tuned
                 LoadComPorts();
                 LoadBaudRates();
-                richTextBoxRelay1.AppendText("Relay debug\n");
-                richTextBoxTuner.AppendText("Tuner debug\n");
-                richTextBoxRig.AppendText("FLRig debug\n");
-                //ConnectFLRig();
                 FLRigGetFreq();
                 timer1.Interval = 500;
                 timer1.Enabled = true;
@@ -549,6 +561,7 @@ namespace TunerUtil
             {
                 rigClient = new TcpClient("127.0.0.1", port);
                 rigStream = rigClient.GetStream();
+                rigStream.ReadTimeout = 200;
                 FLRigWait();
                 richTextBoxRig.AppendText("FLRig connected\n");
             }
@@ -687,7 +700,7 @@ namespace TunerUtil
 
         private string FLRigGetXcvr()
         {
-            string xcvr = "Unknown";
+            string xcvr = null;
 
             if (!checkBoxRig.Checked) return null;
             if (rigClient == null) { ConnectFLRig(); }
@@ -714,6 +727,7 @@ namespace TunerUtil
             }
             data = new Byte[4096];
             String responseData = String.Empty;
+            int timeoutSave = rigStream.ReadTimeout;
             rigStream.ReadTimeout = 2000;
             try
             {
@@ -727,6 +741,7 @@ namespace TunerUtil
                         int offset1 = responseData.IndexOf("<value>") + "<value>".Length;
                         int offset2 = responseData.IndexOf("</value>");
                         xcvr = responseData.Substring(offset1, offset2 - offset1);
+                        if (xcvr.Length == 0) xcvr = null;
                     }
                     else
                     {
@@ -746,6 +761,7 @@ namespace TunerUtil
                 richTextBoxRig.AppendText(MyTime() + "Rig not responding\n" + ex.Message + "\n");
                 frequency = 0;
             }
+            rigStream.ReadTimeout = timeoutSave;
             return xcvr;
         }
 
@@ -1133,7 +1149,7 @@ namespace TunerUtil
             return xml;
         }
 
-        private void MyMessageBox(string message)
+        public void MyMessageBox(string message)
         {
             if (this.WindowState == FormWindowState.Minimized)
                 this.WindowState = FormWindowState.Normal;
@@ -1163,6 +1179,11 @@ namespace TunerUtil
                     checkBoxTunerEnabled.Checked = false;
                     MyMessageBox("Error starting tuner\nFix problem and reenable the Tuner" + ex.Message);
                 }
+            }
+            else
+            {
+                richTextBoxTuner.AppendText(MyTime() + "tuner closed\n");
+                tuner1.Close();
             }
         }
 

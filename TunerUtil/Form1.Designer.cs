@@ -266,7 +266,6 @@
             this.radioButtonVFOB.Name = "radioButtonVFOB";
             this.radioButtonVFOB.Size = new System.Drawing.Size(66, 21);
             this.radioButtonVFOB.TabIndex = 10;
-            this.radioButtonVFOB.TabStop = true;
             this.radioButtonVFOB.Text = "VFOB";
             this.toolTip1.SetToolTip(this.radioButtonVFOB, "Use VFOB frequencies to determine when to tune");
             this.radioButtonVFOB.UseVisualStyleBackColor = true;
@@ -274,6 +273,7 @@
             // radioButtonVFOA
             // 
             this.radioButtonVFOA.AutoSize = true;
+            this.radioButtonVFOA.Checked = true;
             this.radioButtonVFOA.Location = new System.Drawing.Point(11, 128);
             this.radioButtonVFOA.Name = "radioButtonVFOA";
             this.radioButtonVFOA.Size = new System.Drawing.Size(66, 21);
@@ -2025,7 +2025,7 @@
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.MaximumSize = new System.Drawing.Size(537, 337);
             this.Name = "Form1";
-            this.Text = "TunerUtil V0.6";
+            this.Text = "TunerUtil V0.8";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
             this.Load += new System.EventHandler(this.Form1_Load);
