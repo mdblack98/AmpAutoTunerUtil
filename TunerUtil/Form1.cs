@@ -27,7 +27,7 @@ namespace TunerUtil
         double lastfrequencyTuned = 0;
         int tolTune = 0;
         Dictionary<int,int> bandTolerance = new Dictionary<int,int>();
-        Tuner tuner1 = null;
+        TunerLDG tuner1 = null;
         Relay relay1 = null;
         Relay relay2 = null;
         Relay relay3 = null;
@@ -308,7 +308,7 @@ namespace TunerUtil
             {
                 try
                 {
-                    tuner1 = new Tuner(comboBoxTunerModel.Text, comboBoxComTuner.Text, comboBoxBaudTuner.Text);
+                    tuner1 = new TunerLDG(comboBoxTunerModel.Text, comboBoxComTuner.Text, comboBoxBaudTuner.Text);
                     if (tuner1.GetSerialPortTuner() == null)
                     {
                         MyMessageBox("Error starting tuner!!!");
@@ -1236,7 +1236,7 @@ namespace TunerUtil
             {
                 try
                 {
-                    tuner1 = new Tuner(comboBoxTunerModel.Text, comboBoxComTuner.Text, comboBoxBaudTuner.Text);
+                    tuner1 = new TunerLDG(comboBoxTunerModel.Text, comboBoxComTuner.Text, comboBoxBaudTuner.Text);
                     if (tuner1.GetSerialPortTuner() == null)
                     {
                         richTextBoxTuner.AppendText(MyTime() + " tuner open failed\n");

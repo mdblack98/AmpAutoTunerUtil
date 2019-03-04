@@ -127,6 +127,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="TunerMFJ928.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>

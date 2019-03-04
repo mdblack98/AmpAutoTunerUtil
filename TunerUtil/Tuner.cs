@@ -9,15 +9,20 @@ using System.Windows.Forms;
 
 namespace TunerUtil
 {
-    class Tuner
+    class TunerLDG
     {
         private SerialPort SerialPortTuner = null;
 
-        public Tuner(string model, string comport, string baud)
+        public TunerLDG(string model, string comport, string baud)
         {
-            //comport = "com4";
-            //model = "LDG";
-            //baud = "38400";
+            if (model.Equals("LDG"))
+            {
+                baud = "38400";
+            }
+            else if (model.Equals("MFJ-928"))
+            {
+                baud = "4800";
+            }
             if (comport.Length==0 || baud.Length==0)
             {
                 return;
