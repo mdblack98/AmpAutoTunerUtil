@@ -38,6 +38,7 @@ namespace TunerUtil
         int freqStableCountNeeded = 2; //need this number of repeat freqs before tuning starts
         Form2 form2;
         bool relayMissingCheck = true;
+        Mutex mutex = new Mutex();
 
         public Form1()
         {
@@ -572,7 +573,7 @@ namespace TunerUtil
             {
                 rigClient = new TcpClient("127.0.0.1", port);
                 rigStream = rigClient.GetStream();
-                rigStream.ReadTimeout = 200;
+                rigStream.ReadTimeout = 500;
                 FLRigWait();
                 richTextBoxRig.AppendText("FLRig connected\n");
             }
@@ -620,7 +621,7 @@ namespace TunerUtil
                 {
                     int saveTimeout = rigStream.ReadTimeout;
                     // Just read the response and ignore it for now
-                    rigStream.ReadTimeout = 100;
+                    rigStream.ReadTimeout = 500;
                     byte[] data2 = new byte[4096];
                     Int32 bytes = rigStream.Read(data2, 0, data2.Length);
                     String responseData = Encoding.ASCII.GetString(data2, 0, bytes);
@@ -652,7 +653,9 @@ namespace TunerUtil
         // returns true when Tuner and FLRig are talking to us
         private bool Tune()
         {
-            timerGetFreq.Stop();
+            //richTextBoxRig.AppendText(MyTime() + "Tune mutex wait\n");
+            mutex.WaitOne();
+            //richTextBoxRig.AppendText(MyTime() + "Tune mutex gotit\n");
             Thread.Sleep(250);
             richTextBoxTuner.AppendText(MyTime() + "Tuning to " + frequency+"\n");
             char vfo = 'A';
@@ -665,7 +668,7 @@ namespace TunerUtil
             xml = FLRigXML("rig.set_modeB", myparam);
             if (FLRigSend(xml) == false)
             { // Abort if FLRig is giving an error
-                richTextBoxRig.AppendText(MyTime() + "FLRigSend got an error??\n");
+                richTextBoxRig.AppendText(MyTime() + "FLRig Tune got an error??\n");
             }
 
             buttonTunerStatus.BackColor = Color.LightGray;
@@ -699,25 +702,25 @@ namespace TunerUtil
                 MyMessageBox("Unknown response from tuner = '" + response + "'");
             }
             richTextBoxTuner.AppendText(MyTime() + "Tuning done\n");
-            timerGetFreq.Start();
+            mutex.ReleaseMutex();
             return true;
         }
 
         // Wait for FLRig to return valid data
         private void FLRigWait()
         {
-            timerGetFreq.Stop();
             string xcvr = "";
             while((xcvr=FLRigGetXcvr()) == null) {
                 Thread.Sleep(500);
             }
             richTextBoxRig.AppendText(MyTime() + "Rig is " + xcvr +"\n");
-            timerGetFreq.Start();
         }
 
         private string FLRigGetXcvr()
         {
-            timerGetFreq.Stop();
+            //richTextBoxRig.AppendText(MyTime() + "Xcvr mutex wait\n");
+            mutex.WaitOne();
+            //richTextBoxRig.AppendText(MyTime() + "Xcvr mutex gotit\n");
             string xcvr = null;
 
             if (!checkBoxRig.Checked) return null;
@@ -730,7 +733,7 @@ namespace TunerUtil
             }
             catch (Exception ex)
             {
-                richTextBoxRig.AppendText(MyTime() + "FLRig error:\n" + ex.Message + "\n");
+                richTextBoxRig.AppendText(MyTime() + "FLRigGetXcvr error:\n" + ex.Message + "\n");
                 if (rigClient != null)
                 {
                     rigStream.Close();
@@ -741,7 +744,7 @@ namespace TunerUtil
                 //checkBoxRig.Checked = false;
                 tabControl1.SelectedTab = tabPageRig;
                 //DisconnectFLRig();
-                timerGetFreq.Start();
+                mutex.ReleaseMutex();
                 return null;
             }
             data = new Byte[4096];
@@ -781,13 +784,15 @@ namespace TunerUtil
                 frequency = 0;
             }
             rigStream.ReadTimeout = timeoutSave;
-            timerGetFreq.Start();
+            mutex.ReleaseMutex();
             return xcvr;
         }
 
         private string FLRigGetMode()
         {
-            timerGetFreq.Stop();
+            //richTextBoxRig.AppendText(MyTime() + "Mode mutex wait\n");
+            mutex.WaitOne();
+            //richTextBoxRig.AppendText(MyTime() + "Mode mutex gotit\n");
             string mode = "Unknown";
 
             if (!checkBoxRig.Checked) return null;
@@ -800,7 +805,7 @@ namespace TunerUtil
             }
             catch (Exception ex)
             {
-                richTextBoxRig.AppendText(MyTime() + "FLRig error:\n" + ex.Message + "\n");
+                richTextBoxRig.AppendText(MyTime() + "FLRigGetMode error:\n" + ex.Message + "\n");
                 if (rigClient != null)
                 {
                     rigStream.Close();
@@ -811,7 +816,7 @@ namespace TunerUtil
                 //checkBoxRig.Checked = false;
                 tabControl1.SelectedTab = tabPageRig;
                 //DisconnectFLRig();
-                timerGetFreq.Start();
+                mutex.ReleaseMutex();
                 return null;
             }
             data = new Byte[4096];
@@ -848,7 +853,7 @@ namespace TunerUtil
                 richTextBoxRig.AppendText(MyTime() + "Rig not responding\n" + ex.Message + "\n");
                 frequency = 0;
             }
-            timerGetFreq.Start();
+            mutex.ReleaseMutex();
             return mode;
         }
 
@@ -887,7 +892,9 @@ namespace TunerUtil
 
         private void FLRigGetFreq()
         {
-            timerGetFreq.Stop();
+            //richTextBoxRig.AppendText(MyTime() + "Freq mutex wait\n");
+            mutex.WaitOne();
+            //richTextBoxRig.AppendText(MyTime() + "Freq mutex gotit\n");
             if (!checkBoxRig.Checked) return;
             if (rigClient == null)
             {
@@ -928,7 +935,7 @@ namespace TunerUtil
                 //checkBoxRig.Checked = false;
                 tabControl1.SelectedTab = tabPageRig;
                 //DisconnectFLRig();
-                timerGetFreq.Start();
+                mutex.ReleaseMutex();
                 return;
             }
             data = new Byte[4096];
@@ -962,7 +969,7 @@ namespace TunerUtil
                                 richTextBoxRig.AppendText(MyTime() + "Rapid frequency changes\n");
                                 stopWatchTuner.Reset();
                                 stopWatchTuner.Stop();
-                                timerGetFreq.Start();
+                                mutex.ReleaseMutex();
                                 return; // we'll tune on next poll
                             }
                             stopWatchTuner.Restart();
@@ -1021,25 +1028,21 @@ namespace TunerUtil
                 richTextBoxRig.AppendText(MyTime() + "Rig not responding\n" + ex.Message + "\n");
                 frequency = 0;
             }
-            timerGetFreq.Start();
+            mutex.ReleaseMutex();
         }
 
         private void TimerGetFreq_Tick(object sender, EventArgs e)
         {
-            timerGetFreq.Stop();
             CheckMissingRelay("Timer tick");
 
             if (checkBoxRig.Checked)
             {
-                timerGetFreq.Enabled = false;
                 FLRigGetFreq();
-                timerGetFreq.Enabled = true;
             }
             else
             {
                 labelFreq.Text = "?";
             }
-            timerGetFreq.Start();
         }
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
