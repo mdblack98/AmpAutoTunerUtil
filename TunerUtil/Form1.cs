@@ -698,6 +698,7 @@ namespace TunerUtil
                 buttonTunerStatus.BackColor = Color.Transparent;
                 MyMessageBox("Unknown response from tuner = '" + response + "'");
             }
+            richTextBoxTuner.AppendText(MyTime() + "Tuning done\n");
             timerGetFreq.Start();
             return true;
         }

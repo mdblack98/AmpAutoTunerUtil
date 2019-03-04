@@ -28,7 +28,7 @@
     <ProductName>TunerUtil</ProductName>
     <PublisherName>W9MDB</PublisherName>
     <SuiteName>Ham Utils</SuiteName>
-    <ApplicationRevision>18</ApplicationRevision>
+    <ApplicationRevision>19</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
