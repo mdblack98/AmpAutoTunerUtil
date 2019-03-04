@@ -9,7 +9,6 @@ C:\Users\mike\Dropbox\Projects\TunerUtil\TunerUtil\bin\Debug\HidUtilityNuget.dll
 C:\Users\mike\Dropbox\Projects\TunerUtil\TunerUtil\bin\Debug\LibUsbDotNet.LibUsbDotNet.dll
 C:\Users\mike\Dropbox\Projects\TunerUtil\TunerUtil\bin\Debug\FTD2XX_NET.xml
 C:\Users\mike\Dropbox\Projects\TunerUtil\TunerUtil\bin\Debug\LibUsbDotNet.LibUsbDotNet.pdb
-C:\Users\mike\Dropbox\Projects\TunerUtil\TunerUtil\obj\Debug\TunerUtil.csprojAssemblyReference.cache
 C:\Users\mike\Dropbox\Projects\TunerUtil\TunerUtil\obj\Debug\TunerUtil.Form1.resources
 C:\Users\mike\Dropbox\Projects\TunerUtil\TunerUtil\obj\Debug\TunerUtil.Form2.resources
 C:\Users\mike\Dropbox\Projects\TunerUtil\TunerUtil\obj\Debug\TunerUtil.Properties.Resources.resources
@@ -21,3 +20,4 @@ C:\Users\mike\Dropbox\Projects\TunerUtil\TunerUtil\obj\Debug\TunerUtil.applicati
 C:\Users\mike\Dropbox\Projects\TunerUtil\TunerUtil\obj\Debug\TunerUtil.csproj.CopyComplete
 C:\Users\mike\Dropbox\Projects\TunerUtil\TunerUtil\obj\Debug\TunerUtil.exe
 C:\Users\mike\Dropbox\Projects\TunerUtil\TunerUtil\obj\Debug\TunerUtil.pdb
+C:\users\mike\dropbox\projects\TunerUtil\TunerUtil\obj\Debug\TunerUtil.csprojAssemblyReference.cache

@@ -47,7 +47,7 @@
             this.button1_3 = new System.Windows.Forms.Button();
             this.button1_2 = new System.Windows.Forms.Button();
             this.button1_1 = new System.Windows.Forms.Button();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.timerGetFreq = new System.Windows.Forms.Timer(this.components);
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPageTuner = new System.Windows.Forms.TabPage();
             this.panel3 = new System.Windows.Forms.Panel();
@@ -422,9 +422,9 @@
             this.button1_1.UseVisualStyleBackColor = false;
             this.button1_1.Click += new System.EventHandler(this.button1_1_Click);
             // 
-            // timer1
+            // timerGetFreq
             // 
-            this.timer1.Tick += new System.EventHandler(this.Timer1_Tick);
+            this.timerGetFreq.Tick += new System.EventHandler(this.TimerGetFreq_Tick);
             // 
             // tabControl1
             // 
@@ -2025,7 +2025,7 @@
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.MaximumSize = new System.Drawing.Size(537, 337);
             this.Name = "Form1";
-            this.Text = "TunerUtil V0.8";
+            this.Text = "TunerUtil V0.11";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -2058,7 +2058,7 @@
 
         #endregion
         private System.Windows.Forms.ToolTip toolTip1;
-        private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Timer timerGetFreq;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPageRelay1;
         private System.Windows.Forms.TabPage tabPageTuner;

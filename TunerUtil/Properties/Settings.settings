@@ -99,10 +99,10 @@
       <Value Profile="(Default)">0, 0</Value>
     </Setting>
     <Setting Name="VFOA" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
+      <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="VFOB" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">True</Value>
+      <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="TunerSensitivity" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">2</Value>

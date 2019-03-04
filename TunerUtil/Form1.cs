@@ -16,9 +16,9 @@ namespace TunerUtil
 {
     public partial class Form1 : Form
     {
-        int baudRelay =0;
+        //int baudRelay =0;
         int baudTuner;
-        string comPortRelay = "";
+        //string comPortRelay = "";
         string comPortTuner = "";
         TcpClient rigClient;
         NetworkStream rigStream;
@@ -37,6 +37,7 @@ namespace TunerUtil
         int freqStableCount = 0; // 
         int freqStableCountNeeded = 2; //need this number of repeat freqs before tuning starts
         Form2 form2;
+        bool relayMissingCheck = true;
 
         public Form1()
         {
@@ -84,8 +85,6 @@ namespace TunerUtil
                 LoadComPorts();
                 LoadBaudRates();
                 FLRigGetFreq();
-                timer1.Interval = 500;
-                timer1.Enabled = true;
 
                 // Band tolerance list
                 for (int i = 1; i < 60; ++i) {
@@ -172,7 +171,6 @@ namespace TunerUtil
             if (relay1.DevCount() > 1) relay2 = new Relay();
             if (relay1.DevCount() > 2) relay3 = new Relay();
             if (relay1.DevCount() > 3) relay4 = new Relay();
-            comboBoxComRelay1.Items.Clear();
             List<string> comPorts = relay1.ComList();
             switch(comPorts.Count)
             {
@@ -328,6 +326,10 @@ namespace TunerUtil
             }
             //form2.Close();
             t.Abort();
+            CheckMissingRelay("FormOpen");
+            timerGetFreq.Interval = 500;
+            timerGetFreq.Enabled = true;
+
             formLoading = false;
         }
 
@@ -339,7 +341,12 @@ namespace TunerUtil
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            //DisconnectFLRig();
+            timerGetFreq.Stop();
+            if (relay1 != null) relay1.Close();
+            if (relay2 != null) relay2.Close();
+            if (relay3 != null) relay3.Close();
+            if (relay4 != null) relay4.Close();
+            DisconnectFLRig();
             Properties.Settings.Default.tolTune = textBoxFreqTol.Text;
             Properties.Settings.Default.rigEnabled = checkBoxRig.Checked;
             Properties.Settings.Default.TunerEnabled = checkBoxTunerEnabled.Checked;
@@ -350,9 +357,8 @@ namespace TunerUtil
             Properties.Settings.Default.VFOB = radioButtonVFOB.Checked;
             Properties.Settings.Default.TunerSensitivity = Convert.ToInt32(numericUpDownSensitivity.Value);
 
+            CheckMissingRelay("Closing");
             Properties.Settings.Default.Relay1Enabled = checkBoxRelay1Enabled.Checked;
-            if (!checkBoxRelay1Enabled.Checked) MyMessageBox("Relay 1 not set???");
-            if (!comboBoxComRelay1.Text.Contains("COM")) MyMessageBox("Relay 1 missing COM Port???");
             Properties.Settings.Default.Relay2Enabled = checkBoxRelay2Enabled.Checked;
             Properties.Settings.Default.Relay3Enabled = checkBoxRelay2Enabled.Checked;
             Properties.Settings.Default.Relay4Enabled = checkBoxRelay4Enabled.Checked;
@@ -430,6 +436,23 @@ namespace TunerUtil
 
         }
 
+        private void CheckMissingRelay(string info)
+        {
+            info = MyTime() + info + "\n";
+            if (relayMissingCheck == false) return;
+            if (!checkBoxRelay1Enabled.Checked)
+            {
+                richTextBoxRelay1.AppendText(info+"Relay 1 not set ???\n");
+                MyMessageBox(info+"Relay 1 not set???");
+                relayMissingCheck = false;
+            }
+            if (!comboBoxComRelay1.Text.Contains("COM"))
+            {
+                richTextBoxRelay1.AppendText(info+"Relay 1 missing COM port???\n");
+                MyMessageBox(info+"Relay 1 missing COM port???");
+                relayMissingCheck = false;
+            }
+        }
 
         private void LoadBaudRates()
         {
@@ -512,18 +535,6 @@ namespace TunerUtil
         private void buttonTune_Click(object sender, EventArgs e)
         {
             richTextBoxTuner.AppendText(MyTime() + "Tuning\n");
-        }
-
-        private void comboBoxRelayCom_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            comPortRelay = comboBoxComRelay1.Text;
-            if (baudRelay != 0) richTextBoxRelay1.AppendText(MyTime() + "Opening Relay " + comPortRelay +":"+baudRelay+"\n");
-        }
-
-        private void comboBoxRelayBaud_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            baudRelay = Int32.Parse(comboBoxBaudRelay1.Text);
-            if (comPortRelay.Length > 0) richTextBoxRelay1.AppendText(MyTime() + "Opening Relay " + comPortRelay+":"+baudRelay+"\n");
         }
 
         private void comboBoxTunerCom_SelectedIndexChanged(object sender, EventArgs e)
@@ -641,6 +652,8 @@ namespace TunerUtil
         // returns true when Tuner and FLRig are talking to us
         private bool Tune()
         {
+            timerGetFreq.Stop();
+            Thread.Sleep(250);
             richTextBoxTuner.AppendText(MyTime() + "Tuning to " + frequency+"\n");
             char vfo = 'A';
             if (radioButtonVFOA.Checked) vfo = 'B';
@@ -685,21 +698,25 @@ namespace TunerUtil
                 buttonTunerStatus.BackColor = Color.Transparent;
                 MyMessageBox("Unknown response from tuner = '" + response + "'");
             }
+            timerGetFreq.Start();
             return true;
         }
 
         // Wait for FLRig to return valid data
         private void FLRigWait()
         {
+            timerGetFreq.Stop();
             string xcvr = "";
             while((xcvr=FLRigGetXcvr()) == null) {
                 Thread.Sleep(500);
             }
             richTextBoxRig.AppendText(MyTime() + "Rig is " + xcvr +"\n");
+            timerGetFreq.Start();
         }
 
         private string FLRigGetXcvr()
         {
+            timerGetFreq.Stop();
             string xcvr = null;
 
             if (!checkBoxRig.Checked) return null;
@@ -723,6 +740,7 @@ namespace TunerUtil
                 //checkBoxRig.Checked = false;
                 tabControl1.SelectedTab = tabPageRig;
                 //DisconnectFLRig();
+                timerGetFreq.Start();
                 return null;
             }
             data = new Byte[4096];
@@ -762,11 +780,13 @@ namespace TunerUtil
                 frequency = 0;
             }
             rigStream.ReadTimeout = timeoutSave;
+            timerGetFreq.Start();
             return xcvr;
         }
 
         private string FLRigGetMode()
         {
+            timerGetFreq.Stop();
             string mode = "Unknown";
 
             if (!checkBoxRig.Checked) return null;
@@ -790,6 +810,7 @@ namespace TunerUtil
                 //checkBoxRig.Checked = false;
                 tabControl1.SelectedTab = tabPageRig;
                 //DisconnectFLRig();
+                timerGetFreq.Start();
                 return null;
             }
             data = new Byte[4096];
@@ -826,6 +847,7 @@ namespace TunerUtil
                 richTextBoxRig.AppendText(MyTime() + "Rig not responding\n" + ex.Message + "\n");
                 frequency = 0;
             }
+            timerGetFreq.Start();
             return mode;
         }
 
@@ -835,10 +857,48 @@ namespace TunerUtil
             return time;
         }
 
+        private string FLRigGetActiveVFO()
+        {
+            string vfo = "A";
+            string xml2 = FLRigXML("rig.get_AB", null);
+            Byte[] data = System.Text.Encoding.ASCII.GetBytes(xml2);
+            rigStream.Write(data, 0, data.Length);
+            Byte[] data2 = new byte[4096];
+            Int32 bytes = rigStream.Read(data2, 0, data2.Length);
+            string responseData = Encoding.ASCII.GetString(data2, 0, bytes);
+            if (responseData.Contains("<value>B"))
+            {
+                vfo = "B";
+            }
+            return vfo;
+        }
+
+        private void FLRigSetActiveVFO(string mode)
+        {
+            string myparam = "<params><param><value>" + mode + "</value></param></params>";
+            string xml2 = FLRigXML("rig.set_AB", myparam);
+            Byte[] data = System.Text.Encoding.ASCII.GetBytes(xml2);
+            rigStream.Write(data, 0, data.Length);
+            // Ignore the response for now
+            Byte[] data2 = new byte[4096];
+            Int32 bytes = rigStream.Read(data2, 0, data2.Length);
+        }
+
         private void FLRigGetFreq()
         {
+            timerGetFreq.Stop();
             if (!checkBoxRig.Checked) return;
-            if (rigClient == null) { ConnectFLRig(); }
+            if (rigClient == null)
+            {
+                ConnectFLRig();
+                if (rigClient == null) return;
+            }
+            string currVFO = FLRigGetActiveVFO();
+            if (currVFO.Equals("B"))
+            {
+                MyMessageBox("Auto tuning paused...click OK to continue");
+                FLRigSetActiveVFO("A");
+            }
             string vfo = "B";
             if (radioButtonVFOA.Checked) vfo = "A";
             string xml2 = FLRigXML("rig.get_vfo" + vfo, null);
@@ -867,6 +927,7 @@ namespace TunerUtil
                 //checkBoxRig.Checked = false;
                 tabControl1.SelectedTab = tabPageRig;
                 //DisconnectFLRig();
+                timerGetFreq.Start();
                 return;
             }
             data = new Byte[4096];
@@ -900,6 +961,7 @@ namespace TunerUtil
                                 richTextBoxRig.AppendText(MyTime() + "Rapid frequency changes\n");
                                 stopWatchTuner.Reset();
                                 stopWatchTuner.Stop();
+                                timerGetFreq.Start();
                                 return; // we'll tune on next poll
                             }
                             stopWatchTuner.Restart();
@@ -958,20 +1020,25 @@ namespace TunerUtil
                 richTextBoxRig.AppendText(MyTime() + "Rig not responding\n" + ex.Message + "\n");
                 frequency = 0;
             }
+            timerGetFreq.Start();
         }
 
-        private void Timer1_Tick(object sender, EventArgs e)
+        private void TimerGetFreq_Tick(object sender, EventArgs e)
         {
+            timerGetFreq.Stop();
+            CheckMissingRelay("Timer tick");
+
             if (checkBoxRig.Checked)
             {
-                timer1.Enabled = false;
+                timerGetFreq.Enabled = false;
                 FLRigGetFreq();
-                timer1.Enabled = true;
+                timerGetFreq.Enabled = true;
             }
             else
             {
                 labelFreq.Text = "?";
             }
+            timerGetFreq.Start();
         }
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
