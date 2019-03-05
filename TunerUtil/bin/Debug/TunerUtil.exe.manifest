@@ -78,14 +78,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="TunerUtil.exe" size="1500672">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="TunerUtil.exe" size="1503744">
       <assemblyIdentity name="TunerUtil" version="1.0.0.0" language="neutral" processorArchitecture="x86" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>3qVhoLbL9clNW80FELz08QZlVjg8/ioIdC7+jF2327s=</dsig:DigestValue>
+        <dsig:DigestValue>keah5UGNbPqS/KYpDS9vJm4Myg1UNl64rJiDQltcv/Q=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

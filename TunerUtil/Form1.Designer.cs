@@ -233,7 +233,7 @@
             this.label2.Size = new System.Drawing.Size(82, 17);
             this.label2.TabIndex = 5;
             this.label2.Text = "Freq Tol Hz";
-            this.toolTip1.SetToolTip(this.label2, "If freq is off by more than this autotune will happen");
+            this.toolTip1.SetToolTip(this.label2, "If last-tuned frequency is off by more then this autotune will happen");
             // 
             // numericUpDownSensitivity
             // 
@@ -288,10 +288,10 @@
             // 
             // buttonTunerStatus
             // 
-            this.buttonTunerStatus.Location = new System.Drawing.Point(163, 69);
+            this.buttonTunerStatus.Location = new System.Drawing.Point(159, 69);
             this.buttonTunerStatus.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonTunerStatus.Name = "buttonTunerStatus";
-            this.buttonTunerStatus.Size = new System.Drawing.Size(21, 23);
+            this.buttonTunerStatus.Size = new System.Drawing.Size(30, 23);
             this.buttonTunerStatus.TabIndex = 8;
             this.toolTip1.SetToolTip(this.buttonTunerStatus, "Green - SWR < 1.5\r\nYellow - SWR < 3.0\r\nRed - Tuning failed\r\nGray - Not tuned yet");
             this.buttonTunerStatus.UseVisualStyleBackColor = true;
@@ -499,7 +499,8 @@
             this.comboBoxTunerModel.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxTunerModel.FormattingEnabled = true;
             this.comboBoxTunerModel.Items.AddRange(new object[] {
-            "LDG"});
+            "LDG",
+            "MFJ-928"});
             this.comboBoxTunerModel.Location = new System.Drawing.Point(11, 9);
             this.comboBoxTunerModel.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.comboBoxTunerModel.Name = "comboBoxTunerModel";
@@ -2088,7 +2089,7 @@
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.MaximumSize = new System.Drawing.Size(537, 335);
             this.Name = "Form1";
-            this.Text = "TunerUtil V0.11d";
+            this.Text = "AmpTunerUtility V0.12";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
             this.Load += new System.EventHandler(this.Form1_Load);

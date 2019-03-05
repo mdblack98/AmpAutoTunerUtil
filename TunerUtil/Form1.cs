@@ -27,7 +27,7 @@ namespace TunerUtil
         double lastfrequencyTuned = 0;
         int tolTune = 0;
         Dictionary<int,int> bandTolerance = new Dictionary<int,int>();
-        TunerLDG tuner1 = null;
+        Tuner tuner1 = null;
         Relay relay1 = null;
         Relay relay2 = null;
         Relay relay3 = null;
@@ -36,13 +36,29 @@ namespace TunerUtil
         Stopwatch stopWatchTuner = new Stopwatch();
         int freqStableCount = 0; // 
         int freqStableCountNeeded = 2; //need this number of repeat freqs before tuning starts
-        Form2 form2;
+        //Form2 form2;
         bool relayMissingCheck = true;
-        Mutex mutex = new Mutex();
+        //Mutex mutex = new Mutex();
 
         public Form1()
         {
             InitializeComponent();
+        }
+
+        delegate void SetTextCallback(string text);
+
+        public void SetTextRig(string text)
+        {
+            if (this.richTextBoxRig.InvokeRequired)
+            {
+                SetTextCallback d = new SetTextCallback(SetTextRig);
+                this.Invoke(d, new object[] { text });
+            }
+            else
+            {
+                this.richTextBoxRig.AppendText(text);
+
+            }
         }
 
         private bool SetSelectedIndexOf(ComboBox sender, string match)
@@ -75,8 +91,8 @@ namespace TunerUtil
         Application.ThreadException += new ThreadExceptionEventHandler(Application_ThreadException);
         AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
 
-        Thread t = new Thread(new ThreadStart(SplashStart));
-            t.Start();
+        //Thread t = new Thread(new ThreadStart(SplashStart));
+           // t.Start();
             //Form2 form2 = new Form2();
             //form2.Show();
 
@@ -179,19 +195,19 @@ namespace TunerUtil
                     tabControl1.TabPages.Remove(tabPageRelay2);
                     tabControl1.TabPages.Remove(tabPageRelay3);
                     tabControl1.TabPages.Remove(tabPageRelay4);
-                    form2.ProgressBarSetMax(2);
+                    //form2.ProgressBarSetMax(2);
                     break;
                 case 2:
                     tabControl1.TabPages.Remove(tabPageRelay3);
                     tabControl1.TabPages.Remove(tabPageRelay4);
-                    form2.ProgressBarSetMax(3);
+                    //form2.ProgressBarSetMax(3);
                     break;
                 case 3:
                     tabControl1.TabPages.Remove(tabPageRelay4);
-                    form2.ProgressBarSetMax(4);
+                    //form2.ProgressBarSetMax(4);
                     break;
             }
-            form2.ProgressBar(1);
+            //form2.ProgressBar(1);
             if (comPorts.Count == 0)
             {
                 MyMessageBox("No FTDI relay switches found on USB bus");
@@ -240,7 +256,7 @@ namespace TunerUtil
                 relay1.Open(comboBoxComRelay1.Text);
                 richTextBoxRelay1.AppendText(MyTime() + "Relay 1 opened\n");
                 richTextBoxRelay1.AppendText(MyTime() + "Serial number " + relay1.SerialNumber() + "\n");
-                form2.ProgressBar(2);
+                //form2.ProgressBar(2);
             }
             else
             {
@@ -259,7 +275,7 @@ namespace TunerUtil
                 relay2.Open(comboBoxComRelay2.Text);
                 richTextBoxRelay2.AppendText(MyTime() + "Relay 2 opened\n");
                 richTextBoxRelay2.AppendText(MyTime() + "Serial number " + relay2.SerialNumber() + "\n");
-                form2.ProgressBar(3);
+                //form2.ProgressBar(3);
             }
             else
             {
@@ -278,7 +294,7 @@ namespace TunerUtil
                 relay3.Open(comboBoxComRelay3.Text);
                 richTextBoxRelay3.AppendText(MyTime() + "Relay 3 opened\n");
                 richTextBoxRelay3.AppendText(MyTime() + "Serial number " + relay3.SerialNumber() + "\n");
-                form2.ProgressBar(4);
+                //form2.ProgressBar(4);
             }
             else
             {
@@ -297,7 +313,7 @@ namespace TunerUtil
                 relay4.Open(comboBoxComRelay4.Text);
                 richTextBoxRelay4.AppendText(MyTime() + "Relay 4 opened\n");
                 richTextBoxRelay4.AppendText(MyTime() + "Serial number " + relay4.SerialNumber() + "\n");
-                form2.ProgressBar(5);
+                //form2.ProgressBar(5);
             }
             else
             {
@@ -308,7 +324,15 @@ namespace TunerUtil
             {
                 try
                 {
-                    tuner1 = new TunerLDG(comboBoxTunerModel.Text, comboBoxComTuner.Text, comboBoxBaudTuner.Text);
+                    if (comboBoxTunerModel.Text.Equals("LDG"))
+                    {
+                        tuner1 = new TunerLDG(comboBoxTunerModel.Text, comboBoxComTuner.Text, comboBoxBaudTuner.Text);
+                    }
+                    else if (comboBoxTunerModel.Text.Equals("MFJ-928"))
+                    {
+                        tuner1 = new TunerMFJ928(comboBoxTunerModel.Text, comboBoxComTuner.Text, comboBoxBaudTuner.Text);
+
+                    }
                     if (tuner1.GetSerialPortTuner() == null)
                     {
                         MyMessageBox("Error starting tuner!!!");
@@ -326,8 +350,9 @@ namespace TunerUtil
                 }
             }
             //form2.Close();
-            t.Abort();
-            CheckMissingRelay("FormOpen");
+            //t.Abort();
+            //CheckMissingRelay("FormOpen");
+            tabControl1.SelectedTab = tabPageRelay1;
             timerGetFreq.Interval = 500;
             timerGetFreq.Enabled = true;
 
@@ -336,8 +361,8 @@ namespace TunerUtil
 
         public void SplashStart()
         {
-            form2 = new Form2();
-            Application.Run(form2);
+            //form2 = new Form2();
+            //Application.Run(form2);
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
@@ -651,10 +676,11 @@ namespace TunerUtil
         }
 
         // returns true when Tuner and FLRig are talking to us
-        private bool Tune()
+        // if ptt is true then will use ptt and audio tone for tuning -- e.g. MFJ-928 without radio interface
+        private bool Tune(bool ptt)
         {
             //richTextBoxRig.AppendText(MyTime() + "Tune mutex wait\n");
-            mutex.WaitOne();
+            //mutex.WaitOne();
             //richTextBoxRig.AppendText(MyTime() + "Tune mutex gotit\n");
             Thread.Sleep(250);
             richTextBoxTuner.AppendText(MyTime() + "Tuning to " + frequency+"\n");
@@ -674,10 +700,25 @@ namespace TunerUtil
             buttonTunerStatus.BackColor = Color.LightGray;
             RelaySet(relay1, 1, 1);
             Application.DoEvents();
+            if (ptt) // we turn on PTT and send the audio tone before starting tune
+            {
+                xml = FLRigXML("rig.set_ptt" + vfo, "<params><param><value><i4>1</i4></value></param></params");
+                if (FLRigSend(xml) == false) return false; // Abort if FLRig is giving an error
+                richTextBoxRig.AppendText(MyTime() + "ptt on\n");
+            }
+            // Wait a bit for amplifier to be disabled and PTT to take effect
             Thread.Sleep(500);
+            // Now start our audio
             char response = tuner1.Tune();
+            // stop audio here
             Application.DoEvents();
-            Thread.Sleep(500);
+            if (ptt) // we turn on PTT and send the audio tone before starting tune
+            {
+                xml = FLRigXML("rig.set_ptt" + vfo, "<params><param><value><i4>0</i4></value></param></params");
+                if (FLRigSend(xml) == false) return false; // Abort if FLRig is giving an error
+                richTextBoxRig.AppendText(MyTime() + "ptt off\n");
+            }
+            Thread.Sleep(500); // give a little time for ptt off and audio to stop
             RelaySet(relay1, 1, 0);
             Application.DoEvents();
             if (response == 'T') buttonTunerStatus.BackColor = Color.Green;
@@ -702,7 +743,7 @@ namespace TunerUtil
                 MyMessageBox("Unknown response from tuner = '" + response + "'");
             }
             richTextBoxTuner.AppendText(MyTime() + "Tuning done\n");
-            mutex.ReleaseMutex();
+            //mutex.ReleaseMutex();
             return true;
         }
 
@@ -719,7 +760,7 @@ namespace TunerUtil
         private string FLRigGetXcvr()
         {
             //richTextBoxRig.AppendText(MyTime() + "Xcvr mutex wait\n");
-            mutex.WaitOne();
+            //mutex.WaitOne();
             //richTextBoxRig.AppendText(MyTime() + "Xcvr mutex gotit\n");
             string xcvr = null;
 
@@ -744,7 +785,7 @@ namespace TunerUtil
                 //checkBoxRig.Checked = false;
                 tabControl1.SelectedTab = tabPageRig;
                 //DisconnectFLRig();
-                mutex.ReleaseMutex();
+                //mutex.ReleaseMutex();
                 return null;
             }
             data = new Byte[4096];
@@ -784,14 +825,14 @@ namespace TunerUtil
                 frequency = 0;
             }
             rigStream.ReadTimeout = timeoutSave;
-            mutex.ReleaseMutex();
+            //mutex.ReleaseMutex();
             return xcvr;
         }
 
         private string FLRigGetMode()
         {
             //richTextBoxRig.AppendText(MyTime() + "Mode mutex wait\n");
-            mutex.WaitOne();
+            //mutex.WaitOne();
             //richTextBoxRig.AppendText(MyTime() + "Mode mutex gotit\n");
             string mode = "Unknown";
 
@@ -816,7 +857,7 @@ namespace TunerUtil
                 //checkBoxRig.Checked = false;
                 tabControl1.SelectedTab = tabPageRig;
                 //DisconnectFLRig();
-                mutex.ReleaseMutex();
+                //mutex.ReleaseMutex();
                 return null;
             }
             data = new Byte[4096];
@@ -853,7 +894,7 @@ namespace TunerUtil
                 richTextBoxRig.AppendText(MyTime() + "Rig not responding\n" + ex.Message + "\n");
                 frequency = 0;
             }
-            mutex.ReleaseMutex();
+            //mutex.ReleaseMutex();
             return mode;
         }
 
@@ -893,7 +934,7 @@ namespace TunerUtil
         private void FLRigGetFreq()
         {
             //richTextBoxRig.AppendText(MyTime() + "Freq mutex wait\n");
-            mutex.WaitOne();
+            //mutex.WaitOne();
             //richTextBoxRig.AppendText(MyTime() + "Freq mutex gotit\n");
             if (!checkBoxRig.Checked) return;
             if (rigClient == null)
@@ -935,7 +976,7 @@ namespace TunerUtil
                 //checkBoxRig.Checked = false;
                 tabControl1.SelectedTab = tabPageRig;
                 //DisconnectFLRig();
-                mutex.ReleaseMutex();
+                //mutex.ReleaseMutex();
                 return;
             }
             data = new Byte[4096];
@@ -969,14 +1010,14 @@ namespace TunerUtil
                                 richTextBoxRig.AppendText(MyTime() + "Rapid frequency changes\n");
                                 stopWatchTuner.Reset();
                                 stopWatchTuner.Stop();
-                                mutex.ReleaseMutex();
+                                //mutex.ReleaseMutex();
                                 return; // we'll tune on next poll
                             }
                             stopWatchTuner.Restart();
                             if (checkBoxTunerEnabled.Checked)
                             {
                                 lastfrequencyTuned = frequency;
-                                Tune();
+                                Tune(tuner1.GetModel().Equals("MFJ-928"));
                             }
                             else
                             {
@@ -1028,7 +1069,7 @@ namespace TunerUtil
                 richTextBoxRig.AppendText(MyTime() + "Rig not responding\n" + ex.Message + "\n");
                 frequency = 0;
             }
-            mutex.ReleaseMutex();
+            //mutex.ReleaseMutex();
         }
 
         private void TimerGetFreq_Tick(object sender, EventArgs e)
@@ -1197,7 +1238,7 @@ namespace TunerUtil
                 MyMessageBox("Tuner not enabled");
                 return;
             }
-            Tune();
+            Tune(tuner1.GetModel().Equals("MFJ-928"));
         }
 
         private string FLRigXML(string cmd, string value)

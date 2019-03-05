@@ -9,7 +9,7 @@ using System.Windows.Forms;
 
 namespace TunerUtil
 {
-    class TunerLDG
+    class TunerLDG : Tuner
     {
         private SerialPort SerialPortTuner = null;
 
@@ -48,7 +48,7 @@ namespace TunerUtil
             //}
         }
 
-        public void Close()
+        public override void Close()
         {
             if (SerialPortTuner != null)
             {
@@ -58,7 +58,7 @@ namespace TunerUtil
             }
         }
 
-        public string GetSerialPortTuner()
+        public override string GetSerialPortTuner()
         {
             if (SerialPortTuner == null)
             {
@@ -67,7 +67,7 @@ namespace TunerUtil
             return SerialPortTuner.PortName;
         }
 
-        public char Tune()
+        public override char Tune()
         {
             // LDG Reponse to T command
             // T < 1.5
