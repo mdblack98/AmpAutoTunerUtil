@@ -204,6 +204,7 @@
             this.label15 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
             this.textBoxAntennaFreq1To = new System.Windows.Forms.TextBox();
+            this.buttonTunePause = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownSensitivity)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPageControl.SuspendLayout();
@@ -801,6 +802,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.buttonTunePause);
             this.groupBox1.Controls.Add(this.buttonTune);
             this.groupBox1.Controls.Add(this.buttonTunerStatus);
             this.groupBox1.Location = new System.Drawing.Point(7, 11);
@@ -2202,6 +2204,20 @@
             this.textBoxAntennaFreq1To.Size = new System.Drawing.Size(69, 22);
             this.textBoxAntennaFreq1To.TabIndex = 1;
             // 
+            // buttonTunePause
+            // 
+            this.buttonTunePause.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.buttonTunePause.FlatAppearance.BorderSize = 2;
+            this.buttonTunePause.Location = new System.Drawing.Point(50, 130);
+            this.buttonTunePause.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.buttonTunePause.Name = "buttonTunePause";
+            this.buttonTunePause.Size = new System.Drawing.Size(75, 27);
+            this.buttonTunePause.TabIndex = 11;
+            this.buttonTunePause.Text = "Pause";
+            this.toolTip1.SetToolTip(this.buttonTunePause, "Start a tune cycle");
+            this.buttonTunePause.UseVisualStyleBackColor = false;
+            this.buttonTunePause.Click += new System.EventHandler(this.buttonTunePause_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -2215,7 +2231,7 @@
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.MaximumSize = new System.Drawing.Size(537, 335);
             this.Name = "Form1";
-            this.Text = "AmpAutoTunerUtility V0.13 by W9MDB";
+            this.Text = "AmpAutoTunerUtility V0.14 by W9MDB";
             this.HelpButtonClicked += new System.ComponentModel.CancelEventHandler(this.Form1_HelpButtonClicked);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
@@ -2426,6 +2442,7 @@
         private System.Windows.Forms.TextBox textBoxAntennaFreq1From;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Button buttonTunePause;
     }
 }
 

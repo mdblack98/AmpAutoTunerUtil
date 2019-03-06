@@ -49,6 +49,7 @@ namespace AmpAutoTunerUtility
         int freqStableCountNeeded = 2; //need this number of repeat freqs before tuning starts
         //Form2 form2;
         bool relayMissingCheck = true;
+        bool paused = false;
         //Mutex mutex = new Mutex();
 
         public Form1()
@@ -713,6 +714,11 @@ namespace AmpAutoTunerUtility
         // if ptt is true then will use ptt and audio tone for tuning -- e.g. MFJ-928 without radio interface
         private bool Tune(bool ptt)
         {
+            if (paused)
+            {
+                richTextBoxTuner.AppendText(MyTime() + "Tuner is paused");
+                return true;
+            }
             //richTextBoxRig.AppendText(MyTime() + "Tune mutex wait\n");
             //mutex.WaitOne();
             //richTextBoxRig.AppendText(MyTime() + "Tune mutex gotit\n");
@@ -1614,6 +1620,21 @@ namespace AmpAutoTunerUtility
         private void Form1_HelpButtonClicked(object sender, CancelEventArgs e)
         {
             MessageBox.Show("Help");
+        }
+
+        private void buttonTunePause_Click(object sender, EventArgs e)
+        {
+            paused = !paused;
+            if (paused)
+            {
+                buttonTunePause.Text = "Resume";
+                buttonTune.Enabled = false;
+            }
+            else
+            {
+                buttonTunePause.Text = "Pause";
+                buttonTune.Enabled = true;
+            }
         }
     }
 }
