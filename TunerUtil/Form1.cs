@@ -1126,7 +1126,7 @@ namespace AmpAutoTunerUtility
                             if (checkBoxTunerEnabled.Checked)
                             {
                                 lastfrequencyTuned = frequencyHz;
-                                Tune(tuner1.GetModel().Equals("MFJ-928"));
+                                Tune(true);
                             }
                             else
                             {
