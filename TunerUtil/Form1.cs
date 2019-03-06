@@ -1629,11 +1629,15 @@ namespace AmpAutoTunerUtility
             {
                 buttonTunePause.Text = "Resume";
                 buttonTune.Enabled = false;
+                labelSWR.Text = "SWR Paused";
+                buttonTunerStatus.BackColor = Color.LightGray;
             }
             else
             {
                 buttonTunePause.Text = "Pause";
                 buttonTune.Enabled = true;
+                labelSWR.Text = "SWR";
+                Tune(true);
             }
         }
     }
