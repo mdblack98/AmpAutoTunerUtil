@@ -204,27 +204,39 @@ namespace AmpAutoTunerUtility
             }
             //relay1 = new Relay(comboBoxComRelay1.SelectedText, comboBoxBaudRelay1.SelectedText);
             relay1 = new Relay();
-            if (relay1.DevCount() > 1) relay2 = new Relay();
-            if (relay1.DevCount() > 2) relay3 = new Relay();
-            if (relay1.DevCount() > 3) relay4 = new Relay();
             List<string> comPorts = relay1.ComList();
-            switch(comPorts.Count)
+            if (relay1.DevCount() == 0)
             {
-                case 1:
-                    tabControl1.TabPages.Remove(tabPageRelay2);
-                    tabControl1.TabPages.Remove(tabPageRelay3);
-                    tabControl1.TabPages.Remove(tabPageRelay4);
-                    //form2.ProgressBarSetMax(2);
-                    break;
-                case 2:
-                    tabControl1.TabPages.Remove(tabPageRelay3);
-                    tabControl1.TabPages.Remove(tabPageRelay4);
-                    //form2.ProgressBarSetMax(3);
-                    break;
-                case 3:
-                    tabControl1.TabPages.Remove(tabPageRelay4);
-                    //form2.ProgressBarSetMax(4);
-                    break;
+                tabControl1.TabPages.Remove(tabPageRelay1);
+                tabControl1.TabPages.Remove(tabPageRelay2);
+                tabControl1.TabPages.Remove(tabPageRelay3);
+                tabControl1.TabPages.Remove(tabPageRelay4);
+                relay1.Close();
+                relay1 = null;
+            }
+            else
+            {
+                if (relay1.DevCount() > 1) relay2 = new Relay();
+                if (relay1.DevCount() > 2) relay3 = new Relay();
+                if (relay1.DevCount() > 3) relay4 = new Relay();
+                switch (comPorts.Count)
+                {
+                    case 1:
+                        tabControl1.TabPages.Remove(tabPageRelay2);
+                        tabControl1.TabPages.Remove(tabPageRelay3);
+                        tabControl1.TabPages.Remove(tabPageRelay4);
+                        //form2.ProgressBarSetMax(2);
+                        break;
+                    case 2:
+                        tabControl1.TabPages.Remove(tabPageRelay3);
+                        tabControl1.TabPages.Remove(tabPageRelay4);
+                        //form2.ProgressBarSetMax(3);
+                        break;
+                    case 3:
+                        tabControl1.TabPages.Remove(tabPageRelay4);
+                        //form2.ProgressBarSetMax(4);
+                        break;
+                }
             }
             //form2.ProgressBar(1);
             if (comPorts.Count == 0)
@@ -1413,17 +1425,18 @@ namespace AmpAutoTunerUtility
         {
             if (formLoading)
                 return;
+            Application.DoEvents();
             if (checkBoxRelay1Enabled.Checked && comboBoxComRelay1.SelectedIndex >= 0)
             {
                 //if (relay1 != null) MyMessageBox("Relay1 != null??");
-                //relay1 = new Relay();
+                relay1 = new Relay();
+                richTextBoxRelay1.AppendText(MyTime() + "Relay1 open\n");
                 relay1.Open(comboBoxComRelay1.Text);
-                richTextBoxRelay1.AppendText(MyTime() + "Relay1 opened\n");
                 richTextBoxRelay1.AppendText(MyTime() + "Serial number " + relay1.SerialNumber() +"\n");
-                //relay1 = new Relay(comboBoxComRelay1.SelectedText, comboBoxBaudRelay1.SelectedText);
             }
             else if (!checkBoxRelay1Enabled.Checked && comboBoxComRelay1.SelectedIndex >= 0)
             {
+                richTextBoxRelay2.AppendText(MyTime() + "Relay1 close\n");
                 relay1.Close();
             }
             else if (checkBoxRelay1Enabled.Checked && comboBoxComRelay1.SelectedIndex < 0)
@@ -1573,14 +1586,17 @@ namespace AmpAutoTunerUtility
         {
             if (formLoading)
                 return;
+            Application.DoEvents();
             if (checkBoxRelay2Enabled.Checked && comboBoxComRelay2.SelectedIndex >= 0)
             {
+                relay2 = new Relay();
+                richTextBoxRelay2.AppendText(MyTime() + "Relay2 open\n");
                 relay2.Open(comboBoxComRelay2.Text);
-                richTextBoxRelay2.AppendText(MyTime() + "Relay2 opened\n");
                 richTextBoxRelay2.AppendText(MyTime() + "Serial number " + relay2.SerialNumber() + "\n");
             }
             else if (!checkBoxRelay2Enabled.Checked && comboBoxComRelay2.SelectedIndex >= 0)
             {
+                richTextBoxRelay2.AppendText(MyTime() + "Relay2 close\n");
                 relay2.Close();
             }
             else if (checkBoxRelay2Enabled.Checked && comboBoxComRelay2.SelectedIndex < 0)
@@ -1593,6 +1609,11 @@ namespace AmpAutoTunerUtility
         private void buttonTune_Click_2(object sender, EventArgs e)
         {
 
+        }
+
+        private void Form1_HelpButtonClicked(object sender, CancelEventArgs e)
+        {
+            MessageBox.Show("Help");
         }
     }
 }
