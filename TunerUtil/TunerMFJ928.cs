@@ -7,7 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace TunerUtil
+namespace AmpAutoTunerUtility
 {
     public class TunerMFJ928 : Tuner
     {
@@ -92,9 +92,15 @@ namespace TunerUtil
             // Have to handle each response
             byte[] data = new byte[4096];
             int i = 0;
-            while (SerialPortTuner.BytesToRead < 6)
+            int n = 0;
+            while (SerialPortTuner.BytesToRead < 6 && n < 10*5)
             {
                 Thread.Sleep(100);
+                ++n;
+            }
+            if (n == 10*5)
+            {
+                return;
             }
             while (SerialPortTuner.BytesToRead > 0)
             {
@@ -131,8 +137,8 @@ namespace TunerUtil
         public override char Tune()
         {
             char response = 'F';
-            //byte[] data = { 0x00, 0xfe, 0xfe, 0x06, 0x01, 0x00, 0x00, 0xf9, 0xfd };
-            byte[] data = { 0x06, 0x01, 0x00, 0x00, 0xf9};
+            byte[] data = { 0x00, 0xfe, 0xfe, 0x06, 0x01, 0x00, 0x00, 0xf9, 0xfd };
+            //byte[] data = { 0x06, 0x01, 0x00, 0x00, 0xf9};
             Flush();
             SerialPortTuner.Write(data, 0, data.Length);
             ReadResponse();

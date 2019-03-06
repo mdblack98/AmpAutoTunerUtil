@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace TunerUtil.Properties {
+namespace AmpAutoTunerUtility.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
@@ -445,7 +445,7 @@ namespace TunerUtil.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
         public string textBoxAntennaFreq1From {
             get {
                 return ((string)(this["textBoxAntennaFreq1From"]));
@@ -457,7 +457,7 @@ namespace TunerUtil.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("18")]
         public string textBoxAntennaFreq2From {
             get {
                 return ((string)(this["textBoxAntennaFreq2From"]));
@@ -469,7 +469,7 @@ namespace TunerUtil.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("14")]
         public string textBoxAntennaFreq3From {
             get {
                 return ((string)(this["textBoxAntennaFreq3From"]));
@@ -541,7 +541,7 @@ namespace TunerUtil.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("100")]
         public string textBoxAntennaFreq1To {
             get {
                 return ((string)(this["textBoxAntennaFreq1To"]));
@@ -553,7 +553,7 @@ namespace TunerUtil.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("18.17")]
         public string textBoxAntennaFreq2To {
             get {
                 return ((string)(this["textBoxAntennaFreq2To"]));
@@ -565,7 +565,7 @@ namespace TunerUtil.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("54")]
         public string textBoxAntennaFreq3To {
             get {
                 return ((string)(this["textBoxAntennaFreq3To"]));
@@ -733,7 +733,7 @@ namespace TunerUtil.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("My Antenna")]
         public string textBoxAntenna1 {
             get {
                 return ((string)(this["textBoxAntenna1"]));
@@ -745,7 +745,7 @@ namespace TunerUtil.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("17M Loop Example")]
         public string textBoxAntenna2 {
             get {
                 return ((string)(this["textBoxAntenna2"]));
@@ -757,7 +757,7 @@ namespace TunerUtil.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Cobweb Example")]
         public string textBoxAntenna3 {
             get {
                 return ((string)(this["textBoxAntenna3"]));
@@ -925,7 +925,7 @@ namespace TunerUtil.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
         public string textBoxAntenna1Bits {
             get {
                 return ((string)(this["textBoxAntenna1Bits"]));
@@ -937,7 +937,7 @@ namespace TunerUtil.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
         public string textBoxAntenna2Bits {
             get {
                 return ((string)(this["textBoxAntenna2Bits"]));
@@ -949,7 +949,7 @@ namespace TunerUtil.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("2")]
         public string textBoxAntenna3Bits {
             get {
                 return ((string)(this["textBoxAntenna3Bits"]));
@@ -961,7 +961,7 @@ namespace TunerUtil.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("3")]
         public string textBoxAntenna4Bits {
             get {
                 return ((string)(this["textBoxAntenna4Bits"]));
@@ -973,7 +973,7 @@ namespace TunerUtil.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("4")]
         public string textBoxAntenna5Bits {
             get {
                 return ((string)(this["textBoxAntenna5Bits"]));
@@ -985,7 +985,7 @@ namespace TunerUtil.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("5")]
         public string textBoxAntenna6Bits {
             get {
                 return ((string)(this["textBoxAntenna6Bits"]));
@@ -997,7 +997,7 @@ namespace TunerUtil.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("6")]
         public string textBoxAntenna7Bits {
             get {
                 return ((string)(this["textBoxAntenna7Bits"]));
@@ -1009,7 +1009,7 @@ namespace TunerUtil.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("7")]
         public string textBoxAntenna8Bits {
             get {
                 return ((string)(this["textBoxAntenna8Bits"]));
@@ -1040,6 +1040,678 @@ namespace TunerUtil.Properties {
             }
             set {
                 this["radioButtonAntennaWire8"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public string Antenna1From {
+            get {
+                return ((string)(this["Antenna1From"]));
+            }
+            set {
+                this["Antenna1From"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("18")]
+        public string Antenna2From {
+            get {
+                return ((string)(this["Antenna2From"]));
+            }
+            set {
+                this["Antenna2From"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("14")]
+        public string Antenna3From {
+            get {
+                return ((string)(this["Antenna3From"]));
+            }
+            set {
+                this["Antenna3From"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Antenna4From {
+            get {
+                return ((string)(this["Antenna4From"]));
+            }
+            set {
+                this["Antenna4From"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Antenna5From {
+            get {
+                return ((string)(this["Antenna5From"]));
+            }
+            set {
+                this["Antenna5From"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Antenna6From {
+            get {
+                return ((string)(this["Antenna6From"]));
+            }
+            set {
+                this["Antenna6From"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Antenna7From {
+            get {
+                return ((string)(this["Antenna7From"]));
+            }
+            set {
+                this["Antenna7From"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Antenna8From {
+            get {
+                return ((string)(this["Antenna8From"]));
+            }
+            set {
+                this["Antenna8From"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("100")]
+        public string Antenna1To {
+            get {
+                return ((string)(this["Antenna1To"]));
+            }
+            set {
+                this["Antenna1To"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("18.17")]
+        public string Antenna2To {
+            get {
+                return ((string)(this["Antenna2To"]));
+            }
+            set {
+                this["Antenna2To"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("54")]
+        public string Antenna3To {
+            get {
+                return ((string)(this["Antenna3To"]));
+            }
+            set {
+                this["Antenna3To"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Antenna4To {
+            get {
+                return ((string)(this["Antenna4To"]));
+            }
+            set {
+                this["Antenna4To"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Antenna5To {
+            get {
+                return ((string)(this["Antenna5To"]));
+            }
+            set {
+                this["Antenna5To"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Antenna6To {
+            get {
+                return ((string)(this["Antenna6To"]));
+            }
+            set {
+                this["Antenna6To"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Antenna7To {
+            get {
+                return ((string)(this["Antenna7To"]));
+            }
+            set {
+                this["Antenna7To"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Antenna8To {
+            get {
+                return ((string)(this["Antenna8To"]));
+            }
+            set {
+                this["Antenna8To"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Antenna1Enable {
+            get {
+                return ((bool)(this["Antenna1Enable"]));
+            }
+            set {
+                this["Antenna1Enable"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool Antenna2Enable {
+            get {
+                return ((bool)(this["Antenna2Enable"]));
+            }
+            set {
+                this["Antenna2Enable"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool Antenna3Enable {
+            get {
+                return ((bool)(this["Antenna3Enable"]));
+            }
+            set {
+                this["Antenna3Enable"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool Antenna4Enable {
+            get {
+                return ((bool)(this["Antenna4Enable"]));
+            }
+            set {
+                this["Antenna4Enable"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool Antenna5Enable {
+            get {
+                return ((bool)(this["Antenna5Enable"]));
+            }
+            set {
+                this["Antenna5Enable"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool Antenna6Enable {
+            get {
+                return ((bool)(this["Antenna6Enable"]));
+            }
+            set {
+                this["Antenna6Enable"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool Antenna7Enable {
+            get {
+                return ((bool)(this["Antenna7Enable"]));
+            }
+            set {
+                this["Antenna7Enable"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool Antenna8Enable {
+            get {
+                return ((bool)(this["Antenna8Enable"]));
+            }
+            set {
+                this["Antenna8Enable"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Antenna1Selected {
+            get {
+                return ((string)(this["Antenna1Selected"]));
+            }
+            set {
+                this["Antenna1Selected"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Antenna2Selected {
+            get {
+                return ((string)(this["Antenna2Selected"]));
+            }
+            set {
+                this["Antenna2Selected"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Antenna3Selected {
+            get {
+                return ((string)(this["Antenna3Selected"]));
+            }
+            set {
+                this["Antenna3Selected"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Antenna4Selected {
+            get {
+                return ((string)(this["Antenna4Selected"]));
+            }
+            set {
+                this["Antenna4Selected"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Antenna5Selected {
+            get {
+                return ((string)(this["Antenna5Selected"]));
+            }
+            set {
+                this["Antenna5Selected"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Antenna6Selected {
+            get {
+                return ((string)(this["Antenna6Selected"]));
+            }
+            set {
+                this["Antenna6Selected"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Antenna7Selected {
+            get {
+                return ((string)(this["Antenna7Selected"]));
+            }
+            set {
+                this["Antenna7Selected"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Antenna8Selected {
+            get {
+                return ((string)(this["Antenna8Selected"]));
+            }
+            set {
+                this["Antenna8Selected"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("My Antenna")]
+        public string Antenna1Name {
+            get {
+                return ((string)(this["Antenna1Name"]));
+            }
+            set {
+                this["Antenna1Name"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Example 17M")]
+        public string Antenna2Name {
+            get {
+                return ((string)(this["Antenna2Name"]));
+            }
+            set {
+                this["Antenna2Name"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Example Cobweb")]
+        public string Antenna3Name {
+            get {
+                return ((string)(this["Antenna3Name"]));
+            }
+            set {
+                this["Antenna3Name"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Antenna4Name {
+            get {
+                return ((string)(this["Antenna4Name"]));
+            }
+            set {
+                this["Antenna4Name"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Antenna5Name {
+            get {
+                return ((string)(this["Antenna5Name"]));
+            }
+            set {
+                this["Antenna5Name"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Antenna6Name {
+            get {
+                return ((string)(this["Antenna6Name"]));
+            }
+            set {
+                this["Antenna6Name"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Antenna7Name {
+            get {
+                return ((string)(this["Antenna7Name"]));
+            }
+            set {
+                this["Antenna7Name"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Antenna8Name {
+            get {
+                return ((string)(this["Antenna8Name"]));
+            }
+            set {
+                this["Antenna8Name"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Antenna1Relay {
+            get {
+                return ((string)(this["Antenna1Relay"]));
+            }
+            set {
+                this["Antenna1Relay"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Antenna2Relay {
+            get {
+                return ((string)(this["Antenna2Relay"]));
+            }
+            set {
+                this["Antenna2Relay"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Antenna3Relay {
+            get {
+                return ((string)(this["Antenna3Relay"]));
+            }
+            set {
+                this["Antenna3Relay"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Antenna4Relay {
+            get {
+                return ((string)(this["Antenna4Relay"]));
+            }
+            set {
+                this["Antenna4Relay"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Antenna5Relay {
+            get {
+                return ((string)(this["Antenna5Relay"]));
+            }
+            set {
+                this["Antenna5Relay"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Antenna6Relay {
+            get {
+                return ((string)(this["Antenna6Relay"]));
+            }
+            set {
+                this["Antenna6Relay"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Antenna7Relay {
+            get {
+                return ((string)(this["Antenna7Relay"]));
+            }
+            set {
+                this["Antenna7Relay"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Antenna8Relay {
+            get {
+                return ((string)(this["Antenna8Relay"]));
+            }
+            set {
+                this["Antenna8Relay"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Antenna1Bits {
+            get {
+                return ((string)(this["Antenna1Bits"]));
+            }
+            set {
+                this["Antenna1Bits"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Antenna2Bits {
+            get {
+                return ((string)(this["Antenna2Bits"]));
+            }
+            set {
+                this["Antenna2Bits"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Antenna3Bits {
+            get {
+                return ((string)(this["Antenna3Bits"]));
+            }
+            set {
+                this["Antenna3Bits"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Antenna4Bits {
+            get {
+                return ((string)(this["Antenna4Bits"]));
+            }
+            set {
+                this["Antenna4Bits"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Antenna5Bits {
+            get {
+                return ((string)(this["Antenna5Bits"]));
+            }
+            set {
+                this["Antenna5Bits"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Antenna6Bits {
+            get {
+                return ((string)(this["Antenna6Bits"]));
+            }
+            set {
+                this["Antenna6Bits"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Antenna7Bits {
+            get {
+                return ((string)(this["Antenna7Bits"]));
+            }
+            set {
+                this["Antenna7Bits"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Antenna8Bits {
+            get {
+                return ((string)(this["Antenna8Bits"]));
+            }
+            set {
+                this["Antenna8Bits"] = value;
             }
         }
     }

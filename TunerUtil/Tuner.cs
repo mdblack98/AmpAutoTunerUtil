@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TunerUtil
+namespace AmpAutoTunerUtility
 {
     public class Tuner
     {

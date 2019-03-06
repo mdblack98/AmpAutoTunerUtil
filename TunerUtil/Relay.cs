@@ -5,7 +5,7 @@ using System.IO.Ports;
 using System.Threading;
 using static FTD2XX_NET.FTDI;
 
-namespace TunerUtil
+namespace AmpAutoTunerUtility
 {
     class Relay
     {
@@ -31,10 +31,12 @@ namespace TunerUtil
             FT_DEVICE_INFO_NODE[] nodes = new FT_DEVICE_INFO_NODE[devcount];
             FT_STATUS status = ftdi.GetDeviceList(nodes);
             uint index = 0;
-           foreach (FT_DEVICE_INFO_NODE node in nodes)
+            uint nRelays = 0;
+            foreach (FT_DEVICE_INFO_NODE node in nodes)
             {
                 if (node.Description.Contains("FT245R"))
                 {
+                    nRelays++;
                     ftdi.OpenByIndex(index);
                     ftdi.GetCOMPort(out string comport);
                     ftdi.Close();
@@ -44,6 +46,7 @@ namespace TunerUtil
                 }
                 ++index;
             }
+            devcount = nRelays;
         }
 
         public void Open(string comPortNew)
@@ -54,6 +57,7 @@ namespace TunerUtil
             comPort = comPortNew;
             relayNum = (int)index + 1; // index is 0-based, our relayNum is 1-based for the GUI
             serialNumber = serialNums[index];
+            AllOff();
         }
 
         public string SerialNumber()
@@ -91,14 +95,34 @@ namespace TunerUtil
 
         ~Relay()
         {
-            if (ftdi != null && ftdi.IsOpen)
-                ftdi.Close();
+            Close();
         }
 
         public void Close()
         {
-            if (ftdi != null)
+            // Put some delays in here as the 8-channel relay was turning on some relays
+            // I had 4-channel as Relay1 and 8-channel as Relay2
+            // The delays seem to have cured that problem
+            if (ftdi != null && ftdi.IsOpen)
+            {
+                AllOff();
+                //Thread.Sleep(200);
                 ftdi.Close();
+            }
+            ftdi = null;
+            //Thread.Sleep(200);
+        }
+
+        public void AllOff()
+        {
+            Set(1, 0); // Turn off all relays
+            Set(2, 0);
+            Set(3, 0);
+            Set(4, 0);
+            Set(5, 0);
+            Set(6, 0);
+            Set(7, 0);
+            Set(8, 0);
         }
 
         public bool IsOpen()
@@ -128,7 +152,7 @@ namespace TunerUtil
         {
             byte bitModes = 0;
             ftdi.GetPinStates(ref bitModes);
-            if ((bitModes & (1<<(nRelay-1))) != 0)
+            if ((bitModes & (1 << (nRelay - 1))) != 0)
             {
                 return true;
             }
@@ -149,7 +173,7 @@ namespace TunerUtil
 
         }
 
-        public void Set(int nRelay,byte status)
+        public void Set(int nRelay, byte status)
         {
             // Get status
             byte[] data = { 0xff, 0xff, 0x00 };
@@ -159,7 +183,7 @@ namespace TunerUtil
 
             ftdi.GetPinStates(ref bitModes);
 
-            if (status!=0)
+            if (status != 0)
             {
                 flags = (byte)(bitModes | (1u << (nRelay - 1)));
             }
@@ -169,7 +193,8 @@ namespace TunerUtil
             }
             data[2] = flags;
             ftdi.Write(data, data.Length, ref nWritten);
-            Thread.Sleep(2);
+            Thread.Sleep(100);
+            Status();
         }
     }
 }

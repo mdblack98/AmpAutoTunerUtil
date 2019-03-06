@@ -11,8 +11,19 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+// Todo list
+// Add CW tuning
+// Start up errors when Tuner or Relay not available
+// Polymorphize Rig control and add rigctrld interface
+// Effect of 12V power loss
+// Effect of USB loss
+// Rescan COM ports
+// Rescan USB devices
+//   https://stackoverflow.com/questions/620144/detecting-usb-drive-insertion-and-removal-using-windows-service-and-c-sharp
+// Add ethernet switch
+//   https://www.sainsmart.com/collections/internet-of-things/products/rj45-ethernet-control-board-for-8-16-ch-relays-1
 
-namespace TunerUtil
+namespace AmpAutoTunerUtility
 {
     public partial class Form1 : Form
     {
@@ -22,7 +33,7 @@ namespace TunerUtil
         string comPortTuner = "";
         TcpClient rigClient;
         NetworkStream rigStream;
-        double frequency = 0;
+        double frequencyHz = 0;
         double lastfrequency = 0;
         double lastfrequencyTuned = 0;
         int tolTune = 0;
@@ -176,6 +187,14 @@ namespace TunerUtil
                 textBoxAntenna6.Text = Properties.Settings.Default.textBoxAntenna6;
                 textBoxAntenna7.Text = Properties.Settings.Default.textBoxAntenna7;
                 textBoxAntenna8.Text = Properties.Settings.Default.textBoxAntenna8;
+                textBoxAntenna1Bits.Text = Properties.Settings.Default.textBoxAntenna1Bits;
+                textBoxAntenna2Bits.Text = Properties.Settings.Default.textBoxAntenna2Bits;
+                textBoxAntenna3Bits.Text = Properties.Settings.Default.textBoxAntenna3Bits;
+                textBoxAntenna4Bits.Text = Properties.Settings.Default.textBoxAntenna4Bits;
+                textBoxAntenna5Bits.Text = Properties.Settings.Default.textBoxAntenna5Bits;
+                textBoxAntenna6Bits.Text = Properties.Settings.Default.textBoxAntenna6Bits;
+                textBoxAntenna7Bits.Text = Properties.Settings.Default.textBoxAntenna7Bits;
+                textBoxAntenna8Bits.Text = Properties.Settings.Default.textBoxAntenna8Bits;
                 radioButtonAntennaWire3.Checked = Properties.Settings.Default.radioButtonAntennaWire3;
                 radioButtonAntennaWire8.Checked = Properties.Settings.Default.radioButtonAntennaWire8;
             }
@@ -331,9 +350,10 @@ namespace TunerUtil
                     else if (comboBoxTunerModel.Text.Equals("MFJ-928"))
                     {
                         tuner1 = new TunerMFJ928(comboBoxTunerModel.Text, comboBoxComTuner.Text, comboBoxBaudTuner.Text);
-
+                        // We don't need any command information
                     }
-                    if (tuner1.GetSerialPortTuner() == null)
+
+                    if (tuner1 == null || tuner1.GetSerialPortTuner() == null)
                     {
                         MyMessageBox("Error starting tuner!!!");
                     }
@@ -349,10 +369,11 @@ namespace TunerUtil
 
                 }
             }
+
             //form2.Close();
             //t.Abort();
             //CheckMissingRelay("FormOpen");
-            tabControl1.SelectedTab = tabPageRelay1;
+            //tabControl1.SelectedTab = tabPageRelay1;
             timerGetFreq.Interval = 500;
             timerGetFreq.Enabled = true;
 
@@ -386,7 +407,7 @@ namespace TunerUtil
             CheckMissingRelay("Closing");
             Properties.Settings.Default.Relay1Enabled = checkBoxRelay1Enabled.Checked;
             Properties.Settings.Default.Relay2Enabled = checkBoxRelay2Enabled.Checked;
-            Properties.Settings.Default.Relay3Enabled = checkBoxRelay2Enabled.Checked;
+            Properties.Settings.Default.Relay3Enabled = checkBoxRelay3Enabled.Checked;
             Properties.Settings.Default.Relay4Enabled = checkBoxRelay4Enabled.Checked;
 
             Properties.Settings.Default.Relay1Com = comboBoxComRelay1.Text;
@@ -464,6 +485,7 @@ namespace TunerUtil
 
         private void CheckMissingRelay(string info)
         {
+            return;
             info = MyTime() + info + "\n";
             if (relayMissingCheck == false) return;
             if (!checkBoxRelay1Enabled.Checked)
@@ -600,7 +622,7 @@ namespace TunerUtil
                 rigStream = rigClient.GetStream();
                 rigStream.ReadTimeout = 500;
                 FLRigWait();
-                richTextBoxRig.AppendText("FLRig connected\n");
+                richTextBoxRig.AppendText(MyTime() + "FLRig connected\n");
             }
             catch (Exception ex)
             {
@@ -683,10 +705,10 @@ namespace TunerUtil
             //mutex.WaitOne();
             //richTextBoxRig.AppendText(MyTime() + "Tune mutex gotit\n");
             Thread.Sleep(250);
-            richTextBoxTuner.AppendText(MyTime() + "Tuning to " + frequency+"\n");
+            richTextBoxTuner.AppendText(MyTime() + "Tuning to " + frequencyHz+"\n");
             char vfo = 'A';
             if (radioButtonVFOA.Checked) vfo = 'B';
-            string xml = FLRigXML("rig.set_vfo"+vfo,"<params><param><value><double> "+frequency+" </double></value></param></params");
+            string xml = FLRigXML("rig.set_vfo"+vfo,"<params><param><value><double> "+frequencyHz+" </double></value></param></params");
             if (FLRigSend(xml) == false) return false; // Abort if FLRig is giving an error
 
             string mode = FLRigGetMode();
@@ -721,18 +743,24 @@ namespace TunerUtil
             Thread.Sleep(500); // give a little time for ptt off and audio to stop
             RelaySet(relay1, 1, 0);
             Application.DoEvents();
-            if (response == 'T') buttonTunerStatus.BackColor = Color.Green;
+            if (response == 'T')
+            {
+                buttonTunerStatus.BackColor = Color.Green;
+                labelSWR.Text = "SWR < 1.5";
+            }
             else if (response == 'M')
             {
                 SoundPlayer simpleSound = new SoundPlayer("swr.wav");
                 simpleSound.Play();
                 buttonTunerStatus.BackColor = Color.Yellow;
+                labelSWR.Text = "SWR 1.5-3.0";
             }
             else if (response == 'F')
             {
                 SoundPlayer simpleSound = new SoundPlayer("swr.wav");
                 simpleSound.Play();
                 buttonTunerStatus.BackColor = Color.Red;
+                labelSWR.Text = "SWR > 3.0";
             }
             else
             {
@@ -816,13 +844,13 @@ namespace TunerUtil
                 catch (Exception)
                 {
                     richTextBoxRig.AppendText(MyTime() + "Error parsing freq from answer:\n" + responseData + "\n");
-                    frequency = 0;
+                    frequencyHz = 0;
                 }
             }
             catch (Exception ex)
             {
                 richTextBoxRig.AppendText(MyTime() + "Rig not responding\n" + ex.Message + "\n");
-                frequency = 0;
+                frequencyHz = 0;
             }
             rigStream.ReadTimeout = timeoutSave;
             //mutex.ReleaseMutex();
@@ -886,13 +914,13 @@ namespace TunerUtil
                 catch (Exception)
                 {
                     richTextBoxRig.AppendText(MyTime() + "Error parsing freq from answer:\n" + responseData + "\n");
-                    frequency = 0;
+                    frequencyHz = 0;
                 }
             }
             catch (Exception ex)
             {
                 richTextBoxRig.AppendText(MyTime() + "Rig not responding\n" + ex.Message + "\n");
-                frequency = 0;
+                frequencyHz = 0;
             }
             //mutex.ReleaseMutex();
             return mode;
@@ -902,6 +930,75 @@ namespace TunerUtil
         {
             string time = DateTime.Now.ToString("HH:mm:ss.f") + ": "; 
             return time;
+        }
+
+        private void SetAntennaInUse()
+        {
+            double frequencyMHz = frequencyHz / 1000000;
+
+            buttonAntenna1.BackColor = Color.LightGray;
+            buttonAntenna2.BackColor = Color.LightGray;
+            buttonAntenna3.BackColor = Color.LightGray;
+            buttonAntenna4.BackColor = Color.LightGray;
+            buttonAntenna5.BackColor = Color.LightGray;
+            buttonAntenna6.BackColor = Color.LightGray;
+            buttonAntenna7.BackColor = Color.LightGray;
+            buttonAntenna8.BackColor = Color.LightGray;
+            try
+            {
+                if (checkBoxAntenna1.Checked == true && frequencyMHz >= Convert.ToDouble(textBoxAntennaFreq1From.Text) && frequencyMHz <= Convert.ToDouble(textBoxAntennaFreq1To.Text))
+                {
+                    checkBoxAntenna1.Checked = true;
+                    buttonAntenna1.BackColor = Color.Green;
+                    labelAntennaSelected.Text = "Antenna: " + textBoxAntenna1.Text;
+                }
+                else if (checkBoxAntenna2.Checked == true && frequencyMHz >= Convert.ToDouble(textBoxAntennaFreq2From.Text) && frequencyMHz <= Convert.ToDouble(textBoxAntennaFreq2To.Text))
+                {
+                    checkBoxAntenna2.Checked = true;
+                    buttonAntenna2.BackColor = Color.Green;
+                    labelAntennaSelected.Text = "Antenna: " + textBoxAntenna2.Text;
+                }
+                else if (checkBoxAntenna3.Checked == true && frequencyMHz >= Convert.ToDouble(textBoxAntennaFreq3From.Text) && frequencyMHz <= Convert.ToDouble(textBoxAntennaFreq3To.Text))
+                {
+                    checkBoxAntenna3.Checked = true;
+                    buttonAntenna3.BackColor = Color.Green;
+                    labelAntennaSelected.Text = "Antenna: " + textBoxAntenna3.Text;
+                }
+                else if (checkBoxAntenna4.Checked == true && frequencyMHz >= Convert.ToDouble(textBoxAntennaFreq4From.Text) && frequencyMHz <= Convert.ToDouble(textBoxAntennaFreq4To.Text))
+                {
+                    checkBoxAntenna4.Checked = true;
+                    buttonAntenna4.BackColor = Color.Green;
+                    labelAntennaSelected.Text = "Antenna: " + textBoxAntenna4.Text;
+                }
+                else if (checkBoxAntenna5.Checked == true && frequencyMHz >= Convert.ToDouble(textBoxAntennaFreq5From.Text) && frequencyMHz <= Convert.ToDouble(textBoxAntennaFreq5To.Text))
+                {
+                    checkBoxAntenna5.Checked = true;
+                    buttonAntenna5.BackColor = Color.Green;
+                    labelAntennaSelected.Text = "Antenna: " + textBoxAntenna5.Text;
+                }
+                else if (checkBoxAntenna6.Checked == true && frequencyMHz >= Convert.ToDouble(textBoxAntennaFreq6From.Text) && frequencyMHz <= Convert.ToDouble(textBoxAntennaFreq6To.Text))
+                {
+                    checkBoxAntenna6.Checked = true;
+                    buttonAntenna6.BackColor = Color.Green;
+                    labelAntennaSelected.Text = "Antenna: " + textBoxAntenna6.Text;
+                }
+                else if (checkBoxAntenna7.Checked == true && frequencyMHz >= Convert.ToDouble(textBoxAntennaFreq7From.Text) && frequencyMHz <= Convert.ToDouble(textBoxAntennaFreq7To.Text))
+                {
+                    checkBoxAntenna7.Checked = true;
+                    buttonAntenna7.BackColor = Color.Green;
+                    labelAntennaSelected.Text = "Antenna: " + textBoxAntenna7.Text;
+                }
+                else if (checkBoxAntenna8.Checked == true && frequencyMHz >= Convert.ToDouble(textBoxAntennaFreq8From.Text) && frequencyMHz <= Convert.ToDouble(textBoxAntennaFreq8To.Text))
+                {
+                    checkBoxAntenna8.Checked = true;
+                    buttonAntenna8.BackColor = Color.Green;
+                    labelAntennaSelected.Text = "Antenna: " + textBoxAntenna8.Text;
+                }
+            }
+            catch (Exception)
+            {
+                // don't do anything here...just catching the parse errors from blank boxes
+            }
         }
 
         private string FLRigGetActiveVFO()
@@ -993,15 +1090,15 @@ namespace TunerUtil
                         int offset1 = responseData.IndexOf("<value>") + "<value>".Length;
                         int offset2 = responseData.IndexOf("</value>");
                         string freqString = responseData.Substring(offset1, offset2 - offset1);
-                        frequency = Double.Parse(freqString);
-                        labelFreq.Text = (frequency / 1000).ToString() + "kHz";
-                        if (lastfrequency == 0) lastfrequency = lastfrequencyTuned = frequency;
-                        if (lastfrequency == frequency && freqStableCount < freqStableCountNeeded)
+                        frequencyHz = Double.Parse(freqString);
+                        labelFreq.Text = (frequencyHz / 1000).ToString() + "kHz";
+                        if (lastfrequency == 0) lastfrequency = lastfrequencyTuned = frequencyHz;
+                        if (lastfrequency == frequencyHz && freqStableCount < freqStableCountNeeded)
                         {
                             ++freqStableCount;
                             stopWatchTuner.Restart();
                         }
-                        if (freqStableCount >= freqStableCountNeeded && frequency != lastfrequencyTuned && Math.Abs(frequency - lastfrequencyTuned) > tolTune)
+                        if (freqStableCount >= freqStableCountNeeded && frequencyHz != lastfrequencyTuned && Math.Abs(frequencyHz - lastfrequencyTuned) > tolTune)
                         {
                             if (stopWatchTuner.IsRunning && stopWatchTuner.ElapsedMilliseconds < 1 * 1000)
                             {
@@ -1016,16 +1113,16 @@ namespace TunerUtil
                             stopWatchTuner.Restart();
                             if (checkBoxTunerEnabled.Checked)
                             {
-                                lastfrequencyTuned = frequency;
+                                lastfrequencyTuned = frequencyHz;
                                 Tune(tuner1.GetModel().Equals("MFJ-928"));
                             }
                             else
                             {
                                 richTextBoxTuner.AppendText(MyTime() + "Tuner not enabled\n");
-                                richTextBoxTuner.AppendText(MyTime() + "Simulate tuning to " + frequency + "\n");
+                                richTextBoxTuner.AppendText(MyTime() + "Simulate tuning to " + frequencyHz + "\n");
                                 char vfoOther = 'A';
                                 if (radioButtonVFOA.Checked) vfoOther = 'B';
-                                string myparam = "<params><param><value><double>"+frequency+"</double></value></param></params";
+                                string myparam = "<params><param><value><double>"+frequencyHz+"</double></value></param></params";
                                 string xml = FLRigXML("rig.set_vfo" + vfoOther, myparam);
                                 if (FLRigSend(xml) == false)
                                 { // Abort if FLRig is giving an error
@@ -1040,7 +1137,7 @@ namespace TunerUtil
                                     richTextBoxRig.AppendText(MyTime() + "FLRigSend got an error??\n");
                                 }
 
-                                lastfrequencyTuned = lastfrequency = frequency;
+                                lastfrequencyTuned = lastfrequency = frequencyHz;
                                 relay1.Set(1, 1);
                                 MyMessageBox("Click OK to continue");
                                 relay1.Set(1, 0);
@@ -1049,7 +1146,7 @@ namespace TunerUtil
                         }
                         else
                         {
-                            lastfrequency = frequency;
+                            lastfrequency = frequencyHz;
                         }
                     }
                     else
@@ -1062,12 +1159,12 @@ namespace TunerUtil
                 catch (Exception)
                 {
                     richTextBoxRig.AppendText(MyTime() + "Error parsing freq from answer:\n" + responseData + "\n");
-                    frequency = 0;
+                    frequencyHz = 0;
                 }
             }
             catch (Exception ex) {
                 richTextBoxRig.AppendText(MyTime() + "Rig not responding\n" + ex.Message + "\n");
-                frequency = 0;
+                frequencyHz = 0;
             }
             //mutex.ReleaseMutex();
         }
@@ -1079,6 +1176,7 @@ namespace TunerUtil
             if (checkBoxRig.Checked)
             {
                 FLRigGetFreq();
+                SetAntennaInUse();
             }
             else
             {
@@ -1490,6 +1588,11 @@ namespace TunerUtil
                 MyMessageBox("Select COM port before enabling Relay2");
                 checkBoxRelay2Enabled.Checked = false;
             }
+        }
+
+        private void buttonTune_Click_2(object sender, EventArgs e)
+        {
+
         }
     }
 }

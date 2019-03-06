@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{35560AF2-1D2C-40D2-95E3-74A95D829716}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>TunerUtil</RootNamespace>
-    <AssemblyName>TunerUtil</AssemblyName>
+    <RootNamespace>AmpAutoTunerUtility</RootNamespace>
+    <AssemblyName>AmpAutoTunerUtility</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -97,6 +97,9 @@
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Amp.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="FTD2XX_NET">
@@ -191,6 +194,8 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\Amp.ico" />
+    <Content Include="Amp.ico" />
     <Content Include="swr.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -198,5 +203,6 @@
   <ItemGroup>
     <Analyzer Include="FTD2XX_NET.dll" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

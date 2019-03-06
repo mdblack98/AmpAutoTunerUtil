@@ -1,4 +1,4 @@
-﻿namespace TunerUtil
+﻿namespace AmpAutoTunerUtility
 {
     partial class Form2
     {

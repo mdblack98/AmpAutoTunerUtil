@@ -1,4 +1,4 @@
-﻿namespace TunerUtil
+﻿namespace AmpAutoTunerUtility
 {
     partial class Form1
     {
@@ -36,7 +36,6 @@
             this.numericUpDownSensitivity = new System.Windows.Forms.NumericUpDown();
             this.radioButtonVFOB = new System.Windows.Forms.RadioButton();
             this.radioButtonVFOA = new System.Windows.Forms.RadioButton();
-            this.buttonTunerStatus = new System.Windows.Forms.Button();
             this.checkBoxRig = new System.Windows.Forms.CheckBox();
             this.comboBoxComRelay1 = new System.Windows.Forms.ComboBox();
             this.button1_8 = new System.Windows.Forms.Button();
@@ -47,29 +46,63 @@
             this.button1_3 = new System.Windows.Forms.Button();
             this.button1_2 = new System.Windows.Forms.Button();
             this.button1_1 = new System.Windows.Forms.Button();
+            this.buttonTunerStatus = new System.Windows.Forms.Button();
+            this.buttonTune = new System.Windows.Forms.Button();
+            this.labelFreq = new System.Windows.Forms.Label();
+            this.labelPower = new System.Windows.Forms.Label();
+            this.labelSWR = new System.Windows.Forms.Label();
+            this.labelAntennaSelected = new System.Windows.Forms.Label();
+            this.textBoxAntenna8 = new System.Windows.Forms.TextBox();
+            this.textBoxAntenna7 = new System.Windows.Forms.TextBox();
+            this.textBoxAntenna6 = new System.Windows.Forms.TextBox();
+            this.textBoxAntenna5 = new System.Windows.Forms.TextBox();
+            this.textBoxAntenna4 = new System.Windows.Forms.TextBox();
+            this.textBoxAntenna3 = new System.Windows.Forms.TextBox();
+            this.textBoxAntenna2 = new System.Windows.Forms.TextBox();
+            this.textBoxAntenna1 = new System.Windows.Forms.TextBox();
+            this.textBoxAntenna8Bits = new System.Windows.Forms.TextBox();
+            this.comboBoxAntenna8Relay = new System.Windows.Forms.ComboBox();
+            this.textBoxAntenna7Bits = new System.Windows.Forms.TextBox();
+            this.comboBoxAntenna7Relay = new System.Windows.Forms.ComboBox();
+            this.textBoxAntenna6Bits = new System.Windows.Forms.TextBox();
+            this.comboBoxAntenna6Relay = new System.Windows.Forms.ComboBox();
+            this.textBoxAntenna5Bits = new System.Windows.Forms.TextBox();
+            this.comboBoxAntenna5Relay = new System.Windows.Forms.ComboBox();
+            this.textBoxAntenna4Bits = new System.Windows.Forms.TextBox();
+            this.comboBoxAntenna4Relay = new System.Windows.Forms.ComboBox();
+            this.textBoxAntenna3Bits = new System.Windows.Forms.TextBox();
+            this.comboBoxAntenna3Relay = new System.Windows.Forms.ComboBox();
+            this.textBoxAntenna2Bits = new System.Windows.Forms.TextBox();
+            this.comboBoxAntenna2Relay = new System.Windows.Forms.ComboBox();
+            this.textBoxAntenna1Bits = new System.Windows.Forms.TextBox();
+            this.comboBoxAntenna1Relay = new System.Windows.Forms.ComboBox();
+            this.radioButtonAntennaWire8 = new System.Windows.Forms.RadioButton();
+            this.radioButtonAntennaWire3 = new System.Windows.Forms.RadioButton();
+            this.textBoxAntennaFreq1From = new System.Windows.Forms.TextBox();
             this.timerGetFreq = new System.Windows.Forms.Timer(this.components);
             this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabPageControl = new System.Windows.Forms.TabPage();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.tabPageTuner = new System.Windows.Forms.TabPage();
             this.panel3 = new System.Windows.Forms.Panel();
             this.checkBoxTunerEnabled = new System.Windows.Forms.CheckBox();
             this.comboBoxTunerModel = new System.Windows.Forms.ComboBox();
-            this.buttonTune = new System.Windows.Forms.Button();
             this.comboBoxBaudTuner = new System.Windows.Forms.ComboBox();
             this.comboBoxComTuner = new System.Windows.Forms.ComboBox();
             this.richTextBoxTuner = new System.Windows.Forms.RichTextBox();
             this.tabPageRig = new System.Windows.Forms.TabPage();
             this.richTextBoxRig = new System.Windows.Forms.RichTextBox();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.labelFreq = new System.Windows.Forms.Label();
             this.tabPageRelay1 = new System.Windows.Forms.TabPage();
             this.linkLabel2 = new System.Windows.Forms.LinkLabel();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.richTextBoxRelay1 = new System.Windows.Forms.RichTextBox();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.label4 = new System.Windows.Forms.Label();
+            this.labelTextBoxRelay1Status = new System.Windows.Forms.Label();
             this.textBoxRelay1Status = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
+            this.labelTextBoxRelay1Off = new System.Windows.Forms.Label();
+            this.labelTextBoxRelay1On = new System.Windows.Forms.Label();
             this.textBoxRelay1Off = new System.Windows.Forms.TextBox();
             this.textBoxRelay1On = new System.Windows.Forms.TextBox();
             this.checkBoxRelay1Enabled = new System.Windows.Forms.CheckBox();
@@ -85,10 +118,10 @@
             this.button25 = new System.Windows.Forms.Button();
             this.richTextBoxRelay2 = new System.Windows.Forms.RichTextBox();
             this.panel4 = new System.Windows.Forms.Panel();
-            this.label5 = new System.Windows.Forms.Label();
+            this.labelTextBoxRelay2Status = new System.Windows.Forms.Label();
             this.textBoxRelay2Status = new System.Windows.Forms.TextBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
+            this.labelTextBoxRelay2Off = new System.Windows.Forms.Label();
+            this.labelTextBoxRelay2On = new System.Windows.Forms.Label();
             this.textBoxRelay2Off = new System.Windows.Forms.TextBox();
             this.textBoxRelay2On = new System.Windows.Forms.TextBox();
             this.checkBoxRelay2Enabled = new System.Windows.Forms.CheckBox();
@@ -105,10 +138,10 @@
             this.button9 = new System.Windows.Forms.Button();
             this.richTextBoxRelay3 = new System.Windows.Forms.RichTextBox();
             this.panel5 = new System.Windows.Forms.Panel();
-            this.label8 = new System.Windows.Forms.Label();
+            this.labelTextBoxRelay3Status = new System.Windows.Forms.Label();
             this.textBoxRelay3Status = new System.Windows.Forms.TextBox();
-            this.label9 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
+            this.labelTextBoxRelay3Off = new System.Windows.Forms.Label();
+            this.labelTextBoxRelay3On = new System.Windows.Forms.Label();
             this.textBoxRelay3Off = new System.Windows.Forms.TextBox();
             this.textBoxRelay3On = new System.Windows.Forms.TextBox();
             this.checkBoxRelay3Enabled = new System.Windows.Forms.CheckBox();
@@ -125,10 +158,10 @@
             this.button17 = new System.Windows.Forms.Button();
             this.richTextBoxRelay4 = new System.Windows.Forms.RichTextBox();
             this.panel6 = new System.Windows.Forms.Panel();
-            this.label11 = new System.Windows.Forms.Label();
+            this.label1TextBoxRelay4Status = new System.Windows.Forms.Label();
             this.textBoxRelay4Status = new System.Windows.Forms.TextBox();
-            this.label12 = new System.Windows.Forms.Label();
-            this.label13 = new System.Windows.Forms.Label();
+            this.label1TextBoxRelay4Off = new System.Windows.Forms.Label();
+            this.label1TextBoxRelay4On = new System.Windows.Forms.Label();
             this.textBoxRelay4Off = new System.Windows.Forms.TextBox();
             this.textBoxRelay4On = new System.Windows.Forms.TextBox();
             this.checkBoxRelay4Enabled = new System.Windows.Forms.CheckBox();
@@ -144,14 +177,6 @@
             this.buttonAntenna2 = new System.Windows.Forms.Button();
             this.buttonAntenna1 = new System.Windows.Forms.Button();
             this.label18 = new System.Windows.Forms.Label();
-            this.textBoxAntenna8 = new System.Windows.Forms.TextBox();
-            this.textBoxAntenna7 = new System.Windows.Forms.TextBox();
-            this.textBoxAntenna6 = new System.Windows.Forms.TextBox();
-            this.textBoxAntenna5 = new System.Windows.Forms.TextBox();
-            this.textBoxAntenna4 = new System.Windows.Forms.TextBox();
-            this.textBoxAntenna3 = new System.Windows.Forms.TextBox();
-            this.textBoxAntenna2 = new System.Windows.Forms.TextBox();
-            this.textBoxAntenna1 = new System.Windows.Forms.TextBox();
             this.checkBoxAntenna8 = new System.Windows.Forms.CheckBox();
             this.checkBoxAntenna7 = new System.Windows.Forms.CheckBox();
             this.checkBoxAntenna6 = new System.Windows.Forms.CheckBox();
@@ -160,30 +185,12 @@
             this.checkBoxAntenna3 = new System.Windows.Forms.CheckBox();
             this.checkBoxAntenna2 = new System.Windows.Forms.CheckBox();
             this.checkBoxAntenna1 = new System.Windows.Forms.CheckBox();
-            this.textBoxAntenna8Bits = new System.Windows.Forms.TextBox();
-            this.comboBoxAntenna8Relay = new System.Windows.Forms.ComboBox();
-            this.textBoxAntenna7Bits = new System.Windows.Forms.TextBox();
-            this.comboBoxAntenna7Relay = new System.Windows.Forms.ComboBox();
             this.textBoxAntennaFreq8To = new System.Windows.Forms.TextBox();
             this.textBoxAntennaFreq8From = new System.Windows.Forms.TextBox();
             this.textBoxAntennaFreq7To = new System.Windows.Forms.TextBox();
             this.textBoxAntennaFreq7From = new System.Windows.Forms.TextBox();
-            this.textBoxAntenna6Bits = new System.Windows.Forms.TextBox();
-            this.comboBoxAntenna6Relay = new System.Windows.Forms.ComboBox();
-            this.textBoxAntenna5Bits = new System.Windows.Forms.TextBox();
-            this.comboBoxAntenna5Relay = new System.Windows.Forms.ComboBox();
-            this.textBoxAntenna4Bits = new System.Windows.Forms.TextBox();
-            this.comboBoxAntenna4Relay = new System.Windows.Forms.ComboBox();
-            this.textBoxAntenna3Bits = new System.Windows.Forms.TextBox();
-            this.comboBoxAntenna3Relay = new System.Windows.Forms.ComboBox();
-            this.textBoxAntenna2Bits = new System.Windows.Forms.TextBox();
-            this.comboBoxAntenna2Relay = new System.Windows.Forms.ComboBox();
-            this.textBoxAntenna1Bits = new System.Windows.Forms.TextBox();
             this.label17 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
-            this.comboBoxAntenna1Relay = new System.Windows.Forms.ComboBox();
-            this.radioButtonAntennaWire8 = new System.Windows.Forms.RadioButton();
-            this.radioButtonAntennaWire3 = new System.Windows.Forms.RadioButton();
             this.textBoxAntennaFreq6To = new System.Windows.Forms.TextBox();
             this.textBoxAntennaFreq6From = new System.Windows.Forms.TextBox();
             this.textBoxAntennaFreq5To = new System.Windows.Forms.TextBox();
@@ -197,9 +204,11 @@
             this.label15 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
             this.textBoxAntennaFreq1To = new System.Windows.Forms.TextBox();
-            this.textBoxAntennaFreq1From = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownSensitivity)).BeginInit();
             this.tabControl1.SuspendLayout();
+            this.tabPageControl.SuspendLayout();
+            this.groupBox2.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.tabPageTuner.SuspendLayout();
             this.panel3.SuspendLayout();
             this.tabPageRig.SuspendLayout();
@@ -286,16 +295,6 @@
             this.toolTip1.SetToolTip(this.radioButtonVFOA, "Use VFOA frequencies to determine when to tune");
             this.radioButtonVFOA.UseVisualStyleBackColor = true;
             // 
-            // buttonTunerStatus
-            // 
-            this.buttonTunerStatus.Location = new System.Drawing.Point(159, 69);
-            this.buttonTunerStatus.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.buttonTunerStatus.Name = "buttonTunerStatus";
-            this.buttonTunerStatus.Size = new System.Drawing.Size(30, 23);
-            this.buttonTunerStatus.TabIndex = 8;
-            this.toolTip1.SetToolTip(this.buttonTunerStatus, "Green - SWR < 1.5\r\nYellow - SWR < 3.0\r\nRed - Tuning failed\r\nGray - Not tuned yet");
-            this.buttonTunerStatus.UseVisualStyleBackColor = true;
-            // 
             // checkBoxRig
             // 
             this.checkBoxRig.AutoSize = true;
@@ -311,14 +310,14 @@
             // 
             // comboBoxComRelay1
             // 
-            this.comboBoxComRelay1.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::TunerUtil.Properties.Settings.Default, "Relay1Com", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.comboBoxComRelay1.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::AmpAutoTunerUtility.Properties.Settings.Default, "Relay1Com", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.comboBoxComRelay1.FormattingEnabled = true;
             this.comboBoxComRelay1.Location = new System.Drawing.Point(11, 7);
             this.comboBoxComRelay1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.comboBoxComRelay1.Name = "comboBoxComRelay1";
             this.comboBoxComRelay1.Size = new System.Drawing.Size(121, 24);
             this.comboBoxComRelay1.TabIndex = 0;
-            this.comboBoxComRelay1.Text = global::TunerUtil.Properties.Settings.Default.Relay1Com;
+            this.comboBoxComRelay1.Text = global::AmpAutoTunerUtility.Properties.Settings.Default.Relay1Com;
             this.toolTip1.SetToolTip(this.comboBoxComRelay1, "FT245R Com Ports");
             // 
             // button1_8
@@ -425,12 +424,342 @@
             this.button1_1.UseVisualStyleBackColor = false;
             this.button1_1.Click += new System.EventHandler(this.button1_1_Click);
             // 
+            // buttonTunerStatus
+            // 
+            this.buttonTunerStatus.Location = new System.Drawing.Point(73, 90);
+            this.buttonTunerStatus.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.buttonTunerStatus.Name = "buttonTunerStatus";
+            this.buttonTunerStatus.Size = new System.Drawing.Size(30, 23);
+            this.buttonTunerStatus.TabIndex = 10;
+            this.toolTip1.SetToolTip(this.buttonTunerStatus, "Green - SWR < 1.5\r\nYellow - SWR < 3.0\r\nRed - Tuning failed\r\nGray - Not tuned yet");
+            this.buttonTunerStatus.UseVisualStyleBackColor = true;
+            // 
+            // buttonTune
+            // 
+            this.buttonTune.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.buttonTune.FlatAppearance.BorderSize = 2;
+            this.buttonTune.Location = new System.Drawing.Point(50, 45);
+            this.buttonTune.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.buttonTune.Name = "buttonTune";
+            this.buttonTune.Size = new System.Drawing.Size(75, 27);
+            this.buttonTune.TabIndex = 9;
+            this.buttonTune.Text = "Tune";
+            this.toolTip1.SetToolTip(this.buttonTune, "Start a tune cycle");
+            this.buttonTune.UseVisualStyleBackColor = false;
+            this.buttonTune.Click += new System.EventHandler(this.buttonTune_Click_1);
+            // 
+            // labelFreq
+            // 
+            this.labelFreq.AutoSize = true;
+            this.labelFreq.Font = new System.Drawing.Font("MS Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelFreq.Location = new System.Drawing.Point(18, 32);
+            this.labelFreq.Name = "labelFreq";
+            this.labelFreq.Size = new System.Drawing.Size(53, 20);
+            this.labelFreq.TabIndex = 11;
+            this.labelFreq.Text = "Freq";
+            this.toolTip1.SetToolTip(this.labelFreq, "Current rig frequency");
+            // 
+            // labelPower
+            // 
+            this.labelPower.AutoSize = true;
+            this.labelPower.Location = new System.Drawing.Point(21, 67);
+            this.labelPower.Name = "labelPower";
+            this.labelPower.Size = new System.Drawing.Size(47, 17);
+            this.labelPower.TabIndex = 12;
+            this.labelPower.Text = "Power";
+            this.toolTip1.SetToolTip(this.labelPower, "Transmit power level setting");
+            // 
+            // labelSWR
+            // 
+            this.labelSWR.AutoSize = true;
+            this.labelSWR.Location = new System.Drawing.Point(21, 101);
+            this.labelSWR.Name = "labelSWR";
+            this.labelSWR.Size = new System.Drawing.Size(40, 17);
+            this.labelSWR.TabIndex = 13;
+            this.labelSWR.Text = "SWR";
+            this.toolTip1.SetToolTip(this.labelSWR, "Last reported SWR");
+            // 
+            // labelAntennaSelected
+            // 
+            this.labelAntennaSelected.AutoSize = true;
+            this.labelAntennaSelected.Location = new System.Drawing.Point(21, 135);
+            this.labelAntennaSelected.Name = "labelAntennaSelected";
+            this.labelAntennaSelected.Size = new System.Drawing.Size(61, 17);
+            this.labelAntennaSelected.TabIndex = 14;
+            this.labelAntennaSelected.Text = "Antenna";
+            this.toolTip1.SetToolTip(this.labelAntennaSelected, "Antenna in use");
+            // 
+            // textBoxAntenna8
+            // 
+            this.textBoxAntenna8.Location = new System.Drawing.Point(239, 211);
+            this.textBoxAntenna8.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.textBoxAntenna8.Name = "textBoxAntenna8";
+            this.textBoxAntenna8.Size = new System.Drawing.Size(109, 22);
+            this.textBoxAntenna8.TabIndex = 53;
+            this.toolTip1.SetToolTip(this.textBoxAntenna8, "Friendly name for antenna");
+            // 
+            // textBoxAntenna7
+            // 
+            this.textBoxAntenna7.Location = new System.Drawing.Point(239, 186);
+            this.textBoxAntenna7.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.textBoxAntenna7.Name = "textBoxAntenna7";
+            this.textBoxAntenna7.Size = new System.Drawing.Size(109, 22);
+            this.textBoxAntenna7.TabIndex = 52;
+            this.toolTip1.SetToolTip(this.textBoxAntenna7, "Friendly name for antenna");
+            // 
+            // textBoxAntenna6
+            // 
+            this.textBoxAntenna6.Location = new System.Drawing.Point(239, 159);
+            this.textBoxAntenna6.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.textBoxAntenna6.Name = "textBoxAntenna6";
+            this.textBoxAntenna6.Size = new System.Drawing.Size(109, 22);
+            this.textBoxAntenna6.TabIndex = 51;
+            this.toolTip1.SetToolTip(this.textBoxAntenna6, "Friendly name for antenna");
+            // 
+            // textBoxAntenna5
+            // 
+            this.textBoxAntenna5.Location = new System.Drawing.Point(239, 131);
+            this.textBoxAntenna5.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.textBoxAntenna5.Name = "textBoxAntenna5";
+            this.textBoxAntenna5.Size = new System.Drawing.Size(109, 22);
+            this.textBoxAntenna5.TabIndex = 50;
+            this.toolTip1.SetToolTip(this.textBoxAntenna5, "Friendly name for antenna");
+            // 
+            // textBoxAntenna4
+            // 
+            this.textBoxAntenna4.Location = new System.Drawing.Point(239, 104);
+            this.textBoxAntenna4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.textBoxAntenna4.Name = "textBoxAntenna4";
+            this.textBoxAntenna4.Size = new System.Drawing.Size(109, 22);
+            this.textBoxAntenna4.TabIndex = 49;
+            this.toolTip1.SetToolTip(this.textBoxAntenna4, "Friendly name for antenna");
+            // 
+            // textBoxAntenna3
+            // 
+            this.textBoxAntenna3.Location = new System.Drawing.Point(239, 77);
+            this.textBoxAntenna3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.textBoxAntenna3.Name = "textBoxAntenna3";
+            this.textBoxAntenna3.Size = new System.Drawing.Size(109, 22);
+            this.textBoxAntenna3.TabIndex = 48;
+            this.textBoxAntenna3.Text = "Cobweb";
+            this.toolTip1.SetToolTip(this.textBoxAntenna3, "Friendly name for antenna");
+            // 
+            // textBoxAntenna2
+            // 
+            this.textBoxAntenna2.Location = new System.Drawing.Point(240, 50);
+            this.textBoxAntenna2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.textBoxAntenna2.Name = "textBoxAntenna2";
+            this.textBoxAntenna2.Size = new System.Drawing.Size(109, 22);
+            this.textBoxAntenna2.TabIndex = 47;
+            this.textBoxAntenna2.Text = "17M Loop";
+            this.toolTip1.SetToolTip(this.textBoxAntenna2, "Friendly name for antenna");
+            // 
+            // textBoxAntenna1
+            // 
+            this.textBoxAntenna1.Location = new System.Drawing.Point(240, 23);
+            this.textBoxAntenna1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.textBoxAntenna1.Name = "textBoxAntenna1";
+            this.textBoxAntenna1.Size = new System.Drawing.Size(109, 22);
+            this.textBoxAntenna1.TabIndex = 46;
+            this.toolTip1.SetToolTip(this.textBoxAntenna1, "Friendly name for antenna");
+            // 
+            // textBoxAntenna8Bits
+            // 
+            this.textBoxAntenna8Bits.Location = new System.Drawing.Point(443, 211);
+            this.textBoxAntenna8Bits.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.textBoxAntenna8Bits.Name = "textBoxAntenna8Bits";
+            this.textBoxAntenna8Bits.Size = new System.Drawing.Size(60, 22);
+            this.textBoxAntenna8Bits.TabIndex = 37;
+            this.toolTip1.SetToolTip(this.textBoxAntenna8Bits, "For 3 wire values 0 thru 7\r\nFor 8 wire values 1,2,4,8,16,32,64,128\r\n");
+            // 
+            // comboBoxAntenna8Relay
+            // 
+            this.comboBoxAntenna8Relay.FormattingEnabled = true;
+            this.comboBoxAntenna8Relay.Location = new System.Drawing.Point(355, 211);
+            this.comboBoxAntenna8Relay.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.comboBoxAntenna8Relay.Name = "comboBoxAntenna8Relay";
+            this.comboBoxAntenna8Relay.Size = new System.Drawing.Size(83, 24);
+            this.comboBoxAntenna8Relay.TabIndex = 36;
+            this.toolTip1.SetToolTip(this.comboBoxAntenna8Relay, "Relay to use");
+            // 
+            // textBoxAntenna7Bits
+            // 
+            this.textBoxAntenna7Bits.Location = new System.Drawing.Point(443, 186);
+            this.textBoxAntenna7Bits.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.textBoxAntenna7Bits.Name = "textBoxAntenna7Bits";
+            this.textBoxAntenna7Bits.Size = new System.Drawing.Size(60, 22);
+            this.textBoxAntenna7Bits.TabIndex = 35;
+            this.toolTip1.SetToolTip(this.textBoxAntenna7Bits, "For 3 wire values 0 thru 7\r\nFor 8 wire values 1,2,4,8,16,32,64,128\r\n");
+            // 
+            // comboBoxAntenna7Relay
+            // 
+            this.comboBoxAntenna7Relay.FormattingEnabled = true;
+            this.comboBoxAntenna7Relay.Location = new System.Drawing.Point(355, 184);
+            this.comboBoxAntenna7Relay.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.comboBoxAntenna7Relay.Name = "comboBoxAntenna7Relay";
+            this.comboBoxAntenna7Relay.Size = new System.Drawing.Size(83, 24);
+            this.comboBoxAntenna7Relay.TabIndex = 34;
+            this.toolTip1.SetToolTip(this.comboBoxAntenna7Relay, "Relay to use");
+            // 
+            // textBoxAntenna6Bits
+            // 
+            this.textBoxAntenna6Bits.Location = new System.Drawing.Point(443, 159);
+            this.textBoxAntenna6Bits.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.textBoxAntenna6Bits.Name = "textBoxAntenna6Bits";
+            this.textBoxAntenna6Bits.Size = new System.Drawing.Size(60, 22);
+            this.textBoxAntenna6Bits.TabIndex = 29;
+            this.toolTip1.SetToolTip(this.textBoxAntenna6Bits, "For 3 wire values 0 thru 7\r\nFor 8 wire values 1,2,4,8,16,32,64,128\r\n");
+            // 
+            // comboBoxAntenna6Relay
+            // 
+            this.comboBoxAntenna6Relay.FormattingEnabled = true;
+            this.comboBoxAntenna6Relay.Location = new System.Drawing.Point(355, 157);
+            this.comboBoxAntenna6Relay.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.comboBoxAntenna6Relay.Name = "comboBoxAntenna6Relay";
+            this.comboBoxAntenna6Relay.Size = new System.Drawing.Size(83, 24);
+            this.comboBoxAntenna6Relay.TabIndex = 28;
+            this.toolTip1.SetToolTip(this.comboBoxAntenna6Relay, "Relay to use");
+            // 
+            // textBoxAntenna5Bits
+            // 
+            this.textBoxAntenna5Bits.Location = new System.Drawing.Point(443, 131);
+            this.textBoxAntenna5Bits.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.textBoxAntenna5Bits.Name = "textBoxAntenna5Bits";
+            this.textBoxAntenna5Bits.Size = new System.Drawing.Size(60, 22);
+            this.textBoxAntenna5Bits.TabIndex = 27;
+            this.toolTip1.SetToolTip(this.textBoxAntenna5Bits, "For 3 wire values 0 thru 7\r\nFor 8 wire values 1,2,4,8,16,32,64,128\r\n");
+            // 
+            // comboBoxAntenna5Relay
+            // 
+            this.comboBoxAntenna5Relay.FormattingEnabled = true;
+            this.comboBoxAntenna5Relay.Location = new System.Drawing.Point(355, 130);
+            this.comboBoxAntenna5Relay.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.comboBoxAntenna5Relay.Name = "comboBoxAntenna5Relay";
+            this.comboBoxAntenna5Relay.Size = new System.Drawing.Size(83, 24);
+            this.comboBoxAntenna5Relay.TabIndex = 26;
+            this.toolTip1.SetToolTip(this.comboBoxAntenna5Relay, "Relay to use");
+            // 
+            // textBoxAntenna4Bits
+            // 
+            this.textBoxAntenna4Bits.Location = new System.Drawing.Point(443, 104);
+            this.textBoxAntenna4Bits.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.textBoxAntenna4Bits.Name = "textBoxAntenna4Bits";
+            this.textBoxAntenna4Bits.Size = new System.Drawing.Size(60, 22);
+            this.textBoxAntenna4Bits.TabIndex = 25;
+            this.toolTip1.SetToolTip(this.textBoxAntenna4Bits, "For 3 wire values 0 thru 7\r\nFor 8 wire values 1,2,4,8,16,32,64,128\r\n");
+            // 
+            // comboBoxAntenna4Relay
+            // 
+            this.comboBoxAntenna4Relay.FormattingEnabled = true;
+            this.comboBoxAntenna4Relay.Location = new System.Drawing.Point(355, 103);
+            this.comboBoxAntenna4Relay.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.comboBoxAntenna4Relay.Name = "comboBoxAntenna4Relay";
+            this.comboBoxAntenna4Relay.Size = new System.Drawing.Size(83, 24);
+            this.comboBoxAntenna4Relay.TabIndex = 24;
+            this.toolTip1.SetToolTip(this.comboBoxAntenna4Relay, "Relay to use");
+            // 
+            // textBoxAntenna3Bits
+            // 
+            this.textBoxAntenna3Bits.Location = new System.Drawing.Point(443, 77);
+            this.textBoxAntenna3Bits.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.textBoxAntenna3Bits.Name = "textBoxAntenna3Bits";
+            this.textBoxAntenna3Bits.Size = new System.Drawing.Size(60, 22);
+            this.textBoxAntenna3Bits.TabIndex = 23;
+            this.textBoxAntenna3Bits.Text = "1";
+            this.toolTip1.SetToolTip(this.textBoxAntenna3Bits, "For 3 wire values 0 thru 7\r\nFor 8 wire values 1,2,4,8,16,32,64,128\r\n");
+            // 
+            // comboBoxAntenna3Relay
+            // 
+            this.comboBoxAntenna3Relay.FormattingEnabled = true;
+            this.comboBoxAntenna3Relay.Location = new System.Drawing.Point(355, 76);
+            this.comboBoxAntenna3Relay.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.comboBoxAntenna3Relay.Name = "comboBoxAntenna3Relay";
+            this.comboBoxAntenna3Relay.Size = new System.Drawing.Size(83, 24);
+            this.comboBoxAntenna3Relay.TabIndex = 22;
+            this.toolTip1.SetToolTip(this.comboBoxAntenna3Relay, "Relay to use");
+            // 
+            // textBoxAntenna2Bits
+            // 
+            this.textBoxAntenna2Bits.Location = new System.Drawing.Point(443, 50);
+            this.textBoxAntenna2Bits.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.textBoxAntenna2Bits.Name = "textBoxAntenna2Bits";
+            this.textBoxAntenna2Bits.Size = new System.Drawing.Size(60, 22);
+            this.textBoxAntenna2Bits.TabIndex = 21;
+            this.textBoxAntenna2Bits.Text = "3";
+            this.toolTip1.SetToolTip(this.textBoxAntenna2Bits, "For 3 wire values 0 thru 7\r\nFor 8 wire values 1,2,4,8,16,32,64,128\r\n");
+            // 
+            // comboBoxAntenna2Relay
+            // 
+            this.comboBoxAntenna2Relay.FormattingEnabled = true;
+            this.comboBoxAntenna2Relay.Location = new System.Drawing.Point(355, 49);
+            this.comboBoxAntenna2Relay.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.comboBoxAntenna2Relay.Name = "comboBoxAntenna2Relay";
+            this.comboBoxAntenna2Relay.Size = new System.Drawing.Size(83, 24);
+            this.comboBoxAntenna2Relay.TabIndex = 20;
+            this.toolTip1.SetToolTip(this.comboBoxAntenna2Relay, "Relay to use");
+            // 
+            // textBoxAntenna1Bits
+            // 
+            this.textBoxAntenna1Bits.Location = new System.Drawing.Point(444, 23);
+            this.textBoxAntenna1Bits.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.textBoxAntenna1Bits.Name = "textBoxAntenna1Bits";
+            this.textBoxAntenna1Bits.Size = new System.Drawing.Size(60, 22);
+            this.textBoxAntenna1Bits.TabIndex = 19;
+            this.textBoxAntenna1Bits.Text = "0";
+            this.toolTip1.SetToolTip(this.textBoxAntenna1Bits, "For 3 wire values 0 thru 7\r\nFor 8 wire values 1,2,4,8,16,32,64,128\r\n");
+            // 
+            // comboBoxAntenna1Relay
+            // 
+            this.comboBoxAntenna1Relay.FormattingEnabled = true;
+            this.comboBoxAntenna1Relay.Location = new System.Drawing.Point(355, 22);
+            this.comboBoxAntenna1Relay.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.comboBoxAntenna1Relay.Name = "comboBoxAntenna1Relay";
+            this.comboBoxAntenna1Relay.Size = new System.Drawing.Size(83, 24);
+            this.comboBoxAntenna1Relay.TabIndex = 16;
+            this.toolTip1.SetToolTip(this.comboBoxAntenna1Relay, "Relay to use");
+            // 
+            // radioButtonAntennaWire8
+            // 
+            this.radioButtonAntennaWire8.AutoSize = true;
+            this.radioButtonAntennaWire8.Location = new System.Drawing.Point(435, 237);
+            this.radioButtonAntennaWire8.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.radioButtonAntennaWire8.Name = "radioButtonAntennaWire8";
+            this.radioButtonAntennaWire8.Size = new System.Drawing.Size(70, 21);
+            this.radioButtonAntennaWire8.TabIndex = 15;
+            this.radioButtonAntennaWire8.Text = "8 Wire";
+            this.toolTip1.SetToolTip(this.radioButtonAntennaWire8, "Use 8 wire interface");
+            this.radioButtonAntennaWire8.UseVisualStyleBackColor = true;
+            // 
+            // radioButtonAntennaWire3
+            // 
+            this.radioButtonAntennaWire3.AutoSize = true;
+            this.radioButtonAntennaWire3.Checked = true;
+            this.radioButtonAntennaWire3.Location = new System.Drawing.Point(355, 237);
+            this.radioButtonAntennaWire3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.radioButtonAntennaWire3.Name = "radioButtonAntennaWire3";
+            this.radioButtonAntennaWire3.Size = new System.Drawing.Size(70, 21);
+            this.radioButtonAntennaWire3.TabIndex = 14;
+            this.radioButtonAntennaWire3.TabStop = true;
+            this.radioButtonAntennaWire3.Text = "3 Wire";
+            this.toolTip1.SetToolTip(this.radioButtonAntennaWire3, "Use 3 wire interface");
+            this.radioButtonAntennaWire3.UseVisualStyleBackColor = true;
+            // 
+            // textBoxAntennaFreq1From
+            // 
+            this.textBoxAntennaFreq1From.Location = new System.Drawing.Point(4, 23);
+            this.textBoxAntennaFreq1From.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.textBoxAntennaFreq1From.Name = "textBoxAntennaFreq1From";
+            this.textBoxAntennaFreq1From.Size = new System.Drawing.Size(72, 22);
+            this.textBoxAntennaFreq1From.TabIndex = 0;
+            this.toolTip1.SetToolTip(this.textBoxAntennaFreq1From, "0");
+            // 
             // timerGetFreq
             // 
             this.timerGetFreq.Tick += new System.EventHandler(this.TimerGetFreq_Tick);
             // 
             // tabControl1
             // 
+            this.tabControl1.Controls.Add(this.tabPageControl);
             this.tabControl1.Controls.Add(this.tabPageTuner);
             this.tabControl1.Controls.Add(this.tabPageRig);
             this.tabControl1.Controls.Add(this.tabPageRelay1);
@@ -444,6 +773,42 @@
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(517, 290);
             this.tabControl1.TabIndex = 7;
+            // 
+            // tabPageControl
+            // 
+            this.tabPageControl.BackColor = System.Drawing.Color.LightGray;
+            this.tabPageControl.Controls.Add(this.groupBox2);
+            this.tabPageControl.Controls.Add(this.groupBox1);
+            this.tabPageControl.Location = new System.Drawing.Point(4, 25);
+            this.tabPageControl.Name = "tabPageControl";
+            this.tabPageControl.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageControl.Size = new System.Drawing.Size(509, 261);
+            this.tabPageControl.TabIndex = 7;
+            this.tabPageControl.Text = "Control";
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.labelAntennaSelected);
+            this.groupBox2.Controls.Add(this.labelFreq);
+            this.groupBox2.Controls.Add(this.labelPower);
+            this.groupBox2.Controls.Add(this.labelSWR);
+            this.groupBox2.Location = new System.Drawing.Point(227, 11);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(259, 187);
+            this.groupBox2.TabIndex = 16;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Info";
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.buttonTune);
+            this.groupBox1.Controls.Add(this.buttonTunerStatus);
+            this.groupBox1.Location = new System.Drawing.Point(7, 11);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(200, 187);
+            this.groupBox1.TabIndex = 15;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Tuner Control/Status";
             // 
             // tabPageTuner
             // 
@@ -466,12 +831,10 @@
             this.panel3.Controls.Add(this.numericUpDownSensitivity);
             this.panel3.Controls.Add(this.radioButtonVFOB);
             this.panel3.Controls.Add(this.radioButtonVFOA);
-            this.panel3.Controls.Add(this.buttonTunerStatus);
             this.panel3.Controls.Add(this.checkBoxTunerEnabled);
             this.panel3.Controls.Add(this.comboBoxTunerModel);
             this.panel3.Controls.Add(this.label2);
             this.panel3.Controls.Add(this.textBoxFreqTol);
-            this.panel3.Controls.Add(this.buttonTune);
             this.panel3.Controls.Add(this.comboBoxBaudTuner);
             this.panel3.Controls.Add(this.comboBoxComTuner);
             this.panel3.Location = new System.Drawing.Point(11, 9);
@@ -495,7 +858,7 @@
             // 
             // comboBoxTunerModel
             // 
-            this.comboBoxTunerModel.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::TunerUtil.Properties.Settings.Default, "TunerCom", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.comboBoxTunerModel.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::AmpAutoTunerUtility.Properties.Settings.Default, "TunerCom", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.comboBoxTunerModel.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxTunerModel.FormattingEnabled = true;
             this.comboBoxTunerModel.Items.AddRange(new object[] {
@@ -506,21 +869,8 @@
             this.comboBoxTunerModel.Name = "comboBoxTunerModel";
             this.comboBoxTunerModel.Size = new System.Drawing.Size(121, 24);
             this.comboBoxTunerModel.TabIndex = 6;
-            this.comboBoxTunerModel.Text = global::TunerUtil.Properties.Settings.Default.TunerCom;
+            this.comboBoxTunerModel.Text = global::AmpAutoTunerUtility.Properties.Settings.Default.TunerCom;
             this.comboBoxTunerModel.SelectedIndexChanged += new System.EventHandler(this.comboBoxTunerModel_SelectedIndexChanged);
-            // 
-            // buttonTune
-            // 
-            this.buttonTune.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.buttonTune.FlatAppearance.BorderSize = 2;
-            this.buttonTune.Location = new System.Drawing.Point(137, 38);
-            this.buttonTune.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.buttonTune.Name = "buttonTune";
-            this.buttonTune.Size = new System.Drawing.Size(75, 27);
-            this.buttonTune.TabIndex = 3;
-            this.buttonTune.Text = "Tune";
-            this.buttonTune.UseVisualStyleBackColor = false;
-            this.buttonTune.Click += new System.EventHandler(this.buttonTune_Click_1);
             // 
             // comboBoxBaudTuner
             // 
@@ -583,21 +933,11 @@
             // 
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel2.Controls.Add(this.checkBoxRig);
-            this.panel2.Controls.Add(this.labelFreq);
             this.panel2.Location = new System.Drawing.Point(5, 9);
             this.panel2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(223, 173);
             this.panel2.TabIndex = 7;
-            // 
-            // labelFreq
-            // 
-            this.labelFreq.AutoSize = true;
-            this.labelFreq.Font = new System.Drawing.Font("MS Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelFreq.Location = new System.Drawing.Point(17, 53);
-            this.labelFreq.Name = "labelFreq";
-            this.labelFreq.Size = new System.Drawing.Size(0, 20);
-            this.labelFreq.TabIndex = 2;
             // 
             // tabPageRelay1
             // 
@@ -652,15 +992,15 @@
             this.richTextBoxRelay1.Name = "richTextBoxRelay1";
             this.richTextBoxRelay1.Size = new System.Drawing.Size(256, 137);
             this.richTextBoxRelay1.TabIndex = 4;
-            this.richTextBoxRelay1.Text = "Works with SainSmart USB relays...see links below\n";
+            this.richTextBoxRelay1.Text = "Works with SainSmart USB relays\nSee links below\n";
             // 
             // panel1
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel1.Controls.Add(this.label4);
+            this.panel1.Controls.Add(this.labelTextBoxRelay1Status);
             this.panel1.Controls.Add(this.textBoxRelay1Status);
-            this.panel1.Controls.Add(this.label3);
-            this.panel1.Controls.Add(this.label1);
+            this.panel1.Controls.Add(this.labelTextBoxRelay1Off);
+            this.panel1.Controls.Add(this.labelTextBoxRelay1On);
             this.panel1.Controls.Add(this.textBoxRelay1Off);
             this.panel1.Controls.Add(this.textBoxRelay1On);
             this.panel1.Controls.Add(this.checkBoxRelay1Enabled);
@@ -672,15 +1012,16 @@
             this.panel1.Size = new System.Drawing.Size(227, 163);
             this.panel1.TabIndex = 3;
             // 
-            // label4
+            // labelTextBoxRelay1Status
             // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(120, 127);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(80, 17);
-            this.label4.TabIndex = 9;
-            this.label4.Text = "Status Cmd";
+            this.labelTextBoxRelay1Status.AutoSize = true;
+            this.labelTextBoxRelay1Status.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelTextBoxRelay1Status.Location = new System.Drawing.Point(120, 127);
+            this.labelTextBoxRelay1Status.Name = "labelTextBoxRelay1Status";
+            this.labelTextBoxRelay1Status.Size = new System.Drawing.Size(80, 17);
+            this.labelTextBoxRelay1Status.TabIndex = 9;
+            this.labelTextBoxRelay1Status.Text = "Status Cmd";
+            this.labelTextBoxRelay1Status.Visible = false;
             // 
             // textBoxRelay1Status
             // 
@@ -690,27 +1031,30 @@
             this.textBoxRelay1Status.Name = "textBoxRelay1Status";
             this.textBoxRelay1Status.Size = new System.Drawing.Size(100, 22);
             this.textBoxRelay1Status.TabIndex = 8;
+            this.textBoxRelay1Status.Visible = false;
             this.textBoxRelay1Status.Leave += new System.EventHandler(this.textBoxRelay1On_Leave);
             // 
-            // label3
+            // labelTextBoxRelay1Off
             // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(120, 98);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(59, 17);
-            this.label3.TabIndex = 7;
-            this.label3.Text = "Off Cmd";
+            this.labelTextBoxRelay1Off.AutoSize = true;
+            this.labelTextBoxRelay1Off.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelTextBoxRelay1Off.Location = new System.Drawing.Point(120, 98);
+            this.labelTextBoxRelay1Off.Name = "labelTextBoxRelay1Off";
+            this.labelTextBoxRelay1Off.Size = new System.Drawing.Size(59, 17);
+            this.labelTextBoxRelay1Off.TabIndex = 7;
+            this.labelTextBoxRelay1Off.Text = "Off Cmd";
+            this.labelTextBoxRelay1Off.Visible = false;
             // 
-            // label1
+            // labelTextBoxRelay1On
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(121, 71);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(59, 17);
-            this.label1.TabIndex = 6;
-            this.label1.Text = "On Cmd";
+            this.labelTextBoxRelay1On.AutoSize = true;
+            this.labelTextBoxRelay1On.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelTextBoxRelay1On.Location = new System.Drawing.Point(121, 71);
+            this.labelTextBoxRelay1On.Name = "labelTextBoxRelay1On";
+            this.labelTextBoxRelay1On.Size = new System.Drawing.Size(59, 17);
+            this.labelTextBoxRelay1On.TabIndex = 6;
+            this.labelTextBoxRelay1On.Text = "On Cmd";
+            this.labelTextBoxRelay1On.Visible = false;
             // 
             // textBoxRelay1Off
             // 
@@ -720,6 +1064,7 @@
             this.textBoxRelay1Off.Name = "textBoxRelay1Off";
             this.textBoxRelay1Off.Size = new System.Drawing.Size(100, 22);
             this.textBoxRelay1Off.TabIndex = 5;
+            this.textBoxRelay1Off.Visible = false;
             this.textBoxRelay1Off.Leave += new System.EventHandler(this.textBoxRelay1On_Leave);
             // 
             // textBoxRelay1On
@@ -730,6 +1075,7 @@
             this.textBoxRelay1On.Name = "textBoxRelay1On";
             this.textBoxRelay1On.Size = new System.Drawing.Size(100, 22);
             this.textBoxRelay1On.TabIndex = 4;
+            this.textBoxRelay1On.Visible = false;
             this.textBoxRelay1On.Leave += new System.EventHandler(this.textBoxRelay1On_Leave);
             // 
             // checkBoxRelay1Enabled
@@ -747,14 +1093,14 @@
             // 
             // comboBoxBaudRelay1
             // 
-            this.comboBoxBaudRelay1.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::TunerUtil.Properties.Settings.Default, "Relay1Baud", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.comboBoxBaudRelay1.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::AmpAutoTunerUtility.Properties.Settings.Default, "Relay1Baud", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.comboBoxBaudRelay1.FormattingEnabled = true;
             this.comboBoxBaudRelay1.Location = new System.Drawing.Point(11, 37);
             this.comboBoxBaudRelay1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.comboBoxBaudRelay1.Name = "comboBoxBaudRelay1";
             this.comboBoxBaudRelay1.Size = new System.Drawing.Size(121, 24);
             this.comboBoxBaudRelay1.TabIndex = 2;
-            this.comboBoxBaudRelay1.Text = global::TunerUtil.Properties.Settings.Default.Relay1Baud;
+            this.comboBoxBaudRelay1.Text = global::AmpAutoTunerUtility.Properties.Settings.Default.Relay1Baud;
             this.comboBoxBaudRelay1.Visible = false;
             // 
             // tabPageRelay2
@@ -887,10 +1233,10 @@
             // panel4
             // 
             this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel4.Controls.Add(this.label5);
+            this.panel4.Controls.Add(this.labelTextBoxRelay2Status);
             this.panel4.Controls.Add(this.textBoxRelay2Status);
-            this.panel4.Controls.Add(this.label6);
-            this.panel4.Controls.Add(this.label7);
+            this.panel4.Controls.Add(this.labelTextBoxRelay2Off);
+            this.panel4.Controls.Add(this.labelTextBoxRelay2On);
             this.panel4.Controls.Add(this.textBoxRelay2Off);
             this.panel4.Controls.Add(this.textBoxRelay2On);
             this.panel4.Controls.Add(this.checkBoxRelay2Enabled);
@@ -902,15 +1248,16 @@
             this.panel4.Size = new System.Drawing.Size(227, 163);
             this.panel4.TabIndex = 5;
             // 
-            // label5
+            // labelTextBoxRelay2Status
             // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(120, 127);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(80, 17);
-            this.label5.TabIndex = 9;
-            this.label5.Text = "Status Cmd";
+            this.labelTextBoxRelay2Status.AutoSize = true;
+            this.labelTextBoxRelay2Status.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelTextBoxRelay2Status.Location = new System.Drawing.Point(120, 127);
+            this.labelTextBoxRelay2Status.Name = "labelTextBoxRelay2Status";
+            this.labelTextBoxRelay2Status.Size = new System.Drawing.Size(80, 17);
+            this.labelTextBoxRelay2Status.TabIndex = 9;
+            this.labelTextBoxRelay2Status.Text = "Status Cmd";
+            this.labelTextBoxRelay2Status.Visible = false;
             // 
             // textBoxRelay2Status
             // 
@@ -919,27 +1266,30 @@
             this.textBoxRelay2Status.Name = "textBoxRelay2Status";
             this.textBoxRelay2Status.Size = new System.Drawing.Size(100, 22);
             this.textBoxRelay2Status.TabIndex = 8;
+            this.textBoxRelay2Status.Visible = false;
             this.textBoxRelay2Status.Leave += new System.EventHandler(this.textBoxRelay1On_Leave);
             // 
-            // label6
+            // labelTextBoxRelay2Off
             // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(120, 98);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(59, 17);
-            this.label6.TabIndex = 7;
-            this.label6.Text = "Off Cmd";
+            this.labelTextBoxRelay2Off.AutoSize = true;
+            this.labelTextBoxRelay2Off.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelTextBoxRelay2Off.Location = new System.Drawing.Point(120, 98);
+            this.labelTextBoxRelay2Off.Name = "labelTextBoxRelay2Off";
+            this.labelTextBoxRelay2Off.Size = new System.Drawing.Size(59, 17);
+            this.labelTextBoxRelay2Off.TabIndex = 7;
+            this.labelTextBoxRelay2Off.Text = "Off Cmd";
+            this.labelTextBoxRelay2Off.Visible = false;
             // 
-            // label7
+            // labelTextBoxRelay2On
             // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(121, 71);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(59, 17);
-            this.label7.TabIndex = 6;
-            this.label7.Text = "On Cmd";
+            this.labelTextBoxRelay2On.AutoSize = true;
+            this.labelTextBoxRelay2On.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelTextBoxRelay2On.Location = new System.Drawing.Point(121, 71);
+            this.labelTextBoxRelay2On.Name = "labelTextBoxRelay2On";
+            this.labelTextBoxRelay2On.Size = new System.Drawing.Size(59, 17);
+            this.labelTextBoxRelay2On.TabIndex = 6;
+            this.labelTextBoxRelay2On.Text = "On Cmd";
+            this.labelTextBoxRelay2On.Visible = false;
             // 
             // textBoxRelay2Off
             // 
@@ -948,6 +1298,7 @@
             this.textBoxRelay2Off.Name = "textBoxRelay2Off";
             this.textBoxRelay2Off.Size = new System.Drawing.Size(100, 22);
             this.textBoxRelay2Off.TabIndex = 5;
+            this.textBoxRelay2Off.Visible = false;
             this.textBoxRelay2Off.Leave += new System.EventHandler(this.textBoxRelay1On_Leave);
             // 
             // textBoxRelay2On
@@ -957,6 +1308,7 @@
             this.textBoxRelay2On.Name = "textBoxRelay2On";
             this.textBoxRelay2On.Size = new System.Drawing.Size(100, 22);
             this.textBoxRelay2On.TabIndex = 4;
+            this.textBoxRelay2On.Visible = false;
             this.textBoxRelay2On.Leave += new System.EventHandler(this.textBoxRelay1On_Leave);
             // 
             // checkBoxRelay2Enabled
@@ -1113,10 +1465,10 @@
             // panel5
             // 
             this.panel5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel5.Controls.Add(this.label8);
+            this.panel5.Controls.Add(this.labelTextBoxRelay3Status);
             this.panel5.Controls.Add(this.textBoxRelay3Status);
-            this.panel5.Controls.Add(this.label9);
-            this.panel5.Controls.Add(this.label10);
+            this.panel5.Controls.Add(this.labelTextBoxRelay3Off);
+            this.panel5.Controls.Add(this.labelTextBoxRelay3On);
             this.panel5.Controls.Add(this.textBoxRelay3Off);
             this.panel5.Controls.Add(this.textBoxRelay3On);
             this.panel5.Controls.Add(this.checkBoxRelay3Enabled);
@@ -1128,15 +1480,16 @@
             this.panel5.Size = new System.Drawing.Size(227, 163);
             this.panel5.TabIndex = 5;
             // 
-            // label8
+            // labelTextBoxRelay3Status
             // 
-            this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(120, 127);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(80, 17);
-            this.label8.TabIndex = 9;
-            this.label8.Text = "Status Cmd";
+            this.labelTextBoxRelay3Status.AutoSize = true;
+            this.labelTextBoxRelay3Status.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelTextBoxRelay3Status.Location = new System.Drawing.Point(120, 127);
+            this.labelTextBoxRelay3Status.Name = "labelTextBoxRelay3Status";
+            this.labelTextBoxRelay3Status.Size = new System.Drawing.Size(80, 17);
+            this.labelTextBoxRelay3Status.TabIndex = 9;
+            this.labelTextBoxRelay3Status.Text = "Status Cmd";
+            this.labelTextBoxRelay3Status.Visible = false;
             // 
             // textBoxRelay3Status
             // 
@@ -1145,27 +1498,30 @@
             this.textBoxRelay3Status.Name = "textBoxRelay3Status";
             this.textBoxRelay3Status.Size = new System.Drawing.Size(100, 22);
             this.textBoxRelay3Status.TabIndex = 8;
+            this.textBoxRelay3Status.Visible = false;
             this.textBoxRelay3Status.Leave += new System.EventHandler(this.textBoxRelay1On_Leave);
             // 
-            // label9
+            // labelTextBoxRelay3Off
             // 
-            this.label9.AutoSize = true;
-            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(120, 98);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(59, 17);
-            this.label9.TabIndex = 7;
-            this.label9.Text = "Off Cmd";
+            this.labelTextBoxRelay3Off.AutoSize = true;
+            this.labelTextBoxRelay3Off.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelTextBoxRelay3Off.Location = new System.Drawing.Point(120, 98);
+            this.labelTextBoxRelay3Off.Name = "labelTextBoxRelay3Off";
+            this.labelTextBoxRelay3Off.Size = new System.Drawing.Size(59, 17);
+            this.labelTextBoxRelay3Off.TabIndex = 7;
+            this.labelTextBoxRelay3Off.Text = "Off Cmd";
+            this.labelTextBoxRelay3Off.Visible = false;
             // 
-            // label10
+            // labelTextBoxRelay3On
             // 
-            this.label10.AutoSize = true;
-            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(121, 71);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(59, 17);
-            this.label10.TabIndex = 6;
-            this.label10.Text = "On Cmd";
+            this.labelTextBoxRelay3On.AutoSize = true;
+            this.labelTextBoxRelay3On.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelTextBoxRelay3On.Location = new System.Drawing.Point(121, 71);
+            this.labelTextBoxRelay3On.Name = "labelTextBoxRelay3On";
+            this.labelTextBoxRelay3On.Size = new System.Drawing.Size(59, 17);
+            this.labelTextBoxRelay3On.TabIndex = 6;
+            this.labelTextBoxRelay3On.Text = "On Cmd";
+            this.labelTextBoxRelay3On.Visible = false;
             // 
             // textBoxRelay3Off
             // 
@@ -1174,6 +1530,7 @@
             this.textBoxRelay3Off.Name = "textBoxRelay3Off";
             this.textBoxRelay3Off.Size = new System.Drawing.Size(100, 22);
             this.textBoxRelay3Off.TabIndex = 5;
+            this.textBoxRelay3Off.Visible = false;
             this.textBoxRelay3Off.Leave += new System.EventHandler(this.textBoxRelay1On_Leave);
             // 
             // textBoxRelay3On
@@ -1183,6 +1540,7 @@
             this.textBoxRelay3On.Name = "textBoxRelay3On";
             this.textBoxRelay3On.Size = new System.Drawing.Size(100, 22);
             this.textBoxRelay3On.TabIndex = 4;
+            this.textBoxRelay3On.Visible = false;
             this.textBoxRelay3On.Leave += new System.EventHandler(this.textBoxRelay1On_Leave);
             // 
             // checkBoxRelay3Enabled
@@ -1339,10 +1697,10 @@
             // panel6
             // 
             this.panel6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel6.Controls.Add(this.label11);
+            this.panel6.Controls.Add(this.label1TextBoxRelay4Status);
             this.panel6.Controls.Add(this.textBoxRelay4Status);
-            this.panel6.Controls.Add(this.label12);
-            this.panel6.Controls.Add(this.label13);
+            this.panel6.Controls.Add(this.label1TextBoxRelay4Off);
+            this.panel6.Controls.Add(this.label1TextBoxRelay4On);
             this.panel6.Controls.Add(this.textBoxRelay4Off);
             this.panel6.Controls.Add(this.textBoxRelay4On);
             this.panel6.Controls.Add(this.checkBoxRelay4Enabled);
@@ -1354,15 +1712,16 @@
             this.panel6.Size = new System.Drawing.Size(227, 163);
             this.panel6.TabIndex = 5;
             // 
-            // label11
+            // label1TextBoxRelay4Status
             // 
-            this.label11.AutoSize = true;
-            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(120, 127);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(80, 17);
-            this.label11.TabIndex = 9;
-            this.label11.Text = "Status Cmd";
+            this.label1TextBoxRelay4Status.AutoSize = true;
+            this.label1TextBoxRelay4Status.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1TextBoxRelay4Status.Location = new System.Drawing.Point(120, 127);
+            this.label1TextBoxRelay4Status.Name = "label1TextBoxRelay4Status";
+            this.label1TextBoxRelay4Status.Size = new System.Drawing.Size(80, 17);
+            this.label1TextBoxRelay4Status.TabIndex = 9;
+            this.label1TextBoxRelay4Status.Text = "Status Cmd";
+            this.label1TextBoxRelay4Status.Visible = false;
             // 
             // textBoxRelay4Status
             // 
@@ -1371,27 +1730,30 @@
             this.textBoxRelay4Status.Name = "textBoxRelay4Status";
             this.textBoxRelay4Status.Size = new System.Drawing.Size(100, 22);
             this.textBoxRelay4Status.TabIndex = 8;
+            this.textBoxRelay4Status.Visible = false;
             this.textBoxRelay4Status.Leave += new System.EventHandler(this.textBoxRelay1On_Leave);
             // 
-            // label12
+            // label1TextBoxRelay4Off
             // 
-            this.label12.AutoSize = true;
-            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.Location = new System.Drawing.Point(120, 98);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(59, 17);
-            this.label12.TabIndex = 7;
-            this.label12.Text = "Off Cmd";
+            this.label1TextBoxRelay4Off.AutoSize = true;
+            this.label1TextBoxRelay4Off.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1TextBoxRelay4Off.Location = new System.Drawing.Point(120, 98);
+            this.label1TextBoxRelay4Off.Name = "label1TextBoxRelay4Off";
+            this.label1TextBoxRelay4Off.Size = new System.Drawing.Size(59, 17);
+            this.label1TextBoxRelay4Off.TabIndex = 7;
+            this.label1TextBoxRelay4Off.Text = "Off Cmd";
+            this.label1TextBoxRelay4Off.Visible = false;
             // 
-            // label13
+            // label1TextBoxRelay4On
             // 
-            this.label13.AutoSize = true;
-            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.Location = new System.Drawing.Point(121, 71);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(59, 17);
-            this.label13.TabIndex = 6;
-            this.label13.Text = "On Cmd";
+            this.label1TextBoxRelay4On.AutoSize = true;
+            this.label1TextBoxRelay4On.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1TextBoxRelay4On.Location = new System.Drawing.Point(121, 71);
+            this.label1TextBoxRelay4On.Name = "label1TextBoxRelay4On";
+            this.label1TextBoxRelay4On.Size = new System.Drawing.Size(59, 17);
+            this.label1TextBoxRelay4On.TabIndex = 6;
+            this.label1TextBoxRelay4On.Text = "On Cmd";
+            this.label1TextBoxRelay4On.Visible = false;
             // 
             // textBoxRelay4Off
             // 
@@ -1400,6 +1762,7 @@
             this.textBoxRelay4Off.Name = "textBoxRelay4Off";
             this.textBoxRelay4Off.Size = new System.Drawing.Size(100, 22);
             this.textBoxRelay4Off.TabIndex = 5;
+            this.textBoxRelay4Off.Visible = false;
             this.textBoxRelay4Off.Leave += new System.EventHandler(this.textBoxRelay1On_Leave);
             // 
             // textBoxRelay4On
@@ -1409,6 +1772,7 @@
             this.textBoxRelay4On.Name = "textBoxRelay4On";
             this.textBoxRelay4On.Size = new System.Drawing.Size(100, 22);
             this.textBoxRelay4On.TabIndex = 4;
+            this.textBoxRelay4On.Visible = false;
             this.textBoxRelay4On.Leave += new System.EventHandler(this.textBoxRelay1On_Leave);
             // 
             // checkBoxRelay4Enabled
@@ -1518,7 +1882,7 @@
             // 
             // buttonAntenna8
             // 
-            this.buttonAntenna8.Location = new System.Drawing.Point(179, 210);
+            this.buttonAntenna8.Location = new System.Drawing.Point(179, 211);
             this.buttonAntenna8.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonAntenna8.Name = "buttonAntenna8";
             this.buttonAntenna8.Size = new System.Drawing.Size(20, 20);
@@ -1527,7 +1891,7 @@
             // 
             // buttonAntenna7
             // 
-            this.buttonAntenna7.Location = new System.Drawing.Point(179, 185);
+            this.buttonAntenna7.Location = new System.Drawing.Point(179, 186);
             this.buttonAntenna7.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonAntenna7.Name = "buttonAntenna7";
             this.buttonAntenna7.Size = new System.Drawing.Size(20, 20);
@@ -1536,7 +1900,7 @@
             // 
             // buttonAntenna6
             // 
-            this.buttonAntenna6.Location = new System.Drawing.Point(179, 158);
+            this.buttonAntenna6.Location = new System.Drawing.Point(179, 159);
             this.buttonAntenna6.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonAntenna6.Name = "buttonAntenna6";
             this.buttonAntenna6.Size = new System.Drawing.Size(20, 20);
@@ -1545,7 +1909,7 @@
             // 
             // buttonAntenna5
             // 
-            this.buttonAntenna5.Location = new System.Drawing.Point(179, 130);
+            this.buttonAntenna5.Location = new System.Drawing.Point(179, 131);
             this.buttonAntenna5.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonAntenna5.Name = "buttonAntenna5";
             this.buttonAntenna5.Size = new System.Drawing.Size(20, 20);
@@ -1554,7 +1918,7 @@
             // 
             // buttonAntenna4
             // 
-            this.buttonAntenna4.Location = new System.Drawing.Point(179, 103);
+            this.buttonAntenna4.Location = new System.Drawing.Point(179, 104);
             this.buttonAntenna4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonAntenna4.Name = "buttonAntenna4";
             this.buttonAntenna4.Size = new System.Drawing.Size(20, 20);
@@ -1563,7 +1927,7 @@
             // 
             // buttonAntenna3
             // 
-            this.buttonAntenna3.Location = new System.Drawing.Point(179, 76);
+            this.buttonAntenna3.Location = new System.Drawing.Point(179, 77);
             this.buttonAntenna3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonAntenna3.Name = "buttonAntenna3";
             this.buttonAntenna3.Size = new System.Drawing.Size(20, 20);
@@ -1572,7 +1936,7 @@
             // 
             // buttonAntenna2
             // 
-            this.buttonAntenna2.Location = new System.Drawing.Point(179, 49);
+            this.buttonAntenna2.Location = new System.Drawing.Point(179, 50);
             this.buttonAntenna2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonAntenna2.Name = "buttonAntenna2";
             this.buttonAntenna2.Size = new System.Drawing.Size(20, 20);
@@ -1581,12 +1945,13 @@
             // 
             // buttonAntenna1
             // 
-            this.buttonAntenna1.Location = new System.Drawing.Point(179, 22);
+            this.buttonAntenna1.BackColor = System.Drawing.Color.LightGray;
+            this.buttonAntenna1.Location = new System.Drawing.Point(179, 23);
             this.buttonAntenna1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonAntenna1.Name = "buttonAntenna1";
             this.buttonAntenna1.Size = new System.Drawing.Size(20, 20);
             this.buttonAntenna1.TabIndex = 55;
-            this.buttonAntenna1.UseVisualStyleBackColor = true;
+            this.buttonAntenna1.UseVisualStyleBackColor = false;
             // 
             // label18
             // 
@@ -1596,73 +1961,6 @@
             this.label18.Size = new System.Drawing.Size(45, 17);
             this.label18.TabIndex = 54;
             this.label18.Text = "Name";
-            // 
-            // textBoxAntenna8
-            // 
-            this.textBoxAntenna8.Location = new System.Drawing.Point(239, 210);
-            this.textBoxAntenna8.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.textBoxAntenna8.Name = "textBoxAntenna8";
-            this.textBoxAntenna8.Size = new System.Drawing.Size(109, 22);
-            this.textBoxAntenna8.TabIndex = 53;
-            // 
-            // textBoxAntenna7
-            // 
-            this.textBoxAntenna7.Location = new System.Drawing.Point(239, 185);
-            this.textBoxAntenna7.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.textBoxAntenna7.Name = "textBoxAntenna7";
-            this.textBoxAntenna7.Size = new System.Drawing.Size(109, 22);
-            this.textBoxAntenna7.TabIndex = 52;
-            // 
-            // textBoxAntenna6
-            // 
-            this.textBoxAntenna6.Location = new System.Drawing.Point(239, 158);
-            this.textBoxAntenna6.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.textBoxAntenna6.Name = "textBoxAntenna6";
-            this.textBoxAntenna6.Size = new System.Drawing.Size(109, 22);
-            this.textBoxAntenna6.TabIndex = 51;
-            // 
-            // textBoxAntenna5
-            // 
-            this.textBoxAntenna5.Location = new System.Drawing.Point(239, 130);
-            this.textBoxAntenna5.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.textBoxAntenna5.Name = "textBoxAntenna5";
-            this.textBoxAntenna5.Size = new System.Drawing.Size(109, 22);
-            this.textBoxAntenna5.TabIndex = 50;
-            // 
-            // textBoxAntenna4
-            // 
-            this.textBoxAntenna4.Location = new System.Drawing.Point(239, 103);
-            this.textBoxAntenna4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.textBoxAntenna4.Name = "textBoxAntenna4";
-            this.textBoxAntenna4.Size = new System.Drawing.Size(109, 22);
-            this.textBoxAntenna4.TabIndex = 49;
-            // 
-            // textBoxAntenna3
-            // 
-            this.textBoxAntenna3.Location = new System.Drawing.Point(239, 76);
-            this.textBoxAntenna3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.textBoxAntenna3.Name = "textBoxAntenna3";
-            this.textBoxAntenna3.Size = new System.Drawing.Size(109, 22);
-            this.textBoxAntenna3.TabIndex = 48;
-            this.textBoxAntenna3.Text = "Cobweb";
-            // 
-            // textBoxAntenna2
-            // 
-            this.textBoxAntenna2.Location = new System.Drawing.Point(240, 49);
-            this.textBoxAntenna2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.textBoxAntenna2.Name = "textBoxAntenna2";
-            this.textBoxAntenna2.Size = new System.Drawing.Size(109, 22);
-            this.textBoxAntenna2.TabIndex = 47;
-            this.textBoxAntenna2.Text = "17M Loop";
-            // 
-            // textBoxAntenna1
-            // 
-            this.textBoxAntenna1.Location = new System.Drawing.Point(240, 22);
-            this.textBoxAntenna1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.textBoxAntenna1.Name = "textBoxAntenna1";
-            this.textBoxAntenna1.Size = new System.Drawing.Size(109, 22);
-            this.textBoxAntenna1.TabIndex = 46;
-            this.textBoxAntenna1.Text = "Dipole";
             // 
             // checkBoxAntenna8
             // 
@@ -1744,43 +2042,9 @@
             this.checkBoxAntenna1.TabIndex = 38;
             this.checkBoxAntenna1.UseVisualStyleBackColor = true;
             // 
-            // textBoxAntenna8Bits
-            // 
-            this.textBoxAntenna8Bits.Location = new System.Drawing.Point(443, 210);
-            this.textBoxAntenna8Bits.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.textBoxAntenna8Bits.Name = "textBoxAntenna8Bits";
-            this.textBoxAntenna8Bits.Size = new System.Drawing.Size(60, 22);
-            this.textBoxAntenna8Bits.TabIndex = 37;
-            // 
-            // comboBoxAntenna8Relay
-            // 
-            this.comboBoxAntenna8Relay.FormattingEnabled = true;
-            this.comboBoxAntenna8Relay.Location = new System.Drawing.Point(355, 210);
-            this.comboBoxAntenna8Relay.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.comboBoxAntenna8Relay.Name = "comboBoxAntenna8Relay";
-            this.comboBoxAntenna8Relay.Size = new System.Drawing.Size(83, 24);
-            this.comboBoxAntenna8Relay.TabIndex = 36;
-            // 
-            // textBoxAntenna7Bits
-            // 
-            this.textBoxAntenna7Bits.Location = new System.Drawing.Point(443, 185);
-            this.textBoxAntenna7Bits.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.textBoxAntenna7Bits.Name = "textBoxAntenna7Bits";
-            this.textBoxAntenna7Bits.Size = new System.Drawing.Size(60, 22);
-            this.textBoxAntenna7Bits.TabIndex = 35;
-            // 
-            // comboBoxAntenna7Relay
-            // 
-            this.comboBoxAntenna7Relay.FormattingEnabled = true;
-            this.comboBoxAntenna7Relay.Location = new System.Drawing.Point(355, 183);
-            this.comboBoxAntenna7Relay.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.comboBoxAntenna7Relay.Name = "comboBoxAntenna7Relay";
-            this.comboBoxAntenna7Relay.Size = new System.Drawing.Size(83, 24);
-            this.comboBoxAntenna7Relay.TabIndex = 34;
-            // 
             // textBoxAntennaFreq8To
             // 
-            this.textBoxAntennaFreq8To.Location = new System.Drawing.Point(83, 213);
+            this.textBoxAntennaFreq8To.Location = new System.Drawing.Point(83, 211);
             this.textBoxAntennaFreq8To.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBoxAntennaFreq8To.Name = "textBoxAntennaFreq8To";
             this.textBoxAntennaFreq8To.Size = new System.Drawing.Size(69, 22);
@@ -1788,7 +2052,7 @@
             // 
             // textBoxAntennaFreq8From
             // 
-            this.textBoxAntennaFreq8From.Location = new System.Drawing.Point(4, 213);
+            this.textBoxAntennaFreq8From.Location = new System.Drawing.Point(4, 211);
             this.textBoxAntennaFreq8From.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBoxAntennaFreq8From.Name = "textBoxAntennaFreq8From";
             this.textBoxAntennaFreq8From.Size = new System.Drawing.Size(72, 22);
@@ -1796,7 +2060,7 @@
             // 
             // textBoxAntennaFreq7To
             // 
-            this.textBoxAntennaFreq7To.Location = new System.Drawing.Point(83, 186);
+            this.textBoxAntennaFreq7To.Location = new System.Drawing.Point(83, 184);
             this.textBoxAntennaFreq7To.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBoxAntennaFreq7To.Name = "textBoxAntennaFreq7To";
             this.textBoxAntennaFreq7To.Size = new System.Drawing.Size(69, 22);
@@ -1804,107 +2068,11 @@
             // 
             // textBoxAntennaFreq7From
             // 
-            this.textBoxAntennaFreq7From.Location = new System.Drawing.Point(4, 186);
+            this.textBoxAntennaFreq7From.Location = new System.Drawing.Point(4, 184);
             this.textBoxAntennaFreq7From.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBoxAntennaFreq7From.Name = "textBoxAntennaFreq7From";
             this.textBoxAntennaFreq7From.Size = new System.Drawing.Size(72, 22);
             this.textBoxAntennaFreq7From.TabIndex = 30;
-            // 
-            // textBoxAntenna6Bits
-            // 
-            this.textBoxAntenna6Bits.Location = new System.Drawing.Point(443, 158);
-            this.textBoxAntenna6Bits.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.textBoxAntenna6Bits.Name = "textBoxAntenna6Bits";
-            this.textBoxAntenna6Bits.Size = new System.Drawing.Size(60, 22);
-            this.textBoxAntenna6Bits.TabIndex = 29;
-            // 
-            // comboBoxAntenna6Relay
-            // 
-            this.comboBoxAntenna6Relay.FormattingEnabled = true;
-            this.comboBoxAntenna6Relay.Location = new System.Drawing.Point(355, 156);
-            this.comboBoxAntenna6Relay.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.comboBoxAntenna6Relay.Name = "comboBoxAntenna6Relay";
-            this.comboBoxAntenna6Relay.Size = new System.Drawing.Size(83, 24);
-            this.comboBoxAntenna6Relay.TabIndex = 28;
-            // 
-            // textBoxAntenna5Bits
-            // 
-            this.textBoxAntenna5Bits.Location = new System.Drawing.Point(443, 130);
-            this.textBoxAntenna5Bits.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.textBoxAntenna5Bits.Name = "textBoxAntenna5Bits";
-            this.textBoxAntenna5Bits.Size = new System.Drawing.Size(60, 22);
-            this.textBoxAntenna5Bits.TabIndex = 27;
-            // 
-            // comboBoxAntenna5Relay
-            // 
-            this.comboBoxAntenna5Relay.FormattingEnabled = true;
-            this.comboBoxAntenna5Relay.Location = new System.Drawing.Point(355, 129);
-            this.comboBoxAntenna5Relay.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.comboBoxAntenna5Relay.Name = "comboBoxAntenna5Relay";
-            this.comboBoxAntenna5Relay.Size = new System.Drawing.Size(83, 24);
-            this.comboBoxAntenna5Relay.TabIndex = 26;
-            // 
-            // textBoxAntenna4Bits
-            // 
-            this.textBoxAntenna4Bits.Location = new System.Drawing.Point(443, 103);
-            this.textBoxAntenna4Bits.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.textBoxAntenna4Bits.Name = "textBoxAntenna4Bits";
-            this.textBoxAntenna4Bits.Size = new System.Drawing.Size(60, 22);
-            this.textBoxAntenna4Bits.TabIndex = 25;
-            // 
-            // comboBoxAntenna4Relay
-            // 
-            this.comboBoxAntenna4Relay.FormattingEnabled = true;
-            this.comboBoxAntenna4Relay.Location = new System.Drawing.Point(355, 102);
-            this.comboBoxAntenna4Relay.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.comboBoxAntenna4Relay.Name = "comboBoxAntenna4Relay";
-            this.comboBoxAntenna4Relay.Size = new System.Drawing.Size(83, 24);
-            this.comboBoxAntenna4Relay.TabIndex = 24;
-            // 
-            // textBoxAntenna3Bits
-            // 
-            this.textBoxAntenna3Bits.Location = new System.Drawing.Point(443, 76);
-            this.textBoxAntenna3Bits.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.textBoxAntenna3Bits.Name = "textBoxAntenna3Bits";
-            this.textBoxAntenna3Bits.Size = new System.Drawing.Size(60, 22);
-            this.textBoxAntenna3Bits.TabIndex = 23;
-            this.textBoxAntenna3Bits.Text = "1";
-            // 
-            // comboBoxAntenna3Relay
-            // 
-            this.comboBoxAntenna3Relay.FormattingEnabled = true;
-            this.comboBoxAntenna3Relay.Location = new System.Drawing.Point(355, 75);
-            this.comboBoxAntenna3Relay.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.comboBoxAntenna3Relay.Name = "comboBoxAntenna3Relay";
-            this.comboBoxAntenna3Relay.Size = new System.Drawing.Size(83, 24);
-            this.comboBoxAntenna3Relay.TabIndex = 22;
-            // 
-            // textBoxAntenna2Bits
-            // 
-            this.textBoxAntenna2Bits.Location = new System.Drawing.Point(443, 49);
-            this.textBoxAntenna2Bits.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.textBoxAntenna2Bits.Name = "textBoxAntenna2Bits";
-            this.textBoxAntenna2Bits.Size = new System.Drawing.Size(60, 22);
-            this.textBoxAntenna2Bits.TabIndex = 21;
-            this.textBoxAntenna2Bits.Text = "3";
-            // 
-            // comboBoxAntenna2Relay
-            // 
-            this.comboBoxAntenna2Relay.FormattingEnabled = true;
-            this.comboBoxAntenna2Relay.Location = new System.Drawing.Point(355, 48);
-            this.comboBoxAntenna2Relay.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.comboBoxAntenna2Relay.Name = "comboBoxAntenna2Relay";
-            this.comboBoxAntenna2Relay.Size = new System.Drawing.Size(83, 24);
-            this.comboBoxAntenna2Relay.TabIndex = 20;
-            // 
-            // textBoxAntenna1Bits
-            // 
-            this.textBoxAntenna1Bits.Location = new System.Drawing.Point(444, 22);
-            this.textBoxAntenna1Bits.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.textBoxAntenna1Bits.Name = "textBoxAntenna1Bits";
-            this.textBoxAntenna1Bits.Size = new System.Drawing.Size(60, 22);
-            this.textBoxAntenna1Bits.TabIndex = 19;
-            this.textBoxAntenna1Bits.Text = "0";
             // 
             // label17
             // 
@@ -1924,42 +2092,9 @@
             this.label16.TabIndex = 17;
             this.label16.Text = "Relay";
             // 
-            // comboBoxAntenna1Relay
-            // 
-            this.comboBoxAntenna1Relay.FormattingEnabled = true;
-            this.comboBoxAntenna1Relay.Location = new System.Drawing.Point(355, 21);
-            this.comboBoxAntenna1Relay.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.comboBoxAntenna1Relay.Name = "comboBoxAntenna1Relay";
-            this.comboBoxAntenna1Relay.Size = new System.Drawing.Size(83, 24);
-            this.comboBoxAntenna1Relay.TabIndex = 16;
-            // 
-            // radioButtonAntennaWire8
-            // 
-            this.radioButtonAntennaWire8.AutoSize = true;
-            this.radioButtonAntennaWire8.Location = new System.Drawing.Point(404, 235);
-            this.radioButtonAntennaWire8.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.radioButtonAntennaWire8.Name = "radioButtonAntennaWire8";
-            this.radioButtonAntennaWire8.Size = new System.Drawing.Size(70, 21);
-            this.radioButtonAntennaWire8.TabIndex = 15;
-            this.radioButtonAntennaWire8.Text = "8 Wire";
-            this.radioButtonAntennaWire8.UseVisualStyleBackColor = true;
-            // 
-            // radioButtonAntennaWire3
-            // 
-            this.radioButtonAntennaWire3.AutoSize = true;
-            this.radioButtonAntennaWire3.Checked = true;
-            this.radioButtonAntennaWire3.Location = new System.Drawing.Point(323, 236);
-            this.radioButtonAntennaWire3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.radioButtonAntennaWire3.Name = "radioButtonAntennaWire3";
-            this.radioButtonAntennaWire3.Size = new System.Drawing.Size(70, 21);
-            this.radioButtonAntennaWire3.TabIndex = 14;
-            this.radioButtonAntennaWire3.TabStop = true;
-            this.radioButtonAntennaWire3.Text = "3 Wire";
-            this.radioButtonAntennaWire3.UseVisualStyleBackColor = true;
-            // 
             // textBoxAntennaFreq6To
             // 
-            this.textBoxAntennaFreq6To.Location = new System.Drawing.Point(83, 159);
+            this.textBoxAntennaFreq6To.Location = new System.Drawing.Point(83, 157);
             this.textBoxAntennaFreq6To.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBoxAntennaFreq6To.Name = "textBoxAntennaFreq6To";
             this.textBoxAntennaFreq6To.Size = new System.Drawing.Size(69, 22);
@@ -1967,7 +2102,7 @@
             // 
             // textBoxAntennaFreq6From
             // 
-            this.textBoxAntennaFreq6From.Location = new System.Drawing.Point(4, 159);
+            this.textBoxAntennaFreq6From.Location = new System.Drawing.Point(4, 157);
             this.textBoxAntennaFreq6From.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBoxAntennaFreq6From.Name = "textBoxAntennaFreq6From";
             this.textBoxAntennaFreq6From.Size = new System.Drawing.Size(72, 22);
@@ -1975,7 +2110,7 @@
             // 
             // textBoxAntennaFreq5To
             // 
-            this.textBoxAntennaFreq5To.Location = new System.Drawing.Point(83, 132);
+            this.textBoxAntennaFreq5To.Location = new System.Drawing.Point(83, 130);
             this.textBoxAntennaFreq5To.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBoxAntennaFreq5To.Name = "textBoxAntennaFreq5To";
             this.textBoxAntennaFreq5To.Size = new System.Drawing.Size(69, 22);
@@ -1983,7 +2118,7 @@
             // 
             // textBoxAntennaFreq5From
             // 
-            this.textBoxAntennaFreq5From.Location = new System.Drawing.Point(4, 132);
+            this.textBoxAntennaFreq5From.Location = new System.Drawing.Point(4, 130);
             this.textBoxAntennaFreq5From.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBoxAntennaFreq5From.Name = "textBoxAntennaFreq5From";
             this.textBoxAntennaFreq5From.Size = new System.Drawing.Size(72, 22);
@@ -1991,7 +2126,7 @@
             // 
             // textBoxAntennaFreq4To
             // 
-            this.textBoxAntennaFreq4To.Location = new System.Drawing.Point(83, 105);
+            this.textBoxAntennaFreq4To.Location = new System.Drawing.Point(83, 103);
             this.textBoxAntennaFreq4To.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBoxAntennaFreq4To.Name = "textBoxAntennaFreq4To";
             this.textBoxAntennaFreq4To.Size = new System.Drawing.Size(69, 22);
@@ -1999,7 +2134,7 @@
             // 
             // textBoxAntennaFreq4From
             // 
-            this.textBoxAntennaFreq4From.Location = new System.Drawing.Point(4, 105);
+            this.textBoxAntennaFreq4From.Location = new System.Drawing.Point(4, 103);
             this.textBoxAntennaFreq4From.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBoxAntennaFreq4From.Name = "textBoxAntennaFreq4From";
             this.textBoxAntennaFreq4From.Size = new System.Drawing.Size(72, 22);
@@ -2007,7 +2142,7 @@
             // 
             // textBoxAntennaFreq3To
             // 
-            this.textBoxAntennaFreq3To.Location = new System.Drawing.Point(83, 78);
+            this.textBoxAntennaFreq3To.Location = new System.Drawing.Point(83, 76);
             this.textBoxAntennaFreq3To.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBoxAntennaFreq3To.Name = "textBoxAntennaFreq3To";
             this.textBoxAntennaFreq3To.Size = new System.Drawing.Size(69, 22);
@@ -2016,7 +2151,7 @@
             // 
             // textBoxAntennaFreq3From
             // 
-            this.textBoxAntennaFreq3From.Location = new System.Drawing.Point(4, 78);
+            this.textBoxAntennaFreq3From.Location = new System.Drawing.Point(4, 76);
             this.textBoxAntennaFreq3From.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBoxAntennaFreq3From.Name = "textBoxAntennaFreq3From";
             this.textBoxAntennaFreq3From.Size = new System.Drawing.Size(72, 22);
@@ -2025,7 +2160,7 @@
             // 
             // textBoxAntennaFreq2To
             // 
-            this.textBoxAntennaFreq2To.Location = new System.Drawing.Point(83, 50);
+            this.textBoxAntennaFreq2To.Location = new System.Drawing.Point(83, 48);
             this.textBoxAntennaFreq2To.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBoxAntennaFreq2To.Name = "textBoxAntennaFreq2To";
             this.textBoxAntennaFreq2To.Size = new System.Drawing.Size(69, 22);
@@ -2034,7 +2169,7 @@
             // 
             // textBoxAntennaFreq2From
             // 
-            this.textBoxAntennaFreq2From.Location = new System.Drawing.Point(4, 50);
+            this.textBoxAntennaFreq2From.Location = new System.Drawing.Point(4, 48);
             this.textBoxAntennaFreq2From.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBoxAntennaFreq2From.Name = "textBoxAntennaFreq2From";
             this.textBoxAntennaFreq2From.Size = new System.Drawing.Size(72, 22);
@@ -2061,21 +2196,11 @@
             // 
             // textBoxAntennaFreq1To
             // 
-            this.textBoxAntennaFreq1To.Location = new System.Drawing.Point(83, 25);
+            this.textBoxAntennaFreq1To.Location = new System.Drawing.Point(83, 23);
             this.textBoxAntennaFreq1To.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBoxAntennaFreq1To.Name = "textBoxAntennaFreq1To";
             this.textBoxAntennaFreq1To.Size = new System.Drawing.Size(69, 22);
             this.textBoxAntennaFreq1To.TabIndex = 1;
-            this.textBoxAntennaFreq1To.Text = "10.15";
-            // 
-            // textBoxAntennaFreq1From
-            // 
-            this.textBoxAntennaFreq1From.Location = new System.Drawing.Point(4, 25);
-            this.textBoxAntennaFreq1From.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.textBoxAntennaFreq1From.Name = "textBoxAntennaFreq1From";
-            this.textBoxAntennaFreq1From.Size = new System.Drawing.Size(72, 22);
-            this.textBoxAntennaFreq1From.TabIndex = 0;
-            this.textBoxAntennaFreq1From.Text = "1.8";
             // 
             // Form1
             // 
@@ -2084,17 +2209,22 @@
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.ClientSize = new System.Drawing.Size(519, 288);
             this.Controls.Add(this.tabControl1);
-            this.DataBindings.Add(new System.Windows.Forms.Binding("Location", global::TunerUtil.Properties.Settings.Default, "Location", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.Location = global::TunerUtil.Properties.Settings.Default.Location;
+            this.DataBindings.Add(new System.Windows.Forms.Binding("Location", global::AmpAutoTunerUtility.Properties.Settings.Default, "Location", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Location = global::AmpAutoTunerUtility.Properties.Settings.Default.Location;
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.MaximumSize = new System.Drawing.Size(537, 335);
             this.Name = "Form1";
-            this.Text = "AmpTunerUtility V0.12";
+            this.Text = "AmpAutoTunerUtility V0.12 by W9MDB";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownSensitivity)).EndInit();
             this.tabControl1.ResumeLayout(false);
+            this.tabPageControl.ResumeLayout(false);
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
             this.tabPageTuner.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
@@ -2136,28 +2266,26 @@
         private System.Windows.Forms.RichTextBox richTextBoxRig;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.CheckBox checkBoxRig;
-        private System.Windows.Forms.Label labelFreq;
         private System.Windows.Forms.TextBox textBoxRelay1Off;
         private System.Windows.Forms.TextBox textBoxRelay1On;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox textBoxFreqTol;
-        private System.Windows.Forms.Button buttonTune;
         private System.Windows.Forms.ComboBox comboBoxBaudTuner;
         private System.Windows.Forms.ComboBox comboBoxComTuner;
-        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label labelTextBoxRelay1Status;
         private System.Windows.Forms.TextBox textBoxRelay1Status;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label labelTextBoxRelay1Off;
+        private System.Windows.Forms.Label labelTextBoxRelay1On;
         private System.Windows.Forms.TabPage tabPageRelay2;
         private System.Windows.Forms.TabPage tabPageRelay3;
         private System.Windows.Forms.TabPage tabPageRelay4;
         private System.Windows.Forms.RichTextBox richTextBoxRelay2;
         private System.Windows.Forms.Panel panel4;
-        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label labelTextBoxRelay2Status;
         private System.Windows.Forms.TextBox textBoxRelay2Status;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label labelTextBoxRelay2Off;
+        private System.Windows.Forms.Label labelTextBoxRelay2On;
         private System.Windows.Forms.TextBox textBoxRelay2Off;
         private System.Windows.Forms.TextBox textBoxRelay2On;
         private System.Windows.Forms.CheckBox checkBoxRelay2Enabled;
@@ -2165,10 +2293,10 @@
         private System.Windows.Forms.ComboBox comboBoxComRelay2;
         private System.Windows.Forms.RichTextBox richTextBoxRelay3;
         private System.Windows.Forms.Panel panel5;
-        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label labelTextBoxRelay3Status;
         private System.Windows.Forms.TextBox textBoxRelay3Status;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label labelTextBoxRelay3Off;
+        private System.Windows.Forms.Label labelTextBoxRelay3On;
         private System.Windows.Forms.TextBox textBoxRelay3Off;
         private System.Windows.Forms.TextBox textBoxRelay3On;
         private System.Windows.Forms.CheckBox checkBoxRelay3Enabled;
@@ -2176,10 +2304,10 @@
         private System.Windows.Forms.ComboBox comboBoxComRelay3;
         private System.Windows.Forms.RichTextBox richTextBoxRelay4;
         private System.Windows.Forms.Panel panel6;
-        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label label1TextBoxRelay4Status;
         private System.Windows.Forms.TextBox textBoxRelay4Status;
-        private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Label label1TextBoxRelay4Off;
+        private System.Windows.Forms.Label label1TextBoxRelay4On;
         private System.Windows.Forms.TextBox textBoxRelay4Off;
         private System.Windows.Forms.TextBox textBoxRelay4On;
         private System.Windows.Forms.CheckBox checkBoxRelay4Enabled;
@@ -2195,7 +2323,6 @@
         private System.Windows.Forms.Button button1_7;
         private System.Windows.Forms.Button button1_6;
         private System.Windows.Forms.Button button1_5;
-        private System.Windows.Forms.Button buttonTunerStatus;
         private System.Windows.Forms.Button button18;
         private System.Windows.Forms.Button button19;
         private System.Windows.Forms.Button button20;
@@ -2252,7 +2379,6 @@
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.TextBox textBoxAntennaFreq1To;
-        private System.Windows.Forms.TextBox textBoxAntennaFreq1From;
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.TextBox textBoxAntenna8;
         private System.Windows.Forms.TextBox textBoxAntenna7;
@@ -2289,6 +2415,16 @@
         private System.Windows.Forms.Button buttonAntenna3;
         private System.Windows.Forms.Button buttonAntenna2;
         private System.Windows.Forms.Button buttonAntenna1;
+        private System.Windows.Forms.TabPage tabPageControl;
+        private System.Windows.Forms.Button buttonTunerStatus;
+        private System.Windows.Forms.Button buttonTune;
+        private System.Windows.Forms.Label labelFreq;
+        private System.Windows.Forms.Label labelAntennaSelected;
+        private System.Windows.Forms.Label labelSWR;
+        private System.Windows.Forms.Label labelPower;
+        private System.Windows.Forms.TextBox textBoxAntennaFreq1From;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.GroupBox groupBox1;
     }
 }
 

@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.329
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AmpTunerUtility", "TunerUtil\AmpTunerUtility.csproj", "{35560AF2-1D2C-40D2-95E3-74A95D829716}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AmpAutoTunerUtility", "TunerUtil\AmpAutoTunerUtility.csproj", "{35560AF2-1D2C-40D2-95E3-74A95D829716}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
