@@ -1348,7 +1348,7 @@ namespace AmpAutoTunerUtility
                 MyMessageBox("Tuner not enabled");
                 return;
             }
-            Tune(tuner1.GetModel().Equals("MFJ-928"));
+            Tune(true);
         }
 
         private string FLRigXML(string cmd, string value)
