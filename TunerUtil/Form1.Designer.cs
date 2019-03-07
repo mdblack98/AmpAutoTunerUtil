@@ -2216,7 +2216,7 @@
             this.buttonTunePause.Text = "Pause";
             this.toolTip1.SetToolTip(this.buttonTunePause, "Start a tune cycle");
             this.buttonTunePause.UseVisualStyleBackColor = false;
-            this.buttonTunePause.Click += new System.EventHandler(this.buttonTunePause_Click);
+            this.buttonTunePause.Click += new System.EventHandler(this.ButtonTunePause_Click);
             // 
             // Form1
             // 

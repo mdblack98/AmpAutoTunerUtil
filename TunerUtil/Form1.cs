@@ -1634,7 +1634,7 @@ namespace AmpAutoTunerUtility
             return Math.Abs(lastfrequency - lastfrequencyTuned) > Convert.ToDouble(textBoxFreqTol.Text);
         }
 
-        private void buttonTunePause_Click(object sender, EventArgs e)
+        private void ButtonTunePause_Click(object sender, EventArgs e)
         {
             paused = !paused;
             if (paused)
