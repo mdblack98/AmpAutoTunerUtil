@@ -1022,15 +1022,22 @@ namespace AmpAutoTunerUtility
         private string FLRigGetActiveVFO()
         {
             string vfo = "A";
-            string xml2 = FLRigXML("rig.get_AB", null);
-            Byte[] data = System.Text.Encoding.ASCII.GetBytes(xml2);
-            rigStream.Write(data, 0, data.Length);
-            Byte[] data2 = new byte[4096];
-            Int32 bytes = rigStream.Read(data2, 0, data2.Length);
-            string responseData = Encoding.ASCII.GetString(data2, 0, bytes);
-            if (responseData.Contains("<value>B"))
+            try
             {
-                vfo = "B";
+                string xml2 = FLRigXML("rig.get_AB", null);
+                Byte[] data = System.Text.Encoding.ASCII.GetBytes(xml2);
+                rigStream.Write(data, 0, data.Length);
+                Byte[] data2 = new byte[4096];
+                Int32 bytes = rigStream.Read(data2, 0, data2.Length);
+                string responseData = Encoding.ASCII.GetString(data2, 0, bytes);
+                if (responseData.Contains("<value>B"))
+                {
+                    vfo = "B";
+                }
+            }
+            catch (Exception)
+            {
+                richTextBoxRig.AppendText(MyTime() + "GetActiveVFO error\n");
             }
             return vfo;
         }
@@ -1622,6 +1629,11 @@ namespace AmpAutoTunerUtility
             MessageBox.Show("Help");
         }
 
+        private bool FrequencyChanged()
+        {
+            return Math.Abs(lastfrequency - lastfrequencyTuned) > Convert.ToDouble(textBoxFreqTol.Text);
+        }
+
         private void buttonTunePause_Click(object sender, EventArgs e)
         {
             paused = !paused;
@@ -1631,13 +1643,18 @@ namespace AmpAutoTunerUtility
                 buttonTune.Enabled = false;
                 labelSWR.Text = "SWR Paused";
                 buttonTunerStatus.BackColor = Color.LightGray;
+                richTextBoxTuner.AppendText(MyTime() + "Tuning paused\n");
             }
             else
             {
                 buttonTunePause.Text = "Pause";
                 buttonTune.Enabled = true;
                 labelSWR.Text = "SWR";
-                Tune(true);
+                if (FrequencyChanged())
+                {
+                    Tune(true);
+                }
+                richTextBoxTuner.AppendText(MyTime() + "Tuning resumed\n");
             }
         }
     }
