@@ -36,14 +36,19 @@ namespace AmpAutoTunerUtility
             return this.comport;
         }
 
-        public virtual char Tune()
+        public virtual void Tune()
         {
-            return '!';
+            //return '!';
         }
 
         public virtual void Close()
         {
 
+        }
+
+        public virtual char ReadResponse()
+        {
+            return '?';
         }
     }
 }

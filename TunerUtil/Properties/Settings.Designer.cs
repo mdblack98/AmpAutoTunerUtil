@@ -1042,5 +1042,437 @@ namespace AmpAutoTunerUtility.Properties {
                 this["radioButtonAntennaWire8"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool checkBoxPTTEnabled {
+            get {
+                return ((bool)(this["checkBoxPTTEnabled"]));
+            }
+            set {
+                this["checkBoxPTTEnabled"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool checkBoxToneEnabled {
+            get {
+                return ((bool)(this["checkBoxToneEnabled"]));
+            }
+            set {
+                this["checkBoxToneEnabled"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string comboBoxAudioOut {
+            get {
+                return ((string)(this["comboBoxAudioOut"]));
+            }
+            set {
+                this["comboBoxAudioOut"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool powerSDR {
+            get {
+                return ((bool)(this["powerSDR"]));
+            }
+            set {
+                this["powerSDR"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Power1From {
+            get {
+                return ((string)(this["Power1From"]));
+            }
+            set {
+                this["Power1From"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Power2From {
+            get {
+                return ((string)(this["Power2From"]));
+            }
+            set {
+                this["Power2From"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Power3From {
+            get {
+                return ((string)(this["Power3From"]));
+            }
+            set {
+                this["Power3From"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Power4From {
+            get {
+                return ((string)(this["Power4From"]));
+            }
+            set {
+                this["Power4From"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Power5From {
+            get {
+                return ((string)(this["Power5From"]));
+            }
+            set {
+                this["Power5From"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Power6From {
+            get {
+                return ((string)(this["Power6From"]));
+            }
+            set {
+                this["Power6From"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Power7From {
+            get {
+                return ((string)(this["Power7From"]));
+            }
+            set {
+                this["Power7From"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public string Power8From {
+            get {
+                return ((string)(this["Power8From"]));
+            }
+            set {
+                this["Power8From"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Power1To {
+            get {
+                return ((string)(this["Power1To"]));
+            }
+            set {
+                this["Power1To"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Power2To {
+            get {
+                return ((string)(this["Power2To"]));
+            }
+            set {
+                this["Power2To"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Power3To {
+            get {
+                return ((string)(this["Power3To"]));
+            }
+            set {
+                this["Power3To"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Power4To {
+            get {
+                return ((string)(this["Power4To"]));
+            }
+            set {
+                this["Power4To"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Power5To {
+            get {
+                return ((string)(this["Power5To"]));
+            }
+            set {
+                this["Power5To"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Power6To {
+            get {
+                return ((string)(this["Power6To"]));
+            }
+            set {
+                this["Power6To"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Power7To {
+            get {
+                return ((string)(this["Power7To"]));
+            }
+            set {
+                this["Power7To"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1000")]
+        public string Power8To {
+            get {
+                return ((string)(this["Power8To"]));
+            }
+            set {
+                this["Power8To"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool Power1Enabled {
+            get {
+                return ((bool)(this["Power1Enabled"]));
+            }
+            set {
+                this["Power1Enabled"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool Power2Enabled {
+            get {
+                return ((bool)(this["Power2Enabled"]));
+            }
+            set {
+                this["Power2Enabled"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool Power3Enabled {
+            get {
+                return ((bool)(this["Power3Enabled"]));
+            }
+            set {
+                this["Power3Enabled"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool Power4Enabled {
+            get {
+                return ((bool)(this["Power4Enabled"]));
+            }
+            set {
+                this["Power4Enabled"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool Power5Enabled {
+            get {
+                return ((bool)(this["Power5Enabled"]));
+            }
+            set {
+                this["Power5Enabled"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool Power6Enabled {
+            get {
+                return ((bool)(this["Power6Enabled"]));
+            }
+            set {
+                this["Power6Enabled"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool Power7Enabled {
+            get {
+                return ((bool)(this["Power7Enabled"]));
+            }
+            set {
+                this["Power7Enabled"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool Power8Enabled {
+            get {
+                return ((bool)(this["Power8Enabled"]));
+            }
+            set {
+                this["Power8Enabled"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Power1Watts {
+            get {
+                return ((string)(this["Power1Watts"]));
+            }
+            set {
+                this["Power1Watts"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Power2Watts {
+            get {
+                return ((string)(this["Power2Watts"]));
+            }
+            set {
+                this["Power2Watts"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Power3Watts {
+            get {
+                return ((string)(this["Power3Watts"]));
+            }
+            set {
+                this["Power3Watts"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Power4Watts {
+            get {
+                return ((string)(this["Power4Watts"]));
+            }
+            set {
+                this["Power4Watts"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Power5Watts {
+            get {
+                return ((string)(this["Power5Watts"]));
+            }
+            set {
+                this["Power5Watts"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Power6Watts {
+            get {
+                return ((string)(this["Power6Watts"]));
+            }
+            set {
+                this["Power6Watts"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Power7Watts {
+            get {
+                return ((string)(this["Power7Watts"]));
+            }
+            set {
+                this["Power7Watts"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Power8Watts {
+            get {
+                return ((string)(this["Power8Watts"]));
+            }
+            set {
+                this["Power8Watts"] = value;
+            }
+        }
     }
 }

@@ -12,6 +12,7 @@ namespace AmpAutoTunerUtility
     class TunerLDG : Tuner
     {
         private SerialPort SerialPortTuner = null;
+        char response = 'X';
 
         public TunerLDG(string model, string comport, string baud)
         {
@@ -67,13 +68,18 @@ namespace AmpAutoTunerUtility
             return SerialPortTuner.PortName;
         }
 
-        public override char Tune()
+        public override char ReadResponse()
+        {
+            return response;
+        }
+
+        public override void Tune()
         {
             // LDG Reponse to T command
             // T < 1.5
             // M 1.5-3.1
             // F Failed
-            char response = 'X';
+            //char response = 'X';
             byte[] buf = new byte[19];
             //int n = 0;
             try
@@ -97,7 +103,7 @@ namespace AmpAutoTunerUtility
                 MessageBox.Show(ex.Message);
                 response = '?';
             }
-            return response;
+            //return response;
         }
     }
 }

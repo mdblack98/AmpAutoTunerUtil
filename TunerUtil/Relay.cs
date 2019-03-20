@@ -18,47 +18,87 @@ namespace AmpAutoTunerUtility
         int relayNum = 0;
         string serialNumber = "";
         List<string> serialNums = new List<string>();
+        public string errMsg = null;
 
         public Relay()
         {
             disposed = false;
-            ftdi.SetBaudRate(9600);
-            ftdi.GetNumberOfDevices(ref devcount);
-            if (devcount == 0)
+            try
             {
-                return;
-            }
-            FT_DEVICE_INFO_NODE[] nodes = new FT_DEVICE_INFO_NODE[devcount];
-            FT_STATUS status = ftdi.GetDeviceList(nodes);
-            uint index = 0;
-            uint nRelays = 0;
-            foreach (FT_DEVICE_INFO_NODE node in nodes)
-            {
-                if (node.Description.Contains("FT245R"))
+                ftdi.SetBaudRate(9600);
+                ftdi.GetNumberOfDevices(ref devcount);
+                if (devcount == 0)
                 {
-                    nRelays++;
-                    ftdi.OpenByIndex(index);
-                    ftdi.GetCOMPort(out string comport);
-                    ftdi.Close();
-                    comList.Add(comport);
-                    comIndex.Add(index);
-                    serialNums.Add(node.SerialNumber);
+                    errMsg = "No devices found";
+                    return;
                 }
-                ++index;
+                FT_DEVICE_INFO_NODE[] nodes = new FT_DEVICE_INFO_NODE[devcount];
+                FT_STATUS status = ftdi.GetDeviceList(nodes);
+                uint index = 0;
+                uint nRelays = 0;
+                foreach (FT_DEVICE_INFO_NODE node in nodes)
+                {
+                    if (node.Description.Contains("FT245R"))
+                    {
+                        nRelays++;
+                        ftdi.OpenByIndex(index);
+                        //Nothing unique in the EEPROM to show 4 or 8 channel
+                        //FT232R_EEPROM_STRUCTURE ee232r = new FT232R_EEPROM_STRUCTURE();
+                        //ftdi.ReadFT232REEPROM(ee232r);
+                        ftdi.GetCOMPort(out string comport);
+                        Close();
+                        comList.Add(comport);
+                        comIndex.Add(index);
+                        serialNums.Add(node.SerialNumber);
+                    }
+                    ++index;
+                }
+                devcount = nRelays;
             }
-            devcount = nRelays;
+            catch (Exception ex)
+            {
+                errMsg = ex.Message;
+            }
         }
 
-        public void Open(string comPortNew)
+        public void Open(bool close = true)
         {
-            int index = comList.IndexOf(comPortNew);
-            ftdi.OpenByIndex(comIndex[index]);
-            ftdi.SetBitMode(0xff, 0x01);
-            comPort = comPortNew;
-            relayNum = (int)index + 1; // index is 0-based, our relayNum is 1-based for the GUI
-            serialNumber = serialNums[index];
-            AllOff();
+            Open(comPort, close);
         }
+
+        public void Open(string comPortNew, bool close = true)
+        {
+            errMsg = null;
+            if (ftdi == null)
+            {
+                ftdi = new FTDI();
+            }
+            try
+            {
+                int index = comList.IndexOf(comPortNew);
+                if (index < 0)
+                {
+                    index = -1;
+                    return;
+                }
+                ftdi.OpenByIndex(comIndex[index]);
+                ftdi.SetBitMode(0xff, 0x01);
+                comPort = comPortNew;
+                relayNum = (int)index + 1; // index is 0-based, our relayNum is 1-based for the GUI
+                serialNumber = serialNums[index];
+                if (close)
+                {
+                    ftdi.Close();
+                    ftdi = null;
+                }
+                //AllOff();
+            }
+            catch (Exception ex)
+            {
+                errMsg = "Relay Open failed\n"+ex.Message;
+            }
+        }
+
 
         public string SerialNumber()
         {
@@ -106,23 +146,51 @@ namespace AmpAutoTunerUtility
             if (ftdi != null && ftdi.IsOpen)
             {
                 AllOff();
-                //Thread.Sleep(200);
                 ftdi.Close();
+                Thread.Sleep(200);
             }
             ftdi = null;
-            //Thread.Sleep(200);
+            Thread.Sleep(200);
+        }
+
+        public bool IsOK()
+        {
+            return true;
+            // We'll just get the serial number to see if we're working
+            Open(false);
+            if (ftdi == null)
+            {
+                Open(false);
+                return false;
+            }
+            {
+                ftdi.GetSerialNumber(out string serialNumber);
+                if (serialNumber.Length == 0) return false;
+            }
+            Close();
+            return true;
         }
 
         public void AllOff()
         {
-            Set(1, 0); // Turn off all relays
-            Set(2, 0);
-            Set(3, 0);
-            Set(4, 0);
-            Set(5, 0);
-            Set(6, 0);
-            Set(7, 0);
-            Set(8, 0);
+            //Open();
+            errMsg = null;
+            try
+            {
+                Set(1, 0); // Turn off all relays
+                Set(2, 0);
+                Set(3, 0);
+                Set(4, 0);
+                Set(5, 0);
+                Set(6, 0);
+                Set(7, 0);
+                Set(8, 0);
+            }
+            catch (Exception ex)
+            {
+                errMsg = "Relay AllOff failed\n"+ex.Message;
+            }
+            //ftdi.Close();
         }
 
         public bool IsOpen()
@@ -150,51 +218,119 @@ namespace AmpAutoTunerUtility
         }
         public bool Status(int nRelay)
         {
-            byte bitModes = 0;
-            ftdi.GetPinStates(ref bitModes);
-            if ((bitModes & (1 << (nRelay - 1))) != 0)
+            Open();
+            errMsg = null;
+            try
             {
-                return true;
+                byte bitModes = 0;
+                ftdi.GetPinStates(ref bitModes);
+                if ((bitModes & (1 << (nRelay - 1))) != 0)
+                {
+                    Close();
+                    return true;
+                }
             }
+            catch (Exception ex)
+            {
+                errMsg = "Relay Status failed\n"+ex.Message;
+            }
+            Close();
             return false;
         }
 
         public byte Status()
         {
+            bool local = false;
+            if (ftdi!=null && !ftdi.IsOpen) // then we'll open and close the device inside here
+            {
+                Open();
+                local = true;
+            }
+            errMsg = null;
             byte bitModes = 0;
-            ftdi.GetPinStates(ref bitModes);
+            try
+            {
+                ftdi.GetPinStates(ref bitModes);
+            }
+            catch (Exception ex)
+            {
+                errMsg = "Relay Status failed\n"+ex.Message;
+            }
+            if (local)
+            {
+                Close();
+            }
             return bitModes;
         }
 
         public void Init()
         {
-            byte bitModes = 0;
-            ftdi.GetPinStates(ref bitModes);
-
+            Open();
+            errMsg = null;
+            try
+            {
+                byte bitModes = 0;
+                ftdi.GetPinStates(ref bitModes);
+            }
+            catch (Exception ex)
+            {
+                errMsg = "Relay Init failed\n"+ex.Message;
+            }
+           Close();
         }
 
         public void Set(int nRelay, byte status)
         {
-            // Get status
-            byte[] data = { 0xff, 0xff, 0x00 };
-            uint nWritten = 0;
-            byte flags;
-            byte bitModes = 0;
-
-            ftdi.GetPinStates(ref bitModes);
-
-            if (status != 0)
+            if (ftdi == null)
             {
-                flags = (byte)(bitModes | (1u << (nRelay - 1)));
+                Open(false);
             }
-            else
+            errMsg = null;
+            try
             {
-                flags = (byte)(bitModes & (~(1u << (nRelay - 1))));
+                // Get status
+                byte[] data = { 0xff, 0xff, 0x00 };
+                uint nWritten = 0;
+                byte flags;
+                byte bitModes = 0x00;
+
+                ftdi.GetPinStates(ref bitModes);
+
+                if (status != 0)
+                {
+                    flags = (byte)(bitModes | (1u << (nRelay - 1)));
+                }
+                else
+                {
+                    flags = (byte)(bitModes & (~(1u << (nRelay - 1))));
+                }
+                data[2] = flags;
+                ftdi.Write(data, data.Length, ref nWritten);
+                if (nWritten == 0)
+                {
+                    Close();
+                    errMsg = "Unable to write to relay...disconnected?";
+                    return;
+                    //throw new Exception("Unable to write to relay...disconnected?");
+                }
+                Thread.Sleep(100);
+                byte bitModes2 = 0x00;
+                ftdi.GetPinStates(ref bitModes2);
+                if (status != 0) // check we set it
+                {
+                    if ((bitModes2 & (1u << (nRelay - 1))) == 0)
+                    {
+                        errMsg = "Relay did not get set!";
+                        Close();
+                        return;
+                    }
+                }
+                //Status();
             }
-            data[2] = flags;
-            ftdi.Write(data, data.Length, ref nWritten);
-            Thread.Sleep(100);
-            Status();
+            catch (Exception ex)
+            {
+                errMsg = "Relay Set failed\n"+ex.Message;
+            }
         }
     }
 }
