@@ -123,6 +123,18 @@
   <metadata name="timerGetFreq.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
+  <data name="label4.Text" xml:space="preserve">
+    <value>First pass through entries
+will select the first
+mode-specific match.
+Second pass though 
+entries will select the
+first "Any" match.
+
+Note: This is not a watts 
+value but is the Pwr value
+in FLRig</value>
+  </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="$this.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>

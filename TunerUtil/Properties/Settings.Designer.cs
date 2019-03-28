@@ -1474,5 +1474,101 @@ namespace AmpAutoTunerUtility.Properties {
                 this["Power8Watts"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Any")]
+        public string Power1Mode {
+            get {
+                return ((string)(this["Power1Mode"]));
+            }
+            set {
+                this["Power1Mode"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Any")]
+        public string Power2Mode {
+            get {
+                return ((string)(this["Power2Mode"]));
+            }
+            set {
+                this["Power2Mode"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Any")]
+        public string Power3Mode {
+            get {
+                return ((string)(this["Power3Mode"]));
+            }
+            set {
+                this["Power3Mode"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Any")]
+        public string Power4Mode {
+            get {
+                return ((string)(this["Power4Mode"]));
+            }
+            set {
+                this["Power4Mode"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Any")]
+        public string Power5Mode {
+            get {
+                return ((string)(this["Power5Mode"]));
+            }
+            set {
+                this["Power5Mode"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Any")]
+        public string Power6Mode {
+            get {
+                return ((string)(this["Power6Mode"]));
+            }
+            set {
+                this["Power6Mode"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Any")]
+        public string Power7Mode {
+            get {
+                return ((string)(this["Power7Mode"]));
+            }
+            set {
+                this["Power7Mode"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Any")]
+        public string Power8Mode {
+            get {
+                return ((string)(this["Power8Mode"]));
+            }
+            set {
+                this["Power8Mode"] = value;
+            }
+        }
     }
 }

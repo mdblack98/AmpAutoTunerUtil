@@ -365,5 +365,29 @@
     <Setting Name="Power8Watts" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
+    <Setting Name="Power1Mode" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Any</Value>
+    </Setting>
+    <Setting Name="Power2Mode" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Any</Value>
+    </Setting>
+    <Setting Name="Power3Mode" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Any</Value>
+    </Setting>
+    <Setting Name="Power4Mode" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Any</Value>
+    </Setting>
+    <Setting Name="Power5Mode" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Any</Value>
+    </Setting>
+    <Setting Name="Power6Mode" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Any</Value>
+    </Setting>
+    <Setting Name="Power7Mode" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Any</Value>
+    </Setting>
+    <Setting Name="Power8Mode" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Any</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

@@ -53,6 +53,7 @@ namespace AmpAutoTunerUtility
         bool formClosing = false; // use this to detect shutdown condition
         bool getFreqIsRunning = false;
         private double lastFreqBeforePauseHz;
+        string modeCurrent = "UNK";
 
         public Form1()
         {
@@ -257,10 +258,10 @@ namespace AmpAutoTunerUtility
             List<string> comPorts = relay1.ComList();
             if (relay1.DevCount() == 0)
             {
-                tabControlPower.TabPages.Remove(tabPageRelay1);
-                tabControlPower.TabPages.Remove(tabPageRelay2);
-                tabControlPower.TabPages.Remove(tabPageRelay3);
-                tabControlPower.TabPages.Remove(tabPageRelay4);
+                tabControl1.TabPages.Remove(tabPageRelay1);
+                tabControl1.TabPages.Remove(tabPageRelay2);
+                tabControl1.TabPages.Remove(tabPageRelay3);
+                tabControl1.TabPages.Remove(tabPageRelay4);
                 //relay1.Close();
                 relay1 = null;
             }
@@ -272,19 +273,32 @@ namespace AmpAutoTunerUtility
                 switch (comPorts.Count)
                 {
                     case 1:
-                        tabControlPower.TabPages.Remove(tabPageRelay2);
-                        tabControlPower.TabPages.Remove(tabPageRelay3);
-                        tabControlPower.TabPages.Remove(tabPageRelay4);
+                        tabControl1.SelectTab(tabPageRelay1);
+                        tabControl1.TabPages.Remove(tabPageRelay2);
+                        tabControl1.TabPages.Remove(tabPageRelay3);
+                        tabControl1.TabPages.Remove(tabPageRelay4);
                         //form2.ProgressBarSetMax(2);
                         break;
                     case 2:
-                        tabControlPower.TabPages.Remove(tabPageRelay3);
-                        tabControlPower.TabPages.Remove(tabPageRelay4);
+                        tabControl1.SelectTab(tabPageRelay1);
+                        tabControl1.SelectTab(tabPageRelay2);
+
+                        tabControl1.TabPages.Remove(tabPageRelay3);
+                        tabControl1.TabPages.Remove(tabPageRelay4);
                         //form2.ProgressBarSetMax(3);
                         break;
                     case 3:
-                        tabControlPower.TabPages.Remove(tabPageRelay4);
+                        tabControl1.SelectTab(tabPageRelay1);
+                        tabControl1.SelectTab(tabPageRelay2);
+                        tabControl1.SelectTab(tabPageRelay3);
+                        tabControl1.TabPages.Remove(tabPageRelay4);
                         //form2.ProgressBarSetMax(4);
+                        break;
+                    case 4:
+                        tabControl1.SelectTab(tabPageRelay1);
+                        tabControl1.SelectTab(tabPageRelay2);
+                        tabControl1.SelectTab(tabPageRelay3);
+                        tabControl1.SelectTab(tabPageRelay4);
                         break;
                 }
             }
@@ -417,8 +431,6 @@ namespace AmpAutoTunerUtility
             //t.Abort();
             //CheckMissingRelay("FormOpen");
             //tabControl1.SelectedTab = tabPageRelay1;
-            timerGetFreq.Interval = 500;
-            timerGetFreq.Enabled = true;
 
             // Disable checkboxes if things are not set correctly
             if (comboBoxComTuner.SelectedIndex == -1 || comboBoxComTuner.SelectedIndex == -1)
@@ -476,7 +488,33 @@ namespace AmpAutoTunerUtility
                 this.Top = 0;
                 this.Left = 0;
             }
+            List<string> modes = FLRigGetModes();
+            modes.Sort();
+            modes.Insert(0,"Any");
+            foreach (string mode in modes)
+            {
+                comboBoxPower1Mode.Items.Add(mode);
+                comboBoxPower2Mode.Items.Add(mode);
+                comboBoxPower3Mode.Items.Add(mode);
+                comboBoxPower4Mode.Items.Add(mode);
+                comboBoxPower5Mode.Items.Add(mode);
+                comboBoxPower6Mode.Items.Add(mode);
+                comboBoxPower7Mode.Items.Add(mode);
+                comboBoxPower8Mode.Items.Add(mode);
+            }
+            // we have to select that tabs for the Application Properties to be loaded
+            tabControl1.SelectTab(tabPagePower);
+            tabControl1.SelectTab(tabPageAntenna);
+            //tabControl1.SelectTab(tabPageRelay4);
+            //tabControl1.SelectTab(tabPageRelay3);
+            //tabControl1.SelectTab(tabPageRelay2);
+            //tabControl1.SelectTab(tabPageRelay1);
+            tabControl1.SelectTab(tabPageTuner);
+            tabControl1.SelectTab(tabPageControl);
 
+            Thread.Sleep(100);
+            timerGetFreq.Interval = 500;
+            timerGetFreq.Enabled = true;
         }
 
         private void TunerClose()
@@ -867,7 +905,7 @@ namespace AmpAutoTunerUtility
                     rigClient = null;
                 }
                 //checkBoxRig.Checked = false;
-                tabControlPower.SelectedTab = tabPageRig;
+                tabControl1.SelectedTab = tabPageRig;
                 //DisconnectFLRig();
                 return false;
             }
@@ -886,7 +924,7 @@ namespace AmpAutoTunerUtility
             var ptt = checkBoxPTTEnabled.Checked;
             var tone = checkBoxToneEnabled.Checked;
             var powerSDR = checkBoxPowerSDR.Checked;
-            PowerSelect(frequencyHz);
+            PowerSelect(frequencyHz, modeCurrent);
             Thread.Sleep(250);
             richTextBoxRig.AppendText(MyTime() + "Tuning to " + frequencyHz+"\n");
             char vfo = 'A';
@@ -902,7 +940,6 @@ namespace AmpAutoTunerUtility
                 richTextBoxRig.AppendText(MyTime() + "FLRig Tune got an error??\n");
             }
             richTextBoxRig.AppendText(MyTime() + "Rig mode set\n");
-            //PowerSelect(frequencyHz);
 
             buttonTunerStatus.BackColor = Color.LightGray;
             if (checkBoxRelay1Enabled.Checked) RelaySet(relay1, 1, 1);
@@ -915,27 +952,21 @@ namespace AmpAutoTunerUtility
                 xml = FLRigXML("rig.set_ptt", "<params><param><value><i4>1</i4></value></param></params");
                 if (FLRigSend(xml) == false) return false; // Abort if FLRig is giving an error
                 richTextBoxRig.AppendText(MyTime() + "Set ptt on\n");
+                tuner1.Tune();
             }
             else if (powerSDR)
             {
+                tuner1.Tune();
                 xml = FLRigXML("rig.cat_string", "<params><param><value>ZZTU1;</value></param></params");
                 if (FLRigSend(xml) == false) return false; // Abort if FLRig is giving an error
                 richTextBoxRig.AppendText(MyTime() + "PowerSDR Tune started\n");
             }
-            //Thread.Sleep(500);
-            // Now start the tuning
-            char response = '?';
-            if (powerSDR)
-            {   // then we let the tuner do it's thing
-                tuner1.Tune();
-                // we read the response after we do our thing
-            }
             else
             {
                 tuner1.Tune();
-                // response = tuner1.ReadResponse();
             }
-            response = tuner1.ReadResponse();
+            Thread.Sleep(200);
+            char response = tuner1.ReadResponse();
             // stop audio here
             Application.DoEvents();
             if (ptt && !powerSDR) // we turn off PTT now
@@ -981,7 +1012,7 @@ namespace AmpAutoTunerUtility
             {
                 if (this.WindowState == FormWindowState.Minimized)
                     this.WindowState = FormWindowState.Normal;
-                tabControlPower.SelectedTab = tabPageRig;
+                tabControl1.SelectedTab = tabPageRig;
                 buttonTunerStatus.BackColor = Color.Transparent;
                 MyMessageBox("Unknown response from tuner = '" + response + "'");
             }
@@ -990,8 +1021,80 @@ namespace AmpAutoTunerUtility
             return true;
         }
 
-        // Wait for FLRig to return valid data
-        private bool FLRigWait()
+        private List<string> FLRigGetModes()
+        {
+            List<string> modes = new List<string>();
+            if (rigClient == null) { ConnectFLRig(); }
+            string xml2 = FLRigXML("rig.get_modes", null);
+            Byte[] data = System.Text.Encoding.ASCII.GetBytes(xml2);
+            try
+            {
+                rigStream.Write(data, 0, data.Length);
+            }
+            catch (Exception ex)
+            {
+                richTextBoxRig.AppendText(MyTime() + "FLRigGetModes error:\n" + ex.Message + "\n");
+                if (rigClient != null)
+                {
+                    rigStream.Close();
+                    rigClient.Close();
+                    rigStream = null;
+                    rigClient = null;
+                }
+                tabControl1.SelectedTab = tabPageRig;
+                return null;
+            }
+            data = new Byte[4096];
+            String responseData = String.Empty;
+            rigStream.ReadTimeout = 2000;
+            try
+            {
+                Int32 bytes = rigStream.Read(data, 0, data.Length);
+                responseData = Encoding.ASCII.GetString(data, 0, bytes);
+                //richTextBoxRig.AppendText(responseData + "\n");
+                try
+                {
+                    char[] delims = {'<','>', '\r','\n' };
+                    string[] tokens = responseData.Split(delims);
+                    int i = 0;
+                    bool value = false;
+                    for (;i<tokens.Length;++i)
+                    {
+                        if (tokens[i].Equals("data")) value = true;
+                        if (value == true && tokens[i].Equals("value")) {
+                            modes.Add(tokens[i + 1]);
+                        }
+                    }
+                    if (responseData.Contains("<value>")) // then we have a frequency
+                    {
+                        int offset1 = responseData.IndexOf("<value>") + "<value>".Length;
+                        int offset2 = responseData.IndexOf("</value>");
+                        //mode = responseData.Substring(offset1, offset2 - offset1);
+                    }
+                    else
+                    {
+                        labelFreq.Text = "?";
+                        richTextBoxRig.AppendText(MyTime() + responseData + "\n");
+                        tabControl1.SelectedTab = tabPageRig;
+                    }
+                }
+                catch (Exception)
+                {
+                    richTextBoxRig.AppendText(MyTime() + "Error parsing freq from answer:\n" + responseData + "\n");
+                    frequencyHz = 0;
+                }
+            }
+            catch (Exception ex)
+            {
+                richTextBoxRig.AppendText(MyTime() + "Rig not responding\n" + ex.Message + "\n");
+                frequencyHz = 0;
+            }
+            return modes;
+        
+
+    }
+    // Wait for FLRig to return valid data
+    private bool FLRigWait()
         {
             string xcvr = "";
             while((xcvr=FLRigGetXcvr()) == null && formClosing == false) {
@@ -1010,7 +1113,7 @@ namespace AmpAutoTunerUtility
         {
             string xcvr = null;
 
-            if (!checkBoxRig.Checked) return null;
+            //if (!checkBoxRig.Checked) return null;
             if (rigClient == null) { ConnectFLRig(); }
             string xml2 = FLRigXML("rig.get_xcvr", null);
             Byte[] data = System.Text.Encoding.ASCII.GetBytes(xml2);
@@ -1028,7 +1131,7 @@ namespace AmpAutoTunerUtility
                     rigStream = null;
                     rigClient = null;
                 }
-                tabControlPower.SelectedTab = tabPageRig;
+                tabControl1.SelectedTab = tabPageRig;
                 return null;
             }
             data = new Byte[4096];
@@ -1053,7 +1156,7 @@ namespace AmpAutoTunerUtility
                     {
                         labelFreq.Text = "?";
                         richTextBoxRig.AppendText(MyTime() + responseData + "\n");
-                        tabControlPower.SelectedTab = tabPageRig;
+                        tabControl1.SelectedTab = tabPageRig;
                     }
                 }
                 catch (Exception)
@@ -1093,7 +1196,7 @@ namespace AmpAutoTunerUtility
                     rigStream = null;
                     rigClient = null;
                 }
-                tabControlPower.SelectedTab = tabPageRig;
+                tabControl1.SelectedTab = tabPageRig;
                 return null;
             }
             data = new Byte[4096];
@@ -1116,7 +1219,7 @@ namespace AmpAutoTunerUtility
                     {
                         labelFreq.Text = "?";
                         richTextBoxRig.AppendText(MyTime() + responseData + "\n");
-                        tabControlPower.SelectedTab = tabPageRig;
+                        tabControl1.SelectedTab = tabPageRig;
                     }
                 }
                 catch (Exception)
@@ -1250,63 +1353,74 @@ namespace AmpAutoTunerUtility
             return true;
         }
 
-        private bool PowerSelectOp(double frequencyMHz, CheckBox enabled, TextBox from, TextBox to, TextBox powerLevel)
+        private bool PowerSelectOp(double frequencyMHz, CheckBox enabled, TextBox from, TextBox to, TextBox powerLevel, ComboBox mode, string modeChk, int passNum)
         {
+            // On passNum=0 we check for specific mode matches
+            // On passNum>0 we check for "Any" matches
             try
             {
                 if (enabled.Checked)
                 {
                     if (from.Text.Length == 0)
                     {
-                        MyMessageBox("Power tab From MHz is empty");
+                        //MyMessageBox("Power tab From MHz is empty");
+                        from.Text = "0";
                         return false;
                     }
                     if (to.Text.Length == 0)
                     {
-                        MyMessageBox("Power tab To MHz is empty");
+                        //MyMessageBox("Power tab To MHz is empty");
+                        to.Text = "1000";
                             return false;
                     }
                     double frequencyFrom = Convert.ToDouble(from.Text);
                     double frequencyTo = Convert.ToDouble(to.Text);
                     if (frequencyMHz >= frequencyFrom && frequencyMHz <= frequencyTo)
                     {
-                        if (powerLevel.Text.Length == 0)
+                        //if (powerLevel.Text.Length == 0)
+                        //{
+                        //    MyMessageBox("Power tab Power is empty");
+                        //    return false;
+                        //}
+                        if (mode.SelectedItem==null || mode.SelectedItem.Equals(modeChk) || (passNum > 0 && mode.SelectedItem.Equals("Any"))) 
                         {
-                            MyMessageBox("Power tab Power is empty");
-                            return false;
+                            if (powerLevel.Text.Length > 0) PowerSet(Convert.ToInt32(powerLevel.Text));
+                            return true;
                         }
-                        PowerSet(Convert.ToInt32(powerLevel.Text));
-                        return true;
+                        return false;
                     }
                 }
             }
             catch (Exception)
             {
-                MyMessageBox("Error parsing frequencies\nFrequencies need to be in Mhz\nPower not set");
+                //MyMessageBox("Error parsing frequencies\nFrequencies need to be in Mhz\nPower not set");
             }
             labelPower.Text = "Power not set";
             return false;
         }
 
-        private void PowerSelect(double frequencyHz)
+        private void PowerSelect(double frequencyHz, string modeChk)
         {
             double frequencyMHz = frequencyHz / 1e6;
-            if (PowerSelectOp(frequencyMHz, checkBoxPower1Enabled, textBoxPower1From, textBoxPower1To, textBoxPower1Watts))
-                return;
-            if (PowerSelectOp(frequencyMHz, checkBoxPower2Enabled, textBoxPower2From, textBoxPower2To, textBoxPower2Watts))
-                return;
-            if (PowerSelectOp(frequencyMHz, checkBoxPower3Enabled, textBoxPower3From, textBoxPower3To, textBoxPower3Watts))
-                return;
-            if (PowerSelectOp(frequencyMHz, checkBoxPower4Enabled, textBoxPower4From, textBoxPower4To, textBoxPower4Watts))
-                return;
-            if (PowerSelectOp(frequencyMHz, checkBoxPower5Enabled, textBoxPower5From, textBoxPower5To, textBoxPower5Watts))
-                return;
-            if (PowerSelectOp(frequencyMHz, checkBoxPower6Enabled, textBoxPower6From, textBoxPower6To, textBoxPower6Watts))
-                return;
-            if (PowerSelectOp(frequencyMHz, checkBoxPower7Enabled, textBoxPower7From, textBoxPower7To, textBoxPower7Watts))
-                return;
-            if (PowerSelectOp(frequencyMHz, checkBoxPower8Enabled, textBoxPower8From, textBoxPower8To, textBoxPower8Watts))
-                return;
+            for (int passNum = 0; passNum < 2; ++passNum)
+            {
+                if (PowerSelectOp(frequencyMHz, checkBoxPower1Enabled, textBoxPower1From, textBoxPower1To, textBoxPower1Watts, comboBoxPower1Mode, modeChk, passNum))
+                    return;
+                if (PowerSelectOp(frequencyMHz, checkBoxPower2Enabled, textBoxPower2From, textBoxPower2To, textBoxPower2Watts, comboBoxPower2Mode, modeChk, passNum))
+                    return;
+                if (PowerSelectOp(frequencyMHz, checkBoxPower3Enabled, textBoxPower3From, textBoxPower3To, textBoxPower3Watts, comboBoxPower3Mode, modeChk, passNum))
+                    return;
+                if (PowerSelectOp(frequencyMHz, checkBoxPower4Enabled, textBoxPower4From, textBoxPower4To, textBoxPower4Watts, comboBoxPower4Mode, modeChk, passNum))
+                    return;
+                if (PowerSelectOp(frequencyMHz, checkBoxPower5Enabled, textBoxPower5From, textBoxPower5To, textBoxPower5Watts, comboBoxPower5Mode, modeChk, passNum))
+                    return;
+                if (PowerSelectOp(frequencyMHz, checkBoxPower6Enabled, textBoxPower6From, textBoxPower6To, textBoxPower6Watts, comboBoxPower6Mode, modeChk, passNum))
+                    return;
+                if (PowerSelectOp(frequencyMHz, checkBoxPower7Enabled, textBoxPower7From, textBoxPower7To, textBoxPower7Watts, comboBoxPower7Mode, modeChk, passNum))
+                    return;
+                if (PowerSelectOp(frequencyMHz, checkBoxPower8Enabled, textBoxPower8From, textBoxPower8To, textBoxPower8Watts, comboBoxPower8Mode, modeChk, passNum))
+                    return;
+            }
         }
 
         private void FLRigGetFreq()
@@ -1364,7 +1478,7 @@ namespace AmpAutoTunerUtility
                     rigStream = null;
                     rigClient = null;
                 }
-                tabControlPower.SelectedTab = tabPageRig;
+                tabControl1.SelectedTab = tabPageRig;
                 getFreqIsRunning = false;
                 return;
             }
@@ -1383,7 +1497,11 @@ namespace AmpAutoTunerUtility
                         int offset2 = responseData.IndexOf("</value>");
                         string freqString = responseData.Substring(offset1, offset2 - offset1);
                         frequencyHz = Double.Parse(freqString);
-                        labelFreq.Text = (frequencyHz / 1000).ToString() + "kHz";
+                        string modeOld = modeCurrent;
+                        modeCurrent = FLRigGetMode(); // get our current mode now
+                        labelFreq.Text = (frequencyHz / 1000).ToString() + "kHz" + " " + modeCurrent;
+                        if (comboBoxPower1Mode.SelectedItem != null && !modeCurrent.Equals(modeOld))
+                            PowerSelect(frequencyHz, modeCurrent);
                         if (lastfrequency == 0) lastfrequency = lastfrequencyTunedHz = frequencyHz;
                         if (lastfrequency == frequencyHz && freqStableCount < freqStableCountNeeded)
                         {
@@ -1405,8 +1523,24 @@ namespace AmpAutoTunerUtility
                             stopWatchTuner.Restart();
                             if (checkBoxTunerEnabled.Checked && !paused)
                             {
+                                char vfoOther = 'A';
+                                if (radioButtonVFOA.Checked) vfoOther = 'B';
+                                string myparam = "<params><param><value><double>" + frequencyHz + "</double></value></param></params";
+                                string xml = FLRigXML("rig.set_vfo" + vfoOther, myparam);
+                                if (FLRigSend(xml) == false)
+                                { // Abort if FLRig is giving an error
+                                    richTextBoxRig.AppendText(MyTime() + "FLRigSend got an error??\n");
+                                }
+                                // Set VFO mode to match primary VFO
+                                myparam = "<params><param><value>" + modeCurrent + "</value></param></params>";
+                                xml = FLRigXML("rig.set_modeB", myparam);
+                                if (FLRigSend(xml) == false)
+                                { // Abort if FLRig is giving an error
+                                    richTextBoxRig.AppendText(MyTime() + "FLRigSend got an error??\n");
+                                }
+                                Thread.Sleep(200);
                                 lastfrequencyTunedHz = frequencyHz;
-                                PowerSelect(frequencyHz);
+                                //PowerSelect(frequencyHz, modeCurrent);
                                 Tune();
                             }
                             else if (!paused)
@@ -1421,9 +1555,8 @@ namespace AmpAutoTunerUtility
                                 { // Abort if FLRig is giving an error
                                     richTextBoxRig.AppendText(MyTime() + "FLRigSend got an error??\n");
                                 }
-                                // Set VFOB mode to match VFOa
-                                string mode = FLRigGetMode();
-                                myparam = "<params><param><value>" + mode + "</value></param></params>";
+                                // Set VFO mode to match primary VFO
+                                myparam = "<params><param><value>" + modeCurrent + "</value></param></params>";
                                 xml = FLRigXML("rig.set_modeB", myparam);
                                 if (FLRigSend(xml) == false)
                                 { // Abort if FLRig is giving an error
@@ -1446,7 +1579,7 @@ namespace AmpAutoTunerUtility
                     {
                         labelFreq.Text = "?";
                         richTextBoxRig.AppendText(MyTime() + responseData + "\n");
-                        tabControlPower.SelectedTab = tabPageRig;
+                        tabControl1.SelectedTab = tabPageRig;
                     }
                 }
                 catch (Exception)
@@ -1753,6 +1886,7 @@ namespace AmpAutoTunerUtility
             if (formLoading)
                 return;
             Application.DoEvents();
+            checkBoxRelay1Enabled.Enabled = true;
             if (checkBoxRelay1Enabled.Checked && comboBoxComRelay1.SelectedIndex >= 0)
             {
                 //if (relay1 != null) MyMessageBox("Relay1 != null??");
@@ -1779,6 +1913,7 @@ namespace AmpAutoTunerUtility
             if (formLoading)
                 return;
             Application.DoEvents();
+            checkBoxRelay2Enabled.Enabled = true;
             if (checkBoxRelay2Enabled.Checked && comboBoxComRelay2.SelectedIndex >= 0)
             {
                 relay2 = new Relay();

@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "AmpAutoTunerUtility"
-#define MyAppVersion "0.15"
+#define MyAppVersion "0.23"
 #define MyAppPublisher "W9MDB"
 #define MyAppURL "https://www.qrz.com/db/W9MDB"
 #define MyAppExeName "AmpAutoTunerUtility.exe"
@@ -35,8 +35,8 @@ Name: "english"; MessagesFile: "compiler:Default.isl"
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
 
 [Files]
-Source: "C:\Users\mdbla\Dropbox\Projects\TunerUtil\TunerUtil\bin\Release\AmpAutoTunerUtility.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Users\mdbla\Dropbox\Projects\TunerUtil\TunerUtil\bin\Release\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "C:\Users\mdbla\Dropbox\Projects\TunerUtil\TunerUtil\bin\x64\Release\AmpAutoTunerUtility.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "C:\Users\mdbla\Dropbox\Projects\TunerUtil\TunerUtil\bin\x64\Release\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]

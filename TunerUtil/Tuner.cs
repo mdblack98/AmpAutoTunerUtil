@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,6 +12,7 @@ namespace AmpAutoTunerUtility
         protected string model = null;
         protected string comport = null;
         protected string baud = null;
+        protected ConcurrentQueue<string> msg = new ConcurrentQueue<string>();
 
         public Tuner()
         {
@@ -31,6 +33,15 @@ namespace AmpAutoTunerUtility
             return model;
         }
 
+        public virtual string GetText()
+        {
+            if (msg.TryDequeue(out string mymsg))
+            {
+                return mymsg;
+            }
+            else return "";
+        }
+
         public virtual string GetSerialPortTuner()
         {
             return this.comport;
@@ -49,6 +60,11 @@ namespace AmpAutoTunerUtility
         public virtual char ReadResponse()
         {
             return '?';
+        }
+
+        public virtual void CMD_Amp(byte on)
+        {
+            return;
         }
     }
 }

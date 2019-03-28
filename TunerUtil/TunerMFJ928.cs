@@ -158,7 +158,8 @@ namespace AmpAutoTunerUtility
                         else if (Swr > 0 && Swr <= 3.0) response = 'M';
                         // turn amp control back on
                         byte[] cmdamp = { 0xfe, 0xfe, 0x21, 0x06, 0x01, 0x00, 0x00, 0xfd };
-                        SendCmd(cmdamp);
+                        byte[] cmdbuf = new byte[8];
+                        SendCmd(cmdamp,ref cmdbuf);
                         Thread.Sleep(10);
                         return response;
                     }
@@ -177,43 +178,61 @@ namespace AmpAutoTunerUtility
             return '?';
         }
 
-        private void SendCmd(byte[] cmd)
+        private void SendCmd(byte[] cmd, ref byte[] response)
         {
-            byte checksum = (byte)((1024 - cmd[2] - cmd[3] - cmd[4] - cmd[5]) & 0xff);
-            cmd[6] = checksum;
-            SerialPortTuner.Write(cmd, 0, cmd.Length);
+            try
+            {
+                SerialPortTuner.ReadTimeout = 2000;  // do we need longer for tuning?
+                byte[] wakeup = { 0x00 };
+                SerialPortTuner.Write(wakeup, 0, wakeup.Length);
+                Thread.Sleep(3); // Manual says sleep 3ms before sending cmd
+                //Flush();
+                byte checksum = (byte)((1024 - cmd[2] - cmd[3] - cmd[4] - cmd[5]) & 0xff);
+                cmd[6] = checksum;
+                SerialPortTuner.Write(cmd, 0, cmd.Length);
+                byte myByte;
+                while ((myByte = (byte)SerialPortTuner.ReadByte()) != 0xfe)
+                {
+                    Thread.Sleep(5); // wait for cmd response
+                }
+                response[0] = 0xfe;
+                SerialPortTuner.Read(response, 1, 7);
+            }
+            catch (TimeoutException ex)
+            {
+                MessageBox.Show("Timeout sending cmd\n" + ex.StackTrace);
+            }
         }
 
         public override void Tune()
         {
             byte[] response = new byte[8];
 
-            Flush();
-
-            byte[] wakeup = { 0x00 };
-            SerialPortTuner.Write(wakeup, 0, wakeup.Length);
-            SerialPortTuner.Read(response, 0, 1);
-            //Thread.Sleep(3); // manual says 3ms
-
             byte[] cmdampoff = { 0xfe, 0xfe, 0x21, 0x06, 0x00, 0x00, 0x00, 0xfd };
-            //SerialPortTuner.Write(wakeup, 0, wakeup.Length);
-            //SerialPortTuner.Read(response, 0, 1);
-            SendCmd(cmdampoff);
-            SerialPortTuner.Read(response, 0, response.Length);
+            SendCmd(cmdampoff,ref response);
+            byte[] cmdampquery = { 0xfe, 0xfe, 0x11, 0x06, 0x00, 0x00, 0x00, 0xfd };
+            SendCmd(cmdampquery,ref response);
+            if (response[4]!=0x00)
+            {
+                MessageBox.Show("Tuner did not bypass amp");
+            }
 
             byte[] semimode = { 0xfe, 0xfe, 0x21, 0x14, 0x01, 0x00, 0x00, 0xfd };
             //SerialPortTuner.Write(wakeup, 0, wakeup.Length);
             //SerialPortTuner.Read(response, 0, 1);
-            SendCmd(semimode);
-            SerialPortTuner.Read(response, 0, response.Length);
-
+            SendCmd(semimode,ref response);
+            // Start tuning
             byte[] tune = { 0xfe, 0xfe, 0x06, 0x01, 0x00, 0x00, 0xf9, 0xfd };
-            SerialPortTuner.Read(response, 0, response.Length);
+            SendCmd(cmdampquery, ref response);
+            if (response[4] != 0x01)
+            {
+                MessageBox.Show("Tuner did not enable amp");
+            }
             //SerialPortTuner.Write(wakeup, 0, wakeup.Length);
             //SerialPortTuner.Read(response, 0, 1);
 
             //Flush();  // just drop any pending stuff on the floor
-            SendCmd(tune);
+            SendCmd(tune,ref response);
         }
 
         private void port_DataReceived(object sender, SerialDataReceivedEventArgs e)
