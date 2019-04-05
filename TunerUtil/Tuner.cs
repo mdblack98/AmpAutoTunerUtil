@@ -13,6 +13,8 @@ namespace AmpAutoTunerUtility
         protected string comport = null;
         protected string baud = null;
         protected ConcurrentQueue<string> msg = new ConcurrentQueue<string>();
+        protected int Inductance { get; set;} // pF
+        protected int Capacitance { get; set; } // uH
 
         public Tuner()
         {
@@ -28,9 +30,33 @@ namespace AmpAutoTunerUtility
         //    this.baud = baud;
         //}
 
+        public virtual int GetInductance()
+        {
+            return Inductance;
+        }
+        public virtual int SetInductance(int value)
+        {
+            Inductance = value;
+            return Inductance;
+        }
+        public virtual int GetCapacitance()
+        {
+            return Capacitance;
+        }
+        public virtual int SetCapacitance(int value)
+        {
+            Capacitance = value;
+            return Inductance;
+        }
+
         public virtual string GetModel()
         {
             return model;
+        }
+
+        public virtual void Poll()
+        {
+            // no action by default
         }
 
         public virtual string GetText()
@@ -41,6 +67,28 @@ namespace AmpAutoTunerUtility
             }
             else return "";
         }
+
+        public virtual string GetSWR()
+        {
+            return "SWR.XX";
+        }
+
+        public virtual string GetPower()
+        {
+            return "POW";
+        }
+
+        //public virtual int GetInductance()
+        //{
+            // returns pF;
+        //    return -1;
+        //}
+
+        //public virtual int GetCapacitance()
+        //{
+        //    // returns uH
+        //    return -1;
+        //}
 
         public virtual string GetSerialPortTuner()
         {

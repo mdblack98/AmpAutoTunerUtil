@@ -1570,5 +1570,113 @@ namespace AmpAutoTunerUtility.Properties {
                 this["Power8Mode"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public string NumRelays {
+            get {
+                return ((string)(this["NumRelays"]));
+            }
+            set {
+                this["NumRelays"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool checkBoxAntennaTab {
+            get {
+                return ((bool)(this["checkBoxAntennaTab"]));
+            }
+            set {
+                this["checkBoxAntennaTab"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool checkBoxPowerTab {
+            get {
+                return ((bool)(this["checkBoxPowerTab"]));
+            }
+            set {
+                this["checkBoxPowerTab"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool checkBoxDebugTab {
+            get {
+                return ((bool)(this["checkBoxDebugTab"]));
+            }
+            set {
+                this["checkBoxDebugTab"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool checkBoxTunerTab {
+            get {
+                return ((bool)(this["checkBoxTunerTab"]));
+            }
+            set {
+                this["checkBoxTunerTab"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool checkedMenuRelay1 {
+            get {
+                return ((bool)(this["checkedMenuRelay1"]));
+            }
+            set {
+                this["checkedMenuRelay1"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool checkedMenuRelay2 {
+            get {
+                return ((bool)(this["checkedMenuRelay2"]));
+            }
+            set {
+                this["checkedMenuRelay2"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool checkedMenuRelay3 {
+            get {
+                return ((bool)(this["checkedMenuRelay3"]));
+            }
+            set {
+                this["checkedMenuRelay3"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool checkedMenuRelay4 {
+            get {
+                return ((bool)(this["checkedMenuRelay4"]));
+            }
+            set {
+                this["checkedMenuRelay4"] = value;
+            }
+        }
     }
 }

@@ -31,26 +31,35 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.textBoxFreqTol = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.numericUpDownSensitivity = new System.Windows.Forms.NumericUpDown();
-            this.radioButtonVFOB = new System.Windows.Forms.RadioButton();
-            this.radioButtonVFOA = new System.Windows.Forms.RadioButton();
-            this.comboBoxComRelay1 = new System.Windows.Forms.ComboBox();
-            this.button1_8 = new System.Windows.Forms.Button();
-            this.button1_7 = new System.Windows.Forms.Button();
-            this.button1_6 = new System.Windows.Forms.Button();
-            this.button1_5 = new System.Windows.Forms.Button();
-            this.button1_4 = new System.Windows.Forms.Button();
-            this.button1_3 = new System.Windows.Forms.Button();
-            this.button1_2 = new System.Windows.Forms.Button();
-            this.button1_1 = new System.Windows.Forms.Button();
-            this.buttonTunerStatus = new System.Windows.Forms.Button();
-            this.buttonTune = new System.Windows.Forms.Button();
+            this.labelAntennaSelected = new System.Windows.Forms.Label();
             this.labelFreq = new System.Windows.Forms.Label();
             this.labelPower = new System.Windows.Forms.Label();
             this.labelSWR = new System.Windows.Forms.Label();
-            this.labelAntennaSelected = new System.Windows.Forms.Label();
+            this.numericUpDownInductance = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDownCapacitance = new System.Windows.Forms.NumericUpDown();
+            this.buttonTunePause = new System.Windows.Forms.Button();
+            this.buttonTune = new System.Windows.Forms.Button();
+            this.buttonTunerStatus = new System.Windows.Forms.Button();
+            this.checkBoxToneEnabled = new System.Windows.Forms.CheckBox();
+            this.checkBoxPTTEnabled = new System.Windows.Forms.CheckBox();
+            this.checkBoxPowerSDR = new System.Windows.Forms.CheckBox();
+            this.checkBoxRig = new System.Windows.Forms.CheckBox();
+            this.radioButtonVFOB = new System.Windows.Forms.RadioButton();
+            this.radioButtonVFOA = new System.Windows.Forms.RadioButton();
+            this.comboBoxAudioOut = new System.Windows.Forms.ComboBox();
+            this.numericUpDownSensitivity = new System.Windows.Forms.NumericUpDown();
+            this.label2 = new System.Windows.Forms.Label();
+            this.textBoxFreqTol = new System.Windows.Forms.TextBox();
+            this.comboBoxPower8Mode = new System.Windows.Forms.ComboBox();
+            this.comboBoxPower7Mode = new System.Windows.Forms.ComboBox();
+            this.comboBoxPower6Mode = new System.Windows.Forms.ComboBox();
+            this.comboBoxPower5Mode = new System.Windows.Forms.ComboBox();
+            this.comboBoxPower4Mode = new System.Windows.Forms.ComboBox();
+            this.comboBoxPower3Mode = new System.Windows.Forms.ComboBox();
+            this.comboBoxPower2Mode = new System.Windows.Forms.ComboBox();
+            this.comboBoxPower1Mode = new System.Windows.Forms.ComboBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.textBoxPower1From = new System.Windows.Forms.TextBox();
             this.textBoxAntenna8 = new System.Windows.Forms.TextBox();
             this.textBoxAntenna7 = new System.Windows.Forms.TextBox();
             this.textBoxAntenna6 = new System.Windows.Forms.TextBox();
@@ -78,27 +87,40 @@
             this.radioButtonAntennaWire8 = new System.Windows.Forms.RadioButton();
             this.radioButtonAntennaWire3 = new System.Windows.Forms.RadioButton();
             this.textBoxAntennaFreq1From = new System.Windows.Forms.TextBox();
-            this.buttonTunePause = new System.Windows.Forms.Button();
-            this.checkBoxPTTEnabled = new System.Windows.Forms.CheckBox();
-            this.checkBoxToneEnabled = new System.Windows.Forms.CheckBox();
-            this.comboBoxAudioOut = new System.Windows.Forms.ComboBox();
-            this.textBoxPower1From = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.checkBoxPowerSDR = new System.Windows.Forms.CheckBox();
-            this.checkBoxRig = new System.Windows.Forms.CheckBox();
-            this.comboBoxPower8Mode = new System.Windows.Forms.ComboBox();
-            this.comboBoxPower7Mode = new System.Windows.Forms.ComboBox();
-            this.comboBoxPower6Mode = new System.Windows.Forms.ComboBox();
-            this.comboBoxPower5Mode = new System.Windows.Forms.ComboBox();
-            this.comboBoxPower4Mode = new System.Windows.Forms.ComboBox();
-            this.comboBoxPower3Mode = new System.Windows.Forms.ComboBox();
-            this.comboBoxPower2Mode = new System.Windows.Forms.ComboBox();
-            this.comboBoxPower1Mode = new System.Windows.Forms.ComboBox();
+            this.button1_8 = new System.Windows.Forms.Button();
+            this.button1_7 = new System.Windows.Forms.Button();
+            this.button1_6 = new System.Windows.Forms.Button();
+            this.button1_5 = new System.Windows.Forms.Button();
+            this.button1_4 = new System.Windows.Forms.Button();
+            this.button1_3 = new System.Windows.Forms.Button();
+            this.button1_2 = new System.Windows.Forms.Button();
+            this.button1_1 = new System.Windows.Forms.Button();
+            this.comboBoxComRelay1 = new System.Windows.Forms.ComboBox();
             this.timerGetFreq = new System.Windows.Forms.Timer(this.components);
+            this.timerDebug = new System.Windows.Forms.Timer(this.components);
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.antennaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.debugToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.powerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tunerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.relay1ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.relay2ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.relay3ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.relay4ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aboutToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPageControl = new System.Windows.Forms.TabPage();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.tabPageDebug = new System.Windows.Forms.TabPage();
+            this.checkBoxDebugEnable = new System.Windows.Forms.CheckBox();
+            this.richTextBoxDebug = new System.Windows.Forms.RichTextBox();
             this.tabPageTuner = new System.Windows.Forms.TabPage();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
@@ -106,8 +128,78 @@
             this.comboBoxTunerModel = new System.Windows.Forms.ComboBox();
             this.comboBoxBaudTuner = new System.Windows.Forms.ComboBox();
             this.comboBoxComTuner = new System.Windows.Forms.ComboBox();
-            this.tabPageRig = new System.Windows.Forms.TabPage();
-            this.richTextBoxRig = new System.Windows.Forms.RichTextBox();
+            this.tabPagePower = new System.Windows.Forms.TabPage();
+            this.textBoxPower8Watts = new System.Windows.Forms.TextBox();
+            this.textBoxPower7Watts = new System.Windows.Forms.TextBox();
+            this.textBoxPower6Watts = new System.Windows.Forms.TextBox();
+            this.textBoxPower5Watts = new System.Windows.Forms.TextBox();
+            this.textBoxPower4Watts = new System.Windows.Forms.TextBox();
+            this.textBoxPower3Watts = new System.Windows.Forms.TextBox();
+            this.textBoxPower2Watts = new System.Windows.Forms.TextBox();
+            this.textBoxPower1Watts = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.checkBoxPower8Enabled = new System.Windows.Forms.CheckBox();
+            this.checkBoxPower7Enabled = new System.Windows.Forms.CheckBox();
+            this.checkBoxPower6Enabled = new System.Windows.Forms.CheckBox();
+            this.checkBoxPower5Enabled = new System.Windows.Forms.CheckBox();
+            this.checkBoxPower4Enabled = new System.Windows.Forms.CheckBox();
+            this.checkBoxPower3Enabled = new System.Windows.Forms.CheckBox();
+            this.checkBoxPower2Enabled = new System.Windows.Forms.CheckBox();
+            this.checkBoxPower1Enabled = new System.Windows.Forms.CheckBox();
+            this.textBoxPower8To = new System.Windows.Forms.TextBox();
+            this.textBoxPower8From = new System.Windows.Forms.TextBox();
+            this.textBoxPower7To = new System.Windows.Forms.TextBox();
+            this.textBoxPower7From = new System.Windows.Forms.TextBox();
+            this.textBoxPower6To = new System.Windows.Forms.TextBox();
+            this.textBoxPower6From = new System.Windows.Forms.TextBox();
+            this.textBoxPower5To = new System.Windows.Forms.TextBox();
+            this.textBoxPower5From = new System.Windows.Forms.TextBox();
+            this.textBoxPower4To = new System.Windows.Forms.TextBox();
+            this.textBoxPower4From = new System.Windows.Forms.TextBox();
+            this.textBoxPower3To = new System.Windows.Forms.TextBox();
+            this.textBoxPower3From = new System.Windows.Forms.TextBox();
+            this.textBoxPower2To = new System.Windows.Forms.TextBox();
+            this.textBoxPower2From = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.textBoxPower1To = new System.Windows.Forms.TextBox();
+            this.tabPageAntenna = new System.Windows.Forms.TabPage();
+            this.buttonAntenna8 = new System.Windows.Forms.Button();
+            this.buttonAntenna7 = new System.Windows.Forms.Button();
+            this.buttonAntenna6 = new System.Windows.Forms.Button();
+            this.buttonAntenna5 = new System.Windows.Forms.Button();
+            this.buttonAntenna4 = new System.Windows.Forms.Button();
+            this.buttonAntenna3 = new System.Windows.Forms.Button();
+            this.buttonAntenna2 = new System.Windows.Forms.Button();
+            this.buttonAntenna1 = new System.Windows.Forms.Button();
+            this.label18 = new System.Windows.Forms.Label();
+            this.checkBoxAntenna8 = new System.Windows.Forms.CheckBox();
+            this.checkBoxAntenna7 = new System.Windows.Forms.CheckBox();
+            this.checkBoxAntenna6 = new System.Windows.Forms.CheckBox();
+            this.checkBoxAntenna5 = new System.Windows.Forms.CheckBox();
+            this.checkBoxAntenna4 = new System.Windows.Forms.CheckBox();
+            this.checkBoxAntenna3 = new System.Windows.Forms.CheckBox();
+            this.checkBoxAntenna2 = new System.Windows.Forms.CheckBox();
+            this.checkBoxAntenna1 = new System.Windows.Forms.CheckBox();
+            this.textBoxAntennaFreq8To = new System.Windows.Forms.TextBox();
+            this.textBoxAntennaFreq8From = new System.Windows.Forms.TextBox();
+            this.textBoxAntennaFreq7To = new System.Windows.Forms.TextBox();
+            this.textBoxAntennaFreq7From = new System.Windows.Forms.TextBox();
+            this.label17 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
+            this.textBoxAntennaFreq6To = new System.Windows.Forms.TextBox();
+            this.textBoxAntennaFreq6From = new System.Windows.Forms.TextBox();
+            this.textBoxAntennaFreq5To = new System.Windows.Forms.TextBox();
+            this.textBoxAntennaFreq5From = new System.Windows.Forms.TextBox();
+            this.textBoxAntennaFreq4To = new System.Windows.Forms.TextBox();
+            this.textBoxAntennaFreq4From = new System.Windows.Forms.TextBox();
+            this.textBoxAntennaFreq3To = new System.Windows.Forms.TextBox();
+            this.textBoxAntennaFreq3From = new System.Windows.Forms.TextBox();
+            this.textBoxAntennaFreq2To = new System.Windows.Forms.TextBox();
+            this.textBoxAntennaFreq2From = new System.Windows.Forms.TextBox();
+            this.label15 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.textBoxAntennaFreq1To = new System.Windows.Forms.TextBox();
             this.tabPageRelay1 = new System.Windows.Forms.TabPage();
             this.linkLabel2 = new System.Windows.Forms.LinkLabel();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
@@ -177,87 +269,21 @@
             this.checkBoxRelay4Enabled = new System.Windows.Forms.CheckBox();
             this.comboBoxBaudRelay4 = new System.Windows.Forms.ComboBox();
             this.comboBoxComRelay4 = new System.Windows.Forms.ComboBox();
-            this.tabPageAntenna = new System.Windows.Forms.TabPage();
-            this.buttonAntenna8 = new System.Windows.Forms.Button();
-            this.buttonAntenna7 = new System.Windows.Forms.Button();
-            this.buttonAntenna6 = new System.Windows.Forms.Button();
-            this.buttonAntenna5 = new System.Windows.Forms.Button();
-            this.buttonAntenna4 = new System.Windows.Forms.Button();
-            this.buttonAntenna3 = new System.Windows.Forms.Button();
-            this.buttonAntenna2 = new System.Windows.Forms.Button();
-            this.buttonAntenna1 = new System.Windows.Forms.Button();
-            this.label18 = new System.Windows.Forms.Label();
-            this.checkBoxAntenna8 = new System.Windows.Forms.CheckBox();
-            this.checkBoxAntenna7 = new System.Windows.Forms.CheckBox();
-            this.checkBoxAntenna6 = new System.Windows.Forms.CheckBox();
-            this.checkBoxAntenna5 = new System.Windows.Forms.CheckBox();
-            this.checkBoxAntenna4 = new System.Windows.Forms.CheckBox();
-            this.checkBoxAntenna3 = new System.Windows.Forms.CheckBox();
-            this.checkBoxAntenna2 = new System.Windows.Forms.CheckBox();
-            this.checkBoxAntenna1 = new System.Windows.Forms.CheckBox();
-            this.textBoxAntennaFreq8To = new System.Windows.Forms.TextBox();
-            this.textBoxAntennaFreq8From = new System.Windows.Forms.TextBox();
-            this.textBoxAntennaFreq7To = new System.Windows.Forms.TextBox();
-            this.textBoxAntennaFreq7From = new System.Windows.Forms.TextBox();
-            this.label17 = new System.Windows.Forms.Label();
-            this.label16 = new System.Windows.Forms.Label();
-            this.textBoxAntennaFreq6To = new System.Windows.Forms.TextBox();
-            this.textBoxAntennaFreq6From = new System.Windows.Forms.TextBox();
-            this.textBoxAntennaFreq5To = new System.Windows.Forms.TextBox();
-            this.textBoxAntennaFreq5From = new System.Windows.Forms.TextBox();
-            this.textBoxAntennaFreq4To = new System.Windows.Forms.TextBox();
-            this.textBoxAntennaFreq4From = new System.Windows.Forms.TextBox();
-            this.textBoxAntennaFreq3To = new System.Windows.Forms.TextBox();
-            this.textBoxAntennaFreq3From = new System.Windows.Forms.TextBox();
-            this.textBoxAntennaFreq2To = new System.Windows.Forms.TextBox();
-            this.textBoxAntennaFreq2From = new System.Windows.Forms.TextBox();
-            this.label15 = new System.Windows.Forms.Label();
-            this.label14 = new System.Windows.Forms.Label();
-            this.textBoxAntennaFreq1To = new System.Windows.Forms.TextBox();
-            this.tabPagePower = new System.Windows.Forms.TabPage();
-            this.textBoxPower8Watts = new System.Windows.Forms.TextBox();
-            this.textBoxPower7Watts = new System.Windows.Forms.TextBox();
-            this.textBoxPower6Watts = new System.Windows.Forms.TextBox();
-            this.textBoxPower5Watts = new System.Windows.Forms.TextBox();
-            this.textBoxPower4Watts = new System.Windows.Forms.TextBox();
-            this.textBoxPower3Watts = new System.Windows.Forms.TextBox();
-            this.textBoxPower2Watts = new System.Windows.Forms.TextBox();
-            this.textBoxPower1Watts = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.checkBoxPower8Enabled = new System.Windows.Forms.CheckBox();
-            this.checkBoxPower7Enabled = new System.Windows.Forms.CheckBox();
-            this.checkBoxPower6Enabled = new System.Windows.Forms.CheckBox();
-            this.checkBoxPower5Enabled = new System.Windows.Forms.CheckBox();
-            this.checkBoxPower4Enabled = new System.Windows.Forms.CheckBox();
-            this.checkBoxPower3Enabled = new System.Windows.Forms.CheckBox();
-            this.checkBoxPower2Enabled = new System.Windows.Forms.CheckBox();
-            this.checkBoxPower1Enabled = new System.Windows.Forms.CheckBox();
-            this.textBoxPower8To = new System.Windows.Forms.TextBox();
-            this.textBoxPower8From = new System.Windows.Forms.TextBox();
-            this.textBoxPower7To = new System.Windows.Forms.TextBox();
-            this.textBoxPower7From = new System.Windows.Forms.TextBox();
-            this.textBoxPower6To = new System.Windows.Forms.TextBox();
-            this.textBoxPower6From = new System.Windows.Forms.TextBox();
-            this.textBoxPower5To = new System.Windows.Forms.TextBox();
-            this.textBoxPower5From = new System.Windows.Forms.TextBox();
-            this.textBoxPower4To = new System.Windows.Forms.TextBox();
-            this.textBoxPower4From = new System.Windows.Forms.TextBox();
-            this.textBoxPower3To = new System.Windows.Forms.TextBox();
-            this.textBoxPower3From = new System.Windows.Forms.TextBox();
-            this.textBoxPower2To = new System.Windows.Forms.TextBox();
-            this.textBoxPower2From = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.textBoxPower1To = new System.Windows.Forms.TextBox();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownInductance)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCapacitance)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownSensitivity)).BeginInit();
+            this.menuStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPageControl.SuspendLayout();
+            this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            this.tabPageDebug.SuspendLayout();
             this.tabPageTuner.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
-            this.tabPageRig.SuspendLayout();
+            this.tabPagePower.SuspendLayout();
+            this.tabPageAntenna.SuspendLayout();
             this.tabPageRelay1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.tabPageRelay2.SuspendLayout();
@@ -266,56 +292,179 @@
             this.panel5.SuspendLayout();
             this.tabPageRelay4.SuspendLayout();
             this.panel6.SuspendLayout();
-            this.tabPageAntenna.SuspendLayout();
-            this.tabPagePower.SuspendLayout();
             this.SuspendLayout();
             // 
-            // textBoxFreqTol
+            // labelAntennaSelected
             // 
-            this.textBoxFreqTol.Location = new System.Drawing.Point(11, 100);
-            this.textBoxFreqTol.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.textBoxFreqTol.Name = "textBoxFreqTol";
-            this.textBoxFreqTol.Size = new System.Drawing.Size(100, 22);
-            this.textBoxFreqTol.TabIndex = 4;
-            this.toolTip1.SetToolTip(this.textBoxFreqTol, "If last-tuned frequency is off by more then this autotune will happen");
+            this.labelAntennaSelected.AutoSize = true;
+            this.labelAntennaSelected.Font = new System.Drawing.Font("Californian FB", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelAntennaSelected.Location = new System.Drawing.Point(6, 136);
+            this.labelAntennaSelected.Name = "labelAntennaSelected";
+            this.labelAntennaSelected.Size = new System.Drawing.Size(77, 23);
+            this.labelAntennaSelected.TabIndex = 14;
+            this.labelAntennaSelected.Text = "Antenna";
+            this.toolTip1.SetToolTip(this.labelAntennaSelected, "Antenna in use");
             // 
-            // label2
+            // labelFreq
             // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(124, 102);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(82, 17);
-            this.label2.TabIndex = 5;
-            this.label2.Text = "Freq Tol Hz";
-            this.toolTip1.SetToolTip(this.label2, "If last-tuned frequency is off by more then this autotune will happen");
+            this.labelFreq.AutoSize = true;
+            this.labelFreq.Font = new System.Drawing.Font("Californian FB", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelFreq.Location = new System.Drawing.Point(6, 28);
+            this.labelFreq.Name = "labelFreq";
+            this.labelFreq.Size = new System.Drawing.Size(49, 23);
+            this.labelFreq.TabIndex = 11;
+            this.labelFreq.Text = "Freq";
+            this.toolTip1.SetToolTip(this.labelFreq, "Current rig frequency");
             // 
-            // numericUpDownSensitivity
+            // labelPower
             // 
-            this.numericUpDownSensitivity.Enabled = false;
-            this.numericUpDownSensitivity.Location = new System.Drawing.Point(163, 128);
-            this.numericUpDownSensitivity.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.numericUpDownSensitivity.Maximum = new decimal(new int[] {
-            10,
+            this.labelPower.AutoSize = true;
+            this.labelPower.Font = new System.Drawing.Font("Californian FB", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelPower.Location = new System.Drawing.Point(6, 64);
+            this.labelPower.Name = "labelPower";
+            this.labelPower.Size = new System.Drawing.Size(63, 23);
+            this.labelPower.TabIndex = 12;
+            this.labelPower.Text = "Power";
+            this.toolTip1.SetToolTip(this.labelPower, "FLRig power level setting");
+            // 
+            // labelSWR
+            // 
+            this.labelSWR.AutoSize = true;
+            this.labelSWR.Font = new System.Drawing.Font("Californian FB", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelSWR.Location = new System.Drawing.Point(6, 100);
+            this.labelSWR.Name = "labelSWR";
+            this.labelSWR.Size = new System.Drawing.Size(56, 23);
+            this.labelSWR.TabIndex = 13;
+            this.labelSWR.Text = "SWR";
+            this.toolTip1.SetToolTip(this.labelSWR, "Last reported SWR");
+            // 
+            // numericUpDownInductance
+            // 
+            this.numericUpDownInductance.Location = new System.Drawing.Point(88, 21);
+            this.numericUpDownInductance.Maximum = new decimal(new int[] {
+            2428,
             0,
             0,
             0});
-            this.numericUpDownSensitivity.Minimum = new decimal(new int[] {
+            this.numericUpDownInductance.Minimum = new decimal(new int[] {
             1,
             0,
             0,
-            0});
-            this.numericUpDownSensitivity.Name = "numericUpDownSensitivity";
-            this.numericUpDownSensitivity.Size = new System.Drawing.Size(36, 22);
-            this.numericUpDownSensitivity.TabIndex = 11;
-            this.toolTip1.SetToolTip(this.numericUpDownSensitivity, "Number of 500ms intervals to wait for stable Freq before tuning");
-            this.numericUpDownSensitivity.Value = new decimal(new int[] {
-            2,
+            -2147483648});
+            this.numericUpDownInductance.Name = "numericUpDownInductance";
+            this.numericUpDownInductance.Size = new System.Drawing.Size(63, 22);
+            this.numericUpDownInductance.TabIndex = 13;
+            this.toolTip1.SetToolTip(this.numericUpDownInductance, "Inductance uH");
+            this.numericUpDownInductance.ValueChanged += new System.EventHandler(this.numericUpDownInductance_ValueChanged);
+            // 
+            // numericUpDownCapacitance
+            // 
+            this.numericUpDownCapacitance.Location = new System.Drawing.Point(13, 21);
+            this.numericUpDownCapacitance.Maximum = new decimal(new int[] {
+            3926,
             0,
             0,
             0});
-            this.numericUpDownSensitivity.Visible = false;
-            this.numericUpDownSensitivity.ValueChanged += new System.EventHandler(this.numericUpDownSensitivity_ValueChanged);
+            this.numericUpDownCapacitance.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            -2147483648});
+            this.numericUpDownCapacitance.Name = "numericUpDownCapacitance";
+            this.numericUpDownCapacitance.Size = new System.Drawing.Size(66, 22);
+            this.numericUpDownCapacitance.TabIndex = 12;
+            this.toolTip1.SetToolTip(this.numericUpDownCapacitance, "Capacitance pF");
+            this.numericUpDownCapacitance.ValueChanged += new System.EventHandler(this.numericUpDownCapacitance_ValueChanged);
+            // 
+            // buttonTunePause
+            // 
+            this.buttonTunePause.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.buttonTunePause.FlatAppearance.BorderSize = 2;
+            this.buttonTunePause.Location = new System.Drawing.Point(39, 106);
+            this.buttonTunePause.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.buttonTunePause.Name = "buttonTunePause";
+            this.buttonTunePause.Size = new System.Drawing.Size(75, 27);
+            this.buttonTunePause.TabIndex = 11;
+            this.buttonTunePause.Text = "Pause";
+            this.toolTip1.SetToolTip(this.buttonTunePause, "Start a tune cycle");
+            this.buttonTunePause.UseVisualStyleBackColor = false;
+            this.buttonTunePause.Click += new System.EventHandler(this.ButtonTunePause_Click);
+            // 
+            // buttonTune
+            // 
+            this.buttonTune.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.buttonTune.FlatAppearance.BorderSize = 2;
+            this.buttonTune.Location = new System.Drawing.Point(39, 33);
+            this.buttonTune.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.buttonTune.Name = "buttonTune";
+            this.buttonTune.Size = new System.Drawing.Size(75, 27);
+            this.buttonTune.TabIndex = 9;
+            this.buttonTune.Text = "Tune";
+            this.toolTip1.SetToolTip(this.buttonTune, "Start a tune cycle");
+            this.buttonTune.UseVisualStyleBackColor = false;
+            this.buttonTune.Click += new System.EventHandler(this.buttonTune_Click_1);
+            // 
+            // buttonTunerStatus
+            // 
+            this.buttonTunerStatus.Location = new System.Drawing.Point(55, 71);
+            this.buttonTunerStatus.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.buttonTunerStatus.Name = "buttonTunerStatus";
+            this.buttonTunerStatus.Size = new System.Drawing.Size(40, 23);
+            this.buttonTunerStatus.TabIndex = 10;
+            this.toolTip1.SetToolTip(this.buttonTunerStatus, "Green - SWR < 1.5\r\nYellow - SWR < 3.0\r\nRed - Tuning failed\r\nGray - Not tuned yet");
+            this.buttonTunerStatus.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxToneEnabled
+            // 
+            this.checkBoxToneEnabled.AutoSize = true;
+            this.checkBoxToneEnabled.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxToneEnabled.Location = new System.Drawing.Point(21, 113);
+            this.checkBoxToneEnabled.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.checkBoxToneEnabled.Name = "checkBoxToneEnabled";
+            this.checkBoxToneEnabled.Size = new System.Drawing.Size(111, 21);
+            this.checkBoxToneEnabled.TabIndex = 14;
+            this.checkBoxToneEnabled.Text = "Enable Tone";
+            this.toolTip1.SetToolTip(this.checkBoxToneEnabled, "Generate a tone during tune");
+            this.checkBoxToneEnabled.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxPTTEnabled
+            // 
+            this.checkBoxPTTEnabled.AutoSize = true;
+            this.checkBoxPTTEnabled.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxPTTEnabled.Location = new System.Drawing.Point(21, 84);
+            this.checkBoxPTTEnabled.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.checkBoxPTTEnabled.Name = "checkBoxPTTEnabled";
+            this.checkBoxPTTEnabled.Size = new System.Drawing.Size(105, 21);
+            this.checkBoxPTTEnabled.TabIndex = 13;
+            this.checkBoxPTTEnabled.Text = "Enable PTT";
+            this.toolTip1.SetToolTip(this.checkBoxPTTEnabled, "This will toggle PTT during tune");
+            this.checkBoxPTTEnabled.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxPowerSDR
+            // 
+            this.checkBoxPowerSDR.AutoSize = true;
+            this.checkBoxPowerSDR.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxPowerSDR.Location = new System.Drawing.Point(21, 55);
+            this.checkBoxPowerSDR.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.checkBoxPowerSDR.Name = "checkBoxPowerSDR";
+            this.checkBoxPowerSDR.Size = new System.Drawing.Size(98, 21);
+            this.checkBoxPowerSDR.TabIndex = 4;
+            this.checkBoxPowerSDR.Text = "PowerSDR";
+            this.toolTip1.SetToolTip(this.checkBoxPowerSDR, "Use Tuner on PowerSDR");
+            this.checkBoxPowerSDR.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxRig
+            // 
+            this.checkBoxRig.AutoSize = true;
+            this.checkBoxRig.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxRig.Location = new System.Drawing.Point(21, 26);
+            this.checkBoxRig.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.checkBoxRig.Name = "checkBoxRig";
+            this.checkBoxRig.Size = new System.Drawing.Size(67, 21);
+            this.checkBoxRig.TabIndex = 3;
+            this.checkBoxRig.Text = "FLRig";
+            this.toolTip1.SetToolTip(this.checkBoxRig, "Enable FLRig for freq reading");
+            this.checkBoxRig.UseVisualStyleBackColor = true;
             // 
             // radioButtonVFOB
             // 
@@ -343,186 +492,170 @@
             this.toolTip1.SetToolTip(this.radioButtonVFOA, "Use VFOA frequencies to determine when to tune\r\nThis should be normal operations");
             this.radioButtonVFOA.UseVisualStyleBackColor = true;
             // 
-            // comboBoxComRelay1
+            // comboBoxAudioOut
             // 
-            this.comboBoxComRelay1.FormattingEnabled = true;
-            this.comboBoxComRelay1.Location = new System.Drawing.Point(11, 7);
-            this.comboBoxComRelay1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.comboBoxComRelay1.Name = "comboBoxComRelay1";
-            this.comboBoxComRelay1.Size = new System.Drawing.Size(121, 24);
-            this.comboBoxComRelay1.TabIndex = 0;
-            this.comboBoxComRelay1.Text = global::AmpAutoTunerUtility.Properties.Settings.Default.Relay1Com;
-            this.toolTip1.SetToolTip(this.comboBoxComRelay1, "FT245R Com Ports");
-            this.comboBoxComRelay1.SelectedIndexChanged += new System.EventHandler(this.comboBoxComRelay1_SelectedIndexChanged);
+            this.comboBoxAudioOut.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxAudioOut.FormattingEnabled = true;
+            this.comboBoxAudioOut.Location = new System.Drawing.Point(11, 225);
+            this.comboBoxAudioOut.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.comboBoxAudioOut.Name = "comboBoxAudioOut";
+            this.comboBoxAudioOut.Size = new System.Drawing.Size(488, 24);
+            this.comboBoxAudioOut.TabIndex = 13;
+            this.toolTip1.SetToolTip(this.comboBoxAudioOut, "Sound device for tone output (i.e. rig device)");
             // 
-            // button1_8
+            // numericUpDownSensitivity
             // 
-            this.button1_8.BackColor = System.Drawing.Color.Silver;
-            this.button1_8.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.button1_8.Location = new System.Drawing.Point(418, 7);
-            this.button1_8.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button1_8.Name = "button1_8";
-            this.button1_8.Size = new System.Drawing.Size(25, 23);
-            this.button1_8.TabIndex = 20;
-            this.toolTip1.SetToolTip(this.button1_8, "Toggle relay\r\nGreen when switched");
-            this.button1_8.UseVisualStyleBackColor = false;
-            this.button1_8.Click += new System.EventHandler(this.button1_8_Click);
+            this.numericUpDownSensitivity.Enabled = false;
+            this.numericUpDownSensitivity.Location = new System.Drawing.Point(163, 128);
+            this.numericUpDownSensitivity.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.numericUpDownSensitivity.Maximum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.numericUpDownSensitivity.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericUpDownSensitivity.Name = "numericUpDownSensitivity";
+            this.numericUpDownSensitivity.Size = new System.Drawing.Size(36, 22);
+            this.numericUpDownSensitivity.TabIndex = 11;
+            this.toolTip1.SetToolTip(this.numericUpDownSensitivity, "Number of 500ms intervals to wait for stable Freq before tuning");
+            this.numericUpDownSensitivity.Value = new decimal(new int[] {
+            2,
+            0,
+            0,
+            0});
+            this.numericUpDownSensitivity.Visible = false;
             // 
-            // button1_7
+            // label2
             // 
-            this.button1_7.BackColor = System.Drawing.Color.Silver;
-            this.button1_7.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.button1_7.Location = new System.Drawing.Point(393, 7);
-            this.button1_7.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button1_7.Name = "button1_7";
-            this.button1_7.Size = new System.Drawing.Size(25, 23);
-            this.button1_7.TabIndex = 19;
-            this.toolTip1.SetToolTip(this.button1_7, "Toggle relay\r\nGreen when switched");
-            this.button1_7.UseVisualStyleBackColor = false;
-            this.button1_7.Click += new System.EventHandler(this.button1_7_Click);
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(124, 102);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(82, 17);
+            this.label2.TabIndex = 5;
+            this.label2.Text = "Freq Tol Hz";
+            this.toolTip1.SetToolTip(this.label2, "If last-tuned frequency is off by more then this autotune will happen");
             // 
-            // button1_6
+            // textBoxFreqTol
             // 
-            this.button1_6.BackColor = System.Drawing.Color.Silver;
-            this.button1_6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.button1_6.Location = new System.Drawing.Point(368, 7);
-            this.button1_6.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button1_6.Name = "button1_6";
-            this.button1_6.Size = new System.Drawing.Size(25, 23);
-            this.button1_6.TabIndex = 18;
-            this.toolTip1.SetToolTip(this.button1_6, "Toggle relay\r\nGreen when switched");
-            this.button1_6.UseVisualStyleBackColor = false;
-            this.button1_6.Click += new System.EventHandler(this.button1_6_Click);
+            this.textBoxFreqTol.Location = new System.Drawing.Point(11, 100);
+            this.textBoxFreqTol.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.textBoxFreqTol.Name = "textBoxFreqTol";
+            this.textBoxFreqTol.Size = new System.Drawing.Size(100, 22);
+            this.textBoxFreqTol.TabIndex = 4;
+            this.toolTip1.SetToolTip(this.textBoxFreqTol, "If last-tuned frequency is off by more then this autotune will happen");
             // 
-            // button1_5
+            // comboBoxPower8Mode
             // 
-            this.button1_5.BackColor = System.Drawing.Color.Silver;
-            this.button1_5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.button1_5.Location = new System.Drawing.Point(343, 7);
-            this.button1_5.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button1_5.Name = "button1_5";
-            this.button1_5.Size = new System.Drawing.Size(25, 23);
-            this.button1_5.TabIndex = 17;
-            this.toolTip1.SetToolTip(this.button1_5, "Toggle relay\r\nGreen when switched");
-            this.button1_5.UseVisualStyleBackColor = false;
-            this.button1_5.Click += new System.EventHandler(this.button1_5_Click);
+            this.comboBoxPower8Mode.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::AmpAutoTunerUtility.Properties.Settings.Default, "Power8Mode", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.comboBoxPower8Mode.FormattingEnabled = true;
+            this.comboBoxPower8Mode.Location = new System.Drawing.Point(201, 218);
+            this.comboBoxPower8Mode.Name = "comboBoxPower8Mode";
+            this.comboBoxPower8Mode.Size = new System.Drawing.Size(82, 24);
+            this.comboBoxPower8Mode.TabIndex = 89;
+            this.comboBoxPower8Mode.Text = global::AmpAutoTunerUtility.Properties.Settings.Default.Power8Mode;
+            this.toolTip1.SetToolTip(this.comboBoxPower8Mode, "Set power only if mode matches this\r\nSelect \"Any\" to match any mode");
             // 
-            // button1_4
+            // comboBoxPower7Mode
             // 
-            this.button1_4.BackColor = System.Drawing.Color.Silver;
-            this.button1_4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.button1_4.Location = new System.Drawing.Point(318, 7);
-            this.button1_4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button1_4.Name = "button1_4";
-            this.button1_4.Size = new System.Drawing.Size(25, 23);
-            this.button1_4.TabIndex = 16;
-            this.toolTip1.SetToolTip(this.button1_4, "Toggle relay\r\nGreen when switched");
-            this.button1_4.UseVisualStyleBackColor = false;
-            this.button1_4.Click += new System.EventHandler(this.button1_4_Click);
+            this.comboBoxPower7Mode.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::AmpAutoTunerUtility.Properties.Settings.Default, "Power7Mode", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.comboBoxPower7Mode.FormattingEnabled = true;
+            this.comboBoxPower7Mode.Location = new System.Drawing.Point(200, 191);
+            this.comboBoxPower7Mode.Name = "comboBoxPower7Mode";
+            this.comboBoxPower7Mode.Size = new System.Drawing.Size(82, 24);
+            this.comboBoxPower7Mode.TabIndex = 88;
+            this.comboBoxPower7Mode.Text = global::AmpAutoTunerUtility.Properties.Settings.Default.Power7Mode;
+            this.toolTip1.SetToolTip(this.comboBoxPower7Mode, "Set power only if mode matches this\r\nSelect \"Any\" to match any mode");
             // 
-            // button1_3
+            // comboBoxPower6Mode
             // 
-            this.button1_3.BackColor = System.Drawing.Color.Silver;
-            this.button1_3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.button1_3.Location = new System.Drawing.Point(293, 7);
-            this.button1_3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button1_3.Name = "button1_3";
-            this.button1_3.Size = new System.Drawing.Size(25, 23);
-            this.button1_3.TabIndex = 15;
-            this.toolTip1.SetToolTip(this.button1_3, "Toggle relay\r\nGreen when switched");
-            this.button1_3.UseVisualStyleBackColor = false;
-            this.button1_3.Click += new System.EventHandler(this.button1_3_Click);
+            this.comboBoxPower6Mode.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::AmpAutoTunerUtility.Properties.Settings.Default, "Power6Mode", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.comboBoxPower6Mode.FormattingEnabled = true;
+            this.comboBoxPower6Mode.Location = new System.Drawing.Point(201, 164);
+            this.comboBoxPower6Mode.Name = "comboBoxPower6Mode";
+            this.comboBoxPower6Mode.Size = new System.Drawing.Size(82, 24);
+            this.comboBoxPower6Mode.TabIndex = 87;
+            this.comboBoxPower6Mode.Text = global::AmpAutoTunerUtility.Properties.Settings.Default.Power6Mode;
+            this.toolTip1.SetToolTip(this.comboBoxPower6Mode, "Set power only if mode matches this\r\nSelect \"Any\" to match any mode");
             // 
-            // button1_2
+            // comboBoxPower5Mode
             // 
-            this.button1_2.BackColor = System.Drawing.Color.Silver;
-            this.button1_2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.button1_2.Location = new System.Drawing.Point(268, 7);
-            this.button1_2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button1_2.Name = "button1_2";
-            this.button1_2.Size = new System.Drawing.Size(25, 23);
-            this.button1_2.TabIndex = 14;
-            this.toolTip1.SetToolTip(this.button1_2, "Toggle relay\r\nGreen when switched");
-            this.button1_2.UseVisualStyleBackColor = false;
-            this.button1_2.Click += new System.EventHandler(this.button1_2_Click);
+            this.comboBoxPower5Mode.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::AmpAutoTunerUtility.Properties.Settings.Default, "Power5Mode", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.comboBoxPower5Mode.FormattingEnabled = true;
+            this.comboBoxPower5Mode.Location = new System.Drawing.Point(200, 137);
+            this.comboBoxPower5Mode.Name = "comboBoxPower5Mode";
+            this.comboBoxPower5Mode.Size = new System.Drawing.Size(82, 24);
+            this.comboBoxPower5Mode.TabIndex = 86;
+            this.comboBoxPower5Mode.Text = global::AmpAutoTunerUtility.Properties.Settings.Default.Power5Mode;
+            this.toolTip1.SetToolTip(this.comboBoxPower5Mode, "Set power only if mode matches this\r\nSelect \"Any\" to match any mode");
             // 
-            // button1_1
+            // comboBoxPower4Mode
             // 
-            this.button1_1.BackColor = System.Drawing.Color.Silver;
-            this.button1_1.ForeColor = System.Drawing.Color.Silver;
-            this.button1_1.Location = new System.Drawing.Point(243, 7);
-            this.button1_1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button1_1.Name = "button1_1";
-            this.button1_1.Size = new System.Drawing.Size(25, 23);
-            this.button1_1.TabIndex = 13;
-            this.toolTip1.SetToolTip(this.button1_1, "Toggle relay\r\nGreen when switched");
-            this.button1_1.UseVisualStyleBackColor = false;
-            this.button1_1.Click += new System.EventHandler(this.button1_1_Click);
+            this.comboBoxPower4Mode.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::AmpAutoTunerUtility.Properties.Settings.Default, "Power4Mode", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.comboBoxPower4Mode.FormattingEnabled = true;
+            this.comboBoxPower4Mode.Location = new System.Drawing.Point(201, 110);
+            this.comboBoxPower4Mode.Name = "comboBoxPower4Mode";
+            this.comboBoxPower4Mode.Size = new System.Drawing.Size(82, 24);
+            this.comboBoxPower4Mode.TabIndex = 85;
+            this.comboBoxPower4Mode.Text = global::AmpAutoTunerUtility.Properties.Settings.Default.Power4Mode;
+            this.toolTip1.SetToolTip(this.comboBoxPower4Mode, "Set power only if mode matches this\r\nSelect \"Any\" to match any mode");
             // 
-            // buttonTunerStatus
+            // comboBoxPower3Mode
             // 
-            this.buttonTunerStatus.Location = new System.Drawing.Point(66, 90);
-            this.buttonTunerStatus.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.buttonTunerStatus.Name = "buttonTunerStatus";
-            this.buttonTunerStatus.Size = new System.Drawing.Size(40, 23);
-            this.buttonTunerStatus.TabIndex = 10;
-            this.toolTip1.SetToolTip(this.buttonTunerStatus, "Green - SWR < 1.5\r\nYellow - SWR < 3.0\r\nRed - Tuning failed\r\nGray - Not tuned yet");
-            this.buttonTunerStatus.UseVisualStyleBackColor = true;
+            this.comboBoxPower3Mode.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::AmpAutoTunerUtility.Properties.Settings.Default, "Power3Mode", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.comboBoxPower3Mode.FormattingEnabled = true;
+            this.comboBoxPower3Mode.Location = new System.Drawing.Point(201, 83);
+            this.comboBoxPower3Mode.Name = "comboBoxPower3Mode";
+            this.comboBoxPower3Mode.Size = new System.Drawing.Size(82, 24);
+            this.comboBoxPower3Mode.TabIndex = 84;
+            this.comboBoxPower3Mode.Text = global::AmpAutoTunerUtility.Properties.Settings.Default.Power3Mode;
+            this.toolTip1.SetToolTip(this.comboBoxPower3Mode, "Set power only if mode matches this\r\nSelect \"Any\" to match any mode");
             // 
-            // buttonTune
+            // comboBoxPower2Mode
             // 
-            this.buttonTune.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.buttonTune.FlatAppearance.BorderSize = 2;
-            this.buttonTune.Location = new System.Drawing.Point(50, 45);
-            this.buttonTune.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.buttonTune.Name = "buttonTune";
-            this.buttonTune.Size = new System.Drawing.Size(75, 27);
-            this.buttonTune.TabIndex = 9;
-            this.buttonTune.Text = "Tune";
-            this.toolTip1.SetToolTip(this.buttonTune, "Start a tune cycle");
-            this.buttonTune.UseVisualStyleBackColor = false;
-            this.buttonTune.Click += new System.EventHandler(this.buttonTune_Click_1);
+            this.comboBoxPower2Mode.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::AmpAutoTunerUtility.Properties.Settings.Default, "Power2Mode", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.comboBoxPower2Mode.FormattingEnabled = true;
+            this.comboBoxPower2Mode.Location = new System.Drawing.Point(201, 56);
+            this.comboBoxPower2Mode.Name = "comboBoxPower2Mode";
+            this.comboBoxPower2Mode.Size = new System.Drawing.Size(82, 24);
+            this.comboBoxPower2Mode.TabIndex = 83;
+            this.comboBoxPower2Mode.Text = global::AmpAutoTunerUtility.Properties.Settings.Default.Power2Mode;
+            this.toolTip1.SetToolTip(this.comboBoxPower2Mode, "Set power only if mode matches this\r\nSelect \"Any\" to match any mode");
             // 
-            // labelFreq
+            // comboBoxPower1Mode
             // 
-            this.labelFreq.AutoSize = true;
-            this.labelFreq.Font = new System.Drawing.Font("MS Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelFreq.Location = new System.Drawing.Point(18, 32);
-            this.labelFreq.Name = "labelFreq";
-            this.labelFreq.Size = new System.Drawing.Size(53, 20);
-            this.labelFreq.TabIndex = 11;
-            this.labelFreq.Text = "Freq";
-            this.toolTip1.SetToolTip(this.labelFreq, "Current rig frequency");
+            this.comboBoxPower1Mode.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::AmpAutoTunerUtility.Properties.Settings.Default, "Power1Mode", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.comboBoxPower1Mode.FormattingEnabled = true;
+            this.comboBoxPower1Mode.ItemHeight = 16;
+            this.comboBoxPower1Mode.Location = new System.Drawing.Point(201, 29);
+            this.comboBoxPower1Mode.Name = "comboBoxPower1Mode";
+            this.comboBoxPower1Mode.Size = new System.Drawing.Size(82, 24);
+            this.comboBoxPower1Mode.TabIndex = 82;
+            this.comboBoxPower1Mode.Text = global::AmpAutoTunerUtility.Properties.Settings.Default.Power1Mode;
+            this.toolTip1.SetToolTip(this.comboBoxPower1Mode, "Set power only if mode matches this\r\nSelect \"Any\" to match any mode");
             // 
-            // labelPower
+            // label5
             // 
-            this.labelPower.AutoSize = true;
-            this.labelPower.Location = new System.Drawing.Point(21, 67);
-            this.labelPower.Name = "labelPower";
-            this.labelPower.Size = new System.Drawing.Size(47, 17);
-            this.labelPower.TabIndex = 12;
-            this.labelPower.Text = "Power";
-            this.toolTip1.SetToolTip(this.labelPower, "FLRig power level setting");
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(153, 11);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(47, 17);
+            this.label5.TabIndex = 74;
+            this.label5.Text = "Power";
+            this.toolTip1.SetToolTip(this.label5, "Power setting for rig control program");
             // 
-            // labelSWR
+            // textBoxPower1From
             // 
-            this.labelSWR.AutoSize = true;
-            this.labelSWR.Location = new System.Drawing.Point(21, 101);
-            this.labelSWR.Name = "labelSWR";
-            this.labelSWR.Size = new System.Drawing.Size(40, 17);
-            this.labelSWR.TabIndex = 13;
-            this.labelSWR.Text = "SWR";
-            this.toolTip1.SetToolTip(this.labelSWR, "Last reported SWR");
-            // 
-            // labelAntennaSelected
-            // 
-            this.labelAntennaSelected.AutoSize = true;
-            this.labelAntennaSelected.Location = new System.Drawing.Point(21, 135);
-            this.labelAntennaSelected.Name = "labelAntennaSelected";
-            this.labelAntennaSelected.Size = new System.Drawing.Size(61, 17);
-            this.labelAntennaSelected.TabIndex = 14;
-            this.labelAntennaSelected.Text = "Antenna";
-            this.toolTip1.SetToolTip(this.labelAntennaSelected, "Antenna in use");
+            this.textBoxPower1From.Location = new System.Drawing.Point(5, 30);
+            this.textBoxPower1From.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.textBoxPower1From.Name = "textBoxPower1From";
+            this.textBoxPower1From.Size = new System.Drawing.Size(72, 22);
+            this.textBoxPower1From.TabIndex = 46;
+            this.toolTip1.SetToolTip(this.textBoxPower1From, "0");
             // 
             // textBoxAntenna8
             // 
@@ -788,227 +921,291 @@
             this.textBoxAntennaFreq1From.TabIndex = 0;
             this.toolTip1.SetToolTip(this.textBoxAntennaFreq1From, "0");
             // 
-            // buttonTunePause
+            // button1_8
             // 
-            this.buttonTunePause.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.buttonTunePause.FlatAppearance.BorderSize = 2;
-            this.buttonTunePause.Location = new System.Drawing.Point(50, 130);
-            this.buttonTunePause.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.buttonTunePause.Name = "buttonTunePause";
-            this.buttonTunePause.Size = new System.Drawing.Size(75, 27);
-            this.buttonTunePause.TabIndex = 11;
-            this.buttonTunePause.Text = "Pause";
-            this.toolTip1.SetToolTip(this.buttonTunePause, "Start a tune cycle");
-            this.buttonTunePause.UseVisualStyleBackColor = false;
-            this.buttonTunePause.Click += new System.EventHandler(this.ButtonTunePause_Click);
+            this.button1_8.BackColor = System.Drawing.Color.Silver;
+            this.button1_8.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.button1_8.Location = new System.Drawing.Point(418, 7);
+            this.button1_8.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button1_8.Name = "button1_8";
+            this.button1_8.Size = new System.Drawing.Size(25, 23);
+            this.button1_8.TabIndex = 20;
+            this.toolTip1.SetToolTip(this.button1_8, "Toggle relay\r\nGreen when switched");
+            this.button1_8.UseVisualStyleBackColor = false;
             // 
-            // checkBoxPTTEnabled
+            // button1_7
             // 
-            this.checkBoxPTTEnabled.AutoSize = true;
-            this.checkBoxPTTEnabled.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxPTTEnabled.Location = new System.Drawing.Point(21, 84);
-            this.checkBoxPTTEnabled.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.checkBoxPTTEnabled.Name = "checkBoxPTTEnabled";
-            this.checkBoxPTTEnabled.Size = new System.Drawing.Size(105, 21);
-            this.checkBoxPTTEnabled.TabIndex = 13;
-            this.checkBoxPTTEnabled.Text = "Enable PTT";
-            this.toolTip1.SetToolTip(this.checkBoxPTTEnabled, "This will toggle PTT during tune");
-            this.checkBoxPTTEnabled.UseVisualStyleBackColor = true;
-            this.checkBoxPTTEnabled.CheckedChanged += new System.EventHandler(this.checkBoxPTTEnabled_CheckedChanged);
+            this.button1_7.BackColor = System.Drawing.Color.Silver;
+            this.button1_7.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.button1_7.Location = new System.Drawing.Point(393, 7);
+            this.button1_7.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button1_7.Name = "button1_7";
+            this.button1_7.Size = new System.Drawing.Size(25, 23);
+            this.button1_7.TabIndex = 19;
+            this.toolTip1.SetToolTip(this.button1_7, "Toggle relay\r\nGreen when switched");
+            this.button1_7.UseVisualStyleBackColor = false;
             // 
-            // checkBoxToneEnabled
+            // button1_6
             // 
-            this.checkBoxToneEnabled.AutoSize = true;
-            this.checkBoxToneEnabled.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxToneEnabled.Location = new System.Drawing.Point(21, 113);
-            this.checkBoxToneEnabled.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.checkBoxToneEnabled.Name = "checkBoxToneEnabled";
-            this.checkBoxToneEnabled.Size = new System.Drawing.Size(111, 21);
-            this.checkBoxToneEnabled.TabIndex = 14;
-            this.checkBoxToneEnabled.Text = "Enable Tone";
-            this.toolTip1.SetToolTip(this.checkBoxToneEnabled, "Generate a tone during tune");
-            this.checkBoxToneEnabled.UseVisualStyleBackColor = true;
-            this.checkBoxToneEnabled.CheckedChanged += new System.EventHandler(this.checkBoxToneEnable_CheckedChanged);
+            this.button1_6.BackColor = System.Drawing.Color.Silver;
+            this.button1_6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.button1_6.Location = new System.Drawing.Point(368, 7);
+            this.button1_6.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button1_6.Name = "button1_6";
+            this.button1_6.Size = new System.Drawing.Size(25, 23);
+            this.button1_6.TabIndex = 18;
+            this.toolTip1.SetToolTip(this.button1_6, "Toggle relay\r\nGreen when switched");
+            this.button1_6.UseVisualStyleBackColor = false;
             // 
-            // comboBoxAudioOut
+            // button1_5
             // 
-            this.comboBoxAudioOut.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxAudioOut.FormattingEnabled = true;
-            this.comboBoxAudioOut.Location = new System.Drawing.Point(11, 225);
-            this.comboBoxAudioOut.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.comboBoxAudioOut.Name = "comboBoxAudioOut";
-            this.comboBoxAudioOut.Size = new System.Drawing.Size(488, 24);
-            this.comboBoxAudioOut.TabIndex = 13;
-            this.toolTip1.SetToolTip(this.comboBoxAudioOut, "Sound device for tone output (i.e. rig device)");
-            this.comboBoxAudioOut.SelectedIndexChanged += new System.EventHandler(this.comboBoxAudioOut_SelectedIndexChanged);
+            this.button1_5.BackColor = System.Drawing.Color.Silver;
+            this.button1_5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.button1_5.Location = new System.Drawing.Point(343, 7);
+            this.button1_5.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button1_5.Name = "button1_5";
+            this.button1_5.Size = new System.Drawing.Size(25, 23);
+            this.button1_5.TabIndex = 17;
+            this.toolTip1.SetToolTip(this.button1_5, "Toggle relay\r\nGreen when switched");
+            this.button1_5.UseVisualStyleBackColor = false;
             // 
-            // textBoxPower1From
+            // button1_4
             // 
-            this.textBoxPower1From.Location = new System.Drawing.Point(5, 30);
-            this.textBoxPower1From.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.textBoxPower1From.Name = "textBoxPower1From";
-            this.textBoxPower1From.Size = new System.Drawing.Size(72, 22);
-            this.textBoxPower1From.TabIndex = 46;
-            this.toolTip1.SetToolTip(this.textBoxPower1From, "0");
+            this.button1_4.BackColor = System.Drawing.Color.Silver;
+            this.button1_4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.button1_4.Location = new System.Drawing.Point(318, 7);
+            this.button1_4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button1_4.Name = "button1_4";
+            this.button1_4.Size = new System.Drawing.Size(25, 23);
+            this.button1_4.TabIndex = 16;
+            this.toolTip1.SetToolTip(this.button1_4, "Toggle relay\r\nGreen when switched");
+            this.button1_4.UseVisualStyleBackColor = false;
             // 
-            // label5
+            // button1_3
             // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(153, 11);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(47, 17);
-            this.label5.TabIndex = 74;
-            this.label5.Text = "Power";
-            this.toolTip1.SetToolTip(this.label5, "Power setting for rig control program");
+            this.button1_3.BackColor = System.Drawing.Color.Silver;
+            this.button1_3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.button1_3.Location = new System.Drawing.Point(293, 7);
+            this.button1_3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button1_3.Name = "button1_3";
+            this.button1_3.Size = new System.Drawing.Size(25, 23);
+            this.button1_3.TabIndex = 15;
+            this.toolTip1.SetToolTip(this.button1_3, "Toggle relay\r\nGreen when switched");
+            this.button1_3.UseVisualStyleBackColor = false;
             // 
-            // checkBoxPowerSDR
+            // button1_2
             // 
-            this.checkBoxPowerSDR.AutoSize = true;
-            this.checkBoxPowerSDR.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxPowerSDR.Location = new System.Drawing.Point(21, 55);
-            this.checkBoxPowerSDR.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.checkBoxPowerSDR.Name = "checkBoxPowerSDR";
-            this.checkBoxPowerSDR.Size = new System.Drawing.Size(98, 21);
-            this.checkBoxPowerSDR.TabIndex = 4;
-            this.checkBoxPowerSDR.Text = "PowerSDR";
-            this.toolTip1.SetToolTip(this.checkBoxPowerSDR, "Use Tuner on PowerSDR");
-            this.checkBoxPowerSDR.UseVisualStyleBackColor = true;
+            this.button1_2.BackColor = System.Drawing.Color.Silver;
+            this.button1_2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.button1_2.Location = new System.Drawing.Point(268, 7);
+            this.button1_2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button1_2.Name = "button1_2";
+            this.button1_2.Size = new System.Drawing.Size(25, 23);
+            this.button1_2.TabIndex = 14;
+            this.toolTip1.SetToolTip(this.button1_2, "Toggle relay\r\nGreen when switched");
+            this.button1_2.UseVisualStyleBackColor = false;
             // 
-            // checkBoxRig
+            // button1_1
             // 
-            this.checkBoxRig.AutoSize = true;
-            this.checkBoxRig.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxRig.Location = new System.Drawing.Point(21, 26);
-            this.checkBoxRig.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.checkBoxRig.Name = "checkBoxRig";
-            this.checkBoxRig.Size = new System.Drawing.Size(67, 21);
-            this.checkBoxRig.TabIndex = 3;
-            this.checkBoxRig.Text = "FLRig";
-            this.toolTip1.SetToolTip(this.checkBoxRig, "Enable FLRig for freq reading");
-            this.checkBoxRig.UseVisualStyleBackColor = true;
+            this.button1_1.BackColor = System.Drawing.Color.Silver;
+            this.button1_1.ForeColor = System.Drawing.Color.Silver;
+            this.button1_1.Location = new System.Drawing.Point(243, 7);
+            this.button1_1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button1_1.Name = "button1_1";
+            this.button1_1.Size = new System.Drawing.Size(25, 23);
+            this.button1_1.TabIndex = 13;
+            this.toolTip1.SetToolTip(this.button1_1, "Toggle relay\r\nGreen when switched");
+            this.button1_1.UseVisualStyleBackColor = false;
             // 
-            // comboBoxPower8Mode
+            // comboBoxComRelay1
             // 
-            this.comboBoxPower8Mode.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::AmpAutoTunerUtility.Properties.Settings.Default, "Power8Mode", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.comboBoxPower8Mode.FormattingEnabled = true;
-            this.comboBoxPower8Mode.Location = new System.Drawing.Point(201, 218);
-            this.comboBoxPower8Mode.Name = "comboBoxPower8Mode";
-            this.comboBoxPower8Mode.Size = new System.Drawing.Size(82, 24);
-            this.comboBoxPower8Mode.TabIndex = 89;
-            this.comboBoxPower8Mode.Text = global::AmpAutoTunerUtility.Properties.Settings.Default.Power8Mode;
-            this.toolTip1.SetToolTip(this.comboBoxPower8Mode, "Set power only if mode matches this\r\nSelect \"Any\" to match any mode");
-            // 
-            // comboBoxPower7Mode
-            // 
-            this.comboBoxPower7Mode.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::AmpAutoTunerUtility.Properties.Settings.Default, "Power7Mode", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.comboBoxPower7Mode.FormattingEnabled = true;
-            this.comboBoxPower7Mode.Location = new System.Drawing.Point(200, 191);
-            this.comboBoxPower7Mode.Name = "comboBoxPower7Mode";
-            this.comboBoxPower7Mode.Size = new System.Drawing.Size(82, 24);
-            this.comboBoxPower7Mode.TabIndex = 88;
-            this.comboBoxPower7Mode.Text = global::AmpAutoTunerUtility.Properties.Settings.Default.Power7Mode;
-            this.toolTip1.SetToolTip(this.comboBoxPower7Mode, "Set power only if mode matches this\r\nSelect \"Any\" to match any mode");
-            // 
-            // comboBoxPower6Mode
-            // 
-            this.comboBoxPower6Mode.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::AmpAutoTunerUtility.Properties.Settings.Default, "Power6Mode", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.comboBoxPower6Mode.FormattingEnabled = true;
-            this.comboBoxPower6Mode.Location = new System.Drawing.Point(201, 164);
-            this.comboBoxPower6Mode.Name = "comboBoxPower6Mode";
-            this.comboBoxPower6Mode.Size = new System.Drawing.Size(82, 24);
-            this.comboBoxPower6Mode.TabIndex = 87;
-            this.comboBoxPower6Mode.Text = global::AmpAutoTunerUtility.Properties.Settings.Default.Power6Mode;
-            this.toolTip1.SetToolTip(this.comboBoxPower6Mode, "Set power only if mode matches this\r\nSelect \"Any\" to match any mode");
-            // 
-            // comboBoxPower5Mode
-            // 
-            this.comboBoxPower5Mode.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::AmpAutoTunerUtility.Properties.Settings.Default, "Power5Mode", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.comboBoxPower5Mode.FormattingEnabled = true;
-            this.comboBoxPower5Mode.Location = new System.Drawing.Point(200, 137);
-            this.comboBoxPower5Mode.Name = "comboBoxPower5Mode";
-            this.comboBoxPower5Mode.Size = new System.Drawing.Size(82, 24);
-            this.comboBoxPower5Mode.TabIndex = 86;
-            this.comboBoxPower5Mode.Text = global::AmpAutoTunerUtility.Properties.Settings.Default.Power5Mode;
-            this.toolTip1.SetToolTip(this.comboBoxPower5Mode, "Set power only if mode matches this\r\nSelect \"Any\" to match any mode");
-            // 
-            // comboBoxPower4Mode
-            // 
-            this.comboBoxPower4Mode.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::AmpAutoTunerUtility.Properties.Settings.Default, "Power4Mode", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.comboBoxPower4Mode.FormattingEnabled = true;
-            this.comboBoxPower4Mode.Location = new System.Drawing.Point(201, 110);
-            this.comboBoxPower4Mode.Name = "comboBoxPower4Mode";
-            this.comboBoxPower4Mode.Size = new System.Drawing.Size(82, 24);
-            this.comboBoxPower4Mode.TabIndex = 85;
-            this.comboBoxPower4Mode.Text = global::AmpAutoTunerUtility.Properties.Settings.Default.Power4Mode;
-            this.toolTip1.SetToolTip(this.comboBoxPower4Mode, "Set power only if mode matches this\r\nSelect \"Any\" to match any mode");
-            // 
-            // comboBoxPower3Mode
-            // 
-            this.comboBoxPower3Mode.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::AmpAutoTunerUtility.Properties.Settings.Default, "Power3Mode", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.comboBoxPower3Mode.FormattingEnabled = true;
-            this.comboBoxPower3Mode.Location = new System.Drawing.Point(201, 83);
-            this.comboBoxPower3Mode.Name = "comboBoxPower3Mode";
-            this.comboBoxPower3Mode.Size = new System.Drawing.Size(82, 24);
-            this.comboBoxPower3Mode.TabIndex = 84;
-            this.comboBoxPower3Mode.Text = global::AmpAutoTunerUtility.Properties.Settings.Default.Power3Mode;
-            this.toolTip1.SetToolTip(this.comboBoxPower3Mode, "Set power only if mode matches this\r\nSelect \"Any\" to match any mode");
-            // 
-            // comboBoxPower2Mode
-            // 
-            this.comboBoxPower2Mode.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::AmpAutoTunerUtility.Properties.Settings.Default, "Power2Mode", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.comboBoxPower2Mode.FormattingEnabled = true;
-            this.comboBoxPower2Mode.Location = new System.Drawing.Point(201, 56);
-            this.comboBoxPower2Mode.Name = "comboBoxPower2Mode";
-            this.comboBoxPower2Mode.Size = new System.Drawing.Size(82, 24);
-            this.comboBoxPower2Mode.TabIndex = 83;
-            this.comboBoxPower2Mode.Text = global::AmpAutoTunerUtility.Properties.Settings.Default.Power2Mode;
-            this.toolTip1.SetToolTip(this.comboBoxPower2Mode, "Set power only if mode matches this\r\nSelect \"Any\" to match any mode");
-            // 
-            // comboBoxPower1Mode
-            // 
-            this.comboBoxPower1Mode.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::AmpAutoTunerUtility.Properties.Settings.Default, "Power1Mode", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.comboBoxPower1Mode.FormattingEnabled = true;
-            this.comboBoxPower1Mode.ItemHeight = 16;
-            this.comboBoxPower1Mode.Location = new System.Drawing.Point(201, 29);
-            this.comboBoxPower1Mode.Name = "comboBoxPower1Mode";
-            this.comboBoxPower1Mode.Size = new System.Drawing.Size(82, 24);
-            this.comboBoxPower1Mode.TabIndex = 82;
-            this.comboBoxPower1Mode.Text = global::AmpAutoTunerUtility.Properties.Settings.Default.Power1Mode;
-            this.toolTip1.SetToolTip(this.comboBoxPower1Mode, "Set power only if mode matches this\r\nSelect \"Any\" to match any mode");
+            this.comboBoxComRelay1.FormattingEnabled = true;
+            this.comboBoxComRelay1.Location = new System.Drawing.Point(11, 7);
+            this.comboBoxComRelay1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.comboBoxComRelay1.Name = "comboBoxComRelay1";
+            this.comboBoxComRelay1.Size = new System.Drawing.Size(121, 24);
+            this.comboBoxComRelay1.TabIndex = 0;
+            this.comboBoxComRelay1.Text = global::AmpAutoTunerUtility.Properties.Settings.Default.Relay1Com;
+            this.toolTip1.SetToolTip(this.comboBoxComRelay1, "FT245R Com Ports");
             // 
             // timerGetFreq
             // 
             this.timerGetFreq.Tick += new System.EventHandler(this.TimerGetFreq_Tick);
             // 
+            // timerDebug
+            // 
+            this.timerDebug.Tick += new System.EventHandler(this.timerDebug_Tick);
+            // 
+            // menuStrip1
+            // 
+            this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.fileToolStripMenuItem,
+            this.viewToolStripMenuItem,
+            this.aboutToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(519, 28);
+            this.menuStrip1.TabIndex = 0;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // fileToolStripMenuItem
+            // 
+            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.closeToolStripMenuItem});
+            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(44, 24);
+            this.fileToolStripMenuItem.Text = "File";
+            // 
+            // closeToolStripMenuItem
+            // 
+            this.closeToolStripMenuItem.Name = "closeToolStripMenuItem";
+            this.closeToolStripMenuItem.Size = new System.Drawing.Size(120, 26);
+            this.closeToolStripMenuItem.Text = "Close";
+            this.closeToolStripMenuItem.Click += new System.EventHandler(this.closeToolStripMenuItem_Click);
+            // 
+            // viewToolStripMenuItem
+            // 
+            this.viewToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.antennaToolStripMenuItem,
+            this.debugToolStripMenuItem,
+            this.powerToolStripMenuItem,
+            this.tunerToolStripMenuItem,
+            this.relay1ToolStripMenuItem,
+            this.relay2ToolStripMenuItem,
+            this.relay3ToolStripMenuItem,
+            this.relay4ToolStripMenuItem});
+            this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
+            this.viewToolStripMenuItem.Size = new System.Drawing.Size(53, 24);
+            this.viewToolStripMenuItem.Text = "View";
+            // 
+            // antennaToolStripMenuItem
+            // 
+            this.antennaToolStripMenuItem.Checked = global::AmpAutoTunerUtility.Properties.Settings.Default.checkBoxAntennaTab;
+            this.antennaToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.antennaToolStripMenuItem.Name = "antennaToolStripMenuItem";
+            this.antennaToolStripMenuItem.Size = new System.Drawing.Size(139, 26);
+            this.antennaToolStripMenuItem.Text = "Antenna";
+            // 
+            // debugToolStripMenuItem
+            // 
+            this.debugToolStripMenuItem.Checked = global::AmpAutoTunerUtility.Properties.Settings.Default.checkBoxDebugTab;
+            this.debugToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.debugToolStripMenuItem.Name = "debugToolStripMenuItem";
+            this.debugToolStripMenuItem.Size = new System.Drawing.Size(139, 26);
+            this.debugToolStripMenuItem.Text = "Debug";
+            // 
+            // powerToolStripMenuItem
+            // 
+            this.powerToolStripMenuItem.Checked = global::AmpAutoTunerUtility.Properties.Settings.Default.checkBoxPowerTab;
+            this.powerToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.powerToolStripMenuItem.Name = "powerToolStripMenuItem";
+            this.powerToolStripMenuItem.Size = new System.Drawing.Size(139, 26);
+            this.powerToolStripMenuItem.Text = "Power";
+            // 
+            // tunerToolStripMenuItem
+            // 
+            this.tunerToolStripMenuItem.Checked = global::AmpAutoTunerUtility.Properties.Settings.Default.checkBoxTunerTab;
+            this.tunerToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.tunerToolStripMenuItem.Name = "tunerToolStripMenuItem";
+            this.tunerToolStripMenuItem.Size = new System.Drawing.Size(139, 26);
+            this.tunerToolStripMenuItem.Text = "Tuner";
+            // 
+            // relay1ToolStripMenuItem
+            // 
+            this.relay1ToolStripMenuItem.Checked = global::AmpAutoTunerUtility.Properties.Settings.Default.checkedMenuRelay1;
+            this.relay1ToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.relay1ToolStripMenuItem.Name = "relay1ToolStripMenuItem";
+            this.relay1ToolStripMenuItem.Size = new System.Drawing.Size(139, 26);
+            this.relay1ToolStripMenuItem.Text = "Relay1";
+            this.relay1ToolStripMenuItem.Click += new System.EventHandler(this.relay1ToolStripMenuItem_Click);
+            // 
+            // relay2ToolStripMenuItem
+            // 
+            this.relay2ToolStripMenuItem.Checked = global::AmpAutoTunerUtility.Properties.Settings.Default.checkedMenuRelay2;
+            this.relay2ToolStripMenuItem.Name = "relay2ToolStripMenuItem";
+            this.relay2ToolStripMenuItem.Size = new System.Drawing.Size(139, 26);
+            this.relay2ToolStripMenuItem.Text = "Relay2";
+            this.relay2ToolStripMenuItem.Click += new System.EventHandler(this.relay2ToolStripMenuItem_Click);
+            // 
+            // relay3ToolStripMenuItem
+            // 
+            this.relay3ToolStripMenuItem.Checked = global::AmpAutoTunerUtility.Properties.Settings.Default.checkedMenuRelay3;
+            this.relay3ToolStripMenuItem.Name = "relay3ToolStripMenuItem";
+            this.relay3ToolStripMenuItem.Size = new System.Drawing.Size(139, 26);
+            this.relay3ToolStripMenuItem.Text = "Relay3";
+            // 
+            // relay4ToolStripMenuItem
+            // 
+            this.relay4ToolStripMenuItem.Checked = global::AmpAutoTunerUtility.Properties.Settings.Default.checkedMenuRelay4;
+            this.relay4ToolStripMenuItem.Name = "relay4ToolStripMenuItem";
+            this.relay4ToolStripMenuItem.Size = new System.Drawing.Size(139, 26);
+            this.relay4ToolStripMenuItem.Text = "Relay4";
+            // 
+            // aboutToolStripMenuItem
+            // 
+            this.aboutToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.helpToolStripMenuItem,
+            this.aboutToolStripMenuItem1});
+            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(62, 24);
+            this.aboutToolStripMenuItem.Text = "About";
+            // 
+            // helpToolStripMenuItem
+            // 
+            this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(125, 26);
+            this.helpToolStripMenuItem.Text = "Help";
+            // 
+            // aboutToolStripMenuItem1
+            // 
+            this.aboutToolStripMenuItem1.Name = "aboutToolStripMenuItem1";
+            this.aboutToolStripMenuItem1.Size = new System.Drawing.Size(125, 26);
+            this.aboutToolStripMenuItem1.Text = "About";
+            // 
             // tabControl1
             // 
             this.tabControl1.Controls.Add(this.tabPageControl);
+            this.tabControl1.Controls.Add(this.tabPageDebug);
             this.tabControl1.Controls.Add(this.tabPageTuner);
-            this.tabControl1.Controls.Add(this.tabPageRig);
+            this.tabControl1.Controls.Add(this.tabPagePower);
+            this.tabControl1.Controls.Add(this.tabPageAntenna);
             this.tabControl1.Controls.Add(this.tabPageRelay1);
             this.tabControl1.Controls.Add(this.tabPageRelay2);
             this.tabControl1.Controls.Add(this.tabPageRelay3);
             this.tabControl1.Controls.Add(this.tabPageRelay4);
-            this.tabControl1.Controls.Add(this.tabPageAntenna);
-            this.tabControl1.Controls.Add(this.tabPagePower);
-            this.tabControl1.Location = new System.Drawing.Point(1, -1);
+            this.tabControl1.Location = new System.Drawing.Point(1, 26);
             this.tabControl1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(517, 290);
-            this.tabControl1.TabIndex = 7;
+            this.tabControl1.TabIndex = 8;
             // 
             // tabPageControl
             // 
             this.tabPageControl.BackColor = System.Drawing.Color.LightGray;
+            this.tabPageControl.Controls.Add(this.groupBox3);
             this.tabPageControl.Controls.Add(this.groupBox2);
             this.tabPageControl.Controls.Add(this.groupBox1);
             this.tabPageControl.Location = new System.Drawing.Point(4, 25);
+            this.tabPageControl.Margin = new System.Windows.Forms.Padding(30);
             this.tabPageControl.Name = "tabPageControl";
-            this.tabPageControl.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageControl.Size = new System.Drawing.Size(509, 261);
+            this.tabPageControl.Padding = new System.Windows.Forms.Padding(30);
+            this.tabPageControl.Size = new System.Drawing.Size(509, 254);
             this.tabPageControl.TabIndex = 7;
             this.tabPageControl.Text = "Control";
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.numericUpDownInductance);
+            this.groupBox3.Controls.Add(this.numericUpDownCapacitance);
+            this.groupBox3.Location = new System.Drawing.Point(4, 191);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(482, 61);
+            this.groupBox3.TabIndex = 17;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Options";
+            this.groupBox3.Visible = false;
             // 
             // groupBox2
             // 
@@ -1016,9 +1213,9 @@
             this.groupBox2.Controls.Add(this.labelFreq);
             this.groupBox2.Controls.Add(this.labelPower);
             this.groupBox2.Controls.Add(this.labelSWR);
-            this.groupBox2.Location = new System.Drawing.Point(227, 11);
+            this.groupBox2.Location = new System.Drawing.Point(173, 11);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(259, 187);
+            this.groupBox2.Size = new System.Drawing.Size(313, 173);
             this.groupBox2.TabIndex = 16;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Info";
@@ -1030,10 +1227,46 @@
             this.groupBox1.Controls.Add(this.buttonTunerStatus);
             this.groupBox1.Location = new System.Drawing.Point(7, 11);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(200, 187);
+            this.groupBox1.Size = new System.Drawing.Size(160, 173);
             this.groupBox1.TabIndex = 15;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Tuner Control/Status";
+            // 
+            // tabPageDebug
+            // 
+            this.tabPageDebug.BackColor = System.Drawing.Color.LightGray;
+            this.tabPageDebug.Controls.Add(this.checkBoxDebugEnable);
+            this.tabPageDebug.Controls.Add(this.richTextBoxDebug);
+            this.tabPageDebug.Location = new System.Drawing.Point(4, 25);
+            this.tabPageDebug.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.tabPageDebug.Name = "tabPageDebug";
+            this.tabPageDebug.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.tabPageDebug.Size = new System.Drawing.Size(509, 254);
+            this.tabPageDebug.TabIndex = 2;
+            this.tabPageDebug.Text = "Debug";
+            // 
+            // checkBoxDebugEnable
+            // 
+            this.checkBoxDebugEnable.AutoSize = true;
+            this.checkBoxDebugEnable.Checked = true;
+            this.checkBoxDebugEnable.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxDebugEnable.Location = new System.Drawing.Point(8, 10);
+            this.checkBoxDebugEnable.Name = "checkBoxDebugEnable";
+            this.checkBoxDebugEnable.Size = new System.Drawing.Size(118, 21);
+            this.checkBoxDebugEnable.TabIndex = 9;
+            this.checkBoxDebugEnable.Text = "Enable debug";
+            this.checkBoxDebugEnable.UseVisualStyleBackColor = true;
+            this.checkBoxDebugEnable.CheckedChanged += new System.EventHandler(this.checkBoxDebug_CheckedChanged);
+            // 
+            // richTextBoxDebug
+            // 
+            this.richTextBoxDebug.HideSelection = false;
+            this.richTextBoxDebug.Location = new System.Drawing.Point(7, 36);
+            this.richTextBoxDebug.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.richTextBoxDebug.Name = "richTextBoxDebug";
+            this.richTextBoxDebug.Size = new System.Drawing.Size(492, 217);
+            this.richTextBoxDebug.TabIndex = 8;
+            this.richTextBoxDebug.Text = "";
             // 
             // tabPageTuner
             // 
@@ -1059,10 +1292,10 @@
             this.panel2.Controls.Add(this.checkBoxRig);
             this.panel2.Controls.Add(this.radioButtonVFOB);
             this.panel2.Controls.Add(this.radioButtonVFOA);
-            this.panel2.Location = new System.Drawing.Point(258, 11);
+            this.panel2.Location = new System.Drawing.Point(258, 9);
             this.panel2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(230, 203);
+            this.panel2.Size = new System.Drawing.Size(230, 205);
             this.panel2.TabIndex = 14;
             // 
             // panel3
@@ -1093,7 +1326,6 @@
             this.checkBoxTunerEnabled.TabIndex = 7;
             this.checkBoxTunerEnabled.Text = "Enabled";
             this.checkBoxTunerEnabled.UseVisualStyleBackColor = true;
-            this.checkBoxTunerEnabled.CheckedChanged += new System.EventHandler(this.checkBoxTunerEnabled_CheckedChanged);
             // 
             // comboBoxTunerModel
             // 
@@ -1108,7 +1340,7 @@
             this.comboBoxTunerModel.Size = new System.Drawing.Size(121, 24);
             this.comboBoxTunerModel.TabIndex = 6;
             this.comboBoxTunerModel.Text = global::AmpAutoTunerUtility.Properties.Settings.Default.TunerCom;
-            this.comboBoxTunerModel.SelectedIndexChanged += new System.EventHandler(this.comboBoxTunerModel_SelectedIndexChanged);
+            this.comboBoxTunerModel.SelectedIndexChanged += new System.EventHandler(this.comboBoxTunerModel_SelectedIndexChanged_1);
             // 
             // comboBoxBaudTuner
             // 
@@ -1130,860 +1362,351 @@
             this.comboBoxComTuner.Name = "comboBoxComTuner";
             this.comboBoxComTuner.Size = new System.Drawing.Size(121, 24);
             this.comboBoxComTuner.TabIndex = 0;
-            this.comboBoxComTuner.SelectedIndexChanged += new System.EventHandler(this.comboBoxComTuner_SelectedIndexChanged);
-            // 
-            // tabPageRig
-            // 
-            this.tabPageRig.BackColor = System.Drawing.Color.LightGray;
-            this.tabPageRig.Controls.Add(this.richTextBoxRig);
-            this.tabPageRig.Location = new System.Drawing.Point(4, 25);
-            this.tabPageRig.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.tabPageRig.Name = "tabPageRig";
-            this.tabPageRig.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.tabPageRig.Size = new System.Drawing.Size(509, 261);
-            this.tabPageRig.TabIndex = 2;
-            this.tabPageRig.Text = "Debug";
-            this.tabPageRig.Click += new System.EventHandler(this.tabPage3_Click);
-            // 
-            // richTextBoxRig
-            // 
-            this.richTextBoxRig.HideSelection = false;
-            this.richTextBoxRig.Location = new System.Drawing.Point(7, 9);
-            this.richTextBoxRig.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.richTextBoxRig.Name = "richTextBoxRig";
-            this.richTextBoxRig.Size = new System.Drawing.Size(492, 244);
-            this.richTextBoxRig.TabIndex = 8;
-            this.richTextBoxRig.Text = "";
-            // 
-            // tabPageRelay1
-            // 
-            this.tabPageRelay1.BackColor = System.Drawing.Color.LightGray;
-            this.tabPageRelay1.Controls.Add(this.linkLabel2);
-            this.tabPageRelay1.Controls.Add(this.linkLabel1);
-            this.tabPageRelay1.Controls.Add(this.button1_8);
-            this.tabPageRelay1.Controls.Add(this.button1_7);
-            this.tabPageRelay1.Controls.Add(this.button1_6);
-            this.tabPageRelay1.Controls.Add(this.button1_5);
-            this.tabPageRelay1.Controls.Add(this.button1_4);
-            this.tabPageRelay1.Controls.Add(this.button1_3);
-            this.tabPageRelay1.Controls.Add(this.button1_2);
-            this.tabPageRelay1.Controls.Add(this.button1_1);
-            this.tabPageRelay1.Controls.Add(this.panel1);
-            this.tabPageRelay1.Location = new System.Drawing.Point(4, 25);
-            this.tabPageRelay1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.tabPageRelay1.Name = "tabPageRelay1";
-            this.tabPageRelay1.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.tabPageRelay1.Size = new System.Drawing.Size(509, 261);
-            this.tabPageRelay1.TabIndex = 0;
-            this.tabPageRelay1.Text = "Relay1";
-            // 
-            // linkLabel2
-            // 
-            this.linkLabel2.AutoSize = true;
-            this.linkLabel2.Location = new System.Drawing.Point(5, 213);
-            this.linkLabel2.Name = "linkLabel2";
-            this.linkLabel2.Size = new System.Drawing.Size(174, 17);
-            this.linkLabel2.TabIndex = 22;
-            this.linkLabel2.TabStop = true;
-            this.linkLabel2.Text = "Sainsmart 8CH USB Relay";
-            this.linkLabel2.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel2_LinkClicked);
-            // 
-            // linkLabel1
-            // 
-            this.linkLabel1.AutoSize = true;
-            this.linkLabel1.Location = new System.Drawing.Point(5, 185);
-            this.linkLabel1.Name = "linkLabel1";
-            this.linkLabel1.Size = new System.Drawing.Size(174, 17);
-            this.linkLabel1.TabIndex = 21;
-            this.linkLabel1.TabStop = true;
-            this.linkLabel1.Text = "Sainsmart 4CH USB Relay";
-            this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
-            // 
-            // panel1
-            // 
-            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel1.Controls.Add(this.labelTextBoxRelay1Status);
-            this.panel1.Controls.Add(this.textBoxRelay1Status);
-            this.panel1.Controls.Add(this.labelTextBoxRelay1Off);
-            this.panel1.Controls.Add(this.labelTextBoxRelay1On);
-            this.panel1.Controls.Add(this.textBoxRelay1Off);
-            this.panel1.Controls.Add(this.textBoxRelay1On);
-            this.panel1.Controls.Add(this.checkBoxRelay1Enabled);
-            this.panel1.Controls.Add(this.comboBoxBaudRelay1);
-            this.panel1.Controls.Add(this.comboBoxComRelay1);
-            this.panel1.Location = new System.Drawing.Point(7, 9);
-            this.panel1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(227, 163);
-            this.panel1.TabIndex = 3;
-            // 
-            // labelTextBoxRelay1Status
-            // 
-            this.labelTextBoxRelay1Status.AutoSize = true;
-            this.labelTextBoxRelay1Status.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelTextBoxRelay1Status.Location = new System.Drawing.Point(120, 127);
-            this.labelTextBoxRelay1Status.Name = "labelTextBoxRelay1Status";
-            this.labelTextBoxRelay1Status.Size = new System.Drawing.Size(80, 17);
-            this.labelTextBoxRelay1Status.TabIndex = 9;
-            this.labelTextBoxRelay1Status.Text = "Status Cmd";
-            this.labelTextBoxRelay1Status.Visible = false;
-            // 
-            // textBoxRelay1Status
-            // 
-            this.textBoxRelay1Status.Enabled = false;
-            this.textBoxRelay1Status.Location = new System.Drawing.Point(11, 124);
-            this.textBoxRelay1Status.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.textBoxRelay1Status.Name = "textBoxRelay1Status";
-            this.textBoxRelay1Status.Size = new System.Drawing.Size(100, 22);
-            this.textBoxRelay1Status.TabIndex = 8;
-            this.textBoxRelay1Status.Visible = false;
-            this.textBoxRelay1Status.Leave += new System.EventHandler(this.textBoxRelay1On_Leave);
-            // 
-            // labelTextBoxRelay1Off
-            // 
-            this.labelTextBoxRelay1Off.AutoSize = true;
-            this.labelTextBoxRelay1Off.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelTextBoxRelay1Off.Location = new System.Drawing.Point(120, 98);
-            this.labelTextBoxRelay1Off.Name = "labelTextBoxRelay1Off";
-            this.labelTextBoxRelay1Off.Size = new System.Drawing.Size(59, 17);
-            this.labelTextBoxRelay1Off.TabIndex = 7;
-            this.labelTextBoxRelay1Off.Text = "Off Cmd";
-            this.labelTextBoxRelay1Off.Visible = false;
-            // 
-            // labelTextBoxRelay1On
-            // 
-            this.labelTextBoxRelay1On.AutoSize = true;
-            this.labelTextBoxRelay1On.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelTextBoxRelay1On.Location = new System.Drawing.Point(121, 71);
-            this.labelTextBoxRelay1On.Name = "labelTextBoxRelay1On";
-            this.labelTextBoxRelay1On.Size = new System.Drawing.Size(59, 17);
-            this.labelTextBoxRelay1On.TabIndex = 6;
-            this.labelTextBoxRelay1On.Text = "On Cmd";
-            this.labelTextBoxRelay1On.Visible = false;
-            // 
-            // textBoxRelay1Off
-            // 
-            this.textBoxRelay1Off.Enabled = false;
-            this.textBoxRelay1Off.Location = new System.Drawing.Point(11, 96);
-            this.textBoxRelay1Off.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.textBoxRelay1Off.Name = "textBoxRelay1Off";
-            this.textBoxRelay1Off.Size = new System.Drawing.Size(100, 22);
-            this.textBoxRelay1Off.TabIndex = 5;
-            this.textBoxRelay1Off.Visible = false;
-            this.textBoxRelay1Off.Leave += new System.EventHandler(this.textBoxRelay1On_Leave);
-            // 
-            // textBoxRelay1On
-            // 
-            this.textBoxRelay1On.Enabled = false;
-            this.textBoxRelay1On.Location = new System.Drawing.Point(11, 68);
-            this.textBoxRelay1On.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.textBoxRelay1On.Name = "textBoxRelay1On";
-            this.textBoxRelay1On.Size = new System.Drawing.Size(100, 22);
-            this.textBoxRelay1On.TabIndex = 4;
-            this.textBoxRelay1On.Visible = false;
-            this.textBoxRelay1On.Leave += new System.EventHandler(this.textBoxRelay1On_Leave);
-            // 
-            // checkBoxRelay1Enabled
-            // 
-            this.checkBoxRelay1Enabled.AutoSize = true;
-            this.checkBoxRelay1Enabled.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxRelay1Enabled.Location = new System.Drawing.Point(141, 10);
-            this.checkBoxRelay1Enabled.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.checkBoxRelay1Enabled.Name = "checkBoxRelay1Enabled";
-            this.checkBoxRelay1Enabled.Size = new System.Drawing.Size(82, 21);
-            this.checkBoxRelay1Enabled.TabIndex = 3;
-            this.checkBoxRelay1Enabled.Text = "Enabled";
-            this.checkBoxRelay1Enabled.UseVisualStyleBackColor = true;
-            this.checkBoxRelay1Enabled.CheckedChanged += new System.EventHandler(this.checkBoxRelay1Enabled_CheckedChanged);
-            // 
-            // comboBoxBaudRelay1
-            // 
-            this.comboBoxBaudRelay1.FormattingEnabled = true;
-            this.comboBoxBaudRelay1.Location = new System.Drawing.Point(11, 37);
-            this.comboBoxBaudRelay1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.comboBoxBaudRelay1.Name = "comboBoxBaudRelay1";
-            this.comboBoxBaudRelay1.Size = new System.Drawing.Size(121, 24);
-            this.comboBoxBaudRelay1.TabIndex = 2;
-            this.comboBoxBaudRelay1.Text = global::AmpAutoTunerUtility.Properties.Settings.Default.Relay1Baud;
-            this.comboBoxBaudRelay1.Visible = false;
-            this.comboBoxBaudRelay1.SelectedIndexChanged += new System.EventHandler(this.comboBoxBaudRelay1_SelectedIndexChanged);
-            // 
-            // tabPageRelay2
-            // 
-            this.tabPageRelay2.BackColor = System.Drawing.Color.LightGray;
-            this.tabPageRelay2.Controls.Add(this.button18);
-            this.tabPageRelay2.Controls.Add(this.button19);
-            this.tabPageRelay2.Controls.Add(this.button20);
-            this.tabPageRelay2.Controls.Add(this.button21);
-            this.tabPageRelay2.Controls.Add(this.button22);
-            this.tabPageRelay2.Controls.Add(this.button23);
-            this.tabPageRelay2.Controls.Add(this.button24);
-            this.tabPageRelay2.Controls.Add(this.button25);
-            this.tabPageRelay2.Controls.Add(this.panel4);
-            this.tabPageRelay2.Location = new System.Drawing.Point(4, 25);
-            this.tabPageRelay2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.tabPageRelay2.Name = "tabPageRelay2";
-            this.tabPageRelay2.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.tabPageRelay2.Size = new System.Drawing.Size(509, 261);
-            this.tabPageRelay2.TabIndex = 3;
-            this.tabPageRelay2.Text = "Relay2";
-            // 
-            // button18
-            // 
-            this.button18.BackColor = System.Drawing.Color.Silver;
-            this.button18.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.button18.Location = new System.Drawing.Point(418, 7);
-            this.button18.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button18.Name = "button18";
-            this.button18.Size = new System.Drawing.Size(25, 23);
-            this.button18.TabIndex = 28;
-            this.button18.UseVisualStyleBackColor = false;
-            this.button18.Click += new System.EventHandler(this.button18_Click);
-            // 
-            // button19
-            // 
-            this.button19.BackColor = System.Drawing.Color.Silver;
-            this.button19.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.button19.Location = new System.Drawing.Point(393, 7);
-            this.button19.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button19.Name = "button19";
-            this.button19.Size = new System.Drawing.Size(25, 23);
-            this.button19.TabIndex = 27;
-            this.button19.UseVisualStyleBackColor = false;
-            this.button19.Click += new System.EventHandler(this.button19_Click);
-            // 
-            // button20
-            // 
-            this.button20.BackColor = System.Drawing.Color.Silver;
-            this.button20.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.button20.Location = new System.Drawing.Point(368, 7);
-            this.button20.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button20.Name = "button20";
-            this.button20.Size = new System.Drawing.Size(25, 23);
-            this.button20.TabIndex = 26;
-            this.button20.UseVisualStyleBackColor = false;
-            this.button20.Click += new System.EventHandler(this.button20_Click);
-            // 
-            // button21
-            // 
-            this.button21.BackColor = System.Drawing.Color.Silver;
-            this.button21.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.button21.Location = new System.Drawing.Point(343, 7);
-            this.button21.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button21.Name = "button21";
-            this.button21.Size = new System.Drawing.Size(25, 23);
-            this.button21.TabIndex = 25;
-            this.button21.UseVisualStyleBackColor = false;
-            this.button21.Click += new System.EventHandler(this.button21_Click);
-            // 
-            // button22
-            // 
-            this.button22.BackColor = System.Drawing.Color.Silver;
-            this.button22.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.button22.Location = new System.Drawing.Point(318, 7);
-            this.button22.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button22.Name = "button22";
-            this.button22.Size = new System.Drawing.Size(25, 23);
-            this.button22.TabIndex = 24;
-            this.button22.UseVisualStyleBackColor = false;
-            this.button22.Click += new System.EventHandler(this.button22_Click);
-            // 
-            // button23
-            // 
-            this.button23.BackColor = System.Drawing.Color.Silver;
-            this.button23.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.button23.Location = new System.Drawing.Point(293, 7);
-            this.button23.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button23.Name = "button23";
-            this.button23.Size = new System.Drawing.Size(25, 23);
-            this.button23.TabIndex = 23;
-            this.button23.UseVisualStyleBackColor = false;
-            this.button23.Click += new System.EventHandler(this.button23_Click);
-            // 
-            // button24
-            // 
-            this.button24.BackColor = System.Drawing.Color.Silver;
-            this.button24.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.button24.Location = new System.Drawing.Point(268, 7);
-            this.button24.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button24.Name = "button24";
-            this.button24.Size = new System.Drawing.Size(25, 23);
-            this.button24.TabIndex = 22;
-            this.button24.UseVisualStyleBackColor = false;
-            this.button24.Click += new System.EventHandler(this.button24_Click);
-            // 
-            // button25
-            // 
-            this.button25.BackColor = System.Drawing.Color.Silver;
-            this.button25.ForeColor = System.Drawing.Color.Silver;
-            this.button25.Location = new System.Drawing.Point(243, 7);
-            this.button25.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button25.Name = "button25";
-            this.button25.Size = new System.Drawing.Size(25, 23);
-            this.button25.TabIndex = 21;
-            this.button25.UseVisualStyleBackColor = false;
-            this.button25.Click += new System.EventHandler(this.button25_Click);
-            // 
-            // panel4
-            // 
-            this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel4.Controls.Add(this.labelTextBoxRelay2Status);
-            this.panel4.Controls.Add(this.textBoxRelay2Status);
-            this.panel4.Controls.Add(this.labelTextBoxRelay2Off);
-            this.panel4.Controls.Add(this.labelTextBoxRelay2On);
-            this.panel4.Controls.Add(this.textBoxRelay2Off);
-            this.panel4.Controls.Add(this.textBoxRelay2On);
-            this.panel4.Controls.Add(this.checkBoxRelay2Enabled);
-            this.panel4.Controls.Add(this.comboBoxBaudRelay2);
-            this.panel4.Controls.Add(this.comboBoxComRelay2);
-            this.panel4.Location = new System.Drawing.Point(7, 9);
-            this.panel4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(227, 163);
-            this.panel4.TabIndex = 5;
-            // 
-            // labelTextBoxRelay2Status
-            // 
-            this.labelTextBoxRelay2Status.AutoSize = true;
-            this.labelTextBoxRelay2Status.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelTextBoxRelay2Status.Location = new System.Drawing.Point(120, 127);
-            this.labelTextBoxRelay2Status.Name = "labelTextBoxRelay2Status";
-            this.labelTextBoxRelay2Status.Size = new System.Drawing.Size(80, 17);
-            this.labelTextBoxRelay2Status.TabIndex = 9;
-            this.labelTextBoxRelay2Status.Text = "Status Cmd";
-            this.labelTextBoxRelay2Status.Visible = false;
-            // 
-            // textBoxRelay2Status
-            // 
-            this.textBoxRelay2Status.Location = new System.Drawing.Point(11, 124);
-            this.textBoxRelay2Status.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.textBoxRelay2Status.Name = "textBoxRelay2Status";
-            this.textBoxRelay2Status.Size = new System.Drawing.Size(100, 22);
-            this.textBoxRelay2Status.TabIndex = 8;
-            this.textBoxRelay2Status.Visible = false;
-            this.textBoxRelay2Status.Leave += new System.EventHandler(this.textBoxRelay1On_Leave);
-            // 
-            // labelTextBoxRelay2Off
-            // 
-            this.labelTextBoxRelay2Off.AutoSize = true;
-            this.labelTextBoxRelay2Off.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelTextBoxRelay2Off.Location = new System.Drawing.Point(120, 98);
-            this.labelTextBoxRelay2Off.Name = "labelTextBoxRelay2Off";
-            this.labelTextBoxRelay2Off.Size = new System.Drawing.Size(59, 17);
-            this.labelTextBoxRelay2Off.TabIndex = 7;
-            this.labelTextBoxRelay2Off.Text = "Off Cmd";
-            this.labelTextBoxRelay2Off.Visible = false;
-            // 
-            // labelTextBoxRelay2On
-            // 
-            this.labelTextBoxRelay2On.AutoSize = true;
-            this.labelTextBoxRelay2On.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelTextBoxRelay2On.Location = new System.Drawing.Point(121, 71);
-            this.labelTextBoxRelay2On.Name = "labelTextBoxRelay2On";
-            this.labelTextBoxRelay2On.Size = new System.Drawing.Size(59, 17);
-            this.labelTextBoxRelay2On.TabIndex = 6;
-            this.labelTextBoxRelay2On.Text = "On Cmd";
-            this.labelTextBoxRelay2On.Visible = false;
-            // 
-            // textBoxRelay2Off
-            // 
-            this.textBoxRelay2Off.Location = new System.Drawing.Point(11, 96);
-            this.textBoxRelay2Off.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.textBoxRelay2Off.Name = "textBoxRelay2Off";
-            this.textBoxRelay2Off.Size = new System.Drawing.Size(100, 22);
-            this.textBoxRelay2Off.TabIndex = 5;
-            this.textBoxRelay2Off.Visible = false;
-            this.textBoxRelay2Off.Leave += new System.EventHandler(this.textBoxRelay1On_Leave);
-            // 
-            // textBoxRelay2On
-            // 
-            this.textBoxRelay2On.Location = new System.Drawing.Point(11, 68);
-            this.textBoxRelay2On.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.textBoxRelay2On.Name = "textBoxRelay2On";
-            this.textBoxRelay2On.Size = new System.Drawing.Size(100, 22);
-            this.textBoxRelay2On.TabIndex = 4;
-            this.textBoxRelay2On.Visible = false;
-            this.textBoxRelay2On.Leave += new System.EventHandler(this.textBoxRelay1On_Leave);
-            // 
-            // checkBoxRelay2Enabled
-            // 
-            this.checkBoxRelay2Enabled.AutoSize = true;
-            this.checkBoxRelay2Enabled.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxRelay2Enabled.Location = new System.Drawing.Point(141, 10);
-            this.checkBoxRelay2Enabled.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.checkBoxRelay2Enabled.Name = "checkBoxRelay2Enabled";
-            this.checkBoxRelay2Enabled.Size = new System.Drawing.Size(82, 21);
-            this.checkBoxRelay2Enabled.TabIndex = 3;
-            this.checkBoxRelay2Enabled.Text = "Enabled";
-            this.checkBoxRelay2Enabled.UseVisualStyleBackColor = true;
-            this.checkBoxRelay2Enabled.CheckedChanged += new System.EventHandler(this.checkBoxRelay2Enabled_CheckedChanged);
-            // 
-            // comboBoxBaudRelay2
-            // 
-            this.comboBoxBaudRelay2.FormattingEnabled = true;
-            this.comboBoxBaudRelay2.Location = new System.Drawing.Point(11, 37);
-            this.comboBoxBaudRelay2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.comboBoxBaudRelay2.Name = "comboBoxBaudRelay2";
-            this.comboBoxBaudRelay2.Size = new System.Drawing.Size(121, 24);
-            this.comboBoxBaudRelay2.TabIndex = 2;
-            this.comboBoxBaudRelay2.Visible = false;
-            this.comboBoxBaudRelay2.SelectedIndexChanged += new System.EventHandler(this.comboBoxBaudRelay2_SelectedIndexChanged);
-            // 
-            // comboBoxComRelay2
-            // 
-            this.comboBoxComRelay2.FormattingEnabled = true;
-            this.comboBoxComRelay2.Location = new System.Drawing.Point(11, 7);
-            this.comboBoxComRelay2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.comboBoxComRelay2.Name = "comboBoxComRelay2";
-            this.comboBoxComRelay2.Size = new System.Drawing.Size(121, 24);
-            this.comboBoxComRelay2.TabIndex = 0;
-            this.comboBoxComRelay2.SelectedIndexChanged += new System.EventHandler(this.comboBoxComRelay2_SelectedIndexChanged);
-            // 
-            // tabPageRelay3
-            // 
-            this.tabPageRelay3.BackColor = System.Drawing.Color.LightGray;
-            this.tabPageRelay3.Controls.Add(this.button2);
-            this.tabPageRelay3.Controls.Add(this.button3);
-            this.tabPageRelay3.Controls.Add(this.button4);
-            this.tabPageRelay3.Controls.Add(this.button5);
-            this.tabPageRelay3.Controls.Add(this.button6);
-            this.tabPageRelay3.Controls.Add(this.button7);
-            this.tabPageRelay3.Controls.Add(this.button8);
-            this.tabPageRelay3.Controls.Add(this.button9);
-            this.tabPageRelay3.Controls.Add(this.panel5);
-            this.tabPageRelay3.Location = new System.Drawing.Point(4, 25);
-            this.tabPageRelay3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.tabPageRelay3.Name = "tabPageRelay3";
-            this.tabPageRelay3.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.tabPageRelay3.Size = new System.Drawing.Size(509, 261);
-            this.tabPageRelay3.TabIndex = 4;
-            this.tabPageRelay3.Text = "Relay3";
-            // 
-            // button2
-            // 
-            this.button2.BackColor = System.Drawing.Color.Silver;
-            this.button2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.button2.Location = new System.Drawing.Point(418, 7);
-            this.button2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(25, 23);
-            this.button2.TabIndex = 28;
-            this.button2.UseVisualStyleBackColor = false;
-            // 
-            // button3
-            // 
-            this.button3.BackColor = System.Drawing.Color.Silver;
-            this.button3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.button3.Location = new System.Drawing.Point(393, 7);
-            this.button3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(25, 23);
-            this.button3.TabIndex = 27;
-            this.button3.UseVisualStyleBackColor = false;
-            // 
-            // button4
-            // 
-            this.button4.BackColor = System.Drawing.Color.Silver;
-            this.button4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.button4.Location = new System.Drawing.Point(368, 7);
-            this.button4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(25, 23);
-            this.button4.TabIndex = 26;
-            this.button4.UseVisualStyleBackColor = false;
-            // 
-            // button5
-            // 
-            this.button5.BackColor = System.Drawing.Color.Silver;
-            this.button5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.button5.Location = new System.Drawing.Point(343, 7);
-            this.button5.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(25, 23);
-            this.button5.TabIndex = 25;
-            this.button5.UseVisualStyleBackColor = false;
-            // 
-            // button6
-            // 
-            this.button6.BackColor = System.Drawing.Color.Silver;
-            this.button6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.button6.Location = new System.Drawing.Point(318, 7);
-            this.button6.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(25, 23);
-            this.button6.TabIndex = 24;
-            this.button6.UseVisualStyleBackColor = false;
-            // 
-            // button7
-            // 
-            this.button7.BackColor = System.Drawing.Color.Silver;
-            this.button7.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.button7.Location = new System.Drawing.Point(293, 7);
-            this.button7.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(25, 23);
-            this.button7.TabIndex = 23;
-            this.button7.UseVisualStyleBackColor = false;
-            // 
-            // button8
-            // 
-            this.button8.BackColor = System.Drawing.Color.Silver;
-            this.button8.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.button8.Location = new System.Drawing.Point(268, 7);
-            this.button8.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button8.Name = "button8";
-            this.button8.Size = new System.Drawing.Size(25, 23);
-            this.button8.TabIndex = 22;
-            this.button8.UseVisualStyleBackColor = false;
-            // 
-            // button9
-            // 
-            this.button9.BackColor = System.Drawing.Color.Silver;
-            this.button9.ForeColor = System.Drawing.Color.Silver;
-            this.button9.Location = new System.Drawing.Point(243, 7);
-            this.button9.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button9.Name = "button9";
-            this.button9.Size = new System.Drawing.Size(25, 23);
-            this.button9.TabIndex = 21;
-            this.button9.UseVisualStyleBackColor = false;
-            // 
-            // panel5
-            // 
-            this.panel5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel5.Controls.Add(this.labelTextBoxRelay3Status);
-            this.panel5.Controls.Add(this.textBoxRelay3Status);
-            this.panel5.Controls.Add(this.labelTextBoxRelay3Off);
-            this.panel5.Controls.Add(this.labelTextBoxRelay3On);
-            this.panel5.Controls.Add(this.textBoxRelay3Off);
-            this.panel5.Controls.Add(this.textBoxRelay3On);
-            this.panel5.Controls.Add(this.checkBoxRelay3Enabled);
-            this.panel5.Controls.Add(this.comboBoxBaudRelay3);
-            this.panel5.Controls.Add(this.comboBoxComRelay3);
-            this.panel5.Location = new System.Drawing.Point(7, 9);
-            this.panel5.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(227, 163);
-            this.panel5.TabIndex = 5;
-            // 
-            // labelTextBoxRelay3Status
-            // 
-            this.labelTextBoxRelay3Status.AutoSize = true;
-            this.labelTextBoxRelay3Status.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelTextBoxRelay3Status.Location = new System.Drawing.Point(120, 127);
-            this.labelTextBoxRelay3Status.Name = "labelTextBoxRelay3Status";
-            this.labelTextBoxRelay3Status.Size = new System.Drawing.Size(80, 17);
-            this.labelTextBoxRelay3Status.TabIndex = 9;
-            this.labelTextBoxRelay3Status.Text = "Status Cmd";
-            this.labelTextBoxRelay3Status.Visible = false;
-            // 
-            // textBoxRelay3Status
-            // 
-            this.textBoxRelay3Status.Location = new System.Drawing.Point(11, 124);
-            this.textBoxRelay3Status.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.textBoxRelay3Status.Name = "textBoxRelay3Status";
-            this.textBoxRelay3Status.Size = new System.Drawing.Size(100, 22);
-            this.textBoxRelay3Status.TabIndex = 8;
-            this.textBoxRelay3Status.Visible = false;
-            this.textBoxRelay3Status.Leave += new System.EventHandler(this.textBoxRelay1On_Leave);
-            // 
-            // labelTextBoxRelay3Off
-            // 
-            this.labelTextBoxRelay3Off.AutoSize = true;
-            this.labelTextBoxRelay3Off.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelTextBoxRelay3Off.Location = new System.Drawing.Point(120, 98);
-            this.labelTextBoxRelay3Off.Name = "labelTextBoxRelay3Off";
-            this.labelTextBoxRelay3Off.Size = new System.Drawing.Size(59, 17);
-            this.labelTextBoxRelay3Off.TabIndex = 7;
-            this.labelTextBoxRelay3Off.Text = "Off Cmd";
-            this.labelTextBoxRelay3Off.Visible = false;
-            // 
-            // labelTextBoxRelay3On
-            // 
-            this.labelTextBoxRelay3On.AutoSize = true;
-            this.labelTextBoxRelay3On.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelTextBoxRelay3On.Location = new System.Drawing.Point(121, 71);
-            this.labelTextBoxRelay3On.Name = "labelTextBoxRelay3On";
-            this.labelTextBoxRelay3On.Size = new System.Drawing.Size(59, 17);
-            this.labelTextBoxRelay3On.TabIndex = 6;
-            this.labelTextBoxRelay3On.Text = "On Cmd";
-            this.labelTextBoxRelay3On.Visible = false;
-            // 
-            // textBoxRelay3Off
-            // 
-            this.textBoxRelay3Off.Location = new System.Drawing.Point(11, 96);
-            this.textBoxRelay3Off.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.textBoxRelay3Off.Name = "textBoxRelay3Off";
-            this.textBoxRelay3Off.Size = new System.Drawing.Size(100, 22);
-            this.textBoxRelay3Off.TabIndex = 5;
-            this.textBoxRelay3Off.Visible = false;
-            this.textBoxRelay3Off.Leave += new System.EventHandler(this.textBoxRelay1On_Leave);
-            // 
-            // textBoxRelay3On
-            // 
-            this.textBoxRelay3On.Location = new System.Drawing.Point(11, 68);
-            this.textBoxRelay3On.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.textBoxRelay3On.Name = "textBoxRelay3On";
-            this.textBoxRelay3On.Size = new System.Drawing.Size(100, 22);
-            this.textBoxRelay3On.TabIndex = 4;
-            this.textBoxRelay3On.Visible = false;
-            this.textBoxRelay3On.Leave += new System.EventHandler(this.textBoxRelay1On_Leave);
-            // 
-            // checkBoxRelay3Enabled
-            // 
-            this.checkBoxRelay3Enabled.AutoSize = true;
-            this.checkBoxRelay3Enabled.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxRelay3Enabled.Location = new System.Drawing.Point(141, 10);
-            this.checkBoxRelay3Enabled.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.checkBoxRelay3Enabled.Name = "checkBoxRelay3Enabled";
-            this.checkBoxRelay3Enabled.Size = new System.Drawing.Size(82, 21);
-            this.checkBoxRelay3Enabled.TabIndex = 3;
-            this.checkBoxRelay3Enabled.Text = "Enabled";
-            this.checkBoxRelay3Enabled.UseVisualStyleBackColor = true;
-            // 
-            // comboBoxBaudRelay3
-            // 
-            this.comboBoxBaudRelay3.FormattingEnabled = true;
-            this.comboBoxBaudRelay3.Location = new System.Drawing.Point(11, 37);
-            this.comboBoxBaudRelay3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.comboBoxBaudRelay3.Name = "comboBoxBaudRelay3";
-            this.comboBoxBaudRelay3.Size = new System.Drawing.Size(121, 24);
-            this.comboBoxBaudRelay3.TabIndex = 2;
-            this.comboBoxBaudRelay3.Visible = false;
-            this.comboBoxBaudRelay3.SelectedIndexChanged += new System.EventHandler(this.comboBoxBaudRelay3_SelectedIndexChanged);
-            // 
-            // comboBoxComRelay3
-            // 
-            this.comboBoxComRelay3.FormattingEnabled = true;
-            this.comboBoxComRelay3.Location = new System.Drawing.Point(11, 7);
-            this.comboBoxComRelay3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.comboBoxComRelay3.Name = "comboBoxComRelay3";
-            this.comboBoxComRelay3.Size = new System.Drawing.Size(121, 24);
-            this.comboBoxComRelay3.TabIndex = 0;
-            this.comboBoxComRelay3.SelectedIndexChanged += new System.EventHandler(this.comboBoxComRelay3_SelectedIndexChanged);
-            // 
-            // tabPageRelay4
-            // 
-            this.tabPageRelay4.BackColor = System.Drawing.Color.LightGray;
-            this.tabPageRelay4.Controls.Add(this.button10);
-            this.tabPageRelay4.Controls.Add(this.button11);
-            this.tabPageRelay4.Controls.Add(this.button12);
-            this.tabPageRelay4.Controls.Add(this.button13);
-            this.tabPageRelay4.Controls.Add(this.button14);
-            this.tabPageRelay4.Controls.Add(this.button15);
-            this.tabPageRelay4.Controls.Add(this.button16);
-            this.tabPageRelay4.Controls.Add(this.button17);
-            this.tabPageRelay4.Controls.Add(this.panel6);
-            this.tabPageRelay4.Location = new System.Drawing.Point(4, 25);
-            this.tabPageRelay4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.tabPageRelay4.Name = "tabPageRelay4";
-            this.tabPageRelay4.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.tabPageRelay4.Size = new System.Drawing.Size(509, 261);
-            this.tabPageRelay4.TabIndex = 5;
-            this.tabPageRelay4.Text = "Relay4";
-            // 
-            // button10
-            // 
-            this.button10.BackColor = System.Drawing.Color.Silver;
-            this.button10.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.button10.Location = new System.Drawing.Point(418, 7);
-            this.button10.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button10.Name = "button10";
-            this.button10.Size = new System.Drawing.Size(25, 23);
-            this.button10.TabIndex = 28;
-            this.button10.UseVisualStyleBackColor = false;
-            // 
-            // button11
-            // 
-            this.button11.BackColor = System.Drawing.Color.Silver;
-            this.button11.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.button11.Location = new System.Drawing.Point(393, 7);
-            this.button11.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button11.Name = "button11";
-            this.button11.Size = new System.Drawing.Size(25, 23);
-            this.button11.TabIndex = 27;
-            this.button11.UseVisualStyleBackColor = false;
-            // 
-            // button12
-            // 
-            this.button12.BackColor = System.Drawing.Color.Silver;
-            this.button12.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.button12.Location = new System.Drawing.Point(368, 7);
-            this.button12.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button12.Name = "button12";
-            this.button12.Size = new System.Drawing.Size(25, 23);
-            this.button12.TabIndex = 26;
-            this.button12.UseVisualStyleBackColor = false;
-            // 
-            // button13
-            // 
-            this.button13.BackColor = System.Drawing.Color.Silver;
-            this.button13.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.button13.Location = new System.Drawing.Point(343, 7);
-            this.button13.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button13.Name = "button13";
-            this.button13.Size = new System.Drawing.Size(25, 23);
-            this.button13.TabIndex = 25;
-            this.button13.UseVisualStyleBackColor = false;
-            // 
-            // button14
-            // 
-            this.button14.BackColor = System.Drawing.Color.Silver;
-            this.button14.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.button14.Location = new System.Drawing.Point(318, 7);
-            this.button14.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button14.Name = "button14";
-            this.button14.Size = new System.Drawing.Size(25, 23);
-            this.button14.TabIndex = 24;
-            this.button14.UseVisualStyleBackColor = false;
-            // 
-            // button15
-            // 
-            this.button15.BackColor = System.Drawing.Color.Silver;
-            this.button15.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.button15.Location = new System.Drawing.Point(293, 7);
-            this.button15.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button15.Name = "button15";
-            this.button15.Size = new System.Drawing.Size(25, 23);
-            this.button15.TabIndex = 23;
-            this.button15.UseVisualStyleBackColor = false;
-            // 
-            // button16
-            // 
-            this.button16.BackColor = System.Drawing.Color.Silver;
-            this.button16.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.button16.Location = new System.Drawing.Point(268, 7);
-            this.button16.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button16.Name = "button16";
-            this.button16.Size = new System.Drawing.Size(25, 23);
-            this.button16.TabIndex = 22;
-            this.button16.UseVisualStyleBackColor = false;
-            // 
-            // button17
-            // 
-            this.button17.BackColor = System.Drawing.Color.Silver;
-            this.button17.ForeColor = System.Drawing.Color.Silver;
-            this.button17.Location = new System.Drawing.Point(243, 7);
-            this.button17.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button17.Name = "button17";
-            this.button17.Size = new System.Drawing.Size(25, 23);
-            this.button17.TabIndex = 21;
-            this.button17.UseVisualStyleBackColor = false;
-            this.button17.Click += new System.EventHandler(this.button17_Click);
-            // 
-            // panel6
-            // 
-            this.panel6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel6.Controls.Add(this.label1TextBoxRelay4Status);
-            this.panel6.Controls.Add(this.textBoxRelay4Status);
-            this.panel6.Controls.Add(this.label1TextBoxRelay4Off);
-            this.panel6.Controls.Add(this.label1TextBoxRelay4On);
-            this.panel6.Controls.Add(this.textBoxRelay4Off);
-            this.panel6.Controls.Add(this.textBoxRelay4On);
-            this.panel6.Controls.Add(this.checkBoxRelay4Enabled);
-            this.panel6.Controls.Add(this.comboBoxBaudRelay4);
-            this.panel6.Controls.Add(this.comboBoxComRelay4);
-            this.panel6.Location = new System.Drawing.Point(7, 9);
-            this.panel6.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(227, 163);
-            this.panel6.TabIndex = 5;
-            // 
-            // label1TextBoxRelay4Status
-            // 
-            this.label1TextBoxRelay4Status.AutoSize = true;
-            this.label1TextBoxRelay4Status.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1TextBoxRelay4Status.Location = new System.Drawing.Point(120, 127);
-            this.label1TextBoxRelay4Status.Name = "label1TextBoxRelay4Status";
-            this.label1TextBoxRelay4Status.Size = new System.Drawing.Size(80, 17);
-            this.label1TextBoxRelay4Status.TabIndex = 9;
-            this.label1TextBoxRelay4Status.Text = "Status Cmd";
-            this.label1TextBoxRelay4Status.Visible = false;
-            // 
-            // textBoxRelay4Status
-            // 
-            this.textBoxRelay4Status.Location = new System.Drawing.Point(11, 124);
-            this.textBoxRelay4Status.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.textBoxRelay4Status.Name = "textBoxRelay4Status";
-            this.textBoxRelay4Status.Size = new System.Drawing.Size(100, 22);
-            this.textBoxRelay4Status.TabIndex = 8;
-            this.textBoxRelay4Status.Visible = false;
-            this.textBoxRelay4Status.Leave += new System.EventHandler(this.textBoxRelay1On_Leave);
-            // 
-            // label1TextBoxRelay4Off
-            // 
-            this.label1TextBoxRelay4Off.AutoSize = true;
-            this.label1TextBoxRelay4Off.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1TextBoxRelay4Off.Location = new System.Drawing.Point(120, 98);
-            this.label1TextBoxRelay4Off.Name = "label1TextBoxRelay4Off";
-            this.label1TextBoxRelay4Off.Size = new System.Drawing.Size(59, 17);
-            this.label1TextBoxRelay4Off.TabIndex = 7;
-            this.label1TextBoxRelay4Off.Text = "Off Cmd";
-            this.label1TextBoxRelay4Off.Visible = false;
-            // 
-            // label1TextBoxRelay4On
-            // 
-            this.label1TextBoxRelay4On.AutoSize = true;
-            this.label1TextBoxRelay4On.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1TextBoxRelay4On.Location = new System.Drawing.Point(121, 71);
-            this.label1TextBoxRelay4On.Name = "label1TextBoxRelay4On";
-            this.label1TextBoxRelay4On.Size = new System.Drawing.Size(59, 17);
-            this.label1TextBoxRelay4On.TabIndex = 6;
-            this.label1TextBoxRelay4On.Text = "On Cmd";
-            this.label1TextBoxRelay4On.Visible = false;
-            // 
-            // textBoxRelay4Off
-            // 
-            this.textBoxRelay4Off.Location = new System.Drawing.Point(11, 96);
-            this.textBoxRelay4Off.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.textBoxRelay4Off.Name = "textBoxRelay4Off";
-            this.textBoxRelay4Off.Size = new System.Drawing.Size(100, 22);
-            this.textBoxRelay4Off.TabIndex = 5;
-            this.textBoxRelay4Off.Visible = false;
-            this.textBoxRelay4Off.Leave += new System.EventHandler(this.textBoxRelay1On_Leave);
-            // 
-            // textBoxRelay4On
-            // 
-            this.textBoxRelay4On.Location = new System.Drawing.Point(11, 68);
-            this.textBoxRelay4On.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.textBoxRelay4On.Name = "textBoxRelay4On";
-            this.textBoxRelay4On.Size = new System.Drawing.Size(100, 22);
-            this.textBoxRelay4On.TabIndex = 4;
-            this.textBoxRelay4On.Visible = false;
-            this.textBoxRelay4On.Leave += new System.EventHandler(this.textBoxRelay1On_Leave);
-            // 
-            // checkBoxRelay4Enabled
-            // 
-            this.checkBoxRelay4Enabled.AutoSize = true;
-            this.checkBoxRelay4Enabled.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxRelay4Enabled.Location = new System.Drawing.Point(141, 10);
-            this.checkBoxRelay4Enabled.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.checkBoxRelay4Enabled.Name = "checkBoxRelay4Enabled";
-            this.checkBoxRelay4Enabled.Size = new System.Drawing.Size(82, 21);
-            this.checkBoxRelay4Enabled.TabIndex = 3;
-            this.checkBoxRelay4Enabled.Text = "Enabled";
-            this.checkBoxRelay4Enabled.UseVisualStyleBackColor = true;
-            this.checkBoxRelay4Enabled.CheckedChanged += new System.EventHandler(this.checkBoxRelay4Enabled_CheckedChanged);
-            // 
-            // comboBoxBaudRelay4
-            // 
-            this.comboBoxBaudRelay4.FormattingEnabled = true;
-            this.comboBoxBaudRelay4.Location = new System.Drawing.Point(11, 37);
-            this.comboBoxBaudRelay4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.comboBoxBaudRelay4.Name = "comboBoxBaudRelay4";
-            this.comboBoxBaudRelay4.Size = new System.Drawing.Size(121, 24);
-            this.comboBoxBaudRelay4.TabIndex = 2;
-            this.comboBoxBaudRelay4.Visible = false;
-            this.comboBoxBaudRelay4.SelectedIndexChanged += new System.EventHandler(this.comboBoxBaudRelay4_SelectedIndexChanged);
-            // 
-            // comboBoxComRelay4
-            // 
-            this.comboBoxComRelay4.FormattingEnabled = true;
-            this.comboBoxComRelay4.Location = new System.Drawing.Point(11, 7);
-            this.comboBoxComRelay4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.comboBoxComRelay4.Name = "comboBoxComRelay4";
-            this.comboBoxComRelay4.Size = new System.Drawing.Size(121, 24);
-            this.comboBoxComRelay4.TabIndex = 0;
-            this.comboBoxComRelay4.SelectedIndexChanged += new System.EventHandler(this.comboBoxComRelay4_SelectedIndexChanged);
+            // 
+            // tabPagePower
+            // 
+            this.tabPagePower.BackColor = System.Drawing.Color.LightGray;
+            this.tabPagePower.Controls.Add(this.comboBoxPower8Mode);
+            this.tabPagePower.Controls.Add(this.comboBoxPower7Mode);
+            this.tabPagePower.Controls.Add(this.comboBoxPower6Mode);
+            this.tabPagePower.Controls.Add(this.comboBoxPower5Mode);
+            this.tabPagePower.Controls.Add(this.comboBoxPower4Mode);
+            this.tabPagePower.Controls.Add(this.comboBoxPower3Mode);
+            this.tabPagePower.Controls.Add(this.comboBoxPower2Mode);
+            this.tabPagePower.Controls.Add(this.comboBoxPower1Mode);
+            this.tabPagePower.Controls.Add(this.textBoxPower8Watts);
+            this.tabPagePower.Controls.Add(this.textBoxPower7Watts);
+            this.tabPagePower.Controls.Add(this.textBoxPower6Watts);
+            this.tabPagePower.Controls.Add(this.textBoxPower5Watts);
+            this.tabPagePower.Controls.Add(this.textBoxPower4Watts);
+            this.tabPagePower.Controls.Add(this.textBoxPower3Watts);
+            this.tabPagePower.Controls.Add(this.textBoxPower2Watts);
+            this.tabPagePower.Controls.Add(this.label5);
+            this.tabPagePower.Controls.Add(this.textBoxPower1Watts);
+            this.tabPagePower.Controls.Add(this.label4);
+            this.tabPagePower.Controls.Add(this.checkBoxPower8Enabled);
+            this.tabPagePower.Controls.Add(this.checkBoxPower7Enabled);
+            this.tabPagePower.Controls.Add(this.checkBoxPower6Enabled);
+            this.tabPagePower.Controls.Add(this.checkBoxPower5Enabled);
+            this.tabPagePower.Controls.Add(this.checkBoxPower4Enabled);
+            this.tabPagePower.Controls.Add(this.checkBoxPower3Enabled);
+            this.tabPagePower.Controls.Add(this.checkBoxPower2Enabled);
+            this.tabPagePower.Controls.Add(this.checkBoxPower1Enabled);
+            this.tabPagePower.Controls.Add(this.textBoxPower8To);
+            this.tabPagePower.Controls.Add(this.textBoxPower8From);
+            this.tabPagePower.Controls.Add(this.textBoxPower7To);
+            this.tabPagePower.Controls.Add(this.textBoxPower7From);
+            this.tabPagePower.Controls.Add(this.textBoxPower6To);
+            this.tabPagePower.Controls.Add(this.textBoxPower6From);
+            this.tabPagePower.Controls.Add(this.textBoxPower5To);
+            this.tabPagePower.Controls.Add(this.textBoxPower5From);
+            this.tabPagePower.Controls.Add(this.textBoxPower4To);
+            this.tabPagePower.Controls.Add(this.textBoxPower4From);
+            this.tabPagePower.Controls.Add(this.textBoxPower3To);
+            this.tabPagePower.Controls.Add(this.textBoxPower3From);
+            this.tabPagePower.Controls.Add(this.textBoxPower2To);
+            this.tabPagePower.Controls.Add(this.textBoxPower2From);
+            this.tabPagePower.Controls.Add(this.label1);
+            this.tabPagePower.Controls.Add(this.label3);
+            this.tabPagePower.Controls.Add(this.textBoxPower1To);
+            this.tabPagePower.Controls.Add(this.textBoxPower1From);
+            this.tabPagePower.Location = new System.Drawing.Point(4, 25);
+            this.tabPagePower.Name = "tabPagePower";
+            this.tabPagePower.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPagePower.Size = new System.Drawing.Size(509, 261);
+            this.tabPagePower.TabIndex = 8;
+            this.tabPagePower.Text = "Power";
+            // 
+            // textBoxPower8Watts
+            // 
+            this.textBoxPower8Watts.Location = new System.Drawing.Point(155, 218);
+            this.textBoxPower8Watts.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.textBoxPower8Watts.Name = "textBoxPower8Watts";
+            this.textBoxPower8Watts.Size = new System.Drawing.Size(42, 22);
+            this.textBoxPower8Watts.TabIndex = 81;
+            // 
+            // textBoxPower7Watts
+            // 
+            this.textBoxPower7Watts.Location = new System.Drawing.Point(155, 191);
+            this.textBoxPower7Watts.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.textBoxPower7Watts.Name = "textBoxPower7Watts";
+            this.textBoxPower7Watts.Size = new System.Drawing.Size(42, 22);
+            this.textBoxPower7Watts.TabIndex = 80;
+            // 
+            // textBoxPower6Watts
+            // 
+            this.textBoxPower6Watts.Location = new System.Drawing.Point(155, 164);
+            this.textBoxPower6Watts.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.textBoxPower6Watts.Name = "textBoxPower6Watts";
+            this.textBoxPower6Watts.Size = new System.Drawing.Size(42, 22);
+            this.textBoxPower6Watts.TabIndex = 79;
+            // 
+            // textBoxPower5Watts
+            // 
+            this.textBoxPower5Watts.Location = new System.Drawing.Point(155, 137);
+            this.textBoxPower5Watts.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.textBoxPower5Watts.Name = "textBoxPower5Watts";
+            this.textBoxPower5Watts.Size = new System.Drawing.Size(42, 22);
+            this.textBoxPower5Watts.TabIndex = 78;
+            // 
+            // textBoxPower4Watts
+            // 
+            this.textBoxPower4Watts.Location = new System.Drawing.Point(155, 110);
+            this.textBoxPower4Watts.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.textBoxPower4Watts.Name = "textBoxPower4Watts";
+            this.textBoxPower4Watts.Size = new System.Drawing.Size(42, 22);
+            this.textBoxPower4Watts.TabIndex = 77;
+            // 
+            // textBoxPower3Watts
+            // 
+            this.textBoxPower3Watts.Location = new System.Drawing.Point(155, 83);
+            this.textBoxPower3Watts.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.textBoxPower3Watts.Name = "textBoxPower3Watts";
+            this.textBoxPower3Watts.Size = new System.Drawing.Size(42, 22);
+            this.textBoxPower3Watts.TabIndex = 76;
+            // 
+            // textBoxPower2Watts
+            // 
+            this.textBoxPower2Watts.Location = new System.Drawing.Point(155, 55);
+            this.textBoxPower2Watts.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.textBoxPower2Watts.Name = "textBoxPower2Watts";
+            this.textBoxPower2Watts.Size = new System.Drawing.Size(42, 22);
+            this.textBoxPower2Watts.TabIndex = 75;
+            // 
+            // textBoxPower1Watts
+            // 
+            this.textBoxPower1Watts.Location = new System.Drawing.Point(155, 30);
+            this.textBoxPower1Watts.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.textBoxPower1Watts.Name = "textBoxPower1Watts";
+            this.textBoxPower1Watts.Size = new System.Drawing.Size(42, 22);
+            this.textBoxPower1Watts.TabIndex = 73;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(306, 27);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(169, 170);
+            this.label4.TabIndex = 72;
+            this.label4.Text = resources.GetString("label4.Text");
+            // 
+            // checkBoxPower8Enabled
+            // 
+            this.checkBoxPower8Enabled.AutoSize = true;
+            this.checkBoxPower8Enabled.Location = new System.Drawing.Point(286, 222);
+            this.checkBoxPower8Enabled.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.checkBoxPower8Enabled.Name = "checkBoxPower8Enabled";
+            this.checkBoxPower8Enabled.Size = new System.Drawing.Size(18, 17);
+            this.checkBoxPower8Enabled.TabIndex = 71;
+            this.checkBoxPower8Enabled.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxPower7Enabled
+            // 
+            this.checkBoxPower7Enabled.AutoSize = true;
+            this.checkBoxPower7Enabled.Location = new System.Drawing.Point(286, 195);
+            this.checkBoxPower7Enabled.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.checkBoxPower7Enabled.Name = "checkBoxPower7Enabled";
+            this.checkBoxPower7Enabled.Size = new System.Drawing.Size(18, 17);
+            this.checkBoxPower7Enabled.TabIndex = 70;
+            this.checkBoxPower7Enabled.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxPower6Enabled
+            // 
+            this.checkBoxPower6Enabled.AutoSize = true;
+            this.checkBoxPower6Enabled.Location = new System.Drawing.Point(286, 168);
+            this.checkBoxPower6Enabled.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.checkBoxPower6Enabled.Name = "checkBoxPower6Enabled";
+            this.checkBoxPower6Enabled.Size = new System.Drawing.Size(18, 17);
+            this.checkBoxPower6Enabled.TabIndex = 69;
+            this.checkBoxPower6Enabled.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxPower5Enabled
+            // 
+            this.checkBoxPower5Enabled.AutoSize = true;
+            this.checkBoxPower5Enabled.Location = new System.Drawing.Point(286, 141);
+            this.checkBoxPower5Enabled.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.checkBoxPower5Enabled.Name = "checkBoxPower5Enabled";
+            this.checkBoxPower5Enabled.Size = new System.Drawing.Size(18, 17);
+            this.checkBoxPower5Enabled.TabIndex = 68;
+            this.checkBoxPower5Enabled.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxPower4Enabled
+            // 
+            this.checkBoxPower4Enabled.AutoSize = true;
+            this.checkBoxPower4Enabled.Location = new System.Drawing.Point(286, 114);
+            this.checkBoxPower4Enabled.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.checkBoxPower4Enabled.Name = "checkBoxPower4Enabled";
+            this.checkBoxPower4Enabled.Size = new System.Drawing.Size(18, 17);
+            this.checkBoxPower4Enabled.TabIndex = 67;
+            this.checkBoxPower4Enabled.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxPower3Enabled
+            // 
+            this.checkBoxPower3Enabled.AutoSize = true;
+            this.checkBoxPower3Enabled.Location = new System.Drawing.Point(286, 87);
+            this.checkBoxPower3Enabled.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.checkBoxPower3Enabled.Name = "checkBoxPower3Enabled";
+            this.checkBoxPower3Enabled.Size = new System.Drawing.Size(18, 17);
+            this.checkBoxPower3Enabled.TabIndex = 66;
+            this.checkBoxPower3Enabled.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxPower2Enabled
+            // 
+            this.checkBoxPower2Enabled.AutoSize = true;
+            this.checkBoxPower2Enabled.Location = new System.Drawing.Point(286, 59);
+            this.checkBoxPower2Enabled.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.checkBoxPower2Enabled.Name = "checkBoxPower2Enabled";
+            this.checkBoxPower2Enabled.Size = new System.Drawing.Size(18, 17);
+            this.checkBoxPower2Enabled.TabIndex = 65;
+            this.checkBoxPower2Enabled.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxPower1Enabled
+            // 
+            this.checkBoxPower1Enabled.AutoSize = true;
+            this.checkBoxPower1Enabled.Location = new System.Drawing.Point(286, 34);
+            this.checkBoxPower1Enabled.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.checkBoxPower1Enabled.Name = "checkBoxPower1Enabled";
+            this.checkBoxPower1Enabled.Size = new System.Drawing.Size(18, 17);
+            this.checkBoxPower1Enabled.TabIndex = 64;
+            this.checkBoxPower1Enabled.UseVisualStyleBackColor = true;
+            // 
+            // textBoxPower8To
+            // 
+            this.textBoxPower8To.Location = new System.Drawing.Point(82, 218);
+            this.textBoxPower8To.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.textBoxPower8To.Name = "textBoxPower8To";
+            this.textBoxPower8To.Size = new System.Drawing.Size(69, 22);
+            this.textBoxPower8To.TabIndex = 63;
+            // 
+            // textBoxPower8From
+            // 
+            this.textBoxPower8From.Location = new System.Drawing.Point(5, 218);
+            this.textBoxPower8From.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.textBoxPower8From.Name = "textBoxPower8From";
+            this.textBoxPower8From.Size = new System.Drawing.Size(72, 22);
+            this.textBoxPower8From.TabIndex = 62;
+            // 
+            // textBoxPower7To
+            // 
+            this.textBoxPower7To.Location = new System.Drawing.Point(82, 191);
+            this.textBoxPower7To.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.textBoxPower7To.Name = "textBoxPower7To";
+            this.textBoxPower7To.Size = new System.Drawing.Size(69, 22);
+            this.textBoxPower7To.TabIndex = 61;
+            // 
+            // textBoxPower7From
+            // 
+            this.textBoxPower7From.Location = new System.Drawing.Point(5, 191);
+            this.textBoxPower7From.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.textBoxPower7From.Name = "textBoxPower7From";
+            this.textBoxPower7From.Size = new System.Drawing.Size(72, 22);
+            this.textBoxPower7From.TabIndex = 60;
+            // 
+            // textBoxPower6To
+            // 
+            this.textBoxPower6To.Location = new System.Drawing.Point(82, 164);
+            this.textBoxPower6To.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.textBoxPower6To.Name = "textBoxPower6To";
+            this.textBoxPower6To.Size = new System.Drawing.Size(69, 22);
+            this.textBoxPower6To.TabIndex = 59;
+            // 
+            // textBoxPower6From
+            // 
+            this.textBoxPower6From.Location = new System.Drawing.Point(5, 164);
+            this.textBoxPower6From.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.textBoxPower6From.Name = "textBoxPower6From";
+            this.textBoxPower6From.Size = new System.Drawing.Size(72, 22);
+            this.textBoxPower6From.TabIndex = 58;
+            // 
+            // textBoxPower5To
+            // 
+            this.textBoxPower5To.Location = new System.Drawing.Point(82, 137);
+            this.textBoxPower5To.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.textBoxPower5To.Name = "textBoxPower5To";
+            this.textBoxPower5To.Size = new System.Drawing.Size(69, 22);
+            this.textBoxPower5To.TabIndex = 57;
+            // 
+            // textBoxPower5From
+            // 
+            this.textBoxPower5From.Location = new System.Drawing.Point(5, 137);
+            this.textBoxPower5From.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.textBoxPower5From.Name = "textBoxPower5From";
+            this.textBoxPower5From.Size = new System.Drawing.Size(72, 22);
+            this.textBoxPower5From.TabIndex = 56;
+            // 
+            // textBoxPower4To
+            // 
+            this.textBoxPower4To.Location = new System.Drawing.Point(82, 110);
+            this.textBoxPower4To.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.textBoxPower4To.Name = "textBoxPower4To";
+            this.textBoxPower4To.Size = new System.Drawing.Size(69, 22);
+            this.textBoxPower4To.TabIndex = 55;
+            // 
+            // textBoxPower4From
+            // 
+            this.textBoxPower4From.Location = new System.Drawing.Point(5, 110);
+            this.textBoxPower4From.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.textBoxPower4From.Name = "textBoxPower4From";
+            this.textBoxPower4From.Size = new System.Drawing.Size(72, 22);
+            this.textBoxPower4From.TabIndex = 54;
+            // 
+            // textBoxPower3To
+            // 
+            this.textBoxPower3To.Location = new System.Drawing.Point(82, 83);
+            this.textBoxPower3To.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.textBoxPower3To.Name = "textBoxPower3To";
+            this.textBoxPower3To.Size = new System.Drawing.Size(69, 22);
+            this.textBoxPower3To.TabIndex = 53;
+            // 
+            // textBoxPower3From
+            // 
+            this.textBoxPower3From.Location = new System.Drawing.Point(5, 83);
+            this.textBoxPower3From.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.textBoxPower3From.Name = "textBoxPower3From";
+            this.textBoxPower3From.Size = new System.Drawing.Size(72, 22);
+            this.textBoxPower3From.TabIndex = 52;
+            // 
+            // textBoxPower2To
+            // 
+            this.textBoxPower2To.Location = new System.Drawing.Point(82, 55);
+            this.textBoxPower2To.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.textBoxPower2To.Name = "textBoxPower2To";
+            this.textBoxPower2To.Size = new System.Drawing.Size(69, 22);
+            this.textBoxPower2To.TabIndex = 51;
+            // 
+            // textBoxPower2From
+            // 
+            this.textBoxPower2From.Location = new System.Drawing.Point(5, 55);
+            this.textBoxPower2From.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.textBoxPower2From.Name = "textBoxPower2From";
+            this.textBoxPower2From.Size = new System.Drawing.Size(72, 22);
+            this.textBoxPower2From.TabIndex = 50;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(82, 11);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(57, 17);
+            this.label1.TabIndex = 49;
+            this.label1.Text = "To MHz";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(6, 11);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(72, 17);
+            this.label3.TabIndex = 48;
+            this.label3.Text = "From MHz";
+            // 
+            // textBoxPower1To
+            // 
+            this.textBoxPower1To.Location = new System.Drawing.Point(82, 30);
+            this.textBoxPower1To.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.textBoxPower1To.Name = "textBoxPower1To";
+            this.textBoxPower1To.Size = new System.Drawing.Size(69, 22);
+            this.textBoxPower1To.TabIndex = 47;
             // 
             // tabPageAntenna
             // 
@@ -2381,389 +2104,848 @@
             this.textBoxAntennaFreq1To.Size = new System.Drawing.Size(69, 22);
             this.textBoxAntennaFreq1To.TabIndex = 1;
             // 
-            // tabPagePower
-            // 
-            this.tabPagePower.BackColor = System.Drawing.Color.LightGray;
-            this.tabPagePower.Controls.Add(this.comboBoxPower8Mode);
-            this.tabPagePower.Controls.Add(this.comboBoxPower7Mode);
-            this.tabPagePower.Controls.Add(this.comboBoxPower6Mode);
-            this.tabPagePower.Controls.Add(this.comboBoxPower5Mode);
-            this.tabPagePower.Controls.Add(this.comboBoxPower4Mode);
-            this.tabPagePower.Controls.Add(this.comboBoxPower3Mode);
-            this.tabPagePower.Controls.Add(this.comboBoxPower2Mode);
-            this.tabPagePower.Controls.Add(this.comboBoxPower1Mode);
-            this.tabPagePower.Controls.Add(this.textBoxPower8Watts);
-            this.tabPagePower.Controls.Add(this.textBoxPower7Watts);
-            this.tabPagePower.Controls.Add(this.textBoxPower6Watts);
-            this.tabPagePower.Controls.Add(this.textBoxPower5Watts);
-            this.tabPagePower.Controls.Add(this.textBoxPower4Watts);
-            this.tabPagePower.Controls.Add(this.textBoxPower3Watts);
-            this.tabPagePower.Controls.Add(this.textBoxPower2Watts);
-            this.tabPagePower.Controls.Add(this.label5);
-            this.tabPagePower.Controls.Add(this.textBoxPower1Watts);
-            this.tabPagePower.Controls.Add(this.label4);
-            this.tabPagePower.Controls.Add(this.checkBoxPower8Enabled);
-            this.tabPagePower.Controls.Add(this.checkBoxPower7Enabled);
-            this.tabPagePower.Controls.Add(this.checkBoxPower6Enabled);
-            this.tabPagePower.Controls.Add(this.checkBoxPower5Enabled);
-            this.tabPagePower.Controls.Add(this.checkBoxPower4Enabled);
-            this.tabPagePower.Controls.Add(this.checkBoxPower3Enabled);
-            this.tabPagePower.Controls.Add(this.checkBoxPower2Enabled);
-            this.tabPagePower.Controls.Add(this.checkBoxPower1Enabled);
-            this.tabPagePower.Controls.Add(this.textBoxPower8To);
-            this.tabPagePower.Controls.Add(this.textBoxPower8From);
-            this.tabPagePower.Controls.Add(this.textBoxPower7To);
-            this.tabPagePower.Controls.Add(this.textBoxPower7From);
-            this.tabPagePower.Controls.Add(this.textBoxPower6To);
-            this.tabPagePower.Controls.Add(this.textBoxPower6From);
-            this.tabPagePower.Controls.Add(this.textBoxPower5To);
-            this.tabPagePower.Controls.Add(this.textBoxPower5From);
-            this.tabPagePower.Controls.Add(this.textBoxPower4To);
-            this.tabPagePower.Controls.Add(this.textBoxPower4From);
-            this.tabPagePower.Controls.Add(this.textBoxPower3To);
-            this.tabPagePower.Controls.Add(this.textBoxPower3From);
-            this.tabPagePower.Controls.Add(this.textBoxPower2To);
-            this.tabPagePower.Controls.Add(this.textBoxPower2From);
-            this.tabPagePower.Controls.Add(this.label1);
-            this.tabPagePower.Controls.Add(this.label3);
-            this.tabPagePower.Controls.Add(this.textBoxPower1To);
-            this.tabPagePower.Controls.Add(this.textBoxPower1From);
-            this.tabPagePower.Location = new System.Drawing.Point(4, 25);
-            this.tabPagePower.Name = "tabPagePower";
-            this.tabPagePower.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPagePower.Size = new System.Drawing.Size(509, 261);
-            this.tabPagePower.TabIndex = 8;
-            this.tabPagePower.Text = "Power";
-            // 
-            // textBoxPower8Watts
-            // 
-            this.textBoxPower8Watts.Location = new System.Drawing.Point(155, 218);
-            this.textBoxPower8Watts.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.textBoxPower8Watts.Name = "textBoxPower8Watts";
-            this.textBoxPower8Watts.Size = new System.Drawing.Size(42, 22);
-            this.textBoxPower8Watts.TabIndex = 81;
-            // 
-            // textBoxPower7Watts
-            // 
-            this.textBoxPower7Watts.Location = new System.Drawing.Point(155, 191);
-            this.textBoxPower7Watts.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.textBoxPower7Watts.Name = "textBoxPower7Watts";
-            this.textBoxPower7Watts.Size = new System.Drawing.Size(42, 22);
-            this.textBoxPower7Watts.TabIndex = 80;
-            // 
-            // textBoxPower6Watts
-            // 
-            this.textBoxPower6Watts.Location = new System.Drawing.Point(155, 164);
-            this.textBoxPower6Watts.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.textBoxPower6Watts.Name = "textBoxPower6Watts";
-            this.textBoxPower6Watts.Size = new System.Drawing.Size(42, 22);
-            this.textBoxPower6Watts.TabIndex = 79;
-            // 
-            // textBoxPower5Watts
-            // 
-            this.textBoxPower5Watts.Location = new System.Drawing.Point(155, 137);
-            this.textBoxPower5Watts.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.textBoxPower5Watts.Name = "textBoxPower5Watts";
-            this.textBoxPower5Watts.Size = new System.Drawing.Size(42, 22);
-            this.textBoxPower5Watts.TabIndex = 78;
-            // 
-            // textBoxPower4Watts
-            // 
-            this.textBoxPower4Watts.Location = new System.Drawing.Point(155, 110);
-            this.textBoxPower4Watts.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.textBoxPower4Watts.Name = "textBoxPower4Watts";
-            this.textBoxPower4Watts.Size = new System.Drawing.Size(42, 22);
-            this.textBoxPower4Watts.TabIndex = 77;
-            // 
-            // textBoxPower3Watts
-            // 
-            this.textBoxPower3Watts.Location = new System.Drawing.Point(155, 83);
-            this.textBoxPower3Watts.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.textBoxPower3Watts.Name = "textBoxPower3Watts";
-            this.textBoxPower3Watts.Size = new System.Drawing.Size(42, 22);
-            this.textBoxPower3Watts.TabIndex = 76;
-            // 
-            // textBoxPower2Watts
-            // 
-            this.textBoxPower2Watts.Location = new System.Drawing.Point(155, 55);
-            this.textBoxPower2Watts.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.textBoxPower2Watts.Name = "textBoxPower2Watts";
-            this.textBoxPower2Watts.Size = new System.Drawing.Size(42, 22);
-            this.textBoxPower2Watts.TabIndex = 75;
-            // 
-            // textBoxPower1Watts
-            // 
-            this.textBoxPower1Watts.Location = new System.Drawing.Point(155, 30);
-            this.textBoxPower1Watts.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.textBoxPower1Watts.Name = "textBoxPower1Watts";
-            this.textBoxPower1Watts.Size = new System.Drawing.Size(42, 22);
-            this.textBoxPower1Watts.TabIndex = 73;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(306, 27);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(169, 170);
-            this.label4.TabIndex = 72;
-            this.label4.Text = resources.GetString("label4.Text");
-            // 
-            // checkBoxPower8Enabled
-            // 
-            this.checkBoxPower8Enabled.AutoSize = true;
-            this.checkBoxPower8Enabled.Location = new System.Drawing.Point(286, 222);
-            this.checkBoxPower8Enabled.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.checkBoxPower8Enabled.Name = "checkBoxPower8Enabled";
-            this.checkBoxPower8Enabled.Size = new System.Drawing.Size(18, 17);
-            this.checkBoxPower8Enabled.TabIndex = 71;
-            this.checkBoxPower8Enabled.UseVisualStyleBackColor = true;
-            this.checkBoxPower8Enabled.CheckedChanged += new System.EventHandler(this.checkBoxPower8Enabled_CheckedChanged);
-            // 
-            // checkBoxPower7Enabled
-            // 
-            this.checkBoxPower7Enabled.AutoSize = true;
-            this.checkBoxPower7Enabled.Location = new System.Drawing.Point(286, 195);
-            this.checkBoxPower7Enabled.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.checkBoxPower7Enabled.Name = "checkBoxPower7Enabled";
-            this.checkBoxPower7Enabled.Size = new System.Drawing.Size(18, 17);
-            this.checkBoxPower7Enabled.TabIndex = 70;
-            this.checkBoxPower7Enabled.UseVisualStyleBackColor = true;
-            this.checkBoxPower7Enabled.CheckedChanged += new System.EventHandler(this.checkBoxPower7Enabled_CheckedChanged);
-            // 
-            // checkBoxPower6Enabled
-            // 
-            this.checkBoxPower6Enabled.AutoSize = true;
-            this.checkBoxPower6Enabled.Location = new System.Drawing.Point(286, 168);
-            this.checkBoxPower6Enabled.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.checkBoxPower6Enabled.Name = "checkBoxPower6Enabled";
-            this.checkBoxPower6Enabled.Size = new System.Drawing.Size(18, 17);
-            this.checkBoxPower6Enabled.TabIndex = 69;
-            this.checkBoxPower6Enabled.UseVisualStyleBackColor = true;
-            this.checkBoxPower6Enabled.CheckedChanged += new System.EventHandler(this.checkBoxPower6Enabled_CheckedChanged);
-            // 
-            // checkBoxPower5Enabled
-            // 
-            this.checkBoxPower5Enabled.AutoSize = true;
-            this.checkBoxPower5Enabled.Location = new System.Drawing.Point(286, 141);
-            this.checkBoxPower5Enabled.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.checkBoxPower5Enabled.Name = "checkBoxPower5Enabled";
-            this.checkBoxPower5Enabled.Size = new System.Drawing.Size(18, 17);
-            this.checkBoxPower5Enabled.TabIndex = 68;
-            this.checkBoxPower5Enabled.UseVisualStyleBackColor = true;
-            this.checkBoxPower5Enabled.CheckedChanged += new System.EventHandler(this.checkBoxPower5Enabled_CheckedChanged);
-            // 
-            // checkBoxPower4Enabled
-            // 
-            this.checkBoxPower4Enabled.AutoSize = true;
-            this.checkBoxPower4Enabled.Location = new System.Drawing.Point(286, 114);
-            this.checkBoxPower4Enabled.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.checkBoxPower4Enabled.Name = "checkBoxPower4Enabled";
-            this.checkBoxPower4Enabled.Size = new System.Drawing.Size(18, 17);
-            this.checkBoxPower4Enabled.TabIndex = 67;
-            this.checkBoxPower4Enabled.UseVisualStyleBackColor = true;
-            this.checkBoxPower4Enabled.CheckedChanged += new System.EventHandler(this.checkBoxPower4Enabled_CheckedChanged);
-            // 
-            // checkBoxPower3Enabled
-            // 
-            this.checkBoxPower3Enabled.AutoSize = true;
-            this.checkBoxPower3Enabled.Location = new System.Drawing.Point(286, 87);
-            this.checkBoxPower3Enabled.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.checkBoxPower3Enabled.Name = "checkBoxPower3Enabled";
-            this.checkBoxPower3Enabled.Size = new System.Drawing.Size(18, 17);
-            this.checkBoxPower3Enabled.TabIndex = 66;
-            this.checkBoxPower3Enabled.UseVisualStyleBackColor = true;
-            this.checkBoxPower3Enabled.CheckedChanged += new System.EventHandler(this.checkBoxPower3Enabled_CheckedChanged);
-            // 
-            // checkBoxPower2Enabled
-            // 
-            this.checkBoxPower2Enabled.AutoSize = true;
-            this.checkBoxPower2Enabled.Location = new System.Drawing.Point(286, 59);
-            this.checkBoxPower2Enabled.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.checkBoxPower2Enabled.Name = "checkBoxPower2Enabled";
-            this.checkBoxPower2Enabled.Size = new System.Drawing.Size(18, 17);
-            this.checkBoxPower2Enabled.TabIndex = 65;
-            this.checkBoxPower2Enabled.UseVisualStyleBackColor = true;
-            this.checkBoxPower2Enabled.CheckedChanged += new System.EventHandler(this.checkBoxPower2Enabled_CheckedChanged);
-            // 
-            // checkBoxPower1Enabled
-            // 
-            this.checkBoxPower1Enabled.AutoSize = true;
-            this.checkBoxPower1Enabled.Location = new System.Drawing.Point(286, 34);
-            this.checkBoxPower1Enabled.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.checkBoxPower1Enabled.Name = "checkBoxPower1Enabled";
-            this.checkBoxPower1Enabled.Size = new System.Drawing.Size(18, 17);
-            this.checkBoxPower1Enabled.TabIndex = 64;
-            this.checkBoxPower1Enabled.UseVisualStyleBackColor = true;
-            this.checkBoxPower1Enabled.CheckedChanged += new System.EventHandler(this.checkBoxPower1Enabled_CheckedChanged);
-            // 
-            // textBoxPower8To
-            // 
-            this.textBoxPower8To.Location = new System.Drawing.Point(82, 218);
-            this.textBoxPower8To.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.textBoxPower8To.Name = "textBoxPower8To";
-            this.textBoxPower8To.Size = new System.Drawing.Size(69, 22);
-            this.textBoxPower8To.TabIndex = 63;
-            // 
-            // textBoxPower8From
-            // 
-            this.textBoxPower8From.Location = new System.Drawing.Point(5, 218);
-            this.textBoxPower8From.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.textBoxPower8From.Name = "textBoxPower8From";
-            this.textBoxPower8From.Size = new System.Drawing.Size(72, 22);
-            this.textBoxPower8From.TabIndex = 62;
-            // 
-            // textBoxPower7To
-            // 
-            this.textBoxPower7To.Location = new System.Drawing.Point(82, 191);
-            this.textBoxPower7To.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.textBoxPower7To.Name = "textBoxPower7To";
-            this.textBoxPower7To.Size = new System.Drawing.Size(69, 22);
-            this.textBoxPower7To.TabIndex = 61;
-            // 
-            // textBoxPower7From
-            // 
-            this.textBoxPower7From.Location = new System.Drawing.Point(5, 191);
-            this.textBoxPower7From.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.textBoxPower7From.Name = "textBoxPower7From";
-            this.textBoxPower7From.Size = new System.Drawing.Size(72, 22);
-            this.textBoxPower7From.TabIndex = 60;
-            // 
-            // textBoxPower6To
-            // 
-            this.textBoxPower6To.Location = new System.Drawing.Point(82, 164);
-            this.textBoxPower6To.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.textBoxPower6To.Name = "textBoxPower6To";
-            this.textBoxPower6To.Size = new System.Drawing.Size(69, 22);
-            this.textBoxPower6To.TabIndex = 59;
-            // 
-            // textBoxPower6From
-            // 
-            this.textBoxPower6From.Location = new System.Drawing.Point(5, 164);
-            this.textBoxPower6From.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.textBoxPower6From.Name = "textBoxPower6From";
-            this.textBoxPower6From.Size = new System.Drawing.Size(72, 22);
-            this.textBoxPower6From.TabIndex = 58;
-            // 
-            // textBoxPower5To
-            // 
-            this.textBoxPower5To.Location = new System.Drawing.Point(82, 137);
-            this.textBoxPower5To.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.textBoxPower5To.Name = "textBoxPower5To";
-            this.textBoxPower5To.Size = new System.Drawing.Size(69, 22);
-            this.textBoxPower5To.TabIndex = 57;
-            // 
-            // textBoxPower5From
-            // 
-            this.textBoxPower5From.Location = new System.Drawing.Point(5, 137);
-            this.textBoxPower5From.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.textBoxPower5From.Name = "textBoxPower5From";
-            this.textBoxPower5From.Size = new System.Drawing.Size(72, 22);
-            this.textBoxPower5From.TabIndex = 56;
-            // 
-            // textBoxPower4To
-            // 
-            this.textBoxPower4To.Location = new System.Drawing.Point(82, 110);
-            this.textBoxPower4To.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.textBoxPower4To.Name = "textBoxPower4To";
-            this.textBoxPower4To.Size = new System.Drawing.Size(69, 22);
-            this.textBoxPower4To.TabIndex = 55;
-            // 
-            // textBoxPower4From
-            // 
-            this.textBoxPower4From.Location = new System.Drawing.Point(5, 110);
-            this.textBoxPower4From.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.textBoxPower4From.Name = "textBoxPower4From";
-            this.textBoxPower4From.Size = new System.Drawing.Size(72, 22);
-            this.textBoxPower4From.TabIndex = 54;
-            // 
-            // textBoxPower3To
-            // 
-            this.textBoxPower3To.Location = new System.Drawing.Point(82, 83);
-            this.textBoxPower3To.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.textBoxPower3To.Name = "textBoxPower3To";
-            this.textBoxPower3To.Size = new System.Drawing.Size(69, 22);
-            this.textBoxPower3To.TabIndex = 53;
-            // 
-            // textBoxPower3From
-            // 
-            this.textBoxPower3From.Location = new System.Drawing.Point(5, 83);
-            this.textBoxPower3From.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.textBoxPower3From.Name = "textBoxPower3From";
-            this.textBoxPower3From.Size = new System.Drawing.Size(72, 22);
-            this.textBoxPower3From.TabIndex = 52;
-            // 
-            // textBoxPower2To
-            // 
-            this.textBoxPower2To.Location = new System.Drawing.Point(82, 55);
-            this.textBoxPower2To.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.textBoxPower2To.Name = "textBoxPower2To";
-            this.textBoxPower2To.Size = new System.Drawing.Size(69, 22);
-            this.textBoxPower2To.TabIndex = 51;
-            // 
-            // textBoxPower2From
-            // 
-            this.textBoxPower2From.Location = new System.Drawing.Point(5, 55);
-            this.textBoxPower2From.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.textBoxPower2From.Name = "textBoxPower2From";
-            this.textBoxPower2From.Size = new System.Drawing.Size(72, 22);
-            this.textBoxPower2From.TabIndex = 50;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(82, 11);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(57, 17);
-            this.label1.TabIndex = 49;
-            this.label1.Text = "To MHz";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(6, 11);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(72, 17);
-            this.label3.TabIndex = 48;
-            this.label3.Text = "From MHz";
-            // 
-            // textBoxPower1To
-            // 
-            this.textBoxPower1To.Location = new System.Drawing.Point(82, 30);
-            this.textBoxPower1To.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.textBoxPower1To.Name = "textBoxPower1To";
-            this.textBoxPower1To.Size = new System.Drawing.Size(69, 22);
-            this.textBoxPower1To.TabIndex = 47;
+            // tabPageRelay1
+            // 
+            this.tabPageRelay1.BackColor = System.Drawing.Color.LightGray;
+            this.tabPageRelay1.Controls.Add(this.linkLabel2);
+            this.tabPageRelay1.Controls.Add(this.linkLabel1);
+            this.tabPageRelay1.Controls.Add(this.button1_8);
+            this.tabPageRelay1.Controls.Add(this.button1_7);
+            this.tabPageRelay1.Controls.Add(this.button1_6);
+            this.tabPageRelay1.Controls.Add(this.button1_5);
+            this.tabPageRelay1.Controls.Add(this.button1_4);
+            this.tabPageRelay1.Controls.Add(this.button1_3);
+            this.tabPageRelay1.Controls.Add(this.button1_2);
+            this.tabPageRelay1.Controls.Add(this.button1_1);
+            this.tabPageRelay1.Controls.Add(this.panel1);
+            this.tabPageRelay1.Location = new System.Drawing.Point(4, 25);
+            this.tabPageRelay1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.tabPageRelay1.Name = "tabPageRelay1";
+            this.tabPageRelay1.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.tabPageRelay1.Size = new System.Drawing.Size(509, 261);
+            this.tabPageRelay1.TabIndex = 0;
+            this.tabPageRelay1.Text = "Relay1";
+            // 
+            // linkLabel2
+            // 
+            this.linkLabel2.AutoSize = true;
+            this.linkLabel2.Location = new System.Drawing.Point(5, 213);
+            this.linkLabel2.Name = "linkLabel2";
+            this.linkLabel2.Size = new System.Drawing.Size(174, 17);
+            this.linkLabel2.TabIndex = 22;
+            this.linkLabel2.TabStop = true;
+            this.linkLabel2.Text = "Sainsmart 8CH USB Relay";
+            // 
+            // linkLabel1
+            // 
+            this.linkLabel1.AutoSize = true;
+            this.linkLabel1.Location = new System.Drawing.Point(5, 185);
+            this.linkLabel1.Name = "linkLabel1";
+            this.linkLabel1.Size = new System.Drawing.Size(174, 17);
+            this.linkLabel1.TabIndex = 21;
+            this.linkLabel1.TabStop = true;
+            this.linkLabel1.Text = "Sainsmart 4CH USB Relay";
+            // 
+            // panel1
+            // 
+            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.labelTextBoxRelay1Status);
+            this.panel1.Controls.Add(this.textBoxRelay1Status);
+            this.panel1.Controls.Add(this.labelTextBoxRelay1Off);
+            this.panel1.Controls.Add(this.labelTextBoxRelay1On);
+            this.panel1.Controls.Add(this.textBoxRelay1Off);
+            this.panel1.Controls.Add(this.textBoxRelay1On);
+            this.panel1.Controls.Add(this.checkBoxRelay1Enabled);
+            this.panel1.Controls.Add(this.comboBoxBaudRelay1);
+            this.panel1.Controls.Add(this.comboBoxComRelay1);
+            this.panel1.Location = new System.Drawing.Point(7, 9);
+            this.panel1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(227, 163);
+            this.panel1.TabIndex = 3;
+            // 
+            // labelTextBoxRelay1Status
+            // 
+            this.labelTextBoxRelay1Status.AutoSize = true;
+            this.labelTextBoxRelay1Status.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelTextBoxRelay1Status.Location = new System.Drawing.Point(120, 127);
+            this.labelTextBoxRelay1Status.Name = "labelTextBoxRelay1Status";
+            this.labelTextBoxRelay1Status.Size = new System.Drawing.Size(80, 17);
+            this.labelTextBoxRelay1Status.TabIndex = 9;
+            this.labelTextBoxRelay1Status.Text = "Status Cmd";
+            this.labelTextBoxRelay1Status.Visible = false;
+            // 
+            // textBoxRelay1Status
+            // 
+            this.textBoxRelay1Status.Enabled = false;
+            this.textBoxRelay1Status.Location = new System.Drawing.Point(11, 124);
+            this.textBoxRelay1Status.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.textBoxRelay1Status.Name = "textBoxRelay1Status";
+            this.textBoxRelay1Status.Size = new System.Drawing.Size(100, 22);
+            this.textBoxRelay1Status.TabIndex = 8;
+            this.textBoxRelay1Status.Visible = false;
+            // 
+            // labelTextBoxRelay1Off
+            // 
+            this.labelTextBoxRelay1Off.AutoSize = true;
+            this.labelTextBoxRelay1Off.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelTextBoxRelay1Off.Location = new System.Drawing.Point(120, 98);
+            this.labelTextBoxRelay1Off.Name = "labelTextBoxRelay1Off";
+            this.labelTextBoxRelay1Off.Size = new System.Drawing.Size(59, 17);
+            this.labelTextBoxRelay1Off.TabIndex = 7;
+            this.labelTextBoxRelay1Off.Text = "Off Cmd";
+            this.labelTextBoxRelay1Off.Visible = false;
+            // 
+            // labelTextBoxRelay1On
+            // 
+            this.labelTextBoxRelay1On.AutoSize = true;
+            this.labelTextBoxRelay1On.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelTextBoxRelay1On.Location = new System.Drawing.Point(121, 71);
+            this.labelTextBoxRelay1On.Name = "labelTextBoxRelay1On";
+            this.labelTextBoxRelay1On.Size = new System.Drawing.Size(59, 17);
+            this.labelTextBoxRelay1On.TabIndex = 6;
+            this.labelTextBoxRelay1On.Text = "On Cmd";
+            this.labelTextBoxRelay1On.Visible = false;
+            // 
+            // textBoxRelay1Off
+            // 
+            this.textBoxRelay1Off.Enabled = false;
+            this.textBoxRelay1Off.Location = new System.Drawing.Point(11, 96);
+            this.textBoxRelay1Off.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.textBoxRelay1Off.Name = "textBoxRelay1Off";
+            this.textBoxRelay1Off.Size = new System.Drawing.Size(100, 22);
+            this.textBoxRelay1Off.TabIndex = 5;
+            this.textBoxRelay1Off.Visible = false;
+            // 
+            // textBoxRelay1On
+            // 
+            this.textBoxRelay1On.Enabled = false;
+            this.textBoxRelay1On.Location = new System.Drawing.Point(11, 68);
+            this.textBoxRelay1On.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.textBoxRelay1On.Name = "textBoxRelay1On";
+            this.textBoxRelay1On.Size = new System.Drawing.Size(100, 22);
+            this.textBoxRelay1On.TabIndex = 4;
+            this.textBoxRelay1On.Visible = false;
+            // 
+            // checkBoxRelay1Enabled
+            // 
+            this.checkBoxRelay1Enabled.AutoSize = true;
+            this.checkBoxRelay1Enabled.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxRelay1Enabled.Location = new System.Drawing.Point(141, 10);
+            this.checkBoxRelay1Enabled.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.checkBoxRelay1Enabled.Name = "checkBoxRelay1Enabled";
+            this.checkBoxRelay1Enabled.Size = new System.Drawing.Size(82, 21);
+            this.checkBoxRelay1Enabled.TabIndex = 3;
+            this.checkBoxRelay1Enabled.Text = "Enabled";
+            this.checkBoxRelay1Enabled.UseVisualStyleBackColor = true;
+            this.checkBoxRelay1Enabled.CheckedChanged += new System.EventHandler(this.checkBoxRelay1Enabled_CheckedChanged);
+            // 
+            // comboBoxBaudRelay1
+            // 
+            this.comboBoxBaudRelay1.FormattingEnabled = true;
+            this.comboBoxBaudRelay1.Location = new System.Drawing.Point(11, 37);
+            this.comboBoxBaudRelay1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.comboBoxBaudRelay1.Name = "comboBoxBaudRelay1";
+            this.comboBoxBaudRelay1.Size = new System.Drawing.Size(121, 24);
+            this.comboBoxBaudRelay1.TabIndex = 2;
+            this.comboBoxBaudRelay1.Text = global::AmpAutoTunerUtility.Properties.Settings.Default.Relay1Baud;
+            this.comboBoxBaudRelay1.Visible = false;
+            // 
+            // tabPageRelay2
+            // 
+            this.tabPageRelay2.BackColor = System.Drawing.Color.LightGray;
+            this.tabPageRelay2.Controls.Add(this.button18);
+            this.tabPageRelay2.Controls.Add(this.button19);
+            this.tabPageRelay2.Controls.Add(this.button20);
+            this.tabPageRelay2.Controls.Add(this.button21);
+            this.tabPageRelay2.Controls.Add(this.button22);
+            this.tabPageRelay2.Controls.Add(this.button23);
+            this.tabPageRelay2.Controls.Add(this.button24);
+            this.tabPageRelay2.Controls.Add(this.button25);
+            this.tabPageRelay2.Controls.Add(this.panel4);
+            this.tabPageRelay2.Location = new System.Drawing.Point(4, 25);
+            this.tabPageRelay2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.tabPageRelay2.Name = "tabPageRelay2";
+            this.tabPageRelay2.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.tabPageRelay2.Size = new System.Drawing.Size(509, 254);
+            this.tabPageRelay2.TabIndex = 3;
+            this.tabPageRelay2.Text = "Relay2";
+            // 
+            // button18
+            // 
+            this.button18.BackColor = System.Drawing.Color.Silver;
+            this.button18.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.button18.Location = new System.Drawing.Point(418, 7);
+            this.button18.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button18.Name = "button18";
+            this.button18.Size = new System.Drawing.Size(25, 23);
+            this.button18.TabIndex = 28;
+            this.button18.UseVisualStyleBackColor = false;
+            // 
+            // button19
+            // 
+            this.button19.BackColor = System.Drawing.Color.Silver;
+            this.button19.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.button19.Location = new System.Drawing.Point(393, 7);
+            this.button19.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button19.Name = "button19";
+            this.button19.Size = new System.Drawing.Size(25, 23);
+            this.button19.TabIndex = 27;
+            this.button19.UseVisualStyleBackColor = false;
+            // 
+            // button20
+            // 
+            this.button20.BackColor = System.Drawing.Color.Silver;
+            this.button20.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.button20.Location = new System.Drawing.Point(368, 7);
+            this.button20.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button20.Name = "button20";
+            this.button20.Size = new System.Drawing.Size(25, 23);
+            this.button20.TabIndex = 26;
+            this.button20.UseVisualStyleBackColor = false;
+            // 
+            // button21
+            // 
+            this.button21.BackColor = System.Drawing.Color.Silver;
+            this.button21.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.button21.Location = new System.Drawing.Point(343, 7);
+            this.button21.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button21.Name = "button21";
+            this.button21.Size = new System.Drawing.Size(25, 23);
+            this.button21.TabIndex = 25;
+            this.button21.UseVisualStyleBackColor = false;
+            // 
+            // button22
+            // 
+            this.button22.BackColor = System.Drawing.Color.Silver;
+            this.button22.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.button22.Location = new System.Drawing.Point(318, 7);
+            this.button22.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button22.Name = "button22";
+            this.button22.Size = new System.Drawing.Size(25, 23);
+            this.button22.TabIndex = 24;
+            this.button22.UseVisualStyleBackColor = false;
+            // 
+            // button23
+            // 
+            this.button23.BackColor = System.Drawing.Color.Silver;
+            this.button23.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.button23.Location = new System.Drawing.Point(293, 7);
+            this.button23.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button23.Name = "button23";
+            this.button23.Size = new System.Drawing.Size(25, 23);
+            this.button23.TabIndex = 23;
+            this.button23.UseVisualStyleBackColor = false;
+            // 
+            // button24
+            // 
+            this.button24.BackColor = System.Drawing.Color.Silver;
+            this.button24.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.button24.Location = new System.Drawing.Point(268, 7);
+            this.button24.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button24.Name = "button24";
+            this.button24.Size = new System.Drawing.Size(25, 23);
+            this.button24.TabIndex = 22;
+            this.button24.UseVisualStyleBackColor = false;
+            // 
+            // button25
+            // 
+            this.button25.BackColor = System.Drawing.Color.Silver;
+            this.button25.ForeColor = System.Drawing.Color.Silver;
+            this.button25.Location = new System.Drawing.Point(243, 7);
+            this.button25.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button25.Name = "button25";
+            this.button25.Size = new System.Drawing.Size(25, 23);
+            this.button25.TabIndex = 21;
+            this.button25.UseVisualStyleBackColor = false;
+            // 
+            // panel4
+            // 
+            this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel4.Controls.Add(this.labelTextBoxRelay2Status);
+            this.panel4.Controls.Add(this.textBoxRelay2Status);
+            this.panel4.Controls.Add(this.labelTextBoxRelay2Off);
+            this.panel4.Controls.Add(this.labelTextBoxRelay2On);
+            this.panel4.Controls.Add(this.textBoxRelay2Off);
+            this.panel4.Controls.Add(this.textBoxRelay2On);
+            this.panel4.Controls.Add(this.checkBoxRelay2Enabled);
+            this.panel4.Controls.Add(this.comboBoxBaudRelay2);
+            this.panel4.Controls.Add(this.comboBoxComRelay2);
+            this.panel4.Location = new System.Drawing.Point(7, 9);
+            this.panel4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(227, 163);
+            this.panel4.TabIndex = 5;
+            // 
+            // labelTextBoxRelay2Status
+            // 
+            this.labelTextBoxRelay2Status.AutoSize = true;
+            this.labelTextBoxRelay2Status.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelTextBoxRelay2Status.Location = new System.Drawing.Point(120, 127);
+            this.labelTextBoxRelay2Status.Name = "labelTextBoxRelay2Status";
+            this.labelTextBoxRelay2Status.Size = new System.Drawing.Size(80, 17);
+            this.labelTextBoxRelay2Status.TabIndex = 9;
+            this.labelTextBoxRelay2Status.Text = "Status Cmd";
+            this.labelTextBoxRelay2Status.Visible = false;
+            // 
+            // textBoxRelay2Status
+            // 
+            this.textBoxRelay2Status.Location = new System.Drawing.Point(11, 124);
+            this.textBoxRelay2Status.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.textBoxRelay2Status.Name = "textBoxRelay2Status";
+            this.textBoxRelay2Status.Size = new System.Drawing.Size(100, 22);
+            this.textBoxRelay2Status.TabIndex = 8;
+            this.textBoxRelay2Status.Visible = false;
+            // 
+            // labelTextBoxRelay2Off
+            // 
+            this.labelTextBoxRelay2Off.AutoSize = true;
+            this.labelTextBoxRelay2Off.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelTextBoxRelay2Off.Location = new System.Drawing.Point(120, 98);
+            this.labelTextBoxRelay2Off.Name = "labelTextBoxRelay2Off";
+            this.labelTextBoxRelay2Off.Size = new System.Drawing.Size(59, 17);
+            this.labelTextBoxRelay2Off.TabIndex = 7;
+            this.labelTextBoxRelay2Off.Text = "Off Cmd";
+            this.labelTextBoxRelay2Off.Visible = false;
+            // 
+            // labelTextBoxRelay2On
+            // 
+            this.labelTextBoxRelay2On.AutoSize = true;
+            this.labelTextBoxRelay2On.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelTextBoxRelay2On.Location = new System.Drawing.Point(121, 71);
+            this.labelTextBoxRelay2On.Name = "labelTextBoxRelay2On";
+            this.labelTextBoxRelay2On.Size = new System.Drawing.Size(59, 17);
+            this.labelTextBoxRelay2On.TabIndex = 6;
+            this.labelTextBoxRelay2On.Text = "On Cmd";
+            this.labelTextBoxRelay2On.Visible = false;
+            // 
+            // textBoxRelay2Off
+            // 
+            this.textBoxRelay2Off.Location = new System.Drawing.Point(11, 96);
+            this.textBoxRelay2Off.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.textBoxRelay2Off.Name = "textBoxRelay2Off";
+            this.textBoxRelay2Off.Size = new System.Drawing.Size(100, 22);
+            this.textBoxRelay2Off.TabIndex = 5;
+            this.textBoxRelay2Off.Visible = false;
+            // 
+            // textBoxRelay2On
+            // 
+            this.textBoxRelay2On.Location = new System.Drawing.Point(11, 68);
+            this.textBoxRelay2On.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.textBoxRelay2On.Name = "textBoxRelay2On";
+            this.textBoxRelay2On.Size = new System.Drawing.Size(100, 22);
+            this.textBoxRelay2On.TabIndex = 4;
+            this.textBoxRelay2On.Visible = false;
+            // 
+            // checkBoxRelay2Enabled
+            // 
+            this.checkBoxRelay2Enabled.AutoSize = true;
+            this.checkBoxRelay2Enabled.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxRelay2Enabled.Location = new System.Drawing.Point(141, 10);
+            this.checkBoxRelay2Enabled.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.checkBoxRelay2Enabled.Name = "checkBoxRelay2Enabled";
+            this.checkBoxRelay2Enabled.Size = new System.Drawing.Size(82, 21);
+            this.checkBoxRelay2Enabled.TabIndex = 3;
+            this.checkBoxRelay2Enabled.Text = "Enabled";
+            this.checkBoxRelay2Enabled.UseVisualStyleBackColor = true;
+            this.checkBoxRelay2Enabled.CheckedChanged += new System.EventHandler(this.checkBoxRelay2Enabled_CheckedChanged);
+            // 
+            // comboBoxBaudRelay2
+            // 
+            this.comboBoxBaudRelay2.FormattingEnabled = true;
+            this.comboBoxBaudRelay2.Location = new System.Drawing.Point(11, 37);
+            this.comboBoxBaudRelay2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.comboBoxBaudRelay2.Name = "comboBoxBaudRelay2";
+            this.comboBoxBaudRelay2.Size = new System.Drawing.Size(121, 24);
+            this.comboBoxBaudRelay2.TabIndex = 2;
+            this.comboBoxBaudRelay2.Visible = false;
+            // 
+            // comboBoxComRelay2
+            // 
+            this.comboBoxComRelay2.FormattingEnabled = true;
+            this.comboBoxComRelay2.Location = new System.Drawing.Point(11, 7);
+            this.comboBoxComRelay2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.comboBoxComRelay2.Name = "comboBoxComRelay2";
+            this.comboBoxComRelay2.Size = new System.Drawing.Size(121, 24);
+            this.comboBoxComRelay2.TabIndex = 0;
+            // 
+            // tabPageRelay3
+            // 
+            this.tabPageRelay3.BackColor = System.Drawing.Color.LightGray;
+            this.tabPageRelay3.Controls.Add(this.button2);
+            this.tabPageRelay3.Controls.Add(this.button3);
+            this.tabPageRelay3.Controls.Add(this.button4);
+            this.tabPageRelay3.Controls.Add(this.button5);
+            this.tabPageRelay3.Controls.Add(this.button6);
+            this.tabPageRelay3.Controls.Add(this.button7);
+            this.tabPageRelay3.Controls.Add(this.button8);
+            this.tabPageRelay3.Controls.Add(this.button9);
+            this.tabPageRelay3.Controls.Add(this.panel5);
+            this.tabPageRelay3.Location = new System.Drawing.Point(4, 25);
+            this.tabPageRelay3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.tabPageRelay3.Name = "tabPageRelay3";
+            this.tabPageRelay3.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.tabPageRelay3.Size = new System.Drawing.Size(509, 254);
+            this.tabPageRelay3.TabIndex = 4;
+            this.tabPageRelay3.Text = "Relay3";
+            // 
+            // button2
+            // 
+            this.button2.BackColor = System.Drawing.Color.Silver;
+            this.button2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.button2.Location = new System.Drawing.Point(418, 7);
+            this.button2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(25, 23);
+            this.button2.TabIndex = 28;
+            this.button2.UseVisualStyleBackColor = false;
+            // 
+            // button3
+            // 
+            this.button3.BackColor = System.Drawing.Color.Silver;
+            this.button3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.button3.Location = new System.Drawing.Point(393, 7);
+            this.button3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(25, 23);
+            this.button3.TabIndex = 27;
+            this.button3.UseVisualStyleBackColor = false;
+            // 
+            // button4
+            // 
+            this.button4.BackColor = System.Drawing.Color.Silver;
+            this.button4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.button4.Location = new System.Drawing.Point(368, 7);
+            this.button4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(25, 23);
+            this.button4.TabIndex = 26;
+            this.button4.UseVisualStyleBackColor = false;
+            // 
+            // button5
+            // 
+            this.button5.BackColor = System.Drawing.Color.Silver;
+            this.button5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.button5.Location = new System.Drawing.Point(343, 7);
+            this.button5.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(25, 23);
+            this.button5.TabIndex = 25;
+            this.button5.UseVisualStyleBackColor = false;
+            // 
+            // button6
+            // 
+            this.button6.BackColor = System.Drawing.Color.Silver;
+            this.button6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.button6.Location = new System.Drawing.Point(318, 7);
+            this.button6.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(25, 23);
+            this.button6.TabIndex = 24;
+            this.button6.UseVisualStyleBackColor = false;
+            // 
+            // button7
+            // 
+            this.button7.BackColor = System.Drawing.Color.Silver;
+            this.button7.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.button7.Location = new System.Drawing.Point(293, 7);
+            this.button7.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button7.Name = "button7";
+            this.button7.Size = new System.Drawing.Size(25, 23);
+            this.button7.TabIndex = 23;
+            this.button7.UseVisualStyleBackColor = false;
+            // 
+            // button8
+            // 
+            this.button8.BackColor = System.Drawing.Color.Silver;
+            this.button8.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.button8.Location = new System.Drawing.Point(268, 7);
+            this.button8.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button8.Name = "button8";
+            this.button8.Size = new System.Drawing.Size(25, 23);
+            this.button8.TabIndex = 22;
+            this.button8.UseVisualStyleBackColor = false;
+            // 
+            // button9
+            // 
+            this.button9.BackColor = System.Drawing.Color.Silver;
+            this.button9.ForeColor = System.Drawing.Color.Silver;
+            this.button9.Location = new System.Drawing.Point(243, 7);
+            this.button9.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button9.Name = "button9";
+            this.button9.Size = new System.Drawing.Size(25, 23);
+            this.button9.TabIndex = 21;
+            this.button9.UseVisualStyleBackColor = false;
+            // 
+            // panel5
+            // 
+            this.panel5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel5.Controls.Add(this.labelTextBoxRelay3Status);
+            this.panel5.Controls.Add(this.textBoxRelay3Status);
+            this.panel5.Controls.Add(this.labelTextBoxRelay3Off);
+            this.panel5.Controls.Add(this.labelTextBoxRelay3On);
+            this.panel5.Controls.Add(this.textBoxRelay3Off);
+            this.panel5.Controls.Add(this.textBoxRelay3On);
+            this.panel5.Controls.Add(this.checkBoxRelay3Enabled);
+            this.panel5.Controls.Add(this.comboBoxBaudRelay3);
+            this.panel5.Controls.Add(this.comboBoxComRelay3);
+            this.panel5.Location = new System.Drawing.Point(7, 9);
+            this.panel5.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.panel5.Name = "panel5";
+            this.panel5.Size = new System.Drawing.Size(227, 163);
+            this.panel5.TabIndex = 5;
+            // 
+            // labelTextBoxRelay3Status
+            // 
+            this.labelTextBoxRelay3Status.AutoSize = true;
+            this.labelTextBoxRelay3Status.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelTextBoxRelay3Status.Location = new System.Drawing.Point(120, 127);
+            this.labelTextBoxRelay3Status.Name = "labelTextBoxRelay3Status";
+            this.labelTextBoxRelay3Status.Size = new System.Drawing.Size(80, 17);
+            this.labelTextBoxRelay3Status.TabIndex = 9;
+            this.labelTextBoxRelay3Status.Text = "Status Cmd";
+            this.labelTextBoxRelay3Status.Visible = false;
+            // 
+            // textBoxRelay3Status
+            // 
+            this.textBoxRelay3Status.Location = new System.Drawing.Point(11, 124);
+            this.textBoxRelay3Status.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.textBoxRelay3Status.Name = "textBoxRelay3Status";
+            this.textBoxRelay3Status.Size = new System.Drawing.Size(100, 22);
+            this.textBoxRelay3Status.TabIndex = 8;
+            this.textBoxRelay3Status.Visible = false;
+            // 
+            // labelTextBoxRelay3Off
+            // 
+            this.labelTextBoxRelay3Off.AutoSize = true;
+            this.labelTextBoxRelay3Off.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelTextBoxRelay3Off.Location = new System.Drawing.Point(120, 98);
+            this.labelTextBoxRelay3Off.Name = "labelTextBoxRelay3Off";
+            this.labelTextBoxRelay3Off.Size = new System.Drawing.Size(59, 17);
+            this.labelTextBoxRelay3Off.TabIndex = 7;
+            this.labelTextBoxRelay3Off.Text = "Off Cmd";
+            this.labelTextBoxRelay3Off.Visible = false;
+            // 
+            // labelTextBoxRelay3On
+            // 
+            this.labelTextBoxRelay3On.AutoSize = true;
+            this.labelTextBoxRelay3On.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelTextBoxRelay3On.Location = new System.Drawing.Point(121, 71);
+            this.labelTextBoxRelay3On.Name = "labelTextBoxRelay3On";
+            this.labelTextBoxRelay3On.Size = new System.Drawing.Size(59, 17);
+            this.labelTextBoxRelay3On.TabIndex = 6;
+            this.labelTextBoxRelay3On.Text = "On Cmd";
+            this.labelTextBoxRelay3On.Visible = false;
+            // 
+            // textBoxRelay3Off
+            // 
+            this.textBoxRelay3Off.Location = new System.Drawing.Point(11, 96);
+            this.textBoxRelay3Off.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.textBoxRelay3Off.Name = "textBoxRelay3Off";
+            this.textBoxRelay3Off.Size = new System.Drawing.Size(100, 22);
+            this.textBoxRelay3Off.TabIndex = 5;
+            this.textBoxRelay3Off.Visible = false;
+            // 
+            // textBoxRelay3On
+            // 
+            this.textBoxRelay3On.Location = new System.Drawing.Point(11, 68);
+            this.textBoxRelay3On.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.textBoxRelay3On.Name = "textBoxRelay3On";
+            this.textBoxRelay3On.Size = new System.Drawing.Size(100, 22);
+            this.textBoxRelay3On.TabIndex = 4;
+            this.textBoxRelay3On.Visible = false;
+            // 
+            // checkBoxRelay3Enabled
+            // 
+            this.checkBoxRelay3Enabled.AutoSize = true;
+            this.checkBoxRelay3Enabled.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxRelay3Enabled.Location = new System.Drawing.Point(141, 10);
+            this.checkBoxRelay3Enabled.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.checkBoxRelay3Enabled.Name = "checkBoxRelay3Enabled";
+            this.checkBoxRelay3Enabled.Size = new System.Drawing.Size(82, 21);
+            this.checkBoxRelay3Enabled.TabIndex = 3;
+            this.checkBoxRelay3Enabled.Text = "Enabled";
+            this.checkBoxRelay3Enabled.UseVisualStyleBackColor = true;
+            this.checkBoxRelay3Enabled.CheckedChanged += new System.EventHandler(this.checkBoxRelay3Enabled_CheckedChanged);
+            // 
+            // comboBoxBaudRelay3
+            // 
+            this.comboBoxBaudRelay3.FormattingEnabled = true;
+            this.comboBoxBaudRelay3.Location = new System.Drawing.Point(11, 37);
+            this.comboBoxBaudRelay3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.comboBoxBaudRelay3.Name = "comboBoxBaudRelay3";
+            this.comboBoxBaudRelay3.Size = new System.Drawing.Size(121, 24);
+            this.comboBoxBaudRelay3.TabIndex = 2;
+            this.comboBoxBaudRelay3.Visible = false;
+            // 
+            // comboBoxComRelay3
+            // 
+            this.comboBoxComRelay3.FormattingEnabled = true;
+            this.comboBoxComRelay3.Location = new System.Drawing.Point(11, 7);
+            this.comboBoxComRelay3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.comboBoxComRelay3.Name = "comboBoxComRelay3";
+            this.comboBoxComRelay3.Size = new System.Drawing.Size(121, 24);
+            this.comboBoxComRelay3.TabIndex = 0;
+            // 
+            // tabPageRelay4
+            // 
+            this.tabPageRelay4.BackColor = System.Drawing.Color.LightGray;
+            this.tabPageRelay4.Controls.Add(this.button10);
+            this.tabPageRelay4.Controls.Add(this.button11);
+            this.tabPageRelay4.Controls.Add(this.button12);
+            this.tabPageRelay4.Controls.Add(this.button13);
+            this.tabPageRelay4.Controls.Add(this.button14);
+            this.tabPageRelay4.Controls.Add(this.button15);
+            this.tabPageRelay4.Controls.Add(this.button16);
+            this.tabPageRelay4.Controls.Add(this.button17);
+            this.tabPageRelay4.Controls.Add(this.panel6);
+            this.tabPageRelay4.Location = new System.Drawing.Point(4, 25);
+            this.tabPageRelay4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.tabPageRelay4.Name = "tabPageRelay4";
+            this.tabPageRelay4.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.tabPageRelay4.Size = new System.Drawing.Size(509, 254);
+            this.tabPageRelay4.TabIndex = 5;
+            this.tabPageRelay4.Text = "Relay4";
+            // 
+            // button10
+            // 
+            this.button10.BackColor = System.Drawing.Color.Silver;
+            this.button10.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.button10.Location = new System.Drawing.Point(418, 7);
+            this.button10.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button10.Name = "button10";
+            this.button10.Size = new System.Drawing.Size(25, 23);
+            this.button10.TabIndex = 28;
+            this.button10.UseVisualStyleBackColor = false;
+            // 
+            // button11
+            // 
+            this.button11.BackColor = System.Drawing.Color.Silver;
+            this.button11.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.button11.Location = new System.Drawing.Point(393, 7);
+            this.button11.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button11.Name = "button11";
+            this.button11.Size = new System.Drawing.Size(25, 23);
+            this.button11.TabIndex = 27;
+            this.button11.UseVisualStyleBackColor = false;
+            // 
+            // button12
+            // 
+            this.button12.BackColor = System.Drawing.Color.Silver;
+            this.button12.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.button12.Location = new System.Drawing.Point(368, 7);
+            this.button12.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button12.Name = "button12";
+            this.button12.Size = new System.Drawing.Size(25, 23);
+            this.button12.TabIndex = 26;
+            this.button12.UseVisualStyleBackColor = false;
+            // 
+            // button13
+            // 
+            this.button13.BackColor = System.Drawing.Color.Silver;
+            this.button13.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.button13.Location = new System.Drawing.Point(343, 7);
+            this.button13.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button13.Name = "button13";
+            this.button13.Size = new System.Drawing.Size(25, 23);
+            this.button13.TabIndex = 25;
+            this.button13.UseVisualStyleBackColor = false;
+            // 
+            // button14
+            // 
+            this.button14.BackColor = System.Drawing.Color.Silver;
+            this.button14.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.button14.Location = new System.Drawing.Point(318, 7);
+            this.button14.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button14.Name = "button14";
+            this.button14.Size = new System.Drawing.Size(25, 23);
+            this.button14.TabIndex = 24;
+            this.button14.UseVisualStyleBackColor = false;
+            // 
+            // button15
+            // 
+            this.button15.BackColor = System.Drawing.Color.Silver;
+            this.button15.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.button15.Location = new System.Drawing.Point(293, 7);
+            this.button15.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button15.Name = "button15";
+            this.button15.Size = new System.Drawing.Size(25, 23);
+            this.button15.TabIndex = 23;
+            this.button15.UseVisualStyleBackColor = false;
+            // 
+            // button16
+            // 
+            this.button16.BackColor = System.Drawing.Color.Silver;
+            this.button16.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.button16.Location = new System.Drawing.Point(268, 7);
+            this.button16.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button16.Name = "button16";
+            this.button16.Size = new System.Drawing.Size(25, 23);
+            this.button16.TabIndex = 22;
+            this.button16.UseVisualStyleBackColor = false;
+            // 
+            // button17
+            // 
+            this.button17.BackColor = System.Drawing.Color.Silver;
+            this.button17.ForeColor = System.Drawing.Color.Silver;
+            this.button17.Location = new System.Drawing.Point(243, 7);
+            this.button17.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button17.Name = "button17";
+            this.button17.Size = new System.Drawing.Size(25, 23);
+            this.button17.TabIndex = 21;
+            this.button17.UseVisualStyleBackColor = false;
+            // 
+            // panel6
+            // 
+            this.panel6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel6.Controls.Add(this.label1TextBoxRelay4Status);
+            this.panel6.Controls.Add(this.textBoxRelay4Status);
+            this.panel6.Controls.Add(this.label1TextBoxRelay4Off);
+            this.panel6.Controls.Add(this.label1TextBoxRelay4On);
+            this.panel6.Controls.Add(this.textBoxRelay4Off);
+            this.panel6.Controls.Add(this.textBoxRelay4On);
+            this.panel6.Controls.Add(this.checkBoxRelay4Enabled);
+            this.panel6.Controls.Add(this.comboBoxBaudRelay4);
+            this.panel6.Controls.Add(this.comboBoxComRelay4);
+            this.panel6.Location = new System.Drawing.Point(7, 9);
+            this.panel6.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.panel6.Name = "panel6";
+            this.panel6.Size = new System.Drawing.Size(227, 163);
+            this.panel6.TabIndex = 5;
+            // 
+            // label1TextBoxRelay4Status
+            // 
+            this.label1TextBoxRelay4Status.AutoSize = true;
+            this.label1TextBoxRelay4Status.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1TextBoxRelay4Status.Location = new System.Drawing.Point(120, 127);
+            this.label1TextBoxRelay4Status.Name = "label1TextBoxRelay4Status";
+            this.label1TextBoxRelay4Status.Size = new System.Drawing.Size(80, 17);
+            this.label1TextBoxRelay4Status.TabIndex = 9;
+            this.label1TextBoxRelay4Status.Text = "Status Cmd";
+            this.label1TextBoxRelay4Status.Visible = false;
+            // 
+            // textBoxRelay4Status
+            // 
+            this.textBoxRelay4Status.Location = new System.Drawing.Point(11, 124);
+            this.textBoxRelay4Status.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.textBoxRelay4Status.Name = "textBoxRelay4Status";
+            this.textBoxRelay4Status.Size = new System.Drawing.Size(100, 22);
+            this.textBoxRelay4Status.TabIndex = 8;
+            this.textBoxRelay4Status.Visible = false;
+            // 
+            // label1TextBoxRelay4Off
+            // 
+            this.label1TextBoxRelay4Off.AutoSize = true;
+            this.label1TextBoxRelay4Off.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1TextBoxRelay4Off.Location = new System.Drawing.Point(120, 98);
+            this.label1TextBoxRelay4Off.Name = "label1TextBoxRelay4Off";
+            this.label1TextBoxRelay4Off.Size = new System.Drawing.Size(59, 17);
+            this.label1TextBoxRelay4Off.TabIndex = 7;
+            this.label1TextBoxRelay4Off.Text = "Off Cmd";
+            this.label1TextBoxRelay4Off.Visible = false;
+            // 
+            // label1TextBoxRelay4On
+            // 
+            this.label1TextBoxRelay4On.AutoSize = true;
+            this.label1TextBoxRelay4On.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1TextBoxRelay4On.Location = new System.Drawing.Point(121, 71);
+            this.label1TextBoxRelay4On.Name = "label1TextBoxRelay4On";
+            this.label1TextBoxRelay4On.Size = new System.Drawing.Size(59, 17);
+            this.label1TextBoxRelay4On.TabIndex = 6;
+            this.label1TextBoxRelay4On.Text = "On Cmd";
+            this.label1TextBoxRelay4On.Visible = false;
+            // 
+            // textBoxRelay4Off
+            // 
+            this.textBoxRelay4Off.Location = new System.Drawing.Point(11, 96);
+            this.textBoxRelay4Off.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.textBoxRelay4Off.Name = "textBoxRelay4Off";
+            this.textBoxRelay4Off.Size = new System.Drawing.Size(100, 22);
+            this.textBoxRelay4Off.TabIndex = 5;
+            this.textBoxRelay4Off.Visible = false;
+            // 
+            // textBoxRelay4On
+            // 
+            this.textBoxRelay4On.Location = new System.Drawing.Point(11, 68);
+            this.textBoxRelay4On.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.textBoxRelay4On.Name = "textBoxRelay4On";
+            this.textBoxRelay4On.Size = new System.Drawing.Size(100, 22);
+            this.textBoxRelay4On.TabIndex = 4;
+            this.textBoxRelay4On.Visible = false;
+            // 
+            // checkBoxRelay4Enabled
+            // 
+            this.checkBoxRelay4Enabled.AutoSize = true;
+            this.checkBoxRelay4Enabled.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxRelay4Enabled.Location = new System.Drawing.Point(141, 10);
+            this.checkBoxRelay4Enabled.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.checkBoxRelay4Enabled.Name = "checkBoxRelay4Enabled";
+            this.checkBoxRelay4Enabled.Size = new System.Drawing.Size(82, 21);
+            this.checkBoxRelay4Enabled.TabIndex = 3;
+            this.checkBoxRelay4Enabled.Text = "Enabled";
+            this.checkBoxRelay4Enabled.UseVisualStyleBackColor = true;
+            this.checkBoxRelay4Enabled.CheckedChanged += new System.EventHandler(this.checkBoxRelay4Enabled_CheckedChanged);
+            // 
+            // comboBoxBaudRelay4
+            // 
+            this.comboBoxBaudRelay4.FormattingEnabled = true;
+            this.comboBoxBaudRelay4.Location = new System.Drawing.Point(11, 37);
+            this.comboBoxBaudRelay4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.comboBoxBaudRelay4.Name = "comboBoxBaudRelay4";
+            this.comboBoxBaudRelay4.Size = new System.Drawing.Size(121, 24);
+            this.comboBoxBaudRelay4.TabIndex = 2;
+            this.comboBoxBaudRelay4.Visible = false;
+            // 
+            // comboBoxComRelay4
+            // 
+            this.comboBoxComRelay4.FormattingEnabled = true;
+            this.comboBoxComRelay4.Location = new System.Drawing.Point(11, 7);
+            this.comboBoxComRelay4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.comboBoxComRelay4.Name = "comboBoxComRelay4";
+            this.comboBoxComRelay4.Size = new System.Drawing.Size(121, 24);
+            this.comboBoxComRelay4.TabIndex = 0;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
-            this.ClientSize = new System.Drawing.Size(519, 288);
+            this.ClientSize = new System.Drawing.Size(519, 318);
             this.Controls.Add(this.tabControl1);
+            this.Controls.Add(this.menuStrip1);
             this.DataBindings.Add(new System.Windows.Forms.Binding("Location", global::AmpAutoTunerUtility.Properties.Settings.Default, "Location", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Location = global::AmpAutoTunerUtility.Properties.Settings.Default.Location;
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.MaximumSize = new System.Drawing.Size(537, 335);
+            this.MaximumSize = new System.Drawing.Size(537, 365);
             this.Name = "Form1";
-            this.Text = "AmpAutoTunerUtility V0.24 by W9MDB";
+            this.Text = "AmpAutoTunerUtility V0.24a by W9MDB";
             this.HelpButtonClicked += new System.ComponentModel.CancelEventHandler(this.Form1_HelpButtonClicked);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
             this.Load += new System.EventHandler(this.Form1_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownInductance)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCapacitance)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownSensitivity)).EndInit();
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.tabControl1.ResumeLayout(false);
             this.tabPageControl.ResumeLayout(false);
+            this.groupBox3.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.groupBox1.ResumeLayout(false);
+            this.tabPageDebug.ResumeLayout(false);
+            this.tabPageDebug.PerformLayout();
             this.tabPageTuner.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
-            this.tabPageRig.ResumeLayout(false);
+            this.tabPagePower.ResumeLayout(false);
+            this.tabPagePower.PerformLayout();
+            this.tabPageAntenna.ResumeLayout(false);
+            this.tabPageAntenna.PerformLayout();
             this.tabPageRelay1.ResumeLayout(false);
             this.tabPageRelay1.PerformLayout();
             this.panel1.ResumeLayout(false);
@@ -2777,107 +2959,139 @@
             this.tabPageRelay4.ResumeLayout(false);
             this.panel6.ResumeLayout(false);
             this.panel6.PerformLayout();
-            this.tabPageAntenna.ResumeLayout(false);
-            this.tabPageAntenna.PerformLayout();
-            this.tabPagePower.ResumeLayout(false);
-            this.tabPagePower.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.Timer timerGetFreq;
+        private System.Windows.Forms.Timer timerDebug;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem closeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem viewToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem antennaToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem debugToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem powerToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem tunerToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem1;
         private System.Windows.Forms.TabControl tabControl1;
-        private System.Windows.Forms.TabPage tabPageRelay1;
+        private System.Windows.Forms.TabPage tabPageControl;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.Label labelAntennaSelected;
+        private System.Windows.Forms.Label labelFreq;
+        private System.Windows.Forms.Label labelPower;
+        private System.Windows.Forms.Label labelSWR;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.NumericUpDown numericUpDownInductance;
+        private System.Windows.Forms.NumericUpDown numericUpDownCapacitance;
+        private System.Windows.Forms.Button buttonTunePause;
+        private System.Windows.Forms.Button buttonTune;
+        private System.Windows.Forms.Button buttonTunerStatus;
+        private System.Windows.Forms.TabPage tabPageDebug;
+        private System.Windows.Forms.CheckBox checkBoxDebugEnable;
+        private System.Windows.Forms.RichTextBox richTextBoxDebug;
         private System.Windows.Forms.TabPage tabPageTuner;
-        private System.Windows.Forms.TabPage tabPageRig;
-        private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.CheckBox checkBoxRelay1Enabled;
-        private System.Windows.Forms.ComboBox comboBoxBaudRelay1;
-        private System.Windows.Forms.ComboBox comboBoxComRelay1;
-        private System.Windows.Forms.RichTextBox richTextBoxRig;
-        private System.Windows.Forms.TextBox textBoxRelay1Off;
-        private System.Windows.Forms.TextBox textBoxRelay1On;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.CheckBox checkBoxToneEnabled;
+        private System.Windows.Forms.CheckBox checkBoxPTTEnabled;
+        private System.Windows.Forms.CheckBox checkBoxPowerSDR;
+        private System.Windows.Forms.CheckBox checkBoxRig;
+        private System.Windows.Forms.RadioButton radioButtonVFOB;
+        private System.Windows.Forms.RadioButton radioButtonVFOA;
+        private System.Windows.Forms.ComboBox comboBoxAudioOut;
         private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.NumericUpDown numericUpDownSensitivity;
+        private System.Windows.Forms.CheckBox checkBoxTunerEnabled;
+        private System.Windows.Forms.ComboBox comboBoxTunerModel;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox textBoxFreqTol;
         private System.Windows.Forms.ComboBox comboBoxBaudTuner;
         private System.Windows.Forms.ComboBox comboBoxComTuner;
-        private System.Windows.Forms.Label labelTextBoxRelay1Status;
-        private System.Windows.Forms.TextBox textBoxRelay1Status;
-        private System.Windows.Forms.Label labelTextBoxRelay1Off;
-        private System.Windows.Forms.Label labelTextBoxRelay1On;
-        private System.Windows.Forms.TabPage tabPageRelay2;
-        private System.Windows.Forms.TabPage tabPageRelay3;
-        private System.Windows.Forms.TabPage tabPageRelay4;
-        private System.Windows.Forms.Panel panel4;
-        private System.Windows.Forms.Label labelTextBoxRelay2Status;
-        private System.Windows.Forms.TextBox textBoxRelay2Status;
-        private System.Windows.Forms.Label labelTextBoxRelay2Off;
-        private System.Windows.Forms.Label labelTextBoxRelay2On;
-        private System.Windows.Forms.TextBox textBoxRelay2Off;
-        private System.Windows.Forms.TextBox textBoxRelay2On;
-        private System.Windows.Forms.CheckBox checkBoxRelay2Enabled;
-        private System.Windows.Forms.ComboBox comboBoxBaudRelay2;
-        private System.Windows.Forms.ComboBox comboBoxComRelay2;
-        private System.Windows.Forms.Panel panel5;
-        private System.Windows.Forms.Label labelTextBoxRelay3Status;
-        private System.Windows.Forms.TextBox textBoxRelay3Status;
-        private System.Windows.Forms.Label labelTextBoxRelay3Off;
-        private System.Windows.Forms.Label labelTextBoxRelay3On;
-        private System.Windows.Forms.TextBox textBoxRelay3Off;
-        private System.Windows.Forms.TextBox textBoxRelay3On;
-        private System.Windows.Forms.CheckBox checkBoxRelay3Enabled;
-        private System.Windows.Forms.ComboBox comboBoxBaudRelay3;
-        private System.Windows.Forms.ComboBox comboBoxComRelay3;
-        private System.Windows.Forms.Panel panel6;
-        private System.Windows.Forms.Label label1TextBoxRelay4Status;
-        private System.Windows.Forms.TextBox textBoxRelay4Status;
-        private System.Windows.Forms.Label label1TextBoxRelay4Off;
-        private System.Windows.Forms.Label label1TextBoxRelay4On;
-        private System.Windows.Forms.TextBox textBoxRelay4Off;
-        private System.Windows.Forms.TextBox textBoxRelay4On;
-        private System.Windows.Forms.CheckBox checkBoxRelay4Enabled;
-        private System.Windows.Forms.ComboBox comboBoxBaudRelay4;
-        private System.Windows.Forms.ComboBox comboBoxComRelay4;
-        private System.Windows.Forms.ComboBox comboBoxTunerModel;
-        private System.Windows.Forms.CheckBox checkBoxTunerEnabled;
-        private System.Windows.Forms.Button button1_4;
-        private System.Windows.Forms.Button button1_3;
-        private System.Windows.Forms.Button button1_2;
-        private System.Windows.Forms.Button button1_1;
-        private System.Windows.Forms.Button button1_8;
-        private System.Windows.Forms.Button button1_7;
-        private System.Windows.Forms.Button button1_6;
-        private System.Windows.Forms.Button button1_5;
-        private System.Windows.Forms.Button button18;
-        private System.Windows.Forms.Button button19;
-        private System.Windows.Forms.Button button20;
-        private System.Windows.Forms.Button button21;
-        private System.Windows.Forms.Button button22;
-        private System.Windows.Forms.Button button23;
-        private System.Windows.Forms.Button button24;
-        private System.Windows.Forms.Button button25;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button5;
-        private System.Windows.Forms.Button button6;
-        private System.Windows.Forms.Button button7;
-        private System.Windows.Forms.Button button8;
-        private System.Windows.Forms.Button button9;
-        private System.Windows.Forms.Button button10;
-        private System.Windows.Forms.Button button11;
-        private System.Windows.Forms.Button button12;
-        private System.Windows.Forms.Button button13;
-        private System.Windows.Forms.Button button14;
-        private System.Windows.Forms.Button button15;
-        private System.Windows.Forms.Button button16;
-        private System.Windows.Forms.Button button17;
-        private System.Windows.Forms.RadioButton radioButtonVFOB;
-        private System.Windows.Forms.RadioButton radioButtonVFOA;
+        private System.Windows.Forms.TabPage tabPagePower;
+        private System.Windows.Forms.ComboBox comboBoxPower8Mode;
+        private System.Windows.Forms.ComboBox comboBoxPower7Mode;
+        private System.Windows.Forms.ComboBox comboBoxPower6Mode;
+        private System.Windows.Forms.ComboBox comboBoxPower5Mode;
+        private System.Windows.Forms.ComboBox comboBoxPower4Mode;
+        private System.Windows.Forms.ComboBox comboBoxPower3Mode;
+        private System.Windows.Forms.ComboBox comboBoxPower2Mode;
+        private System.Windows.Forms.ComboBox comboBoxPower1Mode;
+        private System.Windows.Forms.TextBox textBoxPower8Watts;
+        private System.Windows.Forms.TextBox textBoxPower7Watts;
+        private System.Windows.Forms.TextBox textBoxPower6Watts;
+        private System.Windows.Forms.TextBox textBoxPower5Watts;
+        private System.Windows.Forms.TextBox textBoxPower4Watts;
+        private System.Windows.Forms.TextBox textBoxPower3Watts;
+        private System.Windows.Forms.TextBox textBoxPower2Watts;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TextBox textBoxPower1Watts;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.CheckBox checkBoxPower8Enabled;
+        private System.Windows.Forms.CheckBox checkBoxPower7Enabled;
+        private System.Windows.Forms.CheckBox checkBoxPower6Enabled;
+        private System.Windows.Forms.CheckBox checkBoxPower5Enabled;
+        private System.Windows.Forms.CheckBox checkBoxPower4Enabled;
+        private System.Windows.Forms.CheckBox checkBoxPower3Enabled;
+        private System.Windows.Forms.CheckBox checkBoxPower2Enabled;
+        private System.Windows.Forms.CheckBox checkBoxPower1Enabled;
+        private System.Windows.Forms.TextBox textBoxPower8To;
+        private System.Windows.Forms.TextBox textBoxPower8From;
+        private System.Windows.Forms.TextBox textBoxPower7To;
+        private System.Windows.Forms.TextBox textBoxPower7From;
+        private System.Windows.Forms.TextBox textBoxPower6To;
+        private System.Windows.Forms.TextBox textBoxPower6From;
+        private System.Windows.Forms.TextBox textBoxPower5To;
+        private System.Windows.Forms.TextBox textBoxPower5From;
+        private System.Windows.Forms.TextBox textBoxPower4To;
+        private System.Windows.Forms.TextBox textBoxPower4From;
+        private System.Windows.Forms.TextBox textBoxPower3To;
+        private System.Windows.Forms.TextBox textBoxPower3From;
+        private System.Windows.Forms.TextBox textBoxPower2To;
+        private System.Windows.Forms.TextBox textBoxPower2From;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox textBoxPower1To;
+        private System.Windows.Forms.TextBox textBoxPower1From;
         private System.Windows.Forms.TabPage tabPageAntenna;
+        private System.Windows.Forms.Button buttonAntenna8;
+        private System.Windows.Forms.Button buttonAntenna7;
+        private System.Windows.Forms.Button buttonAntenna6;
+        private System.Windows.Forms.Button buttonAntenna5;
+        private System.Windows.Forms.Button buttonAntenna4;
+        private System.Windows.Forms.Button buttonAntenna3;
+        private System.Windows.Forms.Button buttonAntenna2;
+        private System.Windows.Forms.Button buttonAntenna1;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.TextBox textBoxAntenna8;
+        private System.Windows.Forms.TextBox textBoxAntenna7;
+        private System.Windows.Forms.TextBox textBoxAntenna6;
+        private System.Windows.Forms.TextBox textBoxAntenna5;
+        private System.Windows.Forms.TextBox textBoxAntenna4;
+        private System.Windows.Forms.TextBox textBoxAntenna3;
+        private System.Windows.Forms.TextBox textBoxAntenna2;
+        private System.Windows.Forms.TextBox textBoxAntenna1;
+        private System.Windows.Forms.CheckBox checkBoxAntenna8;
+        private System.Windows.Forms.CheckBox checkBoxAntenna7;
+        private System.Windows.Forms.CheckBox checkBoxAntenna6;
+        private System.Windows.Forms.CheckBox checkBoxAntenna5;
+        private System.Windows.Forms.CheckBox checkBoxAntenna4;
+        private System.Windows.Forms.CheckBox checkBoxAntenna3;
+        private System.Windows.Forms.CheckBox checkBoxAntenna2;
+        private System.Windows.Forms.CheckBox checkBoxAntenna1;
+        private System.Windows.Forms.TextBox textBoxAntenna8Bits;
+        private System.Windows.Forms.ComboBox comboBoxAntenna8Relay;
+        private System.Windows.Forms.TextBox textBoxAntenna7Bits;
+        private System.Windows.Forms.ComboBox comboBoxAntenna7Relay;
+        private System.Windows.Forms.TextBox textBoxAntennaFreq8To;
+        private System.Windows.Forms.TextBox textBoxAntennaFreq8From;
+        private System.Windows.Forms.TextBox textBoxAntennaFreq7To;
+        private System.Windows.Forms.TextBox textBoxAntennaFreq7From;
         private System.Windows.Forms.TextBox textBoxAntenna6Bits;
         private System.Windows.Forms.ComboBox comboBoxAntenna6Relay;
         private System.Windows.Forms.TextBox textBoxAntenna5Bits;
@@ -2907,104 +3121,89 @@
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.TextBox textBoxAntennaFreq1To;
-        private System.Windows.Forms.Label label18;
-        private System.Windows.Forms.TextBox textBoxAntenna8;
-        private System.Windows.Forms.TextBox textBoxAntenna7;
-        private System.Windows.Forms.TextBox textBoxAntenna6;
-        private System.Windows.Forms.TextBox textBoxAntenna5;
-        private System.Windows.Forms.TextBox textBoxAntenna4;
-        private System.Windows.Forms.TextBox textBoxAntenna3;
-        private System.Windows.Forms.TextBox textBoxAntenna2;
-        private System.Windows.Forms.TextBox textBoxAntenna1;
-        private System.Windows.Forms.CheckBox checkBoxAntenna8;
-        private System.Windows.Forms.CheckBox checkBoxAntenna7;
-        private System.Windows.Forms.CheckBox checkBoxAntenna6;
-        private System.Windows.Forms.CheckBox checkBoxAntenna5;
-        private System.Windows.Forms.CheckBox checkBoxAntenna4;
-        private System.Windows.Forms.CheckBox checkBoxAntenna3;
-        private System.Windows.Forms.CheckBox checkBoxAntenna2;
-        private System.Windows.Forms.CheckBox checkBoxAntenna1;
-        private System.Windows.Forms.TextBox textBoxAntenna8Bits;
-        private System.Windows.Forms.ComboBox comboBoxAntenna8Relay;
-        private System.Windows.Forms.TextBox textBoxAntenna7Bits;
-        private System.Windows.Forms.ComboBox comboBoxAntenna7Relay;
-        private System.Windows.Forms.TextBox textBoxAntennaFreq8To;
-        private System.Windows.Forms.TextBox textBoxAntennaFreq8From;
-        private System.Windows.Forms.TextBox textBoxAntennaFreq7To;
-        private System.Windows.Forms.TextBox textBoxAntennaFreq7From;
-        private System.Windows.Forms.NumericUpDown numericUpDownSensitivity;
+        private System.Windows.Forms.TextBox textBoxAntennaFreq1From;
+        private System.Windows.Forms.TabPage tabPageRelay1;
         private System.Windows.Forms.LinkLabel linkLabel2;
         private System.Windows.Forms.LinkLabel linkLabel1;
-        private System.Windows.Forms.Button buttonAntenna8;
-        private System.Windows.Forms.Button buttonAntenna7;
-        private System.Windows.Forms.Button buttonAntenna6;
-        private System.Windows.Forms.Button buttonAntenna5;
-        private System.Windows.Forms.Button buttonAntenna4;
-        private System.Windows.Forms.Button buttonAntenna3;
-        private System.Windows.Forms.Button buttonAntenna2;
-        private System.Windows.Forms.Button buttonAntenna1;
-        private System.Windows.Forms.TabPage tabPageControl;
-        private System.Windows.Forms.Button buttonTunerStatus;
-        private System.Windows.Forms.Button buttonTune;
-        private System.Windows.Forms.Label labelFreq;
-        private System.Windows.Forms.Label labelAntennaSelected;
-        private System.Windows.Forms.Label labelSWR;
-        private System.Windows.Forms.Label labelPower;
-        private System.Windows.Forms.TextBox textBoxAntennaFreq1From;
-        private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Button buttonTunePause;
-        private System.Windows.Forms.CheckBox checkBoxToneEnabled;
-        private System.Windows.Forms.CheckBox checkBoxPTTEnabled;
-        private System.Windows.Forms.ComboBox comboBoxAudioOut;
-        private System.Windows.Forms.TabPage tabPagePower;
-        private System.Windows.Forms.CheckBox checkBoxPower8Enabled;
-        private System.Windows.Forms.CheckBox checkBoxPower7Enabled;
-        private System.Windows.Forms.CheckBox checkBoxPower6Enabled;
-        private System.Windows.Forms.CheckBox checkBoxPower5Enabled;
-        private System.Windows.Forms.CheckBox checkBoxPower4Enabled;
-        private System.Windows.Forms.CheckBox checkBoxPower3Enabled;
-        private System.Windows.Forms.CheckBox checkBoxPower2Enabled;
-        private System.Windows.Forms.CheckBox checkBoxPower1Enabled;
-        private System.Windows.Forms.TextBox textBoxPower8To;
-        private System.Windows.Forms.TextBox textBoxPower8From;
-        private System.Windows.Forms.TextBox textBoxPower7To;
-        private System.Windows.Forms.TextBox textBoxPower7From;
-        private System.Windows.Forms.TextBox textBoxPower6To;
-        private System.Windows.Forms.TextBox textBoxPower6From;
-        private System.Windows.Forms.TextBox textBoxPower5To;
-        private System.Windows.Forms.TextBox textBoxPower5From;
-        private System.Windows.Forms.TextBox textBoxPower4To;
-        private System.Windows.Forms.TextBox textBoxPower4From;
-        private System.Windows.Forms.TextBox textBoxPower3To;
-        private System.Windows.Forms.TextBox textBoxPower3From;
-        private System.Windows.Forms.TextBox textBoxPower2To;
-        private System.Windows.Forms.TextBox textBoxPower2From;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox textBoxPower1To;
-        private System.Windows.Forms.TextBox textBoxPower1From;
-        private System.Windows.Forms.TextBox textBoxPower8Watts;
-        private System.Windows.Forms.TextBox textBoxPower7Watts;
-        private System.Windows.Forms.TextBox textBoxPower6Watts;
-        private System.Windows.Forms.TextBox textBoxPower5Watts;
-        private System.Windows.Forms.TextBox textBoxPower4Watts;
-        private System.Windows.Forms.TextBox textBoxPower3Watts;
-        private System.Windows.Forms.TextBox textBoxPower2Watts;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox textBoxPower1Watts;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.CheckBox checkBoxPowerSDR;
-        private System.Windows.Forms.CheckBox checkBoxRig;
-        private System.Windows.Forms.ComboBox comboBoxPower8Mode;
-        private System.Windows.Forms.ComboBox comboBoxPower7Mode;
-        private System.Windows.Forms.ComboBox comboBoxPower6Mode;
-        private System.Windows.Forms.ComboBox comboBoxPower5Mode;
-        private System.Windows.Forms.ComboBox comboBoxPower4Mode;
-        private System.Windows.Forms.ComboBox comboBoxPower3Mode;
-        private System.Windows.Forms.ComboBox comboBoxPower2Mode;
-        private System.Windows.Forms.ComboBox comboBoxPower1Mode;
+        private System.Windows.Forms.Button button1_8;
+        private System.Windows.Forms.Button button1_7;
+        private System.Windows.Forms.Button button1_6;
+        private System.Windows.Forms.Button button1_5;
+        private System.Windows.Forms.Button button1_4;
+        private System.Windows.Forms.Button button1_3;
+        private System.Windows.Forms.Button button1_2;
+        private System.Windows.Forms.Button button1_1;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Label labelTextBoxRelay1Status;
+        private System.Windows.Forms.TextBox textBoxRelay1Status;
+        private System.Windows.Forms.Label labelTextBoxRelay1Off;
+        private System.Windows.Forms.Label labelTextBoxRelay1On;
+        private System.Windows.Forms.TextBox textBoxRelay1Off;
+        private System.Windows.Forms.TextBox textBoxRelay1On;
+        private System.Windows.Forms.CheckBox checkBoxRelay1Enabled;
+        private System.Windows.Forms.ComboBox comboBoxBaudRelay1;
+        private System.Windows.Forms.ComboBox comboBoxComRelay1;
+        private System.Windows.Forms.TabPage tabPageRelay2;
+        private System.Windows.Forms.Button button18;
+        private System.Windows.Forms.Button button19;
+        private System.Windows.Forms.Button button20;
+        private System.Windows.Forms.Button button21;
+        private System.Windows.Forms.Button button22;
+        private System.Windows.Forms.Button button23;
+        private System.Windows.Forms.Button button24;
+        private System.Windows.Forms.Button button25;
+        private System.Windows.Forms.Panel panel4;
+        private System.Windows.Forms.Label labelTextBoxRelay2Status;
+        private System.Windows.Forms.TextBox textBoxRelay2Status;
+        private System.Windows.Forms.Label labelTextBoxRelay2Off;
+        private System.Windows.Forms.Label labelTextBoxRelay2On;
+        private System.Windows.Forms.TextBox textBoxRelay2Off;
+        private System.Windows.Forms.TextBox textBoxRelay2On;
+        private System.Windows.Forms.CheckBox checkBoxRelay2Enabled;
+        private System.Windows.Forms.ComboBox comboBoxBaudRelay2;
+        private System.Windows.Forms.ComboBox comboBoxComRelay2;
+        private System.Windows.Forms.TabPage tabPageRelay3;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.Button button7;
+        private System.Windows.Forms.Button button8;
+        private System.Windows.Forms.Button button9;
+        private System.Windows.Forms.Panel panel5;
+        private System.Windows.Forms.Label labelTextBoxRelay3Status;
+        private System.Windows.Forms.TextBox textBoxRelay3Status;
+        private System.Windows.Forms.Label labelTextBoxRelay3Off;
+        private System.Windows.Forms.Label labelTextBoxRelay3On;
+        private System.Windows.Forms.TextBox textBoxRelay3Off;
+        private System.Windows.Forms.TextBox textBoxRelay3On;
+        private System.Windows.Forms.CheckBox checkBoxRelay3Enabled;
+        private System.Windows.Forms.ComboBox comboBoxBaudRelay3;
+        private System.Windows.Forms.ComboBox comboBoxComRelay3;
+        private System.Windows.Forms.TabPage tabPageRelay4;
+        private System.Windows.Forms.Button button10;
+        private System.Windows.Forms.Button button11;
+        private System.Windows.Forms.Button button12;
+        private System.Windows.Forms.Button button13;
+        private System.Windows.Forms.Button button14;
+        private System.Windows.Forms.Button button15;
+        private System.Windows.Forms.Button button16;
+        private System.Windows.Forms.Button button17;
+        private System.Windows.Forms.Panel panel6;
+        private System.Windows.Forms.Label label1TextBoxRelay4Status;
+        private System.Windows.Forms.TextBox textBoxRelay4Status;
+        private System.Windows.Forms.Label label1TextBoxRelay4Off;
+        private System.Windows.Forms.Label label1TextBoxRelay4On;
+        private System.Windows.Forms.TextBox textBoxRelay4Off;
+        private System.Windows.Forms.TextBox textBoxRelay4On;
+        private System.Windows.Forms.CheckBox checkBoxRelay4Enabled;
+        private System.Windows.Forms.ComboBox comboBoxBaudRelay4;
+        private System.Windows.Forms.ComboBox comboBoxComRelay4;
+        private System.Windows.Forms.ToolStripMenuItem relay1ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem relay2ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem relay3ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem relay4ToolStripMenuItem;
     }
 }
 

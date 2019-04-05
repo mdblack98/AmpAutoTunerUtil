@@ -153,24 +153,6 @@ namespace AmpAutoTunerUtility
             Thread.Sleep(200);
         }
 
-        public bool IsOK()
-        {
-            return true;
-            // We'll just get the serial number to see if we're working
-            Open(false);
-            if (ftdi == null)
-            {
-                Open(false);
-                return false;
-            }
-            {
-                ftdi.GetSerialNumber(out string serialNumber);
-                if (serialNumber.Length == 0) return false;
-            }
-            Close();
-            return true;
-        }
-
         public void AllOff()
         {
             //Open();

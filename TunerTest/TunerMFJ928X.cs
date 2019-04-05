@@ -13,12 +13,13 @@ namespace TunerTest
 {
     public class TunerMFJ928X : Tuner
     {
-        enum TunerStateEnum { UNKNOWN, SLEEP, AWAKE, TUNING, TUNEDONE, ERR}
-        TunerStateEnum TunerState = TunerStateEnum.UNKNOWN;
+        //enum TunerStateEnum { UNKNOWN, SLEEP, AWAKE, TUNING, TUNEDONE, ERR}
+        //TunerStateEnum TunerState = TunerStateEnum.UNKNOWN;
         private SerialPort SerialPortTuner = null;
         public double FwdPwr { get; set; }
         public double RefPwr { get; set; }
         public double Swr { get; set; }
+        
         bool Tuning = false;
 
         public TunerMFJ928X(string model, string comport, string baud)
@@ -55,7 +56,7 @@ namespace TunerTest
                 SetText("Error opening Tuner...\n" + ex.Message);
                 return;
             }
-            SetText("Tuner opened on " + comport + "\n");
+            //SetText("Tuner opened on " + comport + "\n");
             //SerialPortTuner.DataReceived += new SerialDataReceivedEventHandler(port_DataReceived);
 
 

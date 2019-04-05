@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "AmpAutoTunerUtility"
-#define MyAppVersion "0.23"
+#define MyAppVersion "0.24"
 #define MyAppPublisher "W9MDB"
 #define MyAppURL "https://www.qrz.com/db/W9MDB"
 #define MyAppExeName "AmpAutoTunerUtility.exe"
