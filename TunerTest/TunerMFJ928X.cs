@@ -125,6 +125,7 @@ namespace TunerTest
 
         private void MsgFE(byte[] received)
         {
+
             byte[] data = new byte[7];
             int i = 0;
             for (; i < received.Length - 1 && i < 7; ++i)
@@ -135,6 +136,7 @@ namespace TunerTest
             {
                 data[i] = (byte)SerialPortTuner.ReadByte();
             }
+            //SetText(MyTime() + "CMD packet: " + dumphex(data) + "\n");
             //Thread.Sleep(200);
             byte datum = data[1];
             switch (datum)
@@ -167,6 +169,20 @@ namespace TunerTest
                             break;
                     }
                     break;
+                case 0x11:
+                    switch (data[2])
+                    {
+                        case 0x00:
+                            SetText(MyTime() + "Stopped tuning\n");
+                            break;
+                        case 0x01:
+                            SetText(MyTime() + "Started tuning\n");
+                            break;
+                        default:
+                            SetText(MyTime() + "Unknown 0x11 command\n");
+                            break;
+                    }
+                    break;
                 case 0x21:
                     switch (data[2])
                     {
@@ -178,29 +194,33 @@ namespace TunerTest
                     }
                     break;
                 default:
-                    SetText(MyTime() + "CMD unknown=" + dumphex(data)+"\n");
+                    SetText(MyTime() + "Error CMD unknown=" + dumphex(data)+"\n");
                     break;
-            {
-
             }
-            }
-            SetText(MyTime() + "CMD packet: " +dumphex(data)+"\n");
         }
 
         private void raiseAppSerialDataEvent(byte[] received)
         {
             //SetText(MyTime() + " "+dumphex(received)+"\n");
             bool abort = false;
-            for(int i=0;i<received.Length;++i)
+            for (int i = 0; i < received.Length; ++i)
             {
                 byte datum = received[i];
-                switch(datum)
+                switch (datum)
                 {
-                    case 0xfa: SetText(MyTime()+"Awake\n");break;
-                    case 0xfb: SetText(MyTime() + "Sleeping\n"); break;
-                    case 0xfe: MsgFE(received);i += 5; break;
-                    case 0xff: MsgFF(received); i += 5; break;
-                    default: SetText(datum.ToString("X")+" - Unknown\n");abort = true; break;
+                    case 0xfa:
+                        if (Tuning) SetText(MyTime() + "Awake\n");
+                        break;
+                    case 0xfb:
+                        if (Tuning) SetText(MyTime() + "Sleeping\n");
+                        break;
+                    case 0xfe:
+                        MsgFE(received); i += 5;
+                        break;
+                    case 0xff:
+                        MsgFF(received); i += 5;
+                        break;
+                    default: SetText(datum.ToString("X") + " - Error unknown event\n"); abort = true; break;
                 }
                 if (abort) break;
             }
@@ -366,9 +386,10 @@ namespace TunerTest
 
         public void CMD_SetAutoStatus(int seconds)
         {
+            return; // default setting is 0x30 0x05 -- leave it alone for now
             byte[] response = new byte[8];
             byte bsecs = (byte)(seconds << 4);
-            byte[] cmdampoff = { 0xfe, 0xfe, 0x21, 0x16, 0x00, bsecs, 0x00, 0xfd };
+            byte[] cmdampoff = { 0xfe, 0xfe, 0x21, 0x16, 0x10, 0x01, 0x00, 0xfd };
             SendCmd(cmdampoff, ref response);
         }
 
@@ -407,10 +428,16 @@ namespace TunerTest
             SetText(MyTime() + "Start tune1, Tuning="+Tuning+"\n");
             CMD_Tune();
             SetText(MyTime() + "Start tune2, Tuning=" + Tuning + "\n");
-            while (Tuning)
+            int loop = 10; // 10 seconds max in here
+            while (Tuning && --loop > 0)
             {
-                SetText(MyTime() + "wait for Tuning\n");
+                SetText(MyTime() + "wait for Tuning " + loop + "\n");
                 Thread.Sleep(1000);
+            }
+            if (loop==0)
+            {
+                Tuning = false;
+                SetText(MyTime() + "Error...Tuning timed out!");
             }
             SetText(MyTime() + "Tuned " + FwdPwr + "/" + RefPwr + "/" + string.Format("{0:0.00}", Swr));
             SetText(MyTime() + "Turn amp on\n");

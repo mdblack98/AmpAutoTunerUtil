@@ -96,30 +96,17 @@
             this.button1_2 = new System.Windows.Forms.Button();
             this.button1_1 = new System.Windows.Forms.Button();
             this.comboBoxComRelay1 = new System.Windows.Forms.ComboBox();
-            this.timerGetFreq = new System.Windows.Forms.Timer(this.components);
-            this.timerDebug = new System.Windows.Forms.Timer(this.components);
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.antennaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.debugToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.powerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.tunerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.relay1ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.relay2ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.relay3ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.relay4ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.aboutToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPageControl = new System.Windows.Forms.TabPage();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.groupBoxOptions = new System.Windows.Forms.GroupBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.button26 = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.tabPageDebug = new System.Windows.Forms.TabPage();
-            this.checkBoxDebugEnable = new System.Windows.Forms.CheckBox();
+            this.checkBoxPause = new System.Windows.Forms.CheckBox();
+            this.comboBoxDebugLevel = new System.Windows.Forms.ComboBox();
             this.richTextBoxDebug = new System.Windows.Forms.RichTextBox();
             this.tabPageTuner = new System.Windows.Forms.TabPage();
             this.panel2 = new System.Windows.Forms.Panel();
@@ -129,6 +116,16 @@
             this.comboBoxBaudTuner = new System.Windows.Forms.ComboBox();
             this.comboBoxComTuner = new System.Windows.Forms.ComboBox();
             this.tabPagePower = new System.Windows.Forms.TabPage();
+            this.label7 = new System.Windows.Forms.Label();
+            this.textBoxTune8Power = new System.Windows.Forms.TextBox();
+            this.textBoxTune7Power = new System.Windows.Forms.TextBox();
+            this.textBoxTune6Power = new System.Windows.Forms.TextBox();
+            this.textBoxTune5Power = new System.Windows.Forms.TextBox();
+            this.textBoxTune4Power = new System.Windows.Forms.TextBox();
+            this.textBoxTune3Power = new System.Windows.Forms.TextBox();
+            this.textBoxTune2Power = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.textBoxTune1Power = new System.Windows.Forms.TextBox();
             this.textBoxPower8Watts = new System.Windows.Forms.TextBox();
             this.textBoxPower7Watts = new System.Windows.Forms.TextBox();
             this.textBoxPower6Watts = new System.Windows.Forms.TextBox();
@@ -269,13 +266,29 @@
             this.checkBoxRelay4Enabled = new System.Windows.Forms.CheckBox();
             this.comboBoxBaudRelay4 = new System.Windows.Forms.ComboBox();
             this.comboBoxComRelay4 = new System.Windows.Forms.ComboBox();
+            this.timerGetFreq = new System.Windows.Forms.Timer(this.components);
+            this.timerDebug = new System.Windows.Forms.Timer(this.components);
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.antennaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.debugToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.powerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tunerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.relay1ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.relay2ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.relay3ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.relay4ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aboutToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownInductance)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCapacitance)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownSensitivity)).BeginInit();
-            this.menuStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPageControl.SuspendLayout();
-            this.groupBox3.SuspendLayout();
+            this.groupBoxOptions.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tabPageDebug.SuspendLayout();
@@ -292,6 +305,7 @@
             this.panel5.SuspendLayout();
             this.tabPageRelay4.SuspendLayout();
             this.panel6.SuspendLayout();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // labelAntennaSelected
@@ -375,6 +389,7 @@
             this.numericUpDownCapacitance.TabIndex = 12;
             this.toolTip1.SetToolTip(this.numericUpDownCapacitance, "Capacitance pF");
             this.numericUpDownCapacitance.ValueChanged += new System.EventHandler(this.numericUpDownCapacitance_ValueChanged);
+            this.numericUpDownCapacitance.MouseUp += new System.Windows.Forms.MouseEventHandler(this.NumericUpDownCapacitance_MouseUp);
             // 
             // buttonTunePause
             // 
@@ -447,10 +462,10 @@
             this.checkBoxPowerSDR.Location = new System.Drawing.Point(21, 55);
             this.checkBoxPowerSDR.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.checkBoxPowerSDR.Name = "checkBoxPowerSDR";
-            this.checkBoxPowerSDR.Size = new System.Drawing.Size(98, 21);
+            this.checkBoxPowerSDR.Size = new System.Drawing.Size(141, 21);
             this.checkBoxPowerSDR.TabIndex = 4;
-            this.checkBoxPowerSDR.Text = "PowerSDR";
-            this.toolTip1.SetToolTip(this.checkBoxPowerSDR, "Use Tuner on PowerSDR");
+            this.checkBoxPowerSDR.Text = "PowerSDR/Thetis";
+            this.toolTip1.SetToolTip(this.checkBoxPowerSDR, "Use Tuner on PowerSDR/Thetis");
             this.checkBoxPowerSDR.UseVisualStyleBackColor = true;
             // 
             // checkBoxRig
@@ -553,7 +568,7 @@
             // 
             this.comboBoxPower8Mode.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::AmpAutoTunerUtility.Properties.Settings.Default, "Power8Mode", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.comboBoxPower8Mode.FormattingEnabled = true;
-            this.comboBoxPower8Mode.Location = new System.Drawing.Point(201, 218);
+            this.comboBoxPower8Mode.Location = new System.Drawing.Point(247, 218);
             this.comboBoxPower8Mode.Name = "comboBoxPower8Mode";
             this.comboBoxPower8Mode.Size = new System.Drawing.Size(82, 24);
             this.comboBoxPower8Mode.TabIndex = 89;
@@ -564,7 +579,7 @@
             // 
             this.comboBoxPower7Mode.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::AmpAutoTunerUtility.Properties.Settings.Default, "Power7Mode", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.comboBoxPower7Mode.FormattingEnabled = true;
-            this.comboBoxPower7Mode.Location = new System.Drawing.Point(200, 191);
+            this.comboBoxPower7Mode.Location = new System.Drawing.Point(246, 191);
             this.comboBoxPower7Mode.Name = "comboBoxPower7Mode";
             this.comboBoxPower7Mode.Size = new System.Drawing.Size(82, 24);
             this.comboBoxPower7Mode.TabIndex = 88;
@@ -575,7 +590,7 @@
             // 
             this.comboBoxPower6Mode.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::AmpAutoTunerUtility.Properties.Settings.Default, "Power6Mode", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.comboBoxPower6Mode.FormattingEnabled = true;
-            this.comboBoxPower6Mode.Location = new System.Drawing.Point(201, 164);
+            this.comboBoxPower6Mode.Location = new System.Drawing.Point(247, 164);
             this.comboBoxPower6Mode.Name = "comboBoxPower6Mode";
             this.comboBoxPower6Mode.Size = new System.Drawing.Size(82, 24);
             this.comboBoxPower6Mode.TabIndex = 87;
@@ -586,7 +601,7 @@
             // 
             this.comboBoxPower5Mode.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::AmpAutoTunerUtility.Properties.Settings.Default, "Power5Mode", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.comboBoxPower5Mode.FormattingEnabled = true;
-            this.comboBoxPower5Mode.Location = new System.Drawing.Point(200, 137);
+            this.comboBoxPower5Mode.Location = new System.Drawing.Point(246, 137);
             this.comboBoxPower5Mode.Name = "comboBoxPower5Mode";
             this.comboBoxPower5Mode.Size = new System.Drawing.Size(82, 24);
             this.comboBoxPower5Mode.TabIndex = 86;
@@ -597,7 +612,7 @@
             // 
             this.comboBoxPower4Mode.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::AmpAutoTunerUtility.Properties.Settings.Default, "Power4Mode", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.comboBoxPower4Mode.FormattingEnabled = true;
-            this.comboBoxPower4Mode.Location = new System.Drawing.Point(201, 110);
+            this.comboBoxPower4Mode.Location = new System.Drawing.Point(247, 110);
             this.comboBoxPower4Mode.Name = "comboBoxPower4Mode";
             this.comboBoxPower4Mode.Size = new System.Drawing.Size(82, 24);
             this.comboBoxPower4Mode.TabIndex = 85;
@@ -608,7 +623,7 @@
             // 
             this.comboBoxPower3Mode.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::AmpAutoTunerUtility.Properties.Settings.Default, "Power3Mode", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.comboBoxPower3Mode.FormattingEnabled = true;
-            this.comboBoxPower3Mode.Location = new System.Drawing.Point(201, 83);
+            this.comboBoxPower3Mode.Location = new System.Drawing.Point(247, 83);
             this.comboBoxPower3Mode.Name = "comboBoxPower3Mode";
             this.comboBoxPower3Mode.Size = new System.Drawing.Size(82, 24);
             this.comboBoxPower3Mode.TabIndex = 84;
@@ -619,7 +634,7 @@
             // 
             this.comboBoxPower2Mode.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::AmpAutoTunerUtility.Properties.Settings.Default, "Power2Mode", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.comboBoxPower2Mode.FormattingEnabled = true;
-            this.comboBoxPower2Mode.Location = new System.Drawing.Point(201, 56);
+            this.comboBoxPower2Mode.Location = new System.Drawing.Point(247, 56);
             this.comboBoxPower2Mode.Name = "comboBoxPower2Mode";
             this.comboBoxPower2Mode.Size = new System.Drawing.Size(82, 24);
             this.comboBoxPower2Mode.TabIndex = 83;
@@ -631,7 +646,7 @@
             this.comboBoxPower1Mode.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::AmpAutoTunerUtility.Properties.Settings.Default, "Power1Mode", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.comboBoxPower1Mode.FormattingEnabled = true;
             this.comboBoxPower1Mode.ItemHeight = 16;
-            this.comboBoxPower1Mode.Location = new System.Drawing.Point(201, 29);
+            this.comboBoxPower1Mode.Location = new System.Drawing.Point(247, 29);
             this.comboBoxPower1Mode.Name = "comboBoxPower1Mode";
             this.comboBoxPower1Mode.Size = new System.Drawing.Size(82, 24);
             this.comboBoxPower1Mode.TabIndex = 82;
@@ -932,6 +947,7 @@
             this.button1_8.TabIndex = 20;
             this.toolTip1.SetToolTip(this.button1_8, "Toggle relay\r\nGreen when switched");
             this.button1_8.UseVisualStyleBackColor = false;
+            this.button1_8.Click += new System.EventHandler(this.button1_8_Click);
             // 
             // button1_7
             // 
@@ -944,6 +960,7 @@
             this.button1_7.TabIndex = 19;
             this.toolTip1.SetToolTip(this.button1_7, "Toggle relay\r\nGreen when switched");
             this.button1_7.UseVisualStyleBackColor = false;
+            this.button1_7.Click += new System.EventHandler(this.button1_7_Click);
             // 
             // button1_6
             // 
@@ -956,6 +973,7 @@
             this.button1_6.TabIndex = 18;
             this.toolTip1.SetToolTip(this.button1_6, "Toggle relay\r\nGreen when switched");
             this.button1_6.UseVisualStyleBackColor = false;
+            this.button1_6.Click += new System.EventHandler(this.button1_6_Click);
             // 
             // button1_5
             // 
@@ -968,6 +986,7 @@
             this.button1_5.TabIndex = 17;
             this.toolTip1.SetToolTip(this.button1_5, "Toggle relay\r\nGreen when switched");
             this.button1_5.UseVisualStyleBackColor = false;
+            this.button1_5.Click += new System.EventHandler(this.button1_5_Click);
             // 
             // button1_4
             // 
@@ -980,6 +999,7 @@
             this.button1_4.TabIndex = 16;
             this.toolTip1.SetToolTip(this.button1_4, "Toggle relay\r\nGreen when switched");
             this.button1_4.UseVisualStyleBackColor = false;
+            this.button1_4.Click += new System.EventHandler(this.button1_4_Click);
             // 
             // button1_3
             // 
@@ -992,6 +1012,7 @@
             this.button1_3.TabIndex = 15;
             this.toolTip1.SetToolTip(this.button1_3, "Toggle relay\r\nGreen when switched");
             this.button1_3.UseVisualStyleBackColor = false;
+            this.button1_3.Click += new System.EventHandler(this.button1_3_Click);
             // 
             // button1_2
             // 
@@ -1004,6 +1025,7 @@
             this.button1_2.TabIndex = 14;
             this.toolTip1.SetToolTip(this.button1_2, "Toggle relay\r\nGreen when switched");
             this.button1_2.UseVisualStyleBackColor = false;
+            this.button1_2.Click += new System.EventHandler(this.button1_2_Click);
             // 
             // button1_1
             // 
@@ -1016,6 +1038,7 @@
             this.button1_1.TabIndex = 13;
             this.toolTip1.SetToolTip(this.button1_1, "Toggle relay\r\nGreen when switched");
             this.button1_1.UseVisualStyleBackColor = false;
+            this.button1_1.Click += new System.EventHandler(this.button1_1_Click);
             // 
             // comboBoxComRelay1
             // 
@@ -1027,141 +1050,6 @@
             this.comboBoxComRelay1.TabIndex = 0;
             this.comboBoxComRelay1.Text = global::AmpAutoTunerUtility.Properties.Settings.Default.Relay1Com;
             this.toolTip1.SetToolTip(this.comboBoxComRelay1, "FT245R Com Ports");
-            // 
-            // timerGetFreq
-            // 
-            this.timerGetFreq.Tick += new System.EventHandler(this.TimerGetFreq_Tick);
-            // 
-            // timerDebug
-            // 
-            this.timerDebug.Tick += new System.EventHandler(this.timerDebug_Tick);
-            // 
-            // menuStrip1
-            // 
-            this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fileToolStripMenuItem,
-            this.viewToolStripMenuItem,
-            this.aboutToolStripMenuItem});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(519, 28);
-            this.menuStrip1.TabIndex = 0;
-            this.menuStrip1.Text = "menuStrip1";
-            // 
-            // fileToolStripMenuItem
-            // 
-            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.closeToolStripMenuItem});
-            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(44, 24);
-            this.fileToolStripMenuItem.Text = "File";
-            // 
-            // closeToolStripMenuItem
-            // 
-            this.closeToolStripMenuItem.Name = "closeToolStripMenuItem";
-            this.closeToolStripMenuItem.Size = new System.Drawing.Size(120, 26);
-            this.closeToolStripMenuItem.Text = "Close";
-            this.closeToolStripMenuItem.Click += new System.EventHandler(this.closeToolStripMenuItem_Click);
-            // 
-            // viewToolStripMenuItem
-            // 
-            this.viewToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.antennaToolStripMenuItem,
-            this.debugToolStripMenuItem,
-            this.powerToolStripMenuItem,
-            this.tunerToolStripMenuItem,
-            this.relay1ToolStripMenuItem,
-            this.relay2ToolStripMenuItem,
-            this.relay3ToolStripMenuItem,
-            this.relay4ToolStripMenuItem});
-            this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
-            this.viewToolStripMenuItem.Size = new System.Drawing.Size(53, 24);
-            this.viewToolStripMenuItem.Text = "View";
-            // 
-            // antennaToolStripMenuItem
-            // 
-            this.antennaToolStripMenuItem.Checked = global::AmpAutoTunerUtility.Properties.Settings.Default.checkBoxAntennaTab;
-            this.antennaToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.antennaToolStripMenuItem.Name = "antennaToolStripMenuItem";
-            this.antennaToolStripMenuItem.Size = new System.Drawing.Size(139, 26);
-            this.antennaToolStripMenuItem.Text = "Antenna";
-            // 
-            // debugToolStripMenuItem
-            // 
-            this.debugToolStripMenuItem.Checked = global::AmpAutoTunerUtility.Properties.Settings.Default.checkBoxDebugTab;
-            this.debugToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.debugToolStripMenuItem.Name = "debugToolStripMenuItem";
-            this.debugToolStripMenuItem.Size = new System.Drawing.Size(139, 26);
-            this.debugToolStripMenuItem.Text = "Debug";
-            // 
-            // powerToolStripMenuItem
-            // 
-            this.powerToolStripMenuItem.Checked = global::AmpAutoTunerUtility.Properties.Settings.Default.checkBoxPowerTab;
-            this.powerToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.powerToolStripMenuItem.Name = "powerToolStripMenuItem";
-            this.powerToolStripMenuItem.Size = new System.Drawing.Size(139, 26);
-            this.powerToolStripMenuItem.Text = "Power";
-            // 
-            // tunerToolStripMenuItem
-            // 
-            this.tunerToolStripMenuItem.Checked = global::AmpAutoTunerUtility.Properties.Settings.Default.checkBoxTunerTab;
-            this.tunerToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.tunerToolStripMenuItem.Name = "tunerToolStripMenuItem";
-            this.tunerToolStripMenuItem.Size = new System.Drawing.Size(139, 26);
-            this.tunerToolStripMenuItem.Text = "Tuner";
-            // 
-            // relay1ToolStripMenuItem
-            // 
-            this.relay1ToolStripMenuItem.Checked = global::AmpAutoTunerUtility.Properties.Settings.Default.checkedMenuRelay1;
-            this.relay1ToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.relay1ToolStripMenuItem.Name = "relay1ToolStripMenuItem";
-            this.relay1ToolStripMenuItem.Size = new System.Drawing.Size(139, 26);
-            this.relay1ToolStripMenuItem.Text = "Relay1";
-            this.relay1ToolStripMenuItem.Click += new System.EventHandler(this.relay1ToolStripMenuItem_Click);
-            // 
-            // relay2ToolStripMenuItem
-            // 
-            this.relay2ToolStripMenuItem.Checked = global::AmpAutoTunerUtility.Properties.Settings.Default.checkedMenuRelay2;
-            this.relay2ToolStripMenuItem.Name = "relay2ToolStripMenuItem";
-            this.relay2ToolStripMenuItem.Size = new System.Drawing.Size(139, 26);
-            this.relay2ToolStripMenuItem.Text = "Relay2";
-            this.relay2ToolStripMenuItem.Click += new System.EventHandler(this.relay2ToolStripMenuItem_Click);
-            // 
-            // relay3ToolStripMenuItem
-            // 
-            this.relay3ToolStripMenuItem.Checked = global::AmpAutoTunerUtility.Properties.Settings.Default.checkedMenuRelay3;
-            this.relay3ToolStripMenuItem.Name = "relay3ToolStripMenuItem";
-            this.relay3ToolStripMenuItem.Size = new System.Drawing.Size(139, 26);
-            this.relay3ToolStripMenuItem.Text = "Relay3";
-            // 
-            // relay4ToolStripMenuItem
-            // 
-            this.relay4ToolStripMenuItem.Checked = global::AmpAutoTunerUtility.Properties.Settings.Default.checkedMenuRelay4;
-            this.relay4ToolStripMenuItem.Name = "relay4ToolStripMenuItem";
-            this.relay4ToolStripMenuItem.Size = new System.Drawing.Size(139, 26);
-            this.relay4ToolStripMenuItem.Text = "Relay4";
-            // 
-            // aboutToolStripMenuItem
-            // 
-            this.aboutToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.helpToolStripMenuItem,
-            this.aboutToolStripMenuItem1});
-            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(62, 24);
-            this.aboutToolStripMenuItem.Text = "About";
-            // 
-            // helpToolStripMenuItem
-            // 
-            this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-            this.helpToolStripMenuItem.Size = new System.Drawing.Size(125, 26);
-            this.helpToolStripMenuItem.Text = "Help";
-            // 
-            // aboutToolStripMenuItem1
-            // 
-            this.aboutToolStripMenuItem1.Name = "aboutToolStripMenuItem1";
-            this.aboutToolStripMenuItem1.Size = new System.Drawing.Size(125, 26);
-            this.aboutToolStripMenuItem1.Text = "About";
             // 
             // tabControl1
             // 
@@ -1180,32 +1068,65 @@
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(517, 290);
             this.tabControl1.TabIndex = 8;
+            this.toolTip1.SetToolTip(this.tabControl1, "Enable verbose debug");
             // 
             // tabPageControl
             // 
             this.tabPageControl.BackColor = System.Drawing.Color.LightGray;
-            this.tabPageControl.Controls.Add(this.groupBox3);
+            this.tabPageControl.Controls.Add(this.groupBoxOptions);
             this.tabPageControl.Controls.Add(this.groupBox2);
             this.tabPageControl.Controls.Add(this.groupBox1);
             this.tabPageControl.Location = new System.Drawing.Point(4, 25);
             this.tabPageControl.Margin = new System.Windows.Forms.Padding(30);
             this.tabPageControl.Name = "tabPageControl";
             this.tabPageControl.Padding = new System.Windows.Forms.Padding(30);
-            this.tabPageControl.Size = new System.Drawing.Size(509, 254);
+            this.tabPageControl.Size = new System.Drawing.Size(509, 261);
             this.tabPageControl.TabIndex = 7;
             this.tabPageControl.Text = "Control";
             // 
-            // groupBox3
+            // groupBoxOptions
             // 
-            this.groupBox3.Controls.Add(this.numericUpDownInductance);
-            this.groupBox3.Controls.Add(this.numericUpDownCapacitance);
-            this.groupBox3.Location = new System.Drawing.Point(4, 191);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(482, 61);
-            this.groupBox3.TabIndex = 17;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Options";
-            this.groupBox3.Visible = false;
+            this.groupBoxOptions.Controls.Add(this.label8);
+            this.groupBoxOptions.Controls.Add(this.button26);
+            this.groupBoxOptions.Controls.Add(this.button1);
+            this.groupBoxOptions.Controls.Add(this.numericUpDownInductance);
+            this.groupBoxOptions.Controls.Add(this.numericUpDownCapacitance);
+            this.groupBoxOptions.Location = new System.Drawing.Point(4, 191);
+            this.groupBoxOptions.Name = "groupBoxOptions";
+            this.groupBoxOptions.Size = new System.Drawing.Size(482, 61);
+            this.groupBoxOptions.TabIndex = 17;
+            this.groupBoxOptions.TabStop = false;
+            this.groupBoxOptions.Text = "Options";
+            this.groupBoxOptions.Visible = false;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(185, 22);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(46, 17);
+            this.label8.TabIndex = 16;
+            this.label8.Text = "label8";
+            // 
+            // button26
+            // 
+            this.button26.BackColor = System.Drawing.Color.White;
+            this.button26.Location = new System.Drawing.Point(231, 31);
+            this.button26.Name = "button26";
+            this.button26.Size = new System.Drawing.Size(21, 12);
+            this.button26.TabIndex = 15;
+            this.button26.Text = "button26";
+            this.button26.UseVisualStyleBackColor = false;
+            // 
+            // button1
+            // 
+            this.button1.BackColor = System.Drawing.Color.White;
+            this.button1.Location = new System.Drawing.Point(231, 21);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(21, 12);
+            this.button1.TabIndex = 14;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = false;
             // 
             // groupBox2
             // 
@@ -1235,28 +1156,46 @@
             // tabPageDebug
             // 
             this.tabPageDebug.BackColor = System.Drawing.Color.LightGray;
-            this.tabPageDebug.Controls.Add(this.checkBoxDebugEnable);
+            this.tabPageDebug.Controls.Add(this.checkBoxPause);
+            this.tabPageDebug.Controls.Add(this.comboBoxDebugLevel);
             this.tabPageDebug.Controls.Add(this.richTextBoxDebug);
             this.tabPageDebug.Location = new System.Drawing.Point(4, 25);
             this.tabPageDebug.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tabPageDebug.Name = "tabPageDebug";
             this.tabPageDebug.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.tabPageDebug.Size = new System.Drawing.Size(509, 254);
+            this.tabPageDebug.Size = new System.Drawing.Size(509, 261);
             this.tabPageDebug.TabIndex = 2;
             this.tabPageDebug.Text = "Debug";
             // 
-            // checkBoxDebugEnable
+            // checkBoxPause
             // 
-            this.checkBoxDebugEnable.AutoSize = true;
-            this.checkBoxDebugEnable.Checked = true;
-            this.checkBoxDebugEnable.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxDebugEnable.Location = new System.Drawing.Point(8, 10);
-            this.checkBoxDebugEnable.Name = "checkBoxDebugEnable";
-            this.checkBoxDebugEnable.Size = new System.Drawing.Size(118, 21);
-            this.checkBoxDebugEnable.TabIndex = 9;
-            this.checkBoxDebugEnable.Text = "Enable debug";
-            this.checkBoxDebugEnable.UseVisualStyleBackColor = true;
-            this.checkBoxDebugEnable.CheckedChanged += new System.EventHandler(this.checkBoxDebug_CheckedChanged);
+            this.checkBoxPause.AutoSize = true;
+            this.checkBoxPause.Location = new System.Drawing.Point(136, 6);
+            this.checkBoxPause.Name = "checkBoxPause";
+            this.checkBoxPause.Size = new System.Drawing.Size(70, 21);
+            this.checkBoxPause.TabIndex = 10;
+            this.checkBoxPause.Text = "Pause";
+            this.checkBoxPause.UseVisualStyleBackColor = true;
+            // 
+            // comboBoxDebugLevel
+            // 
+            this.comboBoxDebugLevel.DataBindings.Add(new System.Windows.Forms.Binding("ValueMember", global::AmpAutoTunerUtility.Properties.Settings.Default, "Tune5Power", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.comboBoxDebugLevel.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::AmpAutoTunerUtility.Properties.Settings.Default, "DebugLevel", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.comboBoxDebugLevel.DisplayMember = "0";
+            this.comboBoxDebugLevel.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxDebugLevel.FormattingEnabled = true;
+            this.comboBoxDebugLevel.Items.AddRange(new object[] {
+            "Error",
+            "Warning",
+            "Trace",
+            "Verbose"});
+            this.comboBoxDebugLevel.Location = new System.Drawing.Point(8, 6);
+            this.comboBoxDebugLevel.Name = "comboBoxDebugLevel";
+            this.comboBoxDebugLevel.Size = new System.Drawing.Size(121, 24);
+            this.comboBoxDebugLevel.TabIndex = 9;
+            this.comboBoxDebugLevel.Text = global::AmpAutoTunerUtility.Properties.Settings.Default.DebugLevel;
+            this.comboBoxDebugLevel.ValueMember = global::AmpAutoTunerUtility.Properties.Settings.Default.Tune5Power;
+            this.comboBoxDebugLevel.SelectedIndexChanged += new System.EventHandler(this.ComboBoxDebugLevel_SelectedIndexChanged);
             // 
             // richTextBoxDebug
             // 
@@ -1366,6 +1305,16 @@
             // tabPagePower
             // 
             this.tabPagePower.BackColor = System.Drawing.Color.LightGray;
+            this.tabPagePower.Controls.Add(this.label7);
+            this.tabPagePower.Controls.Add(this.textBoxTune8Power);
+            this.tabPagePower.Controls.Add(this.textBoxTune7Power);
+            this.tabPagePower.Controls.Add(this.textBoxTune6Power);
+            this.tabPagePower.Controls.Add(this.textBoxTune5Power);
+            this.tabPagePower.Controls.Add(this.textBoxTune4Power);
+            this.tabPagePower.Controls.Add(this.textBoxTune3Power);
+            this.tabPagePower.Controls.Add(this.textBoxTune2Power);
+            this.tabPagePower.Controls.Add(this.label6);
+            this.tabPagePower.Controls.Add(this.textBoxTune1Power);
             this.tabPagePower.Controls.Add(this.comboBoxPower8Mode);
             this.tabPagePower.Controls.Add(this.comboBoxPower7Mode);
             this.tabPagePower.Controls.Add(this.comboBoxPower6Mode);
@@ -1416,6 +1365,98 @@
             this.tabPagePower.Size = new System.Drawing.Size(509, 261);
             this.tabPagePower.TabIndex = 8;
             this.tabPagePower.Text = "Power";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(252, 11);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(43, 17);
+            this.label7.TabIndex = 99;
+            this.label7.Text = "Mode";
+            this.toolTip1.SetToolTip(this.label7, "Power setting for rig control program");
+            // 
+            // textBoxTune8Power
+            // 
+            this.textBoxTune8Power.Location = new System.Drawing.Point(201, 218);
+            this.textBoxTune8Power.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.textBoxTune8Power.Name = "textBoxTune8Power";
+            this.textBoxTune8Power.Size = new System.Drawing.Size(42, 22);
+            this.textBoxTune8Power.TabIndex = 98;
+            this.toolTip1.SetToolTip(this.textBoxTune8Power, "Power setting for tuning cycle\r\nValue of 0 means use Power column value");
+            // 
+            // textBoxTune7Power
+            // 
+            this.textBoxTune7Power.Location = new System.Drawing.Point(201, 191);
+            this.textBoxTune7Power.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.textBoxTune7Power.Name = "textBoxTune7Power";
+            this.textBoxTune7Power.Size = new System.Drawing.Size(42, 22);
+            this.textBoxTune7Power.TabIndex = 97;
+            this.toolTip1.SetToolTip(this.textBoxTune7Power, "Power setting for tuning cycle\r\nValue of 0 means use Power column value");
+            // 
+            // textBoxTune6Power
+            // 
+            this.textBoxTune6Power.Location = new System.Drawing.Point(201, 164);
+            this.textBoxTune6Power.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.textBoxTune6Power.Name = "textBoxTune6Power";
+            this.textBoxTune6Power.Size = new System.Drawing.Size(42, 22);
+            this.textBoxTune6Power.TabIndex = 96;
+            this.toolTip1.SetToolTip(this.textBoxTune6Power, "Power setting for tuning cycle\r\nValue of 0 means use Power column value");
+            // 
+            // textBoxTune5Power
+            // 
+            this.textBoxTune5Power.Location = new System.Drawing.Point(201, 137);
+            this.textBoxTune5Power.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.textBoxTune5Power.Name = "textBoxTune5Power";
+            this.textBoxTune5Power.Size = new System.Drawing.Size(42, 22);
+            this.textBoxTune5Power.TabIndex = 95;
+            this.toolTip1.SetToolTip(this.textBoxTune5Power, "Power setting for tuning cycle\r\nValue of 0 means use Power column value");
+            // 
+            // textBoxTune4Power
+            // 
+            this.textBoxTune4Power.Location = new System.Drawing.Point(201, 110);
+            this.textBoxTune4Power.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.textBoxTune4Power.Name = "textBoxTune4Power";
+            this.textBoxTune4Power.Size = new System.Drawing.Size(42, 22);
+            this.textBoxTune4Power.TabIndex = 94;
+            this.toolTip1.SetToolTip(this.textBoxTune4Power, "Power setting for tuning cycle\r\nValue of 0 means use Power column value");
+            // 
+            // textBoxTune3Power
+            // 
+            this.textBoxTune3Power.Location = new System.Drawing.Point(201, 83);
+            this.textBoxTune3Power.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.textBoxTune3Power.Name = "textBoxTune3Power";
+            this.textBoxTune3Power.Size = new System.Drawing.Size(42, 22);
+            this.textBoxTune3Power.TabIndex = 93;
+            this.toolTip1.SetToolTip(this.textBoxTune3Power, "Power setting for tuning cycle\r\nValue of 0 means use Power column value");
+            // 
+            // textBoxTune2Power
+            // 
+            this.textBoxTune2Power.Location = new System.Drawing.Point(201, 55);
+            this.textBoxTune2Power.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.textBoxTune2Power.Name = "textBoxTune2Power";
+            this.textBoxTune2Power.Size = new System.Drawing.Size(42, 22);
+            this.textBoxTune2Power.TabIndex = 92;
+            this.toolTip1.SetToolTip(this.textBoxTune2Power, "Power setting for tuning cycle\r\nValue of 0 means use Power column value");
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(199, 11);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(41, 17);
+            this.label6.TabIndex = 91;
+            this.label6.Text = "Tune";
+            this.toolTip1.SetToolTip(this.label6, "Power setting for tuning cycle\r\nValue of 0 means use Power column value");
+            // 
+            // textBoxTune1Power
+            // 
+            this.textBoxTune1Power.Location = new System.Drawing.Point(201, 30);
+            this.textBoxTune1Power.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.textBoxTune1Power.Name = "textBoxTune1Power";
+            this.textBoxTune1Power.Size = new System.Drawing.Size(42, 22);
+            this.textBoxTune1Power.TabIndex = 90;
+            this.toolTip1.SetToolTip(this.textBoxTune1Power, "Power setting for tuning cycle\r\nValue of 0 means use Power column value");
             // 
             // textBoxPower8Watts
             // 
@@ -1484,7 +1525,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(306, 27);
+            this.label4.Location = new System.Drawing.Point(352, 27);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(169, 170);
             this.label4.TabIndex = 72;
@@ -1493,7 +1534,7 @@
             // checkBoxPower8Enabled
             // 
             this.checkBoxPower8Enabled.AutoSize = true;
-            this.checkBoxPower8Enabled.Location = new System.Drawing.Point(286, 222);
+            this.checkBoxPower8Enabled.Location = new System.Drawing.Point(332, 222);
             this.checkBoxPower8Enabled.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.checkBoxPower8Enabled.Name = "checkBoxPower8Enabled";
             this.checkBoxPower8Enabled.Size = new System.Drawing.Size(18, 17);
@@ -1503,7 +1544,7 @@
             // checkBoxPower7Enabled
             // 
             this.checkBoxPower7Enabled.AutoSize = true;
-            this.checkBoxPower7Enabled.Location = new System.Drawing.Point(286, 195);
+            this.checkBoxPower7Enabled.Location = new System.Drawing.Point(332, 195);
             this.checkBoxPower7Enabled.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.checkBoxPower7Enabled.Name = "checkBoxPower7Enabled";
             this.checkBoxPower7Enabled.Size = new System.Drawing.Size(18, 17);
@@ -1513,7 +1554,7 @@
             // checkBoxPower6Enabled
             // 
             this.checkBoxPower6Enabled.AutoSize = true;
-            this.checkBoxPower6Enabled.Location = new System.Drawing.Point(286, 168);
+            this.checkBoxPower6Enabled.Location = new System.Drawing.Point(332, 168);
             this.checkBoxPower6Enabled.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.checkBoxPower6Enabled.Name = "checkBoxPower6Enabled";
             this.checkBoxPower6Enabled.Size = new System.Drawing.Size(18, 17);
@@ -1523,7 +1564,7 @@
             // checkBoxPower5Enabled
             // 
             this.checkBoxPower5Enabled.AutoSize = true;
-            this.checkBoxPower5Enabled.Location = new System.Drawing.Point(286, 141);
+            this.checkBoxPower5Enabled.Location = new System.Drawing.Point(332, 141);
             this.checkBoxPower5Enabled.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.checkBoxPower5Enabled.Name = "checkBoxPower5Enabled";
             this.checkBoxPower5Enabled.Size = new System.Drawing.Size(18, 17);
@@ -1533,7 +1574,7 @@
             // checkBoxPower4Enabled
             // 
             this.checkBoxPower4Enabled.AutoSize = true;
-            this.checkBoxPower4Enabled.Location = new System.Drawing.Point(286, 114);
+            this.checkBoxPower4Enabled.Location = new System.Drawing.Point(332, 114);
             this.checkBoxPower4Enabled.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.checkBoxPower4Enabled.Name = "checkBoxPower4Enabled";
             this.checkBoxPower4Enabled.Size = new System.Drawing.Size(18, 17);
@@ -1543,7 +1584,7 @@
             // checkBoxPower3Enabled
             // 
             this.checkBoxPower3Enabled.AutoSize = true;
-            this.checkBoxPower3Enabled.Location = new System.Drawing.Point(286, 87);
+            this.checkBoxPower3Enabled.Location = new System.Drawing.Point(332, 87);
             this.checkBoxPower3Enabled.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.checkBoxPower3Enabled.Name = "checkBoxPower3Enabled";
             this.checkBoxPower3Enabled.Size = new System.Drawing.Size(18, 17);
@@ -1553,7 +1594,7 @@
             // checkBoxPower2Enabled
             // 
             this.checkBoxPower2Enabled.AutoSize = true;
-            this.checkBoxPower2Enabled.Location = new System.Drawing.Point(286, 59);
+            this.checkBoxPower2Enabled.Location = new System.Drawing.Point(332, 59);
             this.checkBoxPower2Enabled.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.checkBoxPower2Enabled.Name = "checkBoxPower2Enabled";
             this.checkBoxPower2Enabled.Size = new System.Drawing.Size(18, 17);
@@ -1563,7 +1604,7 @@
             // checkBoxPower1Enabled
             // 
             this.checkBoxPower1Enabled.AutoSize = true;
-            this.checkBoxPower1Enabled.Location = new System.Drawing.Point(286, 34);
+            this.checkBoxPower1Enabled.Location = new System.Drawing.Point(332, 34);
             this.checkBoxPower1Enabled.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.checkBoxPower1Enabled.Name = "checkBoxPower1Enabled";
             this.checkBoxPower1Enabled.Size = new System.Drawing.Size(18, 17);
@@ -2267,7 +2308,7 @@
             this.tabPageRelay2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tabPageRelay2.Name = "tabPageRelay2";
             this.tabPageRelay2.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.tabPageRelay2.Size = new System.Drawing.Size(509, 254);
+            this.tabPageRelay2.Size = new System.Drawing.Size(509, 261);
             this.tabPageRelay2.TabIndex = 3;
             this.tabPageRelay2.Text = "Relay2";
             // 
@@ -2485,7 +2526,7 @@
             this.tabPageRelay3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tabPageRelay3.Name = "tabPageRelay3";
             this.tabPageRelay3.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.tabPageRelay3.Size = new System.Drawing.Size(509, 254);
+            this.tabPageRelay3.Size = new System.Drawing.Size(509, 261);
             this.tabPageRelay3.TabIndex = 4;
             this.tabPageRelay3.Text = "Relay3";
             // 
@@ -2703,7 +2744,7 @@
             this.tabPageRelay4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tabPageRelay4.Name = "tabPageRelay4";
             this.tabPageRelay4.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.tabPageRelay4.Size = new System.Drawing.Size(509, 254);
+            this.tabPageRelay4.Size = new System.Drawing.Size(509, 261);
             this.tabPageRelay4.TabIndex = 5;
             this.tabPageRelay4.Text = "Relay4";
             // 
@@ -2905,6 +2946,142 @@
             this.comboBoxComRelay4.Size = new System.Drawing.Size(121, 24);
             this.comboBoxComRelay4.TabIndex = 0;
             // 
+            // timerGetFreq
+            // 
+            this.timerGetFreq.Tick += new System.EventHandler(this.TimerGetFreq_Tick);
+            // 
+            // timerDebug
+            // 
+            this.timerDebug.Tick += new System.EventHandler(this.timerDebug_Tick);
+            // 
+            // menuStrip1
+            // 
+            this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.fileToolStripMenuItem,
+            this.viewToolStripMenuItem,
+            this.aboutToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(519, 28);
+            this.menuStrip1.TabIndex = 0;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // fileToolStripMenuItem
+            // 
+            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.closeToolStripMenuItem});
+            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(44, 24);
+            this.fileToolStripMenuItem.Text = "File";
+            // 
+            // closeToolStripMenuItem
+            // 
+            this.closeToolStripMenuItem.Name = "closeToolStripMenuItem";
+            this.closeToolStripMenuItem.Size = new System.Drawing.Size(120, 26);
+            this.closeToolStripMenuItem.Text = "Close";
+            this.closeToolStripMenuItem.Click += new System.EventHandler(this.closeToolStripMenuItem_Click);
+            // 
+            // viewToolStripMenuItem
+            // 
+            this.viewToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.antennaToolStripMenuItem,
+            this.debugToolStripMenuItem,
+            this.powerToolStripMenuItem,
+            this.tunerToolStripMenuItem,
+            this.relay1ToolStripMenuItem,
+            this.relay2ToolStripMenuItem,
+            this.relay3ToolStripMenuItem,
+            this.relay4ToolStripMenuItem});
+            this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
+            this.viewToolStripMenuItem.Size = new System.Drawing.Size(53, 24);
+            this.viewToolStripMenuItem.Text = "View";
+            // 
+            // antennaToolStripMenuItem
+            // 
+            this.antennaToolStripMenuItem.Checked = global::AmpAutoTunerUtility.Properties.Settings.Default.checkBoxAntennaTab;
+            this.antennaToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.antennaToolStripMenuItem.Name = "antennaToolStripMenuItem";
+            this.antennaToolStripMenuItem.Size = new System.Drawing.Size(139, 26);
+            this.antennaToolStripMenuItem.Text = "Antenna";
+            // 
+            // debugToolStripMenuItem
+            // 
+            this.debugToolStripMenuItem.Checked = global::AmpAutoTunerUtility.Properties.Settings.Default.checkBoxDebugTab;
+            this.debugToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.debugToolStripMenuItem.Name = "debugToolStripMenuItem";
+            this.debugToolStripMenuItem.Size = new System.Drawing.Size(139, 26);
+            this.debugToolStripMenuItem.Text = "Debug";
+            // 
+            // powerToolStripMenuItem
+            // 
+            this.powerToolStripMenuItem.Checked = global::AmpAutoTunerUtility.Properties.Settings.Default.checkBoxPowerTab;
+            this.powerToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.powerToolStripMenuItem.Name = "powerToolStripMenuItem";
+            this.powerToolStripMenuItem.Size = new System.Drawing.Size(139, 26);
+            this.powerToolStripMenuItem.Text = "Power";
+            // 
+            // tunerToolStripMenuItem
+            // 
+            this.tunerToolStripMenuItem.Checked = global::AmpAutoTunerUtility.Properties.Settings.Default.checkBoxTunerTab;
+            this.tunerToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.tunerToolStripMenuItem.Name = "tunerToolStripMenuItem";
+            this.tunerToolStripMenuItem.Size = new System.Drawing.Size(139, 26);
+            this.tunerToolStripMenuItem.Text = "Tuner";
+            // 
+            // relay1ToolStripMenuItem
+            // 
+            this.relay1ToolStripMenuItem.Checked = global::AmpAutoTunerUtility.Properties.Settings.Default.checkedMenuRelay1;
+            this.relay1ToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.relay1ToolStripMenuItem.Name = "relay1ToolStripMenuItem";
+            this.relay1ToolStripMenuItem.Size = new System.Drawing.Size(139, 26);
+            this.relay1ToolStripMenuItem.Text = "Relay1";
+            this.relay1ToolStripMenuItem.Click += new System.EventHandler(this.relay1ToolStripMenuItem_Click);
+            // 
+            // relay2ToolStripMenuItem
+            // 
+            this.relay2ToolStripMenuItem.Checked = global::AmpAutoTunerUtility.Properties.Settings.Default.checkedMenuRelay2;
+            this.relay2ToolStripMenuItem.Name = "relay2ToolStripMenuItem";
+            this.relay2ToolStripMenuItem.Size = new System.Drawing.Size(139, 26);
+            this.relay2ToolStripMenuItem.Text = "Relay2";
+            this.relay2ToolStripMenuItem.Click += new System.EventHandler(this.relay2ToolStripMenuItem_Click);
+            // 
+            // relay3ToolStripMenuItem
+            // 
+            this.relay3ToolStripMenuItem.Checked = global::AmpAutoTunerUtility.Properties.Settings.Default.checkedMenuRelay3;
+            this.relay3ToolStripMenuItem.Name = "relay3ToolStripMenuItem";
+            this.relay3ToolStripMenuItem.Size = new System.Drawing.Size(139, 26);
+            this.relay3ToolStripMenuItem.Text = "Relay3";
+            // 
+            // relay4ToolStripMenuItem
+            // 
+            this.relay4ToolStripMenuItem.Checked = global::AmpAutoTunerUtility.Properties.Settings.Default.checkedMenuRelay4;
+            this.relay4ToolStripMenuItem.Name = "relay4ToolStripMenuItem";
+            this.relay4ToolStripMenuItem.Size = new System.Drawing.Size(139, 26);
+            this.relay4ToolStripMenuItem.Text = "Relay4";
+            // 
+            // aboutToolStripMenuItem
+            // 
+            this.aboutToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.helpToolStripMenuItem,
+            this.aboutToolStripMenuItem1});
+            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(62, 24);
+            this.aboutToolStripMenuItem.Text = "About";
+            // 
+            // helpToolStripMenuItem
+            // 
+            this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+            this.helpToolStripMenuItem.Text = "Help";
+            this.helpToolStripMenuItem.Click += new System.EventHandler(this.HelpToolStripMenuItem_Click);
+            // 
+            // aboutToolStripMenuItem1
+            // 
+            this.aboutToolStripMenuItem1.Name = "aboutToolStripMenuItem1";
+            this.aboutToolStripMenuItem1.Size = new System.Drawing.Size(125, 26);
+            this.aboutToolStripMenuItem1.Text = "About";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -2919,7 +3096,7 @@
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.MaximumSize = new System.Drawing.Size(537, 365);
             this.Name = "Form1";
-            this.Text = "AmpAutoTunerUtility V0.24a by W9MDB";
+            this.Text = "AmpAutoTunerUtility V0.24c by W9MDB";
             this.HelpButtonClicked += new System.ComponentModel.CancelEventHandler(this.Form1_HelpButtonClicked);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
@@ -2927,11 +3104,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownInductance)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCapacitance)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownSensitivity)).EndInit();
-            this.menuStrip1.ResumeLayout(false);
-            this.menuStrip1.PerformLayout();
             this.tabControl1.ResumeLayout(false);
             this.tabPageControl.ResumeLayout(false);
-            this.groupBox3.ResumeLayout(false);
+            this.groupBoxOptions.ResumeLayout(false);
+            this.groupBoxOptions.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.groupBox1.ResumeLayout(false);
@@ -2959,6 +3135,8 @@
             this.tabPageRelay4.ResumeLayout(false);
             this.panel6.ResumeLayout(false);
             this.panel6.PerformLayout();
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -2981,7 +3159,7 @@
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem1;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPageControl;
-        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.GroupBox groupBoxOptions;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Label labelAntennaSelected;
         private System.Windows.Forms.Label labelFreq;
@@ -2994,7 +3172,6 @@
         private System.Windows.Forms.Button buttonTune;
         private System.Windows.Forms.Button buttonTunerStatus;
         private System.Windows.Forms.TabPage tabPageDebug;
-        private System.Windows.Forms.CheckBox checkBoxDebugEnable;
         private System.Windows.Forms.RichTextBox richTextBoxDebug;
         private System.Windows.Forms.TabPage tabPageTuner;
         private System.Windows.Forms.Panel panel2;
@@ -3204,6 +3381,21 @@
         private System.Windows.Forms.ToolStripMenuItem relay2ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem relay3ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem relay4ToolStripMenuItem;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.TextBox textBoxTune8Power;
+        private System.Windows.Forms.TextBox textBoxTune7Power;
+        private System.Windows.Forms.TextBox textBoxTune6Power;
+        private System.Windows.Forms.TextBox textBoxTune5Power;
+        private System.Windows.Forms.TextBox textBoxTune4Power;
+        private System.Windows.Forms.TextBox textBoxTune3Power;
+        private System.Windows.Forms.TextBox textBoxTune2Power;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.TextBox textBoxTune1Power;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Button button26;
+        private System.Windows.Forms.ComboBox comboBoxDebugLevel;
+        private System.Windows.Forms.CheckBox checkBoxPause;
     }
 }
 
