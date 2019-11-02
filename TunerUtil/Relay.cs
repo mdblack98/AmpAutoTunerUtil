@@ -10,19 +10,17 @@ namespace AmpAutoTunerUtility
     class Relay
     {
         private FTDI ftdi = new FTDI();
-        private bool disposed = true;
-        List<string> comList = new List<string>();
-        List<uint> comIndex = new List<uint>();
+        readonly List<string> comList = new List<string>();
+        readonly List<uint> comIndex = new List<uint>();
         readonly uint devcount = 0;
         string comPort = "";
         int relayNum = 0;
         string serialNumber = "";
-        List<string> serialNums = new List<string>();
+        readonly List<string> serialNums = new List<string>();
         public string errMsg = null;
 
         public Relay()
         {
-            disposed = false;
             try
             {
                 ftdi.SetBaudRate(9600);
@@ -181,23 +179,6 @@ namespace AmpAutoTunerUtility
             return ftdi.IsOpen;
         }
 
-        public void Dispose()
-        {
-            this.Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-        public void Dispose(bool disposing)
-        {
-            if (this.disposed)
-            {
-                return;
-            }
-            if (disposing)
-            {
-                return;
-            }
-        }
         public bool Status(int nRelay)
         {
             Open();

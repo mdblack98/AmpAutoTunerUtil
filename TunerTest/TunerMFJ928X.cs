@@ -53,7 +53,7 @@ namespace TunerTest
             }
             catch (Exception ex)
             {
-                SetText("Error opening Tuner...\n" + ex.Message);
+                SetText(DebugEnum.ERR,"Error opening Tuner...\n" + ex.Message);
                 return;
             }
             //SetText("Tuner opened on " + comport + "\n");
@@ -93,9 +93,19 @@ namespace TunerTest
         //    return s;
         //}
 
-        public void SetText(string v)
+        public void SetText(DebugEnum level, string text)
         {
-            msg.Enqueue(v);
+            if (text == null)
+            {
+                throw new ArgumentNullException(nameof(text));
+            }
+
+            var myMsg = new DebugMsg
+            {
+                Text = text,
+                Level = level
+            };
+            msgQueue.Enqueue(item: myMsg);
         }
 
         private string MyTime()
@@ -117,9 +127,9 @@ namespace TunerTest
                 data[i] = (byte)SerialPortTuner.ReadByte();
             }
             //Thread.Sleep(200);
-            SetText(MyTime() + "Auto Status: "+dumphex(data)+"\n");
+            SetText(DebugEnum.VERBOSE, MyTime() + "Auto Status: "+dumphex(data)+"\n");
             CMD_GetAutoStatus(data);
-            SetText(MyTime() + "Auto Status: " + FwdPwr + "/" + RefPwr + "/" + string.Format("{0:0.00}", Swr) + "\n");
+            SetText(DebugEnum.VERBOSE, MyTime() + "Auto Status: " + FwdPwr + "/" + RefPwr + "/" + string.Format("{0:0.00}", Swr) + "\n");
 
         }
 
@@ -147,22 +157,22 @@ namespace TunerTest
                     switch (data[3])
                     {
                         case 0x00:
-                            SetText(MyTime() + "Started by Tune cmd\n");
+                            SetText(DebugEnum.VERBOSE, MyTime() + "Started by Tune cmd\n");
                             break;
                         case 0x01:
-                            SetText(MyTime() + "Started by > SWR");
+                            SetText(DebugEnum.VERBOSE, MyTime() + "Started by > SWR");
                             break;
                         case 0x02:
-                            SetText(MyTime() + "Started by StickyTune");
+                            SetText(DebugEnum.VERBOSE, MyTime() + "Started by StickyTune");
                             break;
                         case 0x80:
-                            SetText(MyTime() + "Increase Power\n");
+                            SetText(DebugEnum.VERBOSE, MyTime() + "Increase Power\n");
                             break;
                         case 0x81:
-                            SetText(MyTime() + "Decrease Power\n");
+                            SetText(DebugEnum.VERBOSE, MyTime() + "Decrease Power\n");
                             break;
                         case 0x82:
-                            SetText(MyTime() + "Overload\n");
+                            SetText(DebugEnum.VERBOSE, MyTime() + "Overload\n");
                             break;
                         default:
 
@@ -173,13 +183,13 @@ namespace TunerTest
                     switch (data[2])
                     {
                         case 0x00:
-                            SetText(MyTime() + "Stopped tuning\n");
+                            SetText(DebugEnum.TRACE, MyTime() + "Stopped tuning\n");
                             break;
                         case 0x01:
-                            SetText(MyTime() + "Started tuning\n");
+                            SetText(DebugEnum.TRACE, MyTime() + "Started tuning\n");
                             break;
                         default:
-                            SetText(MyTime() + "Unknown 0x11 command\n");
+                            SetText(DebugEnum.ERR, MyTime() + "Unknown 0x11 command\n");
                             break;
                     }
                     break;
@@ -189,12 +199,12 @@ namespace TunerTest
                         case 0x06:
                             string status = "off\n";
                             if (data[3] == 0x01) status = "on\n";
-                            SetText(MyTime() + "Amp " + status);
+                            SetText(DebugEnum.VERBOSE, MyTime() + "Amp " + status);
                             break;
                     }
                     break;
                 default:
-                    SetText(MyTime() + "Error CMD unknown=" + dumphex(data)+"\n");
+                    SetText(DebugEnum.ERR, MyTime() + "Error CMD unknown=" + dumphex(data)+"\n");
                     break;
             }
         }
@@ -209,10 +219,10 @@ namespace TunerTest
                 switch (datum)
                 {
                     case 0xfa:
-                        if (Tuning) SetText(MyTime() + "Awake\n");
+                        if (Tuning) SetText(DebugEnum.VERBOSE, MyTime() + "Awake\n");
                         break;
                     case 0xfb:
-                        if (Tuning) SetText(MyTime() + "Sleeping\n");
+                        if (Tuning) SetText(DebugEnum.VERBOSE, MyTime() + "Sleeping\n");
                         break;
                     case 0xfe:
                         MsgFE(received); i += 5;
@@ -220,7 +230,7 @@ namespace TunerTest
                     case 0xff:
                         MsgFF(received); i += 5;
                         break;
-                    default: SetText(datum.ToString("X") + " - Error unknown event\n"); abort = true; break;
+                    default: SetText(DebugEnum.ERR, datum.ToString("X") + " - Error unknown event\n"); abort = true; break;
                 }
                 if (abort) break;
             }
@@ -228,7 +238,7 @@ namespace TunerTest
 
         private void handleAppSerialError(Exception ex)
         {
-            SetText(MyTime() + "Serial err: " + ex.Message+"\n"+ex.StackTrace);
+            SetText(DebugEnum.ERR, MyTime() + "Serial err: " + ex.Message+"\n"+ex.StackTrace);
         }
 
         public override void Close()
@@ -376,7 +386,7 @@ namespace TunerTest
                 byte checksum = (byte)((1024 - cmd[2] - cmd[3] - cmd[4] - cmd[5]) & 0xff);
                 cmd[6] = checksum;
                 SerialPortTuner.Write(cmd, 0, cmd.Length);
-                SetText(MyTime() + "SendCMD:"+dumphex(cmd)+"\n");
+                SetText(DebugEnum.VERBOSE, MyTime() + "SendCMD:"+dumphex(cmd)+"\n");
             }
             catch (TimeoutException ex)
             {
@@ -418,29 +428,29 @@ namespace TunerTest
 
         public override void Tune()
         {
-            SetText(MyTime()+"Set autostatus time to 2 seconds\n");
-            CMD_SetAutoStatus(2);
+            //SetText(DebugEnum.DEBUG_VERBOSE, MyTime()+"Set autostatus time to 2 seconds\n");
+            CMD_SetAutoStatus(1);
             byte[] response = new byte[8];
-            SetText(MyTime() + "Turn amp off\n");
+            SetText(DebugEnum.TRACE, MyTime() + "Turn amp off\n");
             CMD_Amp(0);
-            SetText(MyTime() + "If amp not off return\n");
+            SetText(DebugEnum.TRACE, MyTime() + "If amp not off return\n");
             if (CMD_Amp()) return;
-            SetText(MyTime() + "Start tune1, Tuning="+Tuning+"\n");
+            SetText(DebugEnum.TRACE, MyTime() + "Start tune1, Tuning="+Tuning+"\n");
             CMD_Tune();
-            SetText(MyTime() + "Start tune2, Tuning=" + Tuning + "\n");
+            SetText(DebugEnum.TRACE, MyTime() + "Start tune2, Tuning=" + Tuning + "\n");
             int loop = 10; // 10 seconds max in here
             while (Tuning && --loop > 0)
             {
-                SetText(MyTime() + "wait for Tuning " + loop + "\n");
+                SetText(DebugEnum.TRACE, MyTime() + "wait for Tuning " + loop + "\n");
                 Thread.Sleep(1000);
             }
             if (loop==0)
             {
                 Tuning = false;
-                SetText(MyTime() + "Error...Tuning timed out!");
+                SetText(DebugEnum.ERR, MyTime() + "Error...Tuning timed out!");
             }
-            SetText(MyTime() + "Tuned " + FwdPwr + "/" + RefPwr + "/" + string.Format("{0:0.00}", Swr));
-            SetText(MyTime() + "Turn amp on\n");
+            SetText(DebugEnum.TRACE, MyTime() + "Tuned " + FwdPwr + "/" + RefPwr + "/" + string.Format("{0:0.00}", Swr));
+            SetText(DebugEnum.TRACE, MyTime() + "Turn amp on\n");
             CMD_Amp(1);
             //byte[] cmdampoff = { 0xfe, 0xfe, 0x21, 0x06, 0x00, 0x00, 0x00, 0xfd };
             //SendCmd(cmdampoff, ref response);

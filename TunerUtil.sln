@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.329
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28803.352
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AmpAutoTunerUtility", "TunerUtil\AmpAutoTunerUtility.csproj", "{35560AF2-1D2C-40D2-95E3-74A95D829716}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TunerTest", "TunerTest\TunerTest.csproj", "{499C62E9-BAA7-472D-A768-F6B956095D28}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModeSwitch", "ModeSwitch\ModeSwitch.csproj", "{CCB64389-3DC2-470C-A328-426FF6BCF364}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,6 +43,18 @@ Global
 		{499C62E9-BAA7-472D-A768-F6B956095D28}.Release|x64.Build.0 = Release|x64
 		{499C62E9-BAA7-472D-A768-F6B956095D28}.Release|x86.ActiveCfg = Release|Any CPU
 		{499C62E9-BAA7-472D-A768-F6B956095D28}.Release|x86.Build.0 = Release|Any CPU
+		{CCB64389-3DC2-470C-A328-426FF6BCF364}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CCB64389-3DC2-470C-A328-426FF6BCF364}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CCB64389-3DC2-470C-A328-426FF6BCF364}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{CCB64389-3DC2-470C-A328-426FF6BCF364}.Debug|x64.Build.0 = Debug|Any CPU
+		{CCB64389-3DC2-470C-A328-426FF6BCF364}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{CCB64389-3DC2-470C-A328-426FF6BCF364}.Debug|x86.Build.0 = Debug|Any CPU
+		{CCB64389-3DC2-470C-A328-426FF6BCF364}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CCB64389-3DC2-470C-A328-426FF6BCF364}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CCB64389-3DC2-470C-A328-426FF6BCF364}.Release|x64.ActiveCfg = Release|Any CPU
+		{CCB64389-3DC2-470C-A328-426FF6BCF364}.Release|x64.Build.0 = Release|Any CPU
+		{CCB64389-3DC2-470C-A328-426FF6BCF364}.Release|x86.ActiveCfg = Release|Any CPU
+		{CCB64389-3DC2-470C-A328-426FF6BCF364}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -11,17 +11,24 @@ namespace AmpAutoTunerUtility
     {
         public enum DebugEnum
         {
-            DEBUG_ERR,
-            DEBUG_WARN,
-            DEBUG_TRACE,
-            DEBUG_VERBOSE
+            ERR, // fatal or action needed
+            WARN, // non-fatal things
+            TRACE, // important things to trace
+            VERBOSE, // lots of output
+            LOG // force logging of message
         }
+        public static readonly string[] DebugEnumText = { "ERR", "WRN", "TRC", "VER", "LOG" };
 
+        public class DebugMsg
+        {
+            public string Text { get; set; }
+            public DebugEnum Level { get; set; }
+        }
         protected string model = null;
         protected string comport = null;
         protected string baud = null;
-        protected DebugEnum DebugLevel = DebugEnum.DEBUG_WARN;
-        protected ConcurrentQueue<string> msg = new ConcurrentQueue<string>();
+        protected DebugEnum DebugLevel = DebugEnum.WARN;
+        protected ConcurrentQueue<DebugMsg> msgQueue = new ConcurrentQueue<DebugMsg>();
         protected int Inductance { get; set;} // pF
         protected int Capacitance { get; set; } // uH
 
@@ -70,13 +77,29 @@ namespace AmpAutoTunerUtility
             // no action by default
         }
 
-        public virtual string GetText()
+        public virtual void DebugAddMsg(Tuner.DebugEnum level, string msg)
         {
-            if (msg.TryDequeue(out string mymsg))
+            DebugMsg msgItem = new DebugMsg
             {
+                Text = msg,
+                Level = level
+            };
+            DebugAddMsg(msgItem);
+        }
+        public virtual void DebugAddMsg(Tuner.DebugMsg msg)
+        {
+            msgQueue.Enqueue(msg);
+        }
+        public virtual DebugMsg DebugGetMsg()
+        {
+            if (msgQueue.TryDequeue(out DebugMsg mymsg))
+            {
+                // Add the debug level to the message
+                string stmp = Tuner.DebugEnumText[(int)mymsg.Level] + ":" + mymsg.Text;
+                mymsg.Text = stmp;
                 return mymsg;
             }
-            else return "";
+            else return null;
         }
 
         public virtual string GetSWR()
@@ -124,6 +147,20 @@ namespace AmpAutoTunerUtility
         public virtual void CMD_Amp(byte on)
         {
             return;
+        }
+
+        public virtual void SetTuningMode(int mode)
+        {
+            // mode == 0 is auto
+            // mode == 1 is semiauto
+        }
+        public virtual bool GetAmpStatus()
+        {
+            return true;
+        }
+        public virtual void SetAmp(bool on)
+        {
+            // nothing to do
         }
     }
 }

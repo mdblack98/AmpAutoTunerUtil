@@ -79,9 +79,7 @@ namespace AmpAutoTunerUtility
             // T < 1.5
             // M 1.5-3.1
             // F Failed
-            //char response = 'X';
-            byte[] buf = new byte[19];
-            //int n = 0;
+            //byte[] buf = new byte[19];
             try
             {
                 // Need leading space to wake up the tuner
@@ -94,7 +92,6 @@ namespace AmpAutoTunerUtility
                 Thread.Sleep(50);
                 SerialPortTuner.Write("T");
                 Thread.Sleep(100);
-                //n = SerialPortTuner.Read(buf, 0, buf.Length);
                 response = (char)SerialPortTuner.ReadChar();
                 Thread.Sleep(200);
             }
@@ -103,7 +100,6 @@ namespace AmpAutoTunerUtility
                 MessageBox.Show(ex.Message);
                 response = '?';
             }
-            //return response;
         }
     }
 }

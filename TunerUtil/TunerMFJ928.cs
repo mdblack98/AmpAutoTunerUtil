@@ -22,14 +22,14 @@ namespace AmpAutoTunerUtility
         //public new int Inductance { get; set; }
         //public int Capacitance { get; set; }
         
-        bool Tuning = false;
-        Thread SerialThread;
+        volatile bool Tuning = false;
 
-        public TunerMFJ928(string model, string comport, string baud)
+        public TunerMFJ928(string model, string comport, string baud, out string error)
         {
             this.model = model;
             this.comport = comport;
             this.baud = baud;
+            error = null;
             SWR = 0;
             if (model.Equals("MFJ-928"))
             {
@@ -56,10 +56,12 @@ namespace AmpAutoTunerUtility
             }
             catch (Exception ex)
             {
-                SetText(DebugEnum.DEBUG_ERR, "Error opening Tuner...\n" + ex.Message);
+                Application.DoEvents();
+                SetText(DebugEnum.ERR, MyTime() + "Error opening Tuner...\n" + ex.Message);
+                error = "Error opening Tuner...\n" + ex.Message;
                 return;
             }
-            SetText(DebugEnum.DEBUG_VERBOSE, MyTime() + "Tuner opened on " + comport + "\n");
+            SetText(DebugEnum.LOG, MyTime() + "Tuner opened on " + comport + "\n");
             //SerialPortTuner.DataReceived += new SerialDataReceivedEventHandler(port_DataReceived);
 
 
@@ -70,11 +72,12 @@ namespace AmpAutoTunerUtility
             Queue<byte> myQueue = new Queue<byte>();
             kickoffRead = delegate
             {
-
+                if (!SerialPortTuner.BaseStream.CanRead) return;
                 SerialPortTuner.BaseStream.BeginRead(buffer, 0, buffer.Length, delegate (IAsyncResult ar)
                 {
                     try
                     {
+                        if (!SerialPortTuner.IsOpen) return;
                         int actualLength = SerialPortTuner.BaseStream.EndRead(ar);
                         byte[] received = new byte[actualLength];
                         Buffer.BlockCopy(buffer, 0, received, 0, actualLength);
@@ -86,13 +89,17 @@ namespace AmpAutoTunerUtility
                             {
                                 continue;
                             }
-                            raiseAppSerialDataEvent(cmd);
+                            RaiseAppSerialDataEvent(cmd);
                         }
                     }
                     catch (InvalidOperationException ex)
                     {
-                        handleAppSerialError(ex);
+                        HandleAppSerialError(ex);
                         return;
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message + "\n", ex.StackTrace);
                     }
                     kickoffRead();
                 }, null);
@@ -100,91 +107,13 @@ namespace AmpAutoTunerUtility
             //*/
             SerialPortTuner.BaseStream.ReadTimeout = 100;
             kickoffRead();
-            //SerialPortTuner.ReadTimeout = 10;
-            //SerialThread = new Thread(new ThreadStart(SerialThreadProc));
-            //SerialThread.Start();
-            /*
-            kickoffRead = delegate
-            {
-                byte stx = 0;
-                //SerialPortTuner.BaseStream.BeginRead(buffer1, 0, buffer1.Length, delegate (IAsyncResult ar)
-                bool flag = true;
-                while (flag)
-                {
-                    try
-                    {
-                        while(SerialPortTuner.BytesToRead == 0)
-                        {
-                            Application.DoEvents();
-                            Thread.Sleep(5);
-                        }
-                        stx = (byte)SerialPortTuner.ReadByte();
-                        flag = false;
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.StackTrace);
-                        //QueryContinueDragEventArgs;
-                    }
-                }
-                {
-                    try
-                    {
-                        //int actualLength = SerialPortTuner.BaseStream.EndRead(ar);
-                        //byte[] received = new byte[actualLength];
-                        byte[] received;
-                        //Buffer.BlockCopy(buffer1, 0, received, 0, actualLength);
-                        if (stx == 0xfe)
-                        {
-                            SerialPortTuner.BaseStream.Read(buffer, 0, 7);
-                            received = new byte[8];
-                            received[0] = 0xfe;
-                            Buffer.BlockCopy(buffer, 0, received, 1, 7);
-                            SetText(DebugEnum.DEBUG_ERR, "Serial data: " + dumphex(received) + "\n");
-                        }
-                        else if (stx == 0xff)
-                        {
-                            int actualLength2 = 0;
-                            SerialPortTuner.Read(buffer, 0, 5);
-                            if (buffer.Length != 5)
-                            {
-                                SetText(DebugEnum.DEBUG_ERR, "Expected length=5, got length=" + actualLength2 +"\n");
-                                SetText(DebugEnum.DEBUG_ERR, "Serial data: " + dumphex(buffer) + "\n");
-                            }
-                            else
-                            {
-                                received = new byte[6];
-                                received[0] = 0xff;
-                                Buffer.BlockCopy(buffer, 0, received, 1, 5);
-                                SetText(DebugEnum.DEBUG_ERR, "Serial data: " + dumphex(received) + "\n");
-                            }
-                        }
-                        else if (stx == 0xfb || stx == 0xfa || stx == 0xfd)
-                        {
-                            SetText(DebugEnum.DEBUG_ERR, "Serial data: " + stx.ToString("X") + "\n");
-                        }
-                        else
-                        {
-                            SetText(DebugEnum.DEBUG_ERR, "Serial data unknown: " + stx.ToString("X") + "\n");
-                        }
-                        //raiseAppSerialDataEvent(received);
-                    }
-                    catch (InvalidOperationException ex)
-                    {
-                        handleAppSerialError(ex);
-                        //return;
-                    }
-                    kickoffRead();
-                }//, null);
-            };
-            kickoffRead();
-            */
+            CMD_Amp(1);
         }
 
         byte[] GetCmd(Queue<byte> q)
         {
             byte[] cmd;
-            int nbytes = 0;
+            int nbytes;
             foreach (byte b in q)
             {
                 switch(b)
@@ -219,7 +148,7 @@ namespace AmpAutoTunerUtility
                         }
                         return null;
                     default:
-                        SetText(DebugEnum.DEBUG_ERR,"Unknown " + b +"\n");
+                        SetText(DebugEnum.ERR, MyTime() + "Unknown " + b +"\n");
                         cmd = new byte[1];
                         cmd[0] = q.Dequeue();
                         return null;
@@ -227,83 +156,33 @@ namespace AmpAutoTunerUtility
             }
             return null;
         }
-        private void SerialThreadProc()
-        {
-            SerialPortTuner.BaseStream.ReadTimeout = 100;
-            while (SerialPortTuner.IsOpen)
-            {
-                try
-                {
-                    byte[] buffer = new byte[4096];
-                    byte[] received = null;
-                    byte stx = (byte)SerialPortTuner.BaseStream.ReadByte();
-                    switch (stx) {
-                        case 0xfa:
-                        case 0xfb:
-                        case 0xfd:
-                            SetText(DebugEnum.DEBUG_ERR, "Serial data: " + stx.ToString("X") + "\n");
-                            break;
-                        case 0xff:
-                            received = new byte[6];
-                            received[0] = stx;
-                            int nbytes = 1;
-                            do
-                            {
-                                int n = SerialPortTuner.BaseStream.Read(received, nbytes, 5);
-                                nbytes += n;
-                            } while (nbytes != 6);
-                            if (nbytes != 6)
-                            {
-                                SetText(DebugEnum.DEBUG_ERR, "Expected length=5, got length=" + nbytes + "\n");
-                                SetText(DebugEnum.DEBUG_ERR, "Serial data: " + dumphex(received) + "\n");
-                            }
-                            else
-                            {
-                                SetText(DebugEnum.DEBUG_VERBOSE, "Serial data OK: " + dumphex(received) + "\n");
-                            }
-                            break;
-                        default:
-                            SetText(DebugEnum.DEBUG_ERR, "Unknown stx=" + stx.ToString("X")+"\n");
-                            break;
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Thread.Sleep(10);
-                }
-            }
-        }
 
         // If value == 1 or -1 will increment or decrement 
         public override void SetInductance(int value)
         {
             byte[] bcdValue = IntToBCD5((uint)value, 2);
-            byte[] response = null;
             byte[] cmdSetInductance = { 0xfe, 0xfe, 0x21, 0x01, bcdValue[0], bcdValue[1], 0x00, 0xfd };
-            SendCmd(cmdSetInductance, ref response);
+            SendCmd(cmdSetInductance);
         }
 
         // If value == 1 or -1 will increment or decrement 
         public override void SetCapacitance(int value)
         {
-            SetText(DebugEnum.DEBUG_VERBOSE, MyTime() + "SetCapacitance " + value + "\n");
+            SetText(DebugEnum.VERBOSE, MyTime() + "SetCapacitance " + value + "\n");
             switch(value)
             {
                 case 1:
-                    byte[] response1 = null;
                     byte[] cmdSetCapacitanceInc = { 0xfe, 0xfe, 0x02, 0x00, 0x00, 0x01, 0x00, 0xfd };
-                    SendCmd(cmdSetCapacitanceInc, ref response1);
+                    SendCmd(cmdSetCapacitanceInc);
                     break;
                 case -1:
-                    byte[] response2 = null;
                     byte[] cmdSetCapacitanceDec = { 0xfe, 0xfe, 0x02, 0x01, 0x00, 0x01, 0x00, 0xfd };
-                    SendCmd(cmdSetCapacitanceDec, ref response2);
+                    SendCmd(cmdSetCapacitanceDec);
                     break;
                 default:
                     byte[] bcdValue = IntToBCD5((uint)value, 2);
-                    byte[] response3 = null;
                     byte[] cmdSetCapacitance = { 0xfe, 0xfe, 0x21, 0x00, bcdValue[1], bcdValue[0], 0x00, 0xfd };
-                    SendCmd(cmdSetCapacitance, ref response3);
+                    SendCmd(cmdSetCapacitance);
                     break;
             }
         }
@@ -321,10 +200,17 @@ namespace AmpAutoTunerUtility
             return "SWR " + string.Format("{0:0.00}", SWR);
         }
 
-        public void SetText(DebugEnum debug, string v)
+        public void SetText(DebugEnum debugLevel, string v)
         {
-            if (debug <= DebugLevel || Tuning) 
-                msg.Enqueue(v);
+            if (debugLevel <= DebugLevel || debugLevel == Tuner.DebugEnum.LOG || Tuning)
+            {
+                DebugMsg myMsg = new DebugMsg
+                {
+                    Text = v,
+                    Level = debugLevel
+                };
+                msgQueue.Enqueue(myMsg);
+            }
         }
 
         private string MyTime()
@@ -346,9 +232,9 @@ namespace AmpAutoTunerUtility
                 data[i] = (byte)SerialPortTuner.ReadByte();
             }
             //Thread.Sleep(200);
-            SetText(Tuner.DebugEnum.DEBUG_VERBOSE,MyTime() + "Auto Status: "+dumphex(data)+"\n");
+            SetText(Tuner.DebugEnum.VERBOSE,MyTime() + "Auto Status: "+Dumphex(data)+"\n");
             CMD_GetAutoStatus(data);
-            SetText(DebugEnum.DEBUG_TRACE, MyTime() + "Auto Status: " + FwdPwr + "/" + RefPwr + "/" + string.Format("{0:0.00}", SWR) + "\n");
+            SetText(DebugEnum.TRACE, MyTime() + "Auto Status: " + FwdPwr + "/" + RefPwr + "/" + string.Format("{0:0.00}", SWR) + "\n");
 
         }
 
@@ -359,128 +245,131 @@ namespace AmpAutoTunerUtility
                 MessageBox.Show("oops!!  MsgFe != 8");
                 return;
             }
-            byte[] data = new byte[7];
-            int i = 0;
-            for (; i < received.Length - 1 && i < 7; ++i)
+            //SetText(DebugEnum.VERBOSE, "MsgFE: " + dumphex(data) + "\n");           //Thread.Sleep(200);
+            byte cmd = received[2];
+            byte scmd = received[3];
+            byte[] b2 = new byte[3];
+            switch (cmd)
             {
-                data[i] = received[i + 1];
-            }
-            //for (; i < 7; ++i)
-            //{
-            //    data[i] = (byte)SerialPortTuner.ReadByte();
-            //}
-            SetText(DebugEnum.DEBUG_VERBOSE, "MsgFE: " + dumphex(data) + "\n");
-            //Thread.Sleep(200);
-            byte datum = data[1];
-            byte[] b2 = new byte[2];
-            switch (datum)
-            {
-                // FE-06-01-80-00-79-FD -- tune failure
+                // FE-FE-06-01-80-00-79-FD -- tune failure
                 case 0x06:
-                    Tuning = false;
-                    TunerState = TunerStateEnum.TUNEDONE;
-                    switch (data[3])
+                    SetText(DebugEnum.TRACE, MyTime() + "case 0x06 observed\n");
+                    switch (scmd)
                     {
                         case 0x00:
-                            SetText(DebugEnum.DEBUG_TRACE, MyTime() + "Started by Tune cmd\n");
+                            SetText(DebugEnum.TRACE, MyTime() + "Started by Tune cmd\n");
+                            Tuning = false;
+                            TunerState = TunerStateEnum.TUNEDONE;
+                            byte[] b1 = new byte[2];
+                            b1[1] = received[4];
+                            b1[0] = received[5];
+                            SWR = BCD5ToInt(b1, 2)/10.0;
+                            if (SWR < 2.0) MemoryWriteCurrentFreq();
                             break;
                         case 0x01:
-                            SetText(DebugEnum.DEBUG_TRACE, MyTime() + "Started by > SWR");
+                            SetText(DebugEnum.TRACE, MyTime() + "Started by > SWR\n");
                             break;
                         case 0x02:
-                            SetText(DebugEnum.DEBUG_TRACE, MyTime() + "Started by StickyTune");
+                            SetText(DebugEnum.TRACE, MyTime() + "Started by StickyTune\n");
                             break;
                         case 0x80:
-                            SetText(DebugEnum.DEBUG_ERR, MyTime() + "Error: Increase Power\n");
-                            SWR = 0;
+                            SetText(DebugEnum.ERR, MyTime() + "Error: Increase Power\n");
+                            Tuning = false;
+                            TunerState = TunerStateEnum.TUNEDONE;
+                            SWR = 99;
                             break;
                         case 0x81:
-                            SetText(DebugEnum.DEBUG_ERR, MyTime() + "Error: Decrease Power\n");
-                            SWR = 0;
+                            SetText(DebugEnum.ERR, MyTime() + "Error: Decrease Power\n");
+                            Tuning = false;
+                            TunerState = TunerStateEnum.TUNEDONE;
+                            SWR = 99;
                             break;
                         case 0x82:
-                            SetText(DebugEnum.DEBUG_ERR, MyTime() + "Error: Overload\n");
-                            SWR = 0;
+                            SetText(DebugEnum.ERR, MyTime() + "Error: Overload\n");
+                            Tuning = false;
+                            TunerState = TunerStateEnum.TUNEDONE;
+                            SWR = 99;
                             break;
                         default:
-
+                            SetText(DebugEnum.ERR, MyTime() + "Error: tune=" + received[3].ToString("X"));
+                            Tuning = false;
+                            TunerState = TunerStateEnum.TUNEDONE;
                             break;
                     }
                     break;
                 case 0x10:
-                    switch (data[2])
+                    switch (received[3])
                     {
                         case 0x41:
-                            b2[0] = data[4];
-                            b2[1] = data[3];
+                            b2[0] = received[5];
+                            b2[1] = received[4];
                             Capacitance = (int)BCD5ToInt(b2, 2);
                             break;
                         case 0x42:
-                            b2[0] = data[4];
-                            b2[1] = data[3];
+                            b2[0] = received[5];
+                            b2[1] = received[4];
                             Inductance = (int)BCD5ToInt(b2, 2);
                             break;
                         default:
-                            SetText(DebugEnum.DEBUG_ERR, MyTime() + "CMD unknown=" + dumphex(data) + "\n");
+                            SetText(DebugEnum.ERR, MyTime() + "CMD unknown=" + Dumphex(received) + "\n");
                             break;
                     }
                     break;
                 case 0x11:
-                    switch(data[2])
+                    switch(received[3])
                     {
                         case 0x06:
                             string status = "off\n";
-                            if (data[3] == 0x01) status = "on\n";
-                            SetText(DebugEnum.DEBUG_TRACE, MyTime() + "Amp " + status);
+                            if (received[4] == 0x01) status = "on\n";
+                            SetText(DebugEnum.TRACE, MyTime() + "Amp " + status);
                             break;
                         default:
-                            SetText(DebugEnum.DEBUG_ERR, MyTime() + "CMD unknown=" + dumphex(data) + "\n");
+                            SetText(DebugEnum.ERR, MyTime() + "CMD unknown=" + Dumphex(received) + "\n");
                             break;
                     }
                     break;
                 case 0x21:
-                    switch (data[2])
+                    switch (received[3])
                     {
                         case 0x06:
                             string status = "off\n";
-                            if (data[3] == 0x01) status = "on\n";
-                            SetText(DebugEnum.DEBUG_VERBOSE, MyTime() + "Amp " + status);
+                            if (received[4] == 0x01) status = "on\n";
+                            SetText(DebugEnum.VERBOSE, MyTime() + "Amp " + status);
                             break;
                         default:
-                            SetText(DebugEnum.DEBUG_ERR, MyTime() + "CMD unknown=" + dumphex(data) + "\n");
+                            SetText(DebugEnum.ERR, MyTime() + "CMD unknown=" + Dumphex(received) + "\n");
                             break;
                     }
                     break;
                 default:
-                    SetText(DebugEnum.DEBUG_ERR,MyTime() + "CMD unknown=" + dumphex(data) + "\n");
+                    SetText(DebugEnum.ERR,MyTime() + "CMD unknown=" + Dumphex(received) + "\n");
                     break;
             }
-            SetText(DebugEnum.DEBUG_VERBOSE, MyTime() + "CMD packet: " + dumphex(data) + "\n");
+            SetText(DebugEnum.VERBOSE, MyTime() + "CMD packet: " + Dumphex(received) + "\n");
         }
 
         // Poll common elements
         public override void Poll()
         {
             if (SerialPortTuner == null) return;
-            byte[] response = new byte[8];
             byte[] cmdGetCapacitance = { 0xfe, 0xfe, 0x10, 0x41, 0x00, 0x00, 0x00, 0xfd };
-            SendCmd(cmdGetCapacitance, ref response);
+            SendCmd(cmdGetCapacitance);
             byte[] cmdGetInductance = { 0xfe, 0xfe, 0x10, 0x42, 0x00, 0x00, 0x00, 0xfd };
-            SendCmd(cmdGetInductance, ref response);
+            SendCmd(cmdGetInductance);
         }
 
-        private void raiseAppSerialDataEvent(byte[] received)
+        private void RaiseAppSerialDataEvent(byte[] received)
         {
-            SetText(DebugEnum.DEBUG_ERR, MyTime() + " "+dumphex(received)+"\n");
+            SetText(DebugEnum.VERBOSE, MyTime() + " "+Dumphex(received)+"\n");
             //return;
             byte datum = received[0];
             switch(datum)
             {
                 case 0xfa:
-                    SetText(DebugEnum.DEBUG_VERBOSE, MyTime()+"Awake\n");
+                    SetText(DebugEnum.VERBOSE, MyTime()+"Awake\n");
                     break;
                 case 0xfb:
-                    SetText(DebugEnum.DEBUG_VERBOSE, MyTime() + "Sleeping\n");
+                    SetText(DebugEnum.VERBOSE, MyTime() + "Sleeping\n");
                     break;
                 case 0xfe:
                     MsgFE(received);
@@ -489,21 +378,22 @@ namespace AmpAutoTunerUtility
                     MsgFF(received);
                     break;
                 default:
-                    SetText(DebugEnum.DEBUG_ERR, datum.ToString("X")+" - Error unknown event in " + dumphex(received)+"\n");
+                    SetText(DebugEnum.ERR, MyTime() + datum.ToString("X")+" - Error unknown event in " + Dumphex(received)+"\n");
                     break;
             }
             Application.DoEvents();
         }
 
-        private void handleAppSerialError(Exception ex)
+        private void HandleAppSerialError(Exception ex)
         {
-            SetText(DebugEnum.DEBUG_ERR, MyTime() + "Serial err: " + ex.Message+"\n"+ex.StackTrace);
+            SetText(DebugEnum.ERR, MyTime() + "Serial err: " + ex.Message+"\n"+ex.StackTrace);
         }
 
         public override void Close()
         {
             if (SerialPortTuner != null)
             {
+                SerialPortTuner.BaseStream.Close();
                 SerialPortTuner.Close();
                 //SerialThread.Abort();
                 Thread.Sleep(500); // let thread detect closure
@@ -521,6 +411,7 @@ namespace AmpAutoTunerUtility
             return SerialPortTuner.PortName;
         }
 
+        /*
         private void Flush()
         {
             while (SerialPortTuner.BytesToRead > 0)
@@ -528,6 +419,7 @@ namespace AmpAutoTunerUtility
                 SerialPortTuner.ReadChar();
             }
         }
+        */
 
         public uint BCD5ToInt(byte[] bcd, int len)
         {
@@ -556,8 +448,10 @@ namespace AmpAutoTunerUtility
             }
             return bcd;
         }
+
         private void CMD_GetAutoStatus(byte[] data)
         {
+            SetText(DebugEnum.VERBOSE, MyTime() + "AutoStatus=" + data + "\n");
             byte[] b2 = new byte[2];
             b2[0] = data[1];
             b2[1] = data[0];
@@ -567,6 +461,8 @@ namespace AmpAutoTunerUtility
             double rev = BCD5ToInt(b2, 2) / 10.0;
             FwdPwr = fwd;
             RefPwr = rev;
+            SetText(DebugEnum.VERBOSE, MyTime() + "AutoStatus=" + data + ", Fwd="+fwd+","+ "Ref="+RefPwr+"\n");
+
             if (fwd > 0)
             {
                 SWR = (1+Math.Sqrt(rev/fwd)) / (1-Math.Sqrt(rev/fwd));
@@ -581,83 +477,22 @@ namespace AmpAutoTunerUtility
             //byte[] data = new byte[4096];
             //int i = 0;
             int nn = 0;
-            char response = 'X';
-            bool GotSWR = false;
+            char response;
+            //bool GotSWR = false;
             int nwait = 0;
             while(TunerState != TunerStateEnum.TUNEDONE && nwait++ < 20)
             {
-                SetText(DebugEnum.DEBUG_TRACE, MyTime() + "Tune wait " + ++nn+"\n");
+                SetText(DebugEnum.TRACE, MyTime() + "Tune wait " + ++nn+"\n");
                 Thread.Sleep(500);
             }
-            SetText(DebugEnum.DEBUG_TRACE, MyTime() + "Tuning done SWR=\n" + string.Format("{0:0.00}", SWR));
-            if (SWR > 0 && SWR < 1.5) response = 'T';
+            SetText(DebugEnum.TRACE, MyTime() + "Tuning done SWR=" + string.Format("{0:0.00}", SWR)+"\n");
+            if (SWR > 0 && SWR <= 2) response = 'T';
             else if (SWR > 0 && SWR < 3) response = 'M';
             else response = 'F';
             return response;
-            while (true && !GotSWR)
-            {
-                ++nn;
-                if (nn > 10) return response;
-                byte datum = (byte)SerialPortTuner.ReadByte();
-                while (datum != 0xff && datum != 0xfe && datum != 0xfa && datum != 0xfb)
-                {
-                    datum = (byte)SerialPortTuner.ReadByte();
-                }
-                if (datum == 0xfa)
-                {
-                    //SetText("0xfa Awake\n");
-                }
-                else if (datum == 0xfb)
-                {
-                    //SetText("0xfb Sleep\n");
-                    return 'S';
-                }
-                else if (datum == 0xff)
-                {
-                    byte[] data = new byte[5];
-                    SerialPortTuner.Read(data, 0, 5);
-                    CMD_GetAutoStatus(data);
-                    response = 'A';
-                    if (SWR > 0 && SWR <= 1.5) response = 'T';
-                    else if (SWR > 0 && SWR <= 3.0) response = 'M';
-                    //if (response != '?') GotSWR = true;
-                    //return response;
-                }
-                else if (datum == 0xfe) // after we tune we wait for a 0xfe packet
-                {
-                    byte[] data = new byte[7];
-                    SerialPortTuner.Read(data, 0, 7);
-                    if (data[1] == 0x06 && data[2] == 0x00) // then it's the tuning answer
-                    {
-                        byte[] b1 = new byte[2];
-                        b1[0] = data[4];
-                        b1[1] = data[3];
-                        SWR = BCD5ToInt(b1, 2) / 10.0;
-                        if (SWR > 0 && SWR <= 1.5) response = 'T';
-                        else if (SWR > 0 && SWR <= 3.0) response = 'M';
-                        // turn amp control back on
-                        byte[] cmdamp = { 0xfe, 0xfe, 0x21, 0x06, 0x01, 0x00, 0x00, 0xfd };
-                        byte[] cmdbuf = new byte[8];
-                        SendCmd(cmdamp, ref cmdbuf);
-                        Thread.Sleep(10);
-                        return response;
-                    }
-                }
-                else
-                {
-                    int n = SerialPortTuner.BytesToRead;
-                    byte[] data = new byte[n];
-                    SerialPortTuner.Read(data, 0, n);
-
-                    //SetText("Unknown: ");
-                    //dumphex(data);
-                    //SetText("\n");
-                }
-            }
-            return '?';
         }
 
-        private void SendCmd(byte[] cmd, ref byte[] response)
+        private void SendCmd(byte[] cmd)
         {
             if (!SerialPortTuner.IsOpen) return;
             try
@@ -670,7 +505,7 @@ namespace AmpAutoTunerUtility
                 byte checksum = (byte)((1024 - cmd[2] - cmd[3] - cmd[4] - cmd[5]) & 0xff);
                 cmd[6] = checksum;
                 SerialPortTuner.Write(cmd, 0, cmd.Length);
-                SetText(DebugEnum.DEBUG_VERBOSE, MyTime() + "SendCMD:"+dumphex(cmd)+"\n");
+                SetText(DebugEnum.VERBOSE, MyTime() + "SendCMD:"+Dumphex(cmd)+"\n");
             }
             catch (TimeoutException ex)
             {
@@ -678,69 +513,81 @@ namespace AmpAutoTunerUtility
             }
         }
 
-        public void CMD_SetAutoStatus(int seconds)
-        {
-            byte[] response = new byte[8];
-            byte bsecs = (byte)(seconds << 4);
-            byte[] cmdampoff = { 0xfe, 0xfe, 0x21, 0x16, 0x00, 0x02, 0x00, 0xfd };
-            SendCmd(cmdampoff, ref response);
-            Thread.Sleep(500);
-        }
-
         override public void CMD_Amp(byte on)
         {
-            byte[] response = new byte[8];
             byte[] cmdamp = { 0xfe, 0xfe, 0x21, 0x06, on, 0x00, 0x00, 0xfd };
-            SendCmd(cmdamp, ref response);
+            SendCmd(cmdamp);
         }
 
-        public bool CMD_Amp()
+        public void CMD_Amp()
         {
-            byte[] response = new byte[8];
             byte[] cmdampoff = { 0xfe, 0xfe, 0x11, 0x06, 0x00, 0x00, 0x00, 0xfd };
-            SendCmd(cmdampoff, ref response);
-            return response[4] == 0x01;
+            SendCmd(cmdampoff);
+            //return response[4] == 0x01;
         }
 
         public void CMD_Tune()
         {
-            byte[] response = new byte[8];
+            SetText(DebugEnum.TRACE, MyTime() + "CMD_Tune()\n");
             Tuning = true;
             byte[] tune = { 0xfe, 0xfe, 0x06, 0x01, 0x00, 0x00, 0xf9, 0xfd };
-            SendCmd(tune, ref response);
+            SendCmd(tune);
             TunerState = TunerStateEnum.TUNING;
         }
 
         public override void Tune()
         {
-            byte[] response = new byte[8];
-            SetText(DebugEnum.DEBUG_TRACE, MyTime() + "Turn amp off\n");
-            CMD_Amp(0);
-            if (CMD_Amp())
-            {
-                SetText(DebugEnum.DEBUG_ERR, MyTime() + "Amp not off, returning!!\n");
-                return;
-            }
-            SetText(DebugEnum.DEBUG_TRACE, MyTime() + "Start tune1, Tuning="+Tuning+"\n");
+            //byte[] response = new byte[8];
+            //SetText(DebugEnum.TRACE, MyTime() + "Turn amp off\n");
+            //CMD_Amp(0);
+            //if (CMD_Amp())
+            //{
+            //    SetText(DebugEnum.ERR, MyTime() + "Amp not off, returning!!\n");
+            //    return;
+            //}
+            SetText(DebugEnum.TRACE, MyTime() + "Start tune1, Tuning="+Tuning+"\n");
             CMD_Tune();
-            SetText(DebugEnum.DEBUG_TRACE, MyTime() + "Start tune2, Tuning=" + Tuning + "\n");
+            SetText(DebugEnum.TRACE, MyTime() + "Start tune2, Tuning=" + Tuning + "\n");
             int n = 0;
-            while (Tuning && n++ < 100)
+            while (Tuning && n++ < 60)
             {
-                SetText(DebugEnum.DEBUG_TRACE, MyTime() + "wait for Tuning " + n + "/100\n");
+                SetText(DebugEnum.TRACE, MyTime() + "wait for Tuning " + n + "/30\n");
                 Application.DoEvents();
-                Thread.Sleep(300);
+                Thread.Sleep(1000);
+                SetText(DebugEnum.TRACE, MyTime() + "Tuning status=" + Tuning + "\n");
             }
-            Thread.Sleep(500);
-            SetText(DebugEnum.DEBUG_TRACE, MyTime() + "Tuned " + FwdPwr + "/" + RefPwr + "/" + string.Format("{0:0.00}", SWR));
-            //SetText(DebugEnum.DEBUG_TRACE, MyTime() + "Turn amp on\n");
+            //Thread.Sleep(500);
+            SetText(DebugEnum.TRACE, MyTime() + "Tuned " + FwdPwr + "/" + RefPwr + "/" + string.Format("{0:0.00}", SWR)+"\n");
+            //SetText(DebugEnum.TRACE, MyTime() + "Turn amp on\n");
             //CMD_Amp(1);
             return;
         }
 
-        private string dumphex(byte[] data)
+        private void MemoryWriteCurrentFreq()
+        {
+            byte[] writeMemory = { 0xfe, 0xfe, 0x30, 0x00, 0x00, 0x00, 0xf9, 0xfd };
+            SendCmd(writeMemory);
+        }
+        private string Dumphex(byte[] data)
         {
             return(BitConverter.ToString(data));
+        }
+
+        public override bool GetAmpStatus()
+        {
+            SetText(DebugEnum.TRACE, MyTime() + "GetAmpStatus()\n");
+            byte[] cmd = { 0xfe, 0xfe, 0x06, 0x01, 0x00, 0x00, 0xf9, 0xfd };
+            SendCmd(cmd);
+            return false;
+        }
+
+        public override void SetTuningMode(int mode)
+        {
+
+        }
+
+        public override void SetAmp(bool on)
+        {
         }
     }
 }

@@ -7,18 +7,6 @@
         /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing && (components != null))
-            {
-                components.Dispose();
-            }
-            base.Dispose(disposing);
-        }
 
         #region Windows Form Designer generated code
 
@@ -111,6 +99,7 @@
             this.tabPageTuner = new System.Windows.Forms.TabPage();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.button27 = new System.Windows.Forms.Button();
             this.checkBoxTunerEnabled = new System.Windows.Forms.CheckBox();
             this.comboBoxTunerModel = new System.Windows.Forms.ComboBox();
             this.comboBoxBaudTuner = new System.Windows.Forms.ComboBox();
@@ -369,7 +358,7 @@
             this.numericUpDownInductance.Size = new System.Drawing.Size(63, 22);
             this.numericUpDownInductance.TabIndex = 13;
             this.toolTip1.SetToolTip(this.numericUpDownInductance, "Inductance uH");
-            this.numericUpDownInductance.ValueChanged += new System.EventHandler(this.numericUpDownInductance_ValueChanged);
+            this.numericUpDownInductance.ValueChanged += new System.EventHandler(this.NumericUpDownInductance_ValueChanged);
             // 
             // numericUpDownCapacitance
             // 
@@ -388,7 +377,7 @@
             this.numericUpDownCapacitance.Size = new System.Drawing.Size(66, 22);
             this.numericUpDownCapacitance.TabIndex = 12;
             this.toolTip1.SetToolTip(this.numericUpDownCapacitance, "Capacitance pF");
-            this.numericUpDownCapacitance.ValueChanged += new System.EventHandler(this.numericUpDownCapacitance_ValueChanged);
+            this.numericUpDownCapacitance.ValueChanged += new System.EventHandler(this.NumericUpDownCapacitance_ValueChanged);
             this.numericUpDownCapacitance.MouseUp += new System.Windows.Forms.MouseEventHandler(this.NumericUpDownCapacitance_MouseUp);
             // 
             // buttonTunePause
@@ -417,7 +406,7 @@
             this.buttonTune.Text = "Tune";
             this.toolTip1.SetToolTip(this.buttonTune, "Start a tune cycle");
             this.buttonTune.UseVisualStyleBackColor = false;
-            this.buttonTune.Click += new System.EventHandler(this.buttonTune_Click_1);
+            this.buttonTune.Click += new System.EventHandler(this.ButtonTune_Click_1);
             // 
             // buttonTunerStatus
             // 
@@ -947,7 +936,7 @@
             this.button1_8.TabIndex = 20;
             this.toolTip1.SetToolTip(this.button1_8, "Toggle relay\r\nGreen when switched");
             this.button1_8.UseVisualStyleBackColor = false;
-            this.button1_8.Click += new System.EventHandler(this.button1_8_Click);
+            this.button1_8.Click += new System.EventHandler(this.Button1_8_Click);
             // 
             // button1_7
             // 
@@ -960,7 +949,7 @@
             this.button1_7.TabIndex = 19;
             this.toolTip1.SetToolTip(this.button1_7, "Toggle relay\r\nGreen when switched");
             this.button1_7.UseVisualStyleBackColor = false;
-            this.button1_7.Click += new System.EventHandler(this.button1_7_Click);
+            this.button1_7.Click += new System.EventHandler(this.Button1_7_Click);
             // 
             // button1_6
             // 
@@ -973,7 +962,7 @@
             this.button1_6.TabIndex = 18;
             this.toolTip1.SetToolTip(this.button1_6, "Toggle relay\r\nGreen when switched");
             this.button1_6.UseVisualStyleBackColor = false;
-            this.button1_6.Click += new System.EventHandler(this.button1_6_Click);
+            this.button1_6.Click += new System.EventHandler(this.Button1_6_Click);
             // 
             // button1_5
             // 
@@ -986,7 +975,7 @@
             this.button1_5.TabIndex = 17;
             this.toolTip1.SetToolTip(this.button1_5, "Toggle relay\r\nGreen when switched");
             this.button1_5.UseVisualStyleBackColor = false;
-            this.button1_5.Click += new System.EventHandler(this.button1_5_Click);
+            this.button1_5.Click += new System.EventHandler(this.Button1_5_Click);
             // 
             // button1_4
             // 
@@ -999,7 +988,7 @@
             this.button1_4.TabIndex = 16;
             this.toolTip1.SetToolTip(this.button1_4, "Toggle relay\r\nGreen when switched");
             this.button1_4.UseVisualStyleBackColor = false;
-            this.button1_4.Click += new System.EventHandler(this.button1_4_Click);
+            this.button1_4.Click += new System.EventHandler(this.Button1_4_Click);
             // 
             // button1_3
             // 
@@ -1012,7 +1001,7 @@
             this.button1_3.TabIndex = 15;
             this.toolTip1.SetToolTip(this.button1_3, "Toggle relay\r\nGreen when switched");
             this.button1_3.UseVisualStyleBackColor = false;
-            this.button1_3.Click += new System.EventHandler(this.button1_3_Click);
+            this.button1_3.Click += new System.EventHandler(this.Button1_3_Click);
             // 
             // button1_2
             // 
@@ -1025,7 +1014,7 @@
             this.button1_2.TabIndex = 14;
             this.toolTip1.SetToolTip(this.button1_2, "Toggle relay\r\nGreen when switched");
             this.button1_2.UseVisualStyleBackColor = false;
-            this.button1_2.Click += new System.EventHandler(this.button1_2_Click);
+            this.button1_2.Click += new System.EventHandler(this.Button1_2_Click);
             // 
             // button1_1
             // 
@@ -1038,7 +1027,7 @@
             this.button1_1.TabIndex = 13;
             this.toolTip1.SetToolTip(this.button1_1, "Toggle relay\r\nGreen when switched");
             this.button1_1.UseVisualStyleBackColor = false;
-            this.button1_1.Click += new System.EventHandler(this.button1_1_Click);
+            this.button1_1.Click += new System.EventHandler(this.Button1_1_Click);
             // 
             // comboBoxComRelay1
             // 
@@ -1241,6 +1230,7 @@
             // 
             this.panel3.BackColor = System.Drawing.Color.Transparent;
             this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel3.Controls.Add(this.button27);
             this.panel3.Controls.Add(this.numericUpDownSensitivity);
             this.panel3.Controls.Add(this.checkBoxTunerEnabled);
             this.panel3.Controls.Add(this.comboBoxTunerModel);
@@ -1253,6 +1243,16 @@
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(223, 205);
             this.panel3.TabIndex = 6;
+            // 
+            // button27
+            // 
+            this.button27.Location = new System.Drawing.Point(11, 160);
+            this.button27.Name = "button27";
+            this.button27.Size = new System.Drawing.Size(75, 23);
+            this.button27.TabIndex = 12;
+            this.button27.Text = "Amp";
+            this.button27.UseVisualStyleBackColor = true;
+            this.button27.Click += new System.EventHandler(this.Button27_Click);
             // 
             // checkBoxTunerEnabled
             // 
@@ -1279,7 +1279,7 @@
             this.comboBoxTunerModel.Size = new System.Drawing.Size(121, 24);
             this.comboBoxTunerModel.TabIndex = 6;
             this.comboBoxTunerModel.Text = global::AmpAutoTunerUtility.Properties.Settings.Default.TunerCom;
-            this.comboBoxTunerModel.SelectedIndexChanged += new System.EventHandler(this.comboBoxTunerModel_SelectedIndexChanged_1);
+            this.comboBoxTunerModel.SelectedIndexChanged += new System.EventHandler(this.ComboBoxTunerModel_SelectedIndexChanged_1);
             // 
             // comboBoxBaudTuner
             // 
@@ -2279,7 +2279,7 @@
             this.checkBoxRelay1Enabled.TabIndex = 3;
             this.checkBoxRelay1Enabled.Text = "Enabled";
             this.checkBoxRelay1Enabled.UseVisualStyleBackColor = true;
-            this.checkBoxRelay1Enabled.CheckedChanged += new System.EventHandler(this.checkBoxRelay1Enabled_CheckedChanged);
+            this.checkBoxRelay1Enabled.CheckedChanged += new System.EventHandler(this.CheckBoxRelay1Enabled_CheckedChanged);
             // 
             // comboBoxBaudRelay1
             // 
@@ -2489,7 +2489,7 @@
             this.checkBoxRelay2Enabled.TabIndex = 3;
             this.checkBoxRelay2Enabled.Text = "Enabled";
             this.checkBoxRelay2Enabled.UseVisualStyleBackColor = true;
-            this.checkBoxRelay2Enabled.CheckedChanged += new System.EventHandler(this.checkBoxRelay2Enabled_CheckedChanged);
+            this.checkBoxRelay2Enabled.CheckedChanged += new System.EventHandler(this.CheckBoxRelay2Enabled_CheckedChanged);
             // 
             // comboBoxBaudRelay2
             // 
@@ -2707,7 +2707,7 @@
             this.checkBoxRelay3Enabled.TabIndex = 3;
             this.checkBoxRelay3Enabled.Text = "Enabled";
             this.checkBoxRelay3Enabled.UseVisualStyleBackColor = true;
-            this.checkBoxRelay3Enabled.CheckedChanged += new System.EventHandler(this.checkBoxRelay3Enabled_CheckedChanged);
+            this.checkBoxRelay3Enabled.CheckedChanged += new System.EventHandler(this.CheckBoxRelay3Enabled_CheckedChanged);
             // 
             // comboBoxBaudRelay3
             // 
@@ -2925,7 +2925,7 @@
             this.checkBoxRelay4Enabled.TabIndex = 3;
             this.checkBoxRelay4Enabled.Text = "Enabled";
             this.checkBoxRelay4Enabled.UseVisualStyleBackColor = true;
-            this.checkBoxRelay4Enabled.CheckedChanged += new System.EventHandler(this.checkBoxRelay4Enabled_CheckedChanged);
+            this.checkBoxRelay4Enabled.CheckedChanged += new System.EventHandler(this.CheckBoxRelay4Enabled_CheckedChanged);
             // 
             // comboBoxBaudRelay4
             // 
@@ -2952,7 +2952,7 @@
             // 
             // timerDebug
             // 
-            this.timerDebug.Tick += new System.EventHandler(this.timerDebug_Tick);
+            this.timerDebug.Tick += new System.EventHandler(this.TimerDebug_Tick);
             // 
             // menuStrip1
             // 
@@ -2972,15 +2972,15 @@
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.closeToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(44, 24);
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(46, 24);
             this.fileToolStripMenuItem.Text = "File";
             // 
             // closeToolStripMenuItem
             // 
             this.closeToolStripMenuItem.Name = "closeToolStripMenuItem";
-            this.closeToolStripMenuItem.Size = new System.Drawing.Size(120, 26);
+            this.closeToolStripMenuItem.Size = new System.Drawing.Size(128, 26);
             this.closeToolStripMenuItem.Text = "Close";
-            this.closeToolStripMenuItem.Click += new System.EventHandler(this.closeToolStripMenuItem_Click);
+            this.closeToolStripMenuItem.Click += new System.EventHandler(this.CloseToolStripMenuItem_Click);
             // 
             // viewToolStripMenuItem
             // 
@@ -2994,7 +2994,7 @@
             this.relay3ToolStripMenuItem,
             this.relay4ToolStripMenuItem});
             this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
-            this.viewToolStripMenuItem.Size = new System.Drawing.Size(53, 24);
+            this.viewToolStripMenuItem.Size = new System.Drawing.Size(55, 24);
             this.viewToolStripMenuItem.Text = "View";
             // 
             // antennaToolStripMenuItem
@@ -3002,7 +3002,7 @@
             this.antennaToolStripMenuItem.Checked = global::AmpAutoTunerUtility.Properties.Settings.Default.checkBoxAntennaTab;
             this.antennaToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.antennaToolStripMenuItem.Name = "antennaToolStripMenuItem";
-            this.antennaToolStripMenuItem.Size = new System.Drawing.Size(139, 26);
+            this.antennaToolStripMenuItem.Size = new System.Drawing.Size(147, 26);
             this.antennaToolStripMenuItem.Text = "Antenna";
             // 
             // debugToolStripMenuItem
@@ -3010,7 +3010,7 @@
             this.debugToolStripMenuItem.Checked = global::AmpAutoTunerUtility.Properties.Settings.Default.checkBoxDebugTab;
             this.debugToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.debugToolStripMenuItem.Name = "debugToolStripMenuItem";
-            this.debugToolStripMenuItem.Size = new System.Drawing.Size(139, 26);
+            this.debugToolStripMenuItem.Size = new System.Drawing.Size(147, 26);
             this.debugToolStripMenuItem.Text = "Debug";
             // 
             // powerToolStripMenuItem
@@ -3018,7 +3018,7 @@
             this.powerToolStripMenuItem.Checked = global::AmpAutoTunerUtility.Properties.Settings.Default.checkBoxPowerTab;
             this.powerToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.powerToolStripMenuItem.Name = "powerToolStripMenuItem";
-            this.powerToolStripMenuItem.Size = new System.Drawing.Size(139, 26);
+            this.powerToolStripMenuItem.Size = new System.Drawing.Size(147, 26);
             this.powerToolStripMenuItem.Text = "Power";
             // 
             // tunerToolStripMenuItem
@@ -3026,7 +3026,7 @@
             this.tunerToolStripMenuItem.Checked = global::AmpAutoTunerUtility.Properties.Settings.Default.checkBoxTunerTab;
             this.tunerToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.tunerToolStripMenuItem.Name = "tunerToolStripMenuItem";
-            this.tunerToolStripMenuItem.Size = new System.Drawing.Size(139, 26);
+            this.tunerToolStripMenuItem.Size = new System.Drawing.Size(147, 26);
             this.tunerToolStripMenuItem.Text = "Tuner";
             // 
             // relay1ToolStripMenuItem
@@ -3034,30 +3034,30 @@
             this.relay1ToolStripMenuItem.Checked = global::AmpAutoTunerUtility.Properties.Settings.Default.checkedMenuRelay1;
             this.relay1ToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.relay1ToolStripMenuItem.Name = "relay1ToolStripMenuItem";
-            this.relay1ToolStripMenuItem.Size = new System.Drawing.Size(139, 26);
+            this.relay1ToolStripMenuItem.Size = new System.Drawing.Size(147, 26);
             this.relay1ToolStripMenuItem.Text = "Relay1";
-            this.relay1ToolStripMenuItem.Click += new System.EventHandler(this.relay1ToolStripMenuItem_Click);
+            this.relay1ToolStripMenuItem.Click += new System.EventHandler(this.Relay1ToolStripMenuItem_Click);
             // 
             // relay2ToolStripMenuItem
             // 
             this.relay2ToolStripMenuItem.Checked = global::AmpAutoTunerUtility.Properties.Settings.Default.checkedMenuRelay2;
             this.relay2ToolStripMenuItem.Name = "relay2ToolStripMenuItem";
-            this.relay2ToolStripMenuItem.Size = new System.Drawing.Size(139, 26);
+            this.relay2ToolStripMenuItem.Size = new System.Drawing.Size(147, 26);
             this.relay2ToolStripMenuItem.Text = "Relay2";
-            this.relay2ToolStripMenuItem.Click += new System.EventHandler(this.relay2ToolStripMenuItem_Click);
+            this.relay2ToolStripMenuItem.Click += new System.EventHandler(this.Relay2ToolStripMenuItem_Click);
             // 
             // relay3ToolStripMenuItem
             // 
             this.relay3ToolStripMenuItem.Checked = global::AmpAutoTunerUtility.Properties.Settings.Default.checkedMenuRelay3;
             this.relay3ToolStripMenuItem.Name = "relay3ToolStripMenuItem";
-            this.relay3ToolStripMenuItem.Size = new System.Drawing.Size(139, 26);
+            this.relay3ToolStripMenuItem.Size = new System.Drawing.Size(147, 26);
             this.relay3ToolStripMenuItem.Text = "Relay3";
             // 
             // relay4ToolStripMenuItem
             // 
             this.relay4ToolStripMenuItem.Checked = global::AmpAutoTunerUtility.Properties.Settings.Default.checkedMenuRelay4;
             this.relay4ToolStripMenuItem.Name = "relay4ToolStripMenuItem";
-            this.relay4ToolStripMenuItem.Size = new System.Drawing.Size(139, 26);
+            this.relay4ToolStripMenuItem.Size = new System.Drawing.Size(147, 26);
             this.relay4ToolStripMenuItem.Text = "Relay4";
             // 
             // aboutToolStripMenuItem
@@ -3066,20 +3066,20 @@
             this.helpToolStripMenuItem,
             this.aboutToolStripMenuItem1});
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(62, 24);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(64, 24);
             this.aboutToolStripMenuItem.Text = "About";
             // 
             // helpToolStripMenuItem
             // 
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-            this.helpToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(133, 26);
             this.helpToolStripMenuItem.Text = "Help";
             this.helpToolStripMenuItem.Click += new System.EventHandler(this.HelpToolStripMenuItem_Click);
             // 
             // aboutToolStripMenuItem1
             // 
             this.aboutToolStripMenuItem1.Name = "aboutToolStripMenuItem1";
-            this.aboutToolStripMenuItem1.Size = new System.Drawing.Size(125, 26);
+            this.aboutToolStripMenuItem1.Size = new System.Drawing.Size(133, 26);
             this.aboutToolStripMenuItem1.Text = "About";
             // 
             // Form1
@@ -3096,7 +3096,7 @@
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.MaximumSize = new System.Drawing.Size(537, 365);
             this.Name = "Form1";
-            this.Text = "AmpAutoTunerUtility V0.24c by W9MDB";
+            this.Text = "AmpAutoTunerUtility V0.25 by W9MDB";
             this.HelpButtonClicked += new System.ComponentModel.CancelEventHandler(this.Form1_HelpButtonClicked);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
@@ -3396,6 +3396,7 @@
         private System.Windows.Forms.Button button26;
         private System.Windows.Forms.ComboBox comboBoxDebugLevel;
         private System.Windows.Forms.CheckBox checkBoxPause;
+        private System.Windows.Forms.Button button27;
     }
 }
 

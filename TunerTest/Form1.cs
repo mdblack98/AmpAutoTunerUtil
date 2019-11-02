@@ -44,7 +44,7 @@ namespace TunerTest
             }
         }
 
-        private void button_Open_Click(object sender, EventArgs e)
+        private void Button_Open_Click(object sender, EventArgs e)
         {
             //if (comboBox1.SelectedItem.Equals("LDG"))
             //{
@@ -52,33 +52,44 @@ namespace TunerTest
             //}
             //else
             {
-                tuner1 = new TunerMFJ928X("MFJ-998","COM3","4800");
+                tuner1 = new TunerMFJ928("MFJ-998", "COM3", "4800", out string errorMsg);
+                if (tuner1 == null)
+                {
+                    MessageBox.Show(errorMsg, "AmpAutoTuner");
+                }
+                else if (errorMsg != null)
+                {
+                    MessageBox.Show("tuner1 object is null", "AmpAutoTuner");
+                }
                 //tuner1.Update += this.MyMethod;
             }
         }
 
-        private void button_Tune_Click(object sender, EventArgs e)
+        private void Button_Tune_Click(object sender, EventArgs e)
         {
             tuner1.Tune();
         }
 
-        private void timer1_Tick(object sender, EventArgs e)
+        private void Timer1_Tick(object sender, EventArgs e)
         {
             timer1.Stop();
             if (tuner1 != null)
             {
-                string s = tuner1.GetText();
-                if (s.Length > 0) richTextBox1.AppendText(s);
+                Tuner.DebugMsg msg = tuner1.DebugGetMsg();
+                if (msg.Text.Length > 0)
+                {
+                    richTextBox1.AppendText(msg.Text);
+                }
             }
             timer1.Start();
         }
 
-        private void buttonAmpOff_Click(object sender, EventArgs e)
+        private void ButtonAmpOff_Click(object sender, EventArgs e)
         {
             tuner1.CMD_Amp(0);
         }
 
-        private void buttonAmpOn_Click(object sender, EventArgs e)
+        private void ButtonAmpOn_Click(object sender, EventArgs e)
         {
             tuner1.CMD_Amp(1);
         }

@@ -12,7 +12,7 @@ namespace AmpAutoTunerUtility
         readonly string rig = "FLRig";
         TcpClient rigClient;
         NetworkStream rigStream;
-        string errorMessage = "None";
+        public string errorMessage = "None";
 
         public override void Close()
         {

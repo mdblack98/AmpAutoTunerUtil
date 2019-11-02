@@ -57,7 +57,7 @@
             this.button_Tune.TabIndex = 1;
             this.button_Tune.Text = "Tune";
             this.button_Tune.UseVisualStyleBackColor = true;
-            this.button_Tune.Click += new System.EventHandler(this.button_Tune_Click);
+            this.button_Tune.Click += new System.EventHandler(this.Button_Tune_Click);
             // 
             // button_Open
             // 
@@ -67,7 +67,7 @@
             this.button_Open.TabIndex = 2;
             this.button_Open.Text = "Open";
             this.button_Open.UseVisualStyleBackColor = true;
-            this.button_Open.Click += new System.EventHandler(this.button_Open_Click);
+            this.button_Open.Click += new System.EventHandler(this.Button_Open_Click);
             // 
             // richTextBox1
             // 
@@ -79,7 +79,7 @@
             // 
             // timer1
             // 
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            this.timer1.Tick += new System.EventHandler(this.Timer1_Tick);
             // 
             // buttonAmpOff
             // 
@@ -89,7 +89,7 @@
             this.buttonAmpOff.TabIndex = 4;
             this.buttonAmpOff.Text = "Amp Off";
             this.buttonAmpOff.UseVisualStyleBackColor = true;
-            this.buttonAmpOff.Click += new System.EventHandler(this.buttonAmpOff_Click);
+            this.buttonAmpOff.Click += new System.EventHandler(this.ButtonAmpOff_Click);
             // 
             // buttonAmpOn
             // 
@@ -99,7 +99,7 @@
             this.buttonAmpOn.TabIndex = 5;
             this.buttonAmpOn.Text = "Amp On";
             this.buttonAmpOn.UseVisualStyleBackColor = true;
-            this.buttonAmpOn.Click += new System.EventHandler(this.buttonAmpOn_Click);
+            this.buttonAmpOn.Click += new System.EventHandler(this.ButtonAmpOn_Click);
             // 
             // Form1
             // 
