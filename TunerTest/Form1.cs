@@ -86,12 +86,12 @@ namespace TunerTest
 
         private void ButtonAmpOff_Click(object sender, EventArgs e)
         {
-            tuner1.CMD_Amp(0);
+            tuner1.CMDAmp(0);
         }
 
         private void ButtonAmpOn_Click(object sender, EventArgs e)
         {
-            tuner1.CMD_Amp(1);
+            tuner1.CMDAmp(1);
         }
     }
 }

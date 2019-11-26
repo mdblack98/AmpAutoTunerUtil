@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "AmpAutoTunerUtility"
-#define MyAppVersion "0.24"
+#define MyAppVersion "0.32"
 #define MyAppPublisher "W9MDB"
 #define MyAppURL "https://www.qrz.com/db/W9MDB"
 #define MyAppExeName "AmpAutoTunerUtility.exe"
@@ -20,10 +20,10 @@ AppPublisher={#MyAppPublisher}
 AppPublisherURL={#MyAppURL}
 AppSupportURL={#MyAppURL}
 AppUpdatesURL={#MyAppURL}
-DefaultDirName={pf}\{#MyAppName}
+DefaultDirName={commonpf}\{#MyAppName}
 DisableProgramGroupPage=yes
 OutputDir=C:\Users\mdbla\Dropbox\Projects\TunerUtil\Install
-OutputBaseFilename=AmpAutoTunerUtility
+OutputBaseFilename=AmpAutoTunerUtility{#MyAppVersion}
 SetupIconFile=C:\Users\mdbla\Dropbox\Projects\TunerUtil\Amp.ico
 Compression=lzma
 SolidCompression=yes

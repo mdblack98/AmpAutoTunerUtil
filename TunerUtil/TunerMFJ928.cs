@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO.Ports;
 using System.Linq;
 using System.Text;
@@ -11,14 +12,14 @@ using System.Windows.Forms;
 
 namespace AmpAutoTunerUtility
 {
-    public class TunerMFJ928 : Tuner
+    public sealed class TunerMFJ928 : Tuner
     {
         enum TunerStateEnum { UNKNOWN, SLEEP, AWAKE, TUNING, TUNEDONE, ERR}
         TunerStateEnum TunerState = TunerStateEnum.UNKNOWN;
         private SerialPort SerialPortTuner = null;
         public double FwdPwr { get; set; }
         public double RefPwr { get; set; }
-        public double SWR { get; set; }
+        public double MySWR { get; set; }
         //public new int Inductance { get; set; }
         //public int Capacitance { get; set; }
         
@@ -30,19 +31,19 @@ namespace AmpAutoTunerUtility
             this.comport = comport;
             this.baud = baud;
             error = null;
-            SWR = 0;
-            if (model.Equals("MFJ-928"))
-            {
-                baud = "4800";
-            }
-            if (comport.Length == 0 || baud.Length == 0)
+            MySWR = 0;
+            //if (model != null && model.Equals("MFJ-928",StringComparison.InvariantCulture))
+            //{
+            //    baud = "4800";
+            //}
+            if (comport == null || baud == null || comport.Length == 0 || baud.Length == 0)
             {
                 return;
             }
             SerialPortTuner = new SerialPort
             {
                 PortName = comport,
-                BaudRate = Int32.Parse(baud),
+                BaudRate = Int32.Parse(baud, CultureInfo.InvariantCulture),
                 Parity = Parity.None,
                 DataBits = 8,
                 StopBits = StopBits.One,
@@ -59,11 +60,8 @@ namespace AmpAutoTunerUtility
                 Application.DoEvents();
                 SetText(DebugEnum.ERR, MyTime() + "Error opening Tuner...\n" + ex.Message);
                 error = "Error opening Tuner...\n" + ex.Message;
-                return;
+                throw;
             }
-            SetText(DebugEnum.LOG, MyTime() + "Tuner opened on " + comport + "\n");
-            //SerialPortTuner.DataReceived += new SerialDataReceivedEventHandler(port_DataReceived);
-
 
             byte[] buffer = new byte[4096];
             byte[] buffer1 = new byte[1];
@@ -97,9 +95,12 @@ namespace AmpAutoTunerUtility
                         HandleAppSerialError(ex);
                         return;
                     }
-                    catch (Exception ex)
+#pragma warning disable CA1031 // Do not catch general exception types
+                    catch (Exception)
+#pragma warning restore CA1031 // Do not catch general exception types
                     {
-                        MessageBox.Show(ex.Message + "\n", ex.StackTrace);
+                        //MessageBox.Show(ex.Message + "\n", ex.StackTrace);
+                        //throw;
                     }
                     kickoffRead();
                 }, null);
@@ -107,7 +108,7 @@ namespace AmpAutoTunerUtility
             //*/
             SerialPortTuner.BaseStream.ReadTimeout = 100;
             kickoffRead();
-            CMD_Amp(1);
+            CMDAmp(1);
         }
 
         byte[] GetCmd(Queue<byte> q)
@@ -192,12 +193,12 @@ namespace AmpAutoTunerUtility
             Poll();
             //SetText(DebugEnum.DEBUG_VERBOSE, MyTime() + "Capacitance = " + this.Capacitance + "\n");
             //SetText(DebugEnum.DEBUG_VERBOSE, MyTime() + "Inductance = " + this.Inductance+"\n");
-            return "FwdPwr " +FwdPwr.ToString()+"W";
+            return "FwdPwr " +FwdPwr.ToString(CultureInfo.InvariantCulture) +"W";
         }
 
         public override string GetSWR()
         {
-            return "SWR " + string.Format("{0:0.00}", SWR);
+            return "SWR " + string.Format(CultureInfo.InvariantCulture,"{0:0.00}", MySWR);
         }
 
         public void SetText(DebugEnum debugLevel, string v)
@@ -215,7 +216,7 @@ namespace AmpAutoTunerUtility
 
         private string MyTime()
         {
-            string time = DateTime.Now.ToString("HH:mm:ss.fff") + ": ";
+            string time = DateTime.Now.ToString("HH:mm:ss.fff", CultureInfo.InvariantCulture) + ": ";
             return time;
         }
 
@@ -234,7 +235,7 @@ namespace AmpAutoTunerUtility
             //Thread.Sleep(200);
             SetText(Tuner.DebugEnum.VERBOSE,MyTime() + "Auto Status: "+Dumphex(data)+"\n");
             CMD_GetAutoStatus(data);
-            SetText(DebugEnum.TRACE, MyTime() + "Auto Status: " + FwdPwr + "/" + RefPwr + "/" + string.Format("{0:0.00}", SWR) + "\n");
+            SetText(DebugEnum.TRACE, MyTime() + "Auto Status: " + FwdPwr + "/" + RefPwr + "/" + string.Format(CultureInfo.InvariantCulture,"{0:0.00}", MySWR) + "\n");
 
         }
 
@@ -242,13 +243,14 @@ namespace AmpAutoTunerUtility
         {
             if (received.Length != 8)
             {
-                MessageBox.Show("oops!!  MsgFe != 8");
+                //MessageBox.Show("oops!!  MsgFe != 8");
                 return;
             }
             //SetText(DebugEnum.VERBOSE, "MsgFE: " + dumphex(data) + "\n");           //Thread.Sleep(200);
             byte cmd = received[2];
             byte scmd = received[3];
-            byte[] b2 = new byte[3];
+            byte statusbyte = received[4];
+            byte[] b2 = new byte[4];
             switch (cmd)
             {
                 // FE-FE-06-01-80-00-79-FD -- tune failure
@@ -263,35 +265,27 @@ namespace AmpAutoTunerUtility
                             byte[] b1 = new byte[2];
                             b1[1] = received[4];
                             b1[0] = received[5];
-                            SWR = BCD5ToInt(b1, 2)/10.0;
-                            if (SWR < 2.0) MemoryWriteCurrentFreq();
+                            MySWR = BCD5ToInt(b1, 2)/10.0;
+                            if (MySWR < 2.0) MemoryWriteCurrentFreq();
                             break;
                         case 0x01:
-                            SetText(DebugEnum.TRACE, MyTime() + "Started by > SWR\n");
-                            break;
-                        case 0x02:
-                            SetText(DebugEnum.TRACE, MyTime() + "Started by StickyTune\n");
-                            break;
-                        case 0x80:
-                            SetText(DebugEnum.ERR, MyTime() + "Error: Increase Power\n");
                             Tuning = false;
                             TunerState = TunerStateEnum.TUNEDONE;
-                            SWR = 99;
-                            break;
-                        case 0x81:
-                            SetText(DebugEnum.ERR, MyTime() + "Error: Decrease Power\n");
-                            Tuning = false;
-                            TunerState = TunerStateEnum.TUNEDONE;
-                            SWR = 99;
-                            break;
-                        case 0x82:
-                            SetText(DebugEnum.ERR, MyTime() + "Error: Overload\n");
-                            Tuning = false;
-                            TunerState = TunerStateEnum.TUNEDONE;
-                            SWR = 99;
+                            switch (statusbyte)
+                            {
+                                case 0x00: SetText(DebugEnum.ERR, MyTime() + "Start by Tune Command\n");break;
+                                case 0x01: SetText(DebugEnum.ERR, MyTime() + "Start by SWR > AutoTuneSWR\n"); break;
+                                case 0x02: SetText(DebugEnum.ERR, MyTime() + "Start by StickyTune\n"); break;
+                                case 0x80: SetText(DebugEnum.ERR, MyTime() + "QRO Increase Power\n"); break;
+                                case 0x81: SetText(DebugEnum.ERR, MyTime() + "QRP Decrease\n"); break;
+                                case 0x82: SetText(DebugEnum.ERR, MyTime() + "QRT Overload\n"); break;
+                                default: SetText(DebugEnum.ERR, MyTime() + "Unknown status" + b2 + "\n"); break;
+                                
+                            }
+                            SetText(DebugEnum.TRACE, MyTime() + "Tuning failed\n");
                             break;
                         default:
-                            SetText(DebugEnum.ERR, MyTime() + "Error: tune=" + received[3].ToString("X"));
+                            SetText(DebugEnum.ERR, MyTime() + "Error: tune???=" + received[3].ToString("X", CultureInfo.InvariantCulture));
                             Tuning = false;
                             TunerState = TunerStateEnum.TUNEDONE;
                             break;
@@ -352,10 +346,13 @@ namespace AmpAutoTunerUtility
         public override void Poll()
         {
             if (SerialPortTuner == null) return;
-            byte[] cmdGetCapacitance = { 0xfe, 0xfe, 0x10, 0x41, 0x00, 0x00, 0x00, 0xfd };
-            SendCmd(cmdGetCapacitance);
-            byte[] cmdGetInductance = { 0xfe, 0xfe, 0x10, 0x42, 0x00, 0x00, 0x00, 0xfd };
-            SendCmd(cmdGetInductance);
+            if (!Tuning)
+            {
+                byte[] cmdGetCapacitance = { 0xfe, 0xfe, 0x10, 0x41, 0x00, 0x00, 0x00, 0xfd };
+                SendCmd(cmdGetCapacitance);
+                byte[] cmdGetInductance = { 0xfe, 0xfe, 0x10, 0x42, 0x00, 0x00, 0x00, 0xfd };
+                SendCmd(cmdGetInductance);
+            }
         }
 
         private void RaiseAppSerialDataEvent(byte[] received)
@@ -378,7 +375,7 @@ namespace AmpAutoTunerUtility
                     MsgFF(received);
                     break;
                 default:
-                    SetText(DebugEnum.ERR, MyTime() + datum.ToString("X")+" - Error unknown event in " + Dumphex(received)+"\n");
+                    SetText(DebugEnum.ERR, MyTime() + datum.ToString("X", CultureInfo.InvariantCulture) +" - Error unknown event in " + Dumphex(received)+"\n");
                     break;
             }
             Application.DoEvents();
@@ -421,10 +418,10 @@ namespace AmpAutoTunerUtility
         }
         */
 
-        public uint BCD5ToInt(byte[] bcd, int len)
+        public static uint BCD5ToInt(byte[] bcd, int len)
         {
             uint outInt = 0;
-
+            if (bcd == null) return 0;
             for (int i = 0; i < len; i++)
             {
                 int mul = (int)Math.Pow(10, (i * 2));
@@ -435,7 +432,7 @@ namespace AmpAutoTunerUtility
 
             return outInt;
         }
-        public byte[] IntToBCD5(uint numericvalue, int bytesize = 5)
+        public static byte[] IntToBCD5(uint numericvalue, int bytesize = 5)
         {
             byte[] bcd = new byte[bytesize];
             for (int byteNo = 0; byteNo < bytesize; ++byteNo)
@@ -465,7 +462,7 @@ namespace AmpAutoTunerUtility
 
             if (fwd > 0)
             {
-                SWR = (1+Math.Sqrt(rev/fwd)) / (1-Math.Sqrt(rev/fwd));
+                MySWR = (1+Math.Sqrt(rev/fwd)) / (1-Math.Sqrt(rev/fwd));
             }
             //else Swr = 0;
             return;
@@ -485,9 +482,9 @@ namespace AmpAutoTunerUtility
                 SetText(DebugEnum.TRACE, MyTime() + "Tune wait " + ++nn+"\n");
                 Thread.Sleep(500);
             }
-            SetText(DebugEnum.TRACE, MyTime() + "Tuning done SWR=" + string.Format("{0:0.00}", SWR)+"\n");
-            if (SWR > 0 && SWR <= 2) response = 'T';
-            else if (SWR > 0 && SWR < 3) response = 'M';
+            SetText(DebugEnum.TRACE, MyTime() + "Tuning done SWR=" + string.Format(CultureInfo.InvariantCulture,"{0:0.00}", MySWR)+"\n");
+            if (MySWR > 0 && MySWR <= 2) response = 'T';
+            else if (MySWR > 0 && MySWR < 3) response = 'M';
             else response = 'F';
             return response;
         }
@@ -513,20 +510,20 @@ namespace AmpAutoTunerUtility
             }
         }
 
-        override public void CMD_Amp(byte on)
+        override public void CMDAmp(byte on)
         {
             byte[] cmdamp = { 0xfe, 0xfe, 0x21, 0x06, on, 0x00, 0x00, 0xfd };
             SendCmd(cmdamp);
         }
 
-        public void CMD_Amp()
+        public void CMDAmp()
         {
             byte[] cmdampoff = { 0xfe, 0xfe, 0x11, 0x06, 0x00, 0x00, 0x00, 0xfd };
             SendCmd(cmdampoff);
             //return response[4] == 0x01;
         }
 
-        public void CMD_Tune()
+        public void CMDTune()
         {
             SetText(DebugEnum.TRACE, MyTime() + "CMD_Tune()\n");
             Tuning = true;
@@ -546,7 +543,7 @@ namespace AmpAutoTunerUtility
             //    return;
             //}
             SetText(DebugEnum.TRACE, MyTime() + "Start tune1, Tuning="+Tuning+"\n");
-            CMD_Tune();
+            CMDTune();
             SetText(DebugEnum.TRACE, MyTime() + "Start tune2, Tuning=" + Tuning + "\n");
             int n = 0;
             while (Tuning && n++ < 60)
@@ -557,7 +554,7 @@ namespace AmpAutoTunerUtility
                 SetText(DebugEnum.TRACE, MyTime() + "Tuning status=" + Tuning + "\n");
             }
             //Thread.Sleep(500);
-            SetText(DebugEnum.TRACE, MyTime() + "Tuned " + FwdPwr + "/" + RefPwr + "/" + string.Format("{0:0.00}", SWR)+"\n");
+            SetText(DebugEnum.TRACE, MyTime() + "Tuned " + FwdPwr + "/" + RefPwr + "/" + string.Format(CultureInfo.InvariantCulture,"{0:0.00}", MySWR)+"\n");
             //SetText(DebugEnum.TRACE, MyTime() + "Turn amp on\n");
             //CMD_Amp(1);
             return;
@@ -587,6 +584,14 @@ namespace AmpAutoTunerUtility
         }
 
         public override void SetAmp(bool on)
+        {
+        }
+
+        public override void Dispose(bool disposing)
+        {
+        }
+
+        public override void Dispose()
         {
         }
     }

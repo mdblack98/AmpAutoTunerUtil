@@ -99,6 +99,8 @@
             this.tabPageTuner = new System.Windows.Forms.TabPage();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.label9 = new System.Windows.Forms.Label();
+            this.textBoxTuneOffset = new System.Windows.Forms.TextBox();
             this.button27 = new System.Windows.Forms.Button();
             this.checkBoxTunerEnabled = new System.Windows.Forms.CheckBox();
             this.comboBoxTunerModel = new System.Windows.Forms.ComboBox();
@@ -510,7 +512,7 @@
             // numericUpDownSensitivity
             // 
             this.numericUpDownSensitivity.Enabled = false;
-            this.numericUpDownSensitivity.Location = new System.Drawing.Point(163, 128);
+            this.numericUpDownSensitivity.Location = new System.Drawing.Point(163, 161);
             this.numericUpDownSensitivity.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.numericUpDownSensitivity.Maximum = new decimal(new int[] {
             10,
@@ -537,7 +539,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(124, 102);
+            this.label2.Location = new System.Drawing.Point(118, 102);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(82, 17);
             this.label2.TabIndex = 5;
@@ -1230,6 +1232,8 @@
             // 
             this.panel3.BackColor = System.Drawing.Color.Transparent;
             this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel3.Controls.Add(this.label9);
+            this.panel3.Controls.Add(this.textBoxTuneOffset);
             this.panel3.Controls.Add(this.button27);
             this.panel3.Controls.Add(this.numericUpDownSensitivity);
             this.panel3.Controls.Add(this.checkBoxTunerEnabled);
@@ -1243,6 +1247,27 @@
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(223, 205);
             this.panel3.TabIndex = 6;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.Location = new System.Drawing.Point(118, 130);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(80, 17);
+            this.label9.TabIndex = 14;
+            this.label9.Text = "Tune offset";
+            this.toolTip1.SetToolTip(this.label9, "If last-tuned frequency is off by more then this autotune will happen");
+            // 
+            // textBoxTuneOffset
+            // 
+            this.textBoxTuneOffset.Location = new System.Drawing.Point(11, 128);
+            this.textBoxTuneOffset.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.textBoxTuneOffset.Name = "textBoxTuneOffset";
+            this.textBoxTuneOffset.Size = new System.Drawing.Size(100, 22);
+            this.textBoxTuneOffset.TabIndex = 13;
+            this.textBoxTuneOffset.Text = "700";
+            this.toolTip1.SetToolTip(this.textBoxTuneOffset, "If last-tuned frequency is off by more then this autotune will happen");
             // 
             // button27
             // 
@@ -1265,6 +1290,7 @@
             this.checkBoxTunerEnabled.TabIndex = 7;
             this.checkBoxTunerEnabled.Text = "Enabled";
             this.checkBoxTunerEnabled.UseVisualStyleBackColor = true;
+            this.checkBoxTunerEnabled.CheckedChanged += new System.EventHandler(this.CheckBoxTunerEnabled_CheckedChanged_1);
             // 
             // comboBoxTunerModel
             // 
@@ -1290,7 +1316,7 @@
             this.comboBoxBaudTuner.Name = "comboBoxBaudTuner";
             this.comboBoxBaudTuner.Size = new System.Drawing.Size(121, 24);
             this.comboBoxBaudTuner.TabIndex = 2;
-            this.comboBoxBaudTuner.Visible = false;
+            this.comboBoxBaudTuner.SelectedIndexChanged += new System.EventHandler(this.ComboBoxBaudTuner_SelectedIndexChanged);
             // 
             // comboBoxComTuner
             // 
@@ -1301,6 +1327,7 @@
             this.comboBoxComTuner.Name = "comboBoxComTuner";
             this.comboBoxComTuner.Size = new System.Drawing.Size(121, 24);
             this.comboBoxComTuner.TabIndex = 0;
+            this.comboBoxComTuner.SelectedIndexChanged += new System.EventHandler(this.ComboBoxComTuner_SelectedIndexChanged_1);
             // 
             // tabPagePower
             // 
@@ -3096,10 +3123,10 @@
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.MaximumSize = new System.Drawing.Size(537, 365);
             this.Name = "Form1";
-            this.Text = "AmpAutoTunerUtility V0.25 by W9MDB";
+            this.Text = "AmpAutoTunerUtility V0.32 by W9MDB";
             this.HelpButtonClicked += new System.ComponentModel.CancelEventHandler(this.Form1_HelpButtonClicked);
+            this.Activated += new System.EventHandler(this.Form1_Activated);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownInductance)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCapacitance)).EndInit();
@@ -3397,6 +3424,8 @@
         private System.Windows.Forms.ComboBox comboBoxDebugLevel;
         private System.Windows.Forms.CheckBox checkBoxPause;
         private System.Windows.Forms.Button button27;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.TextBox textBoxTuneOffset;
     }
 }
 

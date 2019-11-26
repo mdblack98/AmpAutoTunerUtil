@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace AmpAutoTunerUtility
 {
-    public class Tuner
+    public abstract class Tuner: IDisposable
     {
         public enum DebugEnum
         {
@@ -24,13 +24,13 @@ namespace AmpAutoTunerUtility
             public string Text { get; set; }
             public DebugEnum Level { get; set; }
         }
-        protected string model = null;
-        protected string comport = null;
-        protected string baud = null;
-        protected DebugEnum DebugLevel = DebugEnum.WARN;
-        protected ConcurrentQueue<DebugMsg> msgQueue = new ConcurrentQueue<DebugMsg>();
-        protected int Inductance { get; set;} // pF
-        protected int Capacitance { get; set; } // uH
+        protected private string model = null;
+        protected private string comport = null;
+        protected private string baud = null;
+        protected private DebugEnum DebugLevel = DebugEnum.WARN;
+        protected private ConcurrentQueue<DebugMsg> msgQueue = new ConcurrentQueue<DebugMsg>();
+        protected private int Inductance { get; set; } // pF
+        protected private int Capacitance { get; set; } // uH
 
         public Tuner()
         {
@@ -39,6 +39,7 @@ namespace AmpAutoTunerUtility
             baud = null;
         }
 
+        public string GetComPort() { return comport; }
         //public Tuner(string model, string comport, string baud)
         //{
         //    this.model = model;
@@ -46,6 +47,7 @@ namespace AmpAutoTunerUtility
         //    this.baud = baud;
         //}
 
+        public abstract void Dispose(bool disposing);
         public virtual void SetDebugLevel(DebugEnum level)
         {
             DebugLevel = level;
@@ -144,7 +146,7 @@ namespace AmpAutoTunerUtility
             return '?';
         }
 
-        public virtual void CMD_Amp(byte on)
+        public virtual void CMDAmp(byte onStatus)
         {
             return;
         }
@@ -158,9 +160,11 @@ namespace AmpAutoTunerUtility
         {
             return true;
         }
-        public virtual void SetAmp(bool on)
+        public virtual void SetAmp(bool onStatus)
         {
             // nothing to do
         }
+
+        public abstract void Dispose();
     }
 }

@@ -53,7 +53,9 @@ namespace AmpAutoTunerUtility
                 }
                 devcount = nRelays;
             }
+#pragma warning disable CA1031 // Do not catch general exception types
             catch (Exception ex)
+#pragma warning restore CA1031 // Do not catch general exception types
             {
                 errMsg = ex.Message;
             }
@@ -91,7 +93,9 @@ namespace AmpAutoTunerUtility
                 }
                 //AllOff();
             }
+#pragma warning disable CA1031 // Do not catch general exception types
             catch (Exception ex)
+#pragma warning restore CA1031 // Do not catch general exception types
             {
                 errMsg = "Relay Open failed\n"+ex.Message;
             }
@@ -166,7 +170,9 @@ namespace AmpAutoTunerUtility
                 Set(7, 0);
                 Set(8, 0);
             }
+#pragma warning disable CA1031 // Do not catch general exception types
             catch (Exception ex)
+#pragma warning restore CA1031 // Do not catch general exception types
             {
                 errMsg = "Relay AllOff failed\n"+ex.Message;
             }
@@ -193,7 +199,9 @@ namespace AmpAutoTunerUtility
                     return true;
                 }
             }
+#pragma warning disable CA1031 // Do not catch general exception types
             catch (Exception ex)
+#pragma warning restore CA1031 // Do not catch general exception types
             {
                 errMsg = "Relay Status failed\n"+ex.Message;
             }
@@ -215,7 +223,9 @@ namespace AmpAutoTunerUtility
             {
                 ftdi.GetPinStates(ref bitModes);
             }
+#pragma warning disable CA1031 // Do not catch general exception types
             catch (Exception ex)
+#pragma warning restore CA1031 // Do not catch general exception types
             {
                 errMsg = "Relay Status failed\n"+ex.Message;
             }
@@ -235,7 +245,9 @@ namespace AmpAutoTunerUtility
                 byte bitModes = 0;
                 ftdi.GetPinStates(ref bitModes);
             }
+#pragma warning disable CA1031 // Do not catch general exception types
             catch (Exception ex)
+#pragma warning restore CA1031 // Do not catch general exception types
             {
                 errMsg = "Relay Init failed\n"+ex.Message;
             }
@@ -290,7 +302,9 @@ namespace AmpAutoTunerUtility
                 }
                 //Status();
             }
+#pragma warning disable CA1031 // Do not catch general exception types
             catch (Exception ex)
+#pragma warning restore CA1031 // Do not catch general exception types
             {
                 errMsg = "Relay Set failed\n"+ex.Message;
             }

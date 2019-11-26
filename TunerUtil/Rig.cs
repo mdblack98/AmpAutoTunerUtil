@@ -4,7 +4,7 @@ namespace AmpAutoTunerUtility
 {
     public abstract class Rig
     {
-        protected string model = null;
+        protected private string model = null;
 
         public Rig()
         {
