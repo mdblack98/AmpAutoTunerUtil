@@ -1599,7 +1599,7 @@ namespace AmpAutoTunerUtility
             }
         }
 
-        private void FLRigGetFreq()
+        private void FLRigGetFreq(bool needTuning=true)
         {
             getFreqIsRunning = true;
             if (!checkBoxRig.Checked)
@@ -1731,7 +1731,10 @@ namespace AmpAutoTunerUtility
                                 Thread.Sleep(200);
                                 lastfrequencyTunedHz = frequencyHz;
                                 //PowerSelect(frequencyHz, modeCurrent);
-                                Tune();
+                                if (needTuning)
+                                {
+                                    Tune();
+                                }
                                 // Reset VFOB to same freq as VFOA
                                 myparam = "<params><param><value><double>" + frequencyHz + "</double></value></param></params";
                                 xml = FLRigXML("rig.set_vfo" + vfoOther, myparam);
@@ -1821,7 +1824,7 @@ namespace AmpAutoTunerUtility
                 }
                 if (!pausecmd.ToUpperInvariant().Contains("PAUSE") && paused)
                 {
-                    FLRigGetFreq();
+                    //FLRigGetFreq(false);
                     SetAntennaInUse();
                     paused = false; // we run when freqalk is paused
                     Pause();
@@ -2375,7 +2378,7 @@ namespace AmpAutoTunerUtility
 #pragma warning disable CA1303 // Do not pass literals as localized parameters
                 labelSWR.Text = "SWR";
 #pragma warning restore CA1303 // Do not pass literals as localized parameters
-                FLRigGetFreq();
+                FLRigGetFreq(false);
                 Tune();
                 Debug(Tuner.DebugEnum.LOG, MyTime() + "Tuning resumed\n");
             }

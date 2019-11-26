@@ -116,7 +116,7 @@ namespace AmpAutoTunerUtility
             catch (Exception ex)
 #pragma warning restore CA1031 // Do not catch general exception types
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show("Tuner Util:" + ex.Message);
                 response = '?';
             }
         }
