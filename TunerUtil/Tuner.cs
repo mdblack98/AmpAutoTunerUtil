@@ -24,6 +24,8 @@ namespace AmpAutoTunerUtility
             public string Text { get; set; }
             public DebugEnum Level { get; set; }
         }
+
+        public double SWR { get; set; }
         protected private string model = null;
         protected private string comport = null;
         protected private string baud = null;
@@ -104,7 +106,7 @@ namespace AmpAutoTunerUtility
             else return null;
         }
 
-        public virtual string GetSWR()
+        public virtual string GetSWRString()
         {
             return "SWR.XX";
         }

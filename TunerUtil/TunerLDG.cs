@@ -86,6 +86,12 @@ namespace AmpAutoTunerUtility
             return response;
         }
 
+        public override string GetPower()
+        {
+            // Can't get power from the LDG tuner
+            // So will have to use the rig power level instead elsewhere
+            return null;
+        }
         public override void Tune()
         {
             // LDG Reponse to T command

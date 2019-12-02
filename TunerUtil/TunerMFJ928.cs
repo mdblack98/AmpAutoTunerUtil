@@ -19,7 +19,6 @@ namespace AmpAutoTunerUtility
         private SerialPort SerialPortTuner = null;
         public double FwdPwr { get; set; }
         public double RefPwr { get; set; }
-        public double MySWR { get; set; }
         //public new int Inductance { get; set; }
         //public int Capacitance { get; set; }
         
@@ -31,11 +30,8 @@ namespace AmpAutoTunerUtility
             this.comport = comport;
             this.baud = baud;
             error = null;
-            MySWR = 0;
-            //if (model != null && model.Equals("MFJ-928",StringComparison.InvariantCulture))
-            //{
-            //    baud = "4800";
-            //}
+            SWR = 0;
+
             if (comport == null || baud == null || comport.Length == 0 || baud.Length == 0)
             {
                 return;
@@ -196,9 +192,9 @@ namespace AmpAutoTunerUtility
             return "FwdPwr " +FwdPwr.ToString(CultureInfo.InvariantCulture) +"W";
         }
 
-        public override string GetSWR()
+        public override string GetSWRString()
         {
-            return "SWR " + string.Format(CultureInfo.InvariantCulture,"{0:0.00}", MySWR);
+            return "SWR " + string.Format(CultureInfo.InvariantCulture,"{0:0.00}", SWR);
         }
 
         public void SetText(DebugEnum debugLevel, string v)
@@ -235,7 +231,7 @@ namespace AmpAutoTunerUtility
             //Thread.Sleep(200);
             SetText(Tuner.DebugEnum.VERBOSE,MyTime() + "Auto Status: "+Dumphex(data)+"\n");
             CMD_GetAutoStatus(data);
-            SetText(DebugEnum.TRACE, MyTime() + "Auto Status: " + FwdPwr + "/" + RefPwr + "/" + string.Format(CultureInfo.InvariantCulture,"{0:0.00}", MySWR) + "\n");
+            SetText(DebugEnum.TRACE, MyTime() + "Auto Status: " + FwdPwr + "/" + RefPwr + "/" + string.Format(CultureInfo.InvariantCulture,"{0:0.00}", SWR) + "\n");
 
         }
 
@@ -265,8 +261,8 @@ namespace AmpAutoTunerUtility
                             byte[] b1 = new byte[2];
                             b1[1] = received[4];
                             b1[0] = received[5];
-                            MySWR = BCD5ToInt(b1, 2)/10.0;
-                            if (MySWR < 2.0) MemoryWriteCurrentFreq();
+                            SWR = BCD5ToInt(b1, 2)/10.0;
+                            if (SWR < 2.0) MemoryWriteCurrentFreq();
                             break;
                         case 0x01:
                             Tuning = false;
@@ -282,7 +278,7 @@ namespace AmpAutoTunerUtility
                                 default: SetText(DebugEnum.ERR, MyTime() + "Unknown status" + b2 + "\n"); break;
                                 
                             }
-                            SetText(DebugEnum.TRACE, MyTime() + "Tuning failed\n");
+                            SetText(DebugEnum.ERR, MyTime() + "Tuning failed\n");
                             break;
                         default:
                             SetText(DebugEnum.ERR, MyTime() + "Error: tune???=" + received[3].ToString("X", CultureInfo.InvariantCulture));
@@ -462,7 +458,7 @@ namespace AmpAutoTunerUtility
 
             if (fwd > 0)
             {
-                MySWR = (1+Math.Sqrt(rev/fwd)) / (1-Math.Sqrt(rev/fwd));
+                SWR = (1+Math.Sqrt(rev/fwd)) / (1-Math.Sqrt(rev/fwd));
             }
             //else Swr = 0;
             return;
@@ -482,9 +478,9 @@ namespace AmpAutoTunerUtility
                 SetText(DebugEnum.TRACE, MyTime() + "Tune wait " + ++nn+"\n");
                 Thread.Sleep(500);
             }
-            SetText(DebugEnum.TRACE, MyTime() + "Tuning done SWR=" + string.Format(CultureInfo.InvariantCulture,"{0:0.00}", MySWR)+"\n");
-            if (MySWR > 0 && MySWR <= 2) response = 'T';
-            else if (MySWR > 0 && MySWR < 3) response = 'M';
+            SetText(DebugEnum.TRACE, MyTime() + "Tuning done SWR=" + string.Format(CultureInfo.InvariantCulture,"{0:0.00}", SWR)+"\n");
+            if (SWR > 0 && SWR <= 2) response = 'T';
+            else if (SWR > 0 && SWR < 3) response = 'M';
             else response = 'F';
             return response;
         }
@@ -554,7 +550,7 @@ namespace AmpAutoTunerUtility
                 SetText(DebugEnum.TRACE, MyTime() + "Tuning status=" + Tuning + "\n");
             }
             //Thread.Sleep(500);
-            SetText(DebugEnum.TRACE, MyTime() + "Tuned " + FwdPwr + "/" + RefPwr + "/" + string.Format(CultureInfo.InvariantCulture,"{0:0.00}", MySWR)+"\n");
+            SetText(DebugEnum.TRACE, MyTime() + "Tuned " + FwdPwr + "/" + RefPwr + "/" + string.Format(CultureInfo.InvariantCulture,"{0:0.00}", SWR)+"\n");
             //SetText(DebugEnum.TRACE, MyTime() + "Turn amp on\n");
             //CMD_Amp(1);
             return;

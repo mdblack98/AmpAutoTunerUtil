@@ -975,7 +975,7 @@ namespace AmpAutoTunerUtility
                     String responseData = Encoding.ASCII.GetString(data2, 0, bytes);
                     if (!responseData.Contains("200 OK"))
                     {
-                        Debug(Tuner.DebugEnum.ERR, MyTime() + "FLRig error: unknown reponse=" + responseData + "\n");
+                        Debug(Tuner.DebugEnum.ERR, MyTime() + "FLRig error: unknown response=" + responseData + "\n");
                         MyMessageBox("Unknown response from FLRig\n" + responseData);
                         return false;
                     }
@@ -1513,7 +1513,7 @@ namespace AmpAutoTunerUtility
             //Thread.Sleep(500);
             if (FLRigSend(xml) == false) return false; // Abort if FLRig is giving an error
             Debug(Tuner.DebugEnum.LOG, MyTime() + "Set power to " + value + "\n");
-            labelPower.Text = "Power = " + value;
+            labelPower.Text = "RigPower = " + value;
             return true;
         }
 
@@ -1712,6 +1712,11 @@ namespace AmpAutoTunerUtility
                             }
                             Debug(Tuner.DebugEnum.LOG, MyTime() + "Rig mode VFOB set to "+mode+"\n");
                             stopWatchTuner.Restart();
+                            if (checkBoxTunerEnabled.Checked && paused)
+                            {
+                                // if we're pause we just update this stuff to prevent it from thinking we need to do anything
+                                lastfrequencyTunedHz = lastfrequency = frequencyHz;
+                            }
                             if (checkBoxTunerEnabled.Checked && !paused)
                             {
                                 char vfoOther = 'A';
@@ -1764,11 +1769,11 @@ namespace AmpAutoTunerUtility
                                 }
 
                                 lastfrequencyTunedHz = lastfrequency = frequencyHz;
-                                relay1.Set(1, 1);
+                                //relay1.Set(1, 1);
 #pragma warning disable CA1303 // Do not pass literals as localized parameters
-                                MyMessageBox("Click OK to continue");
+                                //MyMessageBox("Click OK to continue");
 #pragma warning restore CA1303 // Do not pass literals as localized parameters
-                                relay1.Set(1, 0);
+                                //relay1.Set(1, 0);
                                 freqStableCount = 0;
                             }
                         }
@@ -1831,18 +1836,37 @@ namespace AmpAutoTunerUtility
                 }
             }
             if (tuner1 != null) {
-                string SWR = tuner1.GetSWR();
+                string SWR = tuner1.GetSWRString();
                 if (tuner1.GetModel().Equals(MFJ928, StringComparison.InvariantCulture))
                 {
                     int Inductance = tuner1.GetInductance();
                     int Capacitance = tuner1.GetCapacitance();
-                    labelSWR.Text = SWR;
                     numericUpDownCapacitance.Value = Capacitance;
                     numericUpDownInductance.Value = Inductance;
+                    labelSWR.Text = SWR;
+                    if (tuner1.SWR == 0)
+                    {
+#pragma warning disable CA1303 // Do not pass literals as localized parameters
+                        labelSWR.Text = "SWR Unknown";
+#pragma warning restore CA1303 // Do not pass literals as localized parameters
+                        buttonTunerStatus.BackColor = Color.Gray;
+                    }
+                    else if (tuner1.SWR < 2.0)
+                    {
+                        buttonTunerStatus.BackColor = Color.Green;
+                    }
+                    else if (tuner1.SWR < 3)
+                    {
+                        buttonTunerStatus.BackColor = Color.Yellow;
+                    }
+                    else
+                    {
+                        buttonTunerStatus.BackColor = Color.Red;
+                    }
                 }
             }
             string FwdPwr = tuner1.GetPower();
-            labelPower.Text = FwdPwr;
+            if (FwdPwr != null) labelPower.Text = FwdPwr;
 
             if (checkBoxTunerEnabled.Checked && comboBoxTunerModel.Text==MFJ928)
             {
@@ -2080,8 +2104,7 @@ namespace AmpAutoTunerUtility
             if (this.WindowState == FormWindowState.Minimized)
                 this.WindowState = FormWindowState.Normal;
             MessageBoxHelper.PrepToCenterMessageBoxOnForm(this);
-            MessageBox.Show(message);
-
+            MessageBox.Show(message,Application.ProductName);
         }
 
         private void CheckBoxTunerEnabled_CheckedChanged(object sender, EventArgs e)
