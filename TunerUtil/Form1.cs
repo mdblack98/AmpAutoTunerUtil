@@ -2,16 +2,14 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
 using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
-using System.Linq;
+using System.Management;
 using System.Media;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 // Todo list
 // Add CW tuning
@@ -49,7 +47,8 @@ namespace AmpAutoTunerUtility
         int freqStableCount = 0; // 
         int freqStableCountNeeded = 2; //need this number of repeat freqs before tuning starts
         private bool autopause;
-        bool paused = false;
+        bool pausedTuning = false;
+        private bool pauseButtonClicked;
         private Audio audio;
         bool formClosing = false; // use this to detect shutdown condition
         bool getFreqIsRunning = false;
@@ -59,6 +58,7 @@ namespace AmpAutoTunerUtility
         //private int Inductance = 0;
         Tuner.DebugEnum debugLevel = Tuner.DebugEnum.WARN;
         private bool activatedHasExecuted = false;
+        private bool tuneIsRunning;
 
         public Form1()
         {
@@ -289,7 +289,7 @@ namespace AmpAutoTunerUtility
             List<string> comPorts = relay1.ComList();
             if (relay1.DevCount() == 0)
             {
-                tabControl1.TabPages.Remove(tabPageRelay1);
+                //tabControl1.TabPages.Remove(tabPageRelay1);
                 tabControl1.TabPages.Remove(tabPageRelay2);
                 tabControl1.TabPages.Remove(tabPageRelay3);
                 tabControl1.TabPages.Remove(tabPageRelay4);
@@ -539,7 +539,7 @@ namespace AmpAutoTunerUtility
             //tabControl1.SelectTab(tabPageRelay1);
             //tabControl1.SelectTab(tabPageTuner);
             //tabControl1.SelectTab(tabPageControl);
-
+            tabControl1.SelectTab(tabPageControl);
             Thread.Sleep(100);
             timerGetFreq.Interval = 500;
             timerGetFreq.Enabled = true;
@@ -1005,11 +1005,12 @@ namespace AmpAutoTunerUtility
         private bool Tune()
         {
             string xml;
-            if (paused)
+            if (pausedTuning)
             {
                 Debug(Tuner.DebugEnum.WARN, MyTime() + "Tuner is paused");
                 return true;
             }
+            tuneIsRunning = true;
             var ptt = checkBoxPTTEnabled.Checked;
             //var tone = checkBoxToneEnabled.Checked;
             var powerSDR = checkBoxPowerSDR.Checked;
@@ -1141,6 +1142,7 @@ namespace AmpAutoTunerUtility
             { // Abort if FLRig is giving an error
                 Debug(Tuner.DebugEnum.ERR, MyTime() + "FLRigSend got an error??\n");
             }
+            tuneIsRunning = false;
             return true;
         }
 
@@ -1617,13 +1619,15 @@ namespace AmpAutoTunerUtility
                 }
             }
             string currVFO = FLRigGetActiveVFO();
+            
             if (currVFO.Equals("B", StringComparison.InvariantCulture))
             {
 #pragma warning disable CA1303 // Do not pass literals as localized parameters
-                MyMessageBox("Auto tuning paused...click OK to continue");
+                MyMessageBox("Auto tuning paused because VFOB is active, click OK when you're done");
 #pragma warning restore CA1303 // Do not pass literals as localized parameters
                 FLRigSetActiveVFO("A");
             }
+            
             string vfo = "B";
             if (radioButtonVFOA.Checked) vfo = "A";
             char cvfo = 'A';
@@ -1684,7 +1688,7 @@ namespace AmpAutoTunerUtility
                             ++freqStableCount;
                             stopWatchTuner.Restart();
                         }
-                        if (freqStableCount >= freqStableCountNeeded && Math.Abs(frequencyHz - lastfrequencyTunedHz) > tolTune)
+                        if (freqStableCount >= freqStableCountNeeded && Math.Abs(frequencyHz - lastfrequencyTunedHz) > tolTune && !pausedTuning &!pauseButtonClicked)
                         {
                             if (stopWatchTuner.IsRunning && stopWatchTuner.ElapsedMilliseconds < 1 * 1000)
                             {
@@ -1703,7 +1707,7 @@ namespace AmpAutoTunerUtility
                             }
                             xml = FLRigXML("rig.set_vfo" + cvfo, "<params><param><value><double> " + frequencyHzVFOB + " </double></value></param></params");
                             if (FLRigSend(xml) == false) return; // Abort if FLRig is giving an error
-
+                            Thread.Sleep(1000);  // give the rig a chance to restore it's band memory
                             string myparam = "<params><param><value>" + mode + "</value></param></params>";
                             xml = FLRigXML("rig.set_modeB", myparam);
                             if (FLRigSend(xml) == false)
@@ -1712,12 +1716,12 @@ namespace AmpAutoTunerUtility
                             }
                             Debug(Tuner.DebugEnum.LOG, MyTime() + "Rig mode VFOB set to "+mode+"\n");
                             stopWatchTuner.Restart();
-                            if (checkBoxTunerEnabled.Checked && paused)
+                            if (checkBoxTunerEnabled.Checked && pausedTuning)
                             {
                                 // if we're pause we just update this stuff to prevent it from thinking we need to do anything
                                 lastfrequencyTunedHz = lastfrequency = frequencyHz;
                             }
-                            if (checkBoxTunerEnabled.Checked && !paused)
+                            if (checkBoxTunerEnabled.Checked && !pausedTuning && !pauseButtonClicked)
                             {
                                 char vfoOther = 'A';
                                 if (radioButtonVFOA.Checked) vfoOther = 'B';
@@ -1738,7 +1742,9 @@ namespace AmpAutoTunerUtility
                                 //PowerSelect(frequencyHz, modeCurrent);
                                 if (needTuning)
                                 {
+                                    timerGetFreq.Stop();
                                     Tune();
+                                    timerGetFreq.Start();
                                 }
                                 // Reset VFOB to same freq as VFOA
                                 myparam = "<params><param><value><double>" + frequencyHz + "</double></value></param></params";
@@ -1748,7 +1754,7 @@ namespace AmpAutoTunerUtility
                                     Debug(Tuner.DebugEnum.ERR, MyTime() + "FLRigSend got an error??\n");
                                 }
                             }
-                            else if (!paused)
+                            else if (!pausedTuning && !pauseButtonClicked)
                             {
                                 Debug(Tuner.DebugEnum.ERR, MyTime() + "Tuner not enabled\n");
                                 Debug(Tuner.DebugEnum.ERR, MyTime() + "Simulate tuning to " + frequencyHz + "\n");
@@ -1812,29 +1818,129 @@ namespace AmpAutoTunerUtility
             getFreqIsRunning = false;
         }
 
+        public static String getCommandLines(Process processs)
+        {
+            ManagementObjectSearcher commandLineSearcher = new ManagementObjectSearcher(
+                "SELECT CommandLine FROM Win32_Process WHERE ProcessId = " + processs.Id);
+            String commandLine = "";
+            foreach (ManagementObject commandLineObject in commandLineSearcher.Get())
+            {
+                commandLine += (String)commandLineObject["CommandLine"];
+            }
+            commandLineSearcher.Dispose();
+            return commandLine;
+        }
+        bool FreqWalkIsRunning()
+        {
+            Process[] pname = Process.GetProcessesByName("powershell");
+            foreach (Process p in pname)
+            {
+                if (getCommandLines(p).Contains("freqwalk"))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
         private void TimerGetFreq_Tick(object sender, EventArgs e)
         {
             if (tuner1 == null || tuner1.GetComPort() == null) return;
             timerGetFreq.Stop();
-
-            // This allows external control of the pause ability
-            var tempfile = Environment.GetEnvironmentVariable("TEMP") + "\\" + "tunerutilpause.txt";
-            if (System.IO.File.Exists(tempfile))
+            if (!FreqWalkIsRunning())
             {
-                var pausecmd = System.IO.File.ReadAllText(tempfile);
-                if (pausecmd.ToUpperInvariant().Contains("PAUSE") && !paused)
+                labelFreqWalk.Text = "FreqWalk Off";
+                if (pausedTuning)
                 {
-                    paused = true; // we pause when freqwalk is running
+                    //pausedTuning = false;
+                    buttonTunePause.Enabled = true;
                     Pause();
                 }
-                if (!pausecmd.ToUpperInvariant().Contains("PAUSE") && paused)
+                else
                 {
-                    //FLRigGetFreq(false);
-                    SetAntennaInUse();
-                    paused = false; // we run when freqalk is paused
-                    Pause();
+                    buttonTunePause.Enabled = true;
                 }
             }
+            else // see if we need to do something
+            {
+                if (!pauseButtonClicked) buttonTunePause.Enabled = false;
+                var walkingRequestFile = Environment.GetEnvironmentVariable("TEMP") + "\\" + "freqwalkrequest.txt";
+                var walkingRequestOKFile = Environment.GetEnvironmentVariable("TEMP") + "\\" + "freqwalkok.txt";
+                if (System.IO.File.Exists(walkingRequestFile) && !pausedTuning)
+                {
+                    while(tuneIsRunning)
+                    {
+                        labelFreqWalk.Text = "FreqWalk waiting for tune";
+                        Application.DoEvents();
+                        tuneIsRunning = false;
+                        Thread.Sleep(500);
+                    }
+                    labelFreqWalk.Text = "FreqWalk walking";
+                    pausedTuning = true; // we pause when freqwalk wants us to
+                    Pause(); // Pause will give permission to freqwalk
+                }
+                else if (!System.IO.File.Exists(walkingRequestFile) && pausedTuning && buttonTunePause.Text.Equals("Resume"))
+                {
+                    labelFreqWalk.Text = "FreqWalk paused";
+                    SetAntennaInUse();
+                    buttonTunePause.Enabled = true;
+                    pausedTuning = false; // we run when freqwalk is paused
+                    Pause();
+                }
+                else if (!System.IO.File.Exists(walkingRequestFile) && !pausedTuning && buttonTunePause.Text.Equals("Pause"))
+                {
+                    labelFreqWalk.Text = "FreqWalk paused";
+                    buttonTunePause.Enabled = true;
+                }
+                else if (System.IO.File.Exists(walkingRequestOKFile))
+                {
+                    labelFreqWalk.Text = "FreqWalk walking";
+                    pausedTuning = true;
+                }
+                else
+                {
+                    labelFreqWalk.Text = "FreqWalk unknown";
+                }
+            }
+            //else if (!freqWalkIsRunning && buttonTunePause.Text.Equals("Resume"))
+            //{
+            //    SetAntennaInUse();
+            //    pausedTuning = false; // we run when freqwalk is paused
+            //    Pause();
+            //}
+
+            //else if (!System.IO.File.Exists(walkingRequestFile) && pausedTuning && buttonTunePause.Text.Equals("Resume"))
+            //{
+            //    SetAntennaInUse();
+            //    pausedTuning = true; // we run when freqwalk is paused
+            //    Pause();
+            //}
+
+            var walkingOKFile = Environment.GetEnvironmentVariable("TEMP") + "\\" + "freqwalkok.txt";
+            if (!System.IO.File.Exists(walkingOKFile) && pausedTuning)
+            {
+                var dummy = System.IO.File.Create(walkingOKFile);
+                dummy.Dispose();
+            }
+            else if (!pausedTuning && System.IO.File.Exists(walkingOKFile))
+            {
+                System.IO.File.Delete(walkingOKFile);
+            }
+            /*
+            // This allows external control of the pause ability
+            var pausedfile = Environment.GetEnvironmentVariable("TEMP") + "\\" + "tunerutilpaused.txt";
+            var walkingfile = Environment.GetEnvironmentVariable("TEMP") + "\\" + "tunerutilwalking.txt";
+            if (System.IO.File.Exists(walkingfile) && !pausedTuning)
+            {
+                pausedTuning = true; // we pause when freqwalk is running
+                Pause();
+            }
+            else if (System.IO.File.Exists(pausedfile) && pausedTuning)
+            { 
+                SetAntennaInUse();
+                pausedTuning = false; // we run when freqwalk is paused
+                Pause();
+            }
+            */
             if (tuner1 != null) {
                 string SWR = tuner1.GetSWRString();
                 if (tuner1.GetModel().Equals(MFJ928, StringComparison.InvariantCulture))
@@ -2075,7 +2181,9 @@ namespace AmpAutoTunerUtility
             //    return;
             //}
             Cursor.Current = Cursors.WaitCursor;
+            timerGetFreq.Stop();
             Tune();
+            timerGetFreq.Start();
             Cursor.Current = Cursors.Default;
         }
 
@@ -2380,36 +2488,65 @@ namespace AmpAutoTunerUtility
         {
             //if (toggle) paused = !paused;
             //else paused = true;
-            if (paused)
+            if (pausedTuning)
             {
 #pragma warning disable CA1303 // Do not pass literals as localized parameters
                 buttonTunePause.Text = "Resume";
+                buttonTunePause.BackColor = Color.Red;
+                buttonTunePause.ForeColor = Color.White;
 #pragma warning restore CA1303 // Do not pass literals as localized parameters
-                buttonTune.Enabled = false;
+                //buttonTune.Enabled = false;
 #pragma warning disable CA1303 // Do not pass literals as localized parameters
                 labelSWR.Text = "SWR Paused";
 #pragma warning restore CA1303 // Do not pass literals as localized parameters
                 buttonTunerStatus.BackColor = Color.Yellow;
                 Debug(Tuner.DebugEnum.LOG, MyTime() + "Tuning paused\n");
             }
-            else
+            else if (!pauseButtonClicked)
             {
 #pragma warning disable CA1303 // Do not pass literals as localized parameters
                 buttonTunePause.Text = "Pause";
+                buttonTunePause.BackColor = Color.Green;
+                buttonTunePause.ForeColor = Color.White;
 #pragma warning restore CA1303 // Do not pass literals as localized parameters
-                buttonTune.Enabled = true;
+                //buttonTune.Enabled = true;
 #pragma warning disable CA1303 // Do not pass literals as localized parameters
                 labelSWR.Text = "SWR";
 #pragma warning restore CA1303 // Do not pass literals as localized parameters
+                timerGetFreq.Stop();
                 FLRigGetFreq(false);
                 Tune();
+                timerGetFreq.Start();
                 Debug(Tuner.DebugEnum.LOG, MyTime() + "Tuning resumed\n");
             }
         }
         private void ButtonTunePause_Click(object sender, EventArgs e)
         {
-            paused = !paused;
-            Pause();
+            if (pausedTuning)
+            {
+                if (buttonTunePause.Text.Equals("Resume"))
+                {
+                    //System.IO.File.Delete(walkingRequestFile);
+                    pausedTuning = false;
+                    pauseButtonClicked = false;
+                    Pause();
+                }
+            }
+            else
+            {
+                if (buttonTunePause.Text.Equals("Pause"))
+                {
+                    pauseButtonClicked = true;
+                    pausedTuning = true;
+                    Pause();
+                }
+                else // Must be "Resume"
+                {
+                    pauseButtonClicked = false;
+                    pausedTuning = false;
+                    Pause();
+                }
+            }
         }
 
         private void ComboBoxAudioOut_SelectedIndexChanged(object sender, EventArgs e)
@@ -2658,7 +2795,7 @@ namespace AmpAutoTunerUtility
                 if (msg.Level <= debugLevel || msg.Level == Tuner.DebugEnum.LOG)
                 {
                     richTextBoxDebug.AppendText(msg.Text);
-                    richTextBoxDebug.SelectionStart = richTextBoxDebug.Text.Length;
+                    richTextBoxDebug.SelectionStart = 0;
                     richTextBoxDebug.ScrollToCaret();
                     while (richTextBoxDebug.Lines.Length > 1000)
                     {
@@ -2679,10 +2816,10 @@ namespace AmpAutoTunerUtility
             tabControl1.TabPages.Remove(tabPageRelay2);
             tabControl1.TabPages.Remove(tabPageRelay3);
             tabControl1.TabPages.Remove(tabPageRelay4);
-            if (relay1ToolStripMenuItem.Checked)
-            {
+            //if (relay1ToolStripMenuItem.Checked)
+            //{
                 tabControl1.TabPages.Add(tabPageRelay1);
-            }
+            //}
             if (relay2ToolStripMenuItem.Checked)
             {
                 tabControl1.TabPages.Add(tabPageRelay2);
@@ -2812,10 +2949,10 @@ namespace AmpAutoTunerUtility
         {
             relay1ToolStripMenuItem.Checked = !relay1ToolStripMenuItem.Checked;
             tabControl1.TabPages.Remove(tabPageRelay1);
-            if (relay1ToolStripMenuItem.Checked && tabControl1.TabPages.IndexOf(tabPageRelay1) < 0)
-            {
+            //if (relay1ToolStripMenuItem.Checked && tabControl1.TabPages.IndexOf(tabPageRelay1) < 0)
+            //{
                 tabControl1.TabPages.Add(tabPageRelay1);
-            }
+            //}
         }
 
         private void Relay2ToolStripMenuItem_Click(object sender, EventArgs e)
