@@ -9,6 +9,7 @@ namespace AmpAutoTunerUtility
 {
     public abstract class Tuner: IDisposable
     {
+        private bool _disposed = false;
         public enum DebugEnum
         {
             ERR, // fatal or action needed
@@ -41,6 +42,11 @@ namespace AmpAutoTunerUtility
             baud = null;
         }
 
+        ~Tuner()
+        {
+            Dispose(false);
+        }
+
         public string GetComPort() { return comport; }
         //public Tuner(string model, string comport, string baud)
         //{
@@ -49,7 +55,23 @@ namespace AmpAutoTunerUtility
         //    this.baud = baud;
         //}
 
-        public abstract void Dispose(bool disposing);
+        public void Dispose() 
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (_disposed)
+                return;
+
+            if (disposing)
+            {
+                // release managed resources
+            }
+            _disposed = true;
+        }
         public virtual void SetDebugLevel(DebugEnum level)
         {
             DebugLevel = level;
@@ -167,6 +189,5 @@ namespace AmpAutoTunerUtility
             // nothing to do
         }
 
-        public abstract void Dispose();
     }
 }

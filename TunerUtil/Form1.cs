@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Diagnostics.Contracts;
 using System.Drawing;
 using System.Globalization;
 using System.Management;
@@ -46,7 +47,6 @@ namespace AmpAutoTunerUtility
         readonly Stopwatch stopWatchTuner = new Stopwatch();
         int freqStableCount = 0; // 
         int freqStableCountNeeded = 2; //need this number of repeat freqs before tuning starts
-        private bool autopause;
         bool pausedTuning = false;
         private bool pauseButtonClicked;
         private Audio audio;
@@ -82,6 +82,8 @@ namespace AmpAutoTunerUtility
             {
                 if (rigStream != null) rigStream.Dispose();
                 if (rigClient != null) rigClient.Dispose();
+                tuner1.Dispose();
+                audio.Dispose();
                 return;
             }
             base.Dispose(disposing);
@@ -631,7 +633,7 @@ namespace AmpAutoTunerUtility
                     Text = cap.Description,
                     MyGUID = cap.Guid
                 };
-                int curIndex = comboBoxAudioOut.Items.Add(cbox);
+                comboBoxAudioOut.Items.Add(cbox);
             }
         }
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
@@ -1818,10 +1820,11 @@ namespace AmpAutoTunerUtility
             getFreqIsRunning = false;
         }
 
-        public static String getCommandLines(Process processs)
+        public static String GetCommandLines(Process process)
         {
+            Contract.Requires(process != null);
             ManagementObjectSearcher commandLineSearcher = new ManagementObjectSearcher(
-                "SELECT CommandLine FROM Win32_Process WHERE ProcessId = " + processs.Id);
+                "SELECT CommandLine FROM Win32_Process WHERE ProcessId = " + process.Id);
             String commandLine = "";
             foreach (ManagementObject commandLineObject in commandLineSearcher.Get())
             {
@@ -1835,7 +1838,7 @@ namespace AmpAutoTunerUtility
             Process[] pname = Process.GetProcessesByName("powershell");
             foreach (Process p in pname)
             {
-                if (getCommandLines(p).Contains("freqwalk"))
+                if (GetCommandLines(p).Contains("freqwalk"))
                 {
                     return true;
                 }
@@ -1878,7 +1881,7 @@ namespace AmpAutoTunerUtility
                     pausedTuning = true; // we pause when freqwalk wants us to
                     Pause(); // Pause will give permission to freqwalk
                 }
-                else if (!System.IO.File.Exists(walkingRequestFile) && pausedTuning && buttonTunePause.Text.Equals("Resume"))
+                else if (!System.IO.File.Exists(walkingRequestFile) && pausedTuning && buttonTunePause.Text.Equals("Resume",StringComparison.InvariantCulture))
                 {
                     labelFreqWalk.Text = "FreqWalk paused";
                     SetAntennaInUse();
@@ -1886,7 +1889,7 @@ namespace AmpAutoTunerUtility
                     pausedTuning = false; // we run when freqwalk is paused
                     Pause();
                 }
-                else if (!System.IO.File.Exists(walkingRequestFile) && !pausedTuning && buttonTunePause.Text.Equals("Pause"))
+                else if (!System.IO.File.Exists(walkingRequestFile) && !pausedTuning && buttonTunePause.Text.Equals("Pause",StringComparison.InvariantCulture))
                 {
                     labelFreqWalk.Text = "FreqWalk paused";
                     buttonTunePause.Enabled = true;
@@ -2187,7 +2190,7 @@ namespace AmpAutoTunerUtility
             Cursor.Current = Cursors.Default;
         }
 
-        private string FLRigXML(string cmd, string value)
+        private static string FLRigXML(string cmd, string value)
         {
             string xmlHeader = "POST / RPC2 HTTP / 1.1\r\n";
             xmlHeader += "User - Agent: XMLRPC++ 0.8\r\n";
@@ -2479,11 +2482,6 @@ namespace AmpAutoTunerUtility
 #pragma warning restore CA1303 // Do not pass literals as localized parameters
         }
 
-        private bool FrequencyChanged()
-        {
-            return Math.Abs(lastfrequency - lastfrequencyTunedHz) > Convert.ToDouble(textBoxFreqTol.Text,CultureInfo.InvariantCulture);
-        }
-
         private void Pause()
         {
             //if (toggle) paused = !paused;
@@ -2524,7 +2522,7 @@ namespace AmpAutoTunerUtility
         {
             if (pausedTuning)
             {
-                if (buttonTunePause.Text.Equals("Resume"))
+                if (buttonTunePause.Text.Equals("Resume", StringComparison.InvariantCulture))
                 {
                     //System.IO.File.Delete(walkingRequestFile);
                     pausedTuning = false;
@@ -2534,7 +2532,7 @@ namespace AmpAutoTunerUtility
             }
             else
             {
-                if (buttonTunePause.Text.Equals("Pause"))
+                if (buttonTunePause.Text.Equals("Pause", StringComparison.InvariantCulture))
                 {
                     pauseButtonClicked = true;
                     pausedTuning = true;
@@ -2811,6 +2809,7 @@ namespace AmpAutoTunerUtility
         private void ComboBoxNRelaysSet()
         {
             return;
+            /*
             //int nRelays = Int32.Parse(comboBoxNRelays.Text, CultureInfo.InvariantCulture);
             tabControl1.TabPages.Remove(tabPageRelay1);
             tabControl1.TabPages.Remove(tabPageRelay2);
@@ -2832,6 +2831,7 @@ namespace AmpAutoTunerUtility
             {
                 tabControl1.TabPages.Add(tabPageRelay4);
             }
+            */
         }
 
         private void ComboBox1_SelectedIndexChanged(object sender, EventArgs e)

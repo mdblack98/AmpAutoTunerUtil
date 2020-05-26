@@ -55,7 +55,8 @@ namespace AmpAutoTunerUtility
             //    MessageBox.Show(ex.Message);
             //}
         }
-        public override void Dispose(bool disposing)
+        //public override void Dispose(bool disposing)
+        protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
@@ -125,10 +126,6 @@ namespace AmpAutoTunerUtility
                 MessageBox.Show("Tuner Util:" + ex.Message);
                 response = '?';
             }
-        }
-
-        public override sealed void Dispose()
-        {
         }
     }
 }

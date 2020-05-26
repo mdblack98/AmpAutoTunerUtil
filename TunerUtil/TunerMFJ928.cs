@@ -210,7 +210,7 @@ namespace AmpAutoTunerUtility
             }
         }
 
-        private string MyTime()
+        private static string MyTime()
         {
             string time = DateTime.Now.ToString("HH:mm:ss.fff", CultureInfo.InvariantCulture) + ": ";
             return time;
@@ -561,7 +561,7 @@ namespace AmpAutoTunerUtility
             byte[] writeMemory = { 0xfe, 0xfe, 0x30, 0x00, 0x00, 0x00, 0xf9, 0xfd };
             SendCmd(writeMemory);
         }
-        private string Dumphex(byte[] data)
+        private static string Dumphex(byte[] data)
         {
             return(BitConverter.ToString(data));
         }
@@ -583,6 +583,7 @@ namespace AmpAutoTunerUtility
         {
         }
 
+        /*
         public override void Dispose(bool disposing)
         {
         }
@@ -590,5 +591,6 @@ namespace AmpAutoTunerUtility
         public override void Dispose()
         {
         }
+        */
     }
 }

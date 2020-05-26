@@ -120,6 +120,7 @@ namespace AmpAutoTunerUtility
                     // TODO: dispose managed state (managed objects).
                     rigStream.Close();
                     rigStream.Dispose();
+                    rigClient.Dispose();
                 }
 
                 // TODO: free unmanaged resources (unmanaged objects) and override a finalizer below.
