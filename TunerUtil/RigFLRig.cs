@@ -54,7 +54,7 @@ namespace AmpAutoTunerUtility
                 }
                 //else
                 //{
-                //    richTextBoxRig.AppendText(MyTime() + "FLRig connected\n");
+                //    richTextBoxRig.AppendText("FLRig connected\n");
                 //}
             }
 #pragma warning disable CA1031 // Do not catch general exception types
@@ -65,12 +65,12 @@ namespace AmpAutoTunerUtility
                 if (ex.Message.Contains("actively refused"))
                 {
                     errorMessage = "FLRig not responding...";
-                    //richTextBoxRig.AppendText(MyTime() + "FLRig not responding...\n");
+                    //richTextBoxRig.AppendText("FLRig not responding...\n");
                 }
                 else
                 {
                     errorMessage = "FLRig unexpected error:\n" + ex.Message;
-                    //richTextBoxRig.AppendText(MyTime() + "FLRig unexpected error:\n" + ex.Message + "\n");
+                    //richTextBoxRig.AppendText("FLRig unexpected error:\n" + ex.Message + "\n");
                 }
                 return false;
             }
@@ -99,10 +99,10 @@ namespace AmpAutoTunerUtility
             }
             if (formClosing == true)
             {
-                richTextBoxRig.AppendText(MyTime() + "Aborting FLRigWait\n");
+                richTextBoxRig.AppendText("Aborting FLRigWait\n");
                 return false;
             }
-            richTextBoxRig.AppendText(MyTime() + "Rig is " + xcvr + "\n");
+            richTextBoxRig.AppendText("Rig is " + xcvr + "\n");
             return true;
             */
             return false;

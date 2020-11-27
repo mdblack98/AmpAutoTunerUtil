@@ -35,7 +35,6 @@
             this.radioButtonVFOB = new System.Windows.Forms.RadioButton();
             this.radioButtonVFOA = new System.Windows.Forms.RadioButton();
             this.comboBoxAudioOut = new System.Windows.Forms.ComboBox();
-            this.numericUpDownSensitivity = new System.Windows.Forms.NumericUpDown();
             this.label2 = new System.Windows.Forms.Label();
             this.textBoxFreqTol = new System.Windows.Forms.TextBox();
             this.comboBoxPower8Mode = new System.Windows.Forms.ComboBox();
@@ -93,6 +92,7 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.labelFreqWalk = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.buttonAmp = new System.Windows.Forms.Button();
             this.tabPageDebug = new System.Windows.Forms.TabPage();
             this.checkBoxPause = new System.Windows.Forms.CheckBox();
             this.comboBoxDebugLevel = new System.Windows.Forms.ComboBox();
@@ -102,7 +102,6 @@
             this.panel3 = new System.Windows.Forms.Panel();
             this.label9 = new System.Windows.Forms.Label();
             this.textBoxTuneOffset = new System.Windows.Forms.TextBox();
-            this.button27 = new System.Windows.Forms.Button();
             this.checkBoxTunerEnabled = new System.Windows.Forms.CheckBox();
             this.comboBoxTunerModel = new System.Windows.Forms.ComboBox();
             this.comboBoxBaudTuner = new System.Windows.Forms.ComboBox();
@@ -190,7 +189,6 @@
             this.label14 = new System.Windows.Forms.Label();
             this.textBoxAntennaFreq1To = new System.Windows.Forms.TextBox();
             this.tabPageRelay1 = new System.Windows.Forms.TabPage();
-            this.linkLabel2 = new System.Windows.Forms.LinkLabel();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.labelTextBoxRelay1Status = new System.Windows.Forms.Label();
@@ -277,7 +275,6 @@
             this.aboutToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownInductance)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCapacitance)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownSensitivity)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPageControl.SuspendLayout();
             this.groupBoxOptions.SuspendLayout();
@@ -393,7 +390,7 @@
             // 
             this.buttonTunePause.BackColor = System.Drawing.Color.WhiteSmoke;
             this.buttonTunePause.FlatAppearance.BorderSize = 2;
-            this.buttonTunePause.Location = new System.Drawing.Point(29, 86);
+            this.buttonTunePause.Location = new System.Drawing.Point(29, 77);
             this.buttonTunePause.Margin = new System.Windows.Forms.Padding(2);
             this.buttonTunePause.Name = "buttonTunePause";
             this.buttonTunePause.Size = new System.Drawing.Size(56, 22);
@@ -407,7 +404,7 @@
             // 
             this.buttonTune.BackColor = System.Drawing.Color.WhiteSmoke;
             this.buttonTune.FlatAppearance.BorderSize = 2;
-            this.buttonTune.Location = new System.Drawing.Point(29, 27);
+            this.buttonTune.Location = new System.Drawing.Point(29, 21);
             this.buttonTune.Margin = new System.Windows.Forms.Padding(2);
             this.buttonTune.Name = "buttonTune";
             this.buttonTune.Size = new System.Drawing.Size(56, 22);
@@ -419,7 +416,7 @@
             // 
             // buttonTunerStatus
             // 
-            this.buttonTunerStatus.Location = new System.Drawing.Point(41, 58);
+            this.buttonTunerStatus.Location = new System.Drawing.Point(41, 49);
             this.buttonTunerStatus.Margin = new System.Windows.Forms.Padding(2);
             this.buttonTunerStatus.Name = "buttonTunerStatus";
             this.buttonTunerStatus.Size = new System.Drawing.Size(30, 19);
@@ -515,32 +512,6 @@
             this.comboBoxAudioOut.Size = new System.Drawing.Size(367, 21);
             this.comboBoxAudioOut.TabIndex = 13;
             this.toolTip1.SetToolTip(this.comboBoxAudioOut, "Sound device for tone output (i.e. rig device)");
-            // 
-            // numericUpDownSensitivity
-            // 
-            this.numericUpDownSensitivity.Enabled = false;
-            this.numericUpDownSensitivity.Location = new System.Drawing.Point(122, 131);
-            this.numericUpDownSensitivity.Margin = new System.Windows.Forms.Padding(2);
-            this.numericUpDownSensitivity.Maximum = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
-            this.numericUpDownSensitivity.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.numericUpDownSensitivity.Name = "numericUpDownSensitivity";
-            this.numericUpDownSensitivity.Size = new System.Drawing.Size(27, 20);
-            this.numericUpDownSensitivity.TabIndex = 11;
-            this.toolTip1.SetToolTip(this.numericUpDownSensitivity, "Number of 500ms intervals to wait for stable Freq before tuning");
-            this.numericUpDownSensitivity.Value = new decimal(new int[] {
-            2,
-            0,
-            0,
-            0});
-            this.numericUpDownSensitivity.Visible = false;
             // 
             // label2
             // 
@@ -1171,6 +1142,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.buttonAmp);
             this.groupBox1.Controls.Add(this.buttonTunePause);
             this.groupBox1.Controls.Add(this.buttonTune);
             this.groupBox1.Controls.Add(this.buttonTunerStatus);
@@ -1182,6 +1154,20 @@
             this.groupBox1.TabIndex = 15;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Tuner Control/Status";
+            // 
+            // buttonAmp
+            // 
+            this.buttonAmp.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.buttonAmp.FlatAppearance.BorderSize = 2;
+            this.buttonAmp.Location = new System.Drawing.Point(30, 114);
+            this.buttonAmp.Margin = new System.Windows.Forms.Padding(2);
+            this.buttonAmp.Name = "buttonAmp";
+            this.buttonAmp.Size = new System.Drawing.Size(56, 22);
+            this.buttonAmp.TabIndex = 12;
+            this.buttonAmp.Text = "Amp";
+            this.toolTip1.SetToolTip(this.buttonAmp, "Start a tune cycle");
+            this.buttonAmp.UseVisualStyleBackColor = false;
+            this.buttonAmp.Click += new System.EventHandler(this.buttonAmp_Click);
             // 
             // tabPageDebug
             // 
@@ -1238,6 +1224,7 @@
             this.richTextBoxDebug.Size = new System.Drawing.Size(370, 177);
             this.richTextBoxDebug.TabIndex = 8;
             this.richTextBoxDebug.Text = "";
+            this.richTextBoxDebug.TextChanged += new System.EventHandler(this.richTextBoxDebug_TextChanged);
             // 
             // tabPageTuner
             // 
@@ -1275,8 +1262,6 @@
             this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel3.Controls.Add(this.label9);
             this.panel3.Controls.Add(this.textBoxTuneOffset);
-            this.panel3.Controls.Add(this.button27);
-            this.panel3.Controls.Add(this.numericUpDownSensitivity);
             this.panel3.Controls.Add(this.checkBoxTunerEnabled);
             this.panel3.Controls.Add(this.comboBoxTunerModel);
             this.panel3.Controls.Add(this.label2);
@@ -1310,17 +1295,6 @@
             this.textBoxTuneOffset.TabIndex = 13;
             this.textBoxTuneOffset.Text = "700";
             this.toolTip1.SetToolTip(this.textBoxTuneOffset, "If last-tuned frequency is off by more then this autotune will happen");
-            // 
-            // button27
-            // 
-            this.button27.Location = new System.Drawing.Point(8, 130);
-            this.button27.Margin = new System.Windows.Forms.Padding(2);
-            this.button27.Name = "button27";
-            this.button27.Size = new System.Drawing.Size(56, 19);
-            this.button27.TabIndex = 12;
-            this.button27.Text = "Amp";
-            this.button27.UseVisualStyleBackColor = true;
-            this.button27.Click += new System.EventHandler(this.Button27_Click);
             // 
             // checkBoxTunerEnabled
             // 
@@ -2061,6 +2035,7 @@
             this.checkBoxAntenna1.Size = new System.Drawing.Size(15, 14);
             this.checkBoxAntenna1.TabIndex = 38;
             this.checkBoxAntenna1.UseVisualStyleBackColor = true;
+            this.checkBoxAntenna1.CheckedChanged += new System.EventHandler(this.checkBoxAntenna1_CheckedChanged);
             // 
             // textBoxAntennaFreq8To
             // 
@@ -2229,7 +2204,6 @@
             // tabPageRelay1
             // 
             this.tabPageRelay1.BackColor = System.Drawing.Color.LightGray;
-            this.tabPageRelay1.Controls.Add(this.linkLabel2);
             this.tabPageRelay1.Controls.Add(this.linkLabel1);
             this.tabPageRelay1.Controls.Add(this.button1_8);
             this.tabPageRelay1.Controls.Add(this.button1_7);
@@ -2248,27 +2222,17 @@
             this.tabPageRelay1.TabIndex = 0;
             this.tabPageRelay1.Text = "Relay1";
             // 
-            // linkLabel2
-            // 
-            this.linkLabel2.AutoSize = true;
-            this.linkLabel2.Location = new System.Drawing.Point(4, 173);
-            this.linkLabel2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.linkLabel2.Name = "linkLabel2";
-            this.linkLabel2.Size = new System.Drawing.Size(132, 13);
-            this.linkLabel2.TabIndex = 22;
-            this.linkLabel2.TabStop = true;
-            this.linkLabel2.Text = "Sainsmart 8CH USB Relay";
-            // 
             // linkLabel1
             // 
             this.linkLabel1.AutoSize = true;
             this.linkLabel1.Location = new System.Drawing.Point(4, 150);
             this.linkLabel1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.linkLabel1.Name = "linkLabel1";
-            this.linkLabel1.Size = new System.Drawing.Size(132, 13);
+            this.linkLabel1.Size = new System.Drawing.Size(198, 13);
             this.linkLabel1.TabIndex = 21;
             this.linkLabel1.TabStop = true;
-            this.linkLabel1.Text = "Sainsmart 4CH USB Relay";
+            this.linkLabel1.Text = "Sainsmart 4CH 8CH or 16CH USB Relay";
+            this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked_1);
             // 
             // panel1
             // 
@@ -3192,14 +3156,13 @@
             this.Margin = new System.Windows.Forms.Padding(2);
             this.MaximumSize = new System.Drawing.Size(407, 304);
             this.Name = "Form1";
-            this.Text = "AmpAutoTunerUtility V0.47 by W9MDB";
+            this.Text = "AmpAutoTunerUtility V0.51 by W9MDB";
             this.HelpButtonClicked += new System.ComponentModel.CancelEventHandler(this.Form1_HelpButtonClicked);
             this.Activated += new System.EventHandler(this.Form1_Activated);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownInductance)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCapacitance)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownSensitivity)).EndInit();
             this.tabControl1.ResumeLayout(false);
             this.tabPageControl.ResumeLayout(false);
             this.groupBoxOptions.ResumeLayout(false);
@@ -3279,7 +3242,6 @@
         private System.Windows.Forms.RadioButton radioButtonVFOA;
         private System.Windows.Forms.ComboBox comboBoxAudioOut;
         private System.Windows.Forms.Panel panel3;
-        private System.Windows.Forms.NumericUpDown numericUpDownSensitivity;
         private System.Windows.Forms.CheckBox checkBoxTunerEnabled;
         private System.Windows.Forms.ComboBox comboBoxTunerModel;
         private System.Windows.Forms.Label label2;
@@ -3396,7 +3358,6 @@
         private System.Windows.Forms.TextBox textBoxAntennaFreq1To;
         private System.Windows.Forms.TextBox textBoxAntennaFreq1From;
         private System.Windows.Forms.TabPage tabPageRelay1;
-        private System.Windows.Forms.LinkLabel linkLabel2;
         private System.Windows.Forms.LinkLabel linkLabel1;
         private System.Windows.Forms.Button button1_8;
         private System.Windows.Forms.Button button1_7;
@@ -3492,10 +3453,10 @@
         private System.Windows.Forms.Button button26;
         private System.Windows.Forms.ComboBox comboBoxDebugLevel;
         private System.Windows.Forms.CheckBox checkBoxPause;
-        private System.Windows.Forms.Button button27;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.TextBox textBoxTuneOffset;
         private System.Windows.Forms.Label labelFreqWalk;
+        private System.Windows.Forms.Button buttonAmp;
     }
 }
 

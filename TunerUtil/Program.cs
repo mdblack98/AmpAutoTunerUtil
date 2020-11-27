@@ -16,7 +16,9 @@ namespace AmpAutoTunerUtility
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            Form1 myForm = new Form1();
+            Application.Run(myForm);
+            myForm.Dispose();
         }
     }
 }

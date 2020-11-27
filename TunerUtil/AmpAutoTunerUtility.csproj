@@ -158,6 +158,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Audio.cs" />
+    <Compile Include="DebugMsg.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="HelpForm.cs">
       <SubType>Form</SubType>

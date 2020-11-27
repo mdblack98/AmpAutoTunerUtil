@@ -9,7 +9,7 @@ namespace AmpAutoTunerUtility
 {
     class Relay
     {
-        private FTDI ftdi = new FTDI();
+        public FTDI ftdi = new FTDI();
         readonly List<string> comList = new List<string>();
         readonly List<uint> comIndex = new List<uint>();
         readonly uint devcount = 0;
@@ -44,7 +44,7 @@ namespace AmpAutoTunerUtility
                         //FT232R_EEPROM_STRUCTURE ee232r = new FT232R_EEPROM_STRUCTURE();
                         //ftdi.ReadFT232REEPROM(ee232r);
                         ftdi.GetCOMPort(out string comport);
-                        Close();
+                        //Close();
                         comList.Add(comport);
                         comIndex.Add(index);
                         serialNums.Add(node.SerialNumber);
@@ -61,17 +61,22 @@ namespace AmpAutoTunerUtility
             }
         }
 
-        public void Open(bool close = true)
+        public void Open(bool close = false)
         {
             Open(comPort, close);
         }
 
-        public void Open(string comPortNew, bool close = true)
+        public void Open(string comPortNew, bool close = false)
         {
             errMsg = null;
             if (ftdi == null)
             {
                 ftdi = new FTDI();
+            }
+            else
+            {
+                DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.LOG, "FTDI close#1\n");
+                ftdi.Close();
             }
             try
             {
@@ -88,8 +93,13 @@ namespace AmpAutoTunerUtility
                 serialNumber = serialNums[index];
                 if (close)
                 {
+                    DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.LOG, "FTDI close#2\n");
                     ftdi.Close();
                     ftdi = null;
+                }
+                else
+                {
+                    int n = 0;
                 }
                 //AllOff();
             }
@@ -97,8 +107,12 @@ namespace AmpAutoTunerUtility
             catch (Exception ex)
 #pragma warning restore CA1031 // Do not catch general exception types
             {
-                errMsg = "Relay Open failed\n"+ex.Message;
+                errMsg = "Relay Open failed\n"+ex.Message + "\n";
+                DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.ERR, errMsg);
+                return;
             }
+            // this msg doesn't display...why??
+            //DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.ERR, "Relay#"+relayNum+" opened\n");
         }
 
 
@@ -147,7 +161,8 @@ namespace AmpAutoTunerUtility
             // The delays seem to have cured that problem
             if (ftdi != null && ftdi.IsOpen)
             {
-                AllOff();
+                //AllOff();
+                DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.LOG, "FTDI close#3\n");
                 ftdi.Close();
                 Thread.Sleep(200);
             }
@@ -187,7 +202,8 @@ namespace AmpAutoTunerUtility
 
         public bool Status(int nRelay)
         {
-            Open();
+            Monitor.Enter(ftdi);
+            //Open();
             errMsg = null;
             try
             {
@@ -195,7 +211,9 @@ namespace AmpAutoTunerUtility
                 ftdi.GetPinStates(ref bitModes);
                 if ((bitModes & (1 << (nRelay - 1))) != 0)
                 {
+                    DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.LOG, "FTDI close#4\n");
                     Close();
+                    Monitor.Exit(ftdi);
                     return true;
                 }
             }
@@ -205,12 +223,19 @@ namespace AmpAutoTunerUtility
             {
                 errMsg = "Relay Status failed\n"+ex.Message;
             }
-            Close();
+            Monitor.Exit(ftdi);
             return false;
         }
 
         public byte Status()
         {
+            if (ftdi == null)
+            {
+                //Open(false);
+                DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.LOG, "FTDI is null??\n");
+                return 0xff;
+            }
+            Monitor.Enter(ftdi);
             bool local = false;
             if (ftdi!=null && !ftdi.IsOpen) // then we'll open and close the device inside here
             {
@@ -218,10 +243,18 @@ namespace AmpAutoTunerUtility
                 local = true;
             }
             errMsg = null;
-            byte bitModes = 0;
+            byte bitModes = 0x00;
             try
             {
-                ftdi.GetPinStates(ref bitModes);
+                FTD2XX_NET.FTDI.FT_STATUS status = ftdi.GetPinStates(ref bitModes);
+                if (status != FT_STATUS.FT_OK)
+                {
+                    DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.LOG, "FTDI status != FT_STATUS_.FT_OK, " + status + " != " + FT_STATUS.FT_OK +"\n");
+                    errMsg = "Oops!!";
+                    ftdi.CyclePort();
+                    Monitor.Exit(ftdi);
+                    return 0xff;
+                }
             }
 #pragma warning disable CA1031 // Do not catch general exception types
             catch (Exception ex)
@@ -233,6 +266,7 @@ namespace AmpAutoTunerUtility
             {
                 Close();
             }
+            Monitor.Exit(ftdi);
             return bitModes;
         }
 
@@ -260,6 +294,7 @@ namespace AmpAutoTunerUtility
             {
                 Open(false);
             }
+            Monitor.Enter(ftdi);
             errMsg = null;
             try
             {
@@ -285,6 +320,7 @@ namespace AmpAutoTunerUtility
                 {
                     Close();
                     errMsg = "Unable to write to relay...disconnected?";
+                    Monitor.Exit(ftdi);
                     return;
                     //throw new Exception("Unable to write to relay...disconnected?");
                 }
@@ -297,6 +333,7 @@ namespace AmpAutoTunerUtility
                     {
                         errMsg = "Relay did not get set!";
                         Close();
+                        Monitor.Exit(ftdi);
                         return;
                     }
                 }
@@ -308,6 +345,7 @@ namespace AmpAutoTunerUtility
             {
                 errMsg = "Relay Set failed\n"+ex.Message;
             }
+            Monitor.Exit(ftdi);
         }
     }
 }

@@ -4,34 +4,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static AmpAutoTunerUtility.DebugMsg;
 
 namespace AmpAutoTunerUtility
 {
     public abstract class Tuner: IDisposable
     {
         private bool _disposed = false;
-        public enum DebugEnum
-        {
-            ERR, // fatal or action needed
-            WARN, // non-fatal things
-            TRACE, // important things to trace
-            VERBOSE, // lots of output
-            LOG // force logging of message
-        }
         public static readonly string[] DebugEnumText = { "ERR", "WRN", "TRC", "VER", "LOG" };
-
-        public class DebugMsg
-        {
-            public string Text { get; set; }
-            public DebugEnum Level { get; set; }
-        }
 
         public double SWR { get; set; }
         protected private string model = null;
         protected private string comport = null;
         protected private string baud = null;
         protected private DebugEnum DebugLevel = DebugEnum.WARN;
-        protected private ConcurrentQueue<DebugMsg> msgQueue = new ConcurrentQueue<DebugMsg>();
         protected private int Inductance { get; set; } // pF
         protected private int Capacitance { get; set; } // uH
 
@@ -103,30 +89,6 @@ namespace AmpAutoTunerUtility
             // no action by default
         }
 
-        public virtual void DebugAddMsg(Tuner.DebugEnum level, string msg)
-        {
-            DebugMsg msgItem = new DebugMsg
-            {
-                Text = msg,
-                Level = level
-            };
-            DebugAddMsg(msgItem);
-        }
-        public virtual void DebugAddMsg(Tuner.DebugMsg msg)
-        {
-            msgQueue.Enqueue(msg);
-        }
-        public virtual DebugMsg DebugGetMsg()
-        {
-            if (msgQueue.TryDequeue(out DebugMsg mymsg))
-            {
-                // Add the debug level to the message
-                string stmp = Tuner.DebugEnumText[(int)mymsg.Level] + ":" + mymsg.Text;
-                mymsg.Text = stmp;
-                return mymsg;
-            }
-            else return null;
-        }
 
         public virtual string GetSWRString()
         {

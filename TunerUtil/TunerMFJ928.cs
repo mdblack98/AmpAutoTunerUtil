@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static AmpAutoTunerUtility.DebugMsg;
 
 namespace AmpAutoTunerUtility
 {
@@ -54,7 +55,7 @@ namespace AmpAutoTunerUtility
             catch (Exception ex)
             {
                 Application.DoEvents();
-                SetText(DebugEnum.ERR, MyTime() + "Error opening Tuner...\n" + ex.Message);
+                SetText(DebugEnum.ERR, "Error opening Tuner...\n" + ex.Message);
                 error = "Error opening Tuner...\n" + ex.Message;
                 throw;
             }
@@ -145,7 +146,7 @@ namespace AmpAutoTunerUtility
                         }
                         return null;
                     default:
-                        SetText(DebugEnum.ERR, MyTime() + "Unknown " + b +"\n");
+                        SetText(DebugEnum.ERR, "Unknown " + b +"\n");
                         cmd = new byte[1];
                         cmd[0] = q.Dequeue();
                         return null;
@@ -165,7 +166,7 @@ namespace AmpAutoTunerUtility
         // If value == 1 or -1 will increment or decrement 
         public override void SetCapacitance(int value)
         {
-            SetText(DebugEnum.VERBOSE, MyTime() + "SetCapacitance " + value + "\n");
+            SetText(DebugEnum.VERBOSE, "SetCapacitance " + value + "\n");
             switch(value)
             {
                 case 1:
@@ -187,8 +188,8 @@ namespace AmpAutoTunerUtility
         public override string GetPower()
         {
             Poll();
-            //SetText(DebugEnum.DEBUG_VERBOSE, MyTime() + "Capacitance = " + this.Capacitance + "\n");
-            //SetText(DebugEnum.DEBUG_VERBOSE, MyTime() + "Inductance = " + this.Inductance+"\n");
+            //SetText(DebugEnum.DEBUG_VERBOSE, "Capacitance = " + this.Capacitance + "\n");
+            //SetText(DebugEnum.DEBUG_VERBOSE, "Inductance = " + this.Inductance+"\n");
             return "FwdPwr " +FwdPwr.ToString(CultureInfo.InvariantCulture) +"W";
         }
 
@@ -199,14 +200,15 @@ namespace AmpAutoTunerUtility
 
         public void SetText(DebugEnum debugLevel, string v)
         {
-            if (debugLevel <= DebugLevel || debugLevel == Tuner.DebugEnum.LOG || Tuning)
+            if (debugLevel <= DebugLevel || debugLevel == DebugEnum.LOG || Tuning)
             {
                 DebugMsg myMsg = new DebugMsg
                 {
-                    Text = v,
+                    Text = MyTime() + " " + v,
                     Level = debugLevel
                 };
-                msgQueue.Enqueue(myMsg);
+                //msgQueue.Enqueue(myMsg);
+                DebugAddMsg(myMsg);
             }
         }
 
@@ -229,9 +231,9 @@ namespace AmpAutoTunerUtility
                 data[i] = (byte)SerialPortTuner.ReadByte();
             }
             //Thread.Sleep(200);
-            SetText(Tuner.DebugEnum.VERBOSE,MyTime() + "Auto Status: "+Dumphex(data)+"\n");
+            //SetText(DebugEnum.VERBOSE,"Auto Status: "+Dumphex(data)+"\n");
             CMD_GetAutoStatus(data);
-            SetText(DebugEnum.TRACE, MyTime() + "Auto Status: " + FwdPwr + "/" + RefPwr + "/" + string.Format(CultureInfo.InvariantCulture,"{0:0.00}", SWR) + "\n");
+            //SetText(DebugEnum.TRACE, "Auto Status: " + FwdPwr + "/" + RefPwr + "/" + string.Format(CultureInfo.InvariantCulture,"{0:0.00}", SWR) + "\n");
 
         }
 
@@ -251,11 +253,11 @@ namespace AmpAutoTunerUtility
             {
                 // FE-FE-06-01-80-00-79-FD -- tune failure
                 case 0x06:
-                    SetText(DebugEnum.TRACE, MyTime() + "case 0x06 observed\n");
+                    SetText(DebugEnum.TRACE, "case 0x06 observed\n");
                     switch (scmd)
                     {
                         case 0x00:
-                            SetText(DebugEnum.TRACE, MyTime() + "Started by Tune cmd\n");
+                            SetText(DebugEnum.TRACE, "Started by Tune cmd\n");
                             Tuning = false;
                             TunerState = TunerStateEnum.TUNEDONE;
                             byte[] b1 = new byte[2];
@@ -269,19 +271,19 @@ namespace AmpAutoTunerUtility
                             TunerState = TunerStateEnum.TUNEDONE;
                             switch (statusbyte)
                             {
-                                case 0x00: SetText(DebugEnum.ERR, MyTime() + "Start by Tune Command\n");break;
-                                case 0x01: SetText(DebugEnum.ERR, MyTime() + "Start by SWR > AutoTuneSWR\n"); break;
-                                case 0x02: SetText(DebugEnum.ERR, MyTime() + "Start by StickyTune\n"); break;
-                                case 0x80: SetText(DebugEnum.ERR, MyTime() + "QRO Increase Power\n"); break;
-                                case 0x81: SetText(DebugEnum.ERR, MyTime() + "QRP Decrease\n"); break;
-                                case 0x82: SetText(DebugEnum.ERR, MyTime() + "QRT Overload\n"); break;
-                                default: SetText(DebugEnum.ERR, MyTime() + "Unknown status" + b2 + "\n"); break;
+                                case 0x00: SetText(DebugEnum.ERR, "Start by Tune Command\n");break;
+                                case 0x01: SetText(DebugEnum.ERR, "Start by SWR > AutoTuneSWR\n"); break;
+                                case 0x02: SetText(DebugEnum.ERR, "Start by StickyTune\n"); break;
+                                case 0x80: SetText(DebugEnum.ERR, "QRO Increase Power\n"); break;
+                                case 0x81: SetText(DebugEnum.ERR, "QRP Decrease\n"); break;
+                                case 0x82: SetText(DebugEnum.ERR, "QRT Overload\n"); break;
+                                default: SetText(DebugEnum.ERR, "Unknown status" + b2 + "\n"); break;
                                 
                             }
-                            SetText(DebugEnum.ERR, MyTime() + "Tuning failed\n");
+                            SetText(DebugEnum.ERR, "Tuning failed\n");
                             break;
                         default:
-                            SetText(DebugEnum.ERR, MyTime() + "Error: tune???=" + received[3].ToString("X", CultureInfo.InvariantCulture));
+                            SetText(DebugEnum.ERR, "Error: tune???=" + received[3].ToString("X", CultureInfo.InvariantCulture));
                             Tuning = false;
                             TunerState = TunerStateEnum.TUNEDONE;
                             break;
@@ -301,7 +303,7 @@ namespace AmpAutoTunerUtility
                             Inductance = (int)BCD5ToInt(b2, 2);
                             break;
                         default:
-                            SetText(DebugEnum.ERR, MyTime() + "CMD unknown=" + Dumphex(received) + "\n");
+                            SetText(DebugEnum.ERR, "CMD unknown=" + Dumphex(received) + "\n");
                             break;
                     }
                     break;
@@ -311,10 +313,10 @@ namespace AmpAutoTunerUtility
                         case 0x06:
                             string status = "off\n";
                             if (received[4] == 0x01) status = "on\n";
-                            SetText(DebugEnum.TRACE, MyTime() + "Amp " + status);
+                            SetText(DebugEnum.TRACE, "Amp " + status);
                             break;
                         default:
-                            SetText(DebugEnum.ERR, MyTime() + "CMD unknown=" + Dumphex(received) + "\n");
+                            SetText(DebugEnum.ERR, "CMD unknown=" + Dumphex(received) + "\n");
                             break;
                     }
                     break;
@@ -324,18 +326,18 @@ namespace AmpAutoTunerUtility
                         case 0x06:
                             string status = "off\n";
                             if (received[4] == 0x01) status = "on\n";
-                            SetText(DebugEnum.VERBOSE, MyTime() + "Amp " + status);
+                            SetText(DebugEnum.VERBOSE, "Amp " + status);
                             break;
                         default:
-                            SetText(DebugEnum.ERR, MyTime() + "CMD unknown=" + Dumphex(received) + "\n");
+                            SetText(DebugEnum.ERR, "CMD unknown=" + Dumphex(received) + "\n");
                             break;
                     }
                     break;
                 default:
-                    SetText(DebugEnum.ERR,MyTime() + "CMD unknown=" + Dumphex(received) + "\n");
+                    SetText(DebugEnum.ERR,"CMD unknown=" + Dumphex(received) + "\n");
                     break;
             }
-            SetText(DebugEnum.VERBOSE, MyTime() + "CMD packet: " + Dumphex(received) + "\n");
+            SetText(DebugEnum.VERBOSE, "CMD packet: " + Dumphex(received) + "\n");
         }
 
         // Poll common elements
@@ -353,16 +355,16 @@ namespace AmpAutoTunerUtility
 
         private void RaiseAppSerialDataEvent(byte[] received)
         {
-            SetText(DebugEnum.VERBOSE, MyTime() + " "+Dumphex(received)+"\n");
+            //SetText(DebugEnum.VERBOSE, Dumphex(received)+"\n");
             //return;
             byte datum = received[0];
             switch(datum)
             {
                 case 0xfa:
-                    SetText(DebugEnum.VERBOSE, MyTime()+"Awake\n");
+                    //SetText(DebugEnum.VERBOSE, "Awake\n");
                     break;
                 case 0xfb:
-                    SetText(DebugEnum.VERBOSE, MyTime() + "Sleeping\n");
+                    //SetText(DebugEnum.VERBOSE, "Sleeping\n");
                     break;
                 case 0xfe:
                     MsgFE(received);
@@ -371,7 +373,7 @@ namespace AmpAutoTunerUtility
                     MsgFF(received);
                     break;
                 default:
-                    SetText(DebugEnum.ERR, MyTime() + datum.ToString("X", CultureInfo.InvariantCulture) +" - Error unknown event in " + Dumphex(received)+"\n");
+                    SetText(DebugEnum.ERR,  datum.ToString("X", CultureInfo.InvariantCulture) +" - Error unknown event in " + Dumphex(received)+"\n");
                     break;
             }
             Application.DoEvents();
@@ -379,7 +381,7 @@ namespace AmpAutoTunerUtility
 
         private void HandleAppSerialError(Exception ex)
         {
-            SetText(DebugEnum.ERR, MyTime() + "Serial err: " + ex.Message+"\n"+ex.StackTrace);
+            SetText(DebugEnum.ERR, "Serial err: " + ex.Message+"\n"+ex.StackTrace);
         }
 
         public override void Close()
@@ -444,7 +446,7 @@ namespace AmpAutoTunerUtility
 
         private void CMD_GetAutoStatus(byte[] data)
         {
-            SetText(DebugEnum.VERBOSE, MyTime() + "AutoStatus=" + data + "\n");
+            //SetText(DebugEnum.VERBOSE, "AutoStatus=" + data + "\n");
             byte[] b2 = new byte[2];
             b2[0] = data[1];
             b2[1] = data[0];
@@ -454,7 +456,7 @@ namespace AmpAutoTunerUtility
             double rev = BCD5ToInt(b2, 2) / 10.0;
             FwdPwr = fwd;
             RefPwr = rev;
-            SetText(DebugEnum.VERBOSE, MyTime() + "AutoStatus=" + data + ", Fwd="+fwd+","+ "Ref="+RefPwr+"\n");
+            SetText(DebugEnum.VERBOSE, "AutoStatus= Fwd="+fwd+","+ "Ref="+RefPwr+"\n");
 
             if (fwd > 0)
             {
@@ -475,10 +477,10 @@ namespace AmpAutoTunerUtility
             int nwait = 0;
             while(TunerState != TunerStateEnum.TUNEDONE && nwait++ < 20)
             {
-                SetText(DebugEnum.TRACE, MyTime() + "Tune wait " + ++nn+"\n");
+                SetText(DebugEnum.TRACE, "Tune wait " + ++nn+"\n");
                 Thread.Sleep(500);
             }
-            SetText(DebugEnum.TRACE, MyTime() + "Tuning done SWR=" + string.Format(CultureInfo.InvariantCulture,"{0:0.00}", SWR)+"\n");
+            SetText(DebugEnum.TRACE, "Tuning done SWR=" + string.Format(CultureInfo.InvariantCulture,"{0:0.00}", SWR)+"\n");
             if (SWR > 0 && SWR <= 2) response = 'T';
             else if (SWR > 0 && SWR < 3) response = 'M';
             else response = 'F';
@@ -498,7 +500,7 @@ namespace AmpAutoTunerUtility
                 byte checksum = (byte)((1024 - cmd[2] - cmd[3] - cmd[4] - cmd[5]) & 0xff);
                 cmd[6] = checksum;
                 SerialPortTuner.Write(cmd, 0, cmd.Length);
-                SetText(DebugEnum.VERBOSE, MyTime() + "SendCMD:"+Dumphex(cmd)+"\n");
+                SetText(DebugEnum.VERBOSE, "SendCMD:"+Dumphex(cmd)+"\n");
             }
             catch (TimeoutException ex)
             {
@@ -521,7 +523,7 @@ namespace AmpAutoTunerUtility
 
         public void CMDTune()
         {
-            SetText(DebugEnum.TRACE, MyTime() + "CMD_Tune()\n");
+            SetText(DebugEnum.TRACE, "CMD_Tune()\n");
             Tuning = true;
             byte[] tune = { 0xfe, 0xfe, 0x06, 0x01, 0x00, 0x00, 0xf9, 0xfd };
             SendCmd(tune);
@@ -531,27 +533,27 @@ namespace AmpAutoTunerUtility
         public override void Tune()
         {
             //byte[] response = new byte[8];
-            //SetText(DebugEnum.TRACE, MyTime() + "Turn amp off\n");
+            //SetText(DebugEnum.TRACE, "Turn amp off\n");
             //CMD_Amp(0);
             //if (CMD_Amp())
             //{
-            //    SetText(DebugEnum.ERR, MyTime() + "Amp not off, returning!!\n");
+            //    SetText(DebugEnum.ERR, "Amp not off, returning!!\n");
             //    return;
             //}
-            SetText(DebugEnum.TRACE, MyTime() + "Start tune1, Tuning="+Tuning+"\n");
+            SetText(DebugEnum.TRACE, "Start tune1, Tuning="+Tuning+"\n");
             CMDTune();
-            SetText(DebugEnum.TRACE, MyTime() + "Start tune2, Tuning=" + Tuning + "\n");
+            SetText(DebugEnum.TRACE, "Start tune2, Tuning=" + Tuning + "\n");
             int n = 0;
             while (Tuning && n++ < 60)
             {
-                SetText(DebugEnum.TRACE, MyTime() + "wait for Tuning " + n + "/30\n");
+                SetText(DebugEnum.TRACE, "wait for Tuning " + n + "/60\n");
                 Application.DoEvents();
                 Thread.Sleep(1000);
-                SetText(DebugEnum.TRACE, MyTime() + "Tuning status=" + Tuning + "\n");
+                SetText(DebugEnum.TRACE, "Tuning status=" + Tuning + "\n");
             }
             //Thread.Sleep(500);
-            SetText(DebugEnum.TRACE, MyTime() + "Tuned " + FwdPwr + "/" + RefPwr + "/" + string.Format(CultureInfo.InvariantCulture,"{0:0.00}", SWR)+"\n");
-            //SetText(DebugEnum.TRACE, MyTime() + "Turn amp on\n");
+            SetText(DebugEnum.TRACE, "Tuned " + FwdPwr + "/" + RefPwr + "/" + string.Format(CultureInfo.InvariantCulture,"{0:0.00}", SWR)+"\n");
+            //SetText(DebugEnum.TRACE, "Turn amp on\n");
             //CMD_Amp(1);
             return;
         }
@@ -568,7 +570,7 @@ namespace AmpAutoTunerUtility
 
         public override bool GetAmpStatus()
         {
-            SetText(DebugEnum.TRACE, MyTime() + "GetAmpStatus()\n");
+            SetText(DebugEnum.TRACE, "GetAmpStatus()\n");
             byte[] cmd = { 0xfe, 0xfe, 0x06, 0x01, 0x00, 0x00, 0xf9, 0xfd };
             SendCmd(cmd);
             return false;

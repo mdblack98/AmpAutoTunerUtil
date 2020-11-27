@@ -75,10 +75,11 @@ namespace TunerTest
             timer1.Stop();
             if (tuner1 != null)
             {
-                Tuner.DebugMsg msg = tuner1.DebugGetMsg();
+                DebugMsg msg = DebugMsg.DebugGetMsg();
                 if (msg.Text.Length > 0)
                 {
                     richTextBox1.AppendText(msg.Text);
+                    richTextBox1.Select(richTextBox1.Text.Length, 0);
                 }
             }
             timer1.Start();
