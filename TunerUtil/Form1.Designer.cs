@@ -23,8 +23,6 @@
             this.labelFreq = new System.Windows.Forms.Label();
             this.labelPower = new System.Windows.Forms.Label();
             this.labelSWR = new System.Windows.Forms.Label();
-            this.numericUpDownInductance = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDownCapacitance = new System.Windows.Forms.NumericUpDown();
             this.buttonTunePause = new System.Windows.Forms.Button();
             this.buttonTune = new System.Windows.Forms.Button();
             this.buttonTunerStatus = new System.Windows.Forms.Button();
@@ -85,10 +83,8 @@
             this.comboBoxComRelay1 = new System.Windows.Forms.ComboBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPageControl = new System.Windows.Forms.TabPage();
-            this.groupBoxOptions = new System.Windows.Forms.GroupBox();
-            this.label8 = new System.Windows.Forms.Label();
-            this.button26 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.labelControlLog2 = new System.Windows.Forms.Label();
+            this.labelControlLog = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.labelFreqWalk = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -98,6 +94,12 @@
             this.comboBoxDebugLevel = new System.Windows.Forms.ComboBox();
             this.richTextBoxDebug = new System.Windows.Forms.RichTextBox();
             this.tabPageTuner = new System.Windows.Forms.TabPage();
+            this.groupBoxOptions = new System.Windows.Forms.GroupBox();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.numericUpDownPostPttDelay = new System.Windows.Forms.NumericUpDown();
+            this.buttonTunerSave = new System.Windows.Forms.Button();
+            this.numericUpDownInductance = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDownCapacitance = new System.Windows.Forms.NumericUpDown();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
             this.label9 = new System.Windows.Forms.Label();
@@ -189,6 +191,7 @@
             this.label14 = new System.Windows.Forms.Label();
             this.textBoxAntennaFreq1To = new System.Windows.Forms.TextBox();
             this.tabPageRelay1 = new System.Windows.Forms.TabPage();
+            this.labelRelay1SerialNumber = new System.Windows.Forms.Label();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.labelTextBoxRelay1Status = new System.Windows.Forms.Label();
@@ -200,6 +203,7 @@
             this.checkBoxRelay1Enabled = new System.Windows.Forms.CheckBox();
             this.comboBoxBaudRelay1 = new System.Windows.Forms.ComboBox();
             this.tabPageRelay2 = new System.Windows.Forms.TabPage();
+            this.labelRelay2SerialNumber = new System.Windows.Forms.Label();
             this.button18 = new System.Windows.Forms.Button();
             this.button19 = new System.Windows.Forms.Button();
             this.button20 = new System.Windows.Forms.Button();
@@ -219,6 +223,7 @@
             this.comboBoxBaudRelay2 = new System.Windows.Forms.ComboBox();
             this.comboBoxComRelay2 = new System.Windows.Forms.ComboBox();
             this.tabPageRelay3 = new System.Windows.Forms.TabPage();
+            this.labelRelay3SerialNumber = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
@@ -238,6 +243,7 @@
             this.comboBoxBaudRelay3 = new System.Windows.Forms.ComboBox();
             this.comboBoxComRelay3 = new System.Windows.Forms.ComboBox();
             this.tabPageRelay4 = new System.Windows.Forms.TabPage();
+            this.labelRelay4SerialNumber = new System.Windows.Forms.Label();
             this.button10 = new System.Windows.Forms.Button();
             this.button11 = new System.Windows.Forms.Button();
             this.button12 = new System.Windows.Forms.Button();
@@ -273,15 +279,16 @@
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownInductance)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCapacitance)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPageControl.SuspendLayout();
-            this.groupBoxOptions.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tabPageDebug.SuspendLayout();
             this.tabPageTuner.SuspendLayout();
+            this.groupBoxOptions.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPostPttDelay)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownInductance)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCapacitance)).BeginInit();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
             this.tabPagePower.SuspendLayout();
@@ -345,47 +352,6 @@
             this.labelSWR.Text = "SWR";
             this.toolTip1.SetToolTip(this.labelSWR, "Last reported SWR");
             // 
-            // numericUpDownInductance
-            // 
-            this.numericUpDownInductance.Location = new System.Drawing.Point(66, 17);
-            this.numericUpDownInductance.Margin = new System.Windows.Forms.Padding(2);
-            this.numericUpDownInductance.Maximum = new decimal(new int[] {
-            2428,
-            0,
-            0,
-            0});
-            this.numericUpDownInductance.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            -2147483648});
-            this.numericUpDownInductance.Name = "numericUpDownInductance";
-            this.numericUpDownInductance.Size = new System.Drawing.Size(47, 20);
-            this.numericUpDownInductance.TabIndex = 13;
-            this.toolTip1.SetToolTip(this.numericUpDownInductance, "Inductance uH");
-            this.numericUpDownInductance.ValueChanged += new System.EventHandler(this.NumericUpDownInductance_ValueChanged);
-            // 
-            // numericUpDownCapacitance
-            // 
-            this.numericUpDownCapacitance.Location = new System.Drawing.Point(10, 17);
-            this.numericUpDownCapacitance.Margin = new System.Windows.Forms.Padding(2);
-            this.numericUpDownCapacitance.Maximum = new decimal(new int[] {
-            3926,
-            0,
-            0,
-            0});
-            this.numericUpDownCapacitance.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            -2147483648});
-            this.numericUpDownCapacitance.Name = "numericUpDownCapacitance";
-            this.numericUpDownCapacitance.Size = new System.Drawing.Size(50, 20);
-            this.numericUpDownCapacitance.TabIndex = 12;
-            this.toolTip1.SetToolTip(this.numericUpDownCapacitance, "Capacitance pF");
-            this.numericUpDownCapacitance.ValueChanged += new System.EventHandler(this.NumericUpDownCapacitance_ValueChanged);
-            this.numericUpDownCapacitance.MouseUp += new System.Windows.Forms.MouseEventHandler(this.NumericUpDownCapacitance_MouseUp);
-            // 
             // buttonTunePause
             // 
             this.buttonTunePause.BackColor = System.Drawing.Color.WhiteSmoke;
@@ -396,7 +362,7 @@
             this.buttonTunePause.Size = new System.Drawing.Size(56, 22);
             this.buttonTunePause.TabIndex = 11;
             this.buttonTunePause.Text = "Pause";
-            this.toolTip1.SetToolTip(this.buttonTunePause, "Start a tune cycle");
+            this.toolTip1.SetToolTip(this.buttonTunePause, "Pause auto tuning\nblue means freqwalk has control and must be paused");
             this.buttonTunePause.UseVisualStyleBackColor = false;
             this.buttonTunePause.Click += new System.EventHandler(this.ButtonTunePause_Click);
             // 
@@ -479,7 +445,7 @@
             // radioButtonVFOB
             // 
             this.radioButtonVFOB.AutoSize = true;
-            this.radioButtonVFOB.Location = new System.Drawing.Point(73, 130);
+            this.radioButtonVFOB.Location = new System.Drawing.Point(73, 116);
             this.radioButtonVFOB.Margin = new System.Windows.Forms.Padding(2);
             this.radioButtonVFOB.Name = "radioButtonVFOB";
             this.radioButtonVFOB.Size = new System.Drawing.Size(53, 17);
@@ -492,7 +458,7 @@
             // 
             this.radioButtonVFOA.AutoSize = true;
             this.radioButtonVFOA.Checked = true;
-            this.radioButtonVFOA.Location = new System.Drawing.Point(16, 130);
+            this.radioButtonVFOA.Location = new System.Drawing.Point(16, 116);
             this.radioButtonVFOA.Margin = new System.Windows.Forms.Padding(2);
             this.radioButtonVFOA.Name = "radioButtonVFOA";
             this.radioButtonVFOA.Size = new System.Drawing.Size(53, 17);
@@ -1029,6 +995,7 @@
             this.comboBoxComRelay1.TabIndex = 0;
             this.comboBoxComRelay1.Text = global::AmpAutoTunerUtility.Properties.Settings.Default.Relay1Com;
             this.toolTip1.SetToolTip(this.comboBoxComRelay1, "FT245R Com Ports");
+            this.comboBoxComRelay1.SelectedIndexChanged += new System.EventHandler(this.ComboBoxComRelay1_SelectedIndexChanged_1);
             // 
             // tabControl1
             // 
@@ -1045,72 +1012,42 @@
             this.tabControl1.Margin = new System.Windows.Forms.Padding(2);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(388, 236);
+            this.tabControl1.Size = new System.Drawing.Size(388, 243);
             this.tabControl1.TabIndex = 8;
             this.toolTip1.SetToolTip(this.tabControl1, "Enable verbose debug");
+            this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.TabControl1_SelectedIndexChanged);
+            this.tabControl1.VisibleChanged += new System.EventHandler(this.TabControl1_VisibleChanged);
             // 
             // tabPageControl
             // 
             this.tabPageControl.BackColor = System.Drawing.Color.LightGray;
-            this.tabPageControl.Controls.Add(this.groupBoxOptions);
+            this.tabPageControl.Controls.Add(this.labelControlLog2);
+            this.tabPageControl.Controls.Add(this.labelControlLog);
             this.tabPageControl.Controls.Add(this.groupBox2);
             this.tabPageControl.Controls.Add(this.groupBox1);
             this.tabPageControl.Location = new System.Drawing.Point(4, 22);
             this.tabPageControl.Margin = new System.Windows.Forms.Padding(22, 24, 22, 24);
             this.tabPageControl.Name = "tabPageControl";
             this.tabPageControl.Padding = new System.Windows.Forms.Padding(22, 24, 22, 24);
-            this.tabPageControl.Size = new System.Drawing.Size(380, 210);
+            this.tabPageControl.Size = new System.Drawing.Size(380, 217);
             this.tabPageControl.TabIndex = 7;
             this.tabPageControl.Text = "Control";
             // 
-            // groupBoxOptions
+            // labelControlLog2
             // 
-            this.groupBoxOptions.Controls.Add(this.label8);
-            this.groupBoxOptions.Controls.Add(this.button26);
-            this.groupBoxOptions.Controls.Add(this.button1);
-            this.groupBoxOptions.Controls.Add(this.numericUpDownInductance);
-            this.groupBoxOptions.Controls.Add(this.numericUpDownCapacitance);
-            this.groupBoxOptions.Location = new System.Drawing.Point(3, 155);
-            this.groupBoxOptions.Margin = new System.Windows.Forms.Padding(2);
-            this.groupBoxOptions.Name = "groupBoxOptions";
-            this.groupBoxOptions.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBoxOptions.Size = new System.Drawing.Size(362, 50);
-            this.groupBoxOptions.TabIndex = 17;
-            this.groupBoxOptions.TabStop = false;
-            this.groupBoxOptions.Text = "Options";
-            this.groupBoxOptions.Visible = false;
+            this.labelControlLog2.AutoSize = true;
+            this.labelControlLog2.Location = new System.Drawing.Point(11, 185);
+            this.labelControlLog2.Name = "labelControlLog2";
+            this.labelControlLog2.Size = new System.Drawing.Size(0, 13);
+            this.labelControlLog2.TabIndex = 18;
             // 
-            // label8
+            // labelControlLog
             // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(139, 18);
-            this.label8.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(35, 13);
-            this.label8.TabIndex = 16;
-            this.label8.Text = "label8";
-            // 
-            // button26
-            // 
-            this.button26.BackColor = System.Drawing.Color.White;
-            this.button26.Location = new System.Drawing.Point(173, 25);
-            this.button26.Margin = new System.Windows.Forms.Padding(2);
-            this.button26.Name = "button26";
-            this.button26.Size = new System.Drawing.Size(16, 10);
-            this.button26.TabIndex = 15;
-            this.button26.Text = "button26";
-            this.button26.UseVisualStyleBackColor = false;
-            // 
-            // button1
-            // 
-            this.button1.BackColor = System.Drawing.Color.White;
-            this.button1.Location = new System.Drawing.Point(173, 17);
-            this.button1.Margin = new System.Windows.Forms.Padding(2);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(16, 10);
-            this.button1.TabIndex = 14;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = false;
+            this.labelControlLog.AutoSize = true;
+            this.labelControlLog.Location = new System.Drawing.Point(11, 170);
+            this.labelControlLog.Name = "labelControlLog";
+            this.labelControlLog.Size = new System.Drawing.Size(0, 13);
+            this.labelControlLog.TabIndex = 17;
             // 
             // groupBox2
             // 
@@ -1123,10 +1060,11 @@
             this.groupBox2.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox2.Size = new System.Drawing.Size(235, 141);
+            this.groupBox2.Size = new System.Drawing.Size(235, 155);
             this.groupBox2.TabIndex = 16;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Info";
+            this.groupBox2.Enter += new System.EventHandler(this.GroupBox2_Enter);
             // 
             // labelFreqWalk
             // 
@@ -1150,7 +1088,7 @@
             this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox1.Size = new System.Drawing.Size(120, 141);
+            this.groupBox1.Size = new System.Drawing.Size(120, 155);
             this.groupBox1.TabIndex = 15;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Tuner Control/Status";
@@ -1165,9 +1103,9 @@
             this.buttonAmp.Size = new System.Drawing.Size(56, 22);
             this.buttonAmp.TabIndex = 12;
             this.buttonAmp.Text = "Amp";
-            this.toolTip1.SetToolTip(this.buttonAmp, "Start a tune cycle");
+            this.toolTip1.SetToolTip(this.buttonAmp, "Disable/Enable Amp");
             this.buttonAmp.UseVisualStyleBackColor = false;
-            this.buttonAmp.Click += new System.EventHandler(this.buttonAmp_Click);
+            this.buttonAmp.Click += new System.EventHandler(this.ButtonAmp_Click);
             // 
             // tabPageDebug
             // 
@@ -1179,7 +1117,7 @@
             this.tabPageDebug.Margin = new System.Windows.Forms.Padding(2);
             this.tabPageDebug.Name = "tabPageDebug";
             this.tabPageDebug.Padding = new System.Windows.Forms.Padding(2);
-            this.tabPageDebug.Size = new System.Drawing.Size(380, 210);
+            this.tabPageDebug.Size = new System.Drawing.Size(380, 217);
             this.tabPageDebug.TabIndex = 2;
             this.tabPageDebug.Text = "Debug";
             // 
@@ -1224,12 +1162,13 @@
             this.richTextBoxDebug.Size = new System.Drawing.Size(370, 177);
             this.richTextBoxDebug.TabIndex = 8;
             this.richTextBoxDebug.Text = "";
-            this.richTextBoxDebug.TextChanged += new System.EventHandler(this.richTextBoxDebug_TextChanged);
+            this.richTextBoxDebug.TextChanged += new System.EventHandler(this.RichTextBoxDebug_TextChanged);
             // 
             // tabPageTuner
             // 
             this.tabPageTuner.BackColor = System.Drawing.Color.LightGray;
             this.tabPageTuner.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.tabPageTuner.Controls.Add(this.groupBoxOptions);
             this.tabPageTuner.Controls.Add(this.panel2);
             this.tabPageTuner.Controls.Add(this.comboBoxAudioOut);
             this.tabPageTuner.Controls.Add(this.panel3);
@@ -1237,9 +1176,114 @@
             this.tabPageTuner.Margin = new System.Windows.Forms.Padding(2);
             this.tabPageTuner.Name = "tabPageTuner";
             this.tabPageTuner.Padding = new System.Windows.Forms.Padding(2);
-            this.tabPageTuner.Size = new System.Drawing.Size(380, 210);
+            this.tabPageTuner.Size = new System.Drawing.Size(380, 217);
             this.tabPageTuner.TabIndex = 1;
             this.tabPageTuner.Text = "Tuner";
+            this.tabPageTuner.Click += new System.EventHandler(this.TabPageTuner_Click);
+            // 
+            // groupBoxOptions
+            // 
+            this.groupBoxOptions.Controls.Add(this.checkBox1);
+            this.groupBoxOptions.Controls.Add(this.numericUpDownPostPttDelay);
+            this.groupBoxOptions.Controls.Add(this.buttonTunerSave);
+            this.groupBoxOptions.Controls.Add(this.numericUpDownInductance);
+            this.groupBoxOptions.Controls.Add(this.numericUpDownCapacitance);
+            this.groupBoxOptions.Location = new System.Drawing.Point(7, 145);
+            this.groupBoxOptions.Margin = new System.Windows.Forms.Padding(2);
+            this.groupBoxOptions.Name = "groupBoxOptions";
+            this.groupBoxOptions.Padding = new System.Windows.Forms.Padding(2);
+            this.groupBoxOptions.Size = new System.Drawing.Size(362, 34);
+            this.groupBoxOptions.TabIndex = 18;
+            this.groupBoxOptions.TabStop = false;
+            this.groupBoxOptions.Text = "Options";
+            this.groupBoxOptions.Visible = false;
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox1.Location = new System.Drawing.Point(65, 16);
+            this.checkBox1.Margin = new System.Windows.Forms.Padding(2);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(70, 17);
+            this.checkBox1.TabIndex = 16;
+            this.checkBox1.Text = "Full Tune";
+            this.toolTip1.SetToolTip(this.checkBox1, "Generate a tone during tune");
+            this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBox1.CheckedChanged += new System.EventHandler(this.CheckBox1_CheckedChanged_1);
+            // 
+            // numericUpDownPostPttDelay
+            // 
+            this.numericUpDownPostPttDelay.DataBindings.Add(new System.Windows.Forms.Binding("Value", global::AmpAutoTunerUtility.Properties.Settings.Default, "PostPttDelay", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.numericUpDownPostPttDelay.Increment = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+            this.numericUpDownPostPttDelay.Location = new System.Drawing.Point(10, 15);
+            this.numericUpDownPostPttDelay.Margin = new System.Windows.Forms.Padding(2);
+            this.numericUpDownPostPttDelay.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.numericUpDownPostPttDelay.Name = "numericUpDownPostPttDelay";
+            this.numericUpDownPostPttDelay.Size = new System.Drawing.Size(50, 20);
+            this.numericUpDownPostPttDelay.TabIndex = 15;
+            this.toolTip1.SetToolTip(this.numericUpDownPostPttDelay, "msec delay after PTT");
+            this.numericUpDownPostPttDelay.Value = global::AmpAutoTunerUtility.Properties.Settings.Default.PostPttDelay;
+            this.numericUpDownPostPttDelay.ValueChanged += new System.EventHandler(this.NumericUpDownPostPttDelay_ValueChanged);
+            // 
+            // buttonTunerSave
+            // 
+            this.buttonTunerSave.Location = new System.Drawing.Point(275, 15);
+            this.buttonTunerSave.Name = "buttonTunerSave";
+            this.buttonTunerSave.Size = new System.Drawing.Size(75, 23);
+            this.buttonTunerSave.TabIndex = 14;
+            this.buttonTunerSave.Text = "Save";
+            this.buttonTunerSave.UseVisualStyleBackColor = true;
+            this.buttonTunerSave.Click += new System.EventHandler(this.ButtonTunerSave_Click);
+            // 
+            // numericUpDownInductance
+            // 
+            this.numericUpDownInductance.DecimalPlaces = 2;
+            this.numericUpDownInductance.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
+            this.numericUpDownInductance.Location = new System.Drawing.Point(222, 17);
+            this.numericUpDownInductance.Margin = new System.Windows.Forms.Padding(2);
+            this.numericUpDownInductance.Maximum = new decimal(new int[] {
+            855,
+            0,
+            0,
+            131072});
+            this.numericUpDownInductance.Name = "numericUpDownInductance";
+            this.numericUpDownInductance.Size = new System.Drawing.Size(47, 20);
+            this.numericUpDownInductance.TabIndex = 13;
+            this.toolTip1.SetToolTip(this.numericUpDownInductance, "Inductance uH");
+            this.numericUpDownInductance.ValueChanged += new System.EventHandler(this.NumericUpDownInductance_ValueChanged);
+            // 
+            // numericUpDownCapacitance
+            // 
+            this.numericUpDownCapacitance.Location = new System.Drawing.Point(166, 17);
+            this.numericUpDownCapacitance.Margin = new System.Windows.Forms.Padding(2);
+            this.numericUpDownCapacitance.Maximum = new decimal(new int[] {
+            3926,
+            0,
+            0,
+            0});
+            this.numericUpDownCapacitance.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            -2147483648});
+            this.numericUpDownCapacitance.Name = "numericUpDownCapacitance";
+            this.numericUpDownCapacitance.Size = new System.Drawing.Size(50, 20);
+            this.numericUpDownCapacitance.TabIndex = 12;
+            this.toolTip1.SetToolTip(this.numericUpDownCapacitance, "Capacitance pF");
+            this.numericUpDownCapacitance.ValueChanged += new System.EventHandler(this.NumericUpDownCapacitance_ValueChanged);
             // 
             // panel2
             // 
@@ -1253,7 +1297,7 @@
             this.panel2.Location = new System.Drawing.Point(194, 7);
             this.panel2.Margin = new System.Windows.Forms.Padding(2);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(173, 167);
+            this.panel2.Size = new System.Drawing.Size(173, 144);
             this.panel2.TabIndex = 14;
             // 
             // panel3
@@ -1271,7 +1315,7 @@
             this.panel3.Location = new System.Drawing.Point(8, 7);
             this.panel3.Margin = new System.Windows.Forms.Padding(2);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(168, 167);
+            this.panel3.Size = new System.Drawing.Size(168, 144);
             this.panel3.TabIndex = 6;
             // 
             // label9
@@ -1407,7 +1451,7 @@
             this.tabPagePower.Margin = new System.Windows.Forms.Padding(2);
             this.tabPagePower.Name = "tabPagePower";
             this.tabPagePower.Padding = new System.Windows.Forms.Padding(2);
-            this.tabPagePower.Size = new System.Drawing.Size(380, 210);
+            this.tabPagePower.Size = new System.Drawing.Size(380, 217);
             this.tabPagePower.TabIndex = 8;
             this.tabPagePower.Text = "Power";
             // 
@@ -1869,7 +1913,7 @@
             this.tabPageAntenna.Margin = new System.Windows.Forms.Padding(2);
             this.tabPageAntenna.Name = "tabPageAntenna";
             this.tabPageAntenna.Padding = new System.Windows.Forms.Padding(2);
-            this.tabPageAntenna.Size = new System.Drawing.Size(380, 210);
+            this.tabPageAntenna.Size = new System.Drawing.Size(380, 217);
             this.tabPageAntenna.TabIndex = 6;
             this.tabPageAntenna.Text = "Antenna";
             // 
@@ -2035,7 +2079,7 @@
             this.checkBoxAntenna1.Size = new System.Drawing.Size(15, 14);
             this.checkBoxAntenna1.TabIndex = 38;
             this.checkBoxAntenna1.UseVisualStyleBackColor = true;
-            this.checkBoxAntenna1.CheckedChanged += new System.EventHandler(this.checkBoxAntenna1_CheckedChanged);
+            this.checkBoxAntenna1.CheckedChanged += new System.EventHandler(this.CheckBoxAntenna1_CheckedChanged);
             // 
             // textBoxAntennaFreq8To
             // 
@@ -2204,6 +2248,7 @@
             // tabPageRelay1
             // 
             this.tabPageRelay1.BackColor = System.Drawing.Color.LightGray;
+            this.tabPageRelay1.Controls.Add(this.labelRelay1SerialNumber);
             this.tabPageRelay1.Controls.Add(this.linkLabel1);
             this.tabPageRelay1.Controls.Add(this.button1_8);
             this.tabPageRelay1.Controls.Add(this.button1_7);
@@ -2218,9 +2263,19 @@
             this.tabPageRelay1.Margin = new System.Windows.Forms.Padding(2);
             this.tabPageRelay1.Name = "tabPageRelay1";
             this.tabPageRelay1.Padding = new System.Windows.Forms.Padding(2);
-            this.tabPageRelay1.Size = new System.Drawing.Size(380, 210);
+            this.tabPageRelay1.Size = new System.Drawing.Size(380, 217);
             this.tabPageRelay1.TabIndex = 0;
             this.tabPageRelay1.Text = "Relay1";
+            this.tabPageRelay1.Click += new System.EventHandler(this.TabPageRelay1_Click);
+            // 
+            // labelRelay1SerialNumber
+            // 
+            this.labelRelay1SerialNumber.AutoSize = true;
+            this.labelRelay1SerialNumber.Location = new System.Drawing.Point(181, 41);
+            this.labelRelay1SerialNumber.Name = "labelRelay1SerialNumber";
+            this.labelRelay1SerialNumber.Size = new System.Drawing.Size(57, 13);
+            this.labelRelay1SerialNumber.TabIndex = 22;
+            this.labelRelay1SerialNumber.Text = "No Serial#";
             // 
             // linkLabel1
             // 
@@ -2232,7 +2287,7 @@
             this.linkLabel1.TabIndex = 21;
             this.linkLabel1.TabStop = true;
             this.linkLabel1.Text = "Sainsmart 4CH 8CH or 16CH USB Relay";
-            this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked_1);
+            this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LinkLabel1_LinkClicked_1);
             // 
             // panel1
             // 
@@ -2345,6 +2400,7 @@
             // tabPageRelay2
             // 
             this.tabPageRelay2.BackColor = System.Drawing.Color.LightGray;
+            this.tabPageRelay2.Controls.Add(this.labelRelay2SerialNumber);
             this.tabPageRelay2.Controls.Add(this.button18);
             this.tabPageRelay2.Controls.Add(this.button19);
             this.tabPageRelay2.Controls.Add(this.button20);
@@ -2358,9 +2414,19 @@
             this.tabPageRelay2.Margin = new System.Windows.Forms.Padding(2);
             this.tabPageRelay2.Name = "tabPageRelay2";
             this.tabPageRelay2.Padding = new System.Windows.Forms.Padding(2);
-            this.tabPageRelay2.Size = new System.Drawing.Size(380, 210);
+            this.tabPageRelay2.Size = new System.Drawing.Size(380, 217);
             this.tabPageRelay2.TabIndex = 3;
             this.tabPageRelay2.Text = "Relay2";
+            this.tabPageRelay2.Click += new System.EventHandler(this.TabPageRelay2_Click);
+            // 
+            // labelRelay2SerialNumber
+            // 
+            this.labelRelay2SerialNumber.AutoSize = true;
+            this.labelRelay2SerialNumber.Location = new System.Drawing.Point(181, 41);
+            this.labelRelay2SerialNumber.Name = "labelRelay2SerialNumber";
+            this.labelRelay2SerialNumber.Size = new System.Drawing.Size(57, 13);
+            this.labelRelay2SerialNumber.TabIndex = 29;
+            this.labelRelay2SerialNumber.Text = "No Serial#";
             // 
             // button18
             // 
@@ -2566,6 +2632,7 @@
             // tabPageRelay3
             // 
             this.tabPageRelay3.BackColor = System.Drawing.Color.LightGray;
+            this.tabPageRelay3.Controls.Add(this.labelRelay3SerialNumber);
             this.tabPageRelay3.Controls.Add(this.button2);
             this.tabPageRelay3.Controls.Add(this.button3);
             this.tabPageRelay3.Controls.Add(this.button4);
@@ -2579,9 +2646,19 @@
             this.tabPageRelay3.Margin = new System.Windows.Forms.Padding(2);
             this.tabPageRelay3.Name = "tabPageRelay3";
             this.tabPageRelay3.Padding = new System.Windows.Forms.Padding(2);
-            this.tabPageRelay3.Size = new System.Drawing.Size(380, 210);
+            this.tabPageRelay3.Size = new System.Drawing.Size(380, 217);
             this.tabPageRelay3.TabIndex = 4;
             this.tabPageRelay3.Text = "Relay3";
+            this.tabPageRelay3.Click += new System.EventHandler(this.TabPageRelay3_Click);
+            // 
+            // labelRelay3SerialNumber
+            // 
+            this.labelRelay3SerialNumber.AutoSize = true;
+            this.labelRelay3SerialNumber.Location = new System.Drawing.Point(181, 41);
+            this.labelRelay3SerialNumber.Name = "labelRelay3SerialNumber";
+            this.labelRelay3SerialNumber.Size = new System.Drawing.Size(57, 13);
+            this.labelRelay3SerialNumber.TabIndex = 30;
+            this.labelRelay3SerialNumber.Text = "No Serial#";
             // 
             // button2
             // 
@@ -2787,6 +2864,7 @@
             // tabPageRelay4
             // 
             this.tabPageRelay4.BackColor = System.Drawing.Color.LightGray;
+            this.tabPageRelay4.Controls.Add(this.labelRelay4SerialNumber);
             this.tabPageRelay4.Controls.Add(this.button10);
             this.tabPageRelay4.Controls.Add(this.button11);
             this.tabPageRelay4.Controls.Add(this.button12);
@@ -2800,9 +2878,19 @@
             this.tabPageRelay4.Margin = new System.Windows.Forms.Padding(2);
             this.tabPageRelay4.Name = "tabPageRelay4";
             this.tabPageRelay4.Padding = new System.Windows.Forms.Padding(2);
-            this.tabPageRelay4.Size = new System.Drawing.Size(380, 210);
+            this.tabPageRelay4.Size = new System.Drawing.Size(380, 217);
             this.tabPageRelay4.TabIndex = 5;
             this.tabPageRelay4.Text = "Relay4";
+            this.tabPageRelay4.Click += new System.EventHandler(this.TabPageRelay4_Click);
+            // 
+            // labelRelay4SerialNumber
+            // 
+            this.labelRelay4SerialNumber.AutoSize = true;
+            this.labelRelay4SerialNumber.Location = new System.Drawing.Point(181, 41);
+            this.labelRelay4SerialNumber.Name = "labelRelay4SerialNumber";
+            this.labelRelay4SerialNumber.Size = new System.Drawing.Size(57, 13);
+            this.labelRelay4SerialNumber.TabIndex = 31;
+            this.labelRelay4SerialNumber.Text = "No Serial#";
             // 
             // button10
             // 
@@ -3141,6 +3229,7 @@
             this.aboutToolStripMenuItem1.Name = "aboutToolStripMenuItem1";
             this.aboutToolStripMenuItem1.Size = new System.Drawing.Size(107, 22);
             this.aboutToolStripMenuItem1.Text = "About";
+            this.aboutToolStripMenuItem1.Click += new System.EventHandler(this.AboutToolStripMenuItem1_Click);
             // 
             // Form1
             // 
@@ -3156,23 +3245,25 @@
             this.Margin = new System.Windows.Forms.Padding(2);
             this.MaximumSize = new System.Drawing.Size(407, 304);
             this.Name = "Form1";
-            this.Text = "AmpAutoTunerUtility V0.51 by W9MDB";
+            this.Text = "AmpAutoTunerUtility V0.54a";
             this.HelpButtonClicked += new System.ComponentModel.CancelEventHandler(this.Form1_HelpButtonClicked);
             this.Activated += new System.EventHandler(this.Form1_Activated);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownInductance)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCapacitance)).EndInit();
             this.tabControl1.ResumeLayout(false);
             this.tabPageControl.ResumeLayout(false);
-            this.groupBoxOptions.ResumeLayout(false);
-            this.groupBoxOptions.PerformLayout();
+            this.tabPageControl.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.tabPageDebug.ResumeLayout(false);
             this.tabPageDebug.PerformLayout();
             this.tabPageTuner.ResumeLayout(false);
+            this.groupBoxOptions.ResumeLayout(false);
+            this.groupBoxOptions.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPostPttDelay)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownInductance)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCapacitance)).EndInit();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             this.panel3.ResumeLayout(false);
@@ -3186,12 +3277,15 @@
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.tabPageRelay2.ResumeLayout(false);
+            this.tabPageRelay2.PerformLayout();
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
             this.tabPageRelay3.ResumeLayout(false);
+            this.tabPageRelay3.PerformLayout();
             this.panel5.ResumeLayout(false);
             this.panel5.PerformLayout();
             this.tabPageRelay4.ResumeLayout(false);
+            this.tabPageRelay4.PerformLayout();
             this.panel6.ResumeLayout(false);
             this.panel6.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
@@ -3218,15 +3312,12 @@
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem1;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPageControl;
-        private System.Windows.Forms.GroupBox groupBoxOptions;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Label labelAntennaSelected;
         private System.Windows.Forms.Label labelFreq;
         private System.Windows.Forms.Label labelPower;
         private System.Windows.Forms.Label labelSWR;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.NumericUpDown numericUpDownInductance;
-        private System.Windows.Forms.NumericUpDown numericUpDownCapacitance;
         private System.Windows.Forms.Button buttonTunePause;
         private System.Windows.Forms.Button buttonTune;
         private System.Windows.Forms.Button buttonTunerStatus;
@@ -3448,15 +3539,24 @@
         private System.Windows.Forms.TextBox textBoxTune2Power;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox textBoxTune1Power;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Button button26;
         private System.Windows.Forms.ComboBox comboBoxDebugLevel;
         private System.Windows.Forms.CheckBox checkBoxPause;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.TextBox textBoxTuneOffset;
         private System.Windows.Forms.Label labelFreqWalk;
         private System.Windows.Forms.Button buttonAmp;
+        private System.Windows.Forms.Label labelRelay1SerialNumber;
+        private System.Windows.Forms.Label labelRelay2SerialNumber;
+        private System.Windows.Forms.Label labelRelay3SerialNumber;
+        private System.Windows.Forms.Label labelRelay4SerialNumber;
+        private System.Windows.Forms.GroupBox groupBoxOptions;
+        private System.Windows.Forms.NumericUpDown numericUpDownInductance;
+        private System.Windows.Forms.NumericUpDown numericUpDownCapacitance;
+        private System.Windows.Forms.Label labelControlLog;
+        private System.Windows.Forms.Label labelControlLog2;
+        private System.Windows.Forms.Button buttonTunerSave;
+        private System.Windows.Forms.NumericUpDown numericUpDownPostPttDelay;
+        private System.Windows.Forms.CheckBox checkBox1;
     }
 }
 

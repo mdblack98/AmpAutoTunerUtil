@@ -3,4 +3,7 @@
 // Project-level suppressions either have no target or are given
 // a specific target and scoped to a namespace, type, member, etc.
 
+using System.Diagnostics.CodeAnalysis;
+
 [assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1303:Do not pass literals as localized parameters", Justification = "<Pending>", Scope = "member", Target = "~M:AmpAutoTunerUtility.Form1.TimerGetFreq_Tick(System.Object,System.EventArgs)")]
+[assembly: SuppressMessage("Design", "CA1031:Do not catch general exception types", Justification = "<Pending>", Scope = "member", Target = "~M:AmpAutoTunerUtility.Form1.HelpToolStripMenuItem_Click(System.Object,System.EventArgs)")]

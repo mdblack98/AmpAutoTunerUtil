@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
 using System.IO.Ports;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace AmpAutoTunerUtility
@@ -113,7 +109,14 @@ namespace AmpAutoTunerUtility
                               // Documentation doesn't mention you need to wait a bit after the wakeup char
                 Thread.Sleep(50);
 #pragma warning disable CA1303 // Do not pass literals as localized parameters
-                SerialPortTuner.Write("T");
+                if (TuneFull)
+                {
+                    SerialPortTuner.Write("F");
+                }
+                else
+                {
+                    SerialPortTuner.Write("T");
+                }
 #pragma warning restore CA1303 // Do not pass literals as localized parameters
                 Thread.Sleep(100);
                 response = (char)SerialPortTuner.ReadChar();

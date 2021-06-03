@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using static AmpAutoTunerUtility.DebugMsg;
 
 namespace AmpAutoTunerUtility
@@ -11,16 +6,16 @@ namespace AmpAutoTunerUtility
     public abstract class Tuner: IDisposable
     {
         private bool _disposed = false;
-        public static readonly string[] DebugEnumText = { "ERR", "WRN", "TRC", "VER", "LOG" };
+        public static readonly string[] DebugEnumText = { "LOG", "ERR", "WRN", "TRC", "VER" };
 
         public double SWR { get; set; }
         protected private string model = null;
         protected private string comport = null;
         protected private string baud = null;
         protected private DebugEnum DebugLevel = DebugEnum.WARN;
-        protected private int Inductance { get; set; } // pF
+        protected private double Inductance { get; set; } // pF
         protected private int Capacitance { get; set; } // uH
-
+        public bool TuneFull { get; set; }
         public Tuner()
         {
             model = null;
@@ -62,7 +57,7 @@ namespace AmpAutoTunerUtility
         {
             DebugLevel = level;
         }
-        public virtual int GetInductance()
+        public virtual double GetInductance()
         {
             return Inductance;
         }
@@ -151,5 +146,19 @@ namespace AmpAutoTunerUtility
             // nothing to do
         }
 
+        public virtual  void Save()
+        {
+            // depends if the tuner can save settings
+        }
+
+        public virtual void SaveCapacitance(int v)
+        {
+            throw new NotImplementedException();
+        }
+
+        public virtual void SaveInductance(decimal v)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

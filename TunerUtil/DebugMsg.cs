@@ -12,11 +12,11 @@ namespace AmpAutoTunerUtility
         protected static private ConcurrentQueue<DebugMsg> msgQueue = new ConcurrentQueue<DebugMsg>();
         public enum DebugEnum
         {
+            LOG, // force logging of message
             ERR, // fatal or action needed
             WARN, // non-fatal things
             TRACE, // important things to trace
-            VERBOSE, // lots of output
-            LOG // force logging of message
+            VERBOSE // lots of output
         }
         public string Text { get; set; }
             public DebugEnum Level { get; set; }

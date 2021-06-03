@@ -97,10 +97,6 @@ namespace AmpAutoTunerUtility
                     ftdi.Close();
                     ftdi = null;
                 }
-                else
-                {
-                    int n = 0;
-                }
                 //AllOff();
             }
 #pragma warning disable CA1031 // Do not catch general exception types
