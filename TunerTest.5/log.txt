@@ -1,0 +1,52 @@
+2021-06-04 06:52:44.649 -05:00 [INF] MSBuild registered from C:\Program Files\dotnet\sdk\5.0.300\
+2021-06-04 06:52:52.341 -05:00 [INF] Initializing upgrade step Select an entrypoint
+2021-06-04 06:52:52.345 -05:00 [INF] Setting entrypoint to user selected project: C:\Users\mdbla\Dropbox\Projects\TunerUtil\TunerTest\TunerTest.csproj
+2021-06-04 06:52:52.353 -05:00 [INF] Initializing upgrade step Select project to upgrade
+2021-06-04 06:52:52.516 -05:00 [INF] Initializing upgrade step Back up project
+2021-06-04 06:52:56.379 -05:00 [INF] Applying upgrade step Back up project
+2021-06-04 06:52:58.291 -05:00 [INF] Backing up C:\Users\mdbla\Dropbox\Projects\TunerUtil\TunerTest to C:\Users\mdbla\Dropbox\Projects\TunerUtil\TunerTest.backup
+2021-06-04 06:52:58.366 -05:00 [WRN] Could not copy file C:\Users\mdbla\Dropbox\Projects\TunerUtil\TunerTest\log.txt due to 'The process cannot access the file 'C:\Users\mdbla\Dropbox\Projects\TunerUtil\TunerTest\log.txt' because it is being used by another process.'
+2021-06-04 06:53:14.153 -05:00 [INF] Project backed up to C:\Users\mdbla\Dropbox\Projects\TunerUtil\TunerTest.backup
+2021-06-04 06:53:14.154 -05:00 [INF] Upgrade step Back up project applied successfully
+2021-06-04 06:53:14.445 -05:00 [INF] Initializing upgrade step Convert project file to SDK style
+2021-06-04 06:53:16.238 -05:00 [INF] Applying upgrade step Convert project file to SDK style
+2021-06-04 06:53:16.241 -05:00 [INF] Converting project file format with try-convert, version 0.7.226301
+2021-06-04 06:53:16.953 -05:00 [INF] [try-convert] C:\Users\mdbla\Dropbox\Projects\TunerUtil\TunerTest\TunerTest.csproj contains an App.config file. App.config is replaced by appsettings.json in .NET Core. You will need to delete App.config and migrate to appsettings.json if it's applicable to your project.
+2021-06-04 06:53:17.596 -05:00 [INF] [try-convert] This project has an unrecognized custom import which may need reviewed after conversion: Microsoft.DotNet.Analyzers.Compatibility.targets
+2021-06-04 06:53:18.212 -05:00 [INF] [try-convert] Conversion complete!
+2021-06-04 06:53:18.455 -05:00 [INF] Project file converted successfully! The project may require additional changes to build successfully against the new .NET target.
+2021-06-04 06:53:20.755 -05:00 [INF] Upgrade step Convert project file to SDK style applied successfully
+2021-06-04 06:53:23.425 -05:00 [INF] Initializing upgrade step Clean up NuGet package references
+2021-06-04 06:53:25.142 -05:00 [WRN] .NET Upgrade Assistant analyzer NuGet package reference cannot be added because the package cannot be found
+2021-06-04 06:53:25.146 -05:00 [INF] No package updates needed
+2021-06-04 06:53:25.147 -05:00 [INF] Initializing upgrade step Update TFM
+2021-06-04 06:53:25.182 -05:00 [INF] TFM needs updated to net6.0-windows
+2021-06-04 06:53:26.981 -05:00 [INF] Applying upgrade step Update TFM
+2021-06-04 06:53:30.386 -05:00 [INF] Updated TFM to net6.0-windows
+2021-06-04 06:53:30.387 -05:00 [INF] Upgrade step Update TFM applied successfully
+2021-06-04 06:53:31.713 -05:00 [INF] Initializing upgrade step Update NuGet Packages
+2021-06-04 06:53:32.712 -05:00 [INF] Marking package Microsoft.CSharp for removal because it appears to be a transitive dependency
+2021-06-04 06:53:32.717 -05:00 [INF] Marking package Microsoft.DotNet.Analyzers.Compatibility for removal because it appears to be a transitive dependency
+2021-06-04 06:53:32.749 -05:00 [INF] Marking package System.Data.DataSetExtensions for removal because it appears to be a transitive dependency
+2021-06-04 06:53:32.751 -05:00 [WRN] .NET Upgrade Assistant analyzer NuGet package reference cannot be added because the package cannot be found
+2021-06-04 06:53:32.758 -05:00 [INF] Packages to be removed: Microsoft.CSharp, Version=4.7.0
+Microsoft.DotNet.Analyzers.Compatibility, Version=0.2.12-alpha
+System.Data.DataSetExtensions, Version=4.5.0
+2021-06-04 06:53:35.078 -05:00 [INF] Applying upgrade step Update NuGet Packages
+2021-06-04 06:53:35.084 -05:00 [INF] Removing outdated package reference: Microsoft.CSharp, Version=4.7.0
+2021-06-04 06:53:35.085 -05:00 [INF] Removing outdated package reference: Microsoft.DotNet.Analyzers.Compatibility, Version=0.2.12-alpha
+2021-06-04 06:53:35.086 -05:00 [INF] Removing outdated package reference: System.Data.DataSetExtensions, Version=4.5.0
+2021-06-04 06:53:36.686 -05:00 [WRN] .NET Upgrade Assistant analyzer NuGet package reference cannot be added because the package cannot be found
+2021-06-04 06:53:36.715 -05:00 [INF] Upgrade step Update NuGet Packages applied successfully
+2021-06-04 06:53:38.176 -05:00 [INF] Initializing upgrade step Add template files
+2021-06-04 06:53:38.182 -05:00 [INF] 0 expected template items needed
+2021-06-04 06:53:38.184 -05:00 [INF] Initializing upgrade step Upgrade app config files
+2021-06-04 06:53:38.200 -05:00 [INF] Found 0 app settings for upgrade: 
+2021-06-04 06:53:38.255 -05:00 [INF] Initializing upgrade step Update source code
+2021-06-04 06:53:39.930 -05:00 [INF] Initializing upgrade step Move to next project
+2021-06-04 06:53:41.873 -05:00 [INF] Applying upgrade step Move to next project
+2021-06-04 06:53:41.875 -05:00 [INF] Upgrade step Move to next project applied successfully
+2021-06-04 06:53:45.807 -05:00 [INF] Initializing upgrade step Finalize upgrade
+2021-06-04 06:53:49.468 -05:00 [INF] Applying upgrade step Finalize upgrade
+2021-06-04 06:53:49.468 -05:00 [INF] Upgrade step Finalize upgrade applied successfully
+2021-06-04 06:53:51.895 -05:00 [INF] Upgrade has completed. Please review any changes.

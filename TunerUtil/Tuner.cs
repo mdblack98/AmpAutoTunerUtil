@@ -15,12 +15,14 @@ namespace AmpAutoTunerUtility
         protected private DebugEnum DebugLevel = DebugEnum.WARN;
         protected private double Inductance { get; set; } // pF
         protected private int Capacitance { get; set; } // uH
+        public int AntennaNumber { get; set; }
         public bool TuneFull { get; set; }
         public Tuner()
         {
             model = null;
             comport = null;
             baud = null;
+            //AntennaNumber = 1;
         }
 
         ~Tuner()
@@ -42,6 +44,7 @@ namespace AmpAutoTunerUtility
             GC.SuppressFinalize(this);
         }
 
+        
         protected virtual void Dispose(bool disposing)
         {
             if (_disposed)
@@ -53,6 +56,7 @@ namespace AmpAutoTunerUtility
             }
             _disposed = true;
         }
+        
         public virtual void SetDebugLevel(DebugEnum level)
         {
             DebugLevel = level;
@@ -157,6 +161,15 @@ namespace AmpAutoTunerUtility
         }
 
         public virtual void SaveInductance(decimal v)
+        {
+            throw new NotImplementedException();
+        }
+
+        public virtual int GetAntenna()
+        {
+            throw new NotImplementedException();
+        }
+        public virtual void SetAntenna(int antennaNumber, bool tuneIsRunning = false)
         {
             throw new NotImplementedException();
         }

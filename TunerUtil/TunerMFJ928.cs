@@ -31,8 +31,10 @@ namespace AmpAutoTunerUtility
             error = null;
             SWR = 0;
 
+            baud = "4800"; // baud rate is fixed
             if (comport == null || baud == null || comport.Length == 0 || baud.Length == 0)
             {
+                MessageBox.Show("com port(" + comport + ") or baud(" + baud + ") is empty");
                 return;
             }
             SerialPortTuner = new SerialPort
@@ -63,6 +65,7 @@ namespace AmpAutoTunerUtility
             Action kickoffRead = null;
             SerialPortTuner.BaseStream.ReadTimeout = 100;
             Queue<byte> myQueue = new Queue<byte>();
+            GetAntenna();
             kickoffRead = delegate
             {
                 //while (true)
@@ -320,6 +323,10 @@ namespace AmpAutoTunerUtility
                 case 0x11:
                     switch(received[3])
                     {
+                        case 0x03:
+                            if (received[4] == 0x00) AntennaNumber = 1;
+                            else AntennaNumber = 2;
+                            break;
                         case 0x06:
                             string status = "off\n";
                             if (received[4] == 0x01) status = "on\n";
@@ -333,6 +340,9 @@ namespace AmpAutoTunerUtility
                 case 0x21:
                     switch (received[3])
                     {
+                        case 0x03:
+                            AntennaNumber = received[4] == 0 ? 1 : 2;
+                            break;
                         case 0x06:
                             string status = "off\n";
                             if (received[4] == 0x01) status = "on\n";
@@ -616,6 +626,23 @@ namespace AmpAutoTunerUtility
         public override void Save()
         {
             MemoryWriteCurrentFreq();
+        }
+
+        public override int GetAntenna()
+        {
+            byte[] cmd = { 0xfe, 0xfe, 0x11, 0x03, 0x00, 0x00, 0x00, 0xfd };
+            SendCmd(cmd);
+            Thread.Sleep(200);
+            SetText(DebugEnum.TRACE, "GetAntenna()=" + AntennaNumber + "\n");
+            return AntennaNumber;
+        }
+        public override void SetAntenna(int antennaNumberRequested, bool tuneIsRunning = false)
+        {
+            SetText(DebugEnum.TRACE, "SetAntenna() requested=" + antennaNumberRequested + "\n");
+            byte[] cmd = { 0xfe, 0xfe, 0x21, 0x03, (byte)(antennaNumberRequested - 1), 0x00, 0x00, 0xfd };
+            SendCmd(cmd);
+            Thread.Sleep(200);
+            SetText(DebugEnum.TRACE, "SetAntenna() result=" + AntennaNumber + "\n");
         }
         /*
         public override void Dispose(bool disposing)
