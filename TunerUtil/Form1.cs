@@ -242,14 +242,14 @@ namespace AmpAutoTunerUtility
                 textBoxAntenna6.Text = Properties.Settings.Default.textBoxAntenna6;
                 textBoxAntenna7.Text = Properties.Settings.Default.textBoxAntenna7;
                 textBoxAntenna8.Text = Properties.Settings.Default.textBoxAntenna8;
-                textBoxAntenna1Bits.Text = Properties.Settings.Default.textBoxAntenna1Bits;
-                textBoxAntenna2Bits.Text = Properties.Settings.Default.textBoxAntenna2Bits;
-                textBoxAntenna3Bits.Text = Properties.Settings.Default.textBoxAntenna3Bits;
-                textBoxAntenna4Bits.Text = Properties.Settings.Default.textBoxAntenna4Bits;
-                textBoxAntenna5Bits.Text = Properties.Settings.Default.textBoxAntenna5Bits;
-                textBoxAntenna6Bits.Text = Properties.Settings.Default.textBoxAntenna6Bits;
-                textBoxAntenna7Bits.Text = Properties.Settings.Default.textBoxAntenna7Bits;
-                textBoxAntenna8Bits.Text = Properties.Settings.Default.textBoxAntenna8Bits;
+                ComboBoxAntenna1Bits.Text = Properties.Settings.Default.textBoxAntenna1Bits;
+                ComboBoxAntenna2Bits.Text = Properties.Settings.Default.textBoxAntenna2Bits;
+                ComboBoxAntenna3Bits.Text = Properties.Settings.Default.textBoxAntenna3Bits;
+                ComboBoxAntenna4Bits.Text = Properties.Settings.Default.textBoxAntenna4Bits;
+                ComboBoxAntenna5Bits.Text = Properties.Settings.Default.textBoxAntenna5Bits;
+                ComboBoxAntenna6Bits.Text = Properties.Settings.Default.textBoxAntenna6Bits;
+                ComboBoxAntenna7Bits.Text = Properties.Settings.Default.textBoxAntenna7Bits;
+                ComboBoxAntenna8Bits.Text = Properties.Settings.Default.textBoxAntenna8Bits;
                 radioButtonAntennaWire3.Checked = Properties.Settings.Default.radioButtonAntennaWire3;
                 radioButtonAntennaWire8.Checked = Properties.Settings.Default.radioButtonAntennaWire8;
 
@@ -746,15 +746,19 @@ namespace AmpAutoTunerUtility
                 Properties.Settings.Default.MaximizedMain = false;
                 Properties.Settings.Default.MinimizedMain = true;
             }
-            Properties.Settings.Default.Save();
+            //Properties.Settings.Default.Save();
         }
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (formClosing) return;
-            WindowSaveLocationMain();
+            if (formClosing) 
+                return;
             formClosing = true;
+            //tabControl1.Enabled = false;
             timerDebug.Stop();
             timerGetFreq.Stop();
+            //Thread.Sleep(500);
+            DisconnectFLRig();
+            WindowSaveLocationMain();
             int loop = 60;
             while (getFreqIsRunning && --loop > 0)
             {
@@ -765,7 +769,6 @@ namespace AmpAutoTunerUtility
             //if (relay2 != null) relay2.Close();
             //if (relay3 != null) relay3.Close();
             //if (relay4 != null) relay4.Close();
-            DisconnectFLRig();
             Thread.Sleep(1000);  // was getting memory overflow during shutdown under debug -- this seems to have fixed it
             Properties.Settings.Default.tolTune = textBoxFreqTol.Text;
             Properties.Settings.Default.rigEnabled = checkBoxRig.Checked;
@@ -911,8 +914,17 @@ namespace AmpAutoTunerUtility
             Properties.Settings.Default.AntSelect7 = comboBoxAntSelect7.Text;
             Properties.Settings.Default.AntSelect8 = comboBoxAntSelect8.Text;
 
+            Properties.Settings.Default.textBoxAntenna1Bits = ComboBoxAntenna1Bits.Text;
+            Properties.Settings.Default.textBoxAntenna2Bits = ComboBoxAntenna2Bits.Text;
+            Properties.Settings.Default.textBoxAntenna3Bits = ComboBoxAntenna3Bits.Text;
+            Properties.Settings.Default.textBoxAntenna4Bits = ComboBoxAntenna4Bits.Text;
+            Properties.Settings.Default.textBoxAntenna5Bits = ComboBoxAntenna5Bits.Text;
+            Properties.Settings.Default.textBoxAntenna6Bits = ComboBoxAntenna6Bits.Text;
+            Properties.Settings.Default.textBoxAntenna7Bits = ComboBoxAntenna7Bits.Text;
+            Properties.Settings.Default.textBoxAntenna8Bits = ComboBoxAntenna8Bits.Text;
+
             Properties.Settings.Default.Save();
-            Application.Exit();
+            Exit();
         }
 
 
@@ -938,6 +950,7 @@ namespace AmpAutoTunerUtility
             comboBoxComTuner.Items.Clear();
             foreach (string s in System.IO.Ports.SerialPort.GetPortNames())
             {
+                if (!s.StartsWith("COM")) continue;
                 if (comboBoxComTuner.Items.Count == 0)
                 {
                     comboBoxComTuner.Items.Add(s);
@@ -1241,7 +1254,7 @@ namespace AmpAutoTunerUtility
             }
             Thread.Sleep(200);
             char response = tuner1.ReadResponse();
-            DebugAddMsg(DebugEnum.VERBOSE, "tuner1.ReadResponse done\n");
+            DebugAddMsg(DebugEnum.VERBOSE, "tuner1.ReadResponse " + response + "\n");
             // stop audio here
             Application.DoEvents();
             if (ptt && !powerSDR) // we turn off PTT now
@@ -1297,7 +1310,7 @@ namespace AmpAutoTunerUtility
             }
             //richTextBoxRig.AppendText("Tuning done SWR="+tuner1.SWR+"\n");
             //richTextBoxRig.AppendText("Tuning done\n");
-            Debug(DebugEnum.TRACE, "Setting power\n");
+            Debug(DebugEnum.TRACE, "Setting Tx power\n");
             PowerSelect(frequencyHz, modeCurrent, false);
             myparam = "<params><param><value><double>" + frequencyHz + "</double></value></param></params";
             xml = FLRigXML("rig.set_vfo" + 'B', myparam);
@@ -1414,9 +1427,8 @@ namespace AmpAutoTunerUtility
         private string FLRigGetXcvr()
         {
             string xcvr = null;
-
             //if (!checkBoxRig.Checked) return null;
-            if (rigClient == null) { FLRigConnect(); }
+            if (rigClient == null || rigStream == null) { FLRigConnect(); }
             string xml2 = FLRigXML("rig.get_xcvr", null);
             Byte[] data = System.Text.Encoding.ASCII.GetBytes(xml2);
             try
@@ -1488,7 +1500,15 @@ namespace AmpAutoTunerUtility
             string mode = "Unknown";
 
             if (!checkBoxRig.Checked) return null;
-            if (rigClient == null) { FLRigConnect(); }
+            while (rigClient == null || rigStream == null)
+            {
+                for (int i = 1; i < 100; ++i)
+                {
+                    Application.DoEvents();
+                    Thread.Sleep(20);
+                }
+                FLRigConnect(); 
+            }
             string xml2 = FLRigXML("rig.get_modeA", null);
             Byte[] data = System.Text.Encoding.ASCII.GetBytes(xml2);
             try
@@ -1695,6 +1715,8 @@ namespace AmpAutoTunerUtility
 
         private void FLRigSetActiveVFO(string mode)
         {
+            Debug(DebugEnum.LOG, "FLRigSetActiveVFO=" + mode + "\n");
+
             string myparam = "<params><param><value>" + mode + "</value></param></params>";
             string xml2 = FLRigXML("rig.set_AB", myparam);
             Byte[] data = System.Text.Encoding.ASCII.GetBytes(xml2);
@@ -1748,13 +1770,17 @@ namespace AmpAutoTunerUtility
         {
             // Seems we can send this a bit too quickly so let's sleep for a short while before doing it
             // Then we'll do it again as it was still failing the 1st time
+            DebugAddMsg(DebugEnum.VERBOSE, "FLRigSetPower\n");
             var power = FLRigGetPower();
             if (power == value) return true;
             Thread.Sleep(100);
+            DebugAddMsg(DebugEnum.VERBOSE, "Power needs changing to" + value + "\n");
             string xml = FLRigXML("rig.set_power", "<params><param><value><i4>"+value+"</i4></value></param></params");
             int ntry = 0;
             do
             {
+                DebugAddMsg(DebugEnum.VERBOSE, "Set power try#" + ntry + "\n");
+                Application.DoEvents();
                 try
                 {
                     if (FLRigSend(xml) == false) return false; // Abort if FLRig is giving an error
@@ -1771,7 +1797,7 @@ namespace AmpAutoTunerUtility
                     FLRigConnect();
                 }
                 power = FLRigGetPower();
-            } while (power != value && ntry <= 3);
+            } while (power != value && ++ntry <= 3);
             labelPower.Text = "RigPower = " + value;
             return true;
         }
@@ -1780,6 +1806,7 @@ namespace AmpAutoTunerUtility
         {
             // On passNum=0 we check for specific mode matches
             // On passNum>0 we check for "Any" matches
+            DebugAddMsg(DebugEnum.VERBOSE, "PowerSelectOp\n");
             try
             {
                 if (enabled.Checked)
@@ -1809,6 +1836,7 @@ namespace AmpAutoTunerUtility
                             if (!pausedTuning && !tuneIsRunning && powerLevel.Text.Length > 0)
                             {
                                 Debug(DebugEnum.TRACE, "Set Power=" + powerLevel.Text + "\n");
+                                Application.DoEvents();
                                 int powerset = Convert.ToInt32(powerLevel.Text, CultureInfo.InvariantCulture);
                                 //if (tuneIsRunning)
                                 {
@@ -1826,6 +1854,7 @@ namespace AmpAutoTunerUtility
                                         FLRigSetPower(powerset);
                                     }
                                 }
+                                DebugAddMsg(DebugEnum.VERBOSE, "AmpSet being called\n");
                                 AmpSet(ampFlag);
                             }
                             return true;
@@ -1848,22 +1877,31 @@ namespace AmpAutoTunerUtility
             double frequencyMHz = frequencyHz / 1e6;
             for (int passNum = 0; passNum < 2; ++passNum)
             {
+                Debug(DebugEnum.TRACE, "1\n");
                 if (PowerSelectOp(frequencyMHz, checkBoxPower1Enabled, textBoxPower1From, textBoxPower1To, tuning ? textBoxTune1Power : textBoxPower1Watts, comboBoxPower1Mode, modeChk, checkBoxAmp1, checkBoxAmp1.Checked, passNum))
                     return;
+                Debug(DebugEnum.TRACE, "2\n");
                 if (PowerSelectOp(frequencyMHz, checkBoxPower2Enabled, textBoxPower2From, textBoxPower2To, tuning ? textBoxTune2Power : textBoxPower2Watts, comboBoxPower2Mode, modeChk, checkBoxAmp2, checkBoxAmp2.Checked, passNum))
                     return;
+                Debug(DebugEnum.TRACE, "3\n");
                 if (PowerSelectOp(frequencyMHz, checkBoxPower3Enabled, textBoxPower3From, textBoxPower3To, tuning ? textBoxTune3Power : textBoxPower3Watts, comboBoxPower3Mode, modeChk, checkBoxAmp3, checkBoxAmp3.Checked, passNum))
                     return;
+                Debug(DebugEnum.TRACE, "4\n");
                 if (PowerSelectOp(frequencyMHz, checkBoxPower4Enabled, textBoxPower4From, textBoxPower4To, tuning ? textBoxTune4Power : textBoxPower4Watts, comboBoxPower4Mode, modeChk, checkBoxAmp4, checkBoxAmp4.Checked, passNum))
                     return;
+                Debug(DebugEnum.TRACE, "5\n");
                 if (PowerSelectOp(frequencyMHz, checkBoxPower5Enabled, textBoxPower5From, textBoxPower5To, tuning ? textBoxTune5Power : textBoxPower5Watts, comboBoxPower5Mode, modeChk, checkBoxAmp5, checkBoxAmp5.Checked, passNum))
                     return;
+                Debug(DebugEnum.TRACE, "6\n");
                 if (PowerSelectOp(frequencyMHz, checkBoxPower6Enabled, textBoxPower6From, textBoxPower6To, tuning ? textBoxTune6Power : textBoxPower6Watts, comboBoxPower6Mode, modeChk, checkBoxAmp6, checkBoxAmp6.Checked, passNum))
                     return;
+                Debug(DebugEnum.TRACE, "7\n");
                 if (PowerSelectOp(frequencyMHz, checkBoxPower7Enabled, textBoxPower7From, textBoxPower7To, tuning ? textBoxTune7Power : textBoxPower7Watts, comboBoxPower7Mode, modeChk, checkBoxAmp7, checkBoxAmp7.Checked, passNum))
                     return;
+                Debug(DebugEnum.TRACE, "8\n");
                 if (PowerSelectOp(frequencyMHz, checkBoxPower8Enabled, textBoxPower8From, textBoxPower8To, tuning ? textBoxTune8Power : textBoxPower8Watts, comboBoxPower8Mode, modeChk, checkBoxAmp8, checkBoxAmp8.Checked, passNum))
                     return;
+                Debug(DebugEnum.TRACE, "9\n");
 #pragma warning disable CA1303 // Do not pass literals as localized parameters
                 labelPower.Text = "Power not set";
 #pragma warning restore CA1303 // Do not pass literals as localized parameters
@@ -1899,7 +1937,7 @@ namespace AmpAutoTunerUtility
                 if (currVFO.Equals("B", StringComparison.InvariantCulture))
             {
 #pragma warning disable CA1303 // Do not pass literals as localized parameters
-                MyMessageBox("Auto tuning paused because VFOB is active, click OK when you're done");
+                MyMessageBox("Auto tuning paused because VFOB is active, click OK when you're done", MessageBoxButtons.OK);
 #pragma warning restore CA1303 // Do not pass literals as localized parameters
                 FLRigSetActiveVFO("A");
             }
@@ -2133,6 +2171,8 @@ namespace AmpAutoTunerUtility
 
         private void TimerGetFreq_Tick(object sender, EventArgs e)
         {
+            if (pausedTuning) 
+                return;
             timerGetFreq.Stop();
             //DebugAddMsg(DebugEnum.VERBOSE, "Timer tick\n");
             if (checkBoxRelay1Enabled.Checked &&  relay1 != null && relay1.Status() == 0xff)
@@ -2342,7 +2382,7 @@ namespace AmpAutoTunerUtility
             }
 
             // We'll update our Tuner Options in case it changes
-            groupBoxOptions.Visible = comboBoxTunerModel.SelectedItem.Equals(MFJ928);
+            //groupBoxOptions.Visible = comboBoxTunerModel.SelectedItem.Equals(MFJ928);
 
 
             timerGetFreq.Start();
@@ -2545,6 +2585,7 @@ namespace AmpAutoTunerUtility
 
         private static string FLRigXML(string cmd, string value)
         {
+            //Debug(DebugEnum.LOG, "FLRig cmd=" + cmd + " value=" + value +"\n");
             string xmlHeader = "POST / RPC2 HTTP / 1.1\n";
             xmlHeader += "User - Agent: XMLRPC++ 0.8\n";
             xmlHeader += "Host: 127.0.0.1:12345\n";
@@ -2563,7 +2604,7 @@ namespace AmpAutoTunerUtility
             return xml;
         }
 
-        public DialogResult MyMessageBox(string message)
+        public DialogResult MyMessageBox(string message, MessageBoxButtons buttons = MessageBoxButtons.RetryCancel)
         {
             if (this.WindowState == FormWindowState.Minimized)
                 this.WindowState = FormWindowState.Normal;
@@ -3228,9 +3269,19 @@ namespace AmpAutoTunerUtility
             }
         }
 
+        private void Exit()
+        {
+            Cursor.Current = Cursors.WaitCursor;
+            timerDebug.Stop();
+            timerGetFreq.Stop();
+            timerDebug.Enabled = false;
+            timerGetFreq.Enabled = false;
+            Application.Exit();
+        }
         private void CloseToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Application.Exit();
+            Cursor.Current = Cursors.WaitCursor;
+            Exit();
         }
 
         private void ComboBoxTunerModel_SelectedIndexChanged_1(object sender, EventArgs e)
@@ -3511,7 +3562,7 @@ namespace AmpAutoTunerUtility
         private void TabControl1_VisibleChanged(object sender, EventArgs e)
         {
             tabControl1.Refresh();
-            richTextBoxDebug.Refresh();
+            richTextBoxDebug.Update();
         }
 
         private void GroupBox2_Enter(object sender, EventArgs e)
@@ -3620,6 +3671,16 @@ namespace AmpAutoTunerUtility
         }
 
         private void menuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+
+        }
+
+        private void tabControl1_TabIndexChanged(object sender, EventArgs e)
+        {
+            tabControl1.TabPages[tabControl1.SelectedIndex].Refresh();
+        }
+
+        private void textBoxAntenna1Bits_TextChanged(object sender, EventArgs e)
         {
 
         }

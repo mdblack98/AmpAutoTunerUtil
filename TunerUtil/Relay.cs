@@ -310,12 +310,14 @@ namespace AmpAutoTunerUtility
                 {
                     flags = (byte)(bitModes & (~(1u << (nRelay - 1))));
                 }
+                DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.LOG, "Relay #" + nRelay + " set=" + status + " bits=" + bitModes + " newBits=" + flags + "\n");
                 data[2] = flags;
                 ftdi.Write(data, data.Length, ref nWritten);
                 if (nWritten == 0)
                 {
                     Close();
                     errMsg = "Unable to write to relay...disconnected?";
+                    DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.ERR, errMsg);
                     Monitor.Exit(ftdi);
                     return;
                     //throw new Exception("Unable to write to relay...disconnected?");
@@ -323,11 +325,13 @@ namespace AmpAutoTunerUtility
                 Thread.Sleep(100);
                 byte bitModes2 = 0x00;
                 ftdi.GetPinStates(ref bitModes2);
+                DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.LOG, "Relay #" + nRelay + " statusbits=" + bitModes2 + "\n");
                 if (status != 0) // check we set it
                 {
                     if ((bitModes2 & (1u << (nRelay - 1))) == 0)
                     {
                         errMsg = "Relay did not get set!";
+                        DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.ERR, errMsg);
                         Close();
                         Monitor.Exit(ftdi);
                         return;
@@ -340,6 +344,7 @@ namespace AmpAutoTunerUtility
 #pragma warning restore CA1031 // Do not catch general exception types
             {
                 errMsg = "Relay Set failed\n"+ex.Message;
+                DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.ERR, errMsg);
             }
             Monitor.Exit(ftdi);
         }
