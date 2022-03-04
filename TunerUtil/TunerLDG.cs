@@ -136,34 +136,18 @@ namespace AmpAutoTunerUtility
         //}
         public override void SetAntenna(int antennaNumberRequested, bool tuneIsRunning=false)
         {
-            if (antennaNumberRequested == AntennaNumber) return;
-            SerialPortTuner.Write(" ");
-            Thread.Sleep(50);
-            SerialPortTuner.Write("A");
-            //Thread.Sleep(1000);
-            SerialPortTuner.ReadTimeout = 1000;
-            response = (char)SerialPortTuner.ReadChar();
-            if (response == 0)
+            try
             {
-                MessageBox.Show("No response to antenna query");
-                return;
-            }
-            switch(response)
-            {
-                case '1': AntennaNumber = 1;break;
-                case '2': AntennaNumber = 2;break;
-                default: MessageBox.Show("Unknown antenna=" + response);break;
-            }
-            //MessageBox.Show("Query#1 response=" + response + " AntennaNumber/antennaNumberRequested=" + AntennaNumber + "/" + antennaNumberRequested);
-            if (antennaNumberRequested != AntennaNumber)
-            {
+                if (antennaNumberRequested == AntennaNumber) return;
                 SerialPortTuner.Write(" ");
                 Thread.Sleep(50);
-                SerialPortTuner.Write("A" + antennaNumberRequested);
+                SerialPortTuner.Write("A");
+                //Thread.Sleep(1000);
+                SerialPortTuner.ReadTimeout = 1000;
                 response = (char)SerialPortTuner.ReadChar();
                 if (response == 0)
                 {
-                    MessageBox.Show("No response to antenna query#2");
+                    MessageBox.Show("No response to antenna query");
                     return;
                 }
                 switch (response)
@@ -172,7 +156,30 @@ namespace AmpAutoTunerUtility
                     case '2': AntennaNumber = 2; break;
                     default: MessageBox.Show("Unknown antenna=" + response); break;
                 }
-                //MessageBox.Show("Query#2 response=" + response + " AntennaNumber/antennaNumberRequested=" + AntennaNumber + "/" + antennaNumberRequested);
+                //MessageBox.Show("Query#1 response=" + response + " AntennaNumber/antennaNumberRequested=" + AntennaNumber + "/" + antennaNumberRequested);
+                if (antennaNumberRequested != AntennaNumber)
+                {
+                    SerialPortTuner.Write(" ");
+                    Thread.Sleep(50);
+                    SerialPortTuner.Write("A" + antennaNumberRequested);
+                    response = (char)SerialPortTuner.ReadChar();
+                    if (response == 0)
+                    {
+                        MessageBox.Show("No response to antenna query#2");
+                        return;
+                    }
+                    switch (response)
+                    {
+                        case '1': AntennaNumber = 1; break;
+                        case '2': AntennaNumber = 2; break;
+                        default: MessageBox.Show("Unknown antenna=" + response); break;
+                    }
+                    //MessageBox.Show("Query#2 response=" + response + " AntennaNumber/antennaNumberRequested=" + AntennaNumber + "/" + antennaNumberRequested);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Tuner error: " + ex.Message + "\n" + ex.Source + "\n" + ex.StackTrace);
             }
         }
     }
