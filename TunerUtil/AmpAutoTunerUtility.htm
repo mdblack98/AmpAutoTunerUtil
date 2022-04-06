@@ -15,15 +15,15 @@ xmlns="http://www.w3.org/TR/REC-html40">
   <o:Author>Michael Black</o:Author>
   <o:LastAuthor>Michael Black</o:LastAuthor>
   <o:Revision>2</o:Revision>
-  <o:TotalTime>1587</o:TotalTime>
-  <o:Created>2021-05-05T03:56:00Z</o:Created>
-  <o:LastSaved>2021-05-05T03:56:00Z</o:LastSaved>
+  <o:TotalTime>1612</o:TotalTime>
+  <o:Created>2022-03-18T04:20:00Z</o:Created>
+  <o:LastSaved>2022-03-18T04:20:00Z</o:LastSaved>
   <o:Pages>1</o:Pages>
-  <o:Words>183</o:Words>
-  <o:Characters>1048</o:Characters>
-  <o:Lines>8</o:Lines>
-  <o:Paragraphs>2</o:Paragraphs>
-  <o:CharactersWithSpaces>1229</o:CharactersWithSpaces>
+  <o:Words>267</o:Words>
+  <o:Characters>1527</o:Characters>
+  <o:Lines>12</o:Lines>
+  <o:Paragraphs>3</o:Paragraphs>
+  <o:CharactersWithSpaces>1791</o:CharactersWithSpaces>
   <o:Version>16.00</o:Version>
  </o:DocumentProperties>
  <o:OfficeDocumentSettings>
@@ -36,8 +36,6 @@ href="AmpAutoTunerUtility_files/colorschememapping.xml">
 <!--[if gte mso 9]><xml>
  <w:WordDocument>
   <w:View>Print</w:View>
-  <w:SpellingState>Clean</w:SpellingState>
-  <w:GrammarState>Clean</w:GrammarState>
   <w:TrackMoves>false</w:TrackMoves>
   <w:TrackFormatting/>
   <w:PunctuationKerning/>
@@ -1009,12 +1007,6 @@ span.TitleChar
 	mso-bidi-theme-font:major-bidi;
 	letter-spacing:-.5pt;
 	mso-font-kerning:14.0pt;}
-span.SpellE
-	{mso-style-name:"";
-	mso-spl-e:yes;}
-span.GramE
-	{mso-style-name:"";
-	mso-gram-e:yes;}
 .MsoChpDefault
 	{mso-style-type:export-only;
 	mso-default-props:yes;
@@ -1150,16 +1142,16 @@ ul
 
 <p class=MsoNormal>By W9MDB</p>
 
-<p class=MsoNormal>Version 0.59 May 4, 2022</p>
+<p class=MsoNormal>Version 0.78 March 17, 2022</p>
 
 <h1>Overview</h1>
 
 <p class=MsoNormal><o:p>&nbsp;</o:p></p>
 
 <p class=MsoNormal>AmpAutoTunerUtility is meant to automate tuning your
-rig.<span style='mso-spacerun:yes'>  </span>It monitors your rig’s frequency and
-if the frequency changes by more <span class=SpellE>then</span> 5 kHz
-m(default) it will initiate a tuning sequence.</p>
+rig.<span style='mso-spacerun:yes'>  </span>It monitors your rig’s frequency
+and if the frequency changes by more than 5 kHz (default) it will initiate a
+tuning sequence.</p>
 
 <p class=MsoListParagraphCxSpFirst style='text-indent:-.25in;mso-list:l0 level1 lfo2'><![if !supportLists]><span
 style='font-family:Symbol;mso-fareast-font-family:Symbol;mso-bidi-font-family:
@@ -1204,19 +1196,13 @@ style='font-family:Symbol;mso-fareast-font-family:Symbol;mso-bidi-font-family:
 Symbol'><span style='mso-list:Ignore'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 </span></span></span><![endif]>Set frequency and mode on VFOB to match VFOA</p>
 
-<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in;mso-list:l0 level1 lfo2'><![if !supportLists]><span
+<p class=MsoListParagraphCxSpLast style='text-indent:-.25in;mso-list:l0 level1 lfo2'><![if !supportLists]><span
 style='font-family:Symbol;mso-fareast-font-family:Symbol;mso-bidi-font-family:
 Symbol'><span style='mso-list:Ignore'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 </span></span></span><![endif]>Turn on amp</p>
 
-<p class=MsoListParagraphCxSpLast style='text-indent:-.25in;mso-list:l0 level1 lfo2'><![if !supportLists]><span
-style='font-family:Symbol;mso-fareast-font-family:Symbol;mso-bidi-font-family:
-Symbol'><span style='mso-list:Ignore'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span></span><![endif]>In addition, it will also set frequency and mode
-on VFOB </p>
-
-<p class=MsoNormal><span class=GramE>In order to</span> do this, it needs to be
-able to read and write frequency/mode to your rig and control your tuner.</p>
+<p class=MsoNormal>To do this, it needs to be able to read and write
+frequency/mode to your rig and control your tuner.</p>
 
 <h1>Frequency/Mode Sources</h1>
 
@@ -1233,6 +1219,9 @@ able to read and write frequency/mode to your rig and control your tuner.</p>
 <p class=MsoNormal>LDG Pro (with easy hardware modification and a SainSmart
 relay board to disable the amplifier)</p>
 
+<p class=MsoNormal>If you have a tuner you’d like to see added please contact
+me – see my QRZ page.</p>
+
 <h1>Tuning</h1>
 
 <p class=MsoNormal>(TBD)When not in split mode VFO A will be used to monitor
@@ -1241,7 +1230,20 @@ set frequencies, and tune</p>
 <p class=MsoNormal>(TBD)When in split VFO B will be used to monitor and tune</p>
 
 <p class=MsoNormal>In the Tuning tab you should select either VFO A or VFO B as
-the VFO to mon</p>
+the VFO to monitor – usually VFOA.</p>
+
+<h1>Antenna Selection</h1>
+
+<p class=MsoNormal>The Antenna tab allows you to use a SainSmart or Denkovi (or
+similar) relay board for antenna selection.<span style='mso-spacerun:yes'> 
+</span>The first frequency range found will be selected.<span
+style='mso-spacerun:yes'>    </span>You must select which relay board to use
+and there is a pulldown menu for either 3-wire or 8-wire and up to 8
+relays.<span style='mso-spacerun:yes'>  </span>The 3-wire is for control switches
+like the Ameritron RCS-8 direct control of the 3-wire cable to the remote
+switch.<span style='mso-spacerun:yes'>  </span>The 8-wire would be used for normally
+relay operations.<span style='mso-spacerun:yes'>  </span>8/1 would be the 1<sup>st</sup>
+relay on the selected relay board.</p>
 
 <h1>Change Log</h1>
 
