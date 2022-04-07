@@ -22,6 +22,8 @@ namespace AmpAutoTunerUtility
             public DebugEnum Level { get; set; }
         public static void DebugAddMsg(DebugEnum level, string msg)
         {
+            if (msg == null) return;
+            if (msg[msg.Length - 1] != '\n') msg += "\n";
             DebugMsg msgItem = new DebugMsg
             {
                 Text = Form1.MyTime()+" " +msg,
