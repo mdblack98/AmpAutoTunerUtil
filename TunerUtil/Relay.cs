@@ -18,6 +18,7 @@ namespace AmpAutoTunerUtility
         string serialNumber = "";
         readonly List<string> serialNums = new List<string>();
         public string errMsg = null;
+        public bool relayError;
 
         public Relay()
         {
@@ -53,9 +54,7 @@ namespace AmpAutoTunerUtility
                 }
                 devcount = nRelays;
             }
-#pragma warning disable CA1031 // Do not catch general exception types
             catch (Exception ex)
-#pragma warning restore CA1031 // Do not catch general exception types
             {
                 errMsg = ex.Message;
             }
@@ -97,13 +96,11 @@ namespace AmpAutoTunerUtility
                     ftdi.Close();
                     ftdi = null;
                 }
-                //AllOff();
+                AllOff();
             }
-#pragma warning disable CA1031 // Do not catch general exception types
             catch (Exception ex)
-#pragma warning restore CA1031 // Do not catch general exception types
             {
-                errMsg = "Relay Open failed\n"+ex.Message + "\n";
+                errMsg = "Relay Open failed\n" + ex.Message + "\n";
                 DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.ERR, errMsg);
                 return;
             }
@@ -181,11 +178,9 @@ namespace AmpAutoTunerUtility
                 Set(7, 0);
                 Set(8, 0);
             }
-#pragma warning disable CA1031 // Do not catch general exception types
             catch (Exception ex)
-#pragma warning restore CA1031 // Do not catch general exception types
             {
-                errMsg = "Relay AllOff failed\n"+ex.Message;
+                errMsg = "Relay AllOff failed\n" + ex.Message;
             }
             //ftdi.Close();
         }
@@ -213,11 +208,9 @@ namespace AmpAutoTunerUtility
                     return true;
                 }
             }
-#pragma warning disable CA1031 // Do not catch general exception types
             catch (Exception ex)
-#pragma warning restore CA1031 // Do not catch general exception types
             {
-                errMsg = "Relay Status failed\n"+ex.Message;
+                errMsg = "Relay Status failed\n" + ex.Message;
             }
             Monitor.Exit(ftdi);
             return false;
@@ -225,15 +218,17 @@ namespace AmpAutoTunerUtility
 
         public byte Status()
         {
+            relayError = false;
             if (ftdi == null)
             {
                 //Open(false);
                 DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.LOG, "FTDI is null??\n");
-                return 0xff;
+                relayError = true;
+                return 0x0;
             }
             Monitor.Enter(ftdi);
             bool local = false;
-            if (ftdi!=null && !ftdi.IsOpen) // then we'll open and close the device inside here
+            if (ftdi != null && !ftdi.IsOpen) // then we'll open and close the device inside here
             {
                 Open();
                 local = true;
@@ -245,23 +240,23 @@ namespace AmpAutoTunerUtility
                 FTD2XX_NET.FTDI.FT_STATUS status = ftdi.GetPinStates(ref bitModes);
                 if (status != FT_STATUS.FT_OK)
                 {
-                    DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.LOG, "FTDI status != FT_STATUS_.FT_OK, " + status + " != " + FT_STATUS.FT_OK +"\n");
+                    DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.LOG, "FTDI status != FT_STATUS_.FT_OK, " + status + " != " + FT_STATUS.FT_OK + "\n");
                     errMsg = "Oops!!";
                     ftdi.CyclePort();
                     Monitor.Exit(ftdi);
-                    return 0xff;
+                    relayError = true;
+                    return 0x0;
                 }
             }
-#pragma warning disable CA1031 // Do not catch general exception types
             catch (Exception ex)
-#pragma warning restore CA1031 // Do not catch general exception types
             {
-                errMsg = "Relay Status failed\n"+ex.Message;
+                errMsg = "Relay Status failed\n" + ex.Message;
             }
             if (local)
             {
                 Close();
             }
+            if (ftdi != null)
             Monitor.Exit(ftdi);
             return bitModes;
         }
@@ -275,13 +270,11 @@ namespace AmpAutoTunerUtility
                 byte bitModes = 0;
                 ftdi.GetPinStates(ref bitModes);
             }
-#pragma warning disable CA1031 // Do not catch general exception types
             catch (Exception ex)
-#pragma warning restore CA1031 // Do not catch general exception types
             {
-                errMsg = "Relay Init failed\n"+ex.Message;
+                errMsg = "Relay Init failed\n" + ex.Message;
             }
-           Close();
+            Close();
         }
 
         public void Set(int nRelay, byte status)
@@ -290,6 +283,7 @@ namespace AmpAutoTunerUtility
             {
                 Open(false);
             }
+            if (nRelay == 0) return;
             Monitor.Enter(ftdi);
             errMsg = null;
             try
@@ -310,12 +304,14 @@ namespace AmpAutoTunerUtility
                 {
                     flags = (byte)(bitModes & (~(1u << (nRelay - 1))));
                 }
+                DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.LOG, "Relay #" + nRelay + " set=" + status + " bits=" + bitModes + " newBits=" + flags + "\n");
                 data[2] = flags;
                 ftdi.Write(data, data.Length, ref nWritten);
                 if (nWritten == 0)
                 {
                     Close();
                     errMsg = "Unable to write to relay...disconnected?";
+                    DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.ERR, errMsg);
                     Monitor.Exit(ftdi);
                     return;
                     //throw new Exception("Unable to write to relay...disconnected?");
@@ -323,11 +319,13 @@ namespace AmpAutoTunerUtility
                 Thread.Sleep(100);
                 byte bitModes2 = 0x00;
                 ftdi.GetPinStates(ref bitModes2);
+                DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.LOG, "Relay #" + nRelay + " statusbits=" + bitModes2 + "\n");
                 if (status != 0) // check we set it
                 {
                     if ((bitModes2 & (1u << (nRelay - 1))) == 0)
                     {
                         errMsg = "Relay did not get set!";
+                        DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.ERR, errMsg);
                         Close();
                         Monitor.Exit(ftdi);
                         return;
@@ -335,11 +333,10 @@ namespace AmpAutoTunerUtility
                 }
                 //Status();
             }
-#pragma warning disable CA1031 // Do not catch general exception types
             catch (Exception ex)
-#pragma warning restore CA1031 // Do not catch general exception types
             {
-                errMsg = "Relay Set failed\n"+ex.Message;
+                errMsg = "Relay Set failed\n" + ex.Message;
+                DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.ERR, errMsg);
             }
             Monitor.Exit(ftdi);
         }

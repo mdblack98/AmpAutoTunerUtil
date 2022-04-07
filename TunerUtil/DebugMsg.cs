@@ -32,10 +32,10 @@ namespace AmpAutoTunerUtility
             DebugAddMsg(msgItem);
         }
 
-        private static string MyTime()
-        {
-            throw new NotImplementedException();
-        }
+        //private static string MyTime()
+        //{
+        //    throw new NotImplementedException();
+        //}
 
         public static void DebugAddMsg(DebugMsg msg)
         {

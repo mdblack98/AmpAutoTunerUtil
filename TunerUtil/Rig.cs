@@ -11,6 +11,10 @@ namespace AmpAutoTunerUtility
             model = null;
         }
 
+        public void Poll()
+        {
+
+        }
         public abstract bool Open();
 
         public abstract string GetRig();

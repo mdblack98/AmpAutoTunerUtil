@@ -16,7 +16,8 @@ namespace AmpAutoTunerUtility
         {
             this.comport = comport;
             this.model = model;
-            baud = "38400"; // baud rate is fixed
+            if (!baud.Equals("38400"))
+                baud = "38400"; // baud rate is fixed
             if (comport.Length == 0 || baud.Length == 0)
             {
                 MessageBox.Show("com port("+comport+") or baud("+baud+") is empty");
@@ -95,12 +96,10 @@ namespace AmpAutoTunerUtility
                 {
                     SerialPortTuner.ReadChar();
                 }
-#pragma warning disable CA1303 // Do not pass literals as localized parameters
+
                 SerialPortTuner.Write("  ");
-#pragma warning restore CA1303 // Do not pass literals as localized parameters
                 // Documentation doesn't mention you need to wait a bit after the wakeup char
                 Thread.Sleep(50);
-#pragma warning disable CA1303 // Do not pass literals as localized parameters
                 if (TuneFull)
                 {
                     SerialPortTuner.Write("F");
@@ -109,61 +108,42 @@ namespace AmpAutoTunerUtility
                 {
                     SerialPortTuner.Write("T");
                 }
-#pragma warning restore CA1303 // Do not pass literals as localized parameters
+
                 Thread.Sleep(100);
                 response = (char)SerialPortTuner.ReadChar();
                 Thread.Sleep(200);
             }
-#pragma warning disable CA1031 // Do not catch general exception types
             catch (Exception ex)
-#pragma warning restore CA1031 // Do not catch general exception types
             {
                 MessageBox.Show("Tuner Util:" + ex.Message);
                 response = '?';
             }
         }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1303:Do not pass literals as localized parameters", Justification = "<Pending>")]
         //public override int GetAntenna()
         //{
-            /*
-            SerialPortTuner.Write("A");
-            Thread.Sleep(100);
-            response = (char)SerialPortTuner.ReadChar();
-            AntennaNumber = Convert.ToInt32(response);
-            return AntennaNumber;
-            */
+        /*
+        SerialPortTuner.Write("A");
+        Thread.Sleep(100);
+        response = (char)SerialPortTuner.ReadChar();
+        AntennaNumber = Convert.ToInt32(response);
+        return AntennaNumber;
+        */
         //}
         public override void SetAntenna(int antennaNumberRequested, bool tuneIsRunning=false)
         {
-            if (antennaNumberRequested == AntennaNumber) return;
-            SerialPortTuner.Write(" ");
-            Thread.Sleep(50);
-            SerialPortTuner.Write("A");
-            //Thread.Sleep(1000);
-            SerialPortTuner.ReadTimeout = 1000;
-            response = (char)SerialPortTuner.ReadChar();
-            if (response == 0)
+            try
             {
-                MessageBox.Show("No response to antenna query");
-                return;
-            }
-            switch(response)
-            {
-                case '1': AntennaNumber = 1;break;
-                case '2': AntennaNumber = 2;break;
-                default: MessageBox.Show("Unknown antenna=" + response);break;
-            }
-            //MessageBox.Show("Query#1 response=" + response + " AntennaNumber/antennaNumberRequested=" + AntennaNumber + "/" + antennaNumberRequested);
-            if (antennaNumberRequested != AntennaNumber)
-            {
+                if (antennaNumberRequested == AntennaNumber) return;
                 SerialPortTuner.Write(" ");
                 Thread.Sleep(50);
-                SerialPortTuner.Write("A" + antennaNumberRequested);
+                SerialPortTuner.Write("A");
+                //Thread.Sleep(1000);
+                SerialPortTuner.ReadTimeout = 1000;
                 response = (char)SerialPortTuner.ReadChar();
                 if (response == 0)
                 {
-                    MessageBox.Show("No response to antenna query#2");
+                    MessageBox.Show("No response to antenna query");
                     return;
                 }
                 switch (response)
@@ -172,7 +152,30 @@ namespace AmpAutoTunerUtility
                     case '2': AntennaNumber = 2; break;
                     default: MessageBox.Show("Unknown antenna=" + response); break;
                 }
-                //MessageBox.Show("Query#2 response=" + response + " AntennaNumber/antennaNumberRequested=" + AntennaNumber + "/" + antennaNumberRequested);
+                //MessageBox.Show("Query#1 response=" + response + " AntennaNumber/antennaNumberRequested=" + AntennaNumber + "/" + antennaNumberRequested);
+                if (antennaNumberRequested != AntennaNumber)
+                {
+                    SerialPortTuner.Write(" ");
+                    Thread.Sleep(50);
+                    SerialPortTuner.Write("A" + antennaNumberRequested);
+                    response = (char)SerialPortTuner.ReadChar();
+                    if (response == 0)
+                    {
+                        MessageBox.Show("No response to antenna query#2");
+                        return;
+                    }
+                    switch (response)
+                    {
+                        case '1': AntennaNumber = 1; break;
+                        case '2': AntennaNumber = 2; break;
+                        default: MessageBox.Show("Unknown antenna=" + response); break;
+                    }
+                    //MessageBox.Show("Query#2 response=" + response + " AntennaNumber/antennaNumberRequested=" + AntennaNumber + "/" + antennaNumberRequested);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Tuner error: " + ex.Message + "\n" + ex.Source + "\n" + ex.StackTrace);
             }
         }
     }
