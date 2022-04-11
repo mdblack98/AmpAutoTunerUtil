@@ -284,6 +284,10 @@ namespace AmpAutoTunerUtility
                 Open(false);
             }
             if (nRelay == 0) return;
+            if (ftdi == null)
+            {
+                return;
+            }
             Monitor.Enter(ftdi);
             errMsg = null;
             try
@@ -304,7 +308,7 @@ namespace AmpAutoTunerUtility
                 {
                     flags = (byte)(bitModes & (~(1u << (nRelay - 1))));
                 }
-                DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.LOG, "Relay #" + nRelay + " set=" + status + " bits=" + bitModes + " newBits=" + flags + "\n");
+                //DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.LOG, "Relay #" + nRelay + " set=" + status + " bits=" + bitModes + " newBits=" + flags + "\n");
                 data[2] = flags;
                 ftdi.Write(data, data.Length, ref nWritten);
                 if (nWritten == 0)
@@ -319,7 +323,7 @@ namespace AmpAutoTunerUtility
                 Thread.Sleep(100);
                 byte bitModes2 = 0x00;
                 ftdi.GetPinStates(ref bitModes2);
-                DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.LOG, "Relay #" + nRelay + " statusbits=" + bitModes2 + "\n");
+                //DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.LOG, "Relay #" + nRelay + " statusbits=" + bitModes2 + "\n");
                 if (status != 0) // check we set it
                 {
                     if ((bitModes2 & (1u << (nRelay - 1))) == 0)

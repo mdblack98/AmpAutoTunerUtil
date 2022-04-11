@@ -96,13 +96,11 @@ namespace AmpAutoTunerUtility
                             HandleAppSerialError(ex);
                             return;
                         }
-#pragma warning disable CA1031 // Do not catch general exception types
-                    catch (Exception)
-#pragma warning restore CA1031 // Do not catch general exception types
-                    {
-                        //MessageBox.Show(ex.Message + "\n", ex.StackTrace);
-                        //throw;
-                    }
+                        catch (Exception)
+                        {
+                            //MessageBox.Show(ex.Message + "\n", ex.StackTrace);
+                            //throw;
+                        }
                     kickoffRead();
                     }, null);
                 }

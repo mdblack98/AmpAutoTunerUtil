@@ -2062,5 +2062,137 @@ namespace AmpAutoTunerUtility.Properties {
                 this["FrequencyWalkList"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string AmpBits {
+            get {
+                return ((string)(this["AmpBits"]));
+            }
+            set {
+                this["AmpBits"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool AntennaAmp1 {
+            get {
+                return ((bool)(this["AntennaAmp1"]));
+            }
+            set {
+                this["AntennaAmp1"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool AntennaAmp2 {
+            get {
+                return ((bool)(this["AntennaAmp2"]));
+            }
+            set {
+                this["AntennaAmp2"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool AntennaAmp3 {
+            get {
+                return ((bool)(this["AntennaAmp3"]));
+            }
+            set {
+                this["AntennaAmp3"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool AntennaAmp4 {
+            get {
+                return ((bool)(this["AntennaAmp4"]));
+            }
+            set {
+                this["AntennaAmp4"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool AntennaAmp5 {
+            get {
+                return ((bool)(this["AntennaAmp5"]));
+            }
+            set {
+                this["AntennaAmp5"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool AntennaAmp6 {
+            get {
+                return ((bool)(this["AntennaAmp6"]));
+            }
+            set {
+                this["AntennaAmp6"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool AntennaAmp7 {
+            get {
+                return ((bool)(this["AntennaAmp7"]));
+            }
+            set {
+                this["AntennaAmp7"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool AntennaAmp8 {
+            get {
+                return ((bool)(this["AntennaAmp8"]));
+            }
+            set {
+                this["AntennaAmp8"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("60")]
+        public int TimerFreqWalkSeconds {
+            get {
+                return ((int)(this["TimerFreqWalkSeconds"]));
+            }
+            set {
+                this["TimerFreqWalkSeconds"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool ClockIsZulu {
+            get {
+                return ((bool)(this["ClockIsZulu"]));
+            }
+            set {
+                this["ClockIsZulu"] = value;
+            }
+        }
     }
 }
