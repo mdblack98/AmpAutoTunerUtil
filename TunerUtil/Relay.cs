@@ -308,6 +308,8 @@ namespace AmpAutoTunerUtility
                 {
                     flags = (byte)(bitModes & (~(1u << (nRelay - 1))));
                 }
+                data[0] &= flags;
+                data[1] &= flags;
                 //DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.LOG, "Relay #" + nRelay + " set=" + status + " bits=" + bitModes + " newBits=" + flags + "\n");
                 data[2] = flags;
                 ftdi.Write(data, data.Length, ref nWritten);

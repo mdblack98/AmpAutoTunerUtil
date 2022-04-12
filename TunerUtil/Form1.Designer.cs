@@ -1477,11 +1477,11 @@
             // labelClock
             // 
             this.labelClock.AutoSize = true;
-            this.labelClock.Font = new System.Drawing.Font("Californian FB", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelClock.Location = new System.Drawing.Point(4, 109);
+            this.labelClock.Font = new System.Drawing.Font("Lucida Sans Typewriter", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelClock.Location = new System.Drawing.Point(4, 110);
             this.labelClock.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelClock.Name = "labelClock";
-            this.labelClock.Size = new System.Drawing.Size(42, 18);
+            this.labelClock.Size = new System.Drawing.Size(48, 18);
             this.labelClock.TabIndex = 23;
             this.labelClock.Text = "Time";
             this.toolTip1.SetToolTip(this.labelClock, "Time - click to change from Z to Local");
@@ -4079,7 +4079,7 @@
             this.Margin = new System.Windows.Forms.Padding(2);
             this.MaximumSize = new System.Drawing.Size(417, 310);
             this.Name = "Form1";
-            this.Text = "AmpAutoTunerUtility V0.91";
+            this.Text = "AmpAutoTunerUtility V0.92";
             this.HelpButtonClicked += new System.ComponentModel.CancelEventHandler(this.Form1_HelpButtonClicked);
             this.Activated += new System.EventHandler(this.Form1_Activated);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
