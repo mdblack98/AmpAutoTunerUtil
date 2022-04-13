@@ -4156,30 +4156,6 @@ namespace AmpAutoTunerUtility
             AmpSet(myCheckBox.Checked);
         }
 
-        private void TextBoxAntenna1_Leave(object sender, EventArgs e)
-        {
-            if (ModifierKeys.HasFlag(Keys.Control))
-            {
-                if (sender == textBoxAntenna1)
-                    SetWalkAntennaToUse(1);
-                else if (sender == textBoxAntenna2)
-                    SetWalkAntennaToUse(2);
-                else if (sender == textBoxAntenna3)
-                    SetWalkAntennaToUse(3);
-                else if (sender == textBoxAntenna4)
-                    SetWalkAntennaToUse(4);
-                else if (sender == textBoxAntenna5)
-                    SetWalkAntennaToUse(5);
-                else if (sender == textBoxAntenna6)
-                    SetWalkAntennaToUse(6);
-                else if (sender == textBoxAntenna7)
-                    SetWalkAntennaToUse(7);
-                else if (sender == textBoxAntenna8)
-                    SetWalkAntennaToUse(8);
-            }
-            AntennaSetPickButtons();
-        }
-
         private void FreqWalkSetIntervalDisplay()
         {
             labelInterval.Text = "Interval " + timerFreqWalkSeconds + " secs";
@@ -4216,6 +4192,35 @@ namespace AmpAutoTunerUtility
             {
                 clockIsZulu = true;
             }
+        }
+
+        private void TextBoxAntenna1_MouseUp(object sender, MouseEventArgs e)
+        {
+
+        }
+
+        private void textBoxAntenna_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (ModifierKeys.HasFlag(Keys.Control))
+            {
+                if (sender == textBoxAntenna1)
+                    SetWalkAntennaToUse(1);
+                else if (sender == textBoxAntenna2)
+                    SetWalkAntennaToUse(2);
+                else if (sender == textBoxAntenna3)
+                    SetWalkAntennaToUse(3);
+                else if (sender == textBoxAntenna4)
+                    SetWalkAntennaToUse(4);
+                else if (sender == textBoxAntenna5)
+                    SetWalkAntennaToUse(5);
+                else if (sender == textBoxAntenna6)
+                    SetWalkAntennaToUse(6);
+                else if (sender == textBoxAntenna7)
+                    SetWalkAntennaToUse(7);
+                else if (sender == textBoxAntenna8)
+                    SetWalkAntennaToUse(8);
+            }
+            AntennaSetPickButtons();
         }
     }
 

@@ -583,7 +583,8 @@
             this.textBoxAntenna1.TabIndex = 46;
             this.toolTip1.SetToolTip(this.textBoxAntenna1, "Friendly name for antenna\nCtrl-click to set as walking antenna(Yellow background)" +
         "");
-            this.textBoxAntenna1.Leave += new System.EventHandler(this.TextBoxAntenna1_Leave);
+            this.textBoxAntenna1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.textBoxAntenna_MouseDown);
+            this.textBoxAntenna1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.TextBoxAntenna1_MouseUp);
             // 
             // textBoxAntenna2
             // 
@@ -594,7 +595,7 @@
             this.textBoxAntenna2.TabIndex = 47;
             this.toolTip1.SetToolTip(this.textBoxAntenna2, "Friendly name for antenna\nCtrl-click to set as walking antenna(Yellow background)" +
         "");
-            this.textBoxAntenna2.Leave += new System.EventHandler(this.TextBoxAntenna1_Leave);
+            this.textBoxAntenna2.MouseDown += new System.Windows.Forms.MouseEventHandler(this.textBoxAntenna_MouseDown);
             // 
             // textBoxAntenna3
             // 
@@ -605,7 +606,7 @@
             this.textBoxAntenna3.TabIndex = 48;
             this.toolTip1.SetToolTip(this.textBoxAntenna3, "Friendly name for antenna\nCtrl-click to set as walking antenna(Yellow background)" +
         "");
-            this.textBoxAntenna3.Leave += new System.EventHandler(this.TextBoxAntenna1_Leave);
+            this.textBoxAntenna3.MouseDown += new System.Windows.Forms.MouseEventHandler(this.textBoxAntenna_MouseDown);
             // 
             // textBoxAntenna4
             // 
@@ -616,7 +617,7 @@
             this.textBoxAntenna4.TabIndex = 49;
             this.toolTip1.SetToolTip(this.textBoxAntenna4, "Friendly name for antenna\nCtrl-click to set as walking antenna(Yellow background)" +
         "");
-            this.textBoxAntenna4.Leave += new System.EventHandler(this.TextBoxAntenna1_Leave);
+            this.textBoxAntenna4.MouseDown += new System.Windows.Forms.MouseEventHandler(this.textBoxAntenna_MouseDown);
             // 
             // textBoxAntenna5
             // 
@@ -627,7 +628,7 @@
             this.textBoxAntenna5.TabIndex = 50;
             this.toolTip1.SetToolTip(this.textBoxAntenna5, "Friendly name for antenna\nCtrl-click to set as walking antenna(Yellow background)" +
         "");
-            this.textBoxAntenna5.Leave += new System.EventHandler(this.TextBoxAntenna1_Leave);
+            this.textBoxAntenna5.MouseDown += new System.Windows.Forms.MouseEventHandler(this.textBoxAntenna_MouseDown);
             // 
             // textBoxAntenna6
             // 
@@ -638,7 +639,7 @@
             this.textBoxAntenna6.TabIndex = 51;
             this.toolTip1.SetToolTip(this.textBoxAntenna6, "Friendly name for antenna\nCtrl-click to set as walking antenna(Yellow background)" +
         "");
-            this.textBoxAntenna6.Leave += new System.EventHandler(this.TextBoxAntenna1_Leave);
+            this.textBoxAntenna6.MouseDown += new System.Windows.Forms.MouseEventHandler(this.textBoxAntenna_MouseDown);
             // 
             // textBoxAntenna7
             // 
@@ -649,7 +650,7 @@
             this.textBoxAntenna7.TabIndex = 52;
             this.toolTip1.SetToolTip(this.textBoxAntenna7, "Friendly name for antenna\nCtrl-click to set as walking antenna(Yellow background)" +
         "");
-            this.textBoxAntenna7.Leave += new System.EventHandler(this.TextBoxAntenna1_Leave);
+            this.textBoxAntenna7.MouseDown += new System.Windows.Forms.MouseEventHandler(this.textBoxAntenna_MouseDown);
             // 
             // textBoxAntenna8
             // 
@@ -660,7 +661,7 @@
             this.textBoxAntenna8.TabIndex = 53;
             this.toolTip1.SetToolTip(this.textBoxAntenna8, "Friendly name for antenna\nCtrl-click to set as walking antenna(Yellow background)" +
         "");
-            this.textBoxAntenna8.Leave += new System.EventHandler(this.TextBoxAntenna1_Leave);
+            this.textBoxAntenna8.MouseDown += new System.Windows.Forms.MouseEventHandler(this.textBoxAntenna_MouseDown);
             // 
             // buttonAntenna1
             // 
@@ -4079,7 +4080,7 @@
             this.Margin = new System.Windows.Forms.Padding(2);
             this.MaximumSize = new System.Drawing.Size(417, 310);
             this.Name = "Form1";
-            this.Text = "AmpAutoTunerUtility V0.92";
+            this.Text = "AmpAutoTunerUtility V0.93";
             this.HelpButtonClicked += new System.ComponentModel.CancelEventHandler(this.Form1_HelpButtonClicked);
             this.Activated += new System.EventHandler(this.Form1_Activated);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
