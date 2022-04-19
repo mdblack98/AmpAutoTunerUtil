@@ -1,4 +1,5 @@
 ﻿//using NAudio.Wave;
+using Microsoft.VisualBasic;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -6,6 +7,7 @@ using System.Diagnostics;
 using System.Diagnostics.Contracts;
 using System.Drawing;
 using System.Globalization;
+using System.Linq;
 using System.Management;
 using System.Media;
 using System.Net.Sockets;
@@ -351,7 +353,7 @@ namespace AmpAutoTunerUtility
                 checkBoxAmp7.Checked = Properties.Settings.Default.Amp7;
                 checkBoxAmp8.Checked = Properties.Settings.Default.Amp8;
 
-                textBoxFrequencyWalkList.Text = Properties.Settings.Default.FrequencyWalkList;
+                //textBoxFrequencyWalkList.Text = Properties.Settings.Default.FrequencyWalkList;
 
             }
             catch (Exception ex)
@@ -647,6 +649,72 @@ namespace AmpAutoTunerUtility
             checkBoxAntenna8Amp.Checked = Properties.Settings.Default.AntennaAmp8;
 
             clockIsZulu = Properties.Settings.Default.ClockIsZulu;
+            int index = 0;
+
+            if (!string.IsNullOrEmpty(Properties.Settings.Default.FrequenciesToWalkFT8))
+            {
+                Properties.Settings.Default.FrequenciesToWalkFT8.Split(',')
+                    .ToList()
+                    .ForEach(item =>
+                    {
+                        index = this.checkedListBoxWalkFT8.Items.IndexOf(item);
+                        this.checkedListBoxWalkFT8.SetItemChecked(index, true);
+                    });
+            }
+            if (!string.IsNullOrEmpty(Properties.Settings.Default.FrequenciesToWalkFT4))
+            {
+                Properties.Settings.Default.FrequenciesToWalkFT4.Split(',')
+                    .ToList()
+                    .ForEach(item =>
+                    {
+                        index = this.checkedListBoxWalkFT4.Items.IndexOf(item);
+                        this.checkedListBoxWalkFT4.SetItemChecked(index, true);
+                    });
+            }
+            if (!string.IsNullOrEmpty(Properties.Settings.Default.FrequenciesToWalkCustom))
+            {
+                Properties.Settings.Default.FrequenciesToWalkCustom.Split(',')
+                    .ToList()
+                    .ForEach(item =>
+                    {
+                        index = this.checkedListBoxWalkCustom.Items.IndexOf(item);
+                        this.checkedListBoxWalkCustom.SetItemChecked(index, true);
+                    });
+            }
+            var mystuff = Properties.Settings.Default.FrequenciesToWalkFT8List;
+            if (!string.IsNullOrEmpty(Properties.Settings.Default.FrequenciesToWalkFT8List))
+            {
+                index = 0;
+                Properties.Settings.Default.FrequenciesToWalkFT8List.Split(',')
+                    .ToList()
+                    .ForEach(item =>
+                    {
+                        this.checkedListBoxWalkFT8.Items[index++] = item;
+                    });
+            }
+            if (!string.IsNullOrEmpty(Properties.Settings.Default.FrequenciesToWalkFT4List))
+            {
+                index = 0;
+                var xxx = Properties.Settings.Default.FrequenciesToWalkFT4List;
+                Properties.Settings.Default.FrequenciesToWalkFT4List.Split(',')
+                    .ToList()
+                    .ForEach(item =>
+                    {
+                        this.checkedListBoxWalkFT4.Items[index++] = item;
+                    });
+            }
+            if (!string.IsNullOrEmpty(Properties.Settings.Default.FrequenciesToWalkCustomList))
+            {
+                index = 0;
+                Properties.Settings.Default.FrequenciesToWalkCustomList.Split(',')
+                    .ToList()
+                    .ForEach(item =>
+                    {
+                        this.checkedListBoxWalkCustom.Items[index++] = item;
+                    });
+            }
+
+
             Thread.Sleep(100);
             ComboBoxNRelaysSet();
             SetWalkAntennaToUse(Properties.Settings.Default.WalkAntenna);
@@ -982,9 +1050,23 @@ namespace AmpAutoTunerUtility
 
             Properties.Settings.Default.AmpBits = comboBoxAmpBits.Text;
 
-            Properties.Settings.Default.FrequencyWalkList = textBoxFrequencyWalkList.Text;
+            //Properties.Settings.Default.FrequencyWalkList = textBoxFrequencyWalkList.Text;
             Properties.Settings.Default.TimerFreqWalkSeconds = timerFreqWalkSeconds;
             Properties.Settings.Default.ClockIsZulu = clockIsZulu;
+
+            var indices = checkedListBoxWalkFT8.CheckedItems.Cast<string>().ToArray();
+            Properties.Settings.Default.FrequenciesToWalkFT8 = string.Join(",", indices);
+            indices = checkedListBoxWalkFT4.CheckedItems.Cast<string>().ToArray();
+            Properties.Settings.Default.FrequenciesToWalkFT4 = string.Join(",", indices);
+            indices = checkedListBoxWalkCustom.CheckedItems.Cast<string>().ToArray();
+            Properties.Settings.Default.FrequenciesToWalkCustom = string.Join(",", indices);
+            
+            var items = checkedListBoxWalkFT8.Items.Cast<string>().ToArray();
+            Properties.Settings.Default.FrequenciesToWalkFT8List = string.Join(",", items);
+            items = checkedListBoxWalkFT4.Items.Cast<string>().ToArray();
+            Properties.Settings.Default.FrequenciesToWalkFT4List = string.Join(",", items);
+            items = checkedListBoxWalkCustom.Items.Cast<string>().ToArray();
+            Properties.Settings.Default.FrequenciesToWalkCustomList = string.Join(",", items);
 
             Properties.Settings.Default.Save();
             Exit();
@@ -1355,6 +1437,7 @@ namespace AmpAutoTunerUtility
                 MyMessageBox("Unknown response from tuner = '" + response + "'");
                 Debug(DebugEnum.ERR, "Unknown response from tuner = '" + response + "'\n");
             }
+            tuneIsRunning = false;
             //richTextBoxRig.AppendText("Tuning done SWR="+tuner1.SWR+"\n");
             //richTextBoxRig.AppendText("Tuning done\n");
             Debug(DebugEnum.TRACE, "Setting Tx power\n");
@@ -1365,7 +1448,6 @@ namespace AmpAutoTunerUtility
             { // Abort if FLRig is giving an error
                 Debug(DebugEnum.ERR, "FLRigSend got an error??\n");
             }
-            tuneIsRunning = false;
             return true;
         }
 
@@ -1796,7 +1878,16 @@ namespace AmpAutoTunerUtility
             // if we want to use the Tuner antenna selection then we'll need to add that option
             //if (!pausedTuning && tuner1 != null && tmp != tuner1.AntennaNumber)
             //    tuner1.SetAntenna(Convert.ToInt32(antennaNumberNew, CultureInfo.InvariantCulture), tuneIsRunning);
+            bool needTuning = false;
+            if (tmp != tuner1.AntennaNumber && !freqWalkIsRunning)
+            {
+                needTuning = true;
+            }
             SetAntennaRelayOn(tmp);
+            if (needTuning)
+            {
+                tuner1.Tune();
+            }
         }
 
         void SetAntennaAmp(int antennaNumber)
@@ -3798,8 +3889,8 @@ namespace AmpAutoTunerUtility
 
 
         //readonly int[] frequenciesToWalk = { 50313000, 28074000, 24915000, 21074000, 18100000, 14074000, 10136000, 7074000, 3573000   };
-        readonly string frequenciesToWalkFT8 = "1.840 3.573 7.074 10.136 14.074 18.100 21.074  24.915 28.074 50.313";
-        readonly string frequenciesToWalkFT4 = "3.575 7.0475 10.14 14.08 18.104 21.140 24.919 28.180 50.318";
+        //readonly string frequenciesToWalkFT8 = "1.840 3.573 7.074 10.136 14.074 18.100 21.074  24.915 28.074 50.313";
+        //readonly string frequenciesToWalkFT4 = "3.575 7.0475 10.14 14.08 18.104 21.140 24.919 28.180 50.318";
         List<int> frequenciesToWalk;
         int frequencyIndex = 0;
         private bool dummyLoad;
@@ -3807,8 +3898,8 @@ namespace AmpAutoTunerUtility
 
         private void FreqWalkSetFreq(int index)
         {
-            if (index == 0) richTextBoxFreqWalk.Clear();
-            richTextBoxFreqWalk.AppendText(MyTime() + "Set VFOA " + frequenciesToWalk[index] / 1e6 + "MHz\n");
+            //if (index == 0) richTextBoxFreqWalk.Clear();
+            //richTextBoxFreqWalk.AppendText(MyTime() + "Set VFOA " + frequenciesToWalk[index] / 1e6 + "MHz\n");
             var myparam = "<params><param><value><double>" + frequenciesToWalk[index] + "</double></value></param></params";
             var xml = FLRigXML("rig.set_split", "0");
             if (FLRigSend(xml) == false)
@@ -3874,6 +3965,38 @@ namespace AmpAutoTunerUtility
             }
         }
 
+        List<int> FrequenciesToWalk()
+        {
+            if (frequenciesToWalk == null) frequenciesToWalk = new List<int>();
+            frequenciesToWalk.Clear();
+            CheckedListBox.CheckedItemCollection items = checkedListBoxWalkFT8.CheckedItems;
+            foreach (string s in items)
+            {
+                var myFreq = (int)(double.Parse(s) * 1000000);
+                if (myFreq > 0) {
+                    frequenciesToWalk.Add(myFreq);
+                }
+            }
+            items = checkedListBoxWalkFT4.CheckedItems;
+            foreach (string s in items)
+            {
+                var myFreq = (int)(double.Parse(s) * 1000000);
+                if (myFreq > 0)
+                {
+                    frequenciesToWalk.Add(myFreq);
+                }
+            }
+            items = checkedListBoxWalkCustom.CheckedItems;
+            foreach (string s in items)
+            {
+                var myFreq = (int)(double.Parse(s) * 1000000);
+                if (myFreq > 0)
+                {
+                    frequenciesToWalk.Add(myFreq);
+                }
+            }
+            return frequenciesToWalk;
+        }
         private void FreqWalkStart()
         {
             frequencyIndex = -1;
@@ -3882,6 +4005,8 @@ namespace AmpAutoTunerUtility
             buttonWalk.Text = "Walking";
             buttonWalk.BackColor = Color.LightGreen;
             pausedTuning = true;
+            FrequenciesToWalk();
+            /*
             if (textBoxFrequencyWalkList.Text.Length == 0)
             {
                 textBoxFrequencyWalkList.Text = frequenciesToWalkFT8;
@@ -3894,9 +4019,10 @@ namespace AmpAutoTunerUtility
                 if (s.Length > 0)
                     frequenciesToWalk.Add((int)(double.Parse(s) * 1000000));
             }
+            */
             FreqWalkSetFreq(0);
             timerFreqWalk.Start();
-            richTextBoxFreqWalk.AppendText(MyTime() + "Walking started\n");
+            //richTextBoxFreqWalk.AppendText(MyTime() + "Walking started\n");
         }
 
         private void FreqWalkStop()
@@ -3907,7 +4033,7 @@ namespace AmpAutoTunerUtility
             Thread.Sleep(500);
             freqWalkIsRunning = false;
             pausedTuning = false;
-            richTextBoxFreqWalk.AppendText(MyTime() + "Walking stopped\n");
+            //richTextBoxFreqWalk.AppendText(MyTime() + "Walking stopped\n");
             SetAntennaInUse();
         }
         private void ButtonWalk_Click_1(object sender, EventArgs e)
@@ -3920,14 +4046,6 @@ namespace AmpAutoTunerUtility
             {
                 FreqWalkStop();
             }
-        }
-
-        private void TextBoxFrequencyList_TextChanged(object sender, EventArgs e)
-        {
-            if (textBoxFrequencyWalkList.Text.ToUpper().Equals("FT8"))
-                textBoxFrequencyWalkList.Text = frequenciesToWalkFT8;
-            else if (textBoxFrequencyWalkList.Text.ToUpper().Equals("FT4"))
-                textBoxFrequencyWalkList.Text = frequenciesToWalkFT4;
         }
 
         private void ButtonDummyLoad_Click(object sender, EventArgs e)
@@ -4162,20 +4280,24 @@ namespace AmpAutoTunerUtility
         }
         private void RichTextBox1_KeyUp(object sender, KeyEventArgs e)
         {
-            richTextBoxFreqWalk.Undo();
+            //richTextBoxFreqWalk.Undo();
             if (e.KeyCode == Keys.N)
             {
-                richTextBoxFreqWalk.AppendText("Next freq not implemented\n");
+                frequencyIndex++;
+                if (frequencyIndex >= frequenciesToWalk.Count)
+                {
+                    frequencyIndex = 0;
+                }
             }
-            else if (e.KeyCode == Keys.D1)
+            else if (e.KeyCode == Keys.F1)
             {
                 timerFreqWalkSeconds = 60;
             }
-            else if (e.KeyCode== Keys.D2)
+            else if (e.KeyCode== Keys.F2)
             {
                 timerFreqWalkSeconds = 30;
             }
-            else if (e.KeyCode== Keys.D3)
+            else if (e.KeyCode== Keys.F3)
             {
                 timerFreqWalkSeconds = 15;
             }
@@ -4199,7 +4321,7 @@ namespace AmpAutoTunerUtility
 
         }
 
-        private void textBoxAntenna_MouseDown(object sender, MouseEventArgs e)
+        private void TextBoxAntenna_MouseDown(object sender, MouseEventArgs e)
         {
             if (ModifierKeys.HasFlag(Keys.Control))
             {
@@ -4221,6 +4343,85 @@ namespace AmpAutoTunerUtility
                     SetWalkAntennaToUse(8);
             }
             AntennaSetPickButtons();
+        }
+
+        private void CheckedListBoxWalk_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            CheckedListBox myBox = (CheckedListBox)sender;
+            var index = myBox.SelectedIndex;
+            if (index == -1) return;
+            try
+            {
+                if (ModifierKeys == Keys.Control)
+                {
+                    double freq = 0;
+                    var answer = Interaction.InputBox("Enter Freq in MHz");
+                    if (answer.Length == 0) return;
+                    do
+                    {
+                        try
+                        {
+                            freq = double.Parse(answer) * 1e6;
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.Message + "\n" + ex.StackTrace);
+                        }
+                        if (freq > 100e9)
+                        {
+                            MessageBox.Show("Frequency > 100GHz!!");
+                            return;
+                        }
+                    } while (freq < 0 || freq > 100e9);
+                    if (answer.Length > 0)
+                    {
+                        myBox.Items[index] = answer;
+                    }
+                }
+                else if (ModifierKeys == Keys.Shift)
+                {
+                    for (int i=0; i< myBox.Items.Count; i++)
+                    {
+                        if (myBox.Items[i].ToString() != "0")
+                        {
+                            myBox.SetItemChecked(i, true);
+                        }
+                    }
+                }
+                else if (ModifierKeys == (Keys.Shift | Keys.Control))
+                {
+                    for (int i = 0; i < myBox.Items.Count; i++)
+                    {
+                        if (myBox.Items[i].ToString() != "0")
+                        {
+                            myBox.SetItemChecked(i, false);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message + "\n" + ex.StackTrace);
+            }
+            if (myBox.Items[index].ToString() == "0")
+            {
+                myBox.SetItemChecked(index, false);
+            }
+        }
+
+        private void LabelInterval_Click(object sender, EventArgs e)
+        {
+            switch (timerFreqWalkSeconds)
+            {
+                case 15: timerFreqWalkSeconds = 30;break;
+                case 30: timerFreqWalkSeconds = 60; break;
+                case 60: timerFreqWalkSeconds = 120; break;
+                case 120: timerFreqWalkSeconds = 180; break;
+                case 180: timerFreqWalkSeconds = 240; break;
+                case 240: timerFreqWalkSeconds = 300; break;
+                case 300: timerFreqWalkSeconds = 15; break;
+            }
+            labelInterval.Text = "Interval " + timerFreqWalkSeconds.ToString() + " seconds";
         }
     }
 

@@ -2194,5 +2194,77 @@ namespace AmpAutoTunerUtility.Properties {
                 this["ClockIsZulu"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string FrequenciesToWalkFT8 {
+            get {
+                return ((string)(this["FrequenciesToWalkFT8"]));
+            }
+            set {
+                this["FrequenciesToWalkFT8"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string FrequenciesToWalkFT4 {
+            get {
+                return ((string)(this["FrequenciesToWalkFT4"]));
+            }
+            set {
+                this["FrequenciesToWalkFT4"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string FrequenciesToWalkCustom {
+            get {
+                return ((string)(this["FrequenciesToWalkCustom"]));
+            }
+            set {
+                this["FrequenciesToWalkCustom"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string FrequenciesToWalkFT8List {
+            get {
+                return ((string)(this["FrequenciesToWalkFT8List"]));
+            }
+            set {
+                this["FrequenciesToWalkFT8List"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string FrequenciesToWalkFT4List {
+            get {
+                return ((string)(this["FrequenciesToWalkFT4List"]));
+            }
+            set {
+                this["FrequenciesToWalkFT4List"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string FrequenciesToWalkCustomList {
+            get {
+                return ((string)(this["FrequenciesToWalkCustomList"]));
+            }
+            set {
+                this["FrequenciesToWalkCustomList"] = value;
+            }
+        }
     }
 }
