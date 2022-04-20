@@ -67,7 +67,7 @@ namespace AmpAutoTunerUtility
         private bool tuneIsRunning;
         private bool ampIsOn;
         private bool _disposed;
-        private int lastAntennaUsed = 0;
+        private int lastAntennaNumberUsed = -1;
         public static bool clockIsZulu;
 
 
@@ -1886,7 +1886,7 @@ namespace AmpAutoTunerUtility
             SetAntennaRelayOn(tmp);
             if (needTuning)
             {
-                tuner1.Tune();
+                //tuner1.Tune();
             }
         }
 
@@ -1940,9 +1940,9 @@ namespace AmpAutoTunerUtility
                 //return;
             }
             ComboBox bits;
-            switch(antennaNumber)
-            { 
-                case 1: bits = ComboBoxAntenna1Bits;break;
+            switch (antennaNumber)
+            {
+                case 1: bits = ComboBoxAntenna1Bits; break;
                 case 2: bits = ComboBoxAntenna2Bits; break;
                 case 3: bits = ComboBoxAntenna3Bits; break;
                 case 4: bits = ComboBoxAntenna4Bits; break;
@@ -1979,12 +1979,23 @@ namespace AmpAutoTunerUtility
             else if (myRelayChosen.Equals("Relay3")) myRelay = relay3;
             else if (myRelayChosen.Equals("Relay4")) myRelay = relay4;
             if (relayValue == 0) myRelay.AllOff();
-            if (lastAntennaUsed != 0 && lastAntennaUsed != relayValue) 
-                myRelay.Set(lastAntennaUsed, 0);
+            //if (lastAntennaUsed != 0 && lastAntennaUsed != relayValue) 
+            //    myRelay.Set(lastAntennaUsed, 0);
             myRelay.Set(relayValue, 1);
             RelaySetButtons(button1_1, relay1.Status());
             AntennaUpdateSelected(antennaNumber);
-            lastAntennaUsed = relayValue;
+            if (tuner1 != null && lastAntennaNumberUsed != antennaNumber)
+            {
+                if (lastAntennaNumberUsed >= 0)
+                {
+                    Cursor.Current = Cursors.WaitCursor;
+                    timerGetFreq.Stop();
+                    TuneSequence();
+                    timerGetFreq.Start();
+                    Cursor.Current = Cursors.Default;
+                }
+            }
+            lastAntennaNumberUsed = antennaNumber;
             Application.DoEvents();
         }
         private string FLRigGetActiveVFO()
@@ -4142,48 +4153,56 @@ namespace AmpAutoTunerUtility
         {
             SetAntennaRelayOn(1);
             labelAntennaSelected.Text = textBoxAntenna1.Text;
+            SetAntennaInUse();
         }
 
         private void ButtonAntenna2_Click(object sender, EventArgs e)
         {
             SetAntennaRelayOn(2);
             labelAntennaSelected.Text = textBoxAntenna2.Text;
+            SetAntennaInUse();
         }
 
         private void ButtonAntenna3_Click(object sender, EventArgs e)
         {
             SetAntennaRelayOn(3);
             labelAntennaSelected.Text = textBoxAntenna3.Text;
+            SetAntennaInUse();
         }
 
         private void ButtonAntenna4_Click(object sender, EventArgs e)
         {
             SetAntennaRelayOn(4);
             labelAntennaSelected.Text = textBoxAntenna4.Text;
+            SetAntennaInUse();
         }
 
         private void ButtonAntenna5_Click(object sender, EventArgs e)
         {
             SetAntennaRelayOn(5);
             labelAntennaSelected.Text = textBoxAntenna5.Text;
+            SetAntennaInUse();
         }
 
         private void ButtonAntenna6_Click(object sender, EventArgs e)
         {
             SetAntennaRelayOn(6);
             labelAntennaSelected.Text = textBoxAntenna6.Text;
+            SetAntennaInUse();
         }
 
         private void ButtonAntenna7_Click(object sender, EventArgs e)
         {
             SetAntennaRelayOn(7);
             labelAntennaSelected.Text = textBoxAntenna7.Text;
+            SetAntennaInUse();
         }
 
         private void ButtonAntenna8_Click(object sender, EventArgs e)
         {
             SetAntennaRelayOn(8);
             labelAntennaSelected.Text = textBoxAntenna8.Text;
+            SetAntennaInUse();
         }
 
         private void ButtonAntennaPickReset()
@@ -4230,42 +4249,35 @@ namespace AmpAutoTunerUtility
         {
             ButtonAntennaPickSet(buttonAntennaPick3);
             SetAntennaRelayOn(3);
-            buttonAntennaPick3.BackColor = Color.Green;
         }
-
         private void ButtonAntennaPick4_Click(object sender, EventArgs e)
         {
             ButtonAntennaPickSet(buttonAntennaPick4);
             SetAntennaRelayOn(4);
-            buttonAntennaPick4.BackColor = Color.Green;
         }
 
         private void ButtonAntennaPick5_Click(object sender, EventArgs e)
         {
             ButtonAntennaPickSet(buttonAntennaPick5);
             SetAntennaRelayOn(5);
-            buttonAntennaPick5.BackColor = Color.Green;
         }
 
         private void ButtonAntennaPick6_Click(object sender, EventArgs e)
         {
             ButtonAntennaPickSet(buttonAntennaPick6);
             SetAntennaRelayOn(6);
-            buttonAntennaPick6.BackColor = Color.Green;
         }
 
         private void ButtonAntennaPick7_Click(object sender, EventArgs e)
         {
             ButtonAntennaPickSet(buttonAntennaPick7);
             SetAntennaRelayOn(7);
-            buttonAntennaPick7.BackColor = Color.Green;
         }
 
         private void ButtonAntennaPick8_Click(object sender, EventArgs e)
         {
             ButtonAntennaPickSet(buttonAntennaPick8);
             SetAntennaRelayOn(8);
-            buttonAntennaPick8.BackColor = Color.Green;
         }
 
         private void CheckBoxAntenna1Amp_CheckedChange(object sender, EventArgs e)
