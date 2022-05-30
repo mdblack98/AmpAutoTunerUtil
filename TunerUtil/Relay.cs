@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO.Ports;
+using System.Runtime.CompilerServices;
 using System.Threading;
 using static FTD2XX_NET.FTDI;
 
@@ -152,7 +153,7 @@ namespace AmpAutoTunerUtility
             // Put some delays in here as the 8-channel relay was turning on some relays
             // I had 4-channel as Relay1 and 8-channel as Relay2
             // The delays seem to have cured that problem
-            if (ftdi != null && ftdi.IsOpen)
+            if (ftdi != null)
             {
                 //AllOff();
                 DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.LOG, "FTDI close#3\n");
@@ -169,8 +170,8 @@ namespace AmpAutoTunerUtility
             errMsg = null;
             try
             {
-                Set(1, 0); // Turn off all relays
-                Set(2, 0);
+                //Set(1, 0); // Turn off all relays
+                //Set(2, 0);
                 Set(3, 0);
                 Set(4, 0);
                 Set(5, 0);
@@ -243,6 +244,8 @@ namespace AmpAutoTunerUtility
                     DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.LOG, "FTDI status != FT_STATUS_.FT_OK, " + status + " != " + FT_STATUS.FT_OK + "\n");
                     errMsg = "Oops!!";
                     ftdi.CyclePort();
+                    ftdi.Close();
+                    ftdi = null;
                     Monitor.Exit(ftdi);
                     relayError = true;
                     return 0x0;
@@ -277,8 +280,10 @@ namespace AmpAutoTunerUtility
             Close();
         }
 
-        public void Set(int nRelay, byte status)
+        public void Set(int nRelay, byte status,[CallerMemberName] string name = "",
+                   [CallerLineNumber] int line = -1)
         {
+            DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.VERBOSE, "Relay Set(" + nRelay + ","+status+") called from " + name + "@line(" + line + ")\n");
             if (ftdi == null)
             {
                 Open(false);
@@ -297,17 +302,31 @@ namespace AmpAutoTunerUtility
                 uint nWritten = 0;
                 byte flags;
                 byte bitModes = 0x00;
+                byte bitModesSave;
 
                 ftdi.GetPinStates(ref bitModes);
-
+                bitModesSave = bitModes;
+                bitModes &= 0x3;
                 if (status != 0)
                 {
                     flags = (byte)(bitModes | (1u << (nRelay - 1)));
                 }
                 else
                 {
-                    flags = (byte)(bitModes & (~(1u << (nRelay - 1))));
+                    //flags = (byte)(bitModes | (~(1u << (nRelay - 1))));
+                    flags = bitModes;
                 }
+                if (flags == bitModesSave)
+                {
+                    DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.VERBOSE, "No relay change needed bitModes=x" + flags.ToString("X2"));
+                    return;
+                }
+
+                // Ensure all antenna bits are off -- masking off 1+2 for now for amp relay -- need Relay page to have bit exclusions
+                //data[0] = data[1] = data[2] = (byte)(bitModesSave & 0x3);
+                //ftdi.Write(data, data.Length, ref nWritten);
+
+                data[0] = data[1] = 0xff;
                 data[0] &= flags;
                 data[1] &= flags;
                 //DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.LOG, "Relay #" + nRelay + " set=" + status + " bits=" + bitModes + " newBits=" + flags + "\n");

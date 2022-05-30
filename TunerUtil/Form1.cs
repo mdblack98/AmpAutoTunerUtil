@@ -11,6 +11,7 @@ using System.Linq;
 using System.Management;
 using System.Media;
 using System.Net.Sockets;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
@@ -69,6 +70,7 @@ namespace AmpAutoTunerUtility
         private bool _disposed;
         private int lastAntennaNumberUsed = -1;
         public static bool clockIsZulu;
+        bool tuning;
 
 
         public Form1()
@@ -141,7 +143,7 @@ namespace AmpAutoTunerUtility
         private void Application_ThreadException(object sender, ThreadExceptionEventArgs e)
         {
             // Log the exception, display it, etc
-            MyMessageBox(e.Exception.Message);
+            MyMessageBox(e.Exception.Message + "\n" + e.Exception.StackTrace);
         }
 
         private void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
@@ -363,7 +365,7 @@ namespace AmpAutoTunerUtility
             }
             //relay1 = new Relay(comboBoxComRelay1.SelectedText, comboBoxBaudRelay1.SelectedText);
             relay1 = new Relay();
-            List<string> comPorts = relay1.ComList();
+            List<string> comPorts = new List<string>();
             if (relay1.DevCount() == 0)
             {
                 //tabControl1.TabPages.Remove(tabPageRelay1);
@@ -375,6 +377,7 @@ namespace AmpAutoTunerUtility
             }
             else
             {
+                comPorts = relay1.ComList();
                 relay1.Open(comPorts[0]);
                 RelaySetButtons(button1_1, relay1.Status());
                 Debug(DebugEnum.LOG, "Relay1 Opened, serial#" + relay1.SerialNumber() + "\n");
@@ -440,6 +443,14 @@ namespace AmpAutoTunerUtility
             if (comPorts.Count == 0)
             {
                 Debug(DebugEnum.TRACE, "No FTDI relay switches found on USB bus\n");
+                comboBoxComRelay1.Items.Clear();
+                comboBoxComRelay2.Items.Clear();
+                comboBoxComRelay3.Items.Clear();
+                comboBoxComRelay4.Items.Clear();
+                comboBoxComRelay1.Text = "";
+                comboBoxComRelay2.Text = "";
+                comboBoxComRelay3.Text = "";
+                comboBoxComRelay4.Text = "";
             }
             else
             {
@@ -452,24 +463,27 @@ namespace AmpAutoTunerUtility
                 }
             }
             // We have to wait until the relay com ports are loaded before we restore properties for the comboBoxes
-            comboBoxComRelay1.SelectedIndex = comboBoxComRelay1.FindStringExact(Properties.Settings.Default.Relay1Com);
-            comboBoxComRelay2.SelectedIndex = comboBoxComRelay2.FindStringExact(Properties.Settings.Default.Relay2Com);
-            comboBoxComRelay3.SelectedIndex = comboBoxComRelay3.FindStringExact(Properties.Settings.Default.Relay3Com);
-            comboBoxComRelay4.SelectedIndex = comboBoxComRelay4.FindStringExact(Properties.Settings.Default.Relay4Com);
-            comboBoxAntenna1Relay.SelectedIndex = comboBoxAntenna1Relay.FindStringExact(Properties.Settings.Default.comboBoxAntenna1Relay);
-            comboBoxAntenna2Relay.SelectedIndex = comboBoxAntenna2Relay.FindStringExact(Properties.Settings.Default.comboBoxAntenna2Relay);
-            comboBoxAntenna3Relay.SelectedIndex = comboBoxAntenna3Relay.FindStringExact(Properties.Settings.Default.comboBoxAntenna3Relay);
-            comboBoxAntenna4Relay.SelectedIndex = comboBoxAntenna4Relay.FindStringExact(Properties.Settings.Default.comboBoxAntenna4Relay);
-            comboBoxAntenna5Relay.SelectedIndex = comboBoxAntenna5Relay.FindStringExact(Properties.Settings.Default.comboBoxAntenna5Relay);
-            comboBoxAntenna6Relay.SelectedIndex = comboBoxAntenna6Relay.FindStringExact(Properties.Settings.Default.comboBoxAntenna6Relay);
-            comboBoxAntenna7Relay.SelectedIndex = comboBoxAntenna7Relay.FindStringExact(Properties.Settings.Default.comboBoxAntenna7Relay);
-            comboBoxAntenna8Relay.SelectedIndex = comboBoxAntenna8Relay.FindStringExact(Properties.Settings.Default.comboBoxAntenna8Relay);
+            if (relay1 != null && relay1.DevCount() > 0)
+            {
+                comboBoxComRelay1.SelectedIndex = comboBoxComRelay1.FindStringExact(Properties.Settings.Default.Relay1Com);
+                comboBoxComRelay2.SelectedIndex = comboBoxComRelay2.FindStringExact(Properties.Settings.Default.Relay2Com);
+                comboBoxComRelay3.SelectedIndex = comboBoxComRelay3.FindStringExact(Properties.Settings.Default.Relay3Com);
+                comboBoxComRelay4.SelectedIndex = comboBoxComRelay4.FindStringExact(Properties.Settings.Default.Relay4Com);
+                comboBoxAntenna1Relay.SelectedIndex = comboBoxAntenna1Relay.FindStringExact(Properties.Settings.Default.comboBoxAntenna1Relay);
+                comboBoxAntenna2Relay.SelectedIndex = comboBoxAntenna2Relay.FindStringExact(Properties.Settings.Default.comboBoxAntenna2Relay);
+                comboBoxAntenna3Relay.SelectedIndex = comboBoxAntenna3Relay.FindStringExact(Properties.Settings.Default.comboBoxAntenna3Relay);
+                comboBoxAntenna4Relay.SelectedIndex = comboBoxAntenna4Relay.FindStringExact(Properties.Settings.Default.comboBoxAntenna4Relay);
+                comboBoxAntenna5Relay.SelectedIndex = comboBoxAntenna5Relay.FindStringExact(Properties.Settings.Default.comboBoxAntenna5Relay);
+                comboBoxAntenna6Relay.SelectedIndex = comboBoxAntenna6Relay.FindStringExact(Properties.Settings.Default.comboBoxAntenna6Relay);
+                comboBoxAntenna7Relay.SelectedIndex = comboBoxAntenna7Relay.FindStringExact(Properties.Settings.Default.comboBoxAntenna7Relay);
+                comboBoxAntenna8Relay.SelectedIndex = comboBoxAntenna8Relay.FindStringExact(Properties.Settings.Default.comboBoxAntenna8Relay);
 
-            // Relay Properties
-            checkBoxRelay1Enabled.Checked = Properties.Settings.Default.Relay1Enabled;
-            checkBoxRelay2Enabled.Checked = Properties.Settings.Default.Relay2Enabled;
-            checkBoxRelay3Enabled.Checked = Properties.Settings.Default.Relay3Enabled;
-            checkBoxRelay4Enabled.Checked = Properties.Settings.Default.Relay4Enabled;
+                // Relay Properties
+                checkBoxRelay1Enabled.Checked = Properties.Settings.Default.Relay1Enabled;
+                checkBoxRelay2Enabled.Checked = Properties.Settings.Default.Relay2Enabled;
+                checkBoxRelay3Enabled.Checked = Properties.Settings.Default.Relay3Enabled;
+                checkBoxRelay4Enabled.Checked = Properties.Settings.Default.Relay4Enabled;
+            }
             if (relay1 == null)
                 checkBoxRelay1Enabled.Checked = false;
             if (checkBoxRelay1Enabled.Checked && comboBoxComRelay1.Text.Length > 0)
@@ -489,7 +503,7 @@ namespace AmpAutoTunerUtility
             }
             else
             {
-                checkBoxRelay1Enabled.Checked = true;
+                //checkBoxRelay1Enabled.Checked = true;
             }
             if (!checkBoxRelay1Enabled.Checked && checkBoxPowerSDR.Enabled == false)
             {
@@ -517,7 +531,7 @@ namespace AmpAutoTunerUtility
             }
             else
             {
-                checkBoxRelay2Enabled.Checked = true;
+                //checkBoxRelay2Enabled.Checked = true;
             }
 
             if (relay3 == null) checkBoxRelay3Enabled.Checked = false;
@@ -537,7 +551,7 @@ namespace AmpAutoTunerUtility
             }
             else
             {
-                checkBoxRelay3Enabled.Checked = true;
+                //checkBoxRelay3Enabled.Checked = true;
             }
 
             if (relay4 == null) checkBoxRelay4Enabled.Checked = false;
@@ -557,7 +571,7 @@ namespace AmpAutoTunerUtility
             }
             else
             {
-                checkBoxRelay4Enabled.Checked = false;
+                //checkBoxRelay4Enabled.Checked = false;
             }
 
 
@@ -611,7 +625,6 @@ namespace AmpAutoTunerUtility
             comboBoxAntSelect7.Text = Properties.Settings.Default.AntSelect7;
             comboBoxAntSelect8.Text = Properties.Settings.Default.AntSelect8;
 
-            formLoading = false;
             /*
             // Check to ensure window is on the screen
             Rectangle rect = SystemInformation.VirtualScreen;
@@ -658,7 +671,8 @@ namespace AmpAutoTunerUtility
                     .ForEach(item =>
                     {
                         index = this.checkedListBoxWalkFT8.Items.IndexOf(item);
-                        this.checkedListBoxWalkFT8.SetItemChecked(index, true);
+                        if (index >= 0)
+                            this.checkedListBoxWalkFT8.SetItemChecked(index, true);
                     });
             }
             if (!string.IsNullOrEmpty(Properties.Settings.Default.FrequenciesToWalkFT4))
@@ -668,7 +682,8 @@ namespace AmpAutoTunerUtility
                     .ForEach(item =>
                     {
                         index = this.checkedListBoxWalkFT4.Items.IndexOf(item);
-                        this.checkedListBoxWalkFT4.SetItemChecked(index, true);
+                        if (index >= 0)
+                            this.checkedListBoxWalkFT4.SetItemChecked(index, true);
                     });
             }
             if (!string.IsNullOrEmpty(Properties.Settings.Default.FrequenciesToWalkCustom))
@@ -677,8 +692,9 @@ namespace AmpAutoTunerUtility
                     .ToList()
                     .ForEach(item =>
                     {
-                        index = this.checkedListBoxWalkCustom.Items.IndexOf(item);
-                        this.checkedListBoxWalkCustom.SetItemChecked(index, true);
+                            index = this.checkedListBoxWalkCustom.Items.IndexOf(item);
+                        if (index >= 0)
+                            this.checkedListBoxWalkCustom.SetItemChecked(index, true);
                     });
             }
             var mystuff = Properties.Settings.Default.FrequenciesToWalkFT8List;
@@ -714,12 +730,16 @@ namespace AmpAutoTunerUtility
                     });
             }
 
+            numericUpDownFreqWalkDelay.Value = Properties.Settings.Default.FreqWalkDelay;
+
 
             Thread.Sleep(100);
             ComboBoxNRelaysSet();
+            Application.DoEvents();
+            formLoading = false;
             SetWalkAntennaToUse(Properties.Settings.Default.WalkAntenna);
             AntennaSetPickButtons();
-            Application.DoEvents();
+            SetAntennaInUse();
             checkBoxTunerEnabled.Checked = Properties.Settings.Default.TunerEnabled;
             //TunerOpen();
             //if (ampIsOn == 0) AmpToggle();
@@ -1068,6 +1088,8 @@ namespace AmpAutoTunerUtility
             items = checkedListBoxWalkCustom.Items.Cast<string>().ToArray();
             Properties.Settings.Default.FrequenciesToWalkCustomList = string.Join(",", items);
 
+            Properties.Settings.Default.FreqWalkDelay = numericUpDownFreqWalkDelay.Value;
+
             Properties.Settings.Default.Save();
             Exit();
         }
@@ -1290,12 +1312,18 @@ namespace AmpAutoTunerUtility
             return true;
         }
 
-        private bool TuneSequence()
+        private bool TuneSequence([CallerMemberName] string name = "",
+                   [CallerLineNumber] int line = -1)
+                   //[CallerFilePath] string path = "")
         {
             bool retval;
+            if (tuning == true) return true;
+            tuning = true;
+            DebugAddMsg(DebugEnum.LOG, "TuneSequence called from " + name + "@line(" + line + ")\n");
             // Set power if needed to ensure not overdriving things -- we do it again after we start tuning
             //SetAntennaInUse();
             PowerSelect(frequencyHz, modeCurrent, true);
+            if (freqWalkIsRunning) return true;
             if (ampIsOn) // we need to turn off amplifier
             {
                 if (tuner1 == null)
@@ -1308,7 +1336,8 @@ namespace AmpAutoTunerUtility
                 Thread.Sleep(500);
                 retval = Tune();
                 Debug(DebugEnum.TRACE, "Turning amp on\n");
-                tuner1.CMDAmp(1);
+                //tuner1.CMDAmp(1);
+                SetAntennaInUse();
                 if (relay1 != null) AmpSet(true);
                 Debug(DebugEnum.TRACE, "amp on\n");
                 Thread.Sleep(500);
@@ -1316,7 +1345,11 @@ namespace AmpAutoTunerUtility
             else // just tune 
             {
                 retval = Tune();
+                SetAntennaInUse();
             }
+            tuning = false;
+            string tunerStatus = Environment.GetEnvironmentVariable("TEMP") + "\\AmpAutoTunerDone.txt";
+            System.IO.File.Create(tunerStatus);
             return retval;
         }
         // returns true when Tuner and FLRig are talking to us
@@ -1699,53 +1732,62 @@ namespace AmpAutoTunerUtility
         {
             const string dummy = "dummy";
             string antennaNumberNew;
+            bool antennaAmpChecked;
             if (textBoxAntenna1.Text.ToLower().Contains(dummy))
             {
                 checkBoxAntenna1.Checked = true;
                 antennaNumberNew = "1";
                 buttonAntenna1.BackColor = Color.Green;
+                antennaAmpChecked = checkBoxAntenna1Amp.Checked;
             }
             else if (textBoxAntenna2.Text.ToLower().Contains(dummy))
             {
                 checkBoxAntenna2.Checked = true;
                 antennaNumberNew = "2";
                 buttonAntenna2.BackColor = Color.Green;
+                antennaAmpChecked = checkBoxAntenna2Amp.Checked;
             }
             else if (textBoxAntenna3.Text.ToLower().Contains(dummy))
             {
                 checkBoxAntenna3.Checked = true;
                 antennaNumberNew = "3";
                 buttonAntenna3.BackColor = Color.Green;
+                antennaAmpChecked = checkBoxAntenna3Amp.Checked;
             }
             else if (textBoxAntenna4.Text.ToLower().Contains(dummy))
             {
                 checkBoxAntenna4.Checked = true;
                 antennaNumberNew = "4";
                 buttonAntenna4.BackColor = Color.Green;
+                antennaAmpChecked = checkBoxAntenna4Amp.Checked;
             }
             else if (textBoxAntenna5.Text.ToLower().Contains(dummy))
             {
                 checkBoxAntenna5.Checked = true;
                 antennaNumberNew = "5";
                 buttonAntenna5.BackColor = Color.Green;
+                antennaAmpChecked = checkBoxAntenna5Amp.Checked;
             }
             else if (textBoxAntenna6.Text.ToLower().Contains(dummy))
             {
                 checkBoxAntenna6.Checked = true;
                 antennaNumberNew = "6";
                 buttonAntenna6.BackColor = Color.Green;
+                antennaAmpChecked = checkBoxAntenna6Amp.Checked;
             }
             else if (textBoxAntenna7.Text.ToLower().Contains(dummy))
             {
                 checkBoxAntenna7.Checked = true;
                 antennaNumberNew = "7";
                 buttonAntenna7.BackColor = Color.Green;
+                antennaAmpChecked = checkBoxAntenna7Amp.Checked;
             }
             else if (textBoxAntenna8.Text.ToLower().Contains(dummy))
             {
                 checkBoxAntenna8.Checked = true;
                 antennaNumberNew = "8";
                 buttonAntenna8.BackColor = Color.Green;
+                antennaAmpChecked = checkBoxAntenna8Amp.Checked;
             }
             else
             {
@@ -1755,9 +1797,13 @@ namespace AmpAutoTunerUtility
             labelAntennaSelected.Text = "Dummy Load";
             var tmp = Convert.ToInt32(antennaNumberNew, CultureInfo.InvariantCulture);
             SetAntennaRelayOn(tmp);
+            AmpSet(antennaAmpChecked);
+
         }
         private void SetAntennaInUse()
         {
+            if (formLoading) return;
+            bool antennaAmpChecked = false;
             var antennaNumberNew = "1"; // default to antenna#1
             //var modeCurrent = FLRigGetMode();
             //if (!tuneIsRunning) PowerSelect(frequencyHz, modeCurrent);
@@ -1789,7 +1835,7 @@ namespace AmpAutoTunerUtility
                     labelAntennaSelected.Text = textBoxAntenna1.Text;
                     ButtonAntennaPickSet(buttonAntennaPick1);
                     antennaNumberNew = "1";
-                    //AmpSet(checkBoxAmp1.Checked);
+                    antennaAmpChecked = checkBoxAntenna1Amp.Checked;
                 }
                 else if (checkBoxAntenna2.Checked == true && 
                     ((!freqWalkIsRunning && frequencyMHz >= Convert.ToDouble(textBoxAntennaFreq2From.Text, CultureInfo.InvariantCulture) && frequencyMHz <= Convert.ToDouble(textBoxAntennaFreq2To.Text, CultureInfo.InvariantCulture)
@@ -1800,7 +1846,7 @@ namespace AmpAutoTunerUtility
                     labelAntennaSelected.Text = textBoxAntenna2.Text;
                     ButtonAntennaPickSet(buttonAntennaPick2);
                     antennaNumberNew = "2";
-                    //AmpSet(checkBoxAmp2.Checked);
+                    antennaAmpChecked = checkBoxAntenna2Amp.Checked;
                 }
                 else if (checkBoxAntenna3.Checked == true && 
                     ((!freqWalkIsRunning && frequencyMHz >= Convert.ToDouble(textBoxAntennaFreq3From.Text, CultureInfo.InvariantCulture) && frequencyMHz <= Convert.ToDouble(textBoxAntennaFreq3To.Text, CultureInfo.InvariantCulture)
@@ -1811,7 +1857,7 @@ namespace AmpAutoTunerUtility
                     ButtonAntennaPickSet(buttonAntennaPick3);
                     labelAntennaSelected.Text = textBoxAntenna3.Text;
                     antennaNumberNew = "3";
-                    //AmpSet(checkBoxAmp3.Checked);
+                    antennaAmpChecked = checkBoxAntenna3Amp.Checked;
                 }
                 else if (checkBoxAntenna4.Checked == true && 
                     ((!freqWalkIsRunning && frequencyMHz >= Convert.ToDouble(textBoxAntennaFreq4From.Text, CultureInfo.InvariantCulture) && frequencyMHz <= Convert.ToDouble(textBoxAntennaFreq4To.Text, CultureInfo.InvariantCulture)
@@ -1822,7 +1868,7 @@ namespace AmpAutoTunerUtility
                     ButtonAntennaPickSet(buttonAntennaPick4);
                     labelAntennaSelected.Text = textBoxAntenna4.Text;
                     antennaNumberNew = "4";
-                    //AmpSet(checkBoxAmp4.Checked);
+                    antennaAmpChecked = checkBoxAntenna4Amp.Checked;
                 }
                 else if (checkBoxAntenna5.Checked == true && 
                     ((!freqWalkIsRunning && frequencyMHz >= Convert.ToDouble(textBoxAntennaFreq5From.Text, CultureInfo.InvariantCulture) && frequencyMHz <= Convert.ToDouble(textBoxAntennaFreq5To.Text, CultureInfo.InvariantCulture)
@@ -1833,7 +1879,7 @@ namespace AmpAutoTunerUtility
                     ButtonAntennaPickSet(buttonAntennaPick5);
                     labelAntennaSelected.Text = textBoxAntenna5.Text;
                     antennaNumberNew = "5";
-                    //AmpSet(checkBoxAmp5.Checked);
+                    antennaAmpChecked = checkBoxAntenna5Amp.Checked;
                 }
                 else if (checkBoxAntenna6.Checked == true && 
                     ((!freqWalkIsRunning && frequencyMHz >= Convert.ToDouble(textBoxAntennaFreq6From.Text, CultureInfo.InvariantCulture) && frequencyMHz <= Convert.ToDouble(textBoxAntennaFreq6To.Text, CultureInfo.InvariantCulture)
@@ -1844,7 +1890,7 @@ namespace AmpAutoTunerUtility
                     ButtonAntennaPickSet(buttonAntennaPick6);
                     labelAntennaSelected.Text = textBoxAntenna6.Text;
                     antennaNumberNew = "6";
-                    //AmpSet(checkBoxAmp6.Checked);
+                    antennaAmpChecked = checkBoxAntenna6Amp.Checked;
                 }
                 else if (checkBoxAntenna7.Checked == true && 
                     ((!freqWalkIsRunning && frequencyMHz >= Convert.ToDouble(textBoxAntennaFreq7From.Text, CultureInfo.InvariantCulture) && frequencyMHz <= Convert.ToDouble(textBoxAntennaFreq7To.Text, CultureInfo.InvariantCulture)
@@ -1855,7 +1901,7 @@ namespace AmpAutoTunerUtility
                     ButtonAntennaPickSet(buttonAntennaPick7);
                     labelAntennaSelected.Text = textBoxAntenna7.Text;
                     antennaNumberNew = "7";
-                    //AmpSet(checkBoxAmp7.Checked);
+                    antennaAmpChecked = checkBoxAntenna7Amp.Checked;
                 }
                 else if (checkBoxAntenna8.Checked == true && 
                     ((!freqWalkIsRunning && frequencyMHz >= Convert.ToDouble(textBoxAntennaFreq8From.Text, CultureInfo.InvariantCulture) && frequencyMHz <= Convert.ToDouble(textBoxAntennaFreq8To.Text, CultureInfo.InvariantCulture)
@@ -1866,7 +1912,7 @@ namespace AmpAutoTunerUtility
                     ButtonAntennaPickSet(buttonAntennaPick8);
                     labelAntennaSelected.Text = textBoxAntenna8.Text;
                     antennaNumberNew = "8";
-                    //AmpSet(checkBoxAmp8.Checked);
+                    antennaAmpChecked = checkBoxAntenna8Amp.Checked;
                 }
             }
             catch (Exception)
@@ -1879,19 +1925,25 @@ namespace AmpAutoTunerUtility
             //if (!pausedTuning && tuner1 != null && tmp != tuner1.AntennaNumber)
             //    tuner1.SetAntenna(Convert.ToInt32(antennaNumberNew, CultureInfo.InvariantCulture), tuneIsRunning);
             bool needTuning = false;
-            if (tmp != tuner1.AntennaNumber && !freqWalkIsRunning)
+            if (tuner1 != null && tmp != tuner1.AntennaNumber && !freqWalkIsRunning)
             {
                 needTuning = true;
             }
             SetAntennaRelayOn(tmp);
+            AmpSet(antennaAmpChecked);
             if (needTuning)
             {
                 //tuner1.Tune();
             }
+            //SetAntennaAmp(tmp);
         }
 
-        void SetAntennaAmp(int antennaNumber)
+        void SetAntennaAmp(int antennaNumber, [CallerMemberName] string name = "",
+                   [CallerLineNumber] int line = -1)
         {
+            DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.TRACE, "SetAntennaAmp(" + antennaNumber +  ") called from " + name + "@line(" + line + ")\n");
+            if (formLoading) return;
+            if (lastAntennaNumberUsed == antennaNumber) return;
             // we use the Antenna Amp checkbox to turn the Amp on or off
             switch (antennaNumber)
             {
@@ -1931,10 +1983,12 @@ namespace AmpAutoTunerUtility
         }
         void SetAntennaRelayOn(int antennaNumber)
         {
+            if (formLoading) return;
             SetAntennaAmp(antennaNumber);
             string myRelayChosen = comboBoxAntenna1Relay.Text;
             if (myRelayChosen.Length == 0 && formLoading == false)
             {
+                if (comboBoxAntenna1Relay.SelectedIndex < 0) return;
                 comboBoxAntenna1Relay.SelectedIndex = 0;
                 //MessageBox.Show("No Relay picked");
                 //return;
@@ -1978,14 +2032,14 @@ namespace AmpAutoTunerUtility
             if (myRelayChosen.Equals("Relay2")) myRelay = relay2;
             else if (myRelayChosen.Equals("Relay3")) myRelay = relay3;
             else if (myRelayChosen.Equals("Relay4")) myRelay = relay4;
-            if (relayValue == 0) myRelay.AllOff();
             //if (lastAntennaUsed != 0 && lastAntennaUsed != relayValue) 
             //    myRelay.Set(lastAntennaUsed, 0);
-            myRelay.Set(relayValue, 1);
-            RelaySetButtons(button1_1, relay1.Status());
-            AntennaUpdateSelected(antennaNumber);
             if (tuner1 != null && lastAntennaNumberUsed != antennaNumber)
             {
+                myRelay.AllOff();
+                myRelay.Set(relayValue, 1);
+                RelaySetButtons(button1_1, relay1.Status());
+                AntennaUpdateSelected(antennaNumber);
                 if (lastAntennaNumberUsed >= 0)
                 {
                     Cursor.Current = Cursors.WaitCursor;
@@ -2023,7 +2077,7 @@ namespace AmpAutoTunerUtility
                 {
                     Debug(DebugEnum.ERR, "GetActiveVFO error #" + ++retryCount + "\n");
                     Thread.Sleep(2000);
-                    rigStream.Close();
+                    if (rigStream != null) rigStream.Close();
                     FLRigConnect();
                 }
             } while (retry);
@@ -2158,8 +2212,7 @@ namespace AmpAutoTunerUtility
                                         FLRigSetPower(powerset);
                                     }
                                 }
-                                DebugAddMsg(DebugEnum.VERBOSE, "AmpSet being called\n");
-                                AmpSet(ampFlag);
+                                //AmpSet(ampFlag);
                             }
                             return true;
                         }
@@ -2235,8 +2288,13 @@ namespace AmpAutoTunerUtility
 
             if (currVFO.Equals("B", StringComparison.InvariantCulture))
             {
-                MyMessageBox("Auto tuning paused because VFOB is active, click OK when you're done", MessageBoxButtons.OK);
-                FLRigSetActiveVFO("A");
+                //MyMessageBox("Auto tuning paused because VFOB is active, click OK when you're done", MessageBoxButtons.OK);
+                DebugAddMsg(DebugEnum.LOG, "VFOB active...pausing\n");
+                pausedTuning = true;
+                getFreqIsRunning = false;
+                Pause();
+                return;
+                //FLRigSetActiveVFO("A");
             }
 
             string vfo = "B";
@@ -2288,9 +2346,11 @@ namespace AmpAutoTunerUtility
                         int offset2 = responseData.IndexOf("</value>", StringComparison.InvariantCulture);
                         string freqString = responseData.Substring(offset1, offset2 - offset1);
                         frequencyHz = Double.Parse(freqString, CultureInfo.InvariantCulture);
-                        if (frequencyHz != frequencyLast)
+                        if (Math.Abs(frequencyHz - frequencyLast) > tolTune)
                         {
                             DebugAddMsg(DebugEnum.LOG, "Freq change from " + frequencyLast + " to " + frequencyHz + "\n");
+                            //if (frequencyLast == 0) frequencyLast = frequencyLastTunedHz = frequencyHz;
+                            //frequencyLast = frequencyHz;
                             PowerSelect(frequencyHz, modeCurrent, tuneIsRunning);
                             if (!pausedTuning) SetAntennaInUse();
                         }
@@ -2326,13 +2386,16 @@ namespace AmpAutoTunerUtility
                             xml = FLRigXML("rig.set_vfo" + cvfo, "<params><param><value><double> " + frequencyHzVFOB + " </double></value></param></params");
                             if (FLRigSend(xml) == false) return; // Abort if FLRig is giving an error
                             Thread.Sleep(1000);  // give the rig a chance to restore it's band memory
-                            string myparam = "<params><param><value>" + mode + "</value></param></params>";
-                            xml = FLRigXML("rig.set_modeB", myparam);
-                            if (FLRigSend(xml) == false)
-                            { // Abort if FLRig is giving an error
-                                Debug(DebugEnum.ERR, "FLRig Tune got an error??\n");
+                            if (!mode.Equals("FM"))
+                            {
+                                string myparam = "<params><param><value>" + mode + "</value></param></params>";
+                                xml = FLRigXML("rig.set_modeB", myparam);
+                                if (FLRigSend(xml) == false)
+                                { // Abort if FLRig is giving an error
+                                    Debug(DebugEnum.ERR, "FLRig Tune got an error??\n");
+                                }
+                                Debug(DebugEnum.LOG, "Rig mode VFOB set to " + mode + "\n");
                             }
-                            Debug(DebugEnum.LOG, "Rig mode VFOB set to " + mode + "\n");
                             stopWatchTuner.Restart();
                             if (checkBoxTunerEnabled.Checked && pausedTuning)
                             {
@@ -2349,7 +2412,7 @@ namespace AmpAutoTunerUtility
                                     frequencyHzTune = frequencyHz + 1000;
                                 }
                                 // Set VFO mode to match primary VFO
-                                myparam = "<params><param><value>" + modeCurrent + "</value></param></params>";
+                                var myparam = "<params><param><value>" + modeCurrent + "</value></param></params>";
                                 xml = FLRigXML("rig.set_modeB", myparam);
                                 if (FLRigSend(xml) == false)
                                 { // Abort if FLRig is giving an error
@@ -2378,7 +2441,7 @@ namespace AmpAutoTunerUtility
                                 Debug(DebugEnum.ERR, "Simulate tuning to " + frequencyHz + "\n");
                                 char vfoOther = 'A';
                                 if (radioButtonVFOA.Checked) vfoOther = 'B';
-                                myparam = "<params><param><value><double>" + frequencyHz + "</double></value></param></params";
+                                var myparam = "<params><param><value><double>" + frequencyHz + "</double></value></param></params";
                                 xml = FLRigXML("rig.set_vfo" + vfoOther, myparam);
                                 if (FLRigSend(xml) == false)
                                 { // Abort if FLRig is giving an error
@@ -2422,6 +2485,7 @@ namespace AmpAutoTunerUtility
             // set VFOB to match VFOA
             //xml = FLRigXML("rig.set_vfo" + cvfo, "<params><param><value><double> " + frequencyHz + " </double></value></param></params");
             //if (FLRigSend(xml) == false) return; // Abort if FLRig is giving an error
+            frequencyLast = frequencyHz;
             getFreqIsRunning = false;
         }
 
@@ -2510,7 +2574,7 @@ namespace AmpAutoTunerUtility
                 string SWR = tuner1.GetSWRString();
                 if (tuner1.GetModel().Equals(MFJ928, StringComparison.InvariantCulture))
                 {
-                    double Inductance = tuner1.GetInductance();
+                    decimal Inductance = tuner1.GetInductance();
                     int Capacitance = tuner1.GetCapacitance();
                     if (numericUpDownCapacitance.Value != Capacitance)
                     {
@@ -2519,7 +2583,7 @@ namespace AmpAutoTunerUtility
                         Application.DoEvents();
                         numericUpDownCapacitance.Enabled = true;
                     }
-                    if (numericUpDownInductance.Value != Capacitance)
+                    if (numericUpDownInductance.Value != Inductance)
                     {
                         numericUpDownInductance.Enabled = false;
                         numericUpDownInductance.Value = Convert.ToDecimal(Inductance) / 10;
@@ -2554,20 +2618,22 @@ namespace AmpAutoTunerUtility
                 if (FwdPwr != null) labelPower.Text = FwdPwr;
             }
 
-            if (checkBoxTunerEnabled.Checked && comboBoxTunerModel.Text == MFJ928)
+            if (checkBoxTunerEnabled.Checked && comboBoxTunerModel.Text.Equals(MFJ928))
             {
                 numericUpDownCapacitance.Visible = true;
                 numericUpDownInductance.Visible = true;
                 buttonTunerSave.Visible = true;
                 checkBox1.Visible = false;
-
+                groupBoxOptions.Enabled = true;
+                groupBoxOptions.Visible = true;
             }
             else
             {
                 numericUpDownCapacitance.Visible = false;
                 numericUpDownInductance.Visible = false;
                 buttonTunerSave.Visible = false;
-                checkBox1.Visible = true;
+                checkBox1.Visible = false;
+                groupBoxOptions.Visible = false;
             }
             if (checkBoxRig.Checked)
             {
@@ -2579,16 +2645,12 @@ namespace AmpAutoTunerUtility
             {
                 labelFreq.Text = "?";
             }
-
-            // We'll update our Tuner Options in case it changes
-            //groupBoxOptions.Visible = comboBoxTunerModel.SelectedItem.Equals(MFJ928);
-
-
             timerGetFreq.Start();
         }
 
         private void CheckBox1_CheckedChanged(object sender, EventArgs e)
         {
+            if (formLoading) return;
             if (checkBoxRig.Checked)
             {
                 richTextBoxDebug.Clear();
@@ -2678,8 +2740,10 @@ namespace AmpAutoTunerUtility
             }
         }
 
-        private bool RelaySet(Relay relay, int nRelay, int flag)
+        private bool RelaySet(Relay relay, int nRelay, int flag, [CallerMemberName] string name = "",
+                   [CallerLineNumber] int line = -1)
         {
+            DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.LOG, "RelaySet(" + nRelay + "," + flag + ") called from " + name + "@line(" + line + ")\n");
             //if (!relay.IsOpen())
             //{
             //    MyMessageBox("Relay is not open");
@@ -2744,6 +2808,7 @@ namespace AmpAutoTunerUtility
             if (flag == 0) button.BackColor = Color.Gray;
             else button.BackColor = Color.Green;
             relay.Set(nRelay, (byte)flag);
+            if (nRelay == 1) buttonAmp.BackColor = flag == 1 ? Color.Green : Color.Yellow;
             if (relay.errMsg != null)
             {
                 MyMessageBox(relay.errMsg);
@@ -2881,8 +2946,9 @@ namespace AmpAutoTunerUtility
             if (checkBoxRelay1Enabled.Checked && comboBoxComRelay1.Text.Contains("COM") && comboBoxComRelay1.SelectedText == "")
             {
                 //if (relay1 != null) MyMessageBox("Relay1 != null??");
-                //relay1 = new Relay();
-                //Debug(DebugEnum.LOG, "Relay1 open\n");
+                if (relay1 != null) relay1.Close();
+                relay1 = new Relay();
+                Debug(DebugEnum.LOG, "Relay1 open\n");
                 relay1.Open(comboBoxComRelay1.Text);
                 RelaySetButtons(button1_1, relay1.Status());
 
@@ -3073,6 +3139,7 @@ namespace AmpAutoTunerUtility
                     //System.IO.File.Delete(walkingRequestFile);
                     pausedTuning = false;
                     pauseButtonClicked = false;
+                    FLRigSetActiveVFO("A");
                     Pause();
                 }
             }
@@ -3294,6 +3361,7 @@ namespace AmpAutoTunerUtility
             GC.Collect(0);
             GC.WaitForPendingFinalizers();
             if (tuner1 == null) return;
+            if (relay1 != null) relay1.Status();
             if (checkBoxPause.Checked) return;
             DebugMsg msg = DebugMsg.DebugGetMsg();
             debugLevel = (DebugEnum)comboBoxDebugLevel.SelectedIndex + 1;
@@ -3584,8 +3652,10 @@ namespace AmpAutoTunerUtility
        //     return ampIsOn;
        // }
 
-        private void AmpSet(bool flag)
+        private void AmpSet(bool flag, [CallerMemberName] string name = "",
+                   [CallerLineNumber] int line = -1)
         {
+            DebugAddMsg(DebugEnum.TRACE, "AmpSet flag=" + flag + " called from " + name + "@line(" + line + ")\n");
             // false means turn amp off, true means turn it on
             // depends on how relay is wired
             // this implementation assumes wired on NC (normally closed)
@@ -3605,6 +3675,7 @@ namespace AmpAutoTunerUtility
             }
             ampIsOn = bit == 0;
             AmpSetButton();
+            Application.DoEvents();
         }
 
         private void AmpToggle()
@@ -3629,6 +3700,7 @@ namespace AmpAutoTunerUtility
         private void AntennaSet(Relay relay, int bits)
         {
             int val = 0;
+            relay.AllOff();
             relay.Set(1, (byte)val);
         }
 
@@ -3906,7 +3978,7 @@ namespace AmpAutoTunerUtility
         int frequencyIndex = 0;
         private bool dummyLoad;
         private int timerFreqWalkSeconds;
-
+        
         private void FreqWalkSetFreq(int index)
         {
             //if (index == 0) richTextBoxFreqWalk.Clear();
@@ -3932,9 +4004,11 @@ namespace AmpAutoTunerUtility
         }
         private void TimerFreqWalk_Tick(object sender, EventArgs e)
         {
+            //DebugAddMsg(DebugEnum.LOG, "FreqWalkTick\n");
             try
             {
                 timerFreqWalk.Stop();
+                FrequenciesToWalk();
                 //richTextBox1.AppendText(MyTime() + "Tick\n");
                 FLRigGetFreq(false);
                 if (frequencyIndex >= 0 && frequencyHz != frequenciesToWalk[frequencyIndex]) {
@@ -3954,7 +4028,8 @@ namespace AmpAutoTunerUtility
                     // this should be 60 30 15 seconds
                     // we do our thing 700ms before the end of period
                     // this gives JTDX/WSJTX a chance to get the band correct on the decode window
-                    triggerTime -= 0.7;
+                    // triggerTime -= 0.7;
+                    triggerTime += (double)numericUpDownFreqWalkDelay.Value/1000.0;
                     //richTextBoxFreqWalk.AppendText("Debug: " + mySecond + ">" + triggerTime + "\n");
                     if (mySecond > triggerTime)
                     {
@@ -4046,9 +4121,16 @@ namespace AmpAutoTunerUtility
             pausedTuning = false;
             //richTextBoxFreqWalk.AppendText(MyTime() + "Walking stopped\n");
             SetAntennaInUse();
+            TuneSequence();
         }
         private void ButtonWalk_Click_1(object sender, EventArgs e)
         {
+            FrequenciesToWalk();
+            if (frequenciesToWalk == null || (freqWalkIsRunning == false && frequenciesToWalk.Count == 0))
+            {
+                MessageBox.Show("No walk frequencies selected in FreqWalk tab!!");
+                return;
+            }
             if (freqWalkIsRunning == false)
             {
                 FreqWalkStart();
@@ -4236,51 +4318,59 @@ namespace AmpAutoTunerUtility
         private void ButtonAntennaPick1_Click(object sender, EventArgs e)
         {
             ButtonAntennaPickSet(buttonAntennaPick1);
+            AmpSet(checkBoxAntenna1Amp.Checked);
             SetAntennaRelayOn(1);
         }
 
         private void ButtonAntennaPick2_Click(object sender, EventArgs e)
         {
             ButtonAntennaPickSet(buttonAntennaPick2);
+            AmpSet(checkBoxAntenna2Amp.Checked);
             SetAntennaRelayOn(2);
         }
 
         private void ButtonAntennaPick3_Click(object sender, EventArgs e)
         {
             ButtonAntennaPickSet(buttonAntennaPick3);
+            AmpSet(checkBoxAntenna3Amp.Checked);
             SetAntennaRelayOn(3);
         }
         private void ButtonAntennaPick4_Click(object sender, EventArgs e)
         {
             ButtonAntennaPickSet(buttonAntennaPick4);
+            AmpSet(checkBoxAntenna4Amp.Checked);
             SetAntennaRelayOn(4);
         }
 
         private void ButtonAntennaPick5_Click(object sender, EventArgs e)
         {
             ButtonAntennaPickSet(buttonAntennaPick5);
+            AmpSet(checkBoxAntenna5Amp.Checked);
             SetAntennaRelayOn(5);
         }
 
         private void ButtonAntennaPick6_Click(object sender, EventArgs e)
         {
             ButtonAntennaPickSet(buttonAntennaPick6);
+            AmpSet(checkBoxAntenna6Amp.Checked);
             SetAntennaRelayOn(6);
         }
 
         private void ButtonAntennaPick7_Click(object sender, EventArgs e)
         {
             ButtonAntennaPickSet(buttonAntennaPick7);
+            AmpSet(checkBoxAntenna7Amp.Checked);
             SetAntennaRelayOn(7);
         }
 
         private void ButtonAntennaPick8_Click(object sender, EventArgs e)
         {
             ButtonAntennaPickSet(buttonAntennaPick8);
+            AmpSet(checkBoxAntenna8Amp.Checked);
             SetAntennaRelayOn(8);
         }
 
-        private void CheckBoxAntenna1Amp_CheckedChange(object sender, EventArgs e)
+        private void CheckBoxAntennaAmp_CheckedChange(object sender, EventArgs e)
         {
             CheckBox myCheckBox = (CheckBox)sender;
             AmpSet(myCheckBox.Checked);

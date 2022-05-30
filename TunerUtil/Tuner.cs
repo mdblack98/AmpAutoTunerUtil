@@ -61,9 +61,9 @@ namespace AmpAutoTunerUtility
         {
             DebugLevel = level;
         }
-        public virtual double GetInductance()
+        public virtual decimal GetInductance()
         {
-            return Inductance;
+            return (decimal)Inductance;
         }
         public virtual void SetInductance(int value)
         {

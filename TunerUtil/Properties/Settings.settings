@@ -563,5 +563,8 @@
     <Setting Name="FrequenciesToWalkCustomList" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
+    <Setting Name="FreqWalkDelay" Type="System.Decimal" Scope="User">
+      <Value Profile="(Default)">-600</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

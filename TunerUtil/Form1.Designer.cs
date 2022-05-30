@@ -225,6 +225,7 @@
             this.label15 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
             this.tabPageFreqWalk = new System.Windows.Forms.TabPage();
+            this.numericUpDownFreqWalkDelay = new System.Windows.Forms.NumericUpDown();
             this.label19 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
@@ -341,6 +342,7 @@
             this.tabPagePower.SuspendLayout();
             this.tabPageAntenna.SuspendLayout();
             this.tabPageFreqWalk.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFreqWalkDelay)).BeginInit();
             this.tabPageRelay1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.tabPageRelay2.SuspendLayout();
@@ -1232,7 +1234,7 @@
             // 
             // numericUpDownCapacitance
             // 
-            this.numericUpDownCapacitance.Location = new System.Drawing.Point(166, 17);
+            this.numericUpDownCapacitance.Location = new System.Drawing.Point(166, 16);
             this.numericUpDownCapacitance.Margin = new System.Windows.Forms.Padding(2);
             this.numericUpDownCapacitance.Maximum = new decimal(new int[] {
             3926,
@@ -1258,13 +1260,13 @@
             0,
             0,
             131072});
-            this.numericUpDownInductance.Location = new System.Drawing.Point(222, 17);
+            this.numericUpDownInductance.Location = new System.Drawing.Point(222, 16);
             this.numericUpDownInductance.Margin = new System.Windows.Forms.Padding(2);
             this.numericUpDownInductance.Maximum = new decimal(new int[] {
-            855,
+            12,
             0,
             0,
-            131072});
+            0});
             this.numericUpDownInductance.Name = "numericUpDownInductance";
             this.numericUpDownInductance.Size = new System.Drawing.Size(47, 20);
             this.numericUpDownInductance.TabIndex = 13;
@@ -1279,7 +1281,7 @@
             0,
             0,
             0});
-            this.numericUpDownPostPttDelay.Location = new System.Drawing.Point(10, 15);
+            this.numericUpDownPostPttDelay.Location = new System.Drawing.Point(10, 14);
             this.numericUpDownPostPttDelay.Margin = new System.Windows.Forms.Padding(2);
             this.numericUpDownPostPttDelay.Maximum = new decimal(new int[] {
             1000,
@@ -1297,7 +1299,7 @@
             // 
             this.checkBox1.AutoSize = true;
             this.checkBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox1.Location = new System.Drawing.Point(65, 16);
+            this.checkBox1.Location = new System.Drawing.Point(65, 15);
             this.checkBox1.Margin = new System.Windows.Forms.Padding(2);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(70, 17);
@@ -1341,7 +1343,7 @@
             this.buttonTunePause.Size = new System.Drawing.Size(56, 22);
             this.buttonTunePause.TabIndex = 11;
             this.buttonTunePause.Text = "Pause";
-            this.toolTip1.SetToolTip(this.buttonTunePause, "Pause auto tuning\nblue means freqwalk has control and must be paused");
+            this.toolTip1.SetToolTip(this.buttonTunePause, "Pause auto tuning\r\n");
             this.buttonTunePause.UseVisualStyleBackColor = false;
             this.buttonTunePause.Click += new System.EventHandler(this.ButtonTunePause_Click);
             // 
@@ -1646,7 +1648,7 @@
             this.buttonWalk.Size = new System.Drawing.Size(56, 22);
             this.buttonWalk.TabIndex = 13;
             this.buttonWalk.Text = "Walk";
-            this.toolTip1.SetToolTip(this.buttonWalk, "Disable/Enable Amp");
+            this.toolTip1.SetToolTip(this.buttonWalk, "Start/Stop Frequency Walk");
             this.buttonWalk.UseVisualStyleBackColor = false;
             this.buttonWalk.Click += new System.EventHandler(this.ButtonWalk_Click_1);
             // 
@@ -1734,7 +1736,7 @@
             this.groupBoxOptions.Margin = new System.Windows.Forms.Padding(2);
             this.groupBoxOptions.Name = "groupBoxOptions";
             this.groupBoxOptions.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBoxOptions.Size = new System.Drawing.Size(362, 34);
+            this.groupBoxOptions.Size = new System.Drawing.Size(362, 42);
             this.groupBoxOptions.TabIndex = 18;
             this.groupBoxOptions.TabStop = false;
             this.groupBoxOptions.Text = "Options";
@@ -1742,7 +1744,7 @@
             // 
             // buttonTunerSave
             // 
-            this.buttonTunerSave.Location = new System.Drawing.Point(275, 15);
+            this.buttonTunerSave.Location = new System.Drawing.Point(275, 14);
             this.buttonTunerSave.Name = "buttonTunerSave";
             this.buttonTunerSave.Size = new System.Drawing.Size(75, 23);
             this.buttonTunerSave.TabIndex = 14;
@@ -1945,6 +1947,7 @@
             // checkBoxAmp8
             // 
             this.checkBoxAmp8.AutoSize = true;
+            this.checkBoxAmp8.Enabled = false;
             this.checkBoxAmp8.Location = new System.Drawing.Point(158, 168);
             this.checkBoxAmp8.Name = "checkBoxAmp8";
             this.checkBoxAmp8.Size = new System.Drawing.Size(15, 14);
@@ -1955,6 +1958,7 @@
             // checkBoxAmp7
             // 
             this.checkBoxAmp7.AutoSize = true;
+            this.checkBoxAmp7.Enabled = false;
             this.checkBoxAmp7.Location = new System.Drawing.Point(158, 147);
             this.checkBoxAmp7.Name = "checkBoxAmp7";
             this.checkBoxAmp7.Size = new System.Drawing.Size(15, 14);
@@ -1965,6 +1969,7 @@
             // checkBoxAmp6
             // 
             this.checkBoxAmp6.AutoSize = true;
+            this.checkBoxAmp6.Enabled = false;
             this.checkBoxAmp6.Location = new System.Drawing.Point(158, 126);
             this.checkBoxAmp6.Name = "checkBoxAmp6";
             this.checkBoxAmp6.Size = new System.Drawing.Size(15, 14);
@@ -1975,6 +1980,7 @@
             // checkBoxAmp5
             // 
             this.checkBoxAmp5.AutoSize = true;
+            this.checkBoxAmp5.Enabled = false;
             this.checkBoxAmp5.Location = new System.Drawing.Point(158, 106);
             this.checkBoxAmp5.Name = "checkBoxAmp5";
             this.checkBoxAmp5.Size = new System.Drawing.Size(15, 14);
@@ -1985,6 +1991,7 @@
             // checkBoxAmp4
             // 
             this.checkBoxAmp4.AutoSize = true;
+            this.checkBoxAmp4.Enabled = false;
             this.checkBoxAmp4.Location = new System.Drawing.Point(158, 85);
             this.checkBoxAmp4.Name = "checkBoxAmp4";
             this.checkBoxAmp4.Size = new System.Drawing.Size(15, 14);
@@ -1995,6 +2002,7 @@
             // checkBoxAmp3
             // 
             this.checkBoxAmp3.AutoSize = true;
+            this.checkBoxAmp3.Enabled = false;
             this.checkBoxAmp3.Location = new System.Drawing.Point(158, 64);
             this.checkBoxAmp3.Name = "checkBoxAmp3";
             this.checkBoxAmp3.Size = new System.Drawing.Size(15, 14);
@@ -2005,6 +2013,7 @@
             // checkBoxAmp2
             // 
             this.checkBoxAmp2.AutoSize = true;
+            this.checkBoxAmp2.Enabled = false;
             this.checkBoxAmp2.Location = new System.Drawing.Point(158, 42);
             this.checkBoxAmp2.Name = "checkBoxAmp2";
             this.checkBoxAmp2.Size = new System.Drawing.Size(15, 14);
@@ -2015,6 +2024,7 @@
             // checkBoxAmp1
             // 
             this.checkBoxAmp1.AutoSize = true;
+            this.checkBoxAmp1.Enabled = false;
             this.checkBoxAmp1.Location = new System.Drawing.Point(158, 22);
             this.checkBoxAmp1.Name = "checkBoxAmp1";
             this.checkBoxAmp1.Size = new System.Drawing.Size(15, 14);
@@ -2425,7 +2435,7 @@
             this.checkBoxAntenna8Amp.TabIndex = 87;
             this.toolTip1.SetToolTip(this.checkBoxAntenna8Amp, "Check to enable amp on this antenna");
             this.checkBoxAntenna8Amp.UseVisualStyleBackColor = true;
-            this.checkBoxAntenna8Amp.CheckedChanged += new System.EventHandler(this.CheckBoxAntenna1Amp_CheckedChange);
+            this.checkBoxAntenna8Amp.CheckedChanged += new System.EventHandler(this.CheckBoxAntennaAmp_CheckedChange);
             // 
             // checkBoxAntenna7Amp
             // 
@@ -2437,7 +2447,7 @@
             this.checkBoxAntenna7Amp.TabIndex = 86;
             this.toolTip1.SetToolTip(this.checkBoxAntenna7Amp, "Check to enable amp on this antenna");
             this.checkBoxAntenna7Amp.UseVisualStyleBackColor = true;
-            this.checkBoxAntenna7Amp.CheckedChanged += new System.EventHandler(this.CheckBoxAntenna1Amp_CheckedChange);
+            this.checkBoxAntenna7Amp.CheckedChanged += new System.EventHandler(this.CheckBoxAntennaAmp_CheckedChange);
             // 
             // checkBoxAntenna6Amp
             // 
@@ -2449,7 +2459,7 @@
             this.checkBoxAntenna6Amp.TabIndex = 85;
             this.toolTip1.SetToolTip(this.checkBoxAntenna6Amp, "Check to enable amp on this antenna");
             this.checkBoxAntenna6Amp.UseVisualStyleBackColor = true;
-            this.checkBoxAntenna6Amp.CheckedChanged += new System.EventHandler(this.CheckBoxAntenna1Amp_CheckedChange);
+            this.checkBoxAntenna6Amp.CheckedChanged += new System.EventHandler(this.CheckBoxAntennaAmp_CheckedChange);
             // 
             // checkBoxAntenna5Amp
             // 
@@ -2461,7 +2471,7 @@
             this.checkBoxAntenna5Amp.TabIndex = 84;
             this.toolTip1.SetToolTip(this.checkBoxAntenna5Amp, "Check to enable amp on this antenna");
             this.checkBoxAntenna5Amp.UseVisualStyleBackColor = true;
-            this.checkBoxAntenna5Amp.CheckedChanged += new System.EventHandler(this.CheckBoxAntenna1Amp_CheckedChange);
+            this.checkBoxAntenna5Amp.CheckedChanged += new System.EventHandler(this.CheckBoxAntennaAmp_CheckedChange);
             // 
             // checkBoxAntenna4Amp
             // 
@@ -2473,7 +2483,7 @@
             this.checkBoxAntenna4Amp.TabIndex = 83;
             this.toolTip1.SetToolTip(this.checkBoxAntenna4Amp, "Check to enable amp on this antenna");
             this.checkBoxAntenna4Amp.UseVisualStyleBackColor = true;
-            this.checkBoxAntenna4Amp.CheckedChanged += new System.EventHandler(this.CheckBoxAntenna1Amp_CheckedChange);
+            this.checkBoxAntenna4Amp.CheckedChanged += new System.EventHandler(this.CheckBoxAntennaAmp_CheckedChange);
             // 
             // checkBoxAntenna3Amp
             // 
@@ -2485,7 +2495,7 @@
             this.checkBoxAntenna3Amp.TabIndex = 82;
             this.toolTip1.SetToolTip(this.checkBoxAntenna3Amp, "Check to enable amp on this antenna");
             this.checkBoxAntenna3Amp.UseVisualStyleBackColor = true;
-            this.checkBoxAntenna3Amp.CheckedChanged += new System.EventHandler(this.CheckBoxAntenna1Amp_CheckedChange);
+            this.checkBoxAntenna3Amp.CheckedChanged += new System.EventHandler(this.CheckBoxAntennaAmp_CheckedChange);
             // 
             // checkBoxAntenna2Amp
             // 
@@ -2497,7 +2507,7 @@
             this.checkBoxAntenna2Amp.TabIndex = 81;
             this.toolTip1.SetToolTip(this.checkBoxAntenna2Amp, "Check to enable amp on this antenna");
             this.checkBoxAntenna2Amp.UseVisualStyleBackColor = true;
-            this.checkBoxAntenna2Amp.CheckedChanged += new System.EventHandler(this.CheckBoxAntenna1Amp_CheckedChange);
+            this.checkBoxAntenna2Amp.CheckedChanged += new System.EventHandler(this.CheckBoxAntennaAmp_CheckedChange);
             // 
             // checkBoxAntenna1Amp
             // 
@@ -2509,7 +2519,7 @@
             this.checkBoxAntenna1Amp.TabIndex = 80;
             this.toolTip1.SetToolTip(this.checkBoxAntenna1Amp, "Check to enable amp on this antenna");
             this.checkBoxAntenna1Amp.UseVisualStyleBackColor = true;
-            this.checkBoxAntenna1Amp.CheckedChanged += new System.EventHandler(this.CheckBoxAntenna1Amp_CheckedChange);
+            this.checkBoxAntenna1Amp.CheckedChanged += new System.EventHandler(this.CheckBoxAntennaAmp_CheckedChange);
             // 
             // ComboBoxAntenna8Bits
             // 
@@ -3017,6 +3027,7 @@
             // tabPageFreqWalk
             // 
             this.tabPageFreqWalk.BackColor = System.Drawing.Color.LightGray;
+            this.tabPageFreqWalk.Controls.Add(this.numericUpDownFreqWalkDelay);
             this.tabPageFreqWalk.Controls.Add(this.label19);
             this.tabPageFreqWalk.Controls.Add(this.label13);
             this.tabPageFreqWalk.Controls.Add(this.label12);
@@ -3030,6 +3041,34 @@
             this.tabPageFreqWalk.Size = new System.Drawing.Size(365, 195);
             this.tabPageFreqWalk.TabIndex = 9;
             this.tabPageFreqWalk.Text = "FreqWalk";
+            // 
+            // numericUpDownFreqWalkDelay
+            // 
+            this.numericUpDownFreqWalkDelay.Increment = new decimal(new int[] {
+            50,
+            0,
+            0,
+            0});
+            this.numericUpDownFreqWalkDelay.Location = new System.Drawing.Point(305, 6);
+            this.numericUpDownFreqWalkDelay.Maximum = new decimal(new int[] {
+            700,
+            0,
+            0,
+            0});
+            this.numericUpDownFreqWalkDelay.Minimum = new decimal(new int[] {
+            700,
+            0,
+            0,
+            -2147483648});
+            this.numericUpDownFreqWalkDelay.Name = "numericUpDownFreqWalkDelay";
+            this.numericUpDownFreqWalkDelay.Size = new System.Drawing.Size(52, 20);
+            this.numericUpDownFreqWalkDelay.TabIndex = 9;
+            this.toolTip1.SetToolTip(this.numericUpDownFreqWalkDelay, "Band change time relative to 0");
+            this.numericUpDownFreqWalkDelay.Value = new decimal(new int[] {
+            600,
+            0,
+            0,
+            -2147483648});
             // 
             // label19
             // 
@@ -4192,7 +4231,7 @@
             this.Margin = new System.Windows.Forms.Padding(2);
             this.MaximumSize = new System.Drawing.Size(417, 310);
             this.Name = "Form1";
-            this.Text = "AmpAutoTunerUtility V0.99";
+            this.Text = "AmpAutoTunerUtility V0.109a";
             this.HelpButtonClicked += new System.ComponentModel.CancelEventHandler(this.Form1_HelpButtonClicked);
             this.Activated += new System.EventHandler(this.Form1_Activated);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
@@ -4221,6 +4260,7 @@
             this.tabPageAntenna.PerformLayout();
             this.tabPageFreqWalk.ResumeLayout(false);
             this.tabPageFreqWalk.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFreqWalkDelay)).EndInit();
             this.tabPageRelay1.ResumeLayout(false);
             this.tabPageRelay1.PerformLayout();
             this.panel1.ResumeLayout(false);
@@ -4553,6 +4593,7 @@
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.NumericUpDown numericUpDownFreqWalkDelay;
     }
 }
 
