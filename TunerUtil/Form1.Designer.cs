@@ -1407,7 +1407,8 @@
             this.labelAntennaSelected.Size = new System.Drawing.Size(62, 18);
             this.labelAntennaSelected.TabIndex = 14;
             this.labelAntennaSelected.Text = "Antenna";
-            this.toolTip1.SetToolTip(this.labelAntennaSelected, "Antenna in use");
+            this.toolTip1.SetToolTip(this.labelAntennaSelected, "Antenna in use\nClick to lock(red)");
+            this.labelAntennaSelected.Click += new System.EventHandler(this.LabelAntennaSelected_Click);
             // 
             // tabPage
             // 
@@ -1512,10 +1513,11 @@
             this.buttonAntennaPick8.Size = new System.Drawing.Size(56, 20);
             this.buttonAntennaPick8.TabIndex = 22;
             this.buttonAntennaPick8.Text = "Dummy";
-            this.toolTip1.SetToolTip(this.buttonAntennaPick8, "Enable/Disable Dummy Load (dummy in Antenna tab)");
+            this.toolTip1.SetToolTip(this.buttonAntennaPick8, "Pick antenna (green is the selected antenna");
             this.buttonAntennaPick8.UseVisualStyleBackColor = false;
             this.buttonAntennaPick8.Visible = false;
             this.buttonAntennaPick8.Click += new System.EventHandler(this.ButtonAntennaPick8_Click);
+            this.buttonAntennaPick8.Enter += new System.EventHandler(this.ButtonAntennaPick8_Enter);
             // 
             // buttonAntennaPick1
             // 
@@ -1527,7 +1529,7 @@
             this.buttonAntennaPick1.Size = new System.Drawing.Size(56, 20);
             this.buttonAntennaPick1.TabIndex = 21;
             this.buttonAntennaPick1.Text = "Dummy";
-            this.toolTip1.SetToolTip(this.buttonAntennaPick1, "Enable/Disable Dummy Load (dummy in Antenna tab)");
+            this.toolTip1.SetToolTip(this.buttonAntennaPick1, "Pick antenna (green is the selected antenna");
             this.buttonAntennaPick1.UseVisualStyleBackColor = false;
             this.buttonAntennaPick1.Visible = false;
             this.buttonAntennaPick1.Click += new System.EventHandler(this.ButtonAntennaPick1_Click);
@@ -1542,7 +1544,7 @@
             this.buttonAntennaPick2.Size = new System.Drawing.Size(56, 20);
             this.buttonAntennaPick2.TabIndex = 20;
             this.buttonAntennaPick2.Text = "Dummy";
-            this.toolTip1.SetToolTip(this.buttonAntennaPick2, "Enable/Disable Dummy Load (dummy in Antenna tab)");
+            this.toolTip1.SetToolTip(this.buttonAntennaPick2, "Pick antenna (green is the selected antenna");
             this.buttonAntennaPick2.UseVisualStyleBackColor = false;
             this.buttonAntennaPick2.Visible = false;
             this.buttonAntennaPick2.Click += new System.EventHandler(this.ButtonAntennaPick2_Click);
@@ -1557,7 +1559,7 @@
             this.buttonAntennaPick3.Size = new System.Drawing.Size(56, 20);
             this.buttonAntennaPick3.TabIndex = 19;
             this.buttonAntennaPick3.Text = "Dummy";
-            this.toolTip1.SetToolTip(this.buttonAntennaPick3, "Enable/Disable Dummy Load (dummy in Antenna tab)");
+            this.toolTip1.SetToolTip(this.buttonAntennaPick3, "Pick antenna (green is the selected antenna");
             this.buttonAntennaPick3.UseVisualStyleBackColor = false;
             this.buttonAntennaPick3.Visible = false;
             this.buttonAntennaPick3.Click += new System.EventHandler(this.ButtonAntennaPick3_Click);
@@ -1572,7 +1574,7 @@
             this.buttonAntennaPick4.Size = new System.Drawing.Size(56, 20);
             this.buttonAntennaPick4.TabIndex = 18;
             this.buttonAntennaPick4.Text = "Dummy";
-            this.toolTip1.SetToolTip(this.buttonAntennaPick4, "Enable/Disable Dummy Load (dummy in Antenna tab)");
+            this.toolTip1.SetToolTip(this.buttonAntennaPick4, "Pick antenna (green is the selected antenna");
             this.buttonAntennaPick4.UseVisualStyleBackColor = false;
             this.buttonAntennaPick4.Visible = false;
             this.buttonAntennaPick4.Click += new System.EventHandler(this.ButtonAntennaPick4_Click);
@@ -1587,7 +1589,7 @@
             this.buttonAntennaPick5.Size = new System.Drawing.Size(56, 20);
             this.buttonAntennaPick5.TabIndex = 17;
             this.buttonAntennaPick5.Text = "Dummy";
-            this.toolTip1.SetToolTip(this.buttonAntennaPick5, "Enable/Disable Dummy Load (dummy in Antenna tab)");
+            this.toolTip1.SetToolTip(this.buttonAntennaPick5, "Pick antenna (green is the selected antenna");
             this.buttonAntennaPick5.UseVisualStyleBackColor = false;
             this.buttonAntennaPick5.Visible = false;
             this.buttonAntennaPick5.Click += new System.EventHandler(this.ButtonAntennaPick5_Click);
@@ -1602,7 +1604,7 @@
             this.buttonAntennaPick6.Size = new System.Drawing.Size(56, 20);
             this.buttonAntennaPick6.TabIndex = 16;
             this.buttonAntennaPick6.Text = "Dummy";
-            this.toolTip1.SetToolTip(this.buttonAntennaPick6, "Enable/Disable Dummy Load (dummy in Antenna tab)");
+            this.toolTip1.SetToolTip(this.buttonAntennaPick6, "Pick antenna (green is the selected antenna");
             this.buttonAntennaPick6.UseVisualStyleBackColor = false;
             this.buttonAntennaPick6.Visible = false;
             this.buttonAntennaPick6.Click += new System.EventHandler(this.ButtonAntennaPick6_Click);
@@ -1617,7 +1619,7 @@
             this.buttonAntennaPick7.Size = new System.Drawing.Size(56, 20);
             this.buttonAntennaPick7.TabIndex = 15;
             this.buttonAntennaPick7.Text = "Dummy";
-            this.toolTip1.SetToolTip(this.buttonAntennaPick7, "Enable/Disable Dummy Load (dummy in Antenna tab)");
+            this.toolTip1.SetToolTip(this.buttonAntennaPick7, "Pick antenna (green is the selected antenna");
             this.buttonAntennaPick7.UseVisualStyleBackColor = false;
             this.buttonAntennaPick7.Visible = false;
             this.buttonAntennaPick7.Click += new System.EventHandler(this.ButtonAntennaPick7_Click);
@@ -1793,14 +1795,20 @@
             "3/5",
             "3/6",
             "3/7",
-            "3/8",
             "8/0",
             "8/1",
-            "8/2"});
+            "8/2",
+            "8/3",
+            "8/4",
+            "8/5",
+            "8/6",
+            "8/7",
+            "8/8"});
             this.comboBoxAmpBits.Location = new System.Drawing.Point(16, 118);
             this.comboBoxAmpBits.Name = "comboBoxAmpBits";
             this.comboBoxAmpBits.Size = new System.Drawing.Size(46, 21);
             this.comboBoxAmpBits.TabIndex = 73;
+            this.comboBoxAmpBits.SelectedIndexChanged += new System.EventHandler(this.ComboBoxAmpBits_SelectedIndexChanged);
             // 
             // panel3
             // 
@@ -4231,7 +4239,7 @@
             this.Margin = new System.Windows.Forms.Padding(2);
             this.MaximumSize = new System.Drawing.Size(417, 310);
             this.Name = "Form1";
-            this.Text = "AmpAutoTunerUtility V0.109a";
+            this.Text = "AmpAutoTunerUtility V0.110";
             this.HelpButtonClicked += new System.ComponentModel.CancelEventHandler(this.Form1_HelpButtonClicked);
             this.Activated += new System.EventHandler(this.Form1_Activated);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);

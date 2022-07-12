@@ -20,6 +20,9 @@ namespace AmpAutoTunerUtility
         readonly List<string> serialNums = new List<string>();
         public string errMsg = null;
         public bool relayError;
+        private byte ampRelay = 1; // 1-based number of the relay used for the amplifier on/off
+
+        public byte AmpRelay { get => ampRelay; set => ampRelay = value; }
 
         public Relay()
         {
@@ -280,7 +283,7 @@ namespace AmpAutoTunerUtility
             Close();
         }
 
-        public void Set(int nRelay, byte status,[CallerMemberName] string name = "",
+        public void Set(int nRelay, byte status, [CallerMemberName] string name = "",
                    [CallerLineNumber] int line = -1)
         {
             DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.VERBOSE, "Relay Set(" + nRelay + ","+status+") called from " + name + "@line(" + line + ")\n");
@@ -306,7 +309,25 @@ namespace AmpAutoTunerUtility
 
                 ftdi.GetPinStates(ref bitModes);
                 bitModesSave = bitModes;
-                bitModes &= 0x3;
+                // we need to mask the antenna bit if being requested
+                if (nRelay == this.AmpRelay)
+                {
+                    // just set the amp bit 
+                    int tmp1 = bitModes;
+                    tmp1 ^= (-status ^ bitModes) & (0x1 << (nRelay-1));
+                    bitModes = (byte)tmp1;
+                }
+                else
+                {
+                    // turn off all antenna bits by masking amp bit only
+                    // because we will re-enable them if setting them
+                    bitModes = (byte)(bitModes & (byte)(0x1 << (this.ampRelay-1)));
+                    data[0] = data[1] = 0xff;
+                    data[0] &= bitModes;
+                    data[1] &= bitModes;
+                    data[2] = bitModes;
+                    ftdi.Write(data, data.Length, ref nWritten);
+                }
                 if (status != 0)
                 {
                     flags = (byte)(bitModes | (1u << (nRelay - 1)));
@@ -316,11 +337,11 @@ namespace AmpAutoTunerUtility
                     //flags = (byte)(bitModes | (~(1u << (nRelay - 1))));
                     flags = bitModes;
                 }
-                if (flags == bitModesSave)
-                {
-                    DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.VERBOSE, "No relay change needed bitModes=x" + flags.ToString("X2"));
-                    return;
-                }
+                //if (flags == bitModesSave)
+                //{
+                //    DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.VERBOSE, "No relay change needed bitModes=x" + flags.ToString("X2"));
+                //    return;
+                //}
 
                 // Ensure all antenna bits are off -- masking off 1+2 for now for amp relay -- need Relay page to have bit exclusions
                 //data[0] = data[1] = data[2] = (byte)(bitModesSave & 0x3);
@@ -329,7 +350,7 @@ namespace AmpAutoTunerUtility
                 data[0] = data[1] = 0xff;
                 data[0] &= flags;
                 data[1] &= flags;
-                //DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.LOG, "Relay #" + nRelay + " set=" + status + " bits=" + bitModes + " newBits=" + flags + "\n");
+                DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.LOG, "Relay #" + nRelay + " set=" + status + " bits=" + bitModes + " newBits=" + flags + "\n");
                 data[2] = flags;
                 ftdi.Write(data, data.Length, ref nWritten);
                 if (nWritten == 0)

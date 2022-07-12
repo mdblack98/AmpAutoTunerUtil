@@ -361,6 +361,7 @@ namespace AmpAutoTunerUtility
         // Poll common elements
         public override void Poll()
         {
+            return;
             if (SerialPortTuner == null) return;
             if (!Tuning)
             {
@@ -508,6 +509,7 @@ namespace AmpAutoTunerUtility
 
         private void SendCmd(byte[] cmd)
         {
+            if (SerialPortTuner == null) return;
             if (!SerialPortTuner.IsOpen) return;
             try
             {
