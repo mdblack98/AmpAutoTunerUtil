@@ -545,26 +545,44 @@
     <Setting Name="ClockIsZulu" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="FrequenciesToWalkFT8" Type="System.String" Scope="User">
+    <Setting Name="FrequenciesToWalk1" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="FrequenciesToWalkFT4" Type="System.String" Scope="User">
+    <Setting Name="FrequenciesToWalk2" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="FrequenciesToWalkCustom" Type="System.String" Scope="User">
+    <Setting Name="FrequenciesToWalk3" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="FrequenciesToWalkFT8List" Type="System.String" Scope="User">
+    <Setting Name="FrequenciesToWalk1List" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="FrequenciesToWalkFT4List" Type="System.String" Scope="User">
+    <Setting Name="FrequenciesToWalk2List" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="FrequenciesToWalkCustomList" Type="System.String" Scope="User">
+    <Setting Name="FrequenciesToWalk3List" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="FreqWalkDelay" Type="System.Decimal" Scope="User">
-      <Value Profile="(Default)">-600</Value>
+      <Value Profile="(Default)">-700</Value>
+    </Setting>
+    <Setting Name="FrequenciesToWalk1Enabled" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="FrequenciesToWalk2Enabled" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="FrequenciesToWalk3Enabled" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="labelFreqWalk1" Type="System.String" Scope="User">
+      <Value Profile="(Default)">FT8</Value>
+    </Setting>
+    <Setting Name="labelFreqWalk2" Type="System.String" Scope="User">
+      <Value Profile="(Default)">FT4</Value>
+    </Setting>
+    <Setting Name="labelFreqWalk3" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Custom</Value>
     </Setting>
   </Settings>
 </SettingsFile>

@@ -362,13 +362,15 @@ namespace AmpAutoTunerUtility
         public override void Poll()
         {
             return;
-            if (SerialPortTuner == null) return;
-            if (!Tuning)
+            if (SerialPortTuner != null)
             {
-                byte[] cmdGetCapacitance = { 0xfe, 0xfe, 0x10, 0x41, 0x00, 0x00, 0x00, 0xfd };
-                SendCmd(cmdGetCapacitance);
-                byte[] cmdGetInductance = { 0xfe, 0xfe, 0x10, 0x42, 0x00, 0x00, 0x00, 0xfd };
-                SendCmd(cmdGetInductance);
+                if (!Tuning)
+                {
+                    byte[] cmdGetCapacitance = { 0xfe, 0xfe, 0x10, 0x41, 0x00, 0x00, 0x00, 0xfd };
+                    SendCmd(cmdGetCapacitance);
+                    byte[] cmdGetInductance = { 0xfe, 0xfe, 0x10, 0x42, 0x00, 0x00, 0x00, 0xfd };
+                    SendCmd(cmdGetInductance);
+                }
             }
         }
 

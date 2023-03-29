@@ -3,11 +3,18 @@ using static AmpAutoTunerUtility.DebugMsg;
 
 namespace AmpAutoTunerUtility
 {
-    public abstract class Tuner: IDisposable
+    public abstract class Tuner : IDisposable
     {
         private bool _disposed = false;
         public static readonly string[] DebugEnumText = { "LOG", "ERR", "WRN", "TRC", "VER" };
 
+        //public enum TunerState
+        //{
+        //    Unknown,
+        //    NeedsTuning,
+        //    Tuned
+        //}
+        //public TunerState State { get; set; }
         public double SWR { get; set; }
         protected private string model = null;
         protected private string comport = null;
@@ -17,6 +24,7 @@ namespace AmpAutoTunerUtility
         protected private int Capacitance { get; set; } // uH
         public int AntennaNumber { get; set; }
         public bool TuneFull { get; set; }
+
         public Tuner()
         {
             model = null;

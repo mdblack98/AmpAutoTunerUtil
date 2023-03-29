@@ -28,15 +28,15 @@
             this.button1_6 = new System.Windows.Forms.Button();
             this.button1_7 = new System.Windows.Forms.Button();
             this.button1_8 = new System.Windows.Forms.Button();
-            this.comboBoxAntenna1Relay = new System.Windows.Forms.ComboBox();
+            this.comboBoxAntenna1Controller = new System.Windows.Forms.ComboBox();
             this.label16 = new System.Windows.Forms.Label();
-            this.comboBoxAntenna2Relay = new System.Windows.Forms.ComboBox();
-            this.comboBoxAntenna3Relay = new System.Windows.Forms.ComboBox();
-            this.comboBoxAntenna4Relay = new System.Windows.Forms.ComboBox();
-            this.comboBoxAntenna5Relay = new System.Windows.Forms.ComboBox();
-            this.comboBoxAntenna6Relay = new System.Windows.Forms.ComboBox();
-            this.comboBoxAntenna7Relay = new System.Windows.Forms.ComboBox();
-            this.comboBoxAntenna8Relay = new System.Windows.Forms.ComboBox();
+            this.comboBoxAntenna2Controller = new System.Windows.Forms.ComboBox();
+            this.comboBoxAntenna3Controller = new System.Windows.Forms.ComboBox();
+            this.comboBoxAntenna4Controller = new System.Windows.Forms.ComboBox();
+            this.comboBoxAntenna5Controller = new System.Windows.Forms.ComboBox();
+            this.comboBoxAntenna6Controller = new System.Windows.Forms.ComboBox();
+            this.comboBoxAntenna7Controller = new System.Windows.Forms.ComboBox();
+            this.comboBoxAntenna8Controller = new System.Windows.Forms.ComboBox();
             this.textBoxAntennaFreq1From = new System.Windows.Forms.TextBox();
             this.textBoxAntenna1 = new System.Windows.Forms.TextBox();
             this.textBoxAntenna2 = new System.Windows.Forms.TextBox();
@@ -133,6 +133,7 @@
             this.label11 = new System.Windows.Forms.Label();
             this.comboBoxAmpBits = new System.Windows.Forms.ComboBox();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.checkBoxTuneStartup = new System.Windows.Forms.CheckBox();
             this.checkBoxTunerEnabled = new System.Windows.Forms.CheckBox();
             this.comboBoxTunerModel = new System.Windows.Forms.ComboBox();
             this.comboBoxBaudTuner = new System.Windows.Forms.ComboBox();
@@ -225,13 +226,16 @@
             this.label15 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
             this.tabPageFreqWalk = new System.Windows.Forms.TabPage();
+            this.checkBoxWalk3 = new System.Windows.Forms.CheckBox();
+            this.checkBoxWalk2 = new System.Windows.Forms.CheckBox();
+            this.checkBoxWalk1 = new System.Windows.Forms.CheckBox();
             this.numericUpDownFreqWalkDelay = new System.Windows.Forms.NumericUpDown();
-            this.label19 = new System.Windows.Forms.Label();
-            this.label13 = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
-            this.checkedListBoxWalkCustom = new System.Windows.Forms.CheckedListBox();
-            this.checkedListBoxWalkFT4 = new System.Windows.Forms.CheckedListBox();
-            this.checkedListBoxWalkFT8 = new System.Windows.Forms.CheckedListBox();
+            this.labelFreqWalk3 = new System.Windows.Forms.Label();
+            this.labelFreqWalk2 = new System.Windows.Forms.Label();
+            this.labelFreqWalk1 = new System.Windows.Forms.Label();
+            this.checkedListBoxWalk3 = new System.Windows.Forms.CheckedListBox();
+            this.checkedListBoxWalk2 = new System.Windows.Forms.CheckedListBox();
+            this.checkedListBoxWalk1 = new System.Windows.Forms.CheckedListBox();
             this.labelInterval = new System.Windows.Forms.Label();
             this.tabPageRelay1 = new System.Windows.Forms.TabPage();
             this.buttonAllOff = new System.Windows.Forms.Button();
@@ -478,16 +482,16 @@
             this.button1_8.UseVisualStyleBackColor = false;
             this.button1_8.Click += new System.EventHandler(this.Button1_8_Click);
             // 
-            // comboBoxAntenna1Relay
+            // comboBoxAntenna1Controller
             // 
-            this.comboBoxAntenna1Relay.FormattingEnabled = true;
-            this.comboBoxAntenna1Relay.Location = new System.Drawing.Point(259, 17);
-            this.comboBoxAntenna1Relay.Margin = new System.Windows.Forms.Padding(2);
-            this.comboBoxAntenna1Relay.Name = "comboBoxAntenna1Relay";
-            this.comboBoxAntenna1Relay.Size = new System.Drawing.Size(60, 21);
-            this.comboBoxAntenna1Relay.TabIndex = 16;
-            this.toolTip1.SetToolTip(this.comboBoxAntenna1Relay, "Relay to use");
-            this.comboBoxAntenna1Relay.SelectedIndexChanged += new System.EventHandler(this.ComboBoxAntenna1Bits_SelectedIndexChanged);
+            this.comboBoxAntenna1Controller.FormattingEnabled = true;
+            this.comboBoxAntenna1Controller.Location = new System.Drawing.Point(259, 17);
+            this.comboBoxAntenna1Controller.Margin = new System.Windows.Forms.Padding(2);
+            this.comboBoxAntenna1Controller.Name = "comboBoxAntenna1Controller";
+            this.comboBoxAntenna1Controller.Size = new System.Drawing.Size(60, 21);
+            this.comboBoxAntenna1Controller.TabIndex = 16;
+            this.toolTip1.SetToolTip(this.comboBoxAntenna1Controller, "Relay to use");
+            this.comboBoxAntenna1Controller.SelectedIndexChanged += new System.EventHandler(this.ComboBoxAntenna1Bits_SelectedIndexChanged);
             // 
             // label16
             // 
@@ -495,87 +499,88 @@
             this.label16.Location = new System.Drawing.Point(256, 0);
             this.label16.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(59, 13);
+            this.label16.Size = new System.Drawing.Size(51, 13);
             this.label16.TabIndex = 17;
-            this.label16.Text = "Relay Card";
+            this.label16.Text = "Controller";
             this.toolTip1.SetToolTip(this.label16, "Relay card# to use");
+            this.label16.Click += new System.EventHandler(this.label16_Click);
             // 
-            // comboBoxAntenna2Relay
+            // comboBoxAntenna2Controller
             // 
-            this.comboBoxAntenna2Relay.FormattingEnabled = true;
-            this.comboBoxAntenna2Relay.Location = new System.Drawing.Point(259, 39);
-            this.comboBoxAntenna2Relay.Margin = new System.Windows.Forms.Padding(2);
-            this.comboBoxAntenna2Relay.Name = "comboBoxAntenna2Relay";
-            this.comboBoxAntenna2Relay.Size = new System.Drawing.Size(60, 21);
-            this.comboBoxAntenna2Relay.TabIndex = 20;
-            this.toolTip1.SetToolTip(this.comboBoxAntenna2Relay, "Relay to use");
-            this.comboBoxAntenna2Relay.SelectedIndexChanged += new System.EventHandler(this.ComboBoxAntenna1Bits_SelectedIndexChanged);
+            this.comboBoxAntenna2Controller.FormattingEnabled = true;
+            this.comboBoxAntenna2Controller.Location = new System.Drawing.Point(259, 39);
+            this.comboBoxAntenna2Controller.Margin = new System.Windows.Forms.Padding(2);
+            this.comboBoxAntenna2Controller.Name = "comboBoxAntenna2Controller";
+            this.comboBoxAntenna2Controller.Size = new System.Drawing.Size(60, 21);
+            this.comboBoxAntenna2Controller.TabIndex = 20;
+            this.toolTip1.SetToolTip(this.comboBoxAntenna2Controller, "Relay to use");
+            this.comboBoxAntenna2Controller.SelectedIndexChanged += new System.EventHandler(this.ComboBoxAntenna1Bits_SelectedIndexChanged);
             // 
-            // comboBoxAntenna3Relay
+            // comboBoxAntenna3Controller
             // 
-            this.comboBoxAntenna3Relay.FormattingEnabled = true;
-            this.comboBoxAntenna3Relay.Location = new System.Drawing.Point(259, 61);
-            this.comboBoxAntenna3Relay.Margin = new System.Windows.Forms.Padding(2);
-            this.comboBoxAntenna3Relay.Name = "comboBoxAntenna3Relay";
-            this.comboBoxAntenna3Relay.Size = new System.Drawing.Size(60, 21);
-            this.comboBoxAntenna3Relay.TabIndex = 22;
-            this.toolTip1.SetToolTip(this.comboBoxAntenna3Relay, "Relay to use");
-            this.comboBoxAntenna3Relay.SelectedIndexChanged += new System.EventHandler(this.ComboBoxAntenna1Bits_SelectedIndexChanged);
+            this.comboBoxAntenna3Controller.FormattingEnabled = true;
+            this.comboBoxAntenna3Controller.Location = new System.Drawing.Point(259, 61);
+            this.comboBoxAntenna3Controller.Margin = new System.Windows.Forms.Padding(2);
+            this.comboBoxAntenna3Controller.Name = "comboBoxAntenna3Controller";
+            this.comboBoxAntenna3Controller.Size = new System.Drawing.Size(60, 21);
+            this.comboBoxAntenna3Controller.TabIndex = 22;
+            this.toolTip1.SetToolTip(this.comboBoxAntenna3Controller, "Relay to use");
+            this.comboBoxAntenna3Controller.SelectedIndexChanged += new System.EventHandler(this.ComboBoxAntenna1Bits_SelectedIndexChanged);
             // 
-            // comboBoxAntenna4Relay
+            // comboBoxAntenna4Controller
             // 
-            this.comboBoxAntenna4Relay.FormattingEnabled = true;
-            this.comboBoxAntenna4Relay.Location = new System.Drawing.Point(259, 83);
-            this.comboBoxAntenna4Relay.Margin = new System.Windows.Forms.Padding(2);
-            this.comboBoxAntenna4Relay.Name = "comboBoxAntenna4Relay";
-            this.comboBoxAntenna4Relay.Size = new System.Drawing.Size(60, 21);
-            this.comboBoxAntenna4Relay.TabIndex = 24;
-            this.toolTip1.SetToolTip(this.comboBoxAntenna4Relay, "Relay to use");
-            this.comboBoxAntenna4Relay.SelectedIndexChanged += new System.EventHandler(this.ComboBoxAntenna1Bits_SelectedIndexChanged);
+            this.comboBoxAntenna4Controller.FormattingEnabled = true;
+            this.comboBoxAntenna4Controller.Location = new System.Drawing.Point(259, 83);
+            this.comboBoxAntenna4Controller.Margin = new System.Windows.Forms.Padding(2);
+            this.comboBoxAntenna4Controller.Name = "comboBoxAntenna4Controller";
+            this.comboBoxAntenna4Controller.Size = new System.Drawing.Size(60, 21);
+            this.comboBoxAntenna4Controller.TabIndex = 24;
+            this.toolTip1.SetToolTip(this.comboBoxAntenna4Controller, "Relay to use");
+            this.comboBoxAntenna4Controller.SelectedIndexChanged += new System.EventHandler(this.ComboBoxAntenna1Bits_SelectedIndexChanged);
             // 
-            // comboBoxAntenna5Relay
+            // comboBoxAntenna5Controller
             // 
-            this.comboBoxAntenna5Relay.FormattingEnabled = true;
-            this.comboBoxAntenna5Relay.Location = new System.Drawing.Point(259, 105);
-            this.comboBoxAntenna5Relay.Margin = new System.Windows.Forms.Padding(2);
-            this.comboBoxAntenna5Relay.Name = "comboBoxAntenna5Relay";
-            this.comboBoxAntenna5Relay.Size = new System.Drawing.Size(60, 21);
-            this.comboBoxAntenna5Relay.TabIndex = 26;
-            this.toolTip1.SetToolTip(this.comboBoxAntenna5Relay, "Relay to use");
-            this.comboBoxAntenna5Relay.SelectedIndexChanged += new System.EventHandler(this.ComboBoxAntenna1Bits_SelectedIndexChanged);
+            this.comboBoxAntenna5Controller.FormattingEnabled = true;
+            this.comboBoxAntenna5Controller.Location = new System.Drawing.Point(259, 105);
+            this.comboBoxAntenna5Controller.Margin = new System.Windows.Forms.Padding(2);
+            this.comboBoxAntenna5Controller.Name = "comboBoxAntenna5Controller";
+            this.comboBoxAntenna5Controller.Size = new System.Drawing.Size(60, 21);
+            this.comboBoxAntenna5Controller.TabIndex = 26;
+            this.toolTip1.SetToolTip(this.comboBoxAntenna5Controller, "Relay to use");
+            this.comboBoxAntenna5Controller.SelectedIndexChanged += new System.EventHandler(this.ComboBoxAntenna1Bits_SelectedIndexChanged);
             // 
-            // comboBoxAntenna6Relay
+            // comboBoxAntenna6Controller
             // 
-            this.comboBoxAntenna6Relay.FormattingEnabled = true;
-            this.comboBoxAntenna6Relay.Location = new System.Drawing.Point(259, 127);
-            this.comboBoxAntenna6Relay.Margin = new System.Windows.Forms.Padding(2);
-            this.comboBoxAntenna6Relay.Name = "comboBoxAntenna6Relay";
-            this.comboBoxAntenna6Relay.Size = new System.Drawing.Size(60, 21);
-            this.comboBoxAntenna6Relay.TabIndex = 28;
-            this.toolTip1.SetToolTip(this.comboBoxAntenna6Relay, "Relay to use");
-            this.comboBoxAntenna6Relay.SelectedIndexChanged += new System.EventHandler(this.ComboBoxAntenna1Bits_SelectedIndexChanged);
+            this.comboBoxAntenna6Controller.FormattingEnabled = true;
+            this.comboBoxAntenna6Controller.Location = new System.Drawing.Point(259, 127);
+            this.comboBoxAntenna6Controller.Margin = new System.Windows.Forms.Padding(2);
+            this.comboBoxAntenna6Controller.Name = "comboBoxAntenna6Controller";
+            this.comboBoxAntenna6Controller.Size = new System.Drawing.Size(60, 21);
+            this.comboBoxAntenna6Controller.TabIndex = 28;
+            this.toolTip1.SetToolTip(this.comboBoxAntenna6Controller, "Relay to use");
+            this.comboBoxAntenna6Controller.SelectedIndexChanged += new System.EventHandler(this.ComboBoxAntenna1Bits_SelectedIndexChanged);
             // 
-            // comboBoxAntenna7Relay
+            // comboBoxAntenna7Controller
             // 
-            this.comboBoxAntenna7Relay.FormattingEnabled = true;
-            this.comboBoxAntenna7Relay.Location = new System.Drawing.Point(259, 149);
-            this.comboBoxAntenna7Relay.Margin = new System.Windows.Forms.Padding(2);
-            this.comboBoxAntenna7Relay.Name = "comboBoxAntenna7Relay";
-            this.comboBoxAntenna7Relay.Size = new System.Drawing.Size(60, 21);
-            this.comboBoxAntenna7Relay.TabIndex = 34;
-            this.toolTip1.SetToolTip(this.comboBoxAntenna7Relay, "Relay to use");
-            this.comboBoxAntenna7Relay.SelectedIndexChanged += new System.EventHandler(this.ComboBoxAntenna1Bits_SelectedIndexChanged);
+            this.comboBoxAntenna7Controller.FormattingEnabled = true;
+            this.comboBoxAntenna7Controller.Location = new System.Drawing.Point(259, 149);
+            this.comboBoxAntenna7Controller.Margin = new System.Windows.Forms.Padding(2);
+            this.comboBoxAntenna7Controller.Name = "comboBoxAntenna7Controller";
+            this.comboBoxAntenna7Controller.Size = new System.Drawing.Size(60, 21);
+            this.comboBoxAntenna7Controller.TabIndex = 34;
+            this.toolTip1.SetToolTip(this.comboBoxAntenna7Controller, "Relay to use");
+            this.comboBoxAntenna7Controller.SelectedIndexChanged += new System.EventHandler(this.ComboBoxAntenna1Bits_SelectedIndexChanged);
             // 
-            // comboBoxAntenna8Relay
+            // comboBoxAntenna8Controller
             // 
-            this.comboBoxAntenna8Relay.FormattingEnabled = true;
-            this.comboBoxAntenna8Relay.Location = new System.Drawing.Point(259, 171);
-            this.comboBoxAntenna8Relay.Margin = new System.Windows.Forms.Padding(2);
-            this.comboBoxAntenna8Relay.Name = "comboBoxAntenna8Relay";
-            this.comboBoxAntenna8Relay.Size = new System.Drawing.Size(60, 21);
-            this.comboBoxAntenna8Relay.TabIndex = 36;
-            this.toolTip1.SetToolTip(this.comboBoxAntenna8Relay, "Relay to use");
-            this.comboBoxAntenna8Relay.SelectedIndexChanged += new System.EventHandler(this.ComboBoxAntenna1Bits_SelectedIndexChanged);
+            this.comboBoxAntenna8Controller.FormattingEnabled = true;
+            this.comboBoxAntenna8Controller.Location = new System.Drawing.Point(259, 171);
+            this.comboBoxAntenna8Controller.Margin = new System.Windows.Forms.Padding(2);
+            this.comboBoxAntenna8Controller.Name = "comboBoxAntenna8Controller";
+            this.comboBoxAntenna8Controller.Size = new System.Drawing.Size(60, 21);
+            this.comboBoxAntenna8Controller.TabIndex = 36;
+            this.toolTip1.SetToolTip(this.comboBoxAntenna8Controller, "Relay to use");
+            this.comboBoxAntenna8Controller.SelectedIndexChanged += new System.EventHandler(this.ComboBoxAntenna1Bits_SelectedIndexChanged);
             // 
             // textBoxAntennaFreq1From
             // 
@@ -771,7 +776,9 @@
             this.comboBoxAntSelect1.FormattingEnabled = true;
             this.comboBoxAntSelect1.Items.AddRange(new object[] {
             "1",
-            "2"});
+            "2",
+            "3",
+            "4"});
             this.comboBoxAntSelect1.Location = new System.Drawing.Point(143, 17);
             this.comboBoxAntSelect1.Margin = new System.Windows.Forms.Padding(2);
             this.comboBoxAntSelect1.Name = "comboBoxAntSelect1";
@@ -785,7 +792,9 @@
             this.comboBoxAntSelect2.FormattingEnabled = true;
             this.comboBoxAntSelect2.Items.AddRange(new object[] {
             "1",
-            "2"});
+            "2",
+            "3",
+            "4"});
             this.comboBoxAntSelect2.Location = new System.Drawing.Point(143, 39);
             this.comboBoxAntSelect2.Margin = new System.Windows.Forms.Padding(2);
             this.comboBoxAntSelect2.Name = "comboBoxAntSelect2";
@@ -799,7 +808,9 @@
             this.comboBoxAntSelect3.FormattingEnabled = true;
             this.comboBoxAntSelect3.Items.AddRange(new object[] {
             "1",
-            "2"});
+            "2",
+            "3",
+            "4"});
             this.comboBoxAntSelect3.Location = new System.Drawing.Point(143, 61);
             this.comboBoxAntSelect3.Margin = new System.Windows.Forms.Padding(2);
             this.comboBoxAntSelect3.Name = "comboBoxAntSelect3";
@@ -813,7 +824,9 @@
             this.comboBoxAntSelect4.FormattingEnabled = true;
             this.comboBoxAntSelect4.Items.AddRange(new object[] {
             "1",
-            "2"});
+            "2",
+            "3",
+            "4"});
             this.comboBoxAntSelect4.Location = new System.Drawing.Point(143, 83);
             this.comboBoxAntSelect4.Margin = new System.Windows.Forms.Padding(2);
             this.comboBoxAntSelect4.Name = "comboBoxAntSelect4";
@@ -827,7 +840,9 @@
             this.comboBoxAntSelect5.FormattingEnabled = true;
             this.comboBoxAntSelect5.Items.AddRange(new object[] {
             "1",
-            "2"});
+            "2",
+            "3",
+            "4"});
             this.comboBoxAntSelect5.Location = new System.Drawing.Point(143, 105);
             this.comboBoxAntSelect5.Margin = new System.Windows.Forms.Padding(2);
             this.comboBoxAntSelect5.Name = "comboBoxAntSelect5";
@@ -841,7 +856,9 @@
             this.comboBoxAntSelect6.FormattingEnabled = true;
             this.comboBoxAntSelect6.Items.AddRange(new object[] {
             "1",
-            "2"});
+            "2",
+            "3",
+            "4"});
             this.comboBoxAntSelect6.Location = new System.Drawing.Point(143, 127);
             this.comboBoxAntSelect6.Margin = new System.Windows.Forms.Padding(2);
             this.comboBoxAntSelect6.Name = "comboBoxAntSelect6";
@@ -855,7 +872,9 @@
             this.comboBoxAntSelect7.FormattingEnabled = true;
             this.comboBoxAntSelect7.Items.AddRange(new object[] {
             "1",
-            "2"});
+            "2",
+            "3",
+            "4"});
             this.comboBoxAntSelect7.Location = new System.Drawing.Point(143, 149);
             this.comboBoxAntSelect7.Margin = new System.Windows.Forms.Padding(2);
             this.comboBoxAntSelect7.Name = "comboBoxAntSelect7";
@@ -869,7 +888,9 @@
             this.comboBoxAntSelect8.FormattingEnabled = true;
             this.comboBoxAntSelect8.Items.AddRange(new object[] {
             "1",
-            "2"});
+            "2",
+            "3",
+            "4"});
             this.comboBoxAntSelect8.Location = new System.Drawing.Point(143, 171);
             this.comboBoxAntSelect8.Margin = new System.Windows.Forms.Padding(2);
             this.comboBoxAntSelect8.Name = "comboBoxAntSelect8";
@@ -1412,6 +1433,9 @@
             // 
             // tabPage
             // 
+            this.tabPage.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tabPage.Controls.Add(this.tabPageControl);
             this.tabPage.Controls.Add(this.tabPageDebug);
             this.tabPage.Controls.Add(this.tabPageTuner);
@@ -1814,6 +1838,7 @@
             // 
             this.panel3.BackColor = System.Drawing.Color.Transparent;
             this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel3.Controls.Add(this.checkBoxTuneStartup);
             this.panel3.Controls.Add(this.label9);
             this.panel3.Controls.Add(this.textBoxTuneOffset);
             this.panel3.Controls.Add(this.checkBoxTunerEnabled);
@@ -1827,6 +1852,19 @@
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(168, 144);
             this.panel3.TabIndex = 6;
+            this.toolTip1.SetToolTip(this.panel3, "Tune during startup");
+            // 
+            // checkBoxTuneStartup
+            // 
+            this.checkBoxTuneStartup.AutoSize = true;
+            this.checkBoxTuneStartup.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxTuneStartup.Location = new System.Drawing.Point(102, 27);
+            this.checkBoxTuneStartup.Margin = new System.Windows.Forms.Padding(2);
+            this.checkBoxTuneStartup.Name = "checkBoxTuneStartup";
+            this.checkBoxTuneStartup.Size = new System.Drawing.Size(60, 17);
+            this.checkBoxTuneStartup.TabIndex = 15;
+            this.checkBoxTuneStartup.Text = "Startup";
+            this.checkBoxTuneStartup.UseVisualStyleBackColor = true;
             // 
             // checkBoxTunerEnabled
             // 
@@ -1847,7 +1885,8 @@
             this.comboBoxTunerModel.FormattingEnabled = true;
             this.comboBoxTunerModel.Items.AddRange(new object[] {
             "LDG",
-            "MFJ-928"});
+            "MFJ-928",
+            "ExpertLinears"});
             this.comboBoxTunerModel.Location = new System.Drawing.Point(8, 7);
             this.comboBoxTunerModel.Margin = new System.Windows.Forms.Padding(2);
             this.comboBoxTunerModel.Name = "comboBoxTunerModel";
@@ -2413,16 +2452,16 @@
             this.tabPageAntenna.Controls.Add(this.checkBoxAntenna3);
             this.tabPageAntenna.Controls.Add(this.checkBoxAntenna2);
             this.tabPageAntenna.Controls.Add(this.checkBoxAntenna1);
-            this.tabPageAntenna.Controls.Add(this.comboBoxAntenna8Relay);
-            this.tabPageAntenna.Controls.Add(this.comboBoxAntenna7Relay);
-            this.tabPageAntenna.Controls.Add(this.comboBoxAntenna6Relay);
-            this.tabPageAntenna.Controls.Add(this.comboBoxAntenna5Relay);
-            this.tabPageAntenna.Controls.Add(this.comboBoxAntenna4Relay);
-            this.tabPageAntenna.Controls.Add(this.comboBoxAntenna3Relay);
-            this.tabPageAntenna.Controls.Add(this.comboBoxAntenna2Relay);
+            this.tabPageAntenna.Controls.Add(this.comboBoxAntenna8Controller);
+            this.tabPageAntenna.Controls.Add(this.comboBoxAntenna7Controller);
+            this.tabPageAntenna.Controls.Add(this.comboBoxAntenna6Controller);
+            this.tabPageAntenna.Controls.Add(this.comboBoxAntenna5Controller);
+            this.tabPageAntenna.Controls.Add(this.comboBoxAntenna4Controller);
+            this.tabPageAntenna.Controls.Add(this.comboBoxAntenna3Controller);
+            this.tabPageAntenna.Controls.Add(this.comboBoxAntenna2Controller);
             this.tabPageAntenna.Controls.Add(this.label17);
             this.tabPageAntenna.Controls.Add(this.label16);
-            this.tabPageAntenna.Controls.Add(this.comboBoxAntenna1Relay);
+            this.tabPageAntenna.Controls.Add(this.comboBoxAntenna1Controller);
             this.tabPageAntenna.Controls.Add(this.label15);
             this.tabPageAntenna.Controls.Add(this.label14);
             this.tabPageAntenna.Location = new System.Drawing.Point(4, 22);
@@ -3035,13 +3074,16 @@
             // tabPageFreqWalk
             // 
             this.tabPageFreqWalk.BackColor = System.Drawing.Color.LightGray;
+            this.tabPageFreqWalk.Controls.Add(this.checkBoxWalk3);
+            this.tabPageFreqWalk.Controls.Add(this.checkBoxWalk2);
+            this.tabPageFreqWalk.Controls.Add(this.checkBoxWalk1);
             this.tabPageFreqWalk.Controls.Add(this.numericUpDownFreqWalkDelay);
-            this.tabPageFreqWalk.Controls.Add(this.label19);
-            this.tabPageFreqWalk.Controls.Add(this.label13);
-            this.tabPageFreqWalk.Controls.Add(this.label12);
-            this.tabPageFreqWalk.Controls.Add(this.checkedListBoxWalkCustom);
-            this.tabPageFreqWalk.Controls.Add(this.checkedListBoxWalkFT4);
-            this.tabPageFreqWalk.Controls.Add(this.checkedListBoxWalkFT8);
+            this.tabPageFreqWalk.Controls.Add(this.labelFreqWalk3);
+            this.tabPageFreqWalk.Controls.Add(this.labelFreqWalk2);
+            this.tabPageFreqWalk.Controls.Add(this.labelFreqWalk1);
+            this.tabPageFreqWalk.Controls.Add(this.checkedListBoxWalk3);
+            this.tabPageFreqWalk.Controls.Add(this.checkedListBoxWalk2);
+            this.tabPageFreqWalk.Controls.Add(this.checkedListBoxWalk1);
             this.tabPageFreqWalk.Controls.Add(this.labelInterval);
             this.tabPageFreqWalk.Location = new System.Drawing.Point(4, 22);
             this.tabPageFreqWalk.Name = "tabPageFreqWalk";
@@ -3050,6 +3092,39 @@
             this.tabPageFreqWalk.TabIndex = 9;
             this.tabPageFreqWalk.Text = "FreqWalk";
             // 
+            // checkBoxWalk3
+            // 
+            this.checkBoxWalk3.AutoSize = true;
+            this.checkBoxWalk3.Location = new System.Drawing.Point(257, 20);
+            this.checkBoxWalk3.Name = "checkBoxWalk3";
+            this.checkBoxWalk3.Size = new System.Drawing.Size(15, 14);
+            this.checkBoxWalk3.TabIndex = 12;
+            this.toolTip1.SetToolTip(this.checkBoxWalk3, "Click to Enable");
+            this.checkBoxWalk3.UseVisualStyleBackColor = true;
+            this.checkBoxWalk3.CheckedChanged += new System.EventHandler(this.checkBoxWalkCustom_CheckedChanged);
+            // 
+            // checkBoxWalk2
+            // 
+            this.checkBoxWalk2.AutoSize = true;
+            this.checkBoxWalk2.Location = new System.Drawing.Point(135, 20);
+            this.checkBoxWalk2.Name = "checkBoxWalk2";
+            this.checkBoxWalk2.Size = new System.Drawing.Size(15, 14);
+            this.checkBoxWalk2.TabIndex = 11;
+            this.toolTip1.SetToolTip(this.checkBoxWalk2, "Click to Enable");
+            this.checkBoxWalk2.UseVisualStyleBackColor = true;
+            this.checkBoxWalk2.CheckedChanged += new System.EventHandler(this.checkBoxWalkFT4_CheckedChanged);
+            // 
+            // checkBoxWalk1
+            // 
+            this.checkBoxWalk1.AutoSize = true;
+            this.checkBoxWalk1.Location = new System.Drawing.Point(12, 21);
+            this.checkBoxWalk1.Name = "checkBoxWalk1";
+            this.checkBoxWalk1.Size = new System.Drawing.Size(15, 14);
+            this.checkBoxWalk1.TabIndex = 10;
+            this.toolTip1.SetToolTip(this.checkBoxWalk1, "Click to Enable");
+            this.checkBoxWalk1.UseVisualStyleBackColor = true;
+            this.checkBoxWalk1.CheckedChanged += new System.EventHandler(this.checkBoxWalkFT8_CheckedChanged);
+            // 
             // numericUpDownFreqWalkDelay
             // 
             this.numericUpDownFreqWalkDelay.Increment = new decimal(new int[] {
@@ -3057,7 +3132,7 @@
             0,
             0,
             0});
-            this.numericUpDownFreqWalkDelay.Location = new System.Drawing.Point(305, 6);
+            this.numericUpDownFreqWalkDelay.Location = new System.Drawing.Point(91, 4);
             this.numericUpDownFreqWalkDelay.Maximum = new decimal(new int[] {
             700,
             0,
@@ -3071,50 +3146,53 @@
             this.numericUpDownFreqWalkDelay.Name = "numericUpDownFreqWalkDelay";
             this.numericUpDownFreqWalkDelay.Size = new System.Drawing.Size(52, 20);
             this.numericUpDownFreqWalkDelay.TabIndex = 9;
-            this.toolTip1.SetToolTip(this.numericUpDownFreqWalkDelay, "Band change time relative to 0");
+            this.toolTip1.SetToolTip(this.numericUpDownFreqWalkDelay, "Time(ms) to change band before interval");
             this.numericUpDownFreqWalkDelay.Value = new decimal(new int[] {
             600,
             0,
             0,
             -2147483648});
             // 
-            // label19
+            // labelFreqWalk3
             // 
-            this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(255, 21);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(42, 13);
-            this.label19.TabIndex = 8;
-            this.label19.Text = "Custom";
-            this.label19.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.toolTip1.SetToolTip(this.label19, "Ctrl-click to edit freq");
+            this.labelFreqWalk3.AutoSize = true;
+            this.labelFreqWalk3.Location = new System.Drawing.Point(272, 20);
+            this.labelFreqWalk3.Name = "labelFreqWalk3";
+            this.labelFreqWalk3.Size = new System.Drawing.Size(42, 13);
+            this.labelFreqWalk3.TabIndex = 8;
+            this.labelFreqWalk3.Text = "Custom";
+            this.labelFreqWalk3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.toolTip1.SetToolTip(this.labelFreqWalk3, "Ctrl-click to edit freq");
+            this.labelFreqWalk3.Click += new System.EventHandler(this.labelFreqWalk3_Click);
             // 
-            // label13
+            // labelFreqWalk2
             // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(133, 21);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(26, 13);
-            this.label13.TabIndex = 7;
-            this.label13.Text = "FT4";
-            this.label13.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.toolTip1.SetToolTip(this.label13, "Ctrl-click to edit freq");
+            this.labelFreqWalk2.AutoSize = true;
+            this.labelFreqWalk2.Location = new System.Drawing.Point(150, 20);
+            this.labelFreqWalk2.Name = "labelFreqWalk2";
+            this.labelFreqWalk2.Size = new System.Drawing.Size(26, 13);
+            this.labelFreqWalk2.TabIndex = 7;
+            this.labelFreqWalk2.Text = "FT4";
+            this.labelFreqWalk2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.toolTip1.SetToolTip(this.labelFreqWalk2, "Ctrl-click to edit freq");
+            this.labelFreqWalk2.Click += new System.EventHandler(this.labelFreqWalk2_Click);
             // 
-            // label12
+            // labelFreqWalk1
             // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(10, 21);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(26, 13);
-            this.label12.TabIndex = 6;
-            this.label12.Text = "FT8";
-            this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.toolTip1.SetToolTip(this.label12, "Ctrl-click to edit freq");
+            this.labelFreqWalk1.AutoSize = true;
+            this.labelFreqWalk1.Location = new System.Drawing.Point(27, 20);
+            this.labelFreqWalk1.Name = "labelFreqWalk1";
+            this.labelFreqWalk1.Size = new System.Drawing.Size(26, 13);
+            this.labelFreqWalk1.TabIndex = 6;
+            this.labelFreqWalk1.Text = "FT8";
+            this.labelFreqWalk1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.toolTip1.SetToolTip(this.labelFreqWalk1, "Ctrl-click to edit freq");
+            this.labelFreqWalk1.Click += new System.EventHandler(this.labelFreqWalk1_Click);
             // 
-            // checkedListBoxWalkCustom
+            // checkedListBoxWalk3
             // 
-            this.checkedListBoxWalkCustom.FormattingEnabled = true;
-            this.checkedListBoxWalkCustom.Items.AddRange(new object[] {
+            this.checkedListBoxWalk3.FormattingEnabled = true;
+            this.checkedListBoxWalk3.Items.AddRange(new object[] {
             "14.090",
             "1.836",
             "0",
@@ -3125,18 +3203,18 @@
             "0",
             "0",
             "0"});
-            this.checkedListBoxWalkCustom.Location = new System.Drawing.Point(254, 34);
-            this.checkedListBoxWalkCustom.Name = "checkedListBoxWalkCustom";
-            this.checkedListBoxWalkCustom.Size = new System.Drawing.Size(103, 154);
-            this.checkedListBoxWalkCustom.TabIndex = 5;
-            this.toolTip1.SetToolTip(this.checkedListBoxWalkCustom, "Ctrl-click to edit freq\r\nShift-click to select all\r\nCtrl-Shift-click to deselect " +
-        "all");
-            this.checkedListBoxWalkCustom.SelectedIndexChanged += new System.EventHandler(this.CheckedListBoxWalk_SelectedIndexChanged);
+            this.checkedListBoxWalk3.Location = new System.Drawing.Point(254, 34);
+            this.checkedListBoxWalk3.Name = "checkedListBoxWalk3";
+            this.checkedListBoxWalk3.Size = new System.Drawing.Size(103, 154);
+            this.checkedListBoxWalk3.TabIndex = 5;
+            this.toolTip1.SetToolTip(this.checkedListBoxWalk3, "Click to enable\r\nDouble-Click to disable\r\nCtrl-click to edit freq\r\nShift-click to" +
+        " select all\r\nCtrl-Shift-click to deselect all");
+            this.checkedListBoxWalk3.SelectedIndexChanged += new System.EventHandler(this.CheckedListBoxWalk_SelectedIndexChanged);
             // 
-            // checkedListBoxWalkFT4
+            // checkedListBoxWalk2
             // 
-            this.checkedListBoxWalkFT4.FormattingEnabled = true;
-            this.checkedListBoxWalkFT4.Items.AddRange(new object[] {
+            this.checkedListBoxWalk2.FormattingEnabled = true;
+            this.checkedListBoxWalk2.Items.AddRange(new object[] {
             "50.318",
             "28.180",
             "24.919",
@@ -3147,18 +3225,18 @@
             "7.0475",
             "3.575",
             "0"});
-            this.checkedListBoxWalkFT4.Location = new System.Drawing.Point(132, 34);
-            this.checkedListBoxWalkFT4.Name = "checkedListBoxWalkFT4";
-            this.checkedListBoxWalkFT4.Size = new System.Drawing.Size(103, 154);
-            this.checkedListBoxWalkFT4.TabIndex = 4;
-            this.toolTip1.SetToolTip(this.checkedListBoxWalkFT4, "Ctrl-click to edit freq\r\nShift-click to select all\r\nCtrl-Shift-click to deselect " +
-        "all");
-            this.checkedListBoxWalkFT4.SelectedIndexChanged += new System.EventHandler(this.CheckedListBoxWalk_SelectedIndexChanged);
+            this.checkedListBoxWalk2.Location = new System.Drawing.Point(132, 34);
+            this.checkedListBoxWalk2.Name = "checkedListBoxWalk2";
+            this.checkedListBoxWalk2.Size = new System.Drawing.Size(103, 154);
+            this.checkedListBoxWalk2.TabIndex = 4;
+            this.toolTip1.SetToolTip(this.checkedListBoxWalk2, "Click to enable\r\nDouble-Click to disable\r\nCtrl-click to edit freq\r\nShift-click to" +
+        " select all\r\nCtrl-Shift-click to deselect all\r\n");
+            this.checkedListBoxWalk2.SelectedIndexChanged += new System.EventHandler(this.CheckedListBoxWalk_SelectedIndexChanged);
             // 
-            // checkedListBoxWalkFT8
+            // checkedListBoxWalk1
             // 
-            this.checkedListBoxWalkFT8.FormattingEnabled = true;
-            this.checkedListBoxWalkFT8.Items.AddRange(new object[] {
+            this.checkedListBoxWalk1.FormattingEnabled = true;
+            this.checkedListBoxWalk1.Items.AddRange(new object[] {
             "50.313",
             "28.074",
             "24.915",
@@ -3169,13 +3247,13 @@
             "7.074",
             "3.573",
             "1.840"});
-            this.checkedListBoxWalkFT8.Location = new System.Drawing.Point(9, 34);
-            this.checkedListBoxWalkFT8.Name = "checkedListBoxWalkFT8";
-            this.checkedListBoxWalkFT8.Size = new System.Drawing.Size(103, 154);
-            this.checkedListBoxWalkFT8.TabIndex = 3;
-            this.toolTip1.SetToolTip(this.checkedListBoxWalkFT8, "Ctrl-click to edit freq\r\nShift-click to select all\r\nCtrl-Shift-click to deselect " +
-        "all");
-            this.checkedListBoxWalkFT8.SelectedIndexChanged += new System.EventHandler(this.CheckedListBoxWalk_SelectedIndexChanged);
+            this.checkedListBoxWalk1.Location = new System.Drawing.Point(9, 34);
+            this.checkedListBoxWalk1.Name = "checkedListBoxWalk1";
+            this.checkedListBoxWalk1.Size = new System.Drawing.Size(103, 154);
+            this.checkedListBoxWalk1.TabIndex = 3;
+            this.toolTip1.SetToolTip(this.checkedListBoxWalk1, "Click to enable\r\nDouble-Click to disable\r\nCtrl-click to edit freq\r\nShift-click to" +
+        " select all\r\nCtrl-Shift-click to deselect all\r\n");
+            this.checkedListBoxWalk1.SelectedIndexChanged += new System.EventHandler(this.CheckedListBoxWalk_SelectedIndexChanged);
             // 
             // labelInterval
             // 
@@ -4239,7 +4317,7 @@
             this.Margin = new System.Windows.Forms.Padding(2);
             this.MaximumSize = new System.Drawing.Size(417, 310);
             this.Name = "Form1";
-            this.Text = "AmpAutoTunerUtility V0.110";
+            this.Text = "AmpAutoTunerUtility 230329a";
             this.HelpButtonClicked += new System.ComponentModel.CancelEventHandler(this.Form1_HelpButtonClicked);
             this.Activated += new System.EventHandler(this.Form1_Activated);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
@@ -4455,16 +4533,16 @@
         private System.Windows.Forms.CheckBox checkBoxAntenna3;
         private System.Windows.Forms.CheckBox checkBoxAntenna2;
         private System.Windows.Forms.CheckBox checkBoxAntenna1;
-        private System.Windows.Forms.ComboBox comboBoxAntenna8Relay;
-        private System.Windows.Forms.ComboBox comboBoxAntenna7Relay;
-        private System.Windows.Forms.ComboBox comboBoxAntenna6Relay;
-        private System.Windows.Forms.ComboBox comboBoxAntenna5Relay;
-        private System.Windows.Forms.ComboBox comboBoxAntenna4Relay;
-        private System.Windows.Forms.ComboBox comboBoxAntenna3Relay;
-        private System.Windows.Forms.ComboBox comboBoxAntenna2Relay;
+        private System.Windows.Forms.ComboBox comboBoxAntenna8Controller;
+        private System.Windows.Forms.ComboBox comboBoxAntenna7Controller;
+        private System.Windows.Forms.ComboBox comboBoxAntenna6Controller;
+        private System.Windows.Forms.ComboBox comboBoxAntenna5Controller;
+        private System.Windows.Forms.ComboBox comboBoxAntenna4Controller;
+        private System.Windows.Forms.ComboBox comboBoxAntenna3Controller;
+        private System.Windows.Forms.ComboBox comboBoxAntenna2Controller;
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.Label label16;
-        private System.Windows.Forms.ComboBox comboBoxAntenna1Relay;
+        private System.Windows.Forms.ComboBox comboBoxAntenna1Controller;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.TabPage tabPagePower;
@@ -4595,13 +4673,17 @@
         private System.Windows.Forms.CheckBox checkBoxAntenna1Amp;
         private System.Windows.Forms.Label labelInterval;
         private System.Windows.Forms.Label labelClock;
-        private System.Windows.Forms.CheckedListBox checkedListBoxWalkCustom;
-        private System.Windows.Forms.CheckedListBox checkedListBoxWalkFT4;
-        private System.Windows.Forms.CheckedListBox checkedListBoxWalkFT8;
-        private System.Windows.Forms.Label label19;
-        private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.CheckedListBox checkedListBoxWalk3;
+        private System.Windows.Forms.CheckedListBox checkedListBoxWalk2;
+        private System.Windows.Forms.CheckedListBox checkedListBoxWalk1;
+        private System.Windows.Forms.Label labelFreqWalk3;
+        private System.Windows.Forms.Label labelFreqWalk2;
+        private System.Windows.Forms.Label labelFreqWalk1;
         private System.Windows.Forms.NumericUpDown numericUpDownFreqWalkDelay;
+        private System.Windows.Forms.CheckBox checkBoxTuneStartup;
+        private System.Windows.Forms.CheckBox checkBoxWalk3;
+        private System.Windows.Forms.CheckBox checkBoxWalk2;
+        private System.Windows.Forms.CheckBox checkBoxWalk1;
     }
 }
 

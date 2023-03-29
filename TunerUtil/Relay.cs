@@ -310,23 +310,43 @@ namespace AmpAutoTunerUtility
                 ftdi.GetPinStates(ref bitModes);
                 bitModesSave = bitModes;
                 // we need to mask the antenna bit if being requested
+                DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.LOG, "nRelay=" + nRelay + " AmpRelay=" + this.AmpRelay);
                 if (nRelay == this.AmpRelay)
                 {
                     // just set the amp bit 
                     int tmp1 = bitModes;
-                    tmp1 ^= (-status ^ bitModes) & (0x1 << (nRelay-1));
+                    DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.LOG, "tmp1 #1=" + tmp1);
+                    tmp1 ^= (-status ^ bitModes) & (0x1 << (nRelay - 1));
+                    DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.LOG, "tmp1 #2=" + tmp1);
                     bitModes = (byte)tmp1;
-                }
-                else
-                {
-                    // turn off all antenna bits by masking amp bit only
-                    // because we will re-enable them if setting them
-                    bitModes = (byte)(bitModes & (byte)(0x1 << (this.ampRelay-1)));
+                    DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.LOG, "bitModes " + bitModes);
                     data[0] = data[1] = 0xff;
                     data[0] &= bitModes;
                     data[1] &= bitModes;
                     data[2] = bitModes;
                     ftdi.Write(data, data.Length, ref nWritten);
+                    return;
+                }
+                else
+                {
+                    DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.LOG, "Turn off all antenna bits");
+
+                    // turn off all antenna bits by masking amp bit only
+                    // because we will re-enable them if setting them
+                    bitModes = (byte)(bitModes & (byte)(0x1 << (this.ampRelay - 1)));
+                    data[0] = data[1] = 0xff;
+                    data[0] &= bitModes;
+                    data[1] &= bitModes;
+                    data[2] = bitModes;
+                    if ((bitModes & nRelay) != (bitModesSave & nRelay))
+                    { 
+                        ftdi.Write(data, data.Length, ref nWritten);
+                        Thread.Sleep(500);
+                    }
+                    byte newBitModes = 0xff;
+                    ftdi.GetPinStates(ref newBitModes);
+                    DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.LOG, "Bits after zeroed=" + newBitModes);
+
                 }
                 if (status != 0)
                 {
@@ -352,20 +372,24 @@ namespace AmpAutoTunerUtility
                 data[1] &= flags;
                 DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.LOG, "Relay #" + nRelay + " set=" + status + " bits=" + bitModes + " newBits=" + flags + "\n");
                 data[2] = flags;
-                ftdi.Write(data, data.Length, ref nWritten);
-                if (nWritten == 0)
+                //if (bitModes != bitModesSave) 
                 {
-                    Close();
-                    errMsg = "Unable to write to relay...disconnected?";
-                    DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.ERR, errMsg);
-                    Monitor.Exit(ftdi);
-                    return;
-                    //throw new Exception("Unable to write to relay...disconnected?");
+
+                    ftdi.Write(data, data.Length, ref nWritten);
+                    if (nWritten == 0)
+                    {
+                        Close();
+                        errMsg = "Unable to write to relay...disconnected?";
+                        DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.ERR, errMsg);
+                        Monitor.Exit(ftdi);
+                        return;
+                        //throw new Exception("Unable to write to relay...disconnected?");
+                    }
+                    Thread.Sleep(200);
                 }
-                Thread.Sleep(100);
                 byte bitModes2 = 0x00;
                 ftdi.GetPinStates(ref bitModes2);
-                //DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.LOG, "Relay #" + nRelay + " statusbits=" + bitModes2 + "\n");
+                DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.LOG, "Relay #" + nRelay + " statusbits=" + bitModes2 + "\n");
                 if (status != 0) // check we set it
                 {
                     if ((bitModes2 & (1u << (nRelay - 1))) == 0)

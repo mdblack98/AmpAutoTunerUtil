@@ -110,8 +110,17 @@ namespace AmpAutoTunerUtility
                 }
 
                 Thread.Sleep(100);
-                response = (char)SerialPortTuner.ReadChar();
-                Thread.Sleep(200);
+                int loop = 3;
+                char c;
+                do
+                {
+                    --loop;
+                    c = (char)SerialPortTuner.ReadChar();
+                    DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.LOG, "LDG Response=0x" + String.Format("#{0:X}\n", c));
+                } while (loop > 0 && c != 'T' && c != 'F' && c != 'M');
+                if (loop < 0) DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.ERR, "LDG timeout\n");
+                response = c;
+                Thread.Sleep(250);  // Manual say no commands within 200ms of last command
             }
             catch (Exception ex)
             {

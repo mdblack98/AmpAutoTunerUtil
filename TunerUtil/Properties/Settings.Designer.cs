@@ -12,7 +12,7 @@ namespace AmpAutoTunerUtility.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.2.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.4.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -2198,84 +2198,156 @@ namespace AmpAutoTunerUtility.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string FrequenciesToWalkFT8 {
+        public string FrequenciesToWalk1 {
             get {
-                return ((string)(this["FrequenciesToWalkFT8"]));
+                return ((string)(this["FrequenciesToWalk1"]));
             }
             set {
-                this["FrequenciesToWalkFT8"] = value;
+                this["FrequenciesToWalk1"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string FrequenciesToWalkFT4 {
+        public string FrequenciesToWalk2 {
             get {
-                return ((string)(this["FrequenciesToWalkFT4"]));
+                return ((string)(this["FrequenciesToWalk2"]));
             }
             set {
-                this["FrequenciesToWalkFT4"] = value;
+                this["FrequenciesToWalk2"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string FrequenciesToWalkCustom {
+        public string FrequenciesToWalk3 {
             get {
-                return ((string)(this["FrequenciesToWalkCustom"]));
+                return ((string)(this["FrequenciesToWalk3"]));
             }
             set {
-                this["FrequenciesToWalkCustom"] = value;
+                this["FrequenciesToWalk3"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string FrequenciesToWalkFT8List {
+        public string FrequenciesToWalk1List {
             get {
-                return ((string)(this["FrequenciesToWalkFT8List"]));
+                return ((string)(this["FrequenciesToWalk1List"]));
             }
             set {
-                this["FrequenciesToWalkFT8List"] = value;
+                this["FrequenciesToWalk1List"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string FrequenciesToWalkFT4List {
+        public string FrequenciesToWalk2List {
             get {
-                return ((string)(this["FrequenciesToWalkFT4List"]));
+                return ((string)(this["FrequenciesToWalk2List"]));
             }
             set {
-                this["FrequenciesToWalkFT4List"] = value;
+                this["FrequenciesToWalk2List"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string FrequenciesToWalkCustomList {
+        public string FrequenciesToWalk3List {
             get {
-                return ((string)(this["FrequenciesToWalkCustomList"]));
+                return ((string)(this["FrequenciesToWalk3List"]));
             }
             set {
-                this["FrequenciesToWalkCustomList"] = value;
+                this["FrequenciesToWalk3List"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("-600")]
+        [global::System.Configuration.DefaultSettingValueAttribute("-700")]
         public decimal FreqWalkDelay {
             get {
                 return ((decimal)(this["FreqWalkDelay"]));
             }
             set {
                 this["FreqWalkDelay"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool FrequenciesToWalk1Enabled {
+            get {
+                return ((bool)(this["FrequenciesToWalk1Enabled"]));
+            }
+            set {
+                this["FrequenciesToWalk1Enabled"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool FrequenciesToWalk2Enabled {
+            get {
+                return ((bool)(this["FrequenciesToWalk2Enabled"]));
+            }
+            set {
+                this["FrequenciesToWalk2Enabled"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool FrequenciesToWalk3Enabled {
+            get {
+                return ((bool)(this["FrequenciesToWalk3Enabled"]));
+            }
+            set {
+                this["FrequenciesToWalk3Enabled"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("FT8")]
+        public string labelFreqWalk1 {
+            get {
+                return ((string)(this["labelFreqWalk1"]));
+            }
+            set {
+                this["labelFreqWalk1"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("FT4")]
+        public string labelFreqWalk2 {
+            get {
+                return ((string)(this["labelFreqWalk2"]));
+            }
+            set {
+                this["labelFreqWalk2"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Custom")]
+        public string labelFreqWalk3 {
+            get {
+                return ((string)(this["labelFreqWalk3"]));
+            }
+            set {
+                this["labelFreqWalk3"] = value;
             }
         }
     }
