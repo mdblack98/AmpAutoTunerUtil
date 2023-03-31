@@ -1,23 +1,34 @@
-﻿using System;
+﻿using Microsoft.VisualBasic.Logging;
+using System;
 using System.Globalization;
 using System.IO.Ports;
+using System.Linq;
+using System.Security.Cryptography;
 using System.Threading;
 using System.Windows;
 using System.Windows.Forms;
+using System.Windows.Forms.VisualStyles;
 
 namespace AmpAutoTunerUtility
 {
     class TunerExpertLinears : Tuner
     {
         private SerialPort SerialPortTuner = null;
+        private bool runThread = false;
         char response = 'X';
-
-        public TunerExpertLinears(string model, string comport, string baud)
+        private string swr1 = "?";
+        private string swr2 = "?";
+        private string power = "?";
+        private string temp1 = "?";
+        private string antenna = "?";
+        private string band = "?";
+        public TunerExpertLinears(string model, string comport, string baud, out string errmsg)
         {
+            errmsg = null;
             this.comport = comport;
             this.model = model;
-            if (!baud.Equals("38400"))
-                baud = "38400"; // baud rate is fixed
+            if (!baud.Equals("115200"))
+                baud = "115200"; // baud rate is fixed
             if (comport.Length == 0 || baud.Length == 0)
             {
                 MessageBox.Show("com port(" + comport + ") or baud(" + baud + ") is empty");
@@ -33,10 +44,15 @@ namespace AmpAutoTunerUtility
                 DataBits = 8,
                 StopBits = StopBits.One,
                 Handshake = Handshake.None,
-                ReadTimeout = 30000,
+                ReadTimeout = 1000,
                 WriteTimeout = 500
             };
             SerialPortTuner.Open();
+            Thread.Sleep(500);
+            myThread = new Thread(new ThreadStart(this.ThreadTask));
+            myThread.IsBackground = true;
+            myThread.Start();
+
             //}
             //catch (Exception ex)
             //{
@@ -53,6 +69,10 @@ namespace AmpAutoTunerUtility
         }
         public override void Close()
         {
+            //myThread.Abort();
+            runThread = false;
+            while (myThread.IsAlive) Thread.Sleep(50);
+
             if (SerialPortTuner != null)
             {
                 SerialPortTuner.Close();
@@ -61,6 +81,94 @@ namespace AmpAutoTunerUtility
             }
         }
 
+        Thread myThread;
+        private void ThreadTask()
+        {
+            //Byte[] cmd = { 0x55, 0x55, 0x55, 0x01, 0x80, 0x80 };
+            Byte[] cmd = { 0x55, 0x55, 0x55, 0x01, 0x90, 0x90 };
+            Byte[] response = new Byte[128];
+            Thread.Sleep(1000);
+            SerialPortTuner.Write(cmd, 0, 6);
+            runThread = true;
+            while (runThread)
+            {
+                Byte myByte;
+                myByte = 0x00;
+                try
+                {
+                    SerialPortTuner.Write(cmd, 0, 6);
+                }
+                catch (Exception)
+                {
+                    return;
+                }
+                while (myByte != 0xaa)
+                    try
+                    {
+                        myByte = (byte)SerialPortTuner.ReadByte();
+                        //DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.LOG, "Got " + String.Format("{0:X}", myByte));
+                    }
+                    catch (Exception ex)
+                    {
+                        if (ex.HResult != -2146233083)
+                            DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.LOG, "timeout");
+                    }
+                response[0] = myByte;
+                response[1] = (byte)SerialPortTuner.ReadByte();
+                if (response[1] != 0xaa) continue;
+                response[2] = (byte)SerialPortTuner.ReadByte();
+                if (response[2] != 0xaa) continue;
+                response[3] = (byte)SerialPortTuner.ReadByte(); // should be the length
+                //DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.LOG, "bytes=" + response[3]);
+                for (int i = 0; i < response[3]; ++i)
+                {
+                    response[i + 4] = (byte)SerialPortTuner.ReadByte();
+                }
+                var sresponse = System.Text.Encoding.Default.GetString(response);
+                //DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.LOG, sresponse);
+                // "ªªªC,13K,S,R,A,1,10,1a,0r,L,00\00, 0.00, 0.00, 0.0, 0.0,081,000,000,N,N,
+                // SYNC,ID,Operate(S/O),Rx/Tx,Bank,Input,Band,TXAnt and ATU, RxAnt,PwrLevel,PwrOut,SWRATU,SWRANT,VPA, IPA, TempUpper, TempLower,
+                string[] mytokens = sresponse.Split(',');
+                if (mytokens.Length > 15)
+                {
+                    if (!band.Equals(mytokens[6]))
+                    {
+                        DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.LOG, "Expert Linears changed from band " + band + " to " + mytokens[6] + "\n");
+                        Application.DoEvents();
+                        band = mytokens[6];
+                    }
+                    if (!antenna.Equals(mytokens[7]))
+                    {
+                        DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.LOG, "Expert Linears changed from antenna " + antenna + " to " + mytokens[7] + "\n");
+                        Application.DoEvents();
+                        antenna = mytokens[7];
+                    }
+                    AntennaNumber = int.Parse(antenna.Substring(0, 1));
+                    power = mytokens[10];
+                    swr1 = mytokens[11];
+                    swr2 = mytokens[12];
+                    if (temp1.Equals("?")) DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.LOG, "Expert Linears connected\n");
+                    temp1 = mytokens[15];
+                    if (mytokens.Length >= 21)
+                    { 
+                        char c = mytokens[20][0];
+                        if (c != '\0')
+                        {
+                            DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.LOG, mytokens[20]);
+                            Application.DoEvents();
+                        }
+                    }
+                    Application.DoEvents();
+                }
+                Thread.Sleep(1000);
+            }
+
+        }
+
+        public override string GetSWRString()
+        {
+            return "SWR ATU/ANT" + swr1 + "/" + swr2;
+        }
         public override string GetSerialPortTuner()
         {
             if (SerialPortTuner == null)
@@ -79,108 +187,33 @@ namespace AmpAutoTunerUtility
         {
             // Can't get power from the LDG tuner
             // So will have to use the rig power level instead elsewhere
-            return null;
+            return "Pwr/Temp " + power + "/" + temp1 + "C";
         }
         public override void Tune()
         {
-            // LDG Reponse to T command
-            // T < 1.5
-            // M 1.5-3.1
-            // F Failed
-            //byte[] buf = new byte[19];
-            SerialPortTuner.ReadTimeout = 30000;
-            try
-            {
-                // Need leading space to wake up the tuner
-                while (SerialPortTuner.BytesToRead > 0)
-                {
-                    SerialPortTuner.ReadChar();
-                }
-
-                SerialPortTuner.Write("  ");
-                // Documentation doesn't mention you need to wait a bit after the wakeup char
-                Thread.Sleep(50);
-                if (TuneFull)
-                {
-                    SerialPortTuner.Write("F");
-                }
-                else
-                {
-                    SerialPortTuner.Write("T");
-                }
-
-                Thread.Sleep(100);
-                int loop = 3;
-                char c;
-                do
-                {
-                    --loop;
-                    c = (char)SerialPortTuner.ReadChar();
-                    DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.LOG, "LDG Response=0x" + String.Format("#{0:X}\n", c));
-                } while (loop > 0 && c != 'T' && c != 'F' && c != 'M');
-                if (loop < 0) DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.ERR, "LDG timeout\n");
-                response = c;
-                Thread.Sleep(250);  // Manual say no commands within 200ms of last command
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Tuner Util:" + ex.Message);
-                response = '?';
-            }
         }
 
-        //public override int GetAntenna()
-        //{
-        /*
-        SerialPortTuner.Write("A");
-        Thread.Sleep(100);
-        response = (char)SerialPortTuner.ReadChar();
-        AntennaNumber = Convert.ToInt32(response);
-        return AntennaNumber;
-        */
-        //}
+        public override int GetAntenna()
+        {
+            return int.Parse(antenna);
+        }
         public override void SetAntenna(int antennaNumberRequested, bool tuneIsRunning = false)
         {
+            DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.LOG, "SetAntenna " + antennaNumberRequested);
             try
             {
-                if (antennaNumberRequested == AntennaNumber) return;
-                SerialPortTuner.Write(" ");
-                Thread.Sleep(50);
-                SerialPortTuner.Write("A");
-                //Thread.Sleep(1000);
-                SerialPortTuner.ReadTimeout = 1000;
-                response = (char)SerialPortTuner.ReadChar();
-                if (response == 0)
+                int tmp;
+                if (int.TryParse(antenna, out tmp) == false) 
+                    Thread.Sleep(2000);
+                if (int.Parse(antenna.Substring(0,1)) == antennaNumberRequested)
                 {
-                    MessageBox.Show("No response to antenna query");
+                    DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.LOG, "Antenna already set to " + antennaNumberRequested);
                     return;
                 }
-                switch (response)
-                {
-                    case '1': AntennaNumber = 1; break;
-                    case '2': AntennaNumber = 2; break;
-                    default: MessageBox.Show("Unknown antenna=" + response); break;
-                }
-                //MessageBox.Show("Query#1 response=" + response + " AntennaNumber/antennaNumberRequested=" + AntennaNumber + "/" + antennaNumberRequested);
-                if (antennaNumberRequested != AntennaNumber)
-                {
-                    SerialPortTuner.Write(" ");
-                    Thread.Sleep(50);
-                    SerialPortTuner.Write("A" + antennaNumberRequested);
-                    response = (char)SerialPortTuner.ReadChar();
-                    if (response == 0)
-                    {
-                        MessageBox.Show("No response to antenna query#2");
-                        return;
-                    }
-                    switch (response)
-                    {
-                        case '1': AntennaNumber = 1; break;
-                        case '2': AntennaNumber = 2; break;
-                        default: MessageBox.Show("Unknown antenna=" + response); break;
-                    }
-                    //MessageBox.Show("Query#2 response=" + response + " AntennaNumber/antennaNumberRequested=" + AntennaNumber + "/" + antennaNumberRequested);
-                }
+                Byte[] cmd = { 0x55, 0x55, 0x55, 0x01, 0x04, 0x04 };
+                Byte[] response = new Byte[128];
+                SerialPortTuner.Write(cmd, 0, 6);
+                Thread.Sleep(1000);
             }
             catch (Exception ex)
             {

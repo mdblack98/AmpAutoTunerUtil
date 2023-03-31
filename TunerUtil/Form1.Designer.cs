@@ -226,6 +226,7 @@
             this.label15 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
             this.tabPageFreqWalk = new System.Windows.Forms.TabPage();
+            this.comboBoxFreqWalkAntenna = new System.Windows.Forms.ComboBox();
             this.checkBoxWalk3 = new System.Windows.Forms.CheckBox();
             this.checkBoxWalk2 = new System.Windows.Forms.CheckBox();
             this.checkBoxWalk1 = new System.Windows.Forms.CheckBox();
@@ -1386,7 +1387,7 @@
             // 
             this.labelSWR.AutoSize = true;
             this.labelSWR.Font = new System.Drawing.Font("Californian FB", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelSWR.Location = new System.Drawing.Point(4, 64);
+            this.labelSWR.Location = new System.Drawing.Point(4, 41);
             this.labelSWR.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelSWR.Name = "labelSWR";
             this.labelSWR.Size = new System.Drawing.Size(44, 18);
@@ -1398,7 +1399,7 @@
             // 
             this.labelPower.AutoSize = true;
             this.labelPower.Font = new System.Drawing.Font("Californian FB", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelPower.Location = new System.Drawing.Point(4, 41);
+            this.labelPower.Location = new System.Drawing.Point(4, 63);
             this.labelPower.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelPower.Name = "labelPower";
             this.labelPower.Size = new System.Drawing.Size(50, 18);
@@ -1483,11 +1484,14 @@
             // 
             // labelControlLog
             // 
+            this.labelControlLog.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.labelControlLog.AutoSize = true;
             this.labelControlLog.Location = new System.Drawing.Point(11, 156);
             this.labelControlLog.Name = "labelControlLog";
-            this.labelControlLog.Size = new System.Drawing.Size(0, 13);
+            this.labelControlLog.Size = new System.Drawing.Size(65, 13);
             this.labelControlLog.TabIndex = 17;
+            this.labelControlLog.Text = "Logging info";
             // 
             // groupBox2
             // 
@@ -1886,7 +1890,7 @@
             this.comboBoxTunerModel.Items.AddRange(new object[] {
             "LDG",
             "MFJ-928",
-            "ExpertLinears"});
+            "Expert Linears"});
             this.comboBoxTunerModel.Location = new System.Drawing.Point(8, 7);
             this.comboBoxTunerModel.Margin = new System.Windows.Forms.Padding(2);
             this.comboBoxTunerModel.Name = "comboBoxTunerModel";
@@ -3074,6 +3078,7 @@
             // tabPageFreqWalk
             // 
             this.tabPageFreqWalk.BackColor = System.Drawing.Color.LightGray;
+            this.tabPageFreqWalk.Controls.Add(this.comboBoxFreqWalkAntenna);
             this.tabPageFreqWalk.Controls.Add(this.checkBoxWalk3);
             this.tabPageFreqWalk.Controls.Add(this.checkBoxWalk2);
             this.tabPageFreqWalk.Controls.Add(this.checkBoxWalk1);
@@ -3091,6 +3096,21 @@
             this.tabPageFreqWalk.Size = new System.Drawing.Size(365, 195);
             this.tabPageFreqWalk.TabIndex = 9;
             this.tabPageFreqWalk.Text = "FreqWalk";
+            // 
+            // comboBoxFreqWalkAntenna
+            // 
+            this.comboBoxFreqWalkAntenna.FormattingEnabled = true;
+            this.comboBoxFreqWalkAntenna.Items.AddRange(new object[] {
+            "1",
+            "2",
+            "3",
+            "4"});
+            this.comboBoxFreqWalkAntenna.Location = new System.Drawing.Point(194, 3);
+            this.comboBoxFreqWalkAntenna.Name = "comboBoxFreqWalkAntenna";
+            this.comboBoxFreqWalkAntenna.Size = new System.Drawing.Size(41, 21);
+            this.comboBoxFreqWalkAntenna.TabIndex = 13;
+            this.toolTip1.SetToolTip(this.comboBoxFreqWalkAntenna, "Antenna for FreqWalk");
+            this.comboBoxFreqWalkAntenna.SelectedIndexChanged += new System.EventHandler(this.comboBoxFreqWalkAntenna_SelectedIndexChanged);
             // 
             // checkBoxWalk3
             // 
@@ -3132,7 +3152,7 @@
             0,
             0,
             0});
-            this.numericUpDownFreqWalkDelay.Location = new System.Drawing.Point(91, 4);
+            this.numericUpDownFreqWalkDelay.Location = new System.Drawing.Point(79, 4);
             this.numericUpDownFreqWalkDelay.Maximum = new decimal(new int[] {
             700,
             0,
@@ -4219,6 +4239,7 @@
             this.antennaToolStripMenuItem.Name = "antennaToolStripMenuItem";
             this.antennaToolStripMenuItem.Size = new System.Drawing.Size(119, 22);
             this.antennaToolStripMenuItem.Text = "Antenna";
+            this.antennaToolStripMenuItem.Click += new System.EventHandler(this.antennaToolStripMenuItem_Click);
             // 
             // debugToolStripMenuItem
             // 
@@ -4227,6 +4248,7 @@
             this.debugToolStripMenuItem.Name = "debugToolStripMenuItem";
             this.debugToolStripMenuItem.Size = new System.Drawing.Size(119, 22);
             this.debugToolStripMenuItem.Text = "Debug";
+            this.debugToolStripMenuItem.Click += new System.EventHandler(this.debugToolStripMenuItem_Click);
             // 
             // powerToolStripMenuItem
             // 
@@ -4243,6 +4265,7 @@
             this.tunerToolStripMenuItem.Name = "tunerToolStripMenuItem";
             this.tunerToolStripMenuItem.Size = new System.Drawing.Size(119, 22);
             this.tunerToolStripMenuItem.Text = "Tuner";
+            this.tunerToolStripMenuItem.Click += new System.EventHandler(this.tunerToolStripMenuItem_Click);
             // 
             // relay1ToolStripMenuItem
             // 
@@ -4267,6 +4290,7 @@
             this.relay3ToolStripMenuItem.Name = "relay3ToolStripMenuItem";
             this.relay3ToolStripMenuItem.Size = new System.Drawing.Size(119, 22);
             this.relay3ToolStripMenuItem.Text = "Relay3";
+            this.relay3ToolStripMenuItem.Click += new System.EventHandler(this.relay3ToolStripMenuItem_Click);
             // 
             // relay4ToolStripMenuItem
             // 
@@ -4274,6 +4298,7 @@
             this.relay4ToolStripMenuItem.Name = "relay4ToolStripMenuItem";
             this.relay4ToolStripMenuItem.Size = new System.Drawing.Size(119, 22);
             this.relay4ToolStripMenuItem.Text = "Relay4";
+            this.relay4ToolStripMenuItem.Click += new System.EventHandler(this.relay4ToolStripMenuItem_Click);
             // 
             // aboutToolStripMenuItem
             // 
@@ -4317,7 +4342,7 @@
             this.Margin = new System.Windows.Forms.Padding(2);
             this.MaximumSize = new System.Drawing.Size(417, 310);
             this.Name = "Form1";
-            this.Text = "AmpAutoTunerUtility 230329a";
+            this.Text = "AmpAutoTunerUtility 230330a";
             this.HelpButtonClicked += new System.ComponentModel.CancelEventHandler(this.Form1_HelpButtonClicked);
             this.Activated += new System.EventHandler(this.Form1_Activated);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
@@ -4684,6 +4709,7 @@
         private System.Windows.Forms.CheckBox checkBoxWalk3;
         private System.Windows.Forms.CheckBox checkBoxWalk2;
         private System.Windows.Forms.CheckBox checkBoxWalk1;
+        private System.Windows.Forms.ComboBox comboBoxFreqWalkAntenna;
     }
 }
 

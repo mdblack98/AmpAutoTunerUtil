@@ -159,7 +159,7 @@ namespace AmpAutoTunerUtility
             if (ftdi != null)
             {
                 //AllOff();
-                DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.LOG, "FTDI close#3\n");
+                //DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.LOG, "FTDI close#3\n");
                 ftdi.Close();
                 Thread.Sleep(200);
             }
