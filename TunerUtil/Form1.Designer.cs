@@ -486,10 +486,10 @@
             // comboBoxAntenna1Controller
             // 
             this.comboBoxAntenna1Controller.FormattingEnabled = true;
-            this.comboBoxAntenna1Controller.Location = new System.Drawing.Point(259, 17);
+            this.comboBoxAntenna1Controller.Location = new System.Drawing.Point(251, 17);
             this.comboBoxAntenna1Controller.Margin = new System.Windows.Forms.Padding(2);
             this.comboBoxAntenna1Controller.Name = "comboBoxAntenna1Controller";
-            this.comboBoxAntenna1Controller.Size = new System.Drawing.Size(60, 21);
+            this.comboBoxAntenna1Controller.Size = new System.Drawing.Size(77, 21);
             this.comboBoxAntenna1Controller.TabIndex = 16;
             this.toolTip1.SetToolTip(this.comboBoxAntenna1Controller, "Relay to use");
             this.comboBoxAntenna1Controller.SelectedIndexChanged += new System.EventHandler(this.ComboBoxAntenna1Bits_SelectedIndexChanged);
@@ -509,10 +509,10 @@
             // comboBoxAntenna2Controller
             // 
             this.comboBoxAntenna2Controller.FormattingEnabled = true;
-            this.comboBoxAntenna2Controller.Location = new System.Drawing.Point(259, 39);
+            this.comboBoxAntenna2Controller.Location = new System.Drawing.Point(251, 39);
             this.comboBoxAntenna2Controller.Margin = new System.Windows.Forms.Padding(2);
             this.comboBoxAntenna2Controller.Name = "comboBoxAntenna2Controller";
-            this.comboBoxAntenna2Controller.Size = new System.Drawing.Size(60, 21);
+            this.comboBoxAntenna2Controller.Size = new System.Drawing.Size(77, 21);
             this.comboBoxAntenna2Controller.TabIndex = 20;
             this.toolTip1.SetToolTip(this.comboBoxAntenna2Controller, "Relay to use");
             this.comboBoxAntenna2Controller.SelectedIndexChanged += new System.EventHandler(this.ComboBoxAntenna1Bits_SelectedIndexChanged);
@@ -520,10 +520,10 @@
             // comboBoxAntenna3Controller
             // 
             this.comboBoxAntenna3Controller.FormattingEnabled = true;
-            this.comboBoxAntenna3Controller.Location = new System.Drawing.Point(259, 61);
+            this.comboBoxAntenna3Controller.Location = new System.Drawing.Point(251, 61);
             this.comboBoxAntenna3Controller.Margin = new System.Windows.Forms.Padding(2);
             this.comboBoxAntenna3Controller.Name = "comboBoxAntenna3Controller";
-            this.comboBoxAntenna3Controller.Size = new System.Drawing.Size(60, 21);
+            this.comboBoxAntenna3Controller.Size = new System.Drawing.Size(77, 21);
             this.comboBoxAntenna3Controller.TabIndex = 22;
             this.toolTip1.SetToolTip(this.comboBoxAntenna3Controller, "Relay to use");
             this.comboBoxAntenna3Controller.SelectedIndexChanged += new System.EventHandler(this.ComboBoxAntenna1Bits_SelectedIndexChanged);
@@ -531,10 +531,10 @@
             // comboBoxAntenna4Controller
             // 
             this.comboBoxAntenna4Controller.FormattingEnabled = true;
-            this.comboBoxAntenna4Controller.Location = new System.Drawing.Point(259, 83);
+            this.comboBoxAntenna4Controller.Location = new System.Drawing.Point(251, 83);
             this.comboBoxAntenna4Controller.Margin = new System.Windows.Forms.Padding(2);
             this.comboBoxAntenna4Controller.Name = "comboBoxAntenna4Controller";
-            this.comboBoxAntenna4Controller.Size = new System.Drawing.Size(60, 21);
+            this.comboBoxAntenna4Controller.Size = new System.Drawing.Size(77, 21);
             this.comboBoxAntenna4Controller.TabIndex = 24;
             this.toolTip1.SetToolTip(this.comboBoxAntenna4Controller, "Relay to use");
             this.comboBoxAntenna4Controller.SelectedIndexChanged += new System.EventHandler(this.ComboBoxAntenna1Bits_SelectedIndexChanged);
@@ -542,10 +542,10 @@
             // comboBoxAntenna5Controller
             // 
             this.comboBoxAntenna5Controller.FormattingEnabled = true;
-            this.comboBoxAntenna5Controller.Location = new System.Drawing.Point(259, 105);
+            this.comboBoxAntenna5Controller.Location = new System.Drawing.Point(251, 105);
             this.comboBoxAntenna5Controller.Margin = new System.Windows.Forms.Padding(2);
             this.comboBoxAntenna5Controller.Name = "comboBoxAntenna5Controller";
-            this.comboBoxAntenna5Controller.Size = new System.Drawing.Size(60, 21);
+            this.comboBoxAntenna5Controller.Size = new System.Drawing.Size(77, 21);
             this.comboBoxAntenna5Controller.TabIndex = 26;
             this.toolTip1.SetToolTip(this.comboBoxAntenna5Controller, "Relay to use");
             this.comboBoxAntenna5Controller.SelectedIndexChanged += new System.EventHandler(this.ComboBoxAntenna1Bits_SelectedIndexChanged);
@@ -553,10 +553,10 @@
             // comboBoxAntenna6Controller
             // 
             this.comboBoxAntenna6Controller.FormattingEnabled = true;
-            this.comboBoxAntenna6Controller.Location = new System.Drawing.Point(259, 127);
+            this.comboBoxAntenna6Controller.Location = new System.Drawing.Point(251, 127);
             this.comboBoxAntenna6Controller.Margin = new System.Windows.Forms.Padding(2);
             this.comboBoxAntenna6Controller.Name = "comboBoxAntenna6Controller";
-            this.comboBoxAntenna6Controller.Size = new System.Drawing.Size(60, 21);
+            this.comboBoxAntenna6Controller.Size = new System.Drawing.Size(77, 21);
             this.comboBoxAntenna6Controller.TabIndex = 28;
             this.toolTip1.SetToolTip(this.comboBoxAntenna6Controller, "Relay to use");
             this.comboBoxAntenna6Controller.SelectedIndexChanged += new System.EventHandler(this.ComboBoxAntenna1Bits_SelectedIndexChanged);
@@ -564,10 +564,10 @@
             // comboBoxAntenna7Controller
             // 
             this.comboBoxAntenna7Controller.FormattingEnabled = true;
-            this.comboBoxAntenna7Controller.Location = new System.Drawing.Point(259, 149);
+            this.comboBoxAntenna7Controller.Location = new System.Drawing.Point(251, 149);
             this.comboBoxAntenna7Controller.Margin = new System.Windows.Forms.Padding(2);
             this.comboBoxAntenna7Controller.Name = "comboBoxAntenna7Controller";
-            this.comboBoxAntenna7Controller.Size = new System.Drawing.Size(60, 21);
+            this.comboBoxAntenna7Controller.Size = new System.Drawing.Size(77, 21);
             this.comboBoxAntenna7Controller.TabIndex = 34;
             this.toolTip1.SetToolTip(this.comboBoxAntenna7Controller, "Relay to use");
             this.comboBoxAntenna7Controller.SelectedIndexChanged += new System.EventHandler(this.ComboBoxAntenna1Bits_SelectedIndexChanged);
@@ -575,10 +575,10 @@
             // comboBoxAntenna8Controller
             // 
             this.comboBoxAntenna8Controller.FormattingEnabled = true;
-            this.comboBoxAntenna8Controller.Location = new System.Drawing.Point(259, 171);
+            this.comboBoxAntenna8Controller.Location = new System.Drawing.Point(251, 171);
             this.comboBoxAntenna8Controller.Margin = new System.Windows.Forms.Padding(2);
             this.comboBoxAntenna8Controller.Name = "comboBoxAntenna8Controller";
-            this.comboBoxAntenna8Controller.Size = new System.Drawing.Size(60, 21);
+            this.comboBoxAntenna8Controller.Size = new System.Drawing.Size(77, 21);
             this.comboBoxAntenna8Controller.TabIndex = 36;
             this.toolTip1.SetToolTip(this.comboBoxAntenna8Controller, "Relay to use");
             this.comboBoxAntenna8Controller.SelectedIndexChanged += new System.EventHandler(this.ComboBoxAntenna1Bits_SelectedIndexChanged);
@@ -599,7 +599,7 @@
             this.textBoxAntenna1.Location = new System.Drawing.Point(176, 18);
             this.textBoxAntenna1.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxAntenna1.Name = "textBoxAntenna1";
-            this.textBoxAntenna1.Size = new System.Drawing.Size(83, 20);
+            this.textBoxAntenna1.Size = new System.Drawing.Size(76, 20);
             this.textBoxAntenna1.TabIndex = 46;
             this.toolTip1.SetToolTip(this.textBoxAntenna1, "Friendly name for antenna\nCtrl-click to set as walking antenna(Yellow background)" +
         "");
@@ -611,7 +611,7 @@
             this.textBoxAntenna2.Location = new System.Drawing.Point(176, 40);
             this.textBoxAntenna2.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxAntenna2.Name = "textBoxAntenna2";
-            this.textBoxAntenna2.Size = new System.Drawing.Size(83, 20);
+            this.textBoxAntenna2.Size = new System.Drawing.Size(76, 20);
             this.textBoxAntenna2.TabIndex = 47;
             this.toolTip1.SetToolTip(this.textBoxAntenna2, "Friendly name for antenna\nCtrl-click to set as walking antenna(Yellow background)" +
         "");
@@ -622,7 +622,7 @@
             this.textBoxAntenna3.Location = new System.Drawing.Point(176, 62);
             this.textBoxAntenna3.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxAntenna3.Name = "textBoxAntenna3";
-            this.textBoxAntenna3.Size = new System.Drawing.Size(83, 20);
+            this.textBoxAntenna3.Size = new System.Drawing.Size(76, 20);
             this.textBoxAntenna3.TabIndex = 48;
             this.toolTip1.SetToolTip(this.textBoxAntenna3, "Friendly name for antenna\nCtrl-click to set as walking antenna(Yellow background)" +
         "");
@@ -633,7 +633,7 @@
             this.textBoxAntenna4.Location = new System.Drawing.Point(176, 84);
             this.textBoxAntenna4.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxAntenna4.Name = "textBoxAntenna4";
-            this.textBoxAntenna4.Size = new System.Drawing.Size(83, 20);
+            this.textBoxAntenna4.Size = new System.Drawing.Size(76, 20);
             this.textBoxAntenna4.TabIndex = 49;
             this.toolTip1.SetToolTip(this.textBoxAntenna4, "Friendly name for antenna\nCtrl-click to set as walking antenna(Yellow background)" +
         "");
@@ -644,7 +644,7 @@
             this.textBoxAntenna5.Location = new System.Drawing.Point(176, 106);
             this.textBoxAntenna5.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxAntenna5.Name = "textBoxAntenna5";
-            this.textBoxAntenna5.Size = new System.Drawing.Size(83, 20);
+            this.textBoxAntenna5.Size = new System.Drawing.Size(76, 20);
             this.textBoxAntenna5.TabIndex = 50;
             this.toolTip1.SetToolTip(this.textBoxAntenna5, "Friendly name for antenna\nCtrl-click to set as walking antenna(Yellow background)" +
         "");
@@ -655,7 +655,7 @@
             this.textBoxAntenna6.Location = new System.Drawing.Point(176, 128);
             this.textBoxAntenna6.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxAntenna6.Name = "textBoxAntenna6";
-            this.textBoxAntenna6.Size = new System.Drawing.Size(83, 20);
+            this.textBoxAntenna6.Size = new System.Drawing.Size(76, 20);
             this.textBoxAntenna6.TabIndex = 51;
             this.toolTip1.SetToolTip(this.textBoxAntenna6, "Friendly name for antenna\nCtrl-click to set as walking antenna(Yellow background)" +
         "");
@@ -666,7 +666,7 @@
             this.textBoxAntenna7.Location = new System.Drawing.Point(176, 150);
             this.textBoxAntenna7.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxAntenna7.Name = "textBoxAntenna7";
-            this.textBoxAntenna7.Size = new System.Drawing.Size(83, 20);
+            this.textBoxAntenna7.Size = new System.Drawing.Size(76, 20);
             this.textBoxAntenna7.TabIndex = 52;
             this.toolTip1.SetToolTip(this.textBoxAntenna7, "Friendly name for antenna\nCtrl-click to set as walking antenna(Yellow background)" +
         "");
@@ -677,7 +677,7 @@
             this.textBoxAntenna8.Location = new System.Drawing.Point(176, 172);
             this.textBoxAntenna8.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxAntenna8.Name = "textBoxAntenna8";
-            this.textBoxAntenna8.Size = new System.Drawing.Size(83, 20);
+            this.textBoxAntenna8.Size = new System.Drawing.Size(76, 20);
             this.textBoxAntenna8.TabIndex = 53;
             this.toolTip1.SetToolTip(this.textBoxAntenna8, "Friendly name for antenna\nCtrl-click to set as walking antenna(Yellow background)" +
         "");
@@ -2594,9 +2594,9 @@
             "8/6",
             "8/7",
             "8/8"});
-            this.ComboBoxAntenna8Bits.Location = new System.Drawing.Point(319, 171);
+            this.ComboBoxAntenna8Bits.Location = new System.Drawing.Point(325, 171);
             this.ComboBoxAntenna8Bits.Name = "ComboBoxAntenna8Bits";
-            this.ComboBoxAntenna8Bits.Size = new System.Drawing.Size(46, 21);
+            this.ComboBoxAntenna8Bits.Size = new System.Drawing.Size(43, 21);
             this.ComboBoxAntenna8Bits.TabIndex = 79;
             this.toolTip1.SetToolTip(this.ComboBoxAntenna8Bits, "Bits on relay to enable");
             this.ComboBoxAntenna8Bits.SelectedIndexChanged += new System.EventHandler(this.ComboBoxAntenna1Bits_SelectedIndexChanged);
@@ -2623,9 +2623,9 @@
             "8/6",
             "8/7",
             "8/8"});
-            this.ComboBoxAntenna7Bits.Location = new System.Drawing.Point(319, 149);
+            this.ComboBoxAntenna7Bits.Location = new System.Drawing.Point(325, 149);
             this.ComboBoxAntenna7Bits.Name = "ComboBoxAntenna7Bits";
-            this.ComboBoxAntenna7Bits.Size = new System.Drawing.Size(46, 21);
+            this.ComboBoxAntenna7Bits.Size = new System.Drawing.Size(43, 21);
             this.ComboBoxAntenna7Bits.TabIndex = 78;
             this.toolTip1.SetToolTip(this.ComboBoxAntenna7Bits, "Bits on relay to enable");
             this.ComboBoxAntenna7Bits.SelectedIndexChanged += new System.EventHandler(this.ComboBoxAntenna1Bits_SelectedIndexChanged);
@@ -2652,9 +2652,9 @@
             "8/6",
             "8/7",
             "8/8"});
-            this.ComboBoxAntenna6Bits.Location = new System.Drawing.Point(319, 127);
+            this.ComboBoxAntenna6Bits.Location = new System.Drawing.Point(325, 127);
             this.ComboBoxAntenna6Bits.Name = "ComboBoxAntenna6Bits";
-            this.ComboBoxAntenna6Bits.Size = new System.Drawing.Size(46, 21);
+            this.ComboBoxAntenna6Bits.Size = new System.Drawing.Size(43, 21);
             this.ComboBoxAntenna6Bits.TabIndex = 77;
             this.toolTip1.SetToolTip(this.ComboBoxAntenna6Bits, "Bits on relay to enable");
             this.ComboBoxAntenna6Bits.SelectedIndexChanged += new System.EventHandler(this.ComboBoxAntenna1Bits_SelectedIndexChanged);
@@ -2681,9 +2681,9 @@
             "8/6",
             "8/7",
             "8/8"});
-            this.ComboBoxAntenna5Bits.Location = new System.Drawing.Point(319, 105);
+            this.ComboBoxAntenna5Bits.Location = new System.Drawing.Point(325, 105);
             this.ComboBoxAntenna5Bits.Name = "ComboBoxAntenna5Bits";
-            this.ComboBoxAntenna5Bits.Size = new System.Drawing.Size(46, 21);
+            this.ComboBoxAntenna5Bits.Size = new System.Drawing.Size(43, 21);
             this.ComboBoxAntenna5Bits.TabIndex = 76;
             this.toolTip1.SetToolTip(this.ComboBoxAntenna5Bits, "Bits on relay to enable");
             this.ComboBoxAntenna5Bits.SelectedIndexChanged += new System.EventHandler(this.ComboBoxAntenna1Bits_SelectedIndexChanged);
@@ -2710,9 +2710,9 @@
             "8/6",
             "8/7",
             "8/8"});
-            this.ComboBoxAntenna4Bits.Location = new System.Drawing.Point(319, 83);
+            this.ComboBoxAntenna4Bits.Location = new System.Drawing.Point(325, 83);
             this.ComboBoxAntenna4Bits.Name = "ComboBoxAntenna4Bits";
-            this.ComboBoxAntenna4Bits.Size = new System.Drawing.Size(46, 21);
+            this.ComboBoxAntenna4Bits.Size = new System.Drawing.Size(43, 21);
             this.ComboBoxAntenna4Bits.TabIndex = 75;
             this.toolTip1.SetToolTip(this.ComboBoxAntenna4Bits, "Bits on relay to enable");
             this.ComboBoxAntenna4Bits.SelectedIndexChanged += new System.EventHandler(this.ComboBoxAntenna1Bits_SelectedIndexChanged);
@@ -2739,9 +2739,9 @@
             "8/6",
             "8/7",
             "8/8"});
-            this.ComboBoxAntenna3Bits.Location = new System.Drawing.Point(319, 61);
+            this.ComboBoxAntenna3Bits.Location = new System.Drawing.Point(325, 61);
             this.ComboBoxAntenna3Bits.Name = "ComboBoxAntenna3Bits";
-            this.ComboBoxAntenna3Bits.Size = new System.Drawing.Size(46, 21);
+            this.ComboBoxAntenna3Bits.Size = new System.Drawing.Size(43, 21);
             this.ComboBoxAntenna3Bits.TabIndex = 74;
             this.toolTip1.SetToolTip(this.ComboBoxAntenna3Bits, "Bits on relay to enable");
             this.ComboBoxAntenna3Bits.SelectedIndexChanged += new System.EventHandler(this.ComboBoxAntenna1Bits_SelectedIndexChanged);
@@ -2768,9 +2768,9 @@
             "8/6",
             "8/7",
             "8/8"});
-            this.ComboBoxAntenna2Bits.Location = new System.Drawing.Point(319, 39);
+            this.ComboBoxAntenna2Bits.Location = new System.Drawing.Point(325, 39);
             this.ComboBoxAntenna2Bits.Name = "ComboBoxAntenna2Bits";
-            this.ComboBoxAntenna2Bits.Size = new System.Drawing.Size(46, 21);
+            this.ComboBoxAntenna2Bits.Size = new System.Drawing.Size(43, 21);
             this.ComboBoxAntenna2Bits.TabIndex = 73;
             this.toolTip1.SetToolTip(this.ComboBoxAntenna2Bits, "Bits on relay to enable");
             this.ComboBoxAntenna2Bits.SelectedIndexChanged += new System.EventHandler(this.ComboBoxAntenna1Bits_SelectedIndexChanged);
@@ -2797,9 +2797,9 @@
             "8/6",
             "8/7",
             "8/8"});
-            this.ComboBoxAntenna1Bits.Location = new System.Drawing.Point(319, 17);
+            this.ComboBoxAntenna1Bits.Location = new System.Drawing.Point(325, 17);
             this.ComboBoxAntenna1Bits.Name = "ComboBoxAntenna1Bits";
-            this.ComboBoxAntenna1Bits.Size = new System.Drawing.Size(46, 21);
+            this.ComboBoxAntenna1Bits.Size = new System.Drawing.Size(43, 21);
             this.ComboBoxAntenna1Bits.TabIndex = 72;
             this.toolTip1.SetToolTip(this.ComboBoxAntenna1Bits, "Bits on relay to enable");
             this.ComboBoxAntenna1Bits.SelectedIndexChanged += new System.EventHandler(this.ComboBoxAntenna1Bits_SelectedIndexChanged);
@@ -4185,6 +4185,7 @@
             // 
             // timerDebug
             // 
+            this.timerDebug.Interval = 20;
             this.timerDebug.Tick += new System.EventHandler(this.TimerDebug_Tick);
             // 
             // menuStrip1
@@ -4342,7 +4343,7 @@
             this.Margin = new System.Windows.Forms.Padding(2);
             this.MaximumSize = new System.Drawing.Size(417, 310);
             this.Name = "Form1";
-            this.Text = "AmpAutoTunerUtility 230330a";
+            this.Text = "AmpAutoTunerUtility 230401";
             this.HelpButtonClicked += new System.ComponentModel.CancelEventHandler(this.Form1_HelpButtonClicked);
             this.Activated += new System.EventHandler(this.Form1_Activated);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);

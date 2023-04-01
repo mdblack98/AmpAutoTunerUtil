@@ -2015,12 +2015,12 @@ namespace AmpAutoTunerUtility
                 if (comboBoxFreqWalkAntenna.SelectedIndex >= 0)
                 {
                     var s = (string)comboBoxFreqWalkAntenna.Items[comboBoxFreqWalkAntenna.SelectedIndex];
-                    tuner1.SetAntenna(int.Parse(s)); 
+                    if (tuner1 != null) tuner1.SetAntenna(int.Parse(s)); 
                 }
                 else
                 {
                     MessageBox.Show("Need to select walk antenna in FreqWalk tab, defaulting to antenna#1", "FreqWalk", MessageBoxButtons.OK);
-                    tuner1.SetAntenna(1);
+                    if (tuner1 != null) tuner1.SetAntenna(1);
                     return;
                 }
             }
@@ -2100,7 +2100,7 @@ namespace AmpAutoTunerUtility
                 case 1:
                     if (comboBoxAntenna1Controller.Text.Equals(EXPERTLINEARS))
                     {
-                        tuner1.SetAntenna(antennaNumber, false);
+                        //tuner1.SetAntenna(antennaNumber, false);
                     }
                     else if (comboBoxAntenna1Controller.Text.Contains("relay"))
                     {
@@ -2110,7 +2110,7 @@ namespace AmpAutoTunerUtility
                 case 2:
                     if (comboBoxAntenna2Controller.Text.Equals(EXPERTLINEARS))
                     {
-                        tuner1.SetAntenna(antennaNumber, false);
+                        //tuner1.SetAntenna(antennaNumber, false);
                     }
                     else if (comboBoxAntenna1Controller.Text.Contains("relay"))
                     {
@@ -2120,7 +2120,7 @@ namespace AmpAutoTunerUtility
                 case 3:
                     if (comboBoxAntenna3Controller.Text.Equals(EXPERTLINEARS))
                     {
-                        tuner1.SetAntenna(antennaNumber, false);
+                        //tuner1.SetAntenna(antennaNumber, false);
                     }
                     else if (comboBoxAntenna1Controller.Text.Contains("relay"))
                     {
@@ -2130,7 +2130,7 @@ namespace AmpAutoTunerUtility
                 case 4:
                     if (comboBoxAntenna4Controller.Text.Equals(EXPERTLINEARS))
                     {
-                        tuner1.SetAntenna(antennaNumber, false);
+                        //tuner1.SetAntenna(antennaNumber, false);
                     }
                     else if (comboBoxAntenna1Controller.Text.Contains("relay"))
                     {
@@ -3582,11 +3582,12 @@ namespace AmpAutoTunerUtility
 
         private void TimerDebug_Tick(object sender, EventArgs e)
         {
+            timerDebug.Enabled = false;
             GC.Collect(0);
             GC.WaitForPendingFinalizers();
-            if (tuner1 == null) return;
+            if (tuner1 == null) { timerDebug.Enabled = true; return; }
             if (relay1 != null) relay1.Status();
-            if (checkBoxPause.Checked) return;
+            if (checkBoxPause.Checked) { timerDebug.Enabled = true; return; }
             DebugMsg msg = DebugMsg.DebugGetMsg();
             debugLevel = (DebugEnum)comboBoxDebugLevel.SelectedIndex + 1;
             if (debugLevel < 0) debugLevel = DebugEnum.WARN;
@@ -3614,6 +3615,7 @@ namespace AmpAutoTunerUtility
                 //Debug(msg.Level, msg.Text);
                 msg = DebugGetMsg();
             }
+            timerDebug.Enabled = true;
         }
 
         private void ComboBoxNRelaysSet()
