@@ -80,18 +80,12 @@ namespace AmpAutoTunerUtility
                 SerialPortTuner = null;
             }
         }
-        static volatile bool GetStatusLock = false;
+        static Mutex GetStatusLock = new Mutex(false,"AmpSerial");
 
         private bool GetStatus()
         {
-            if (GetStatusLock)
-            {
-                DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.VERBOSE, "GetStatus busy...returning...");
-                Application.DoEvents();
-                Thread.Sleep(500);
-                return false;
-            }
-            GetStatusLock = true;
+            GetStatusLock.WaitOne();
+            SerialPortTuner.DiscardInBuffer();
             Byte[] cmd = { 0x55, 0x55, 0x55, 0x01, 0x90, 0x90 };
             Byte[] response = new Byte[128];
             SerialPortTuner.Write(cmd, 0, 6);
@@ -104,7 +98,7 @@ namespace AmpAutoTunerUtility
             }
             catch (Exception)
             {
-                GetStatusLock = false; 
+                GetStatusLock.ReleaseMutex();
                 return false;
             }
             while (myByte != 0xaa)
@@ -117,14 +111,14 @@ namespace AmpAutoTunerUtility
                 {
                     if (ex.HResult != -2146233083)
                         DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.LOG, "timeout\n");
-                    GetStatusLock = false;
+                    GetStatusLock.ReleaseMutex();                     
                     return false;
                 }
             response[0] = myByte;
             response[1] = (byte)SerialPortTuner.ReadByte();
-            if (response[1] != 0xaa) { GetStatusLock = false; return false; }
+            if (response[1] != 0xaa) { GetStatusLock.ReleaseMutex(); return false; }
             response[2] = (byte)SerialPortTuner.ReadByte();
-            if (response[2] != 0xaa) { GetStatusLock = false; return false; }
+            if (response[2] != 0xaa) { GetStatusLock.ReleaseMutex(); return false; }
             response[3] = (byte)SerialPortTuner.ReadByte(); // should be the length
             int n = 4;
             //DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.LOG, "bytes=" + response[3]);
@@ -137,7 +131,7 @@ namespace AmpAutoTunerUtility
                 catch (TimeoutException e)
                 {
                     DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.ERR, "GetStatus serial timeout\n");
-                    GetStatusLock = false;
+                    GetStatusLock.ReleaseMutex();
                     return false;
                 }
                 ++n;
@@ -152,8 +146,8 @@ namespace AmpAutoTunerUtility
             long resByte0 = response[71];
             long resByte1 = response[72];
             var sresponse = System.Text.Encoding.Default.GetString(response, 0, n-5);
-            if (chkByte0 != resByte0) { GetStatusLock = false; return false; }
-            if (chkByte1 != resByte1) { GetStatusLock = false; return false; }
+            if (chkByte0 != resByte0) { GetStatusLock.ReleaseMutex(); return false; }
+            if (chkByte1 != resByte1) { GetStatusLock.ReleaseMutex(); return false; }
 
             //DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.LOG, sresponse);
             // "ªªªC,13K,S,R,A,1,10,1a,0r,L,00\00, 0.00, 0.00, 0.0, 0.0,081,000,000,N,N,
@@ -162,17 +156,21 @@ namespace AmpAutoTunerUtility
             DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.LOG, mytokens.Length + ":" + sresponse + "\n");
             if (mytokens.Length > 20)
             {
-                if (!band.Equals(mytokens[6]))
+                var newBand = mytokens[6];
+                var newAntenna = mytokens[7];
+                if (!band.Equals(newBand))
                 {
-                    DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.LOG, "Expert Linears changed from band " + band + " to " + mytokens[6] + "\n");
+                    DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.LOG, "Expert Linears changed band " + band + " to " + newBand + "\n");
                     Application.DoEvents();
-                    band = mytokens[6];
+                    band = newBand;
                 }
-                if (!antenna.Equals(mytokens[7]))
+                DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.LOG, "antenna=" + antenna + ", newAntenna=" + newAntenna + "\n");
+
+                if (!antenna.Equals(newAntenna))
                 {
-                    DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.LOG, "Expert Linears changed from antenna " + antenna + " to " + mytokens[7] + "\n");
+                    DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.LOG, "Expert Linears changed antenna " + antenna + " to " + newAntenna + "\n");
                     Application.DoEvents();
-                    antenna = mytokens[7];
+                    antenna = newAntenna;
                 }
                 AntennaNumber = int.Parse(antenna.Substring(0, 1));
                 power = mytokens[10];
@@ -185,12 +183,11 @@ namespace AmpAutoTunerUtility
                     if (mytokens[20].Length > 0 && !mytokens[20].Equals("N\r"))
                     {
                         //DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.LOG, "MSG: " + mytokens[20] + "\n");
-                        Application.DoEvents();
                     }
                 }
                 Application.DoEvents();
             }
-            GetStatusLock = false;
+            GetStatusLock.ReleaseMutex();
             return true;
         }
 
@@ -200,9 +197,14 @@ namespace AmpAutoTunerUtility
             runThread = true;
             while (runThread)
             {
-                //GetStatus();
+                while(GetStatus())
+                {
+                    //DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.LOG, "Expert Linears thread got status\n");
+
+                };
                 Thread.Sleep(1000);
             }
+            DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.LOG, "Expert Linears thread stopped\n");
         }
 
         public override string GetSWRString()
@@ -246,7 +248,7 @@ namespace AmpAutoTunerUtility
                 //    DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.VERBOSE, "antennaNumberRequested " + antennaNumberRequested + " != freqWalkAntenna " + freqWalkAntenna)
                 //    return;
                 //}
-                Thread.Sleep(500);
+                Thread.Sleep(1000);
                 DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.TRACE, "SetAntenna " + antennaNumberRequested + " getting amp status\n");
                 while(GetStatus()==false);
                 int tmp;
@@ -260,9 +262,10 @@ namespace AmpAutoTunerUtility
                 if (!antenna.Equals("?")) DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.LOG, "antenna=" + int.Parse(antenna.Substring(0, 1)) + ", antennaNumberRequest=" + antennaNumberRequested + "\n");
                 Byte[] cmd = { 0x55, 0x55, 0x55, 0x01, 0x04, 0x04 };
                 Byte[] response = new Byte[128];
-                DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.VERBOSE, "Setting antenna to other antenna\n");
+                DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.LOG, "Setting antenna to other antenna\n");
                 SerialPortTuner.Write(cmd, 0, 6);
                 Thread.Sleep(500);
+                while (GetStatus()) ;
             }
             catch (Exception ex)
             {
