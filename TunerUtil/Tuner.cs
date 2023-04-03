@@ -181,5 +181,10 @@ namespace AmpAutoTunerUtility
         {
             throw new NotImplementedException();
         }
+
+        public virtual void GetAntennaData(int bandNumber)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

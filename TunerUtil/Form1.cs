@@ -369,7 +369,7 @@ namespace AmpAutoTunerUtility
                 powerToolStripMenuItem.Checked = Properties.Settings.Default.ViewPower;
                 debugToolStripMenuItem.Checked = Properties.Settings.Default.ViewDebug;
                 tunerToolStripMenuItem.Checked = Properties.Settings.Default.ViewTuner;
-
+                expertLinearsToolStripMenuItem.Checked = Properties.Settings.Default.ViewExpertLinears;
                 //textBoxFrequencyWalkList.Text = Properties.Settings.Default.FrequencyWalkList;
 
             }
@@ -533,7 +533,7 @@ namespace AmpAutoTunerUtility
             }
             if (!checkBoxRelay1Enabled.Checked && checkBoxPowerSDR.Enabled == false)
             {
-                MyMessageBox("Please set up Relay1 if not using PowerSDR");
+                //MyMessageBox("Please set up Relay1 if not using PowerSDR");
             }
             if (relay1 == null) checkBoxRelay1Enabled.Checked = false;
             if (checkBoxRelay1Enabled.Checked && relay1.SerialNumber().Length == 0)
@@ -867,7 +867,57 @@ namespace AmpAutoTunerUtility
                 checkBoxTunerEnabled.Checked = false;
 
             }
-
+            if (tuner1.GetModel().Equals("20K"))
+            {
+                comboBoxExpertLinears4_1.Items.Add("5");
+                comboBoxExpertLinears4_1.Items.Add("6");
+                comboBoxExpertLinears4_2.Items.Add("5");
+                comboBoxExpertLinears4_2.Items.Add("6");
+                comboBoxExpertLinears6_1.Items.Add("5");
+                comboBoxExpertLinears6_1.Items.Add("6");
+                comboBoxExpertLinears6_2.Items.Add("5");
+                comboBoxExpertLinears6_2.Items.Add("6");
+                comboBoxExpertLinears10_1.Items.Add("5");
+                comboBoxExpertLinears10_1.Items.Add("6");
+                comboBoxExpertLinears10_2.Items.Add("5");
+                comboBoxExpertLinears10_2.Items.Add("6");
+                comboBoxExpertLinears12_1.Items.Add("5");
+                comboBoxExpertLinears12_1.Items.Add("6");
+                comboBoxExpertLinears12_2.Items.Add("5");
+                comboBoxExpertLinears12_2.Items.Add("6");
+                comboBoxExpertLinears15_1.Items.Add("5");
+                comboBoxExpertLinears15_1.Items.Add("6");
+                comboBoxExpertLinears15_2.Items.Add("5");
+                comboBoxExpertLinears15_2.Items.Add("6");
+                comboBoxExpertLinears17_1.Items.Add("5");
+                comboBoxExpertLinears17_1.Items.Add("6");
+                comboBoxExpertLinears17_2.Items.Add("5");
+                comboBoxExpertLinears17_2.Items.Add("6");
+                comboBoxExpertLinears20_1.Items.Add("5");
+                comboBoxExpertLinears20_1.Items.Add("6");
+                comboBoxExpertLinears20_2.Items.Add("5");
+                comboBoxExpertLinears20_2.Items.Add("6");
+                comboBoxExpertLinears30_1.Items.Add("5");
+                comboBoxExpertLinears30_1.Items.Add("6");
+                comboBoxExpertLinears30_2.Items.Add("5");
+                comboBoxExpertLinears30_2.Items.Add("6");
+                comboBoxExpertLinears40_1.Items.Add("5");
+                comboBoxExpertLinears40_1.Items.Add("6");
+                comboBoxExpertLinears40_2.Items.Add("5");
+                comboBoxExpertLinears40_2.Items.Add("6");
+                comboBoxExpertLinears60_1.Items.Add("5");
+                comboBoxExpertLinears60_1.Items.Add("6");
+                comboBoxExpertLinears60_2.Items.Add("5");
+                comboBoxExpertLinears60_2.Items.Add("6");
+                comboBoxExpertLinears80_1.Items.Add("5");
+                comboBoxExpertLinears80_1.Items.Add("6");
+                comboBoxExpertLinears80_2.Items.Add("5");
+                comboBoxExpertLinears80_2.Items.Add("6");
+                comboBoxExpertLinears160_1.Items.Add("5");
+                comboBoxExpertLinears160_1.Items.Add("6");
+                comboBoxExpertLinears160_2.Items.Add("5");
+                comboBoxExpertLinears160_2.Items.Add("6");
+            }
         }
         private void AudioDeviceOutputLoad()
         {
@@ -1151,6 +1201,7 @@ namespace AmpAutoTunerUtility
             Properties.Settings.Default.ViewPower = powerToolStripMenuItem.Checked;
             Properties.Settings.Default.ViewDebug = debugToolStripMenuItem.Checked;
             Properties.Settings.Default.ViewTuner = tunerToolStripMenuItem.Checked;
+            Properties.Settings.Default.ViewExpertLinears = expertLinearsToolStripMenuItem.Checked;
             Properties.Settings.Default.Save();
             Exit();
         }
@@ -2808,7 +2859,7 @@ namespace AmpAutoTunerUtility
         private void TimerGetFreq_Tick(object sender, EventArgs e)
         {
             ClockSetGUI();
-            SetAntennaInUseForGUI(false,tuner1.AntennaNumber);
+            if (tuner1 != null) SetAntennaInUseForGUI(false,tuner1.AntennaNumber);
             if (pausedTuning)
                 return;
             timerGetFreq.Stop();
@@ -5133,6 +5184,57 @@ namespace AmpAutoTunerUtility
         private void comboBoxFreqWalkAntenna_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void expertLinearsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (expertLinearsToolStripMenuItem.Checked)
+            {
+                expertLinearsToolStripMenuItem.Checked = false;
+                tabPage.TabPages.Remove(tabPageExpertLinears);
+            }
+            else
+            {
+                expertLinearsToolStripMenuItem.Checked = true;
+                tabPage.TabPages.Add(tabPageExpertLinears);
+            }
+        }
+
+        private void buttonExpertLinearsTune_Click(object sender, EventArgs e)
+        {
+            labelExpertLinearsInfo.Text = "Tuning Expert Linears";
+            Application.DoEvents();
+            var mode = "FM";
+            string myparam = "<params><param><value>" + mode + "</value></param></params>";
+            var xml = FLRigXML("rig.set_modeA", myparam);
+            if (FLRigSend(xml) == false)
+            { // Abort if FLRig is giving an error
+                Debug(DebugEnum.ERR, "FLRig set_modeA got an error??\n");
+                return;
+            }
+            xml = FLRigXML("rig.set_modeB", myparam);
+            if (FLRigSend(xml) == false)
+            { // Abort if FLRig is giving an error
+                Debug(DebugEnum.ERR, "FLRig set_modeB got an error??\n");
+                return;
+            }
+            double frequencyHzTune = 3470;
+            myparam = "<params><param><value><double>" + frequencyHzTune + "</double></value></param></params";
+            xml = FLRigXML("rig.set_vfo" + 'A', myparam);
+            if (FLRigSend(xml) == false)
+            { // Abort if FLRig is giving an error
+                Debug(DebugEnum.ERR, "FLRigSend got an error??\n");
+            }
+            xml = FLRigXML("rig.set_vfo" + 'B', myparam);
+            if (FLRigSend(xml) == false)
+            { // Abort if FLRig is giving an error
+                Debug(DebugEnum.ERR, "FLRigSend got an error??\n");
+            }
+            tuner1.Tune();
+            Thread.Sleep(100);
+            xml = FLRigXML("rig.set_ptt", "<params><param><value><i4>1</i4></value></param></params");
+            if (FLRigSend(xml) == false) return; // Abort if FLRig is giving an error
+            labelExpertLinearsInfo.Text = "Tuned " + frequencyHzTune;
         }
     }
 

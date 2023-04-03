@@ -2458,5 +2458,17 @@ namespace AmpAutoTunerUtility.Properties {
                 this["FreqWalkAntenna"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool ViewExpertLinears {
+            get {
+                return ((bool)(this["ViewExpertLinears"]));
+            }
+            set {
+                this["ViewExpertLinears"] = value;
+            }
+        }
     }
 }

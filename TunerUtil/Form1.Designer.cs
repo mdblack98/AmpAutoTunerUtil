@@ -314,6 +314,68 @@
             this.checkBoxRelay4Enabled = new System.Windows.Forms.CheckBox();
             this.comboBoxBaudRelay4 = new System.Windows.Forms.ComboBox();
             this.comboBoxComRelay4 = new System.Windows.Forms.ComboBox();
+            this.tabPageExpertLinears = new System.Windows.Forms.TabPage();
+            this.checkBox20 = new System.Windows.Forms.CheckBox();
+            this.checkBox21 = new System.Windows.Forms.CheckBox();
+            this.checkBox22 = new System.Windows.Forms.CheckBox();
+            this.checkBox23 = new System.Windows.Forms.CheckBox();
+            this.checkBox24 = new System.Windows.Forms.CheckBox();
+            this.checkBox25 = new System.Windows.Forms.CheckBox();
+            this.checkBox14 = new System.Windows.Forms.CheckBox();
+            this.checkBox15 = new System.Windows.Forms.CheckBox();
+            this.checkBox16 = new System.Windows.Forms.CheckBox();
+            this.checkBox17 = new System.Windows.Forms.CheckBox();
+            this.checkBox18 = new System.Windows.Forms.CheckBox();
+            this.checkBox19 = new System.Windows.Forms.CheckBox();
+            this.checkBox8 = new System.Windows.Forms.CheckBox();
+            this.checkBox9 = new System.Windows.Forms.CheckBox();
+            this.checkBox10 = new System.Windows.Forms.CheckBox();
+            this.checkBox11 = new System.Windows.Forms.CheckBox();
+            this.checkBox12 = new System.Windows.Forms.CheckBox();
+            this.checkBox13 = new System.Windows.Forms.CheckBox();
+            this.checkBox7 = new System.Windows.Forms.CheckBox();
+            this.checkBox6 = new System.Windows.Forms.CheckBox();
+            this.checkBox5 = new System.Windows.Forms.CheckBox();
+            this.checkBox4 = new System.Windows.Forms.CheckBox();
+            this.checkBox3 = new System.Windows.Forms.CheckBox();
+            this.checkBox2 = new System.Windows.Forms.CheckBox();
+            this.buttonExpertLinearsTune = new System.Windows.Forms.Button();
+            this.comboBoxExpertLinears4_2 = new System.Windows.Forms.ComboBox();
+            this.label28 = new System.Windows.Forms.Label();
+            this.comboBoxExpertLinears4_1 = new System.Windows.Forms.ComboBox();
+            this.comboBoxExpertLinears6_2 = new System.Windows.Forms.ComboBox();
+            this.label27 = new System.Windows.Forms.Label();
+            this.comboBoxExpertLinears6_1 = new System.Windows.Forms.ComboBox();
+            this.comboBoxExpertLinears10_2 = new System.Windows.Forms.ComboBox();
+            this.label26 = new System.Windows.Forms.Label();
+            this.comboBoxExpertLinears10_1 = new System.Windows.Forms.ComboBox();
+            this.comboBoxExpertLinears12_2 = new System.Windows.Forms.ComboBox();
+            this.label25 = new System.Windows.Forms.Label();
+            this.comboBoxExpertLinears12_1 = new System.Windows.Forms.ComboBox();
+            this.comboBoxExpertLinears15_2 = new System.Windows.Forms.ComboBox();
+            this.label24 = new System.Windows.Forms.Label();
+            this.comboBoxExpertLinears15_1 = new System.Windows.Forms.ComboBox();
+            this.comboBoxExpertLinears17_2 = new System.Windows.Forms.ComboBox();
+            this.label23 = new System.Windows.Forms.Label();
+            this.comboBoxExpertLinears17_1 = new System.Windows.Forms.ComboBox();
+            this.comboBoxExpertLinears20_2 = new System.Windows.Forms.ComboBox();
+            this.label22 = new System.Windows.Forms.Label();
+            this.comboBoxExpertLinears20_1 = new System.Windows.Forms.ComboBox();
+            this.comboBoxExpertLinears30_2 = new System.Windows.Forms.ComboBox();
+            this.label21 = new System.Windows.Forms.Label();
+            this.comboBoxExpertLinears30_1 = new System.Windows.Forms.ComboBox();
+            this.comboBoxExpertLinears40_2 = new System.Windows.Forms.ComboBox();
+            this.label20 = new System.Windows.Forms.Label();
+            this.comboBoxExpertLinears40_1 = new System.Windows.Forms.ComboBox();
+            this.comboBoxExpertLinears60_2 = new System.Windows.Forms.ComboBox();
+            this.label19 = new System.Windows.Forms.Label();
+            this.comboBoxExpertLinears60_1 = new System.Windows.Forms.ComboBox();
+            this.comboBoxExpertLinears80_2 = new System.Windows.Forms.ComboBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.comboBoxExpertLinears80_1 = new System.Windows.Forms.ComboBox();
+            this.comboBoxExpertLinears160_2 = new System.Windows.Forms.ComboBox();
+            this.label12 = new System.Windows.Forms.Label();
+            this.comboBoxExpertLinears160_1 = new System.Windows.Forms.ComboBox();
             this.timerGetFreq = new System.Windows.Forms.Timer(this.components);
             this.timerDebug = new System.Windows.Forms.Timer(this.components);
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
@@ -324,6 +386,7 @@
             this.debugToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.powerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tunerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.expertLinearsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.relay1ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.relay2ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.relay3ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -332,6 +395,7 @@
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.timerFreqWalk = new System.Windows.Forms.Timer(this.components);
+            this.labelExpertLinearsInfo = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCapacitance)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownInductance)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPostPttDelay)).BeginInit();
@@ -356,6 +420,7 @@
             this.panel5.SuspendLayout();
             this.tabPageRelay4.SuspendLayout();
             this.panel6.SuspendLayout();
+            this.tabPageExpertLinears.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -1447,13 +1512,15 @@
             this.tabPage.Controls.Add(this.tabPageRelay2);
             this.tabPage.Controls.Add(this.tabPageRelay3);
             this.tabPage.Controls.Add(this.tabPageRelay4);
+            this.tabPage.Controls.Add(this.tabPageExpertLinears);
             this.tabPage.Location = new System.Drawing.Point(0, 20);
             this.tabPage.Margin = new System.Windows.Forms.Padding(2);
             this.tabPage.Name = "tabPage";
             this.tabPage.SelectedIndex = 0;
+            this.tabPage.ShowToolTips = true;
             this.tabPage.Size = new System.Drawing.Size(373, 221);
             this.tabPage.TabIndex = 8;
-            this.toolTip1.SetToolTip(this.tabPage, "Enable verbose debug");
+            this.toolTip1.SetToolTip(this.tabPage, "Expert Linears");
             this.tabPage.SelectedIndexChanged += new System.EventHandler(this.TabControl1_SelectedIndexChanged);
             this.tabPage.TabIndexChanged += new System.EventHandler(this.TabControl1_TabIndexChanged);
             this.tabPage.VisibleChanged += new System.EventHandler(this.TabControl1_VisibleChanged);
@@ -4179,6 +4246,637 @@
             this.comboBoxComRelay4.Size = new System.Drawing.Size(92, 21);
             this.comboBoxComRelay4.TabIndex = 0;
             // 
+            // tabPageExpertLinears
+            // 
+            this.tabPageExpertLinears.Controls.Add(this.labelExpertLinearsInfo);
+            this.tabPageExpertLinears.Controls.Add(this.checkBox20);
+            this.tabPageExpertLinears.Controls.Add(this.checkBox21);
+            this.tabPageExpertLinears.Controls.Add(this.checkBox22);
+            this.tabPageExpertLinears.Controls.Add(this.checkBox23);
+            this.tabPageExpertLinears.Controls.Add(this.checkBox24);
+            this.tabPageExpertLinears.Controls.Add(this.checkBox25);
+            this.tabPageExpertLinears.Controls.Add(this.checkBox14);
+            this.tabPageExpertLinears.Controls.Add(this.checkBox15);
+            this.tabPageExpertLinears.Controls.Add(this.checkBox16);
+            this.tabPageExpertLinears.Controls.Add(this.checkBox17);
+            this.tabPageExpertLinears.Controls.Add(this.checkBox18);
+            this.tabPageExpertLinears.Controls.Add(this.checkBox19);
+            this.tabPageExpertLinears.Controls.Add(this.checkBox8);
+            this.tabPageExpertLinears.Controls.Add(this.checkBox9);
+            this.tabPageExpertLinears.Controls.Add(this.checkBox10);
+            this.tabPageExpertLinears.Controls.Add(this.checkBox11);
+            this.tabPageExpertLinears.Controls.Add(this.checkBox12);
+            this.tabPageExpertLinears.Controls.Add(this.checkBox13);
+            this.tabPageExpertLinears.Controls.Add(this.checkBox7);
+            this.tabPageExpertLinears.Controls.Add(this.checkBox6);
+            this.tabPageExpertLinears.Controls.Add(this.checkBox5);
+            this.tabPageExpertLinears.Controls.Add(this.checkBox4);
+            this.tabPageExpertLinears.Controls.Add(this.checkBox3);
+            this.tabPageExpertLinears.Controls.Add(this.checkBox2);
+            this.tabPageExpertLinears.Controls.Add(this.buttonExpertLinearsTune);
+            this.tabPageExpertLinears.Controls.Add(this.comboBoxExpertLinears4_2);
+            this.tabPageExpertLinears.Controls.Add(this.label28);
+            this.tabPageExpertLinears.Controls.Add(this.comboBoxExpertLinears4_1);
+            this.tabPageExpertLinears.Controls.Add(this.comboBoxExpertLinears6_2);
+            this.tabPageExpertLinears.Controls.Add(this.label27);
+            this.tabPageExpertLinears.Controls.Add(this.comboBoxExpertLinears6_1);
+            this.tabPageExpertLinears.Controls.Add(this.comboBoxExpertLinears10_2);
+            this.tabPageExpertLinears.Controls.Add(this.label26);
+            this.tabPageExpertLinears.Controls.Add(this.comboBoxExpertLinears10_1);
+            this.tabPageExpertLinears.Controls.Add(this.comboBoxExpertLinears12_2);
+            this.tabPageExpertLinears.Controls.Add(this.label25);
+            this.tabPageExpertLinears.Controls.Add(this.comboBoxExpertLinears12_1);
+            this.tabPageExpertLinears.Controls.Add(this.comboBoxExpertLinears15_2);
+            this.tabPageExpertLinears.Controls.Add(this.label24);
+            this.tabPageExpertLinears.Controls.Add(this.comboBoxExpertLinears15_1);
+            this.tabPageExpertLinears.Controls.Add(this.comboBoxExpertLinears17_2);
+            this.tabPageExpertLinears.Controls.Add(this.label23);
+            this.tabPageExpertLinears.Controls.Add(this.comboBoxExpertLinears17_1);
+            this.tabPageExpertLinears.Controls.Add(this.comboBoxExpertLinears20_2);
+            this.tabPageExpertLinears.Controls.Add(this.label22);
+            this.tabPageExpertLinears.Controls.Add(this.comboBoxExpertLinears20_1);
+            this.tabPageExpertLinears.Controls.Add(this.comboBoxExpertLinears30_2);
+            this.tabPageExpertLinears.Controls.Add(this.label21);
+            this.tabPageExpertLinears.Controls.Add(this.comboBoxExpertLinears30_1);
+            this.tabPageExpertLinears.Controls.Add(this.comboBoxExpertLinears40_2);
+            this.tabPageExpertLinears.Controls.Add(this.label20);
+            this.tabPageExpertLinears.Controls.Add(this.comboBoxExpertLinears40_1);
+            this.tabPageExpertLinears.Controls.Add(this.comboBoxExpertLinears60_2);
+            this.tabPageExpertLinears.Controls.Add(this.label19);
+            this.tabPageExpertLinears.Controls.Add(this.comboBoxExpertLinears60_1);
+            this.tabPageExpertLinears.Controls.Add(this.comboBoxExpertLinears80_2);
+            this.tabPageExpertLinears.Controls.Add(this.label13);
+            this.tabPageExpertLinears.Controls.Add(this.comboBoxExpertLinears80_1);
+            this.tabPageExpertLinears.Controls.Add(this.comboBoxExpertLinears160_2);
+            this.tabPageExpertLinears.Controls.Add(this.label12);
+            this.tabPageExpertLinears.Controls.Add(this.comboBoxExpertLinears160_1);
+            this.tabPageExpertLinears.Location = new System.Drawing.Point(4, 22);
+            this.tabPageExpertLinears.Name = "tabPageExpertLinears";
+            this.tabPageExpertLinears.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageExpertLinears.Size = new System.Drawing.Size(365, 195);
+            this.tabPageExpertLinears.TabIndex = 10;
+            this.tabPageExpertLinears.Text = "ExpertLinears";
+            this.toolTip1.SetToolTip(this.tabPageExpertLinears, "Enable to tune this band/antenna");
+            this.tabPageExpertLinears.UseVisualStyleBackColor = true;
+            // 
+            // checkBox20
+            // 
+            this.checkBox20.AutoSize = true;
+            this.checkBox20.Location = new System.Drawing.Point(295, 144);
+            this.checkBox20.Name = "checkBox20";
+            this.checkBox20.Size = new System.Drawing.Size(15, 14);
+            this.checkBox20.TabIndex = 60;
+            this.checkBox20.UseVisualStyleBackColor = true;
+            // 
+            // checkBox21
+            // 
+            this.checkBox21.AutoSize = true;
+            this.checkBox21.Location = new System.Drawing.Point(295, 116);
+            this.checkBox21.Name = "checkBox21";
+            this.checkBox21.Size = new System.Drawing.Size(15, 14);
+            this.checkBox21.TabIndex = 59;
+            this.toolTip1.SetToolTip(this.checkBox21, "Enable to tune this band/antenna");
+            this.checkBox21.UseVisualStyleBackColor = true;
+            // 
+            // checkBox22
+            // 
+            this.checkBox22.AutoSize = true;
+            this.checkBox22.Location = new System.Drawing.Point(295, 89);
+            this.checkBox22.Name = "checkBox22";
+            this.checkBox22.Size = new System.Drawing.Size(15, 14);
+            this.checkBox22.TabIndex = 58;
+            this.toolTip1.SetToolTip(this.checkBox22, "Enable to tune this band/antenna");
+            this.checkBox22.UseVisualStyleBackColor = true;
+            // 
+            // checkBox23
+            // 
+            this.checkBox23.AutoSize = true;
+            this.checkBox23.Location = new System.Drawing.Point(295, 62);
+            this.checkBox23.Name = "checkBox23";
+            this.checkBox23.Size = new System.Drawing.Size(15, 14);
+            this.checkBox23.TabIndex = 57;
+            this.toolTip1.SetToolTip(this.checkBox23, "Enable to tune this band/antenna");
+            this.checkBox23.UseVisualStyleBackColor = true;
+            // 
+            // checkBox24
+            // 
+            this.checkBox24.AutoSize = true;
+            this.checkBox24.Location = new System.Drawing.Point(295, 36);
+            this.checkBox24.Name = "checkBox24";
+            this.checkBox24.Size = new System.Drawing.Size(15, 14);
+            this.checkBox24.TabIndex = 56;
+            this.toolTip1.SetToolTip(this.checkBox24, "Enable to tune this band/antenna");
+            this.checkBox24.UseVisualStyleBackColor = true;
+            // 
+            // checkBox25
+            // 
+            this.checkBox25.AutoSize = true;
+            this.checkBox25.Location = new System.Drawing.Point(295, 9);
+            this.checkBox25.Name = "checkBox25";
+            this.checkBox25.Size = new System.Drawing.Size(15, 14);
+            this.checkBox25.TabIndex = 55;
+            this.toolTip1.SetToolTip(this.checkBox25, "Enable to tune this band/antenna");
+            this.checkBox25.UseVisualStyleBackColor = true;
+            // 
+            // checkBox14
+            // 
+            this.checkBox14.AutoSize = true;
+            this.checkBox14.Location = new System.Drawing.Point(237, 144);
+            this.checkBox14.Name = "checkBox14";
+            this.checkBox14.Size = new System.Drawing.Size(15, 14);
+            this.checkBox14.TabIndex = 54;
+            this.toolTip1.SetToolTip(this.checkBox14, "Enable to tune this band/antenna");
+            this.checkBox14.UseVisualStyleBackColor = true;
+            // 
+            // checkBox15
+            // 
+            this.checkBox15.AutoSize = true;
+            this.checkBox15.Location = new System.Drawing.Point(237, 116);
+            this.checkBox15.Name = "checkBox15";
+            this.checkBox15.Size = new System.Drawing.Size(15, 14);
+            this.checkBox15.TabIndex = 53;
+            this.toolTip1.SetToolTip(this.checkBox15, "Enable to tune this band/antenna");
+            this.checkBox15.UseVisualStyleBackColor = true;
+            // 
+            // checkBox16
+            // 
+            this.checkBox16.AutoSize = true;
+            this.checkBox16.Location = new System.Drawing.Point(237, 89);
+            this.checkBox16.Name = "checkBox16";
+            this.checkBox16.Size = new System.Drawing.Size(15, 14);
+            this.checkBox16.TabIndex = 52;
+            this.toolTip1.SetToolTip(this.checkBox16, "Enable to tune this band/antenna");
+            this.checkBox16.UseVisualStyleBackColor = true;
+            // 
+            // checkBox17
+            // 
+            this.checkBox17.AutoSize = true;
+            this.checkBox17.Location = new System.Drawing.Point(237, 62);
+            this.checkBox17.Name = "checkBox17";
+            this.checkBox17.Size = new System.Drawing.Size(15, 14);
+            this.checkBox17.TabIndex = 51;
+            this.toolTip1.SetToolTip(this.checkBox17, "Enable to tune this band/antenna");
+            this.checkBox17.UseVisualStyleBackColor = true;
+            // 
+            // checkBox18
+            // 
+            this.checkBox18.AutoSize = true;
+            this.checkBox18.Location = new System.Drawing.Point(237, 36);
+            this.checkBox18.Name = "checkBox18";
+            this.checkBox18.Size = new System.Drawing.Size(15, 14);
+            this.checkBox18.TabIndex = 50;
+            this.toolTip1.SetToolTip(this.checkBox18, "Enable to tune this band/antenna");
+            this.checkBox18.UseVisualStyleBackColor = true;
+            // 
+            // checkBox19
+            // 
+            this.checkBox19.AutoSize = true;
+            this.checkBox19.Location = new System.Drawing.Point(237, 9);
+            this.checkBox19.Name = "checkBox19";
+            this.checkBox19.Size = new System.Drawing.Size(15, 14);
+            this.checkBox19.TabIndex = 49;
+            this.toolTip1.SetToolTip(this.checkBox19, "Enable to tune this band/antenna");
+            this.checkBox19.UseVisualStyleBackColor = true;
+            // 
+            // checkBox8
+            // 
+            this.checkBox8.AutoSize = true;
+            this.checkBox8.Location = new System.Drawing.Point(135, 144);
+            this.checkBox8.Name = "checkBox8";
+            this.checkBox8.Size = new System.Drawing.Size(15, 14);
+            this.checkBox8.TabIndex = 48;
+            this.toolTip1.SetToolTip(this.checkBox8, "Enable to tune this band/antenna");
+            this.checkBox8.UseVisualStyleBackColor = true;
+            // 
+            // checkBox9
+            // 
+            this.checkBox9.AutoSize = true;
+            this.checkBox9.Location = new System.Drawing.Point(135, 116);
+            this.checkBox9.Name = "checkBox9";
+            this.checkBox9.Size = new System.Drawing.Size(15, 14);
+            this.checkBox9.TabIndex = 47;
+            this.toolTip1.SetToolTip(this.checkBox9, "Enable to tune this band/antenna");
+            this.checkBox9.UseVisualStyleBackColor = true;
+            // 
+            // checkBox10
+            // 
+            this.checkBox10.AutoSize = true;
+            this.checkBox10.Location = new System.Drawing.Point(135, 89);
+            this.checkBox10.Name = "checkBox10";
+            this.checkBox10.Size = new System.Drawing.Size(15, 14);
+            this.checkBox10.TabIndex = 46;
+            this.toolTip1.SetToolTip(this.checkBox10, "Enable to tune this band/antenna");
+            this.checkBox10.UseVisualStyleBackColor = true;
+            // 
+            // checkBox11
+            // 
+            this.checkBox11.AutoSize = true;
+            this.checkBox11.Location = new System.Drawing.Point(135, 62);
+            this.checkBox11.Name = "checkBox11";
+            this.checkBox11.Size = new System.Drawing.Size(15, 14);
+            this.checkBox11.TabIndex = 45;
+            this.toolTip1.SetToolTip(this.checkBox11, "Enable to tune this band/antenna");
+            this.checkBox11.UseVisualStyleBackColor = true;
+            // 
+            // checkBox12
+            // 
+            this.checkBox12.AutoSize = true;
+            this.checkBox12.Location = new System.Drawing.Point(135, 36);
+            this.checkBox12.Name = "checkBox12";
+            this.checkBox12.Size = new System.Drawing.Size(15, 14);
+            this.checkBox12.TabIndex = 44;
+            this.toolTip1.SetToolTip(this.checkBox12, "Enable to tune this band/antenna");
+            this.checkBox12.UseVisualStyleBackColor = true;
+            // 
+            // checkBox13
+            // 
+            this.checkBox13.AutoSize = true;
+            this.checkBox13.Location = new System.Drawing.Point(135, 9);
+            this.checkBox13.Name = "checkBox13";
+            this.checkBox13.Size = new System.Drawing.Size(15, 14);
+            this.checkBox13.TabIndex = 43;
+            this.toolTip1.SetToolTip(this.checkBox13, "Enable to tune this band/antenna");
+            this.checkBox13.UseVisualStyleBackColor = true;
+            // 
+            // checkBox7
+            // 
+            this.checkBox7.AutoSize = true;
+            this.checkBox7.Location = new System.Drawing.Point(77, 144);
+            this.checkBox7.Name = "checkBox7";
+            this.checkBox7.Size = new System.Drawing.Size(15, 14);
+            this.checkBox7.TabIndex = 42;
+            this.toolTip1.SetToolTip(this.checkBox7, "Enable to tune this band/antenna");
+            this.checkBox7.UseVisualStyleBackColor = true;
+            // 
+            // checkBox6
+            // 
+            this.checkBox6.AutoSize = true;
+            this.checkBox6.Location = new System.Drawing.Point(77, 116);
+            this.checkBox6.Name = "checkBox6";
+            this.checkBox6.Size = new System.Drawing.Size(15, 14);
+            this.checkBox6.TabIndex = 41;
+            this.toolTip1.SetToolTip(this.checkBox6, "Enable to tune this band/antenna");
+            this.checkBox6.UseVisualStyleBackColor = true;
+            // 
+            // checkBox5
+            // 
+            this.checkBox5.AutoSize = true;
+            this.checkBox5.Location = new System.Drawing.Point(77, 89);
+            this.checkBox5.Name = "checkBox5";
+            this.checkBox5.Size = new System.Drawing.Size(15, 14);
+            this.checkBox5.TabIndex = 40;
+            this.toolTip1.SetToolTip(this.checkBox5, "Enable to tune this band/antenna");
+            this.checkBox5.UseVisualStyleBackColor = true;
+            // 
+            // checkBox4
+            // 
+            this.checkBox4.AutoSize = true;
+            this.checkBox4.Location = new System.Drawing.Point(77, 62);
+            this.checkBox4.Name = "checkBox4";
+            this.checkBox4.Size = new System.Drawing.Size(15, 14);
+            this.checkBox4.TabIndex = 39;
+            this.toolTip1.SetToolTip(this.checkBox4, "Enable to tune this band/antenna");
+            this.checkBox4.UseVisualStyleBackColor = true;
+            // 
+            // checkBox3
+            // 
+            this.checkBox3.AutoSize = true;
+            this.checkBox3.Location = new System.Drawing.Point(77, 36);
+            this.checkBox3.Name = "checkBox3";
+            this.checkBox3.Size = new System.Drawing.Size(15, 14);
+            this.checkBox3.TabIndex = 38;
+            this.toolTip1.SetToolTip(this.checkBox3, "Enable to tune this band/antenna");
+            this.checkBox3.UseVisualStyleBackColor = true;
+            // 
+            // checkBox2
+            // 
+            this.checkBox2.AutoSize = true;
+            this.checkBox2.Location = new System.Drawing.Point(77, 9);
+            this.checkBox2.Name = "checkBox2";
+            this.checkBox2.Size = new System.Drawing.Size(15, 14);
+            this.checkBox2.TabIndex = 37;
+            this.toolTip1.SetToolTip(this.checkBox2, "Enable to tune this band/antenna");
+            this.checkBox2.UseVisualStyleBackColor = true;
+            // 
+            // buttonExpertLinearsTune
+            // 
+            this.buttonExpertLinearsTune.Location = new System.Drawing.Point(272, 165);
+            this.buttonExpertLinearsTune.Name = "buttonExpertLinearsTune";
+            this.buttonExpertLinearsTune.Size = new System.Drawing.Size(75, 23);
+            this.buttonExpertLinearsTune.TabIndex = 36;
+            this.buttonExpertLinearsTune.Text = "Tune";
+            this.toolTip1.SetToolTip(this.buttonExpertLinearsTune, "Tune selected antennas");
+            this.buttonExpertLinearsTune.UseVisualStyleBackColor = true;
+            this.buttonExpertLinearsTune.Click += new System.EventHandler(this.buttonExpertLinearsTune_Click);
+            // 
+            // comboBoxExpertLinears4_2
+            // 
+            this.comboBoxExpertLinears4_2.FormattingEnabled = true;
+            this.comboBoxExpertLinears4_2.Location = new System.Drawing.Point(254, 140);
+            this.comboBoxExpertLinears4_2.Name = "comboBoxExpertLinears4_2";
+            this.comboBoxExpertLinears4_2.Size = new System.Drawing.Size(40, 21);
+            this.comboBoxExpertLinears4_2.TabIndex = 35;
+            // 
+            // label28
+            // 
+            this.label28.AutoSize = true;
+            this.label28.Location = new System.Drawing.Point(168, 144);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(22, 13);
+            this.label28.TabIndex = 34;
+            this.label28.Text = "4M";
+            // 
+            // comboBoxExpertLinears4_1
+            // 
+            this.comboBoxExpertLinears4_1.FormattingEnabled = true;
+            this.comboBoxExpertLinears4_1.Location = new System.Drawing.Point(196, 140);
+            this.comboBoxExpertLinears4_1.Name = "comboBoxExpertLinears4_1";
+            this.comboBoxExpertLinears4_1.Size = new System.Drawing.Size(40, 21);
+            this.comboBoxExpertLinears4_1.TabIndex = 33;
+            // 
+            // comboBoxExpertLinears6_2
+            // 
+            this.comboBoxExpertLinears6_2.FormattingEnabled = true;
+            this.comboBoxExpertLinears6_2.Location = new System.Drawing.Point(254, 114);
+            this.comboBoxExpertLinears6_2.Name = "comboBoxExpertLinears6_2";
+            this.comboBoxExpertLinears6_2.Size = new System.Drawing.Size(40, 21);
+            this.comboBoxExpertLinears6_2.TabIndex = 32;
+            // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.Location = new System.Drawing.Point(168, 118);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(22, 13);
+            this.label27.TabIndex = 31;
+            this.label27.Text = "6M";
+            // 
+            // comboBoxExpertLinears6_1
+            // 
+            this.comboBoxExpertLinears6_1.FormattingEnabled = true;
+            this.comboBoxExpertLinears6_1.Location = new System.Drawing.Point(196, 114);
+            this.comboBoxExpertLinears6_1.Name = "comboBoxExpertLinears6_1";
+            this.comboBoxExpertLinears6_1.Size = new System.Drawing.Size(40, 21);
+            this.comboBoxExpertLinears6_1.TabIndex = 30;
+            // 
+            // comboBoxExpertLinears10_2
+            // 
+            this.comboBoxExpertLinears10_2.FormattingEnabled = true;
+            this.comboBoxExpertLinears10_2.Location = new System.Drawing.Point(254, 87);
+            this.comboBoxExpertLinears10_2.Name = "comboBoxExpertLinears10_2";
+            this.comboBoxExpertLinears10_2.Size = new System.Drawing.Size(40, 21);
+            this.comboBoxExpertLinears10_2.TabIndex = 29;
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.Location = new System.Drawing.Point(168, 91);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(28, 13);
+            this.label26.TabIndex = 28;
+            this.label26.Text = "10M";
+            // 
+            // comboBoxExpertLinears10_1
+            // 
+            this.comboBoxExpertLinears10_1.FormattingEnabled = true;
+            this.comboBoxExpertLinears10_1.Location = new System.Drawing.Point(196, 87);
+            this.comboBoxExpertLinears10_1.Name = "comboBoxExpertLinears10_1";
+            this.comboBoxExpertLinears10_1.Size = new System.Drawing.Size(40, 21);
+            this.comboBoxExpertLinears10_1.TabIndex = 27;
+            // 
+            // comboBoxExpertLinears12_2
+            // 
+            this.comboBoxExpertLinears12_2.FormattingEnabled = true;
+            this.comboBoxExpertLinears12_2.Location = new System.Drawing.Point(254, 60);
+            this.comboBoxExpertLinears12_2.Name = "comboBoxExpertLinears12_2";
+            this.comboBoxExpertLinears12_2.Size = new System.Drawing.Size(40, 21);
+            this.comboBoxExpertLinears12_2.TabIndex = 26;
+            // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Location = new System.Drawing.Point(168, 64);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(28, 13);
+            this.label25.TabIndex = 25;
+            this.label25.Text = "12M";
+            // 
+            // comboBoxExpertLinears12_1
+            // 
+            this.comboBoxExpertLinears12_1.FormattingEnabled = true;
+            this.comboBoxExpertLinears12_1.Location = new System.Drawing.Point(196, 60);
+            this.comboBoxExpertLinears12_1.Name = "comboBoxExpertLinears12_1";
+            this.comboBoxExpertLinears12_1.Size = new System.Drawing.Size(40, 21);
+            this.comboBoxExpertLinears12_1.TabIndex = 24;
+            // 
+            // comboBoxExpertLinears15_2
+            // 
+            this.comboBoxExpertLinears15_2.FormattingEnabled = true;
+            this.comboBoxExpertLinears15_2.Location = new System.Drawing.Point(254, 33);
+            this.comboBoxExpertLinears15_2.Name = "comboBoxExpertLinears15_2";
+            this.comboBoxExpertLinears15_2.Size = new System.Drawing.Size(40, 21);
+            this.comboBoxExpertLinears15_2.TabIndex = 23;
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Location = new System.Drawing.Point(168, 37);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(28, 13);
+            this.label24.TabIndex = 22;
+            this.label24.Text = "15M";
+            // 
+            // comboBoxExpertLinears15_1
+            // 
+            this.comboBoxExpertLinears15_1.FormattingEnabled = true;
+            this.comboBoxExpertLinears15_1.Location = new System.Drawing.Point(196, 33);
+            this.comboBoxExpertLinears15_1.Name = "comboBoxExpertLinears15_1";
+            this.comboBoxExpertLinears15_1.Size = new System.Drawing.Size(40, 21);
+            this.comboBoxExpertLinears15_1.TabIndex = 21;
+            // 
+            // comboBoxExpertLinears17_2
+            // 
+            this.comboBoxExpertLinears17_2.FormattingEnabled = true;
+            this.comboBoxExpertLinears17_2.Location = new System.Drawing.Point(254, 6);
+            this.comboBoxExpertLinears17_2.Name = "comboBoxExpertLinears17_2";
+            this.comboBoxExpertLinears17_2.Size = new System.Drawing.Size(40, 21);
+            this.comboBoxExpertLinears17_2.TabIndex = 20;
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Location = new System.Drawing.Point(168, 10);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(28, 13);
+            this.label23.TabIndex = 19;
+            this.label23.Text = "17M";
+            // 
+            // comboBoxExpertLinears17_1
+            // 
+            this.comboBoxExpertLinears17_1.FormattingEnabled = true;
+            this.comboBoxExpertLinears17_1.Location = new System.Drawing.Point(196, 6);
+            this.comboBoxExpertLinears17_1.Name = "comboBoxExpertLinears17_1";
+            this.comboBoxExpertLinears17_1.Size = new System.Drawing.Size(40, 21);
+            this.comboBoxExpertLinears17_1.TabIndex = 18;
+            // 
+            // comboBoxExpertLinears20_2
+            // 
+            this.comboBoxExpertLinears20_2.FormattingEnabled = true;
+            this.comboBoxExpertLinears20_2.Location = new System.Drawing.Point(94, 140);
+            this.comboBoxExpertLinears20_2.Name = "comboBoxExpertLinears20_2";
+            this.comboBoxExpertLinears20_2.Size = new System.Drawing.Size(40, 21);
+            this.comboBoxExpertLinears20_2.TabIndex = 17;
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Location = new System.Drawing.Point(8, 144);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(28, 13);
+            this.label22.TabIndex = 16;
+            this.label22.Text = "20M";
+            // 
+            // comboBoxExpertLinears20_1
+            // 
+            this.comboBoxExpertLinears20_1.FormattingEnabled = true;
+            this.comboBoxExpertLinears20_1.Location = new System.Drawing.Point(36, 140);
+            this.comboBoxExpertLinears20_1.Name = "comboBoxExpertLinears20_1";
+            this.comboBoxExpertLinears20_1.Size = new System.Drawing.Size(40, 21);
+            this.comboBoxExpertLinears20_1.TabIndex = 15;
+            // 
+            // comboBoxExpertLinears30_2
+            // 
+            this.comboBoxExpertLinears30_2.FormattingEnabled = true;
+            this.comboBoxExpertLinears30_2.Location = new System.Drawing.Point(94, 113);
+            this.comboBoxExpertLinears30_2.Name = "comboBoxExpertLinears30_2";
+            this.comboBoxExpertLinears30_2.Size = new System.Drawing.Size(40, 21);
+            this.comboBoxExpertLinears30_2.TabIndex = 14;
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Location = new System.Drawing.Point(8, 117);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(28, 13);
+            this.label21.TabIndex = 13;
+            this.label21.Text = "30M";
+            // 
+            // comboBoxExpertLinears30_1
+            // 
+            this.comboBoxExpertLinears30_1.FormattingEnabled = true;
+            this.comboBoxExpertLinears30_1.Location = new System.Drawing.Point(36, 113);
+            this.comboBoxExpertLinears30_1.Name = "comboBoxExpertLinears30_1";
+            this.comboBoxExpertLinears30_1.Size = new System.Drawing.Size(40, 21);
+            this.comboBoxExpertLinears30_1.TabIndex = 12;
+            // 
+            // comboBoxExpertLinears40_2
+            // 
+            this.comboBoxExpertLinears40_2.FormattingEnabled = true;
+            this.comboBoxExpertLinears40_2.Location = new System.Drawing.Point(94, 86);
+            this.comboBoxExpertLinears40_2.Name = "comboBoxExpertLinears40_2";
+            this.comboBoxExpertLinears40_2.Size = new System.Drawing.Size(40, 21);
+            this.comboBoxExpertLinears40_2.TabIndex = 11;
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(8, 90);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(28, 13);
+            this.label20.TabIndex = 10;
+            this.label20.Text = "40M";
+            // 
+            // comboBoxExpertLinears40_1
+            // 
+            this.comboBoxExpertLinears40_1.FormattingEnabled = true;
+            this.comboBoxExpertLinears40_1.Location = new System.Drawing.Point(36, 86);
+            this.comboBoxExpertLinears40_1.Name = "comboBoxExpertLinears40_1";
+            this.comboBoxExpertLinears40_1.Size = new System.Drawing.Size(40, 21);
+            this.comboBoxExpertLinears40_1.TabIndex = 9;
+            // 
+            // comboBoxExpertLinears60_2
+            // 
+            this.comboBoxExpertLinears60_2.FormattingEnabled = true;
+            this.comboBoxExpertLinears60_2.Location = new System.Drawing.Point(94, 59);
+            this.comboBoxExpertLinears60_2.Name = "comboBoxExpertLinears60_2";
+            this.comboBoxExpertLinears60_2.Size = new System.Drawing.Size(40, 21);
+            this.comboBoxExpertLinears60_2.TabIndex = 8;
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(8, 63);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(28, 13);
+            this.label19.TabIndex = 7;
+            this.label19.Text = "60M";
+            // 
+            // comboBoxExpertLinears60_1
+            // 
+            this.comboBoxExpertLinears60_1.FormattingEnabled = true;
+            this.comboBoxExpertLinears60_1.Location = new System.Drawing.Point(36, 59);
+            this.comboBoxExpertLinears60_1.Name = "comboBoxExpertLinears60_1";
+            this.comboBoxExpertLinears60_1.Size = new System.Drawing.Size(40, 21);
+            this.comboBoxExpertLinears60_1.TabIndex = 6;
+            // 
+            // comboBoxExpertLinears80_2
+            // 
+            this.comboBoxExpertLinears80_2.FormattingEnabled = true;
+            this.comboBoxExpertLinears80_2.Location = new System.Drawing.Point(94, 32);
+            this.comboBoxExpertLinears80_2.Name = "comboBoxExpertLinears80_2";
+            this.comboBoxExpertLinears80_2.Size = new System.Drawing.Size(40, 21);
+            this.comboBoxExpertLinears80_2.TabIndex = 5;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(8, 36);
+            this.label13.Name = "label13";
+            this.label13.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.label13.Size = new System.Drawing.Size(28, 13);
+            this.label13.TabIndex = 4;
+            this.label13.Text = "80M";
+            this.label13.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // comboBoxExpertLinears80_1
+            // 
+            this.comboBoxExpertLinears80_1.FormattingEnabled = true;
+            this.comboBoxExpertLinears80_1.Location = new System.Drawing.Point(36, 32);
+            this.comboBoxExpertLinears80_1.Name = "comboBoxExpertLinears80_1";
+            this.comboBoxExpertLinears80_1.Size = new System.Drawing.Size(40, 21);
+            this.comboBoxExpertLinears80_1.TabIndex = 3;
+            // 
+            // comboBoxExpertLinears160_2
+            // 
+            this.comboBoxExpertLinears160_2.FormattingEnabled = true;
+            this.comboBoxExpertLinears160_2.Location = new System.Drawing.Point(94, 5);
+            this.comboBoxExpertLinears160_2.Name = "comboBoxExpertLinears160_2";
+            this.comboBoxExpertLinears160_2.Size = new System.Drawing.Size(40, 21);
+            this.comboBoxExpertLinears160_2.TabIndex = 2;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(1, 9);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(34, 13);
+            this.label12.TabIndex = 1;
+            this.label12.Text = "160M";
+            // 
+            // comboBoxExpertLinears160_1
+            // 
+            this.comboBoxExpertLinears160_1.FormattingEnabled = true;
+            this.comboBoxExpertLinears160_1.Items.AddRange(new object[] {
+            "N",
+            "1",
+            "2",
+            "3",
+            "4"});
+            this.comboBoxExpertLinears160_1.Location = new System.Drawing.Point(36, 5);
+            this.comboBoxExpertLinears160_1.Name = "comboBoxExpertLinears160_1";
+            this.comboBoxExpertLinears160_1.Size = new System.Drawing.Size(40, 21);
+            this.comboBoxExpertLinears160_1.TabIndex = 0;
+            // 
             // timerGetFreq
             // 
             this.timerGetFreq.Tick += new System.EventHandler(this.TimerGetFreq_Tick);
@@ -4225,6 +4923,7 @@
             this.debugToolStripMenuItem,
             this.powerToolStripMenuItem,
             this.tunerToolStripMenuItem,
+            this.expertLinearsToolStripMenuItem,
             this.relay1ToolStripMenuItem,
             this.relay2ToolStripMenuItem,
             this.relay3ToolStripMenuItem,
@@ -4238,7 +4937,7 @@
             this.antennaToolStripMenuItem.Checked = global::AmpAutoTunerUtility.Properties.Settings.Default.checkBoxAntennaTab;
             this.antennaToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.antennaToolStripMenuItem.Name = "antennaToolStripMenuItem";
-            this.antennaToolStripMenuItem.Size = new System.Drawing.Size(119, 22);
+            this.antennaToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
             this.antennaToolStripMenuItem.Text = "Antenna";
             this.antennaToolStripMenuItem.Click += new System.EventHandler(this.antennaToolStripMenuItem_Click);
             // 
@@ -4247,7 +4946,7 @@
             this.debugToolStripMenuItem.Checked = global::AmpAutoTunerUtility.Properties.Settings.Default.checkBoxDebugTab;
             this.debugToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.debugToolStripMenuItem.Name = "debugToolStripMenuItem";
-            this.debugToolStripMenuItem.Size = new System.Drawing.Size(119, 22);
+            this.debugToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
             this.debugToolStripMenuItem.Text = "Debug";
             this.debugToolStripMenuItem.Click += new System.EventHandler(this.debugToolStripMenuItem_Click);
             // 
@@ -4256,7 +4955,7 @@
             this.powerToolStripMenuItem.Checked = global::AmpAutoTunerUtility.Properties.Settings.Default.checkBoxPowerTab;
             this.powerToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.powerToolStripMenuItem.Name = "powerToolStripMenuItem";
-            this.powerToolStripMenuItem.Size = new System.Drawing.Size(119, 22);
+            this.powerToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
             this.powerToolStripMenuItem.Text = "Power";
             // 
             // tunerToolStripMenuItem
@@ -4264,16 +4963,23 @@
             this.tunerToolStripMenuItem.Checked = global::AmpAutoTunerUtility.Properties.Settings.Default.checkBoxTunerTab;
             this.tunerToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.tunerToolStripMenuItem.Name = "tunerToolStripMenuItem";
-            this.tunerToolStripMenuItem.Size = new System.Drawing.Size(119, 22);
+            this.tunerToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
             this.tunerToolStripMenuItem.Text = "Tuner";
             this.tunerToolStripMenuItem.Click += new System.EventHandler(this.tunerToolStripMenuItem_Click);
+            // 
+            // expertLinearsToolStripMenuItem
+            // 
+            this.expertLinearsToolStripMenuItem.Name = "expertLinearsToolStripMenuItem";
+            this.expertLinearsToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
+            this.expertLinearsToolStripMenuItem.Text = "Expert Linears";
+            this.expertLinearsToolStripMenuItem.Click += new System.EventHandler(this.expertLinearsToolStripMenuItem_Click);
             // 
             // relay1ToolStripMenuItem
             // 
             this.relay1ToolStripMenuItem.Checked = global::AmpAutoTunerUtility.Properties.Settings.Default.checkedMenuRelay1;
             this.relay1ToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.relay1ToolStripMenuItem.Name = "relay1ToolStripMenuItem";
-            this.relay1ToolStripMenuItem.Size = new System.Drawing.Size(119, 22);
+            this.relay1ToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
             this.relay1ToolStripMenuItem.Text = "Relay1";
             this.relay1ToolStripMenuItem.Click += new System.EventHandler(this.Relay1ToolStripMenuItem_Click);
             // 
@@ -4281,7 +4987,7 @@
             // 
             this.relay2ToolStripMenuItem.Checked = global::AmpAutoTunerUtility.Properties.Settings.Default.checkedMenuRelay2;
             this.relay2ToolStripMenuItem.Name = "relay2ToolStripMenuItem";
-            this.relay2ToolStripMenuItem.Size = new System.Drawing.Size(119, 22);
+            this.relay2ToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
             this.relay2ToolStripMenuItem.Text = "Relay2";
             this.relay2ToolStripMenuItem.Click += new System.EventHandler(this.Relay2ToolStripMenuItem_Click);
             // 
@@ -4289,7 +4995,7 @@
             // 
             this.relay3ToolStripMenuItem.Checked = global::AmpAutoTunerUtility.Properties.Settings.Default.checkedMenuRelay3;
             this.relay3ToolStripMenuItem.Name = "relay3ToolStripMenuItem";
-            this.relay3ToolStripMenuItem.Size = new System.Drawing.Size(119, 22);
+            this.relay3ToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
             this.relay3ToolStripMenuItem.Text = "Relay3";
             this.relay3ToolStripMenuItem.Click += new System.EventHandler(this.relay3ToolStripMenuItem_Click);
             // 
@@ -4297,7 +5003,7 @@
             // 
             this.relay4ToolStripMenuItem.Checked = global::AmpAutoTunerUtility.Properties.Settings.Default.checkedMenuRelay4;
             this.relay4ToolStripMenuItem.Name = "relay4ToolStripMenuItem";
-            this.relay4ToolStripMenuItem.Size = new System.Drawing.Size(119, 22);
+            this.relay4ToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
             this.relay4ToolStripMenuItem.Text = "Relay4";
             this.relay4ToolStripMenuItem.Click += new System.EventHandler(this.relay4ToolStripMenuItem_Click);
             // 
@@ -4328,6 +5034,15 @@
             // 
             this.timerFreqWalk.Tick += new System.EventHandler(this.TimerFreqWalk_Tick);
             // 
+            // labelExpertLinearsInfo
+            // 
+            this.labelExpertLinearsInfo.AutoSize = true;
+            this.labelExpertLinearsInfo.Location = new System.Drawing.Point(36, 169);
+            this.labelExpertLinearsInfo.Name = "labelExpertLinearsInfo";
+            this.labelExpertLinearsInfo.Size = new System.Drawing.Size(59, 13);
+            this.labelExpertLinearsInfo.TabIndex = 61;
+            this.labelExpertLinearsInfo.Text = "Information";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -4343,7 +5058,7 @@
             this.Margin = new System.Windows.Forms.Padding(2);
             this.MaximumSize = new System.Drawing.Size(417, 310);
             this.Name = "Form1";
-            this.Text = "AmpAutoTunerUtility 230401";
+            this.Text = "AmpAutoTunerUtility 230403";
             this.HelpButtonClicked += new System.ComponentModel.CancelEventHandler(this.Form1_HelpButtonClicked);
             this.Activated += new System.EventHandler(this.Form1_Activated);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
@@ -4389,6 +5104,8 @@
             this.tabPageRelay4.PerformLayout();
             this.panel6.ResumeLayout(false);
             this.panel6.PerformLayout();
+            this.tabPageExpertLinears.ResumeLayout(false);
+            this.tabPageExpertLinears.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -4711,6 +5428,70 @@
         private System.Windows.Forms.CheckBox checkBoxWalk2;
         private System.Windows.Forms.CheckBox checkBoxWalk1;
         private System.Windows.Forms.ComboBox comboBoxFreqWalkAntenna;
+        private System.Windows.Forms.TabPage tabPageExpertLinears;
+        private System.Windows.Forms.ComboBox comboBoxExpertLinears4_2;
+        private System.Windows.Forms.Label label28;
+        private System.Windows.Forms.ComboBox comboBoxExpertLinears4_1;
+        private System.Windows.Forms.ComboBox comboBoxExpertLinears6_2;
+        private System.Windows.Forms.Label label27;
+        private System.Windows.Forms.ComboBox comboBoxExpertLinears6_1;
+        private System.Windows.Forms.ComboBox comboBoxExpertLinears10_2;
+        private System.Windows.Forms.Label label26;
+        private System.Windows.Forms.ComboBox comboBoxExpertLinears10_1;
+        private System.Windows.Forms.ComboBox comboBoxExpertLinears12_2;
+        private System.Windows.Forms.Label label25;
+        private System.Windows.Forms.ComboBox comboBoxExpertLinears12_1;
+        private System.Windows.Forms.ComboBox comboBoxExpertLinears15_2;
+        private System.Windows.Forms.Label label24;
+        private System.Windows.Forms.ComboBox comboBoxExpertLinears15_1;
+        private System.Windows.Forms.ComboBox comboBoxExpertLinears17_2;
+        private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.ComboBox comboBoxExpertLinears17_1;
+        private System.Windows.Forms.ComboBox comboBoxExpertLinears20_2;
+        private System.Windows.Forms.Label label22;
+        private System.Windows.Forms.ComboBox comboBoxExpertLinears20_1;
+        private System.Windows.Forms.ComboBox comboBoxExpertLinears30_2;
+        private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.ComboBox comboBoxExpertLinears30_1;
+        private System.Windows.Forms.ComboBox comboBoxExpertLinears40_2;
+        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.ComboBox comboBoxExpertLinears40_1;
+        private System.Windows.Forms.ComboBox comboBoxExpertLinears60_2;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.ComboBox comboBoxExpertLinears60_1;
+        private System.Windows.Forms.ComboBox comboBoxExpertLinears80_2;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.ComboBox comboBoxExpertLinears80_1;
+        private System.Windows.Forms.ComboBox comboBoxExpertLinears160_2;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.ComboBox comboBoxExpertLinears160_1;
+        private System.Windows.Forms.ToolStripMenuItem expertLinearsToolStripMenuItem;
+        private System.Windows.Forms.CheckBox checkBox20;
+        private System.Windows.Forms.CheckBox checkBox21;
+        private System.Windows.Forms.CheckBox checkBox22;
+        private System.Windows.Forms.CheckBox checkBox23;
+        private System.Windows.Forms.CheckBox checkBox24;
+        private System.Windows.Forms.CheckBox checkBox25;
+        private System.Windows.Forms.CheckBox checkBox14;
+        private System.Windows.Forms.CheckBox checkBox15;
+        private System.Windows.Forms.CheckBox checkBox16;
+        private System.Windows.Forms.CheckBox checkBox17;
+        private System.Windows.Forms.CheckBox checkBox18;
+        private System.Windows.Forms.CheckBox checkBox19;
+        private System.Windows.Forms.CheckBox checkBox8;
+        private System.Windows.Forms.CheckBox checkBox9;
+        private System.Windows.Forms.CheckBox checkBox10;
+        private System.Windows.Forms.CheckBox checkBox11;
+        private System.Windows.Forms.CheckBox checkBox12;
+        private System.Windows.Forms.CheckBox checkBox13;
+        private System.Windows.Forms.CheckBox checkBox7;
+        private System.Windows.Forms.CheckBox checkBox6;
+        private System.Windows.Forms.CheckBox checkBox5;
+        private System.Windows.Forms.CheckBox checkBox4;
+        private System.Windows.Forms.CheckBox checkBox3;
+        private System.Windows.Forms.CheckBox checkBox2;
+        private System.Windows.Forms.Button buttonExpertLinearsTune;
+        private System.Windows.Forms.Label labelExpertLinearsInfo;
     }
 }
 
