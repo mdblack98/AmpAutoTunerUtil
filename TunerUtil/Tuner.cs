@@ -25,6 +25,7 @@ namespace AmpAutoTunerUtility
         public int AntennaNumber { get; set; }
         public bool TuneFull { get; set; }
         public string[,] antennas;
+        public int[,] tuneFrequencies;
         public Tuner()
         {
             model = null;

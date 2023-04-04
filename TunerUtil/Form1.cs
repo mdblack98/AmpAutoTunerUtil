@@ -5200,10 +5200,48 @@ namespace AmpAutoTunerUtility
             }
         }
 
+        // band = 0-11 (160-4) and antennaNumber is 1 or 2
+
+        private string[] bandList = { "160M", "80M", "60M", "40M", "30M", "20M", "17M", "15M", "12M", "10M", "6M", "4M" };
+        private void TuneAll(int band, int antennaNumber, string antennaSelected)
+        {
+            {
+                int freqN = tuner1.tuneFrequencies[band, 0];
+                int freqStep = tuner1.tuneFrequencies[band, 1];
+                int freqStart = tuner1.tuneFrequencies[band, 2];
+                for (int step = 0; step < freqN; ++step)
+                { 
+                    int freq = freqStart + (step * freqStep);
+                    labelExpertLinearsInfo.Text = "Tuning " + bandList[band] + " antenna#" + antennaNumber +"/"+antennaSelected + " " + freq;
+                    Application.DoEvents();
+                    Thread.Sleep(500);
+        }
+        /*
+        double frequencyHzTune = 3470;
+        myparam = "<params><param><value><double>" + frequencyHzTune + "</double></value></param></params";
+        xml = FLRigXML("rig.set_vfo" + 'A', myparam);
+        if (FLRigSend(xml) == false)
+        { // Abort if FLRig is giving an error
+            Debug(DebugEnum.ERR, "FLRigSend got an error??\n");
+        }
+        xml = FLRigXML("rig.set_vfo" + 'B', myparam);
+        if (FLRigSend(xml) == false)
+        { // Abort if FLRig is giving an error
+            Debug(DebugEnum.ERR, "FLRigSend got an error??\n");
+        }
+        tuner1.Tune();
+        Thread.Sleep(100);
+        xml = FLRigXML("rig.set_ptt", "<params><param><value><i4>1</i4></value></param></params");
+        if (FLRigSend(xml) == false) return; // Abort if FLRig is giving an error
+        labelExpertLinearsInfo.Text = "Tuned " + frequencyHzTune;
+        */
+    }
+        }
         private void buttonExpertLinearsTune_Click(object sender, EventArgs e)
         {
             labelExpertLinearsInfo.Text = "Tuning Expert Linears";
             Application.DoEvents();
+            /*
             var mode = "FM";
             string myparam = "<params><param><value>" + mode + "</value></param></params>";
             var xml = FLRigXML("rig.set_modeA", myparam);
@@ -5218,23 +5256,30 @@ namespace AmpAutoTunerUtility
                 Debug(DebugEnum.ERR, "FLRig set_modeB got an error??\n");
                 return;
             }
-            double frequencyHzTune = 3470;
-            myparam = "<params><param><value><double>" + frequencyHzTune + "</double></value></param></params";
-            xml = FLRigXML("rig.set_vfo" + 'A', myparam);
-            if (FLRigSend(xml) == false)
-            { // Abort if FLRig is giving an error
-                Debug(DebugEnum.ERR, "FLRigSend got an error??\n");
-            }
-            xml = FLRigXML("rig.set_vfo" + 'B', myparam);
-            if (FLRigSend(xml) == false)
-            { // Abort if FLRig is giving an error
-                Debug(DebugEnum.ERR, "FLRigSend got an error??\n");
-            }
-            tuner1.Tune();
-            Thread.Sleep(100);
-            xml = FLRigXML("rig.set_ptt", "<params><param><value><i4>1</i4></value></param></params");
-            if (FLRigSend(xml) == false) return; // Abort if FLRig is giving an error
-            labelExpertLinearsInfo.Text = "Tuned " + frequencyHzTune;
+            */
+            if (checkBoxExpertLinears160_1.Checked) TuneAll(0, 1, comboBoxExpertLinears160_1.SelectedItem.ToString());
+            if (checkBoxExpertLinears160_2.Checked) TuneAll(0, 2, comboBoxExpertLinears160_2.SelectedItem.ToString());
+            if (checkBoxExpertLinears80_1.Checked) TuneAll(1, 1, comboBoxExpertLinears80_1.SelectedItem.ToString());
+            if (checkBoxExpertLinears80_2.Checked) TuneAll(1, 2, comboBoxExpertLinears80_2.SelectedItem.ToString());
+            if (checkBoxExpertLinears60_1.Checked) TuneAll(2, 1, comboBoxExpertLinears60_1.SelectedItem.ToString());
+            if (checkBoxExpertLinears60_2.Checked) TuneAll(2, 2, comboBoxExpertLinears60_2.SelectedItem.ToString());
+            if (checkBoxExpertLinears40_1.Checked) TuneAll(3, 1, comboBoxExpertLinears40_1.SelectedItem.ToString());
+            if (checkBoxExpertLinears40_2.Checked) TuneAll(3, 2, comboBoxExpertLinears40_2.SelectedItem.ToString());
+            if (checkBoxExpertLinears30_1.Checked) TuneAll(4, 1, comboBoxExpertLinears30_1.SelectedItem.ToString());
+            if (checkBoxExpertLinears30_2.Checked) TuneAll(4, 2, comboBoxExpertLinears30_2.SelectedItem.ToString());
+            if (checkBoxExpertLinears20_1.Checked) TuneAll(5, 1, comboBoxExpertLinears20_1.SelectedItem.ToString());
+            if (checkBoxExpertLinears20_2.Checked) TuneAll(5, 2, comboBoxExpertLinears20_2.SelectedItem.ToString());
+            if (checkBoxExpertLinears17_1.Checked) TuneAll(6, 1, comboBoxExpertLinears17_1.SelectedItem.ToString());
+            if (checkBoxExpertLinears17_2.Checked) TuneAll(6, 2, comboBoxExpertLinears17_2.SelectedItem.ToString());
+            if (checkBoxExpertLinears15_1.Checked) TuneAll(7, 1, comboBoxExpertLinears15_1.SelectedItem.ToString());
+            if (checkBoxExpertLinears15_2.Checked) TuneAll(7, 2, comboBoxExpertLinears15_2.SelectedItem.ToString());
+            if (checkBoxExpertLinears12_1.Checked) TuneAll(8, 1, comboBoxExpertLinears12_1.SelectedItem.ToString());
+            if (checkBoxExpertLinears12_2.Checked) TuneAll(8, 2, comboBoxExpertLinears12_2.SelectedItem.ToString());
+            if (checkBoxExpertLinears10_1.Checked) TuneAll(9, 1, comboBoxExpertLinears10_1.SelectedItem.ToString());
+            if (checkBoxExpertLinears10_2.Checked) TuneAll(9, 2, comboBoxExpertLinears10_2.SelectedItem.ToString());
+            if (checkBoxExpertLinears6_1.Checked) TuneAll(10, 1, comboBoxExpertLinears6_1.SelectedItem.ToString());
+            if (checkBoxExpertLinears6_2.Checked) TuneAll(10, 2, comboBoxExpertLinears6_2.SelectedItem.ToString());
+            labelExpertLinearsInfo.Text = "Tuning done";
         }
 
         private void comboBoxExpertLinears4_2_Enter(object sender, EventArgs e)

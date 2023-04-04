@@ -22,7 +22,7 @@ namespace AmpAutoTunerUtility
         private string temp1 = "?";
         private string antenna = "?";
         private string band = "?";
-        public TunerExpertLinears(string model, string comport, string baud, out string errmsg)
+public TunerExpertLinears(string model, string comport, string baud, out string errmsg)
         {
             antennas = new string[12, 2];
             errmsg = null;
@@ -59,9 +59,24 @@ namespace AmpAutoTunerUtility
             //{
             //    MessageBox.Show(ex.Message);
             //}
-        }
-        //public override void Dispose(bool disposing)
-        protected override void Dispose(bool disposing)
+        tuneFrequencies = new int[,]
+            {
+                { 24, 20, 1785 },
+                { 29, 20, 3470 },
+                { 20, 25, 5013 },
+                { 19, 25, 6963 },
+                {  3, 50, 10075 },
+                { 12, 50, 13975 },
+                {  3, 50, 18075 },
+                { 14, 50, 20975 },
+                { 3, 73, 24891 },
+                { 18, 100, 28050 },
+                { 18, 250, 49875 }
+                // no 4M -- not tunable
+            };
+    }
+    //public override void Dispose(bool disposing)
+    protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
