@@ -315,6 +315,7 @@
             this.comboBoxBaudRelay4 = new System.Windows.Forms.ComboBox();
             this.comboBoxComRelay4 = new System.Windows.Forms.ComboBox();
             this.tabPageExpertLinears = new System.Windows.Forms.TabPage();
+            this.labelExpertLinearsInfo = new System.Windows.Forms.Label();
             this.checkBox20 = new System.Windows.Forms.CheckBox();
             this.checkBox21 = new System.Windows.Forms.CheckBox();
             this.checkBox22 = new System.Windows.Forms.CheckBox();
@@ -395,7 +396,6 @@
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.timerFreqWalk = new System.Windows.Forms.Timer(this.components);
-            this.labelExpertLinearsInfo = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCapacitance)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownInductance)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPostPttDelay)).BeginInit();
@@ -4318,6 +4318,16 @@
             this.tabPageExpertLinears.Text = "ExpertLinears";
             this.toolTip1.SetToolTip(this.tabPageExpertLinears, "Enable to tune this band/antenna");
             this.tabPageExpertLinears.UseVisualStyleBackColor = true;
+            this.tabPageExpertLinears.Enter += new System.EventHandler(this.tabPageExpertLinears_Enter);
+            // 
+            // labelExpertLinearsInfo
+            // 
+            this.labelExpertLinearsInfo.AutoSize = true;
+            this.labelExpertLinearsInfo.Location = new System.Drawing.Point(36, 169);
+            this.labelExpertLinearsInfo.Name = "labelExpertLinearsInfo";
+            this.labelExpertLinearsInfo.Size = new System.Drawing.Size(59, 13);
+            this.labelExpertLinearsInfo.TabIndex = 61;
+            this.labelExpertLinearsInfo.Text = "Information";
             // 
             // checkBox20
             // 
@@ -4572,10 +4582,19 @@
             // comboBoxExpertLinears4_2
             // 
             this.comboBoxExpertLinears4_2.FormattingEnabled = true;
+            this.comboBoxExpertLinears4_2.Items.AddRange(new object[] {
+            "NO",
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6"});
             this.comboBoxExpertLinears4_2.Location = new System.Drawing.Point(254, 140);
             this.comboBoxExpertLinears4_2.Name = "comboBoxExpertLinears4_2";
             this.comboBoxExpertLinears4_2.Size = new System.Drawing.Size(40, 21);
             this.comboBoxExpertLinears4_2.TabIndex = 35;
+            this.comboBoxExpertLinears4_2.Enter += new System.EventHandler(this.comboBoxExpertLinears4_2_Enter);
             // 
             // label28
             // 
@@ -4589,6 +4608,14 @@
             // comboBoxExpertLinears4_1
             // 
             this.comboBoxExpertLinears4_1.FormattingEnabled = true;
+            this.comboBoxExpertLinears4_1.Items.AddRange(new object[] {
+            "NO",
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6"});
             this.comboBoxExpertLinears4_1.Location = new System.Drawing.Point(196, 140);
             this.comboBoxExpertLinears4_1.Name = "comboBoxExpertLinears4_1";
             this.comboBoxExpertLinears4_1.Size = new System.Drawing.Size(40, 21);
@@ -4597,6 +4624,14 @@
             // comboBoxExpertLinears6_2
             // 
             this.comboBoxExpertLinears6_2.FormattingEnabled = true;
+            this.comboBoxExpertLinears6_2.Items.AddRange(new object[] {
+            "NO",
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6"});
             this.comboBoxExpertLinears6_2.Location = new System.Drawing.Point(254, 114);
             this.comboBoxExpertLinears6_2.Name = "comboBoxExpertLinears6_2";
             this.comboBoxExpertLinears6_2.Size = new System.Drawing.Size(40, 21);
@@ -4614,6 +4649,14 @@
             // comboBoxExpertLinears6_1
             // 
             this.comboBoxExpertLinears6_1.FormattingEnabled = true;
+            this.comboBoxExpertLinears6_1.Items.AddRange(new object[] {
+            "NO",
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6"});
             this.comboBoxExpertLinears6_1.Location = new System.Drawing.Point(196, 114);
             this.comboBoxExpertLinears6_1.Name = "comboBoxExpertLinears6_1";
             this.comboBoxExpertLinears6_1.Size = new System.Drawing.Size(40, 21);
@@ -4622,6 +4665,14 @@
             // comboBoxExpertLinears10_2
             // 
             this.comboBoxExpertLinears10_2.FormattingEnabled = true;
+            this.comboBoxExpertLinears10_2.Items.AddRange(new object[] {
+            "NO",
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6"});
             this.comboBoxExpertLinears10_2.Location = new System.Drawing.Point(254, 87);
             this.comboBoxExpertLinears10_2.Name = "comboBoxExpertLinears10_2";
             this.comboBoxExpertLinears10_2.Size = new System.Drawing.Size(40, 21);
@@ -4639,6 +4690,14 @@
             // comboBoxExpertLinears10_1
             // 
             this.comboBoxExpertLinears10_1.FormattingEnabled = true;
+            this.comboBoxExpertLinears10_1.Items.AddRange(new object[] {
+            "NO",
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6"});
             this.comboBoxExpertLinears10_1.Location = new System.Drawing.Point(196, 87);
             this.comboBoxExpertLinears10_1.Name = "comboBoxExpertLinears10_1";
             this.comboBoxExpertLinears10_1.Size = new System.Drawing.Size(40, 21);
@@ -4647,6 +4706,14 @@
             // comboBoxExpertLinears12_2
             // 
             this.comboBoxExpertLinears12_2.FormattingEnabled = true;
+            this.comboBoxExpertLinears12_2.Items.AddRange(new object[] {
+            "NO",
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6"});
             this.comboBoxExpertLinears12_2.Location = new System.Drawing.Point(254, 60);
             this.comboBoxExpertLinears12_2.Name = "comboBoxExpertLinears12_2";
             this.comboBoxExpertLinears12_2.Size = new System.Drawing.Size(40, 21);
@@ -4664,6 +4731,14 @@
             // comboBoxExpertLinears12_1
             // 
             this.comboBoxExpertLinears12_1.FormattingEnabled = true;
+            this.comboBoxExpertLinears12_1.Items.AddRange(new object[] {
+            "NO",
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6"});
             this.comboBoxExpertLinears12_1.Location = new System.Drawing.Point(196, 60);
             this.comboBoxExpertLinears12_1.Name = "comboBoxExpertLinears12_1";
             this.comboBoxExpertLinears12_1.Size = new System.Drawing.Size(40, 21);
@@ -4672,6 +4747,14 @@
             // comboBoxExpertLinears15_2
             // 
             this.comboBoxExpertLinears15_2.FormattingEnabled = true;
+            this.comboBoxExpertLinears15_2.Items.AddRange(new object[] {
+            "NO",
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6"});
             this.comboBoxExpertLinears15_2.Location = new System.Drawing.Point(254, 33);
             this.comboBoxExpertLinears15_2.Name = "comboBoxExpertLinears15_2";
             this.comboBoxExpertLinears15_2.Size = new System.Drawing.Size(40, 21);
@@ -4689,6 +4772,14 @@
             // comboBoxExpertLinears15_1
             // 
             this.comboBoxExpertLinears15_1.FormattingEnabled = true;
+            this.comboBoxExpertLinears15_1.Items.AddRange(new object[] {
+            "NO",
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6"});
             this.comboBoxExpertLinears15_1.Location = new System.Drawing.Point(196, 33);
             this.comboBoxExpertLinears15_1.Name = "comboBoxExpertLinears15_1";
             this.comboBoxExpertLinears15_1.Size = new System.Drawing.Size(40, 21);
@@ -4697,6 +4788,14 @@
             // comboBoxExpertLinears17_2
             // 
             this.comboBoxExpertLinears17_2.FormattingEnabled = true;
+            this.comboBoxExpertLinears17_2.Items.AddRange(new object[] {
+            "NO",
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6"});
             this.comboBoxExpertLinears17_2.Location = new System.Drawing.Point(254, 6);
             this.comboBoxExpertLinears17_2.Name = "comboBoxExpertLinears17_2";
             this.comboBoxExpertLinears17_2.Size = new System.Drawing.Size(40, 21);
@@ -4714,6 +4813,14 @@
             // comboBoxExpertLinears17_1
             // 
             this.comboBoxExpertLinears17_1.FormattingEnabled = true;
+            this.comboBoxExpertLinears17_1.Items.AddRange(new object[] {
+            "NO",
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6"});
             this.comboBoxExpertLinears17_1.Location = new System.Drawing.Point(196, 6);
             this.comboBoxExpertLinears17_1.Name = "comboBoxExpertLinears17_1";
             this.comboBoxExpertLinears17_1.Size = new System.Drawing.Size(40, 21);
@@ -4722,6 +4829,14 @@
             // comboBoxExpertLinears20_2
             // 
             this.comboBoxExpertLinears20_2.FormattingEnabled = true;
+            this.comboBoxExpertLinears20_2.Items.AddRange(new object[] {
+            "NO",
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6"});
             this.comboBoxExpertLinears20_2.Location = new System.Drawing.Point(94, 140);
             this.comboBoxExpertLinears20_2.Name = "comboBoxExpertLinears20_2";
             this.comboBoxExpertLinears20_2.Size = new System.Drawing.Size(40, 21);
@@ -4739,6 +4854,14 @@
             // comboBoxExpertLinears20_1
             // 
             this.comboBoxExpertLinears20_1.FormattingEnabled = true;
+            this.comboBoxExpertLinears20_1.Items.AddRange(new object[] {
+            "NO",
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6"});
             this.comboBoxExpertLinears20_1.Location = new System.Drawing.Point(36, 140);
             this.comboBoxExpertLinears20_1.Name = "comboBoxExpertLinears20_1";
             this.comboBoxExpertLinears20_1.Size = new System.Drawing.Size(40, 21);
@@ -4747,6 +4870,14 @@
             // comboBoxExpertLinears30_2
             // 
             this.comboBoxExpertLinears30_2.FormattingEnabled = true;
+            this.comboBoxExpertLinears30_2.Items.AddRange(new object[] {
+            "NO",
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6"});
             this.comboBoxExpertLinears30_2.Location = new System.Drawing.Point(94, 113);
             this.comboBoxExpertLinears30_2.Name = "comboBoxExpertLinears30_2";
             this.comboBoxExpertLinears30_2.Size = new System.Drawing.Size(40, 21);
@@ -4764,6 +4895,14 @@
             // comboBoxExpertLinears30_1
             // 
             this.comboBoxExpertLinears30_1.FormattingEnabled = true;
+            this.comboBoxExpertLinears30_1.Items.AddRange(new object[] {
+            "NO",
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6"});
             this.comboBoxExpertLinears30_1.Location = new System.Drawing.Point(36, 113);
             this.comboBoxExpertLinears30_1.Name = "comboBoxExpertLinears30_1";
             this.comboBoxExpertLinears30_1.Size = new System.Drawing.Size(40, 21);
@@ -4772,6 +4911,14 @@
             // comboBoxExpertLinears40_2
             // 
             this.comboBoxExpertLinears40_2.FormattingEnabled = true;
+            this.comboBoxExpertLinears40_2.Items.AddRange(new object[] {
+            "NO",
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6"});
             this.comboBoxExpertLinears40_2.Location = new System.Drawing.Point(94, 86);
             this.comboBoxExpertLinears40_2.Name = "comboBoxExpertLinears40_2";
             this.comboBoxExpertLinears40_2.Size = new System.Drawing.Size(40, 21);
@@ -4789,6 +4936,14 @@
             // comboBoxExpertLinears40_1
             // 
             this.comboBoxExpertLinears40_1.FormattingEnabled = true;
+            this.comboBoxExpertLinears40_1.Items.AddRange(new object[] {
+            "NO",
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6"});
             this.comboBoxExpertLinears40_1.Location = new System.Drawing.Point(36, 86);
             this.comboBoxExpertLinears40_1.Name = "comboBoxExpertLinears40_1";
             this.comboBoxExpertLinears40_1.Size = new System.Drawing.Size(40, 21);
@@ -4797,6 +4952,14 @@
             // comboBoxExpertLinears60_2
             // 
             this.comboBoxExpertLinears60_2.FormattingEnabled = true;
+            this.comboBoxExpertLinears60_2.Items.AddRange(new object[] {
+            "NO",
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6"});
             this.comboBoxExpertLinears60_2.Location = new System.Drawing.Point(94, 59);
             this.comboBoxExpertLinears60_2.Name = "comboBoxExpertLinears60_2";
             this.comboBoxExpertLinears60_2.Size = new System.Drawing.Size(40, 21);
@@ -4814,6 +4977,14 @@
             // comboBoxExpertLinears60_1
             // 
             this.comboBoxExpertLinears60_1.FormattingEnabled = true;
+            this.comboBoxExpertLinears60_1.Items.AddRange(new object[] {
+            "NO",
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6"});
             this.comboBoxExpertLinears60_1.Location = new System.Drawing.Point(36, 59);
             this.comboBoxExpertLinears60_1.Name = "comboBoxExpertLinears60_1";
             this.comboBoxExpertLinears60_1.Size = new System.Drawing.Size(40, 21);
@@ -4822,6 +4993,14 @@
             // comboBoxExpertLinears80_2
             // 
             this.comboBoxExpertLinears80_2.FormattingEnabled = true;
+            this.comboBoxExpertLinears80_2.Items.AddRange(new object[] {
+            "NO",
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6"});
             this.comboBoxExpertLinears80_2.Location = new System.Drawing.Point(94, 32);
             this.comboBoxExpertLinears80_2.Name = "comboBoxExpertLinears80_2";
             this.comboBoxExpertLinears80_2.Size = new System.Drawing.Size(40, 21);
@@ -4841,6 +5020,14 @@
             // comboBoxExpertLinears80_1
             // 
             this.comboBoxExpertLinears80_1.FormattingEnabled = true;
+            this.comboBoxExpertLinears80_1.Items.AddRange(new object[] {
+            "NO",
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6"});
             this.comboBoxExpertLinears80_1.Location = new System.Drawing.Point(36, 32);
             this.comboBoxExpertLinears80_1.Name = "comboBoxExpertLinears80_1";
             this.comboBoxExpertLinears80_1.Size = new System.Drawing.Size(40, 21);
@@ -4849,6 +5036,14 @@
             // comboBoxExpertLinears160_2
             // 
             this.comboBoxExpertLinears160_2.FormattingEnabled = true;
+            this.comboBoxExpertLinears160_2.Items.AddRange(new object[] {
+            "NO",
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6"});
             this.comboBoxExpertLinears160_2.Location = new System.Drawing.Point(94, 5);
             this.comboBoxExpertLinears160_2.Name = "comboBoxExpertLinears160_2";
             this.comboBoxExpertLinears160_2.Size = new System.Drawing.Size(40, 21);
@@ -4867,11 +5062,13 @@
             // 
             this.comboBoxExpertLinears160_1.FormattingEnabled = true;
             this.comboBoxExpertLinears160_1.Items.AddRange(new object[] {
-            "N",
+            "NO",
             "1",
             "2",
             "3",
-            "4"});
+            "4",
+            "5",
+            "6"});
             this.comboBoxExpertLinears160_1.Location = new System.Drawing.Point(36, 5);
             this.comboBoxExpertLinears160_1.Name = "comboBoxExpertLinears160_1";
             this.comboBoxExpertLinears160_1.Size = new System.Drawing.Size(40, 21);
@@ -5033,15 +5230,6 @@
             // timerFreqWalk
             // 
             this.timerFreqWalk.Tick += new System.EventHandler(this.TimerFreqWalk_Tick);
-            // 
-            // labelExpertLinearsInfo
-            // 
-            this.labelExpertLinearsInfo.AutoSize = true;
-            this.labelExpertLinearsInfo.Location = new System.Drawing.Point(36, 169);
-            this.labelExpertLinearsInfo.Name = "labelExpertLinearsInfo";
-            this.labelExpertLinearsInfo.Size = new System.Drawing.Size(59, 13);
-            this.labelExpertLinearsInfo.TabIndex = 61;
-            this.labelExpertLinearsInfo.Text = "Information";
             // 
             // Form1
             // 

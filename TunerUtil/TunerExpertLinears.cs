@@ -24,6 +24,7 @@ namespace AmpAutoTunerUtility
         private string band = "?";
         public TunerExpertLinears(string model, string comport, string baud, out string errmsg)
         {
+            antennas = new string[12, 2];
             errmsg = null;
             this.comport = comport;
             this.model = model;
@@ -71,7 +72,8 @@ namespace AmpAutoTunerUtility
         {
             //myThread.Abort();
             runThread = false;
-            while (myThread.IsAlive) Thread.Sleep(50);
+            Thread.Sleep(500);
+            //while (myThread.IsAlive) Thread.Sleep(50);
 
             if (SerialPortTuner != null)
             {
@@ -82,6 +84,102 @@ namespace AmpAutoTunerUtility
         }
         static Mutex GetStatusLock = new Mutex(false,"AmpSerial");
 
+        private bool GetStatus2()
+        {
+            // display, set, forward, set, when done display again
+            Byte[] cmdDisplay = { 0x55, 0x55, 0x55, 0x01, 0x0c, 0x0c };
+            Byte[] cmdSet = { 0x55, 0x55, 0x55, 0x01, 0x11, 0x11 };
+            Byte[] cmdRight = { 0x55, 0x55, 0x55, 0x01, 0x10, 0x10 };
+            GetStatusLock.WaitOne();
+            SerialPortTuner.Write(cmdDisplay, 0, 6);
+            SerialPortTuner.Write(cmdDisplay, 0, 6);
+            Thread.Sleep(200);
+            SerialPortTuner.Write(cmdSet, 0, 6);
+            Thread.Sleep(200);
+            SerialPortTuner.Write(cmdRight, 0, 6);
+            Thread.Sleep(200);
+            SerialPortTuner.Write(cmdSet, 0, 6);
+            Thread.Sleep(200);
+            SerialPortTuner.DiscardInBuffer();
+            Byte[] cmd = { 0x55, 0x55, 0x55, 0x01, 0x80, 0x80 };
+            Byte[] response = new Byte[512];
+            //SerialPortTuner.Write(cmd, 0, 6);
+            Byte myByte;
+            for (int i = 0; i < response.Length; ++i) response[i] = 0;
+            myByte = 0x00;
+            try
+            {
+                SerialPortTuner.Write(cmd, 0, 6);
+            }
+            catch (Exception)
+            {
+                GetStatusLock.ReleaseMutex();
+                return false;
+            }
+            while (myByte != 0xaa)
+                try
+                {
+                    myByte = (byte)SerialPortTuner.ReadByte();
+                    //DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.LOG, "Got " + String.Format("{0:X}", myByte));
+                }
+                catch (Exception ex)
+                {
+                    if (ex.HResult != -2146233083)
+                        DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.LOG, "timeout\n");
+                    GetStatusLock.ReleaseMutex();
+                    return false;
+                }
+            response[0] = myByte;
+            response[1] = (byte)SerialPortTuner.ReadByte();
+            if (response[1] != 0xaa) { GetStatusLock.ReleaseMutex(); return false; }
+            response[2] = (byte)SerialPortTuner.ReadByte();
+            if (response[2] != 0xaa) { GetStatusLock.ReleaseMutex(); return false; }
+            response[3] = (byte)SerialPortTuner.ReadByte(); // shouold be 6a
+            int n = 4;
+            int count = 0;
+            //DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.LOG, "bytes=" + response[3]);
+            for (int i = 0; i < 371 - 4; ++i)
+            {
+                try
+                {
+                    response[i + 4] = (byte)SerialPortTuner.ReadByte();
+                    ++count;
+                }
+                catch (TimeoutException)
+                {
+                    DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.ERR, "GetStatus serial timeout\n");
+                    GetStatusLock.ReleaseMutex();
+                    return false;
+                }
+                ++n;
+            }
+            long sum = 0;
+            for (int i = 7; i < 369; ++i)
+            {
+                sum += response[i];
+            }
+            long chkByte0 = sum % 256;
+            long chkByte1 = sum / 256;
+            long resByte0 = response[369];
+            long resByte1 = response[370];
+            if (chkByte0 != resByte0) { GetStatusLock.ReleaseMutex(); return false; }
+            if (chkByte1 != resByte1) { GetStatusLock.ReleaseMutex(); return false; }
+            int tunerStatus = response[8];
+            int indexBytes = 56;
+            int[] bandLookup = { 0, 4, 8, 1, 5, 9, 2, 6, 10, 3, 7, 11 };
+            for (int i=0; i < 12;++i)
+            {
+                int i2 = bandLookup[i];
+                if (response[indexBytes] == 46) antennas[i2, 0] = "NO";
+                else antennas[i2,0] = (response[indexBytes] - 16).ToString();
+                if (response[indexBytes+3] == 46) antennas[i2, 1] = "NO"; 
+                else antennas[i2,1] = (response[indexBytes + 3] -  16).ToString();
+                indexBytes += 13;
+                if (i == 2 || i== 5 || i ==8) indexBytes++;
+            }
+            SerialPortTuner.Write(cmdDisplay, 0, 6);
+            return true;
+        }
         private bool GetStatus()
         {
             GetStatusLock.WaitOne();
@@ -128,7 +226,7 @@ namespace AmpAutoTunerUtility
                 {
                     response[i + 4] = (byte)SerialPortTuner.ReadByte();
                 }
-                catch (TimeoutException e)
+                catch (TimeoutException)
                 {
                     DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.ERR, "GetStatus serial timeout\n");
                     GetStatusLock.ReleaseMutex();
@@ -197,12 +295,11 @@ namespace AmpAutoTunerUtility
             runThread = true;
             while (runThread)
             {
-                while(GetStatus())
+                while(GetStatus() && runThread)
                 {
                     //DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.LOG, "Expert Linears thread got status\n");
-
+                    Thread.Sleep(1000);
                 };
-                Thread.Sleep(1000);
             }
             DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.LOG, "Expert Linears thread stopped\n");
         }
@@ -270,73 +367,17 @@ namespace AmpAutoTunerUtility
         }
         public override void Tune()
         {
-            GetStatusLock.WaitOne();
-            SerialPortTuner.DiscardInBuffer();
-            Byte[] cmd = { 0x55, 0x55, 0x55, 0x01, 0x09, 0x09 };
-            Byte[] response = new Byte[128];
-            SerialPortTuner.Write(cmd, 0, 6);
-            Byte myByte;
-            for (int i = 0; i < response.Length; ++i) response[i] = 0;
-            myByte = 0x00;
-            try
-            {
-                SerialPortTuner.Write(cmd, 0, 6);
-            }
-            catch (Exception)
-            {
-                GetStatusLock.ReleaseMutex();
-                return;
-            }
-            while (myByte != 0xaa)
-                try
-                {
-                    myByte = (byte)SerialPortTuner.ReadByte();
-                    //DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.LOG, "Got " + String.Format("{0:X}", myByte));
-                }
-                catch (Exception ex)
-                {
-                    if (ex.HResult != -2146233083)
-                        DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.LOG, "timeout\n");
-                    GetStatusLock.ReleaseMutex();
-                    return;
-                }
-            response[0] = myByte;
-            response[1] = (byte)SerialPortTuner.ReadByte();
-            if (response[1] != 0xaa) { GetStatusLock.ReleaseMutex(); return; }
-            response[2] = (byte)SerialPortTuner.ReadByte();
-            if (response[2] != 0xaa) { GetStatusLock.ReleaseMutex(); return; }
-            response[3] = (byte)SerialPortTuner.ReadByte(); // should be the length
-            int n = 4;
-            DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.LOG, "Tune bytes=" + response[3]);
-            for (int i = 0; i < response[3] + 5; ++i)
-            {
-                try
-                {
-                    response[i + 4] = (byte)SerialPortTuner.ReadByte();
-                }
-                catch (TimeoutException e)
-                {
-                    DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.ERR, "GetStatus serial timeout\n");
-                    GetStatusLock.ReleaseMutex();
-                    return;
-                }
-                ++n;
-            }
-            long sum = 0;
-            for (int i = 0; i < response[3]; ++i)
-            {
-                sum += response[i + 4];
-            }
-            long chkByte0 = sum % 256;
-            long chkByte1 = sum / 256;
-            long resByte0 = response[71];
-            long resByte1 = response[72];
-            var sresponse = System.Text.Encoding.Default.GetString(response, 0, n - 5);
-            if (chkByte0 != resByte0) { GetStatusLock.ReleaseMutex(); return; }
-            if (chkByte1 != resByte1) { GetStatusLock.ReleaseMutex(); return; }
+            GetStatus2();
+        }
 
-            GetStatusLock.ReleaseMutex();
-            return;
+        public override void Poll()
+        {
+            while(!GetStatus());
+            while(!GetStatus2());
+            for(int i=0;i<12;++i)
+            {
+                
+            }
         }
     }
 }

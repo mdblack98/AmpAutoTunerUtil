@@ -24,7 +24,7 @@ namespace AmpAutoTunerUtility
         protected private int Capacitance { get; set; } // uH
         public int AntennaNumber { get; set; }
         public bool TuneFull { get; set; }
-
+        public string[,] antennas;
         public Tuner()
         {
             model = null;

@@ -5236,6 +5236,40 @@ namespace AmpAutoTunerUtility
             if (FLRigSend(xml) == false) return; // Abort if FLRig is giving an error
             labelExpertLinearsInfo.Text = "Tuned " + frequencyHzTune;
         }
+
+        private void comboBoxExpertLinears4_2_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tabPageExpertLinears_Enter(object sender, EventArgs e)
+        {
+            tuner1.Poll();
+            comboBoxExpertLinears160_1.SelectedIndex = comboBoxExpertLinears160_1.FindStringExact(tuner1.antennas[0, 0]);
+            comboBoxExpertLinears160_2.SelectedIndex = comboBoxExpertLinears160_1.FindStringExact(tuner1.antennas[0, 1]);
+            comboBoxExpertLinears80_1.SelectedIndex = comboBoxExpertLinears80_1.FindStringExact(tuner1.antennas[1, 0]);
+            comboBoxExpertLinears80_2.SelectedIndex = comboBoxExpertLinears80_1.FindStringExact(tuner1.antennas[1, 1]);
+            comboBoxExpertLinears60_1.SelectedIndex = comboBoxExpertLinears60_1.FindStringExact(tuner1.antennas[2, 0]);
+            comboBoxExpertLinears60_2.SelectedIndex = comboBoxExpertLinears60_1.FindStringExact(tuner1.antennas[2, 1]);
+            comboBoxExpertLinears40_1.SelectedIndex = comboBoxExpertLinears40_1.FindStringExact(tuner1.antennas[3, 0]);
+            comboBoxExpertLinears40_2.SelectedIndex = comboBoxExpertLinears40_1.FindStringExact(tuner1.antennas[3, 1]);
+            comboBoxExpertLinears30_1.SelectedIndex = comboBoxExpertLinears30_1.FindStringExact(tuner1.antennas[4, 0]);
+            comboBoxExpertLinears30_2.SelectedIndex = comboBoxExpertLinears30_1.FindStringExact(tuner1.antennas[4, 1]);
+            comboBoxExpertLinears20_1.SelectedIndex = comboBoxExpertLinears20_1.FindStringExact(tuner1.antennas[5, 0]);
+            comboBoxExpertLinears20_2.SelectedIndex = comboBoxExpertLinears20_1.FindStringExact(tuner1.antennas[5, 1]);
+            comboBoxExpertLinears17_1.SelectedIndex = comboBoxExpertLinears17_1.FindStringExact(tuner1.antennas[6, 0]);
+            comboBoxExpertLinears17_2.SelectedIndex = comboBoxExpertLinears17_1.FindStringExact(tuner1.antennas[6, 1]);
+            comboBoxExpertLinears15_1.SelectedIndex = comboBoxExpertLinears15_1.FindStringExact(tuner1.antennas[7, 0]);
+            comboBoxExpertLinears15_2.SelectedIndex = comboBoxExpertLinears15_1.FindStringExact(tuner1.antennas[7, 1]);
+            comboBoxExpertLinears12_1.SelectedIndex = comboBoxExpertLinears12_1.FindStringExact(tuner1.antennas[8, 0]);
+            comboBoxExpertLinears12_2.SelectedIndex = comboBoxExpertLinears12_1.FindStringExact(tuner1.antennas[8, 1]);
+            comboBoxExpertLinears10_1.SelectedIndex = comboBoxExpertLinears10_1.FindStringExact(tuner1.antennas[9, 0]);
+            comboBoxExpertLinears10_2.SelectedIndex = comboBoxExpertLinears10_1.FindStringExact(tuner1.antennas[9, 1]);
+            comboBoxExpertLinears6_1.SelectedIndex = comboBoxExpertLinears6_1.FindStringExact(tuner1.antennas[10, 0]);
+            comboBoxExpertLinears6_2.SelectedIndex = comboBoxExpertLinears6_1.FindStringExact(tuner1.antennas[10, 1]);
+            comboBoxExpertLinears4_1.SelectedIndex = comboBoxExpertLinears4_1.FindStringExact(tuner1.antennas[11, 0]);
+            comboBoxExpertLinears4_2.SelectedIndex = comboBoxExpertLinears4_1.FindStringExact(tuner1.antennas[11, 1]);
+        }
     }
 
     public class ComboBoxItem
