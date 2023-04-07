@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Net.Sockets;
+using static AmpAutoTunerUtility.DebugMsg;
 
 namespace AmpAutoTunerUtility
 {
@@ -81,7 +82,15 @@ namespace AmpAutoTunerUtility
 
         public override void SetMode(char vfo, string mode)
         {
-            throw new NotImplementedException();
+            /*
+            string myparam = "<params><param><value>" + mode + "</value></param></params>";
+            var xml = FLRigXML("rig.set_modeA", myparam);
+            if (FLRigSend(xml) == false)
+            { // Abort if FLRig is giving an error
+                Debug(DebugEnum.ERR, "FLRig set_modeA got an error??\n");
+                return;
+            }
+            */
         }
 
         // FLRig unique functions below here

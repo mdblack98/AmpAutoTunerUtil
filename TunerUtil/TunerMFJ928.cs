@@ -165,7 +165,7 @@ namespace AmpAutoTunerUtility
         }
 
         // If value == 1 or -1 will increment or decrement 
-        public override void SetInductance(int value)
+        public override void SetInductance(double value)
         {
             byte[] bcdValue = IntToBCD5((uint)value, 2);
             byte[] cmdSetInductance = { 0xfe, 0xfe, 0x21, 0x01, bcdValue[0], bcdValue[1], 0x00, 0xfd };
@@ -362,7 +362,7 @@ namespace AmpAutoTunerUtility
         public override void Poll()
         {
             return;
-            if (SerialPortTuner != null)
+            /*if (SerialPortTuner != null)
             {
                 if (!Tuning)
                 {
@@ -372,6 +372,7 @@ namespace AmpAutoTunerUtility
                     SendCmd(cmdGetInductance);
                 }
             }
+            */
         }
 
         private void RaiseAppSerialDataEvent(byte[] received)
@@ -607,7 +608,7 @@ namespace AmpAutoTunerUtility
         public override void SetAmp(bool on)
         {
         }
-        public override void SaveCapacitance(int v)
+        public override void SetCapacitance(double v)
         {
             SetCapacitance(v);
             /*
@@ -618,7 +619,7 @@ namespace AmpAutoTunerUtility
             SendCmd(cmd);
             */
         }
-        public override void SaveInductance(decimal v)
+        public override void SetInductance(decimal v)
         {
             SetText(DebugEnum.TRACE, "SaveInductance()\n");
             var b = IntToBCD5(Convert.ToUInt32(v * 100), 2);

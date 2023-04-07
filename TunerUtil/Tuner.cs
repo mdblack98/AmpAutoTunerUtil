@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Security.Policy;
 using static AmpAutoTunerUtility.DebugMsg;
 
 namespace AmpAutoTunerUtility
@@ -21,11 +22,14 @@ namespace AmpAutoTunerUtility
         protected private string baud = null;
         protected private DebugEnum DebugLevel = DebugEnum.WARN;
         protected private double Inductance { get; set; } // pF
-        protected private int Capacitance { get; set; } // uH
+        protected private double Capacitance { get; set; } // uH
         public int AntennaNumber { get; set; }
         public bool TuneFull { get; set; }
         public string[,] antennas;
         public int[,] tuneFrequencies;
+        public ulong cIndex;
+        public ulong lIndex;
+        public bool isOn = false;
         public Tuner()
         {
             model = null;
@@ -70,19 +74,19 @@ namespace AmpAutoTunerUtility
         {
             DebugLevel = level;
         }
-        public virtual decimal GetInductance()
+        public virtual double GetInductance()
         {
-            return (decimal)Inductance;
+            return Inductance;
         }
-        public virtual void SetInductance(int value)
+        public virtual void SetInductance(double value)
         {
             Inductance = value;
         }
-        public virtual int GetCapacitance()
+        public virtual double GetCapacitance()
         {
             return Capacitance;
         }
-        public virtual void SetCapacitance(int value)
+        public virtual void SetCapacitance(double value)
         {
             Capacitance = value;
         }
@@ -108,17 +112,6 @@ namespace AmpAutoTunerUtility
             return "POW";
         }
 
-        //public virtual int GetInductance()
-        //{
-            // returns pF;
-        //    return -1;
-        //}
-
-        //public virtual int GetCapacitance()
-        //{
-        //    // returns uH
-        //    return -1;
-        //}
 
         public virtual string GetSerialPortTuner()
         {
@@ -149,6 +142,7 @@ namespace AmpAutoTunerUtility
         {
             // mode == 0 is auto
             // mode == 1 is semiauto
+            // mode == 2 is manual 
         }
         public virtual bool GetAmpStatus()
         {
@@ -164,12 +158,12 @@ namespace AmpAutoTunerUtility
             // depends if the tuner can save settings
         }
 
-        public virtual void SaveCapacitance(int v)
+        public virtual void SetCapacitance(int v)
         {
             throw new NotImplementedException();
         }
 
-        public virtual void SaveInductance(decimal v)
+        public virtual void SetInductance(decimal v)
         {
             throw new NotImplementedException();
         }
@@ -184,6 +178,37 @@ namespace AmpAutoTunerUtility
         }
 
         public virtual void GetAntennaData(int bandNumber)
+        {
+            throw new NotImplementedException();
+        }
+
+        public virtual void SelectAntennaPage()
+        {
+            throw new NotImplementedException();
+        }
+
+        public virtual void SelectDisplayPage()
+        {
+            throw new NotImplementedException();
+        }
+        public virtual void SelectManualTunePage()
+        {
+            throw new NotImplementedException();
+        }
+        public enum Screen { Unknown, Home, Tune, Antenna };
+        public virtual bool GetStatus2(Screen myScreen)
+        {
+            throw new NotImplementedException();
+        }
+        public virtual void SendCmd(byte cmd)
+        {
+            throw new NotImplementedException();
+        }
+        public virtual bool On()
+        {
+            throw new NotImplementedException();
+        }
+        public virtual bool Off()
         {
             throw new NotImplementedException();
         }

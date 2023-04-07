@@ -111,6 +111,7 @@
             this.labelControlLog2 = new System.Windows.Forms.Label();
             this.labelControlLog = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.buttonTunerPwr = new System.Windows.Forms.Button();
             this.labelClock = new System.Windows.Forms.Label();
             this.buttonAntennaPick8 = new System.Windows.Forms.Button();
             this.buttonAntennaPick1 = new System.Windows.Forms.Button();
@@ -133,6 +134,8 @@
             this.label11 = new System.Windows.Forms.Label();
             this.comboBoxAmpBits = new System.Windows.Forms.ComboBox();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.button4 = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
             this.checkBoxTuneStartup = new System.Windows.Forms.CheckBox();
             this.checkBoxTunerEnabled = new System.Windows.Forms.CheckBox();
             this.comboBoxTunerModel = new System.Windows.Forms.ComboBox();
@@ -315,6 +318,8 @@
             this.comboBoxBaudRelay4 = new System.Windows.Forms.ComboBox();
             this.comboBoxComRelay4 = new System.Windows.Forms.ComboBox();
             this.tabPageExpertLinears = new System.Windows.Forms.TabPage();
+            this.button2 = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.labelExpertLinearsInfo = new System.Windows.Forms.Label();
             this.checkBoxExpertLinears4_2 = new System.Windows.Forms.CheckBox();
             this.checkBoxExpertLinears6_2 = new System.Windows.Forms.CheckBox();
@@ -1562,6 +1567,7 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.buttonTunerPwr);
             this.groupBox2.Controls.Add(this.labelClock);
             this.groupBox2.Controls.Add(this.buttonAntennaPick8);
             this.groupBox2.Controls.Add(this.buttonAntennaPick1);
@@ -1584,6 +1590,20 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Info";
             this.groupBox2.Enter += new System.EventHandler(this.GroupBox2_Enter);
+            // 
+            // buttonTunerPwr
+            // 
+            this.buttonTunerPwr.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.buttonTunerPwr.FlatAppearance.BorderSize = 2;
+            this.buttonTunerPwr.Location = new System.Drawing.Point(172, 17);
+            this.buttonTunerPwr.Margin = new System.Windows.Forms.Padding(2);
+            this.buttonTunerPwr.Name = "buttonTunerPwr";
+            this.buttonTunerPwr.Size = new System.Drawing.Size(56, 22);
+            this.buttonTunerPwr.TabIndex = 14;
+            this.buttonTunerPwr.Text = "Pwr";
+            this.toolTip1.SetToolTip(this.buttonTunerPwr, "Start a tune cycle");
+            this.buttonTunerPwr.UseVisualStyleBackColor = false;
+            this.buttonTunerPwr.Click += new System.EventHandler(this.button5_Click);
             // 
             // labelClock
             // 
@@ -1909,6 +1929,8 @@
             // 
             this.panel3.BackColor = System.Drawing.Color.Transparent;
             this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel3.Controls.Add(this.button4);
+            this.panel3.Controls.Add(this.button3);
             this.panel3.Controls.Add(this.checkBoxTuneStartup);
             this.panel3.Controls.Add(this.label9);
             this.panel3.Controls.Add(this.textBoxTuneOffset);
@@ -1918,12 +1940,32 @@
             this.panel3.Controls.Add(this.textBoxFreqTol);
             this.panel3.Controls.Add(this.comboBoxBaudTuner);
             this.panel3.Controls.Add(this.comboBoxComTuner);
-            this.panel3.Location = new System.Drawing.Point(8, 7);
+            this.panel3.Location = new System.Drawing.Point(8, 3);
             this.panel3.Margin = new System.Windows.Forms.Padding(2);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(168, 144);
             this.panel3.TabIndex = 6;
             this.toolTip1.SetToolTip(this.panel3, "Tune during startup");
+            // 
+            // button4
+            // 
+            this.button4.Location = new System.Drawing.Point(109, 62);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(48, 23);
+            this.button4.TabIndex = 17;
+            this.button4.Text = "Off";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
+            // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(109, 41);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(48, 23);
+            this.button3.TabIndex = 16;
+            this.button3.Text = "On";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // checkBoxTuneStartup
             // 
@@ -4248,6 +4290,8 @@
             // 
             // tabPageExpertLinears
             // 
+            this.tabPageExpertLinears.Controls.Add(this.button2);
+            this.tabPageExpertLinears.Controls.Add(this.button1);
             this.tabPageExpertLinears.Controls.Add(this.labelExpertLinearsInfo);
             this.tabPageExpertLinears.Controls.Add(this.checkBoxExpertLinears4_2);
             this.tabPageExpertLinears.Controls.Add(this.checkBoxExpertLinears6_2);
@@ -4318,7 +4362,28 @@
             this.tabPageExpertLinears.Text = "ExpertLinears";
             this.toolTip1.SetToolTip(this.tabPageExpertLinears, "Enable to tune this band/antenna");
             this.tabPageExpertLinears.UseVisualStyleBackColor = true;
+            this.tabPageExpertLinears.Click += new System.EventHandler(this.tabPageExpertLinears_Click);
             this.tabPageExpertLinears.Enter += new System.EventHandler(this.tabPageExpertLinears_Enter);
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(317, 30);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(42, 23);
+            this.button2.TabIndex = 63;
+            this.button2.Text = "Off";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(317, 6);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(42, 23);
+            this.button1.TabIndex = 62;
+            this.button1.Text = "On";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click_1);
             // 
             // labelExpertLinearsInfo
             // 
@@ -4337,7 +4402,9 @@
             this.checkBoxExpertLinears4_2.Name = "checkBoxExpertLinears4_2";
             this.checkBoxExpertLinears4_2.Size = new System.Drawing.Size(15, 14);
             this.checkBoxExpertLinears4_2.TabIndex = 60;
+            this.toolTip1.SetToolTip(this.checkBoxExpertLinears4_2, "Check to enable antenna for tune\r\nCtrl-Click to enable/disable  all");
             this.checkBoxExpertLinears4_2.UseVisualStyleBackColor = true;
+            this.checkBoxExpertLinears4_2.CheckedChanged += new System.EventHandler(this.CheckBoxExpertLinearsCheckedChanged);
             // 
             // checkBoxExpertLinears6_2
             // 
@@ -4346,8 +4413,9 @@
             this.checkBoxExpertLinears6_2.Name = "checkBoxExpertLinears6_2";
             this.checkBoxExpertLinears6_2.Size = new System.Drawing.Size(15, 14);
             this.checkBoxExpertLinears6_2.TabIndex = 59;
-            this.toolTip1.SetToolTip(this.checkBoxExpertLinears6_2, "Enable to tune this band/antenna");
+            this.toolTip1.SetToolTip(this.checkBoxExpertLinears6_2, "Check to enable antenna for tune\r\nCtrl-Click to enable/disable  all");
             this.checkBoxExpertLinears6_2.UseVisualStyleBackColor = true;
+            this.checkBoxExpertLinears6_2.CheckedChanged += new System.EventHandler(this.CheckBoxExpertLinearsCheckedChanged);
             // 
             // checkBoxExpertLinears10_2
             // 
@@ -4356,8 +4424,9 @@
             this.checkBoxExpertLinears10_2.Name = "checkBoxExpertLinears10_2";
             this.checkBoxExpertLinears10_2.Size = new System.Drawing.Size(15, 14);
             this.checkBoxExpertLinears10_2.TabIndex = 58;
-            this.toolTip1.SetToolTip(this.checkBoxExpertLinears10_2, "Enable to tune this band/antenna");
+            this.toolTip1.SetToolTip(this.checkBoxExpertLinears10_2, "Check to enable antenna for tune\r\nCtrl-Click to enable/disable  all");
             this.checkBoxExpertLinears10_2.UseVisualStyleBackColor = true;
+            this.checkBoxExpertLinears10_2.CheckedChanged += new System.EventHandler(this.CheckBoxExpertLinearsCheckedChanged);
             // 
             // checkBoxExpertLinears12_2
             // 
@@ -4366,8 +4435,9 @@
             this.checkBoxExpertLinears12_2.Name = "checkBoxExpertLinears12_2";
             this.checkBoxExpertLinears12_2.Size = new System.Drawing.Size(15, 14);
             this.checkBoxExpertLinears12_2.TabIndex = 57;
-            this.toolTip1.SetToolTip(this.checkBoxExpertLinears12_2, "Enable to tune this band/antenna");
+            this.toolTip1.SetToolTip(this.checkBoxExpertLinears12_2, "Check to enable antenna for tune\r\nCtrl-Click to enable/disable  all");
             this.checkBoxExpertLinears12_2.UseVisualStyleBackColor = true;
+            this.checkBoxExpertLinears12_2.CheckedChanged += new System.EventHandler(this.CheckBoxExpertLinearsCheckedChanged);
             // 
             // checkBoxExpertLinears15_2
             // 
@@ -4376,8 +4446,9 @@
             this.checkBoxExpertLinears15_2.Name = "checkBoxExpertLinears15_2";
             this.checkBoxExpertLinears15_2.Size = new System.Drawing.Size(15, 14);
             this.checkBoxExpertLinears15_2.TabIndex = 56;
-            this.toolTip1.SetToolTip(this.checkBoxExpertLinears15_2, "Enable to tune this band/antenna");
+            this.toolTip1.SetToolTip(this.checkBoxExpertLinears15_2, "Check to enable antenna for tune\r\nCtrl-Click to enable/disable  all");
             this.checkBoxExpertLinears15_2.UseVisualStyleBackColor = true;
+            this.checkBoxExpertLinears15_2.CheckedChanged += new System.EventHandler(this.CheckBoxExpertLinearsCheckedChanged);
             // 
             // checkBoxExpertLinears17_2
             // 
@@ -4386,8 +4457,9 @@
             this.checkBoxExpertLinears17_2.Name = "checkBoxExpertLinears17_2";
             this.checkBoxExpertLinears17_2.Size = new System.Drawing.Size(15, 14);
             this.checkBoxExpertLinears17_2.TabIndex = 55;
-            this.toolTip1.SetToolTip(this.checkBoxExpertLinears17_2, "Enable to tune this band/antenna");
+            this.toolTip1.SetToolTip(this.checkBoxExpertLinears17_2, "Check to enable antenna for tune\r\nCtrl-Click to enable/disable  all");
             this.checkBoxExpertLinears17_2.UseVisualStyleBackColor = true;
+            this.checkBoxExpertLinears17_2.CheckedChanged += new System.EventHandler(this.CheckBoxExpertLinearsCheckedChanged);
             // 
             // checkBoxExpertLinears4_1
             // 
@@ -4397,8 +4469,9 @@
             this.checkBoxExpertLinears4_1.Name = "checkBoxExpertLinears4_1";
             this.checkBoxExpertLinears4_1.Size = new System.Drawing.Size(15, 14);
             this.checkBoxExpertLinears4_1.TabIndex = 54;
-            this.toolTip1.SetToolTip(this.checkBoxExpertLinears4_1, "Enable to tune this band/antenna");
+            this.toolTip1.SetToolTip(this.checkBoxExpertLinears4_1, "Check to enable antenna for tune\r\nCtrl-Click to enable/disable  all");
             this.checkBoxExpertLinears4_1.UseVisualStyleBackColor = true;
+            this.checkBoxExpertLinears4_1.CheckedChanged += new System.EventHandler(this.CheckBoxExpertLinearsCheckedChanged);
             // 
             // checkBoxExpertLinears6_1
             // 
@@ -4407,8 +4480,9 @@
             this.checkBoxExpertLinears6_1.Name = "checkBoxExpertLinears6_1";
             this.checkBoxExpertLinears6_1.Size = new System.Drawing.Size(15, 14);
             this.checkBoxExpertLinears6_1.TabIndex = 53;
-            this.toolTip1.SetToolTip(this.checkBoxExpertLinears6_1, "Enable to tune this band/antenna");
+            this.toolTip1.SetToolTip(this.checkBoxExpertLinears6_1, "Check to enable antenna for tune\r\nCtrl-Click to enable/disable  all");
             this.checkBoxExpertLinears6_1.UseVisualStyleBackColor = true;
+            this.checkBoxExpertLinears6_1.CheckedChanged += new System.EventHandler(this.CheckBoxExpertLinearsCheckedChanged);
             // 
             // checkBoxExpertLinears10_1
             // 
@@ -4417,8 +4491,9 @@
             this.checkBoxExpertLinears10_1.Name = "checkBoxExpertLinears10_1";
             this.checkBoxExpertLinears10_1.Size = new System.Drawing.Size(15, 14);
             this.checkBoxExpertLinears10_1.TabIndex = 52;
-            this.toolTip1.SetToolTip(this.checkBoxExpertLinears10_1, "Enable to tune this band/antenna");
+            this.toolTip1.SetToolTip(this.checkBoxExpertLinears10_1, "Check to enable antenna for tune\r\nCtrl-Click to enable/disable  all");
             this.checkBoxExpertLinears10_1.UseVisualStyleBackColor = true;
+            this.checkBoxExpertLinears10_1.CheckedChanged += new System.EventHandler(this.CheckBoxExpertLinearsCheckedChanged);
             // 
             // checkBoxExpertLinears12_1
             // 
@@ -4427,8 +4502,9 @@
             this.checkBoxExpertLinears12_1.Name = "checkBoxExpertLinears12_1";
             this.checkBoxExpertLinears12_1.Size = new System.Drawing.Size(15, 14);
             this.checkBoxExpertLinears12_1.TabIndex = 51;
-            this.toolTip1.SetToolTip(this.checkBoxExpertLinears12_1, "Enable to tune this band/antenna");
+            this.toolTip1.SetToolTip(this.checkBoxExpertLinears12_1, "Check to enable antenna for tune\r\nCtrl-Click to enable/disable  all");
             this.checkBoxExpertLinears12_1.UseVisualStyleBackColor = true;
+            this.checkBoxExpertLinears12_1.CheckedChanged += new System.EventHandler(this.CheckBoxExpertLinearsCheckedChanged);
             // 
             // checkBoxExpertLinears15_1
             // 
@@ -4437,8 +4513,9 @@
             this.checkBoxExpertLinears15_1.Name = "checkBoxExpertLinears15_1";
             this.checkBoxExpertLinears15_1.Size = new System.Drawing.Size(15, 14);
             this.checkBoxExpertLinears15_1.TabIndex = 50;
-            this.toolTip1.SetToolTip(this.checkBoxExpertLinears15_1, "Enable to tune this band/antenna");
+            this.toolTip1.SetToolTip(this.checkBoxExpertLinears15_1, "Check to enable antenna for tune\r\nCtrl-Click to enable/disable  all");
             this.checkBoxExpertLinears15_1.UseVisualStyleBackColor = true;
+            this.checkBoxExpertLinears15_1.CheckedChanged += new System.EventHandler(this.CheckBoxExpertLinearsCheckedChanged);
             // 
             // checkBoxExpertLinears17_1
             // 
@@ -4447,8 +4524,9 @@
             this.checkBoxExpertLinears17_1.Name = "checkBoxExpertLinears17_1";
             this.checkBoxExpertLinears17_1.Size = new System.Drawing.Size(15, 14);
             this.checkBoxExpertLinears17_1.TabIndex = 49;
-            this.toolTip1.SetToolTip(this.checkBoxExpertLinears17_1, "Enable to tune this band/antenna");
+            this.toolTip1.SetToolTip(this.checkBoxExpertLinears17_1, "Check to enable antenna for tune\r\nCtrl-Click to enable/disable  all");
             this.checkBoxExpertLinears17_1.UseVisualStyleBackColor = true;
+            this.checkBoxExpertLinears17_1.CheckedChanged += new System.EventHandler(this.CheckBoxExpertLinearsCheckedChanged);
             // 
             // checkBoxExpertLinears20_2
             // 
@@ -4457,8 +4535,9 @@
             this.checkBoxExpertLinears20_2.Name = "checkBoxExpertLinears20_2";
             this.checkBoxExpertLinears20_2.Size = new System.Drawing.Size(15, 14);
             this.checkBoxExpertLinears20_2.TabIndex = 48;
-            this.toolTip1.SetToolTip(this.checkBoxExpertLinears20_2, "Enable to tune this band/antenna");
+            this.toolTip1.SetToolTip(this.checkBoxExpertLinears20_2, "Check to enable antenna for tune\r\nCtrl-Click to enable/disable  all");
             this.checkBoxExpertLinears20_2.UseVisualStyleBackColor = true;
+            this.checkBoxExpertLinears20_2.CheckedChanged += new System.EventHandler(this.CheckBoxExpertLinearsCheckedChanged);
             // 
             // checkBoxExpertLinears30_2
             // 
@@ -4467,8 +4546,9 @@
             this.checkBoxExpertLinears30_2.Name = "checkBoxExpertLinears30_2";
             this.checkBoxExpertLinears30_2.Size = new System.Drawing.Size(15, 14);
             this.checkBoxExpertLinears30_2.TabIndex = 47;
-            this.toolTip1.SetToolTip(this.checkBoxExpertLinears30_2, "Enable to tune this band/antenna");
+            this.toolTip1.SetToolTip(this.checkBoxExpertLinears30_2, "Check to enable antenna for tune\r\nCtrl-Click to enable/disable  all");
             this.checkBoxExpertLinears30_2.UseVisualStyleBackColor = true;
+            this.checkBoxExpertLinears30_2.CheckedChanged += new System.EventHandler(this.CheckBoxExpertLinearsCheckedChanged);
             // 
             // checkBoxExpertLinears40_2
             // 
@@ -4477,8 +4557,9 @@
             this.checkBoxExpertLinears40_2.Name = "checkBoxExpertLinears40_2";
             this.checkBoxExpertLinears40_2.Size = new System.Drawing.Size(15, 14);
             this.checkBoxExpertLinears40_2.TabIndex = 46;
-            this.toolTip1.SetToolTip(this.checkBoxExpertLinears40_2, "Enable to tune this band/antenna");
+            this.toolTip1.SetToolTip(this.checkBoxExpertLinears40_2, "Check to enable antenna for tune\r\nCtrl-Click to enable/disable  all");
             this.checkBoxExpertLinears40_2.UseVisualStyleBackColor = true;
+            this.checkBoxExpertLinears40_2.CheckedChanged += new System.EventHandler(this.CheckBoxExpertLinearsCheckedChanged);
             // 
             // checkBoxExpertLinears60_2
             // 
@@ -4487,8 +4568,9 @@
             this.checkBoxExpertLinears60_2.Name = "checkBoxExpertLinears60_2";
             this.checkBoxExpertLinears60_2.Size = new System.Drawing.Size(15, 14);
             this.checkBoxExpertLinears60_2.TabIndex = 45;
-            this.toolTip1.SetToolTip(this.checkBoxExpertLinears60_2, "Enable to tune this band/antenna");
+            this.toolTip1.SetToolTip(this.checkBoxExpertLinears60_2, "Check to enable antenna for tune\r\nCtrl-Click to enable/disable  all");
             this.checkBoxExpertLinears60_2.UseVisualStyleBackColor = true;
+            this.checkBoxExpertLinears60_2.CheckedChanged += new System.EventHandler(this.CheckBoxExpertLinearsCheckedChanged);
             // 
             // checkBoxExpertLinears80_2
             // 
@@ -4497,8 +4579,10 @@
             this.checkBoxExpertLinears80_2.Name = "checkBoxExpertLinears80_2";
             this.checkBoxExpertLinears80_2.Size = new System.Drawing.Size(15, 14);
             this.checkBoxExpertLinears80_2.TabIndex = 44;
-            this.toolTip1.SetToolTip(this.checkBoxExpertLinears80_2, "Enable to tune this band/antenna");
+            this.toolTip1.SetToolTip(this.checkBoxExpertLinears80_2, "Check to enable antenna for tune\r\nCtrl-Click to enable/disable  all\r\n");
             this.checkBoxExpertLinears80_2.UseVisualStyleBackColor = true;
+            this.checkBoxExpertLinears80_2.CheckedChanged += new System.EventHandler(this.CheckBoxExpertLinearsCheckedChanged);
+            this.checkBoxExpertLinears80_2.Click += new System.EventHandler(this.CheckBoxExpertLinearsCheckedChanged);
             // 
             // checkBoxExpertLinears160_2
             // 
@@ -4507,8 +4591,9 @@
             this.checkBoxExpertLinears160_2.Name = "checkBoxExpertLinears160_2";
             this.checkBoxExpertLinears160_2.Size = new System.Drawing.Size(15, 14);
             this.checkBoxExpertLinears160_2.TabIndex = 43;
-            this.toolTip1.SetToolTip(this.checkBoxExpertLinears160_2, "Enable to tune this band/antenna");
+            this.toolTip1.SetToolTip(this.checkBoxExpertLinears160_2, "Check to enable antenna for tune\r\nCtrl-Click to enable/disable  all\r\n");
             this.checkBoxExpertLinears160_2.UseVisualStyleBackColor = true;
+            this.checkBoxExpertLinears160_2.CheckedChanged += new System.EventHandler(this.CheckBoxExpertLinearsCheckedChanged);
             // 
             // checkBoxExpertLinears20_1
             // 
@@ -4517,8 +4602,9 @@
             this.checkBoxExpertLinears20_1.Name = "checkBoxExpertLinears20_1";
             this.checkBoxExpertLinears20_1.Size = new System.Drawing.Size(15, 14);
             this.checkBoxExpertLinears20_1.TabIndex = 42;
-            this.toolTip1.SetToolTip(this.checkBoxExpertLinears20_1, "Enable to tune this band/antenna");
+            this.toolTip1.SetToolTip(this.checkBoxExpertLinears20_1, "Check to enable antenna for tune\r\nCtrl-Click to enable/disable  all");
             this.checkBoxExpertLinears20_1.UseVisualStyleBackColor = true;
+            this.checkBoxExpertLinears20_1.CheckedChanged += new System.EventHandler(this.CheckBoxExpertLinearsCheckedChanged);
             // 
             // checkBoxExpertLinears30_1
             // 
@@ -4527,8 +4613,9 @@
             this.checkBoxExpertLinears30_1.Name = "checkBoxExpertLinears30_1";
             this.checkBoxExpertLinears30_1.Size = new System.Drawing.Size(15, 14);
             this.checkBoxExpertLinears30_1.TabIndex = 41;
-            this.toolTip1.SetToolTip(this.checkBoxExpertLinears30_1, "Enable to tune this band/antenna");
+            this.toolTip1.SetToolTip(this.checkBoxExpertLinears30_1, "Check to enable antenna for tune\r\nCtrl-Click to enable/disable  all");
             this.checkBoxExpertLinears30_1.UseVisualStyleBackColor = true;
+            this.checkBoxExpertLinears30_1.CheckedChanged += new System.EventHandler(this.CheckBoxExpertLinearsCheckedChanged);
             // 
             // checkBoxExpertLinears40_1
             // 
@@ -4537,8 +4624,9 @@
             this.checkBoxExpertLinears40_1.Name = "checkBoxExpertLinears40_1";
             this.checkBoxExpertLinears40_1.Size = new System.Drawing.Size(15, 14);
             this.checkBoxExpertLinears40_1.TabIndex = 40;
-            this.toolTip1.SetToolTip(this.checkBoxExpertLinears40_1, "Enable to tune this band/antenna");
+            this.toolTip1.SetToolTip(this.checkBoxExpertLinears40_1, "Check to enable antenna for tune\r\nCtrl-Click to enable/disable  all");
             this.checkBoxExpertLinears40_1.UseVisualStyleBackColor = true;
+            this.checkBoxExpertLinears40_1.CheckedChanged += new System.EventHandler(this.CheckBoxExpertLinearsCheckedChanged);
             // 
             // checkBoxExpertLinears60_1
             // 
@@ -4547,8 +4635,9 @@
             this.checkBoxExpertLinears60_1.Name = "checkBoxExpertLinears60_1";
             this.checkBoxExpertLinears60_1.Size = new System.Drawing.Size(15, 14);
             this.checkBoxExpertLinears60_1.TabIndex = 39;
-            this.toolTip1.SetToolTip(this.checkBoxExpertLinears60_1, "Enable to tune this band/antenna");
+            this.toolTip1.SetToolTip(this.checkBoxExpertLinears60_1, "Check to enable antenna for tune\r\nCtrl-Click to enable/disable  all");
             this.checkBoxExpertLinears60_1.UseVisualStyleBackColor = true;
+            this.checkBoxExpertLinears60_1.CheckedChanged += new System.EventHandler(this.CheckBoxExpertLinearsCheckedChanged);
             // 
             // checkBoxExpertLinears80_1
             // 
@@ -4557,8 +4646,9 @@
             this.checkBoxExpertLinears80_1.Name = "checkBoxExpertLinears80_1";
             this.checkBoxExpertLinears80_1.Size = new System.Drawing.Size(15, 14);
             this.checkBoxExpertLinears80_1.TabIndex = 38;
-            this.toolTip1.SetToolTip(this.checkBoxExpertLinears80_1, "Enable to tune this band/antenna");
+            this.toolTip1.SetToolTip(this.checkBoxExpertLinears80_1, "Check to enable antenna for tune\r\nCtrl-Click to enable/disable  all\r\n");
             this.checkBoxExpertLinears80_1.UseVisualStyleBackColor = true;
+            this.checkBoxExpertLinears80_1.CheckedChanged += new System.EventHandler(this.CheckBoxExpertLinearsCheckedChanged);
             // 
             // checkBoxExpertLinears160_1
             // 
@@ -4567,8 +4657,9 @@
             this.checkBoxExpertLinears160_1.Name = "checkBoxExpertLinears160_1";
             this.checkBoxExpertLinears160_1.Size = new System.Drawing.Size(15, 14);
             this.checkBoxExpertLinears160_1.TabIndex = 37;
-            this.toolTip1.SetToolTip(this.checkBoxExpertLinears160_1, "Enable to tune this band/antenna");
+            this.toolTip1.SetToolTip(this.checkBoxExpertLinears160_1, "Check to enable antenna for tune\r\nCtrl-Click to enable/disable  all\r\n");
             this.checkBoxExpertLinears160_1.UseVisualStyleBackColor = true;
+            this.checkBoxExpertLinears160_1.CheckedChanged += new System.EventHandler(this.CheckBoxExpertLinearsCheckedChanged);
             // 
             // buttonExpertLinearsTune
             // 
@@ -4589,9 +4680,7 @@
             "1",
             "2",
             "3",
-            "4",
-            "5",
-            "6"});
+            "4"});
             this.comboBoxExpertLinears4_2.Location = new System.Drawing.Point(254, 140);
             this.comboBoxExpertLinears4_2.Name = "comboBoxExpertLinears4_2";
             this.comboBoxExpertLinears4_2.Size = new System.Drawing.Size(40, 21);
@@ -4615,9 +4704,7 @@
             "1",
             "2",
             "3",
-            "4",
-            "5",
-            "6"});
+            "4"});
             this.comboBoxExpertLinears4_1.Location = new System.Drawing.Point(196, 140);
             this.comboBoxExpertLinears4_1.Name = "comboBoxExpertLinears4_1";
             this.comboBoxExpertLinears4_1.Size = new System.Drawing.Size(40, 21);
@@ -4631,9 +4718,7 @@
             "1",
             "2",
             "3",
-            "4",
-            "5",
-            "6"});
+            "4"});
             this.comboBoxExpertLinears6_2.Location = new System.Drawing.Point(254, 114);
             this.comboBoxExpertLinears6_2.Name = "comboBoxExpertLinears6_2";
             this.comboBoxExpertLinears6_2.Size = new System.Drawing.Size(40, 21);
@@ -4656,9 +4741,7 @@
             "1",
             "2",
             "3",
-            "4",
-            "5",
-            "6"});
+            "4"});
             this.comboBoxExpertLinears6_1.Location = new System.Drawing.Point(196, 114);
             this.comboBoxExpertLinears6_1.Name = "comboBoxExpertLinears6_1";
             this.comboBoxExpertLinears6_1.Size = new System.Drawing.Size(40, 21);
@@ -4672,9 +4755,7 @@
             "1",
             "2",
             "3",
-            "4",
-            "5",
-            "6"});
+            "4"});
             this.comboBoxExpertLinears10_2.Location = new System.Drawing.Point(254, 87);
             this.comboBoxExpertLinears10_2.Name = "comboBoxExpertLinears10_2";
             this.comboBoxExpertLinears10_2.Size = new System.Drawing.Size(40, 21);
@@ -4697,9 +4778,7 @@
             "1",
             "2",
             "3",
-            "4",
-            "5",
-            "6"});
+            "4"});
             this.comboBoxExpertLinears10_1.Location = new System.Drawing.Point(196, 87);
             this.comboBoxExpertLinears10_1.Name = "comboBoxExpertLinears10_1";
             this.comboBoxExpertLinears10_1.Size = new System.Drawing.Size(40, 21);
@@ -4713,9 +4792,7 @@
             "1",
             "2",
             "3",
-            "4",
-            "5",
-            "6"});
+            "4"});
             this.comboBoxExpertLinears12_2.Location = new System.Drawing.Point(254, 60);
             this.comboBoxExpertLinears12_2.Name = "comboBoxExpertLinears12_2";
             this.comboBoxExpertLinears12_2.Size = new System.Drawing.Size(40, 21);
@@ -4738,9 +4815,7 @@
             "1",
             "2",
             "3",
-            "4",
-            "5",
-            "6"});
+            "4"});
             this.comboBoxExpertLinears12_1.Location = new System.Drawing.Point(196, 60);
             this.comboBoxExpertLinears12_1.Name = "comboBoxExpertLinears12_1";
             this.comboBoxExpertLinears12_1.Size = new System.Drawing.Size(40, 21);
@@ -4754,9 +4829,7 @@
             "1",
             "2",
             "3",
-            "4",
-            "5",
-            "6"});
+            "4"});
             this.comboBoxExpertLinears15_2.Location = new System.Drawing.Point(254, 33);
             this.comboBoxExpertLinears15_2.Name = "comboBoxExpertLinears15_2";
             this.comboBoxExpertLinears15_2.Size = new System.Drawing.Size(40, 21);
@@ -4779,9 +4852,7 @@
             "1",
             "2",
             "3",
-            "4",
-            "5",
-            "6"});
+            "4"});
             this.comboBoxExpertLinears15_1.Location = new System.Drawing.Point(196, 33);
             this.comboBoxExpertLinears15_1.Name = "comboBoxExpertLinears15_1";
             this.comboBoxExpertLinears15_1.Size = new System.Drawing.Size(40, 21);
@@ -4795,9 +4866,7 @@
             "1",
             "2",
             "3",
-            "4",
-            "5",
-            "6"});
+            "4"});
             this.comboBoxExpertLinears17_2.Location = new System.Drawing.Point(254, 6);
             this.comboBoxExpertLinears17_2.Name = "comboBoxExpertLinears17_2";
             this.comboBoxExpertLinears17_2.Size = new System.Drawing.Size(40, 21);
@@ -4820,9 +4889,7 @@
             "1",
             "2",
             "3",
-            "4",
-            "5",
-            "6"});
+            "4"});
             this.comboBoxExpertLinears17_1.Location = new System.Drawing.Point(196, 6);
             this.comboBoxExpertLinears17_1.Name = "comboBoxExpertLinears17_1";
             this.comboBoxExpertLinears17_1.Size = new System.Drawing.Size(40, 21);
@@ -4836,9 +4903,7 @@
             "1",
             "2",
             "3",
-            "4",
-            "5",
-            "6"});
+            "4"});
             this.comboBoxExpertLinears20_2.Location = new System.Drawing.Point(94, 140);
             this.comboBoxExpertLinears20_2.Name = "comboBoxExpertLinears20_2";
             this.comboBoxExpertLinears20_2.Size = new System.Drawing.Size(40, 21);
@@ -4861,9 +4926,7 @@
             "1",
             "2",
             "3",
-            "4",
-            "5",
-            "6"});
+            "4"});
             this.comboBoxExpertLinears20_1.Location = new System.Drawing.Point(36, 140);
             this.comboBoxExpertLinears20_1.Name = "comboBoxExpertLinears20_1";
             this.comboBoxExpertLinears20_1.Size = new System.Drawing.Size(40, 21);
@@ -4877,9 +4940,7 @@
             "1",
             "2",
             "3",
-            "4",
-            "5",
-            "6"});
+            "4"});
             this.comboBoxExpertLinears30_2.Location = new System.Drawing.Point(94, 113);
             this.comboBoxExpertLinears30_2.Name = "comboBoxExpertLinears30_2";
             this.comboBoxExpertLinears30_2.Size = new System.Drawing.Size(40, 21);
@@ -4902,9 +4963,7 @@
             "1",
             "2",
             "3",
-            "4",
-            "5",
-            "6"});
+            "4"});
             this.comboBoxExpertLinears30_1.Location = new System.Drawing.Point(36, 113);
             this.comboBoxExpertLinears30_1.Name = "comboBoxExpertLinears30_1";
             this.comboBoxExpertLinears30_1.Size = new System.Drawing.Size(40, 21);
@@ -4918,9 +4977,7 @@
             "1",
             "2",
             "3",
-            "4",
-            "5",
-            "6"});
+            "4"});
             this.comboBoxExpertLinears40_2.Location = new System.Drawing.Point(94, 86);
             this.comboBoxExpertLinears40_2.Name = "comboBoxExpertLinears40_2";
             this.comboBoxExpertLinears40_2.Size = new System.Drawing.Size(40, 21);
@@ -4943,9 +5000,7 @@
             "1",
             "2",
             "3",
-            "4",
-            "5",
-            "6"});
+            "4"});
             this.comboBoxExpertLinears40_1.Location = new System.Drawing.Point(36, 86);
             this.comboBoxExpertLinears40_1.Name = "comboBoxExpertLinears40_1";
             this.comboBoxExpertLinears40_1.Size = new System.Drawing.Size(40, 21);
@@ -4959,9 +5014,7 @@
             "1",
             "2",
             "3",
-            "4",
-            "5",
-            "6"});
+            "4"});
             this.comboBoxExpertLinears60_2.Location = new System.Drawing.Point(94, 59);
             this.comboBoxExpertLinears60_2.Name = "comboBoxExpertLinears60_2";
             this.comboBoxExpertLinears60_2.Size = new System.Drawing.Size(40, 21);
@@ -4984,9 +5037,7 @@
             "1",
             "2",
             "3",
-            "4",
-            "5",
-            "6"});
+            "4"});
             this.comboBoxExpertLinears60_1.Location = new System.Drawing.Point(36, 59);
             this.comboBoxExpertLinears60_1.Name = "comboBoxExpertLinears60_1";
             this.comboBoxExpertLinears60_1.Size = new System.Drawing.Size(40, 21);
@@ -5000,9 +5051,7 @@
             "1",
             "2",
             "3",
-            "4",
-            "5",
-            "6"});
+            "4"});
             this.comboBoxExpertLinears80_2.Location = new System.Drawing.Point(94, 32);
             this.comboBoxExpertLinears80_2.Name = "comboBoxExpertLinears80_2";
             this.comboBoxExpertLinears80_2.Size = new System.Drawing.Size(40, 21);
@@ -5027,9 +5076,7 @@
             "1",
             "2",
             "3",
-            "4",
-            "5",
-            "6"});
+            "4"});
             this.comboBoxExpertLinears80_1.Location = new System.Drawing.Point(36, 32);
             this.comboBoxExpertLinears80_1.Name = "comboBoxExpertLinears80_1";
             this.comboBoxExpertLinears80_1.Size = new System.Drawing.Size(40, 21);
@@ -5043,9 +5090,7 @@
             "1",
             "2",
             "3",
-            "4",
-            "5",
-            "6"});
+            "4"});
             this.comboBoxExpertLinears160_2.Location = new System.Drawing.Point(94, 5);
             this.comboBoxExpertLinears160_2.Name = "comboBoxExpertLinears160_2";
             this.comboBoxExpertLinears160_2.Size = new System.Drawing.Size(40, 21);
@@ -5068,9 +5113,7 @@
             "1",
             "2",
             "3",
-            "4",
-            "5",
-            "6"});
+            "4"});
             this.comboBoxExpertLinears160_1.Location = new System.Drawing.Point(36, 5);
             this.comboBoxExpertLinears160_1.Name = "comboBoxExpertLinears160_1";
             this.comboBoxExpertLinears160_1.Size = new System.Drawing.Size(40, 21);
@@ -5248,7 +5291,7 @@
             this.Margin = new System.Windows.Forms.Padding(2);
             this.MaximumSize = new System.Drawing.Size(417, 310);
             this.Name = "Form1";
-            this.Text = "AmpAutoTunerUtility 230403";
+            this.Text = "AmpAutoTunerUtility 230404";
             this.HelpButtonClicked += new System.ComponentModel.CancelEventHandler(this.Form1_HelpButtonClicked);
             this.Activated += new System.EventHandler(this.Form1_Activated);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
@@ -5682,6 +5725,11 @@
         private System.Windows.Forms.CheckBox checkBoxExpertLinears160_1;
         private System.Windows.Forms.Button buttonExpertLinearsTune;
         private System.Windows.Forms.Label labelExpertLinearsInfo;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button buttonTunerPwr;
     }
 }
 

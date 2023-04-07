@@ -840,6 +840,11 @@ namespace AmpAutoTunerUtility
                 {
                     comboBoxBaudTuner.Text = "115200";
                     tuner1 = new TunerExpertLinears(comboBoxTunerModel.Text, comboBoxComTuner.Text, comboBoxBaudTuner.Text, out errorMsg);
+                    if (tuner1 != null && tuner1.isOn)
+                    {
+                        buttonTunerPwr.BackColor = Color.Green;
+                        buttonTunerPwr.ForeColor = Color.White;
+                    }
                     // We don't need any command information
                 }
 
@@ -867,7 +872,7 @@ namespace AmpAutoTunerUtility
                 checkBoxTunerEnabled.Checked = false;
 
             }
-            if (tuner1.GetModel().Equals("20K"))
+            if (tuner1 != null && tuner1.GetModel().Equals("20K"))
             {
                 comboBoxExpertLinears4_1.Items.Add("5");
                 comboBoxExpertLinears4_1.Items.Add("6");
@@ -2919,6 +2924,7 @@ namespace AmpAutoTunerUtility
                     labelSWR.Text = SWR;
                 if (tuner1.GetModel().Equals(MFJ928, StringComparison.InvariantCulture))
                 {
+                    /*
                     decimal Inductance = tuner1.GetInductance();
                     int Capacitance = tuner1.GetCapacitance();
                     if (numericUpDownCapacitance.Value != Capacitance)
@@ -2935,6 +2941,7 @@ namespace AmpAutoTunerUtility
                         Application.DoEvents();
                         numericUpDownInductance.Enabled = true;
                     }
+                    */
                     Application.DoEvents();
                     if (_disposed) return;
                     labelSWR.Text = SWR;
@@ -3728,7 +3735,7 @@ namespace AmpAutoTunerUtility
                     Application.DoEvents();
                     richTextBoxDebug.SelectionStart = 0;
                     richTextBoxDebug.ScrollToCaret();
-                    while (richTextBoxDebug.Lines.Length > 1000)
+                    while (richTextBoxDebug.Lines.Length > 2000)
                     {
                         richTextBoxDebug.Select(0, richTextBoxDebug.GetFirstCharIndexFromLine(1));
                         richTextBoxDebug.SelectedText = "";
@@ -4156,7 +4163,7 @@ namespace AmpAutoTunerUtility
             NumericUpDown obj = (NumericUpDown)sender;
             if (obj.Enabled)
             {
-                tuner1.SaveCapacitance(Convert.ToInt32(obj.Value));
+                tuner1.SetCapacitance(Convert.ToInt32(obj.Value));
             }
 
         }
@@ -4169,7 +4176,7 @@ namespace AmpAutoTunerUtility
             NumericUpDown obj = (NumericUpDown)sender;
             if (obj.Enabled)
             {
-                tuner1.SaveInductance(obj.Value);
+                tuner1.SetInductance(obj.Value);
             }
         }
 
@@ -5213,17 +5220,23 @@ namespace AmpAutoTunerUtility
                 { 
                     int freq = freqStart + (step * freqStep);
                     labelExpertLinearsInfo.Text = "Tuning " + bandList[band] + " antenna#" + antennaNumber +"/"+antennaSelected + " " + freq;
+                    // MDB
+                    var myparam = "<params><param><value><double>" + freq*1000 + "</double></value></param></params";
+                    var xml = FLRigXML("rig.set_vfo" + 'A', myparam);
+                    if (FLRigSend(xml) == false)
+                    { // Abort if FLRig is giving an error
+                        Debug(DebugEnum.ERR, "FLRigSend got an error??\n");
+                    }
+                    xml = FLRigXML("rig.set_vfo" + 'B', myparam);
+                    if (FLRigSend(xml) == false)
+                    { // Abort if FLRig is giving an error
+                        Debug(DebugEnum.ERR, "FLRigSend got an error??\n");
+                    }
+                    tuner1.Tune();
                     Application.DoEvents();
                     Thread.Sleep(500);
         }
         /*
-        double frequencyHzTune = 3470;
-        myparam = "<params><param><value><double>" + frequencyHzTune + "</double></value></param></params";
-        xml = FLRigXML("rig.set_vfo" + 'A', myparam);
-        if (FLRigSend(xml) == false)
-        { // Abort if FLRig is giving an error
-            Debug(DebugEnum.ERR, "FLRigSend got an error??\n");
-        }
         xml = FLRigXML("rig.set_vfo" + 'B', myparam);
         if (FLRigSend(xml) == false)
         { // Abort if FLRig is giving an error
@@ -5236,11 +5249,28 @@ namespace AmpAutoTunerUtility
         labelExpertLinearsInfo.Text = "Tuned " + frequencyHzTune;
         */
     }
-        }
-        private void buttonExpertLinearsTune_Click(object sender, EventArgs e)
+        }private void TuneSequence()
         {
             labelExpertLinearsInfo.Text = "Tuning Expert Linears";
             Application.DoEvents();
+            string saveMode = FLRigGetMode();
+            string desiredMode = "AM";
+            if (!saveMode.Equals(desiredMode))
+            {
+                string myparam = "<params><param><value>" + desiredMode + "</value></param></params>";
+                var xml = FLRigXML("rig.set_modeA", myparam);
+                if (FLRigSend(xml) == false)
+                { // Abort if FLRig is giving an error
+                    Debug(DebugEnum.ERR, "FLRig set_modeA got an error??\n");
+                    return;
+                }
+                xml = FLRigXML("rig.set_modeB", myparam);
+                if (FLRigSend(xml) == false)
+                { // Abort if FLRig is giving an error
+                    Debug(DebugEnum.ERR, "FLRig set_modeB got an error??\n");
+                    return;
+                }
+            }
             /*
             var mode = "FM";
             string myparam = "<params><param><value>" + mode + "</value></param></params>";
@@ -5257,6 +5287,7 @@ namespace AmpAutoTunerUtility
                 return;
             }
             */
+            tuner1.SelectDisplayPage();
             if (checkBoxExpertLinears160_1.Checked) TuneAll(0, 1, comboBoxExpertLinears160_1.SelectedItem.ToString());
             if (checkBoxExpertLinears160_2.Checked) TuneAll(0, 2, comboBoxExpertLinears160_2.SelectedItem.ToString());
             if (checkBoxExpertLinears80_1.Checked) TuneAll(1, 1, comboBoxExpertLinears80_1.SelectedItem.ToString());
@@ -5280,6 +5311,84 @@ namespace AmpAutoTunerUtility
             if (checkBoxExpertLinears6_1.Checked) TuneAll(10, 1, comboBoxExpertLinears6_1.SelectedItem.ToString());
             if (checkBoxExpertLinears6_2.Checked) TuneAll(10, 2, comboBoxExpertLinears6_2.SelectedItem.ToString());
             labelExpertLinearsInfo.Text = "Tuning done";
+            tuner1.SelectDisplayPage();
+            if (!saveMode.Equals(desiredMode))
+            {
+                string myparam = "<params><param><value>" + saveMode + "</value></param></params>";
+                var xml = FLRigXML("rig.set_modeA", myparam);
+                if (FLRigSend(xml) == false)
+                { // Abort if FLRig is giving an error
+                    Debug(DebugEnum.ERR, "FLRig set_modeA got an error??\n");
+                    return;
+                }
+                xml = FLRigXML("rig.set_modeB", myparam);
+                if (FLRigSend(xml) == false)
+                { // Abort if FLRig is giving an error
+                    Debug(DebugEnum.ERR, "FLRig set_modeB got an error??\n");
+                    return;
+                }
+            }
+        }
+        private void buttonExpertLinearsTune_Click(object sender, EventArgs e)
+        {
+            string myStuff = "";
+          
+            if (ModifierKeys == Keys.Control)
+            {
+                //tuner1.SelectManualTunePage();
+                byte cmdBack = 0x07; // C Down
+                byte cmdFwd = 0x08; // C Up
+                int bytes = 1024; // 128 for L 1024 for C
+                //byte cmdBack = 0x05; // L Down
+                //byte cmdFwd = 0x06; // L Up
+                //int bytes = 128; // 128 for L 1024 for C
+                tuner1.SendCmd(cmdBack); // step C back to get status msg
+                tuner1.GetStatus2(Tuner.Screen.Tune);
+                myStuff += (tuner1.cIndex.ToString("X") + "\n");
+                for (int i = 1;i<=bytes;++i)
+                {
+                    DebugMsg.DebugAddMsg(DebugEnum.LOG, "Special execuction #" + i + "\n");
+                    tuner1.SendCmd(cmdFwd);  // 126 settings of L, 1024 of C
+                    tuner1.GetStatus2(Tuner.Screen.Tune);
+                    myStuff += (tuner1.lIndex.ToString("X")+"\n");
+                    //Application.DoEvents();
+                    //Thread.Sleep(50);
+                }
+                DebugAddMsg(DebugEnum.LOG, myStuff);
+            }
+            else
+            {
+                TuneManual();
+            }
+        }
+        private void TuneManual()
+        {
+            tuner1.GetStatus2(Tuner.Screen.Tune);
+            double l = tuner1.GetInductance();
+            double c = tuner1.GetCapacitance();
+            DebugMsg.DebugAddMsg(DebugEnum.LOG, "L=" + l.ToString("0.0") + "C=" + c.ToString("0,0"));
+            string myparam = "<params><param><value>" + "AM" + "</value></param></params>";
+            var xml = FLRigXML("rig.set_modeA", myparam);
+            if (FLRigSend(xml) == false)
+            { // Abort if FLRig is giving an error
+                Debug(DebugEnum.ERR, "FLRig set_modeA got an error??\n");
+            }
+            xml = FLRigXML("rig.set_modeB", myparam);
+            if (FLRigSend(xml) == false)
+            { // Abort if FLRig is giving an error
+                Debug(DebugEnum.ERR, "FLRig set_modeB got an error??\n");
+            }
+            xml = FLRigXML("rig.set_ptt", "<params><param><value><i4>1</i4></value></param></params");
+            if (FLRigSend(xml) == false) return; // Abort if FLRig is giving an error
+            if (FLRigSend(xml) == false)
+            { // Abort if FLRig is giving an error
+                Debug(DebugEnum.ERR, "FLRig set_ptt got an error??\n");
+            }
+
+            // Ready for finding min SWR test
+
+            xml = FLRigXML("rig.set_ptt", "<params><param><value><i4>0</i4></value></param></params");
+            if (FLRigSend(xml) == false) return; // Abort if FLRig is giving an error
         }
 
         private void comboBoxExpertLinears4_2_Enter(object sender, EventArgs e)
@@ -5289,31 +5398,194 @@ namespace AmpAutoTunerUtility
 
         private void tabPageExpertLinears_Enter(object sender, EventArgs e)
         {
-            tuner1.Poll();
+            if (tuner1 == null) return;
+            //tuner1.Poll();
+            //tuner1.SelectAntennaPage();
+            tuner1.GetStatus2(Tuner.Screen.Antenna);
             comboBoxExpertLinears160_1.SelectedIndex = comboBoxExpertLinears160_1.FindStringExact(tuner1.antennas[0, 0]);
+            if (comboBoxExpertLinears160_1.SelectedIndex < 0) comboBoxExpertLinears160_1.SelectedIndex = 0;
             comboBoxExpertLinears160_2.SelectedIndex = comboBoxExpertLinears160_1.FindStringExact(tuner1.antennas[0, 1]);
+            if (comboBoxExpertLinears160_2.SelectedIndex < 0) comboBoxExpertLinears160_1.SelectedIndex = 0;
             comboBoxExpertLinears80_1.SelectedIndex = comboBoxExpertLinears80_1.FindStringExact(tuner1.antennas[1, 0]);
+            if (comboBoxExpertLinears80_1.SelectedIndex < 0) comboBoxExpertLinears160_1.SelectedIndex = 0;
             comboBoxExpertLinears80_2.SelectedIndex = comboBoxExpertLinears80_1.FindStringExact(tuner1.antennas[1, 1]);
+            if (comboBoxExpertLinears80_2.SelectedIndex < 0) comboBoxExpertLinears160_1.SelectedIndex = 0;
             comboBoxExpertLinears60_1.SelectedIndex = comboBoxExpertLinears60_1.FindStringExact(tuner1.antennas[2, 0]);
+            if (comboBoxExpertLinears60_1.SelectedIndex < 0) comboBoxExpertLinears160_1.SelectedIndex = 0;
             comboBoxExpertLinears60_2.SelectedIndex = comboBoxExpertLinears60_1.FindStringExact(tuner1.antennas[2, 1]);
+            if (comboBoxExpertLinears60_2.SelectedIndex < 0) comboBoxExpertLinears160_1.SelectedIndex = 0;
             comboBoxExpertLinears40_1.SelectedIndex = comboBoxExpertLinears40_1.FindStringExact(tuner1.antennas[3, 0]);
+            if (comboBoxExpertLinears40_1.SelectedIndex < 0) comboBoxExpertLinears160_1.SelectedIndex = 0;
             comboBoxExpertLinears40_2.SelectedIndex = comboBoxExpertLinears40_1.FindStringExact(tuner1.antennas[3, 1]);
+            if (comboBoxExpertLinears40_2.SelectedIndex < 0) comboBoxExpertLinears160_1.SelectedIndex = 0;
             comboBoxExpertLinears30_1.SelectedIndex = comboBoxExpertLinears30_1.FindStringExact(tuner1.antennas[4, 0]);
+            if (comboBoxExpertLinears30_1.SelectedIndex < 0) comboBoxExpertLinears160_1.SelectedIndex = 0;
             comboBoxExpertLinears30_2.SelectedIndex = comboBoxExpertLinears30_1.FindStringExact(tuner1.antennas[4, 1]);
+            if (comboBoxExpertLinears30_2.SelectedIndex < 0) comboBoxExpertLinears160_1.SelectedIndex = 0;
             comboBoxExpertLinears20_1.SelectedIndex = comboBoxExpertLinears20_1.FindStringExact(tuner1.antennas[5, 0]);
+            if (comboBoxExpertLinears20_1.SelectedIndex < 0) comboBoxExpertLinears160_1.SelectedIndex = 0;
             comboBoxExpertLinears20_2.SelectedIndex = comboBoxExpertLinears20_1.FindStringExact(tuner1.antennas[5, 1]);
+            if (comboBoxExpertLinears20_2.SelectedIndex < 0) comboBoxExpertLinears160_1.SelectedIndex = 0;
             comboBoxExpertLinears17_1.SelectedIndex = comboBoxExpertLinears17_1.FindStringExact(tuner1.antennas[6, 0]);
+            if (comboBoxExpertLinears17_1.SelectedIndex < 0) comboBoxExpertLinears160_1.SelectedIndex = 0;
             comboBoxExpertLinears17_2.SelectedIndex = comboBoxExpertLinears17_1.FindStringExact(tuner1.antennas[6, 1]);
+            if (comboBoxExpertLinears17_2.SelectedIndex < 0) comboBoxExpertLinears160_1.SelectedIndex = 0;
             comboBoxExpertLinears15_1.SelectedIndex = comboBoxExpertLinears15_1.FindStringExact(tuner1.antennas[7, 0]);
+            if (comboBoxExpertLinears15_1.SelectedIndex < 0) comboBoxExpertLinears160_1.SelectedIndex = 0;
             comboBoxExpertLinears15_2.SelectedIndex = comboBoxExpertLinears15_1.FindStringExact(tuner1.antennas[7, 1]);
+            if (comboBoxExpertLinears15_2.SelectedIndex < 0) comboBoxExpertLinears160_1.SelectedIndex = 0;
             comboBoxExpertLinears12_1.SelectedIndex = comboBoxExpertLinears12_1.FindStringExact(tuner1.antennas[8, 0]);
+            if (comboBoxExpertLinears12_1.SelectedIndex < 0) comboBoxExpertLinears160_1.SelectedIndex = 0;
             comboBoxExpertLinears12_2.SelectedIndex = comboBoxExpertLinears12_1.FindStringExact(tuner1.antennas[8, 1]);
+            if (comboBoxExpertLinears12_2.SelectedIndex < 0) comboBoxExpertLinears160_1.SelectedIndex = 0;
             comboBoxExpertLinears10_1.SelectedIndex = comboBoxExpertLinears10_1.FindStringExact(tuner1.antennas[9, 0]);
+            if (comboBoxExpertLinears10_1.SelectedIndex < 0) comboBoxExpertLinears160_1.SelectedIndex = 0;
             comboBoxExpertLinears10_2.SelectedIndex = comboBoxExpertLinears10_1.FindStringExact(tuner1.antennas[9, 1]);
+            if (comboBoxExpertLinears10_2.SelectedIndex < 0) comboBoxExpertLinears160_1.SelectedIndex = 0;
             comboBoxExpertLinears6_1.SelectedIndex = comboBoxExpertLinears6_1.FindStringExact(tuner1.antennas[10, 0]);
+            if (comboBoxExpertLinears6_1.SelectedIndex < 0) comboBoxExpertLinears160_1.SelectedIndex = 0;
             comboBoxExpertLinears6_2.SelectedIndex = comboBoxExpertLinears6_1.FindStringExact(tuner1.antennas[10, 1]);
+            if (comboBoxExpertLinears6_2.SelectedIndex < 0) comboBoxExpertLinears160_1.SelectedIndex = 0;
             comboBoxExpertLinears4_1.SelectedIndex = comboBoxExpertLinears4_1.FindStringExact(tuner1.antennas[11, 0]);
+            if (comboBoxExpertLinears4_1.SelectedIndex < 0) comboBoxExpertLinears160_1.SelectedIndex = 0;
             comboBoxExpertLinears4_2.SelectedIndex = comboBoxExpertLinears4_1.FindStringExact(tuner1.antennas[11, 1]);
+            if (comboBoxExpertLinears4_2.SelectedIndex < 0) comboBoxExpertLinears160_1.SelectedIndex = 0;
+            Application.DoEvents();
+            if (comboBoxExpertLinears160_1.SelectedItem == null) return;
+            checkBoxExpertLinears160_1.Enabled = !comboBoxExpertLinears160_1.SelectedItem.ToString().Equals("NO");
+            checkBoxExpertLinears160_2.Enabled = !comboBoxExpertLinears160_2.SelectedItem.ToString().Equals("NO");
+            checkBoxExpertLinears80_1.Enabled = !comboBoxExpertLinears80_1.SelectedItem.ToString().Equals("NO");
+            checkBoxExpertLinears80_2.Enabled = !comboBoxExpertLinears80_2.SelectedItem.ToString().Equals("NO");
+            checkBoxExpertLinears60_1.Enabled = !comboBoxExpertLinears60_1.SelectedItem.ToString().Equals("NO");
+            checkBoxExpertLinears60_2.Enabled = !comboBoxExpertLinears60_2.SelectedItem.ToString().Equals("NO");
+            checkBoxExpertLinears40_1.Enabled = !comboBoxExpertLinears40_1.SelectedItem.ToString().Equals("NO");
+            checkBoxExpertLinears40_2.Enabled = !comboBoxExpertLinears40_2.SelectedItem.ToString().Equals("NO");
+            checkBoxExpertLinears30_1.Enabled = !comboBoxExpertLinears30_1.SelectedItem.ToString().Equals("NO");
+            checkBoxExpertLinears30_2.Enabled = !comboBoxExpertLinears30_2.SelectedItem.ToString().Equals("NO");
+            checkBoxExpertLinears20_1.Enabled = !comboBoxExpertLinears20_1.SelectedItem.ToString().Equals("NO");
+            checkBoxExpertLinears20_2.Enabled = !comboBoxExpertLinears20_2.SelectedItem.ToString().Equals("NO");
+            checkBoxExpertLinears17_1.Enabled = !comboBoxExpertLinears17_1.SelectedItem.ToString().Equals("NO");
+            checkBoxExpertLinears17_2.Enabled = !comboBoxExpertLinears17_2.SelectedItem.ToString().Equals("NO");
+            checkBoxExpertLinears15_1.Enabled = !comboBoxExpertLinears15_1.SelectedItem.ToString().Equals("NO");
+            checkBoxExpertLinears15_2.Enabled = !comboBoxExpertLinears15_2.SelectedItem.ToString().Equals("NO");
+            checkBoxExpertLinears12_1.Enabled = !comboBoxExpertLinears12_1.SelectedItem.ToString().Equals("NO");
+            checkBoxExpertLinears12_2.Enabled = !comboBoxExpertLinears12_2.SelectedItem.ToString().Equals("NO");
+            checkBoxExpertLinears10_1.Enabled = !comboBoxExpertLinears10_1.SelectedItem.ToString().Equals("NO");
+            checkBoxExpertLinears10_2.Enabled = !comboBoxExpertLinears10_2.SelectedItem.ToString().Equals("NO");
+            checkBoxExpertLinears6_1.Enabled = !comboBoxExpertLinears6_1.SelectedItem.ToString().Equals("NO");
+            checkBoxExpertLinears6_2.Enabled = !comboBoxExpertLinears6_2.SelectedItem.ToString().Equals("NO");
+            checkBoxExpertLinears4_1.Enabled = !comboBoxExpertLinears4_1.SelectedItem.ToString().Equals("NO");
+            checkBoxExpertLinears4_2.Enabled = !comboBoxExpertLinears4_2.SelectedItem.ToString().Equals("NO");
+        }
+
+        private void CheckBoxExpertLinearsCheckAll(bool isChecked)
+        {
+            if (checkBoxExpertLinears160_1.Enabled) checkBoxExpertLinears160_1.Checked = isChecked;
+            if (checkBoxExpertLinears160_2.Enabled) checkBoxExpertLinears160_2.Checked = isChecked;
+            if (checkBoxExpertLinears80_1.Enabled) checkBoxExpertLinears80_1.Checked = isChecked;
+            if (checkBoxExpertLinears80_2.Enabled) checkBoxExpertLinears80_2.Checked = isChecked;
+            if (checkBoxExpertLinears60_1.Enabled) checkBoxExpertLinears60_1.Checked = isChecked;
+            if (checkBoxExpertLinears60_2.Enabled) checkBoxExpertLinears60_2.Checked = isChecked;
+            if (checkBoxExpertLinears40_1.Enabled) checkBoxExpertLinears40_1.Checked = isChecked;
+            if (checkBoxExpertLinears40_2.Enabled) checkBoxExpertLinears40_2.Checked = isChecked;
+            if (checkBoxExpertLinears30_1.Enabled) checkBoxExpertLinears30_1.Checked = isChecked;
+            if (checkBoxExpertLinears30_2.Enabled) checkBoxExpertLinears30_2.Checked = isChecked;
+            if (checkBoxExpertLinears20_1.Enabled) checkBoxExpertLinears20_1.Checked = isChecked;
+            if (checkBoxExpertLinears20_2.Enabled) checkBoxExpertLinears20_2.Checked = isChecked;
+            if (checkBoxExpertLinears17_1.Enabled) checkBoxExpertLinears17_1.Checked = isChecked;
+            if (checkBoxExpertLinears17_2.Enabled) checkBoxExpertLinears17_2.Checked = isChecked;
+            if (checkBoxExpertLinears15_1.Enabled) checkBoxExpertLinears15_1.Checked = isChecked;
+            if (checkBoxExpertLinears15_2.Enabled) checkBoxExpertLinears15_2.Checked = isChecked;
+            if (checkBoxExpertLinears12_1.Enabled) checkBoxExpertLinears12_1.Checked = isChecked;
+            if (checkBoxExpertLinears12_2.Enabled) checkBoxExpertLinears12_2.Checked = isChecked;
+            if (checkBoxExpertLinears10_1.Enabled) checkBoxExpertLinears10_1.Checked = isChecked;
+            if (checkBoxExpertLinears10_2.Enabled) checkBoxExpertLinears10_2.Checked = isChecked;
+            if (checkBoxExpertLinears6_1.Enabled) checkBoxExpertLinears6_1.Checked = isChecked;
+            if (checkBoxExpertLinears6_2.Enabled) checkBoxExpertLinears6_2.Checked = isChecked;
+            if (checkBoxExpertLinears4_1.Enabled) checkBoxExpertLinears4_1.Checked = isChecked;
+            if (checkBoxExpertLinears4_2.Enabled) checkBoxExpertLinears4_2.Checked = isChecked;
+        }
+        private void CheckBoxExpertLinearsCheckedChanged(object sender, EventArgs e)
+        {
+            CheckBox myCheckBox = (CheckBox)sender;
+
+            if (ModifierKeys.HasFlag(Keys.Control))
+            {
+                CheckBoxExpertLinearsCheckAll(myCheckBox.Checked);
+            }
+        }
+
+        private void checkBoxExpertLinears160_2_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void checkBoxExpertLinears80_1_CheckedChanged(object sender, EventArgs e)
+        {
+            CheckBox myCheckBox = (CheckBox)sender;
+
+            if (ModifierKeys.HasFlag(Keys.Control))
+            {
+                CheckBoxExpertLinearsCheckAll(myCheckBox.Checked);
+            }
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            tuner1.On();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            tuner1.Off();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            tuner1.On();
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            tuner1.Off();
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            if (buttonTunerPwr.BackColor == Color.Yellow) 
+                return;
+
+            if (buttonTunerPwr.BackColor != Color.Green)
+            {
+                buttonTunerPwr.BackColor = Color.Yellow;
+                buttonTunerPwr.ForeColor = Color.Black;
+                buttonTunerPwr.Enabled = false;
+                Application.DoEvents();
+                tuner1.On();
+                Thread.Sleep(3000);
+                Application.DoEvents();
+                buttonTunerPwr.BackColor = Color.Green;
+                buttonTunerPwr.ForeColor = Color.White;
+                buttonTunerPwr.Enabled = true;
+            }
+            else
+            {
+                buttonTunerPwr.BackColor = Color.Yellow;
+                buttonTunerPwr.ForeColor = Color.Black;
+                buttonTunerPwr.Enabled = false;
+                Application.DoEvents();
+                tuner1.Off();
+                Thread.Sleep(6000);
+                Application.DoEvents();
+                buttonTunerPwr.BackColor = Color.LightGray;
+                buttonTunerPwr.ForeColor = Color.Black;
+                buttonTunerPwr.Enabled = true;
+            }
+        }
+
+        private void tabPageExpertLinears_Click(object sender, EventArgs e)
+        {
+
         }
     }
 
