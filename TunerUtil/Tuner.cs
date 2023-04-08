@@ -196,6 +196,10 @@ namespace AmpAutoTunerUtility
             throw new NotImplementedException();
         }
         public enum Screen { Unknown, Home, Tune, Antenna };
+        public virtual bool GetStatus()
+        {
+            throw new NotImplementedException();
+        }
         public virtual bool GetStatus2(Screen myScreen)
         {
             throw new NotImplementedException();

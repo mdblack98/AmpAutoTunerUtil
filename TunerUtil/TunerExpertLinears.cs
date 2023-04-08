@@ -298,7 +298,7 @@ namespace AmpAutoTunerUtility
             SerialLock.ReleaseMutex();
             return true;
         }
-        private bool GetStatus()
+        public override bool GetStatus()
         {
             if (SerialPortTuner == null) return false;
             SerialLock.WaitOne();
