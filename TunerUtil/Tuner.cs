@@ -8,6 +8,7 @@ namespace AmpAutoTunerUtility
     {
         private bool _disposed = false;
         public static readonly string[] DebugEnumText = { "LOG", "ERR", "WRN", "TRC", "VER" };
+        private double sWR;
 
         //public enum TunerState
         //{
@@ -16,7 +17,41 @@ namespace AmpAutoTunerUtility
         //    Tuned
         //}
         //public TunerState State { get; set; }
-        public double SWR { get; set; }
+        public double GetSWR()
+        {
+            return sWR;
+        }
+
+        //public enum TunerState
+        //{
+        //    Unknown,
+        //    NeedsTuning,
+        //    Tuned
+        //}
+        //public TunerState State { get; set; }
+
+        double[] swrHistory = new double[4];
+        int swrIndex;
+        public void SetSWR(double value)
+        {
+            if (value < 1) return;
+            swrHistory[swrIndex]= value;
+            ++swrIndex;
+            if (swrIndex >= swrHistory.Length) { swrIndex = 0; }
+            double sum = 0;
+            int n = 0;
+            for(int i = 0; i < swrHistory.Length; i++) 
+            {
+                if (swrHistory[i] > 0)
+                {
+                    sum += swrHistory[i];
+                    ++n;
+                }
+            }
+            value = sum/n;
+            sWR = value;
+        }
+
         protected private string model = null;
         protected private string comport = null;
         protected private string baud = null;
@@ -29,6 +64,7 @@ namespace AmpAutoTunerUtility
         public int[,] tuneFrequencies;
         public ulong cIndex;
         public ulong lIndex;
+        public int band; // 0=160M...11=4M 160,80,60,40,30,20,17,15,12,10,6,4
         public bool isOn = false;
         public Tuner()
         {
@@ -195,7 +231,7 @@ namespace AmpAutoTunerUtility
         {
             throw new NotImplementedException();
         }
-        public enum Screen { Unknown, Home, Tune, Antenna };
+        public enum Screen { Unknown, Home, ManualTune, Antenna };
         public virtual bool GetStatus()
         {
             throw new NotImplementedException();

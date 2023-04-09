@@ -24,7 +24,7 @@ namespace AmpAutoTunerUtility
         private string power = "?";
         private string temp1 = "?";
         private string antenna = "?";
-        private string band = "?";
+        private string bandstr = "?";
         public bool tuning = false;
         Byte[] responseOld = new byte[512];
         public TunerExpertLinears(string model, string comport, string baud, out string errmsg)
@@ -171,7 +171,7 @@ namespace AmpAutoTunerUtility
             {
                 if (myScreen == Screen.Unknown) MessageBox.Show("Where are we?\n");
                 if (myScreen == Screen.Antenna) SelectAntennaPage();
-                else if (myScreen == Screen.Tune) SelectManualTunePage();
+                else if (myScreen == Screen.ManualTune) SelectManualTunePage();
                 else SelectDisplayPage();
                 screenLast = myScreen;
             }
@@ -245,32 +245,44 @@ namespace AmpAutoTunerUtility
                 SerialLock.ReleaseMutex(); 
                 return false; 
             }
-            else if (myScreen == Screen.Tune && response[17] != 0x2d) 
+            else if (myScreen == Screen.ManualTune && response[17] != 0x2d) 
             { 
                 SerialLock.ReleaseMutex(); 
                 return false; 
             }
             byte ledStatus = response[8];
-            if (myScreen == Screen.Tune)
+            if (myScreen == Screen.ManualTune)
             {
-                string value = lookup[(int)response[156]].ToString();
-                value += lookup[(int)response[157]].ToString();
-                value += lookup[(int)response[158]].ToString();
-                value += lookup[(int)response[159]].ToString();
-                value += lookup[(int)response[160]].ToString();
-                value += lookup[(int)response[161]].ToString();
-                Capacitance = Double.Parse(value.Trim());
-                value = lookup[(int)response[116]].ToString();
-                value += lookup[(int)response[117]].ToString();
-                value += lookup[(int)response[118]].ToString();
-                value += lookup[(int)response[119]].ToString();
-                value += lookup[(int)response[120]].ToString();
-                value += lookup[(int)response[121]].ToString();
-                Inductance = Double.Parse(value.Trim());
-                //cIndex = (ulong)((response[161] << 16) | (response[158] << 8) | response[159]);
-                //lIndex = (ulong)((response[118] << 16) | (response[120] << 8) | response[121]);
-                string lohi = lookup[(int)response[166]].ToString();
+                try
+                {
+                    while (response[160] != 0x0e)
+                    {
+                        return false;
+                    };
+                    string value = lookup[(int)response[156]].ToString();
+                    value += lookup[(int)response[157]].ToString();
+                    value += lookup[(int)response[158]].ToString();
+                    value += lookup[(int)response[159]].ToString();
+                    value += lookup[(int)response[160]].ToString();
+                    value += lookup[(int)response[161]].ToString();
+                    Capacitance = Double.Parse(value.Trim());
+                    value = lookup[(int)response[116]].ToString();
+                    value += lookup[(int)response[117]].ToString();
+                    value += lookup[(int)response[118]].ToString();
+                    value += lookup[(int)response[119]].ToString();
+                    value += lookup[(int)response[120]].ToString();
+                    value += lookup[(int)response[121]].ToString();
+                    Inductance = Double.Parse(value.Trim());
+                    //cIndex = (ulong)((response[161] << 16) | (response[158] << 8) | response[159]);
+                    //lIndex = (ulong)((response[118] << 16) | (response[120] << 8) | response[121]);
+                    string lohi = lookup[(int)response[166]].ToString();
+                }
+                catch (Exception ex) 
+                {
+                    MessageBox.Show("Error: " + ex.Message + "\n" + ex.StackTrace);
+                }
             }
+            /*
             for (int i = 0; i < 369; ++i)
             {
                 if (responseOld[0] == 0xaa && responseOld[i] != response[i])
@@ -279,6 +291,7 @@ namespace AmpAutoTunerUtility
                 }
             }
             responseOld = response;
+            */
             tuning = response[8] == 0xb8;
             int indexBytes = 56;
             int[] bandLookup = { 0, 4, 8, 1, 5, 9, 2, 6, 10, 3, 7, 11 };
@@ -382,11 +395,12 @@ namespace AmpAutoTunerUtility
             {
                 var newBand = mytokens[6];
                 var newAntenna = mytokens[7];
-                if (!band.Equals(newBand))
+                if (!bandstr.Equals(newBand))
                 {
-                    DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.LOG, "Expert Linears changed band " + band + " to " + newBand + "\n");
+                    DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.LOG, "Expert Linears changed band " + bandstr + " to " + newBand + "\n");
                     Application.DoEvents();
-                    band = newBand;
+                    bandstr = newBand;
+                    band = int.Parse(bandstr);
                 }
                 //DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.VERBOSE, "antenna=" + antenna + ", newAntenna=" + newAntenna + "\n");
 
@@ -397,9 +411,10 @@ namespace AmpAutoTunerUtility
                     antenna = newAntenna;
                 }
                 AntennaNumber = int.Parse(antenna.Substring(0, 1));
+                model = mytokens[1];
                 power = mytokens[10];
                 swr1 = mytokens[11];
-                SWR = Double.Parse(swr1);
+                SetSWR(Double.Parse(swr1));
                 swr2 = mytokens[12];
                 if (temp1.Equals("?")) DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.LOG, "Expert Linears connected\n");
                 temp1 = mytokens[15];
@@ -1725,29 +1740,63 @@ namespace AmpAutoTunerUtility
 
         public override double GetInductance()
         {
-            bool ok = GetStatus2(Tuner.Screen.Tune);
+            bool ok = GetStatus2(Tuner.Screen.ManualTune);
             if (ok == false)
             {
                 do
                 {
                     //SelectManualTunePage();
-                    ok = GetStatus2(Tuner.Screen.Tune);
+                    ok = GetStatus2(Tuner.Screen.ManualTune);
                 } while (!ok);
             }
             return Inductance;
         }
         public override double GetCapacitance()
         {
-            bool ok = GetStatus2(Tuner.Screen.Tune);
+            bool ok = GetStatus2(Tuner.Screen.ManualTune);
             if (ok == false)
             {
                 do
                 {
                     //SelectManualTunePage();
-                    ok = GetStatus2(Tuner.Screen.Tune);
+                    ok = GetStatus2(Tuner.Screen.ManualTune);
                 } while( !ok );
             }
             return Capacitance;
+        }
+        public override void SetInductance(double value)
+        {
+            byte cmdDown = 0x05; // L Down
+            byte cmdUp = 0x06; // L Up
+            if (value > 6.35) value = 6.35;
+            var l = GetInductance();
+            while (l < value)
+            {
+                SendCmd(cmdUp); // step L up 
+                l = GetInductance();
+            }
+            while( l > value)
+            {
+                SendCmd(cmdDown); // step L down
+                l = GetInductance();
+            }
+        }
+        public override void SetCapacitance(double value)
+        {
+            byte cmdDown = 0x07; // C Down
+            byte cmdUp = 0x08; // C Up
+            if (value > 2629.5) value = 2629.5;
+            var c = GetCapacitance();
+            while (c < value)
+            {
+                SendCmd(cmdUp); // step C up 
+                c = GetCapacitance();
+            }
+            while (c > value)
+            {
+                SendCmd(cmdDown); // step C down
+                c = GetCapacitance();
+            }
         }
     }
 }

@@ -106,11 +106,6 @@
             this.labelPower = new System.Windows.Forms.Label();
             this.labelFreq = new System.Windows.Forms.Label();
             this.labelAntennaSelected = new System.Windows.Forms.Label();
-            this.tabPage = new System.Windows.Forms.TabControl();
-            this.tabPageControl = new System.Windows.Forms.TabPage();
-            this.labelControlLog2 = new System.Windows.Forms.Label();
-            this.labelControlLog = new System.Windows.Forms.Label();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.buttonTunerPwr = new System.Windows.Forms.Button();
             this.labelClock = new System.Windows.Forms.Label();
             this.buttonAntennaPick8 = new System.Windows.Forms.Button();
@@ -121,18 +116,8 @@
             this.buttonAntennaPick5 = new System.Windows.Forms.Button();
             this.buttonAntennaPick6 = new System.Windows.Forms.Button();
             this.buttonAntennaPick7 = new System.Windows.Forms.Button();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.buttonWalk = new System.Windows.Forms.Button();
-            this.tabPageDebug = new System.Windows.Forms.TabPage();
-            this.checkBoxPause = new System.Windows.Forms.CheckBox();
-            this.comboBoxDebugLevel = new System.Windows.Forms.ComboBox();
-            this.richTextBoxDebug = new System.Windows.Forms.RichTextBox();
-            this.tabPageTuner = new System.Windows.Forms.TabPage();
-            this.groupBoxOptions = new System.Windows.Forms.GroupBox();
-            this.buttonTunerSave = new System.Windows.Forms.Button();
-            this.panel2 = new System.Windows.Forms.Panel();
             this.label11 = new System.Windows.Forms.Label();
-            this.comboBoxAmpBits = new System.Windows.Forms.ComboBox();
             this.panel3 = new System.Windows.Forms.Panel();
             this.button4 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
@@ -141,7 +126,6 @@
             this.comboBoxTunerModel = new System.Windows.Forms.ComboBox();
             this.comboBoxBaudTuner = new System.Windows.Forms.ComboBox();
             this.comboBoxComTuner = new System.Windows.Forms.ComboBox();
-            this.tabPagePower = new System.Windows.Forms.TabPage();
             this.checkBoxAmp8 = new System.Windows.Forms.CheckBox();
             this.checkBoxAmp7 = new System.Windows.Forms.CheckBox();
             this.checkBoxAmp6 = new System.Windows.Forms.CheckBox();
@@ -150,6 +134,135 @@
             this.checkBoxAmp3 = new System.Windows.Forms.CheckBox();
             this.checkBoxAmp2 = new System.Windows.Forms.CheckBox();
             this.checkBoxAmp1 = new System.Windows.Forms.CheckBox();
+            this.checkBoxPower8Enabled = new System.Windows.Forms.CheckBox();
+            this.checkBoxPower7Enabled = new System.Windows.Forms.CheckBox();
+            this.checkBoxPower6Enabled = new System.Windows.Forms.CheckBox();
+            this.checkBoxPower5Enabled = new System.Windows.Forms.CheckBox();
+            this.checkBoxPower4Enabled = new System.Windows.Forms.CheckBox();
+            this.checkBoxPower3Enabled = new System.Windows.Forms.CheckBox();
+            this.checkBoxPower2Enabled = new System.Windows.Forms.CheckBox();
+            this.checkBoxPower1Enabled = new System.Windows.Forms.CheckBox();
+            this.checkBoxAntenna8Amp = new System.Windows.Forms.CheckBox();
+            this.checkBoxAntenna7Amp = new System.Windows.Forms.CheckBox();
+            this.checkBoxAntenna6Amp = new System.Windows.Forms.CheckBox();
+            this.checkBoxAntenna5Amp = new System.Windows.Forms.CheckBox();
+            this.checkBoxAntenna4Amp = new System.Windows.Forms.CheckBox();
+            this.checkBoxAntenna3Amp = new System.Windows.Forms.CheckBox();
+            this.checkBoxAntenna2Amp = new System.Windows.Forms.CheckBox();
+            this.checkBoxAntenna1Amp = new System.Windows.Forms.CheckBox();
+            this.ComboBoxAntenna8Bits = new System.Windows.Forms.ComboBox();
+            this.ComboBoxAntenna7Bits = new System.Windows.Forms.ComboBox();
+            this.ComboBoxAntenna6Bits = new System.Windows.Forms.ComboBox();
+            this.ComboBoxAntenna5Bits = new System.Windows.Forms.ComboBox();
+            this.ComboBoxAntenna4Bits = new System.Windows.Forms.ComboBox();
+            this.ComboBoxAntenna3Bits = new System.Windows.Forms.ComboBox();
+            this.ComboBoxAntenna2Bits = new System.Windows.Forms.ComboBox();
+            this.ComboBoxAntenna1Bits = new System.Windows.Forms.ComboBox();
+            this.label18 = new System.Windows.Forms.Label();
+            this.checkBoxAntenna8 = new System.Windows.Forms.CheckBox();
+            this.checkBoxAntenna7 = new System.Windows.Forms.CheckBox();
+            this.checkBoxAntenna6 = new System.Windows.Forms.CheckBox();
+            this.checkBoxAntenna5 = new System.Windows.Forms.CheckBox();
+            this.checkBoxAntenna4 = new System.Windows.Forms.CheckBox();
+            this.checkBoxAntenna3 = new System.Windows.Forms.CheckBox();
+            this.checkBoxAntenna2 = new System.Windows.Forms.CheckBox();
+            this.checkBoxAntenna1 = new System.Windows.Forms.CheckBox();
+            this.label17 = new System.Windows.Forms.Label();
+            this.comboBoxFreqWalkAntenna = new System.Windows.Forms.ComboBox();
+            this.checkBoxWalk3 = new System.Windows.Forms.CheckBox();
+            this.checkBoxWalk2 = new System.Windows.Forms.CheckBox();
+            this.checkBoxWalk1 = new System.Windows.Forms.CheckBox();
+            this.numericUpDownFreqWalkDelay = new System.Windows.Forms.NumericUpDown();
+            this.labelFreqWalk3 = new System.Windows.Forms.Label();
+            this.labelFreqWalk2 = new System.Windows.Forms.Label();
+            this.labelFreqWalk1 = new System.Windows.Forms.Label();
+            this.checkedListBoxWalk3 = new System.Windows.Forms.CheckedListBox();
+            this.checkedListBoxWalk2 = new System.Windows.Forms.CheckedListBox();
+            this.checkedListBoxWalk1 = new System.Windows.Forms.CheckedListBox();
+            this.labelInterval = new System.Windows.Forms.Label();
+            this.tabPageExpertLinears = new System.Windows.Forms.TabPage();
+            this.labelSPE_C = new System.Windows.Forms.Label();
+            this.labelSPE_L = new System.Windows.Forms.Label();
+            this.button2 = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
+            this.labelExpertLinearsInfo = new System.Windows.Forms.Label();
+            this.checkBoxExpertLinears4_2 = new System.Windows.Forms.CheckBox();
+            this.checkBoxExpertLinears6_2 = new System.Windows.Forms.CheckBox();
+            this.checkBoxExpertLinears10_2 = new System.Windows.Forms.CheckBox();
+            this.checkBoxExpertLinears12_2 = new System.Windows.Forms.CheckBox();
+            this.checkBoxExpertLinears15_2 = new System.Windows.Forms.CheckBox();
+            this.checkBoxExpertLinears17_2 = new System.Windows.Forms.CheckBox();
+            this.checkBoxExpertLinears4_1 = new System.Windows.Forms.CheckBox();
+            this.checkBoxExpertLinears6_1 = new System.Windows.Forms.CheckBox();
+            this.checkBoxExpertLinears10_1 = new System.Windows.Forms.CheckBox();
+            this.checkBoxExpertLinears12_1 = new System.Windows.Forms.CheckBox();
+            this.checkBoxExpertLinears15_1 = new System.Windows.Forms.CheckBox();
+            this.checkBoxExpertLinears17_1 = new System.Windows.Forms.CheckBox();
+            this.checkBoxExpertLinears20_2 = new System.Windows.Forms.CheckBox();
+            this.checkBoxExpertLinears30_2 = new System.Windows.Forms.CheckBox();
+            this.checkBoxExpertLinears40_2 = new System.Windows.Forms.CheckBox();
+            this.checkBoxExpertLinears60_2 = new System.Windows.Forms.CheckBox();
+            this.checkBoxExpertLinears80_2 = new System.Windows.Forms.CheckBox();
+            this.checkBoxExpertLinears160_2 = new System.Windows.Forms.CheckBox();
+            this.checkBoxExpertLinears20_1 = new System.Windows.Forms.CheckBox();
+            this.checkBoxExpertLinears30_1 = new System.Windows.Forms.CheckBox();
+            this.checkBoxExpertLinears40_1 = new System.Windows.Forms.CheckBox();
+            this.checkBoxExpertLinears60_1 = new System.Windows.Forms.CheckBox();
+            this.checkBoxExpertLinears80_1 = new System.Windows.Forms.CheckBox();
+            this.checkBoxExpertLinears160_1 = new System.Windows.Forms.CheckBox();
+            this.buttonExpertLinearsTune = new System.Windows.Forms.Button();
+            this.comboBoxExpertLinears4_2 = new System.Windows.Forms.ComboBox();
+            this.label28 = new System.Windows.Forms.Label();
+            this.comboBoxExpertLinears4_1 = new System.Windows.Forms.ComboBox();
+            this.comboBoxExpertLinears6_2 = new System.Windows.Forms.ComboBox();
+            this.label27 = new System.Windows.Forms.Label();
+            this.comboBoxExpertLinears6_1 = new System.Windows.Forms.ComboBox();
+            this.comboBoxExpertLinears10_2 = new System.Windows.Forms.ComboBox();
+            this.label26 = new System.Windows.Forms.Label();
+            this.comboBoxExpertLinears10_1 = new System.Windows.Forms.ComboBox();
+            this.comboBoxExpertLinears12_2 = new System.Windows.Forms.ComboBox();
+            this.label25 = new System.Windows.Forms.Label();
+            this.comboBoxExpertLinears12_1 = new System.Windows.Forms.ComboBox();
+            this.comboBoxExpertLinears15_2 = new System.Windows.Forms.ComboBox();
+            this.label24 = new System.Windows.Forms.Label();
+            this.comboBoxExpertLinears15_1 = new System.Windows.Forms.ComboBox();
+            this.comboBoxExpertLinears17_2 = new System.Windows.Forms.ComboBox();
+            this.label23 = new System.Windows.Forms.Label();
+            this.comboBoxExpertLinears17_1 = new System.Windows.Forms.ComboBox();
+            this.comboBoxExpertLinears20_2 = new System.Windows.Forms.ComboBox();
+            this.label22 = new System.Windows.Forms.Label();
+            this.comboBoxExpertLinears20_1 = new System.Windows.Forms.ComboBox();
+            this.comboBoxExpertLinears30_2 = new System.Windows.Forms.ComboBox();
+            this.label21 = new System.Windows.Forms.Label();
+            this.comboBoxExpertLinears30_1 = new System.Windows.Forms.ComboBox();
+            this.comboBoxExpertLinears40_2 = new System.Windows.Forms.ComboBox();
+            this.label20 = new System.Windows.Forms.Label();
+            this.comboBoxExpertLinears40_1 = new System.Windows.Forms.ComboBox();
+            this.comboBoxExpertLinears60_2 = new System.Windows.Forms.ComboBox();
+            this.label19 = new System.Windows.Forms.Label();
+            this.comboBoxExpertLinears60_1 = new System.Windows.Forms.ComboBox();
+            this.comboBoxExpertLinears80_2 = new System.Windows.Forms.ComboBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.comboBoxExpertLinears80_1 = new System.Windows.Forms.ComboBox();
+            this.comboBoxExpertLinears160_2 = new System.Windows.Forms.ComboBox();
+            this.label12 = new System.Windows.Forms.Label();
+            this.comboBoxExpertLinears160_1 = new System.Windows.Forms.ComboBox();
+            this.tabPage = new System.Windows.Forms.TabControl();
+            this.tabPageControl = new System.Windows.Forms.TabPage();
+            this.labelControlLog2 = new System.Windows.Forms.Label();
+            this.labelControlLog = new System.Windows.Forms.Label();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.tabPageDebug = new System.Windows.Forms.TabPage();
+            this.checkBoxPause = new System.Windows.Forms.CheckBox();
+            this.comboBoxDebugLevel = new System.Windows.Forms.ComboBox();
+            this.richTextBoxDebug = new System.Windows.Forms.RichTextBox();
+            this.tabPageTuner = new System.Windows.Forms.TabPage();
+            this.groupBoxOptions = new System.Windows.Forms.GroupBox();
+            this.buttonTunerSave = new System.Windows.Forms.Button();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.comboBoxAmpBits = new System.Windows.Forms.ComboBox();
+            this.tabPagePower = new System.Windows.Forms.TabPage();
             this.textBoxPower8Watts = new System.Windows.Forms.TextBox();
             this.textBoxPower7Watts = new System.Windows.Forms.TextBox();
             this.textBoxPower6Watts = new System.Windows.Forms.TextBox();
@@ -174,34 +287,9 @@
             this.textBoxPower2From = new System.Windows.Forms.TextBox();
             this.textBoxPower1To = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.checkBoxPower8Enabled = new System.Windows.Forms.CheckBox();
-            this.checkBoxPower7Enabled = new System.Windows.Forms.CheckBox();
-            this.checkBoxPower6Enabled = new System.Windows.Forms.CheckBox();
-            this.checkBoxPower5Enabled = new System.Windows.Forms.CheckBox();
-            this.checkBoxPower4Enabled = new System.Windows.Forms.CheckBox();
-            this.checkBoxPower3Enabled = new System.Windows.Forms.CheckBox();
-            this.checkBoxPower2Enabled = new System.Windows.Forms.CheckBox();
-            this.checkBoxPower1Enabled = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.tabPageAntenna = new System.Windows.Forms.TabPage();
-            this.checkBoxAntenna8Amp = new System.Windows.Forms.CheckBox();
-            this.checkBoxAntenna7Amp = new System.Windows.Forms.CheckBox();
-            this.checkBoxAntenna6Amp = new System.Windows.Forms.CheckBox();
-            this.checkBoxAntenna5Amp = new System.Windows.Forms.CheckBox();
-            this.checkBoxAntenna4Amp = new System.Windows.Forms.CheckBox();
-            this.checkBoxAntenna3Amp = new System.Windows.Forms.CheckBox();
-            this.checkBoxAntenna2Amp = new System.Windows.Forms.CheckBox();
-            this.checkBoxAntenna1Amp = new System.Windows.Forms.CheckBox();
-            this.ComboBoxAntenna8Bits = new System.Windows.Forms.ComboBox();
-            this.ComboBoxAntenna7Bits = new System.Windows.Forms.ComboBox();
-            this.ComboBoxAntenna6Bits = new System.Windows.Forms.ComboBox();
-            this.ComboBoxAntenna5Bits = new System.Windows.Forms.ComboBox();
-            this.ComboBoxAntenna4Bits = new System.Windows.Forms.ComboBox();
-            this.ComboBoxAntenna3Bits = new System.Windows.Forms.ComboBox();
-            this.ComboBoxAntenna2Bits = new System.Windows.Forms.ComboBox();
-            this.ComboBoxAntenna1Bits = new System.Windows.Forms.ComboBox();
-            this.label18 = new System.Windows.Forms.Label();
             this.textBoxAntennaFreq8To = new System.Windows.Forms.TextBox();
             this.textBoxAntennaFreq8From = new System.Windows.Forms.TextBox();
             this.textBoxAntennaFreq7To = new System.Windows.Forms.TextBox();
@@ -217,30 +305,9 @@
             this.textBoxAntennaFreq2To = new System.Windows.Forms.TextBox();
             this.textBoxAntennaFreq2From = new System.Windows.Forms.TextBox();
             this.textBoxAntennaFreq1To = new System.Windows.Forms.TextBox();
-            this.checkBoxAntenna8 = new System.Windows.Forms.CheckBox();
-            this.checkBoxAntenna7 = new System.Windows.Forms.CheckBox();
-            this.checkBoxAntenna6 = new System.Windows.Forms.CheckBox();
-            this.checkBoxAntenna5 = new System.Windows.Forms.CheckBox();
-            this.checkBoxAntenna4 = new System.Windows.Forms.CheckBox();
-            this.checkBoxAntenna3 = new System.Windows.Forms.CheckBox();
-            this.checkBoxAntenna2 = new System.Windows.Forms.CheckBox();
-            this.checkBoxAntenna1 = new System.Windows.Forms.CheckBox();
-            this.label17 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
             this.tabPageFreqWalk = new System.Windows.Forms.TabPage();
-            this.comboBoxFreqWalkAntenna = new System.Windows.Forms.ComboBox();
-            this.checkBoxWalk3 = new System.Windows.Forms.CheckBox();
-            this.checkBoxWalk2 = new System.Windows.Forms.CheckBox();
-            this.checkBoxWalk1 = new System.Windows.Forms.CheckBox();
-            this.numericUpDownFreqWalkDelay = new System.Windows.Forms.NumericUpDown();
-            this.labelFreqWalk3 = new System.Windows.Forms.Label();
-            this.labelFreqWalk2 = new System.Windows.Forms.Label();
-            this.labelFreqWalk1 = new System.Windows.Forms.Label();
-            this.checkedListBoxWalk3 = new System.Windows.Forms.CheckedListBox();
-            this.checkedListBoxWalk2 = new System.Windows.Forms.CheckedListBox();
-            this.checkedListBoxWalk1 = new System.Windows.Forms.CheckedListBox();
-            this.labelInterval = new System.Windows.Forms.Label();
             this.tabPageRelay1 = new System.Windows.Forms.TabPage();
             this.buttonAllOff = new System.Windows.Forms.Button();
             this.labelRelay1SerialNumber = new System.Windows.Forms.Label();
@@ -317,71 +384,6 @@
             this.checkBoxRelay4Enabled = new System.Windows.Forms.CheckBox();
             this.comboBoxBaudRelay4 = new System.Windows.Forms.ComboBox();
             this.comboBoxComRelay4 = new System.Windows.Forms.ComboBox();
-            this.tabPageExpertLinears = new System.Windows.Forms.TabPage();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
-            this.labelExpertLinearsInfo = new System.Windows.Forms.Label();
-            this.checkBoxExpertLinears4_2 = new System.Windows.Forms.CheckBox();
-            this.checkBoxExpertLinears6_2 = new System.Windows.Forms.CheckBox();
-            this.checkBoxExpertLinears10_2 = new System.Windows.Forms.CheckBox();
-            this.checkBoxExpertLinears12_2 = new System.Windows.Forms.CheckBox();
-            this.checkBoxExpertLinears15_2 = new System.Windows.Forms.CheckBox();
-            this.checkBoxExpertLinears17_2 = new System.Windows.Forms.CheckBox();
-            this.checkBoxExpertLinears4_1 = new System.Windows.Forms.CheckBox();
-            this.checkBoxExpertLinears6_1 = new System.Windows.Forms.CheckBox();
-            this.checkBoxExpertLinears10_1 = new System.Windows.Forms.CheckBox();
-            this.checkBoxExpertLinears12_1 = new System.Windows.Forms.CheckBox();
-            this.checkBoxExpertLinears15_1 = new System.Windows.Forms.CheckBox();
-            this.checkBoxExpertLinears17_1 = new System.Windows.Forms.CheckBox();
-            this.checkBoxExpertLinears20_2 = new System.Windows.Forms.CheckBox();
-            this.checkBoxExpertLinears30_2 = new System.Windows.Forms.CheckBox();
-            this.checkBoxExpertLinears40_2 = new System.Windows.Forms.CheckBox();
-            this.checkBoxExpertLinears60_2 = new System.Windows.Forms.CheckBox();
-            this.checkBoxExpertLinears80_2 = new System.Windows.Forms.CheckBox();
-            this.checkBoxExpertLinears160_2 = new System.Windows.Forms.CheckBox();
-            this.checkBoxExpertLinears20_1 = new System.Windows.Forms.CheckBox();
-            this.checkBoxExpertLinears30_1 = new System.Windows.Forms.CheckBox();
-            this.checkBoxExpertLinears40_1 = new System.Windows.Forms.CheckBox();
-            this.checkBoxExpertLinears60_1 = new System.Windows.Forms.CheckBox();
-            this.checkBoxExpertLinears80_1 = new System.Windows.Forms.CheckBox();
-            this.checkBoxExpertLinears160_1 = new System.Windows.Forms.CheckBox();
-            this.buttonExpertLinearsTune = new System.Windows.Forms.Button();
-            this.comboBoxExpertLinears4_2 = new System.Windows.Forms.ComboBox();
-            this.label28 = new System.Windows.Forms.Label();
-            this.comboBoxExpertLinears4_1 = new System.Windows.Forms.ComboBox();
-            this.comboBoxExpertLinears6_2 = new System.Windows.Forms.ComboBox();
-            this.label27 = new System.Windows.Forms.Label();
-            this.comboBoxExpertLinears6_1 = new System.Windows.Forms.ComboBox();
-            this.comboBoxExpertLinears10_2 = new System.Windows.Forms.ComboBox();
-            this.label26 = new System.Windows.Forms.Label();
-            this.comboBoxExpertLinears10_1 = new System.Windows.Forms.ComboBox();
-            this.comboBoxExpertLinears12_2 = new System.Windows.Forms.ComboBox();
-            this.label25 = new System.Windows.Forms.Label();
-            this.comboBoxExpertLinears12_1 = new System.Windows.Forms.ComboBox();
-            this.comboBoxExpertLinears15_2 = new System.Windows.Forms.ComboBox();
-            this.label24 = new System.Windows.Forms.Label();
-            this.comboBoxExpertLinears15_1 = new System.Windows.Forms.ComboBox();
-            this.comboBoxExpertLinears17_2 = new System.Windows.Forms.ComboBox();
-            this.label23 = new System.Windows.Forms.Label();
-            this.comboBoxExpertLinears17_1 = new System.Windows.Forms.ComboBox();
-            this.comboBoxExpertLinears20_2 = new System.Windows.Forms.ComboBox();
-            this.label22 = new System.Windows.Forms.Label();
-            this.comboBoxExpertLinears20_1 = new System.Windows.Forms.ComboBox();
-            this.comboBoxExpertLinears30_2 = new System.Windows.Forms.ComboBox();
-            this.label21 = new System.Windows.Forms.Label();
-            this.comboBoxExpertLinears30_1 = new System.Windows.Forms.ComboBox();
-            this.comboBoxExpertLinears40_2 = new System.Windows.Forms.ComboBox();
-            this.label20 = new System.Windows.Forms.Label();
-            this.comboBoxExpertLinears40_1 = new System.Windows.Forms.ComboBox();
-            this.comboBoxExpertLinears60_2 = new System.Windows.Forms.ComboBox();
-            this.label19 = new System.Windows.Forms.Label();
-            this.comboBoxExpertLinears60_1 = new System.Windows.Forms.ComboBox();
-            this.comboBoxExpertLinears80_2 = new System.Windows.Forms.ComboBox();
-            this.label13 = new System.Windows.Forms.Label();
-            this.comboBoxExpertLinears80_1 = new System.Windows.Forms.ComboBox();
-            this.comboBoxExpertLinears160_2 = new System.Windows.Forms.ComboBox();
-            this.label12 = new System.Windows.Forms.Label();
-            this.comboBoxExpertLinears160_1 = new System.Windows.Forms.ComboBox();
             this.timerGetFreq = new System.Windows.Forms.Timer(this.components);
             this.timerDebug = new System.Windows.Forms.Timer(this.components);
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
@@ -404,6 +406,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCapacitance)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownInductance)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPostPttDelay)).BeginInit();
+            this.panel3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFreqWalkDelay)).BeginInit();
+            this.tabPageExpertLinears.SuspendLayout();
             this.tabPage.SuspendLayout();
             this.tabPageControl.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -412,11 +417,9 @@
             this.tabPageTuner.SuspendLayout();
             this.groupBoxOptions.SuspendLayout();
             this.panel2.SuspendLayout();
-            this.panel3.SuspendLayout();
             this.tabPagePower.SuspendLayout();
             this.tabPageAntenna.SuspendLayout();
             this.tabPageFreqWalk.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFreqWalkDelay)).BeginInit();
             this.tabPageRelay1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.tabPageRelay2.SuspendLayout();
@@ -425,7 +428,6 @@
             this.panel5.SuspendLayout();
             this.tabPageRelay4.SuspendLayout();
             this.panel6.SuspendLayout();
-            this.tabPageExpertLinears.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -1502,95 +1504,6 @@
             this.toolTip1.SetToolTip(this.labelAntennaSelected, "Antenna in use\nClick to lock(red)");
             this.labelAntennaSelected.Click += new System.EventHandler(this.LabelAntennaSelected_Click);
             // 
-            // tabPage
-            // 
-            this.tabPage.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tabPage.Controls.Add(this.tabPageControl);
-            this.tabPage.Controls.Add(this.tabPageDebug);
-            this.tabPage.Controls.Add(this.tabPageTuner);
-            this.tabPage.Controls.Add(this.tabPagePower);
-            this.tabPage.Controls.Add(this.tabPageAntenna);
-            this.tabPage.Controls.Add(this.tabPageFreqWalk);
-            this.tabPage.Controls.Add(this.tabPageRelay1);
-            this.tabPage.Controls.Add(this.tabPageRelay2);
-            this.tabPage.Controls.Add(this.tabPageRelay3);
-            this.tabPage.Controls.Add(this.tabPageRelay4);
-            this.tabPage.Controls.Add(this.tabPageExpertLinears);
-            this.tabPage.Location = new System.Drawing.Point(0, 20);
-            this.tabPage.Margin = new System.Windows.Forms.Padding(2);
-            this.tabPage.Name = "tabPage";
-            this.tabPage.SelectedIndex = 0;
-            this.tabPage.ShowToolTips = true;
-            this.tabPage.Size = new System.Drawing.Size(373, 221);
-            this.tabPage.TabIndex = 8;
-            this.toolTip1.SetToolTip(this.tabPage, "Expert Linears");
-            this.tabPage.SelectedIndexChanged += new System.EventHandler(this.TabControl1_SelectedIndexChanged);
-            this.tabPage.TabIndexChanged += new System.EventHandler(this.TabControl1_TabIndexChanged);
-            this.tabPage.VisibleChanged += new System.EventHandler(this.TabControl1_VisibleChanged);
-            this.tabPage.KeyUp += new System.Windows.Forms.KeyEventHandler(this.RichTextBox1_KeyUp);
-            // 
-            // tabPageControl
-            // 
-            this.tabPageControl.BackColor = System.Drawing.Color.LightGray;
-            this.tabPageControl.Controls.Add(this.labelControlLog2);
-            this.tabPageControl.Controls.Add(this.labelControlLog);
-            this.tabPageControl.Controls.Add(this.groupBox2);
-            this.tabPageControl.Controls.Add(this.groupBox1);
-            this.tabPageControl.Location = new System.Drawing.Point(4, 22);
-            this.tabPageControl.Margin = new System.Windows.Forms.Padding(22, 24, 22, 24);
-            this.tabPageControl.Name = "tabPageControl";
-            this.tabPageControl.Padding = new System.Windows.Forms.Padding(22, 24, 22, 24);
-            this.tabPageControl.Size = new System.Drawing.Size(365, 195);
-            this.tabPageControl.TabIndex = 7;
-            this.tabPageControl.Text = "Control";
-            // 
-            // labelControlLog2
-            // 
-            this.labelControlLog2.AutoSize = true;
-            this.labelControlLog2.Location = new System.Drawing.Point(11, 171);
-            this.labelControlLog2.Name = "labelControlLog2";
-            this.labelControlLog2.Size = new System.Drawing.Size(0, 13);
-            this.labelControlLog2.TabIndex = 18;
-            // 
-            // labelControlLog
-            // 
-            this.labelControlLog.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.labelControlLog.AutoSize = true;
-            this.labelControlLog.Location = new System.Drawing.Point(11, 156);
-            this.labelControlLog.Name = "labelControlLog";
-            this.labelControlLog.Size = new System.Drawing.Size(65, 13);
-            this.labelControlLog.TabIndex = 17;
-            this.labelControlLog.Text = "Logging info";
-            // 
-            // groupBox2
-            // 
-            this.groupBox2.Controls.Add(this.buttonTunerPwr);
-            this.groupBox2.Controls.Add(this.labelClock);
-            this.groupBox2.Controls.Add(this.buttonAntennaPick8);
-            this.groupBox2.Controls.Add(this.buttonAntennaPick1);
-            this.groupBox2.Controls.Add(this.buttonAntennaPick2);
-            this.groupBox2.Controls.Add(this.buttonAntennaPick3);
-            this.groupBox2.Controls.Add(this.buttonAntennaPick4);
-            this.groupBox2.Controls.Add(this.buttonAntennaPick5);
-            this.groupBox2.Controls.Add(this.buttonAntennaPick6);
-            this.groupBox2.Controls.Add(this.buttonAntennaPick7);
-            this.groupBox2.Controls.Add(this.labelAntennaSelected);
-            this.groupBox2.Controls.Add(this.labelFreq);
-            this.groupBox2.Controls.Add(this.labelPower);
-            this.groupBox2.Controls.Add(this.labelSWR);
-            this.groupBox2.Location = new System.Drawing.Point(130, 9);
-            this.groupBox2.Margin = new System.Windows.Forms.Padding(2);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox2.Size = new System.Drawing.Size(235, 135);
-            this.groupBox2.TabIndex = 16;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Info";
-            this.groupBox2.Enter += new System.EventHandler(this.GroupBox2_Enter);
-            // 
             // buttonTunerPwr
             // 
             this.buttonTunerPwr.BackColor = System.Drawing.Color.WhiteSmoke;
@@ -1739,22 +1652,6 @@
             this.buttonAntennaPick7.Visible = false;
             this.buttonAntennaPick7.Click += new System.EventHandler(this.ButtonAntennaPick7_Click);
             // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.buttonWalk);
-            this.groupBox1.Controls.Add(this.buttonAmp);
-            this.groupBox1.Controls.Add(this.buttonTunePause);
-            this.groupBox1.Controls.Add(this.buttonTune);
-            this.groupBox1.Controls.Add(this.buttonTunerStatus);
-            this.groupBox1.Location = new System.Drawing.Point(5, 9);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox1.Size = new System.Drawing.Size(120, 135);
-            this.groupBox1.TabIndex = 15;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Tuner Control/Status";
-            // 
             // buttonWalk
             // 
             this.buttonWalk.BackColor = System.Drawing.Color.WhiteSmoke;
@@ -1769,123 +1666,6 @@
             this.buttonWalk.UseVisualStyleBackColor = false;
             this.buttonWalk.Click += new System.EventHandler(this.ButtonWalk_Click_1);
             // 
-            // tabPageDebug
-            // 
-            this.tabPageDebug.BackColor = System.Drawing.Color.LightGray;
-            this.tabPageDebug.Controls.Add(this.checkBoxPause);
-            this.tabPageDebug.Controls.Add(this.comboBoxDebugLevel);
-            this.tabPageDebug.Controls.Add(this.richTextBoxDebug);
-            this.tabPageDebug.Location = new System.Drawing.Point(4, 22);
-            this.tabPageDebug.Margin = new System.Windows.Forms.Padding(2);
-            this.tabPageDebug.Name = "tabPageDebug";
-            this.tabPageDebug.Padding = new System.Windows.Forms.Padding(2);
-            this.tabPageDebug.Size = new System.Drawing.Size(365, 195);
-            this.tabPageDebug.TabIndex = 2;
-            this.tabPageDebug.Text = "Debug";
-            // 
-            // checkBoxPause
-            // 
-            this.checkBoxPause.AutoSize = true;
-            this.checkBoxPause.Location = new System.Drawing.Point(102, 5);
-            this.checkBoxPause.Margin = new System.Windows.Forms.Padding(2);
-            this.checkBoxPause.Name = "checkBoxPause";
-            this.checkBoxPause.Size = new System.Drawing.Size(56, 17);
-            this.checkBoxPause.TabIndex = 10;
-            this.checkBoxPause.Text = "Pause";
-            this.checkBoxPause.UseVisualStyleBackColor = true;
-            // 
-            // comboBoxDebugLevel
-            // 
-            this.comboBoxDebugLevel.DataBindings.Add(new System.Windows.Forms.Binding("ValueMember", global::AmpAutoTunerUtility.Properties.Settings.Default, "Tune5Power", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.comboBoxDebugLevel.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::AmpAutoTunerUtility.Properties.Settings.Default, "DebugLevel", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.comboBoxDebugLevel.DisplayMember = "0";
-            this.comboBoxDebugLevel.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxDebugLevel.FormattingEnabled = true;
-            this.comboBoxDebugLevel.Items.AddRange(new object[] {
-            "Error",
-            "Warning",
-            "Trace",
-            "Verbose"});
-            this.comboBoxDebugLevel.Location = new System.Drawing.Point(6, 5);
-            this.comboBoxDebugLevel.Margin = new System.Windows.Forms.Padding(2);
-            this.comboBoxDebugLevel.Name = "comboBoxDebugLevel";
-            this.comboBoxDebugLevel.Size = new System.Drawing.Size(92, 21);
-            this.comboBoxDebugLevel.TabIndex = 9;
-            this.comboBoxDebugLevel.Text = global::AmpAutoTunerUtility.Properties.Settings.Default.DebugLevel;
-            this.comboBoxDebugLevel.ValueMember = global::AmpAutoTunerUtility.Properties.Settings.Default.Tune5Power;
-            this.comboBoxDebugLevel.SelectedIndexChanged += new System.EventHandler(this.ComboBoxDebugLevel_SelectedIndexChanged);
-            // 
-            // richTextBoxDebug
-            // 
-            this.richTextBoxDebug.HideSelection = false;
-            this.richTextBoxDebug.Location = new System.Drawing.Point(5, 29);
-            this.richTextBoxDebug.Margin = new System.Windows.Forms.Padding(2);
-            this.richTextBoxDebug.Name = "richTextBoxDebug";
-            this.richTextBoxDebug.Size = new System.Drawing.Size(370, 163);
-            this.richTextBoxDebug.TabIndex = 8;
-            this.richTextBoxDebug.Text = "";
-            this.richTextBoxDebug.TextChanged += new System.EventHandler(this.RichTextBoxDebug_TextChanged);
-            // 
-            // tabPageTuner
-            // 
-            this.tabPageTuner.BackColor = System.Drawing.Color.LightGray;
-            this.tabPageTuner.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.tabPageTuner.Controls.Add(this.groupBoxOptions);
-            this.tabPageTuner.Controls.Add(this.panel2);
-            this.tabPageTuner.Controls.Add(this.panel3);
-            this.tabPageTuner.Location = new System.Drawing.Point(4, 22);
-            this.tabPageTuner.Margin = new System.Windows.Forms.Padding(2);
-            this.tabPageTuner.Name = "tabPageTuner";
-            this.tabPageTuner.Padding = new System.Windows.Forms.Padding(2);
-            this.tabPageTuner.Size = new System.Drawing.Size(365, 195);
-            this.tabPageTuner.TabIndex = 1;
-            this.tabPageTuner.Text = "Tuner";
-            this.tabPageTuner.Click += new System.EventHandler(this.TabPageTuner_Click);
-            // 
-            // groupBoxOptions
-            // 
-            this.groupBoxOptions.Controls.Add(this.checkBox1);
-            this.groupBoxOptions.Controls.Add(this.numericUpDownPostPttDelay);
-            this.groupBoxOptions.Controls.Add(this.buttonTunerSave);
-            this.groupBoxOptions.Controls.Add(this.numericUpDownInductance);
-            this.groupBoxOptions.Controls.Add(this.numericUpDownCapacitance);
-            this.groupBoxOptions.Location = new System.Drawing.Point(7, 145);
-            this.groupBoxOptions.Margin = new System.Windows.Forms.Padding(2);
-            this.groupBoxOptions.Name = "groupBoxOptions";
-            this.groupBoxOptions.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBoxOptions.Size = new System.Drawing.Size(362, 42);
-            this.groupBoxOptions.TabIndex = 18;
-            this.groupBoxOptions.TabStop = false;
-            this.groupBoxOptions.Text = "Options";
-            this.groupBoxOptions.Visible = false;
-            // 
-            // buttonTunerSave
-            // 
-            this.buttonTunerSave.Location = new System.Drawing.Point(275, 14);
-            this.buttonTunerSave.Name = "buttonTunerSave";
-            this.buttonTunerSave.Size = new System.Drawing.Size(75, 23);
-            this.buttonTunerSave.TabIndex = 14;
-            this.buttonTunerSave.Text = "Save";
-            this.buttonTunerSave.UseVisualStyleBackColor = true;
-            this.buttonTunerSave.Click += new System.EventHandler(this.ButtonTunerSave_Click);
-            // 
-            // panel2
-            // 
-            this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel2.Controls.Add(this.label11);
-            this.panel2.Controls.Add(this.comboBoxAmpBits);
-            this.panel2.Controls.Add(this.checkBoxToneEnabled);
-            this.panel2.Controls.Add(this.checkBoxPTTEnabled);
-            this.panel2.Controls.Add(this.checkBoxPowerSDR);
-            this.panel2.Controls.Add(this.checkBoxRig);
-            this.panel2.Controls.Add(this.radioButtonVFOB);
-            this.panel2.Controls.Add(this.radioButtonVFOA);
-            this.panel2.Location = new System.Drawing.Point(194, 7);
-            this.panel2.Margin = new System.Windows.Forms.Padding(2);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(173, 144);
-            this.panel2.TabIndex = 14;
-            // 
             // label11
             // 
             this.label11.AutoSize = true;
@@ -1897,33 +1677,6 @@
             this.label11.TabIndex = 74;
             this.label11.Text = "Amp Relay Select";
             this.toolTip1.SetToolTip(this.label11, "If last-tuned frequency is off by more then this autotune will happen");
-            // 
-            // comboBoxAmpBits
-            // 
-            this.comboBoxAmpBits.FormattingEnabled = true;
-            this.comboBoxAmpBits.Items.AddRange(new object[] {
-            "3/0",
-            "3/1",
-            "3/2",
-            "3/3",
-            "3/4",
-            "3/5",
-            "3/6",
-            "3/7",
-            "8/0",
-            "8/1",
-            "8/2",
-            "8/3",
-            "8/4",
-            "8/5",
-            "8/6",
-            "8/7",
-            "8/8"});
-            this.comboBoxAmpBits.Location = new System.Drawing.Point(16, 118);
-            this.comboBoxAmpBits.Name = "comboBoxAmpBits";
-            this.comboBoxAmpBits.Size = new System.Drawing.Size(46, 21);
-            this.comboBoxAmpBits.TabIndex = 73;
-            this.comboBoxAmpBits.SelectedIndexChanged += new System.EventHandler(this.ComboBoxAmpBits_SelectedIndexChanged);
             // 
             // panel3
             // 
@@ -2030,80 +1783,6 @@
             this.comboBoxComTuner.TabIndex = 0;
             this.comboBoxComTuner.SelectedIndexChanged += new System.EventHandler(this.ComboBoxComTuner_SelectedIndexChanged_1);
             // 
-            // tabPagePower
-            // 
-            this.tabPagePower.BackColor = System.Drawing.Color.LightGray;
-            this.tabPagePower.Controls.Add(this.label8);
-            this.tabPagePower.Controls.Add(this.checkBoxAmp8);
-            this.tabPagePower.Controls.Add(this.checkBoxAmp7);
-            this.tabPagePower.Controls.Add(this.checkBoxAmp6);
-            this.tabPagePower.Controls.Add(this.checkBoxAmp5);
-            this.tabPagePower.Controls.Add(this.checkBoxAmp4);
-            this.tabPagePower.Controls.Add(this.checkBoxAmp3);
-            this.tabPagePower.Controls.Add(this.checkBoxAmp2);
-            this.tabPagePower.Controls.Add(this.checkBoxAmp1);
-            this.tabPagePower.Controls.Add(this.label7);
-            this.tabPagePower.Controls.Add(this.textBoxTune8Power);
-            this.tabPagePower.Controls.Add(this.textBoxTune7Power);
-            this.tabPagePower.Controls.Add(this.textBoxTune6Power);
-            this.tabPagePower.Controls.Add(this.textBoxTune5Power);
-            this.tabPagePower.Controls.Add(this.textBoxTune4Power);
-            this.tabPagePower.Controls.Add(this.textBoxTune3Power);
-            this.tabPagePower.Controls.Add(this.textBoxTune2Power);
-            this.tabPagePower.Controls.Add(this.textBoxTune1Power);
-            this.tabPagePower.Controls.Add(this.textBoxPower8Watts);
-            this.tabPagePower.Controls.Add(this.textBoxPower7Watts);
-            this.tabPagePower.Controls.Add(this.textBoxPower6Watts);
-            this.tabPagePower.Controls.Add(this.textBoxPower5Watts);
-            this.tabPagePower.Controls.Add(this.textBoxPower4Watts);
-            this.tabPagePower.Controls.Add(this.textBoxPower3Watts);
-            this.tabPagePower.Controls.Add(this.textBoxPower2Watts);
-            this.tabPagePower.Controls.Add(this.textBoxPower1Watts);
-            this.tabPagePower.Controls.Add(this.textBoxPower8To);
-            this.tabPagePower.Controls.Add(this.textBoxPower8From);
-            this.tabPagePower.Controls.Add(this.textBoxPower7To);
-            this.tabPagePower.Controls.Add(this.textBoxPower7From);
-            this.tabPagePower.Controls.Add(this.textBoxPower6To);
-            this.tabPagePower.Controls.Add(this.textBoxPower6From);
-            this.tabPagePower.Controls.Add(this.textBoxPower5To);
-            this.tabPagePower.Controls.Add(this.textBoxPower5From);
-            this.tabPagePower.Controls.Add(this.textBoxPower4To);
-            this.tabPagePower.Controls.Add(this.textBoxPower4From);
-            this.tabPagePower.Controls.Add(this.textBoxPower3To);
-            this.tabPagePower.Controls.Add(this.textBoxPower3From);
-            this.tabPagePower.Controls.Add(this.textBoxPower2To);
-            this.tabPagePower.Controls.Add(this.textBoxPower2From);
-            this.tabPagePower.Controls.Add(this.textBoxPower1To);
-            this.tabPagePower.Controls.Add(this.textBoxPower1From);
-            this.tabPagePower.Controls.Add(this.label6);
-            this.tabPagePower.Controls.Add(this.comboBoxPower8Mode);
-            this.tabPagePower.Controls.Add(this.comboBoxPower7Mode);
-            this.tabPagePower.Controls.Add(this.comboBoxPower6Mode);
-            this.tabPagePower.Controls.Add(this.comboBoxPower5Mode);
-            this.tabPagePower.Controls.Add(this.comboBoxPower4Mode);
-            this.tabPagePower.Controls.Add(this.comboBoxPower3Mode);
-            this.tabPagePower.Controls.Add(this.comboBoxPower2Mode);
-            this.tabPagePower.Controls.Add(this.comboBoxPower1Mode);
-            this.tabPagePower.Controls.Add(this.label5);
-            this.tabPagePower.Controls.Add(this.label4);
-            this.tabPagePower.Controls.Add(this.checkBoxPower8Enabled);
-            this.tabPagePower.Controls.Add(this.checkBoxPower7Enabled);
-            this.tabPagePower.Controls.Add(this.checkBoxPower6Enabled);
-            this.tabPagePower.Controls.Add(this.checkBoxPower5Enabled);
-            this.tabPagePower.Controls.Add(this.checkBoxPower4Enabled);
-            this.tabPagePower.Controls.Add(this.checkBoxPower3Enabled);
-            this.tabPagePower.Controls.Add(this.checkBoxPower2Enabled);
-            this.tabPagePower.Controls.Add(this.checkBoxPower1Enabled);
-            this.tabPagePower.Controls.Add(this.label1);
-            this.tabPagePower.Controls.Add(this.label3);
-            this.tabPagePower.Location = new System.Drawing.Point(4, 22);
-            this.tabPagePower.Margin = new System.Windows.Forms.Padding(2);
-            this.tabPagePower.Name = "tabPagePower";
-            this.tabPagePower.Padding = new System.Windows.Forms.Padding(2);
-            this.tabPagePower.Size = new System.Drawing.Size(365, 195);
-            this.tabPagePower.TabIndex = 8;
-            this.tabPagePower.Text = "Power";
-            // 
             // checkBoxAmp8
             // 
             this.checkBoxAmp8.AutoSize = true;
@@ -2192,202 +1871,6 @@
             this.toolTip1.SetToolTip(this.checkBoxAmp1, "Enable Amplifier");
             this.checkBoxAmp1.UseVisualStyleBackColor = true;
             // 
-            // textBoxPower8Watts
-            // 
-            this.textBoxPower8Watts.Location = new System.Drawing.Point(125, 165);
-            this.textBoxPower8Watts.Margin = new System.Windows.Forms.Padding(2);
-            this.textBoxPower8Watts.Name = "textBoxPower8Watts";
-            this.textBoxPower8Watts.Size = new System.Drawing.Size(32, 20);
-            this.textBoxPower8Watts.TabIndex = 81;
-            // 
-            // textBoxPower7Watts
-            // 
-            this.textBoxPower7Watts.Location = new System.Drawing.Point(125, 144);
-            this.textBoxPower7Watts.Margin = new System.Windows.Forms.Padding(2);
-            this.textBoxPower7Watts.Name = "textBoxPower7Watts";
-            this.textBoxPower7Watts.Size = new System.Drawing.Size(32, 20);
-            this.textBoxPower7Watts.TabIndex = 80;
-            // 
-            // textBoxPower6Watts
-            // 
-            this.textBoxPower6Watts.Location = new System.Drawing.Point(125, 123);
-            this.textBoxPower6Watts.Margin = new System.Windows.Forms.Padding(2);
-            this.textBoxPower6Watts.Name = "textBoxPower6Watts";
-            this.textBoxPower6Watts.Size = new System.Drawing.Size(32, 20);
-            this.textBoxPower6Watts.TabIndex = 79;
-            // 
-            // textBoxPower5Watts
-            // 
-            this.textBoxPower5Watts.Location = new System.Drawing.Point(125, 102);
-            this.textBoxPower5Watts.Margin = new System.Windows.Forms.Padding(2);
-            this.textBoxPower5Watts.Name = "textBoxPower5Watts";
-            this.textBoxPower5Watts.Size = new System.Drawing.Size(32, 20);
-            this.textBoxPower5Watts.TabIndex = 78;
-            // 
-            // textBoxPower4Watts
-            // 
-            this.textBoxPower4Watts.Location = new System.Drawing.Point(125, 81);
-            this.textBoxPower4Watts.Margin = new System.Windows.Forms.Padding(2);
-            this.textBoxPower4Watts.Name = "textBoxPower4Watts";
-            this.textBoxPower4Watts.Size = new System.Drawing.Size(32, 20);
-            this.textBoxPower4Watts.TabIndex = 77;
-            // 
-            // textBoxPower3Watts
-            // 
-            this.textBoxPower3Watts.Location = new System.Drawing.Point(125, 60);
-            this.textBoxPower3Watts.Margin = new System.Windows.Forms.Padding(2);
-            this.textBoxPower3Watts.Name = "textBoxPower3Watts";
-            this.textBoxPower3Watts.Size = new System.Drawing.Size(32, 20);
-            this.textBoxPower3Watts.TabIndex = 76;
-            // 
-            // textBoxPower2Watts
-            // 
-            this.textBoxPower2Watts.Location = new System.Drawing.Point(125, 39);
-            this.textBoxPower2Watts.Margin = new System.Windows.Forms.Padding(2);
-            this.textBoxPower2Watts.Name = "textBoxPower2Watts";
-            this.textBoxPower2Watts.Size = new System.Drawing.Size(32, 20);
-            this.textBoxPower2Watts.TabIndex = 75;
-            // 
-            // textBoxPower1Watts
-            // 
-            this.textBoxPower1Watts.Location = new System.Drawing.Point(125, 18);
-            this.textBoxPower1Watts.Margin = new System.Windows.Forms.Padding(2);
-            this.textBoxPower1Watts.Name = "textBoxPower1Watts";
-            this.textBoxPower1Watts.Size = new System.Drawing.Size(32, 20);
-            this.textBoxPower1Watts.TabIndex = 73;
-            // 
-            // textBoxPower8To
-            // 
-            this.textBoxPower8To.Location = new System.Drawing.Point(71, 165);
-            this.textBoxPower8To.Margin = new System.Windows.Forms.Padding(2);
-            this.textBoxPower8To.Name = "textBoxPower8To";
-            this.textBoxPower8To.Size = new System.Drawing.Size(53, 20);
-            this.textBoxPower8To.TabIndex = 63;
-            // 
-            // textBoxPower8From
-            // 
-            this.textBoxPower8From.Location = new System.Drawing.Point(15, 165);
-            this.textBoxPower8From.Margin = new System.Windows.Forms.Padding(2);
-            this.textBoxPower8From.Name = "textBoxPower8From";
-            this.textBoxPower8From.Size = new System.Drawing.Size(55, 20);
-            this.textBoxPower8From.TabIndex = 62;
-            // 
-            // textBoxPower7To
-            // 
-            this.textBoxPower7To.Location = new System.Drawing.Point(71, 144);
-            this.textBoxPower7To.Margin = new System.Windows.Forms.Padding(2);
-            this.textBoxPower7To.Name = "textBoxPower7To";
-            this.textBoxPower7To.Size = new System.Drawing.Size(53, 20);
-            this.textBoxPower7To.TabIndex = 61;
-            // 
-            // textBoxPower7From
-            // 
-            this.textBoxPower7From.Location = new System.Drawing.Point(15, 144);
-            this.textBoxPower7From.Margin = new System.Windows.Forms.Padding(2);
-            this.textBoxPower7From.Name = "textBoxPower7From";
-            this.textBoxPower7From.Size = new System.Drawing.Size(55, 20);
-            this.textBoxPower7From.TabIndex = 60;
-            // 
-            // textBoxPower6To
-            // 
-            this.textBoxPower6To.Location = new System.Drawing.Point(71, 123);
-            this.textBoxPower6To.Margin = new System.Windows.Forms.Padding(2);
-            this.textBoxPower6To.Name = "textBoxPower6To";
-            this.textBoxPower6To.Size = new System.Drawing.Size(53, 20);
-            this.textBoxPower6To.TabIndex = 59;
-            // 
-            // textBoxPower6From
-            // 
-            this.textBoxPower6From.Location = new System.Drawing.Point(15, 123);
-            this.textBoxPower6From.Margin = new System.Windows.Forms.Padding(2);
-            this.textBoxPower6From.Name = "textBoxPower6From";
-            this.textBoxPower6From.Size = new System.Drawing.Size(55, 20);
-            this.textBoxPower6From.TabIndex = 58;
-            // 
-            // textBoxPower5To
-            // 
-            this.textBoxPower5To.Location = new System.Drawing.Point(71, 102);
-            this.textBoxPower5To.Margin = new System.Windows.Forms.Padding(2);
-            this.textBoxPower5To.Name = "textBoxPower5To";
-            this.textBoxPower5To.Size = new System.Drawing.Size(53, 20);
-            this.textBoxPower5To.TabIndex = 57;
-            // 
-            // textBoxPower5From
-            // 
-            this.textBoxPower5From.Location = new System.Drawing.Point(15, 102);
-            this.textBoxPower5From.Margin = new System.Windows.Forms.Padding(2);
-            this.textBoxPower5From.Name = "textBoxPower5From";
-            this.textBoxPower5From.Size = new System.Drawing.Size(55, 20);
-            this.textBoxPower5From.TabIndex = 56;
-            // 
-            // textBoxPower4To
-            // 
-            this.textBoxPower4To.Location = new System.Drawing.Point(71, 81);
-            this.textBoxPower4To.Margin = new System.Windows.Forms.Padding(2);
-            this.textBoxPower4To.Name = "textBoxPower4To";
-            this.textBoxPower4To.Size = new System.Drawing.Size(53, 20);
-            this.textBoxPower4To.TabIndex = 55;
-            // 
-            // textBoxPower4From
-            // 
-            this.textBoxPower4From.Location = new System.Drawing.Point(15, 81);
-            this.textBoxPower4From.Margin = new System.Windows.Forms.Padding(2);
-            this.textBoxPower4From.Name = "textBoxPower4From";
-            this.textBoxPower4From.Size = new System.Drawing.Size(55, 20);
-            this.textBoxPower4From.TabIndex = 54;
-            // 
-            // textBoxPower3To
-            // 
-            this.textBoxPower3To.Location = new System.Drawing.Point(71, 60);
-            this.textBoxPower3To.Margin = new System.Windows.Forms.Padding(2);
-            this.textBoxPower3To.Name = "textBoxPower3To";
-            this.textBoxPower3To.Size = new System.Drawing.Size(53, 20);
-            this.textBoxPower3To.TabIndex = 53;
-            // 
-            // textBoxPower3From
-            // 
-            this.textBoxPower3From.Location = new System.Drawing.Point(15, 60);
-            this.textBoxPower3From.Margin = new System.Windows.Forms.Padding(2);
-            this.textBoxPower3From.Name = "textBoxPower3From";
-            this.textBoxPower3From.Size = new System.Drawing.Size(55, 20);
-            this.textBoxPower3From.TabIndex = 52;
-            // 
-            // textBoxPower2To
-            // 
-            this.textBoxPower2To.Location = new System.Drawing.Point(71, 39);
-            this.textBoxPower2To.Margin = new System.Windows.Forms.Padding(2);
-            this.textBoxPower2To.Name = "textBoxPower2To";
-            this.textBoxPower2To.Size = new System.Drawing.Size(53, 20);
-            this.textBoxPower2To.TabIndex = 51;
-            // 
-            // textBoxPower2From
-            // 
-            this.textBoxPower2From.Location = new System.Drawing.Point(15, 39);
-            this.textBoxPower2From.Margin = new System.Windows.Forms.Padding(2);
-            this.textBoxPower2From.Name = "textBoxPower2From";
-            this.textBoxPower2From.Size = new System.Drawing.Size(55, 20);
-            this.textBoxPower2From.TabIndex = 50;
-            // 
-            // textBoxPower1To
-            // 
-            this.textBoxPower1To.Location = new System.Drawing.Point(71, 18);
-            this.textBoxPower1To.Margin = new System.Windows.Forms.Padding(2);
-            this.textBoxPower1To.Name = "textBoxPower1To";
-            this.textBoxPower1To.Size = new System.Drawing.Size(53, 20);
-            this.textBoxPower1To.TabIndex = 47;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(261, 16);
-            this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(94, 143);
-            this.label4.TabIndex = 72;
-            this.label4.Text = "First pass through\r\nwill select the first\r\nmode match.\r\nSecond pass will\r\nselect " +
-    "the first\r\n\"Any\" match.\r\n\r\nNote: Power is not\r\na watts value but \r\nis the Pwr va" +
-    "lue\r\nin FLRig.";
-            // 
             // checkBoxPower8Enabled
             // 
             this.checkBoxPower8Enabled.AutoSize = true;
@@ -2475,115 +1958,6 @@
             this.checkBoxPower1Enabled.TabIndex = 64;
             this.toolTip1.SetToolTip(this.checkBoxPower1Enabled, "Enable this line");
             this.checkBoxPower1Enabled.UseVisualStyleBackColor = true;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(71, 3);
-            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(45, 13);
-            this.label1.TabIndex = 49;
-            this.label1.Text = "To MHz";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(15, 3);
-            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(55, 13);
-            this.label3.TabIndex = 48;
-            this.label3.Text = "From MHz";
-            // 
-            // tabPageAntenna
-            // 
-            this.tabPageAntenna.BackColor = System.Drawing.Color.LightGray;
-            this.tabPageAntenna.Controls.Add(this.checkBoxAntenna8Amp);
-            this.tabPageAntenna.Controls.Add(this.checkBoxAntenna7Amp);
-            this.tabPageAntenna.Controls.Add(this.checkBoxAntenna6Amp);
-            this.tabPageAntenna.Controls.Add(this.checkBoxAntenna5Amp);
-            this.tabPageAntenna.Controls.Add(this.checkBoxAntenna4Amp);
-            this.tabPageAntenna.Controls.Add(this.checkBoxAntenna3Amp);
-            this.tabPageAntenna.Controls.Add(this.checkBoxAntenna2Amp);
-            this.tabPageAntenna.Controls.Add(this.checkBoxAntenna1Amp);
-            this.tabPageAntenna.Controls.Add(this.ComboBoxAntenna8Bits);
-            this.tabPageAntenna.Controls.Add(this.ComboBoxAntenna7Bits);
-            this.tabPageAntenna.Controls.Add(this.ComboBoxAntenna6Bits);
-            this.tabPageAntenna.Controls.Add(this.ComboBoxAntenna5Bits);
-            this.tabPageAntenna.Controls.Add(this.ComboBoxAntenna4Bits);
-            this.tabPageAntenna.Controls.Add(this.ComboBoxAntenna3Bits);
-            this.tabPageAntenna.Controls.Add(this.ComboBoxAntenna2Bits);
-            this.tabPageAntenna.Controls.Add(this.ComboBoxAntenna1Bits);
-            this.tabPageAntenna.Controls.Add(this.label10);
-            this.tabPageAntenna.Controls.Add(this.comboBoxAntSelect8);
-            this.tabPageAntenna.Controls.Add(this.comboBoxAntSelect7);
-            this.tabPageAntenna.Controls.Add(this.comboBoxAntSelect6);
-            this.tabPageAntenna.Controls.Add(this.comboBoxAntSelect5);
-            this.tabPageAntenna.Controls.Add(this.comboBoxAntSelect4);
-            this.tabPageAntenna.Controls.Add(this.comboBoxAntSelect3);
-            this.tabPageAntenna.Controls.Add(this.comboBoxAntSelect2);
-            this.tabPageAntenna.Controls.Add(this.comboBoxAntSelect1);
-            this.tabPageAntenna.Controls.Add(this.buttonAntenna8);
-            this.tabPageAntenna.Controls.Add(this.buttonAntenna7);
-            this.tabPageAntenna.Controls.Add(this.buttonAntenna6);
-            this.tabPageAntenna.Controls.Add(this.buttonAntenna5);
-            this.tabPageAntenna.Controls.Add(this.buttonAntenna4);
-            this.tabPageAntenna.Controls.Add(this.buttonAntenna3);
-            this.tabPageAntenna.Controls.Add(this.buttonAntenna2);
-            this.tabPageAntenna.Controls.Add(this.buttonAntenna1);
-            this.tabPageAntenna.Controls.Add(this.label18);
-            this.tabPageAntenna.Controls.Add(this.textBoxAntenna8);
-            this.tabPageAntenna.Controls.Add(this.textBoxAntenna7);
-            this.tabPageAntenna.Controls.Add(this.textBoxAntenna6);
-            this.tabPageAntenna.Controls.Add(this.textBoxAntenna5);
-            this.tabPageAntenna.Controls.Add(this.textBoxAntenna4);
-            this.tabPageAntenna.Controls.Add(this.textBoxAntenna3);
-            this.tabPageAntenna.Controls.Add(this.textBoxAntenna2);
-            this.tabPageAntenna.Controls.Add(this.textBoxAntenna1);
-            this.tabPageAntenna.Controls.Add(this.textBoxAntennaFreq8To);
-            this.tabPageAntenna.Controls.Add(this.textBoxAntennaFreq8From);
-            this.tabPageAntenna.Controls.Add(this.textBoxAntennaFreq7To);
-            this.tabPageAntenna.Controls.Add(this.textBoxAntennaFreq7From);
-            this.tabPageAntenna.Controls.Add(this.textBoxAntennaFreq6To);
-            this.tabPageAntenna.Controls.Add(this.textBoxAntennaFreq6From);
-            this.tabPageAntenna.Controls.Add(this.textBoxAntennaFreq5To);
-            this.tabPageAntenna.Controls.Add(this.textBoxAntennaFreq5From);
-            this.tabPageAntenna.Controls.Add(this.textBoxAntennaFreq4To);
-            this.tabPageAntenna.Controls.Add(this.textBoxAntennaFreq4From);
-            this.tabPageAntenna.Controls.Add(this.textBoxAntennaFreq3To);
-            this.tabPageAntenna.Controls.Add(this.textBoxAntennaFreq3From);
-            this.tabPageAntenna.Controls.Add(this.textBoxAntennaFreq2To);
-            this.tabPageAntenna.Controls.Add(this.textBoxAntennaFreq2From);
-            this.tabPageAntenna.Controls.Add(this.textBoxAntennaFreq1To);
-            this.tabPageAntenna.Controls.Add(this.textBoxAntennaFreq1From);
-            this.tabPageAntenna.Controls.Add(this.checkBoxAntenna8);
-            this.tabPageAntenna.Controls.Add(this.checkBoxAntenna7);
-            this.tabPageAntenna.Controls.Add(this.checkBoxAntenna6);
-            this.tabPageAntenna.Controls.Add(this.checkBoxAntenna5);
-            this.tabPageAntenna.Controls.Add(this.checkBoxAntenna4);
-            this.tabPageAntenna.Controls.Add(this.checkBoxAntenna3);
-            this.tabPageAntenna.Controls.Add(this.checkBoxAntenna2);
-            this.tabPageAntenna.Controls.Add(this.checkBoxAntenna1);
-            this.tabPageAntenna.Controls.Add(this.comboBoxAntenna8Controller);
-            this.tabPageAntenna.Controls.Add(this.comboBoxAntenna7Controller);
-            this.tabPageAntenna.Controls.Add(this.comboBoxAntenna6Controller);
-            this.tabPageAntenna.Controls.Add(this.comboBoxAntenna5Controller);
-            this.tabPageAntenna.Controls.Add(this.comboBoxAntenna4Controller);
-            this.tabPageAntenna.Controls.Add(this.comboBoxAntenna3Controller);
-            this.tabPageAntenna.Controls.Add(this.comboBoxAntenna2Controller);
-            this.tabPageAntenna.Controls.Add(this.label17);
-            this.tabPageAntenna.Controls.Add(this.label16);
-            this.tabPageAntenna.Controls.Add(this.comboBoxAntenna1Controller);
-            this.tabPageAntenna.Controls.Add(this.label15);
-            this.tabPageAntenna.Controls.Add(this.label14);
-            this.tabPageAntenna.Location = new System.Drawing.Point(4, 22);
-            this.tabPageAntenna.Margin = new System.Windows.Forms.Padding(2);
-            this.tabPageAntenna.Name = "tabPageAntenna";
-            this.tabPageAntenna.Padding = new System.Windows.Forms.Padding(2);
-            this.tabPageAntenna.Size = new System.Drawing.Size(365, 195);
-            this.tabPageAntenna.TabIndex = 6;
-            this.tabPageAntenna.Text = "Antenna";
             // 
             // checkBoxAntenna8Amp
             // 
@@ -2925,144 +2299,6 @@
             this.toolTip1.SetToolTip(this.label18, "Friendly name for antenna\nCtrl-click to set as walking antenna(Yellow background)" +
         "");
             // 
-            // textBoxAntennaFreq8To
-            // 
-            this.textBoxAntennaFreq8To.Location = new System.Drawing.Point(66, 171);
-            this.textBoxAntennaFreq8To.Margin = new System.Windows.Forms.Padding(2);
-            this.textBoxAntennaFreq8To.Name = "textBoxAntennaFreq8To";
-            this.textBoxAntennaFreq8To.Size = new System.Drawing.Size(50, 20);
-            this.textBoxAntennaFreq8To.TabIndex = 33;
-            this.textBoxAntennaFreq8To.Leave += new System.EventHandler(this.TextBoxAntennaFreq1From_Leave);
-            // 
-            // textBoxAntennaFreq8From
-            // 
-            this.textBoxAntennaFreq8From.Location = new System.Drawing.Point(16, 171);
-            this.textBoxAntennaFreq8From.Margin = new System.Windows.Forms.Padding(2);
-            this.textBoxAntennaFreq8From.Name = "textBoxAntennaFreq8From";
-            this.textBoxAntennaFreq8From.Size = new System.Drawing.Size(50, 20);
-            this.textBoxAntennaFreq8From.TabIndex = 32;
-            this.textBoxAntennaFreq8From.Leave += new System.EventHandler(this.TextBoxAntennaFreq1From_Leave);
-            // 
-            // textBoxAntennaFreq7To
-            // 
-            this.textBoxAntennaFreq7To.Location = new System.Drawing.Point(66, 149);
-            this.textBoxAntennaFreq7To.Margin = new System.Windows.Forms.Padding(2);
-            this.textBoxAntennaFreq7To.Name = "textBoxAntennaFreq7To";
-            this.textBoxAntennaFreq7To.Size = new System.Drawing.Size(50, 20);
-            this.textBoxAntennaFreq7To.TabIndex = 31;
-            this.textBoxAntennaFreq7To.Leave += new System.EventHandler(this.TextBoxAntennaFreq1From_Leave);
-            // 
-            // textBoxAntennaFreq7From
-            // 
-            this.textBoxAntennaFreq7From.Location = new System.Drawing.Point(16, 149);
-            this.textBoxAntennaFreq7From.Margin = new System.Windows.Forms.Padding(2);
-            this.textBoxAntennaFreq7From.Name = "textBoxAntennaFreq7From";
-            this.textBoxAntennaFreq7From.Size = new System.Drawing.Size(50, 20);
-            this.textBoxAntennaFreq7From.TabIndex = 30;
-            this.textBoxAntennaFreq7From.Leave += new System.EventHandler(this.TextBoxAntennaFreq1From_Leave);
-            // 
-            // textBoxAntennaFreq6To
-            // 
-            this.textBoxAntennaFreq6To.Location = new System.Drawing.Point(66, 127);
-            this.textBoxAntennaFreq6To.Margin = new System.Windows.Forms.Padding(2);
-            this.textBoxAntennaFreq6To.Name = "textBoxAntennaFreq6To";
-            this.textBoxAntennaFreq6To.Size = new System.Drawing.Size(50, 20);
-            this.textBoxAntennaFreq6To.TabIndex = 13;
-            this.textBoxAntennaFreq6To.Leave += new System.EventHandler(this.TextBoxAntennaFreq1From_Leave);
-            // 
-            // textBoxAntennaFreq6From
-            // 
-            this.textBoxAntennaFreq6From.Location = new System.Drawing.Point(16, 127);
-            this.textBoxAntennaFreq6From.Margin = new System.Windows.Forms.Padding(2);
-            this.textBoxAntennaFreq6From.Name = "textBoxAntennaFreq6From";
-            this.textBoxAntennaFreq6From.Size = new System.Drawing.Size(50, 20);
-            this.textBoxAntennaFreq6From.TabIndex = 12;
-            this.textBoxAntennaFreq6From.Leave += new System.EventHandler(this.TextBoxAntennaFreq1From_Leave);
-            // 
-            // textBoxAntennaFreq5To
-            // 
-            this.textBoxAntennaFreq5To.Location = new System.Drawing.Point(66, 105);
-            this.textBoxAntennaFreq5To.Margin = new System.Windows.Forms.Padding(2);
-            this.textBoxAntennaFreq5To.Name = "textBoxAntennaFreq5To";
-            this.textBoxAntennaFreq5To.Size = new System.Drawing.Size(50, 20);
-            this.textBoxAntennaFreq5To.TabIndex = 11;
-            this.textBoxAntennaFreq5To.Leave += new System.EventHandler(this.TextBoxAntennaFreq1From_Leave);
-            // 
-            // textBoxAntennaFreq5From
-            // 
-            this.textBoxAntennaFreq5From.Location = new System.Drawing.Point(16, 105);
-            this.textBoxAntennaFreq5From.Margin = new System.Windows.Forms.Padding(2);
-            this.textBoxAntennaFreq5From.Name = "textBoxAntennaFreq5From";
-            this.textBoxAntennaFreq5From.Size = new System.Drawing.Size(50, 20);
-            this.textBoxAntennaFreq5From.TabIndex = 10;
-            this.textBoxAntennaFreq5From.Leave += new System.EventHandler(this.TextBoxAntennaFreq1From_Leave);
-            // 
-            // textBoxAntennaFreq4To
-            // 
-            this.textBoxAntennaFreq4To.Location = new System.Drawing.Point(66, 83);
-            this.textBoxAntennaFreq4To.Margin = new System.Windows.Forms.Padding(2);
-            this.textBoxAntennaFreq4To.Name = "textBoxAntennaFreq4To";
-            this.textBoxAntennaFreq4To.Size = new System.Drawing.Size(50, 20);
-            this.textBoxAntennaFreq4To.TabIndex = 9;
-            this.textBoxAntennaFreq4To.Leave += new System.EventHandler(this.TextBoxAntennaFreq1From_Leave);
-            // 
-            // textBoxAntennaFreq4From
-            // 
-            this.textBoxAntennaFreq4From.Location = new System.Drawing.Point(16, 83);
-            this.textBoxAntennaFreq4From.Margin = new System.Windows.Forms.Padding(2);
-            this.textBoxAntennaFreq4From.Name = "textBoxAntennaFreq4From";
-            this.textBoxAntennaFreq4From.Size = new System.Drawing.Size(50, 20);
-            this.textBoxAntennaFreq4From.TabIndex = 8;
-            this.textBoxAntennaFreq4From.Leave += new System.EventHandler(this.TextBoxAntennaFreq1From_Leave);
-            // 
-            // textBoxAntennaFreq3To
-            // 
-            this.textBoxAntennaFreq3To.Location = new System.Drawing.Point(66, 61);
-            this.textBoxAntennaFreq3To.Margin = new System.Windows.Forms.Padding(2);
-            this.textBoxAntennaFreq3To.Name = "textBoxAntennaFreq3To";
-            this.textBoxAntennaFreq3To.Size = new System.Drawing.Size(50, 20);
-            this.textBoxAntennaFreq3To.TabIndex = 7;
-            this.textBoxAntennaFreq3To.Leave += new System.EventHandler(this.TextBoxAntennaFreq1From_Leave);
-            // 
-            // textBoxAntennaFreq3From
-            // 
-            this.textBoxAntennaFreq3From.Location = new System.Drawing.Point(16, 61);
-            this.textBoxAntennaFreq3From.Margin = new System.Windows.Forms.Padding(2);
-            this.textBoxAntennaFreq3From.Name = "textBoxAntennaFreq3From";
-            this.textBoxAntennaFreq3From.Size = new System.Drawing.Size(50, 20);
-            this.textBoxAntennaFreq3From.TabIndex = 6;
-            this.textBoxAntennaFreq3From.Leave += new System.EventHandler(this.TextBoxAntennaFreq1From_Leave);
-            // 
-            // textBoxAntennaFreq2To
-            // 
-            this.textBoxAntennaFreq2To.Location = new System.Drawing.Point(66, 40);
-            this.textBoxAntennaFreq2To.Margin = new System.Windows.Forms.Padding(2);
-            this.textBoxAntennaFreq2To.Name = "textBoxAntennaFreq2To";
-            this.textBoxAntennaFreq2To.Size = new System.Drawing.Size(50, 20);
-            this.textBoxAntennaFreq2To.TabIndex = 5;
-            this.textBoxAntennaFreq2To.Text = "60";
-            this.textBoxAntennaFreq2To.Leave += new System.EventHandler(this.TextBoxAntennaFreq1From_Leave);
-            // 
-            // textBoxAntennaFreq2From
-            // 
-            this.textBoxAntennaFreq2From.Location = new System.Drawing.Point(16, 40);
-            this.textBoxAntennaFreq2From.Margin = new System.Windows.Forms.Padding(2);
-            this.textBoxAntennaFreq2From.Name = "textBoxAntennaFreq2From";
-            this.textBoxAntennaFreq2From.Size = new System.Drawing.Size(50, 20);
-            this.textBoxAntennaFreq2From.TabIndex = 4;
-            this.textBoxAntennaFreq2From.Text = "12";
-            this.textBoxAntennaFreq2From.Leave += new System.EventHandler(this.TextBoxAntennaFreq1From_Leave);
-            // 
-            // textBoxAntennaFreq1To
-            // 
-            this.textBoxAntennaFreq1To.Location = new System.Drawing.Point(66, 18);
-            this.textBoxAntennaFreq1To.Margin = new System.Windows.Forms.Padding(2);
-            this.textBoxAntennaFreq1To.Name = "textBoxAntennaFreq1To";
-            this.textBoxAntennaFreq1To.Size = new System.Drawing.Size(50, 20);
-            this.textBoxAntennaFreq1To.TabIndex = 1;
-            this.textBoxAntennaFreq1To.Text = "11";
-            this.textBoxAntennaFreq1To.Leave += new System.EventHandler(this.TextBoxAntennaFreq1From_Leave);
-            // 
             // checkBoxAntenna8
             // 
             this.checkBoxAntenna8.AutoSize = true;
@@ -3163,48 +2399,6 @@
             this.label17.TabIndex = 18;
             this.label17.Text = "Bits";
             this.toolTip1.SetToolTip(this.label17, "Bits on relay to enable");
-            // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(66, 2);
-            this.label15.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(45, 13);
-            this.label15.TabIndex = 3;
-            this.label15.Text = "To MHz";
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(15, 2);
-            this.label14.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(55, 13);
-            this.label14.TabIndex = 2;
-            this.label14.Text = "From MHz";
-            // 
-            // tabPageFreqWalk
-            // 
-            this.tabPageFreqWalk.BackColor = System.Drawing.Color.LightGray;
-            this.tabPageFreqWalk.Controls.Add(this.comboBoxFreqWalkAntenna);
-            this.tabPageFreqWalk.Controls.Add(this.checkBoxWalk3);
-            this.tabPageFreqWalk.Controls.Add(this.checkBoxWalk2);
-            this.tabPageFreqWalk.Controls.Add(this.checkBoxWalk1);
-            this.tabPageFreqWalk.Controls.Add(this.numericUpDownFreqWalkDelay);
-            this.tabPageFreqWalk.Controls.Add(this.labelFreqWalk3);
-            this.tabPageFreqWalk.Controls.Add(this.labelFreqWalk2);
-            this.tabPageFreqWalk.Controls.Add(this.labelFreqWalk1);
-            this.tabPageFreqWalk.Controls.Add(this.checkedListBoxWalk3);
-            this.tabPageFreqWalk.Controls.Add(this.checkedListBoxWalk2);
-            this.tabPageFreqWalk.Controls.Add(this.checkedListBoxWalk1);
-            this.tabPageFreqWalk.Controls.Add(this.labelInterval);
-            this.tabPageFreqWalk.Location = new System.Drawing.Point(4, 22);
-            this.tabPageFreqWalk.Name = "tabPageFreqWalk";
-            this.tabPageFreqWalk.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageFreqWalk.Size = new System.Drawing.Size(365, 195);
-            this.tabPageFreqWalk.TabIndex = 9;
-            this.tabPageFreqWalk.Text = "FreqWalk";
             // 
             // comboBoxFreqWalkAntenna
             // 
@@ -3395,6 +2589,1673 @@
             this.labelInterval.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.toolTip1.SetToolTip(this.labelInterval, "Click to change interval");
             this.labelInterval.Click += new System.EventHandler(this.LabelInterval_Click);
+            // 
+            // tabPageExpertLinears
+            // 
+            this.tabPageExpertLinears.Controls.Add(this.labelSPE_C);
+            this.tabPageExpertLinears.Controls.Add(this.labelSPE_L);
+            this.tabPageExpertLinears.Controls.Add(this.button2);
+            this.tabPageExpertLinears.Controls.Add(this.button1);
+            this.tabPageExpertLinears.Controls.Add(this.labelExpertLinearsInfo);
+            this.tabPageExpertLinears.Controls.Add(this.checkBoxExpertLinears4_2);
+            this.tabPageExpertLinears.Controls.Add(this.checkBoxExpertLinears6_2);
+            this.tabPageExpertLinears.Controls.Add(this.checkBoxExpertLinears10_2);
+            this.tabPageExpertLinears.Controls.Add(this.checkBoxExpertLinears12_2);
+            this.tabPageExpertLinears.Controls.Add(this.checkBoxExpertLinears15_2);
+            this.tabPageExpertLinears.Controls.Add(this.checkBoxExpertLinears17_2);
+            this.tabPageExpertLinears.Controls.Add(this.checkBoxExpertLinears4_1);
+            this.tabPageExpertLinears.Controls.Add(this.checkBoxExpertLinears6_1);
+            this.tabPageExpertLinears.Controls.Add(this.checkBoxExpertLinears10_1);
+            this.tabPageExpertLinears.Controls.Add(this.checkBoxExpertLinears12_1);
+            this.tabPageExpertLinears.Controls.Add(this.checkBoxExpertLinears15_1);
+            this.tabPageExpertLinears.Controls.Add(this.checkBoxExpertLinears17_1);
+            this.tabPageExpertLinears.Controls.Add(this.checkBoxExpertLinears20_2);
+            this.tabPageExpertLinears.Controls.Add(this.checkBoxExpertLinears30_2);
+            this.tabPageExpertLinears.Controls.Add(this.checkBoxExpertLinears40_2);
+            this.tabPageExpertLinears.Controls.Add(this.checkBoxExpertLinears60_2);
+            this.tabPageExpertLinears.Controls.Add(this.checkBoxExpertLinears80_2);
+            this.tabPageExpertLinears.Controls.Add(this.checkBoxExpertLinears160_2);
+            this.tabPageExpertLinears.Controls.Add(this.checkBoxExpertLinears20_1);
+            this.tabPageExpertLinears.Controls.Add(this.checkBoxExpertLinears30_1);
+            this.tabPageExpertLinears.Controls.Add(this.checkBoxExpertLinears40_1);
+            this.tabPageExpertLinears.Controls.Add(this.checkBoxExpertLinears60_1);
+            this.tabPageExpertLinears.Controls.Add(this.checkBoxExpertLinears80_1);
+            this.tabPageExpertLinears.Controls.Add(this.checkBoxExpertLinears160_1);
+            this.tabPageExpertLinears.Controls.Add(this.buttonExpertLinearsTune);
+            this.tabPageExpertLinears.Controls.Add(this.comboBoxExpertLinears4_2);
+            this.tabPageExpertLinears.Controls.Add(this.label28);
+            this.tabPageExpertLinears.Controls.Add(this.comboBoxExpertLinears4_1);
+            this.tabPageExpertLinears.Controls.Add(this.comboBoxExpertLinears6_2);
+            this.tabPageExpertLinears.Controls.Add(this.label27);
+            this.tabPageExpertLinears.Controls.Add(this.comboBoxExpertLinears6_1);
+            this.tabPageExpertLinears.Controls.Add(this.comboBoxExpertLinears10_2);
+            this.tabPageExpertLinears.Controls.Add(this.label26);
+            this.tabPageExpertLinears.Controls.Add(this.comboBoxExpertLinears10_1);
+            this.tabPageExpertLinears.Controls.Add(this.comboBoxExpertLinears12_2);
+            this.tabPageExpertLinears.Controls.Add(this.label25);
+            this.tabPageExpertLinears.Controls.Add(this.comboBoxExpertLinears12_1);
+            this.tabPageExpertLinears.Controls.Add(this.comboBoxExpertLinears15_2);
+            this.tabPageExpertLinears.Controls.Add(this.label24);
+            this.tabPageExpertLinears.Controls.Add(this.comboBoxExpertLinears15_1);
+            this.tabPageExpertLinears.Controls.Add(this.comboBoxExpertLinears17_2);
+            this.tabPageExpertLinears.Controls.Add(this.label23);
+            this.tabPageExpertLinears.Controls.Add(this.comboBoxExpertLinears17_1);
+            this.tabPageExpertLinears.Controls.Add(this.comboBoxExpertLinears20_2);
+            this.tabPageExpertLinears.Controls.Add(this.label22);
+            this.tabPageExpertLinears.Controls.Add(this.comboBoxExpertLinears20_1);
+            this.tabPageExpertLinears.Controls.Add(this.comboBoxExpertLinears30_2);
+            this.tabPageExpertLinears.Controls.Add(this.label21);
+            this.tabPageExpertLinears.Controls.Add(this.comboBoxExpertLinears30_1);
+            this.tabPageExpertLinears.Controls.Add(this.comboBoxExpertLinears40_2);
+            this.tabPageExpertLinears.Controls.Add(this.label20);
+            this.tabPageExpertLinears.Controls.Add(this.comboBoxExpertLinears40_1);
+            this.tabPageExpertLinears.Controls.Add(this.comboBoxExpertLinears60_2);
+            this.tabPageExpertLinears.Controls.Add(this.label19);
+            this.tabPageExpertLinears.Controls.Add(this.comboBoxExpertLinears60_1);
+            this.tabPageExpertLinears.Controls.Add(this.comboBoxExpertLinears80_2);
+            this.tabPageExpertLinears.Controls.Add(this.label13);
+            this.tabPageExpertLinears.Controls.Add(this.comboBoxExpertLinears80_1);
+            this.tabPageExpertLinears.Controls.Add(this.comboBoxExpertLinears160_2);
+            this.tabPageExpertLinears.Controls.Add(this.label12);
+            this.tabPageExpertLinears.Controls.Add(this.comboBoxExpertLinears160_1);
+            this.tabPageExpertLinears.Location = new System.Drawing.Point(4, 22);
+            this.tabPageExpertLinears.Name = "tabPageExpertLinears";
+            this.tabPageExpertLinears.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageExpertLinears.Size = new System.Drawing.Size(365, 195);
+            this.tabPageExpertLinears.TabIndex = 10;
+            this.tabPageExpertLinears.Text = "SPE";
+            this.toolTip1.SetToolTip(this.tabPageExpertLinears, "Enable to tune this band/antenna");
+            this.tabPageExpertLinears.UseVisualStyleBackColor = true;
+            this.tabPageExpertLinears.Click += new System.EventHandler(this.tabPageExpertLinears_Click);
+            this.tabPageExpertLinears.Paint += new System.Windows.Forms.PaintEventHandler(this.tabPageExpertLinears_Paint);
+            this.tabPageExpertLinears.Enter += new System.EventHandler(this.tabPageExpertLinears_Enter);
+            this.tabPageExpertLinears.Validating += new System.ComponentModel.CancelEventHandler(this.tabPageExpertLinears_Validating);
+            this.tabPageExpertLinears.Validated += new System.EventHandler(this.tabPageExpertLinears_Validated);
+            // 
+            // labelSPE_C
+            // 
+            this.labelSPE_C.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelSPE_C.Location = new System.Drawing.Point(227, 179);
+            this.labelSPE_C.Name = "labelSPE_C";
+            this.labelSPE_C.Size = new System.Drawing.Size(50, 13);
+            this.labelSPE_C.TabIndex = 65;
+            this.labelSPE_C.Text = "? pF";
+            this.labelSPE_C.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // labelSPE_L
+            // 
+            this.labelSPE_L.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelSPE_L.Location = new System.Drawing.Point(227, 162);
+            this.labelSPE_L.Name = "labelSPE_L";
+            this.labelSPE_L.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.labelSPE_L.Size = new System.Drawing.Size(50, 13);
+            this.labelSPE_L.TabIndex = 64;
+            this.labelSPE_L.Text = "? uH";
+            this.labelSPE_L.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(317, 30);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(42, 23);
+            this.button2.TabIndex = 63;
+            this.button2.Text = "Off";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(317, 6);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(42, 23);
+            this.button1.TabIndex = 62;
+            this.button1.Text = "On";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click_1);
+            // 
+            // labelExpertLinearsInfo
+            // 
+            this.labelExpertLinearsInfo.AutoSize = true;
+            this.labelExpertLinearsInfo.Location = new System.Drawing.Point(36, 169);
+            this.labelExpertLinearsInfo.Name = "labelExpertLinearsInfo";
+            this.labelExpertLinearsInfo.Size = new System.Drawing.Size(59, 13);
+            this.labelExpertLinearsInfo.TabIndex = 61;
+            this.labelExpertLinearsInfo.Text = "Information";
+            // 
+            // checkBoxExpertLinears4_2
+            // 
+            this.checkBoxExpertLinears4_2.AutoSize = true;
+            this.checkBoxExpertLinears4_2.Enabled = false;
+            this.checkBoxExpertLinears4_2.Location = new System.Drawing.Point(295, 144);
+            this.checkBoxExpertLinears4_2.Name = "checkBoxExpertLinears4_2";
+            this.checkBoxExpertLinears4_2.Size = new System.Drawing.Size(15, 14);
+            this.checkBoxExpertLinears4_2.TabIndex = 60;
+            this.toolTip1.SetToolTip(this.checkBoxExpertLinears4_2, "Check to enable antenna for tune\r\nCtrl-Click to enable/disable  all");
+            this.checkBoxExpertLinears4_2.UseVisualStyleBackColor = true;
+            this.checkBoxExpertLinears4_2.CheckedChanged += new System.EventHandler(this.CheckBoxExpertLinearsCheckedChanged);
+            // 
+            // checkBoxExpertLinears6_2
+            // 
+            this.checkBoxExpertLinears6_2.AutoSize = true;
+            this.checkBoxExpertLinears6_2.Location = new System.Drawing.Point(295, 116);
+            this.checkBoxExpertLinears6_2.Name = "checkBoxExpertLinears6_2";
+            this.checkBoxExpertLinears6_2.Size = new System.Drawing.Size(15, 14);
+            this.checkBoxExpertLinears6_2.TabIndex = 59;
+            this.toolTip1.SetToolTip(this.checkBoxExpertLinears6_2, "Check to enable antenna for tune\r\nCtrl-Click to enable/disable  all");
+            this.checkBoxExpertLinears6_2.UseVisualStyleBackColor = true;
+            this.checkBoxExpertLinears6_2.CheckedChanged += new System.EventHandler(this.CheckBoxExpertLinearsCheckedChanged);
+            // 
+            // checkBoxExpertLinears10_2
+            // 
+            this.checkBoxExpertLinears10_2.AutoSize = true;
+            this.checkBoxExpertLinears10_2.Location = new System.Drawing.Point(295, 89);
+            this.checkBoxExpertLinears10_2.Name = "checkBoxExpertLinears10_2";
+            this.checkBoxExpertLinears10_2.Size = new System.Drawing.Size(15, 14);
+            this.checkBoxExpertLinears10_2.TabIndex = 58;
+            this.toolTip1.SetToolTip(this.checkBoxExpertLinears10_2, "Check to enable antenna for tune\r\nCtrl-Click to enable/disable  all");
+            this.checkBoxExpertLinears10_2.UseVisualStyleBackColor = true;
+            this.checkBoxExpertLinears10_2.CheckedChanged += new System.EventHandler(this.CheckBoxExpertLinearsCheckedChanged);
+            // 
+            // checkBoxExpertLinears12_2
+            // 
+            this.checkBoxExpertLinears12_2.AutoSize = true;
+            this.checkBoxExpertLinears12_2.Location = new System.Drawing.Point(295, 62);
+            this.checkBoxExpertLinears12_2.Name = "checkBoxExpertLinears12_2";
+            this.checkBoxExpertLinears12_2.Size = new System.Drawing.Size(15, 14);
+            this.checkBoxExpertLinears12_2.TabIndex = 57;
+            this.toolTip1.SetToolTip(this.checkBoxExpertLinears12_2, "Check to enable antenna for tune\r\nCtrl-Click to enable/disable  all");
+            this.checkBoxExpertLinears12_2.UseVisualStyleBackColor = true;
+            this.checkBoxExpertLinears12_2.CheckedChanged += new System.EventHandler(this.CheckBoxExpertLinearsCheckedChanged);
+            // 
+            // checkBoxExpertLinears15_2
+            // 
+            this.checkBoxExpertLinears15_2.AutoSize = true;
+            this.checkBoxExpertLinears15_2.Location = new System.Drawing.Point(295, 36);
+            this.checkBoxExpertLinears15_2.Name = "checkBoxExpertLinears15_2";
+            this.checkBoxExpertLinears15_2.Size = new System.Drawing.Size(15, 14);
+            this.checkBoxExpertLinears15_2.TabIndex = 56;
+            this.toolTip1.SetToolTip(this.checkBoxExpertLinears15_2, "Check to enable antenna for tune\r\nCtrl-Click to enable/disable  all");
+            this.checkBoxExpertLinears15_2.UseVisualStyleBackColor = true;
+            this.checkBoxExpertLinears15_2.CheckedChanged += new System.EventHandler(this.CheckBoxExpertLinearsCheckedChanged);
+            // 
+            // checkBoxExpertLinears17_2
+            // 
+            this.checkBoxExpertLinears17_2.AutoSize = true;
+            this.checkBoxExpertLinears17_2.Location = new System.Drawing.Point(295, 9);
+            this.checkBoxExpertLinears17_2.Name = "checkBoxExpertLinears17_2";
+            this.checkBoxExpertLinears17_2.Size = new System.Drawing.Size(15, 14);
+            this.checkBoxExpertLinears17_2.TabIndex = 55;
+            this.toolTip1.SetToolTip(this.checkBoxExpertLinears17_2, "Check to enable antenna for tune\r\nCtrl-Click to enable/disable  all");
+            this.checkBoxExpertLinears17_2.UseVisualStyleBackColor = true;
+            this.checkBoxExpertLinears17_2.CheckedChanged += new System.EventHandler(this.CheckBoxExpertLinearsCheckedChanged);
+            // 
+            // checkBoxExpertLinears4_1
+            // 
+            this.checkBoxExpertLinears4_1.AutoSize = true;
+            this.checkBoxExpertLinears4_1.Enabled = false;
+            this.checkBoxExpertLinears4_1.Location = new System.Drawing.Point(237, 144);
+            this.checkBoxExpertLinears4_1.Name = "checkBoxExpertLinears4_1";
+            this.checkBoxExpertLinears4_1.Size = new System.Drawing.Size(15, 14);
+            this.checkBoxExpertLinears4_1.TabIndex = 54;
+            this.toolTip1.SetToolTip(this.checkBoxExpertLinears4_1, "Check to enable antenna for tune\r\nCtrl-Click to enable/disable  all");
+            this.checkBoxExpertLinears4_1.UseVisualStyleBackColor = true;
+            this.checkBoxExpertLinears4_1.CheckedChanged += new System.EventHandler(this.CheckBoxExpertLinearsCheckedChanged);
+            // 
+            // checkBoxExpertLinears6_1
+            // 
+            this.checkBoxExpertLinears6_1.AutoSize = true;
+            this.checkBoxExpertLinears6_1.Location = new System.Drawing.Point(237, 116);
+            this.checkBoxExpertLinears6_1.Name = "checkBoxExpertLinears6_1";
+            this.checkBoxExpertLinears6_1.Size = new System.Drawing.Size(15, 14);
+            this.checkBoxExpertLinears6_1.TabIndex = 53;
+            this.toolTip1.SetToolTip(this.checkBoxExpertLinears6_1, "Check to enable antenna for tune\r\nCtrl-Click to enable/disable  all");
+            this.checkBoxExpertLinears6_1.UseVisualStyleBackColor = true;
+            this.checkBoxExpertLinears6_1.CheckedChanged += new System.EventHandler(this.CheckBoxExpertLinearsCheckedChanged);
+            // 
+            // checkBoxExpertLinears10_1
+            // 
+            this.checkBoxExpertLinears10_1.AutoSize = true;
+            this.checkBoxExpertLinears10_1.Location = new System.Drawing.Point(237, 89);
+            this.checkBoxExpertLinears10_1.Name = "checkBoxExpertLinears10_1";
+            this.checkBoxExpertLinears10_1.Size = new System.Drawing.Size(15, 14);
+            this.checkBoxExpertLinears10_1.TabIndex = 52;
+            this.toolTip1.SetToolTip(this.checkBoxExpertLinears10_1, "Check to enable antenna for tune\r\nCtrl-Click to enable/disable  all");
+            this.checkBoxExpertLinears10_1.UseVisualStyleBackColor = true;
+            this.checkBoxExpertLinears10_1.CheckedChanged += new System.EventHandler(this.CheckBoxExpertLinearsCheckedChanged);
+            // 
+            // checkBoxExpertLinears12_1
+            // 
+            this.checkBoxExpertLinears12_1.AutoSize = true;
+            this.checkBoxExpertLinears12_1.Location = new System.Drawing.Point(237, 62);
+            this.checkBoxExpertLinears12_1.Name = "checkBoxExpertLinears12_1";
+            this.checkBoxExpertLinears12_1.Size = new System.Drawing.Size(15, 14);
+            this.checkBoxExpertLinears12_1.TabIndex = 51;
+            this.toolTip1.SetToolTip(this.checkBoxExpertLinears12_1, "Check to enable antenna for tune\r\nCtrl-Click to enable/disable  all");
+            this.checkBoxExpertLinears12_1.UseVisualStyleBackColor = true;
+            this.checkBoxExpertLinears12_1.CheckedChanged += new System.EventHandler(this.CheckBoxExpertLinearsCheckedChanged);
+            // 
+            // checkBoxExpertLinears15_1
+            // 
+            this.checkBoxExpertLinears15_1.AutoSize = true;
+            this.checkBoxExpertLinears15_1.Location = new System.Drawing.Point(237, 36);
+            this.checkBoxExpertLinears15_1.Name = "checkBoxExpertLinears15_1";
+            this.checkBoxExpertLinears15_1.Size = new System.Drawing.Size(15, 14);
+            this.checkBoxExpertLinears15_1.TabIndex = 50;
+            this.toolTip1.SetToolTip(this.checkBoxExpertLinears15_1, "Check to enable antenna for tune\r\nCtrl-Click to enable/disable  all");
+            this.checkBoxExpertLinears15_1.UseVisualStyleBackColor = true;
+            this.checkBoxExpertLinears15_1.CheckedChanged += new System.EventHandler(this.CheckBoxExpertLinearsCheckedChanged);
+            // 
+            // checkBoxExpertLinears17_1
+            // 
+            this.checkBoxExpertLinears17_1.AutoSize = true;
+            this.checkBoxExpertLinears17_1.Location = new System.Drawing.Point(237, 9);
+            this.checkBoxExpertLinears17_1.Name = "checkBoxExpertLinears17_1";
+            this.checkBoxExpertLinears17_1.Size = new System.Drawing.Size(15, 14);
+            this.checkBoxExpertLinears17_1.TabIndex = 49;
+            this.toolTip1.SetToolTip(this.checkBoxExpertLinears17_1, "Check to enable antenna for tune\r\nCtrl-Click to enable/disable  all");
+            this.checkBoxExpertLinears17_1.UseVisualStyleBackColor = true;
+            this.checkBoxExpertLinears17_1.CheckedChanged += new System.EventHandler(this.CheckBoxExpertLinearsCheckedChanged);
+            // 
+            // checkBoxExpertLinears20_2
+            // 
+            this.checkBoxExpertLinears20_2.AutoSize = true;
+            this.checkBoxExpertLinears20_2.Location = new System.Drawing.Point(135, 144);
+            this.checkBoxExpertLinears20_2.Name = "checkBoxExpertLinears20_2";
+            this.checkBoxExpertLinears20_2.Size = new System.Drawing.Size(15, 14);
+            this.checkBoxExpertLinears20_2.TabIndex = 48;
+            this.toolTip1.SetToolTip(this.checkBoxExpertLinears20_2, "Check to enable antenna for tune\r\nCtrl-Click to enable/disable  all");
+            this.checkBoxExpertLinears20_2.UseVisualStyleBackColor = true;
+            this.checkBoxExpertLinears20_2.CheckedChanged += new System.EventHandler(this.CheckBoxExpertLinearsCheckedChanged);
+            // 
+            // checkBoxExpertLinears30_2
+            // 
+            this.checkBoxExpertLinears30_2.AutoSize = true;
+            this.checkBoxExpertLinears30_2.Location = new System.Drawing.Point(135, 116);
+            this.checkBoxExpertLinears30_2.Name = "checkBoxExpertLinears30_2";
+            this.checkBoxExpertLinears30_2.Size = new System.Drawing.Size(15, 14);
+            this.checkBoxExpertLinears30_2.TabIndex = 47;
+            this.toolTip1.SetToolTip(this.checkBoxExpertLinears30_2, "Check to enable antenna for tune\r\nCtrl-Click to enable/disable  all");
+            this.checkBoxExpertLinears30_2.UseVisualStyleBackColor = true;
+            this.checkBoxExpertLinears30_2.CheckedChanged += new System.EventHandler(this.CheckBoxExpertLinearsCheckedChanged);
+            // 
+            // checkBoxExpertLinears40_2
+            // 
+            this.checkBoxExpertLinears40_2.AutoSize = true;
+            this.checkBoxExpertLinears40_2.Location = new System.Drawing.Point(135, 89);
+            this.checkBoxExpertLinears40_2.Name = "checkBoxExpertLinears40_2";
+            this.checkBoxExpertLinears40_2.Size = new System.Drawing.Size(15, 14);
+            this.checkBoxExpertLinears40_2.TabIndex = 46;
+            this.toolTip1.SetToolTip(this.checkBoxExpertLinears40_2, "Check to enable antenna for tune\r\nCtrl-Click to enable/disable  all");
+            this.checkBoxExpertLinears40_2.UseVisualStyleBackColor = true;
+            this.checkBoxExpertLinears40_2.CheckedChanged += new System.EventHandler(this.CheckBoxExpertLinearsCheckedChanged);
+            // 
+            // checkBoxExpertLinears60_2
+            // 
+            this.checkBoxExpertLinears60_2.AutoSize = true;
+            this.checkBoxExpertLinears60_2.Location = new System.Drawing.Point(135, 62);
+            this.checkBoxExpertLinears60_2.Name = "checkBoxExpertLinears60_2";
+            this.checkBoxExpertLinears60_2.Size = new System.Drawing.Size(15, 14);
+            this.checkBoxExpertLinears60_2.TabIndex = 45;
+            this.toolTip1.SetToolTip(this.checkBoxExpertLinears60_2, "Check to enable antenna for tune\r\nCtrl-Click to enable/disable  all");
+            this.checkBoxExpertLinears60_2.UseVisualStyleBackColor = true;
+            this.checkBoxExpertLinears60_2.CheckedChanged += new System.EventHandler(this.CheckBoxExpertLinearsCheckedChanged);
+            // 
+            // checkBoxExpertLinears80_2
+            // 
+            this.checkBoxExpertLinears80_2.AutoSize = true;
+            this.checkBoxExpertLinears80_2.Location = new System.Drawing.Point(135, 36);
+            this.checkBoxExpertLinears80_2.Name = "checkBoxExpertLinears80_2";
+            this.checkBoxExpertLinears80_2.Size = new System.Drawing.Size(15, 14);
+            this.checkBoxExpertLinears80_2.TabIndex = 44;
+            this.toolTip1.SetToolTip(this.checkBoxExpertLinears80_2, "Check to enable antenna for tune\r\nCtrl-Click to enable/disable  all\r\n");
+            this.checkBoxExpertLinears80_2.UseVisualStyleBackColor = true;
+            this.checkBoxExpertLinears80_2.CheckedChanged += new System.EventHandler(this.CheckBoxExpertLinearsCheckedChanged);
+            this.checkBoxExpertLinears80_2.Click += new System.EventHandler(this.CheckBoxExpertLinearsCheckedChanged);
+            // 
+            // checkBoxExpertLinears160_2
+            // 
+            this.checkBoxExpertLinears160_2.AutoSize = true;
+            this.checkBoxExpertLinears160_2.Location = new System.Drawing.Point(135, 9);
+            this.checkBoxExpertLinears160_2.Name = "checkBoxExpertLinears160_2";
+            this.checkBoxExpertLinears160_2.Size = new System.Drawing.Size(15, 14);
+            this.checkBoxExpertLinears160_2.TabIndex = 43;
+            this.toolTip1.SetToolTip(this.checkBoxExpertLinears160_2, "Check to enable antenna for tune\r\nCtrl-Click to enable/disable  all\r\n");
+            this.checkBoxExpertLinears160_2.UseVisualStyleBackColor = true;
+            this.checkBoxExpertLinears160_2.CheckedChanged += new System.EventHandler(this.CheckBoxExpertLinearsCheckedChanged);
+            // 
+            // checkBoxExpertLinears20_1
+            // 
+            this.checkBoxExpertLinears20_1.AutoSize = true;
+            this.checkBoxExpertLinears20_1.Location = new System.Drawing.Point(77, 144);
+            this.checkBoxExpertLinears20_1.Name = "checkBoxExpertLinears20_1";
+            this.checkBoxExpertLinears20_1.Size = new System.Drawing.Size(15, 14);
+            this.checkBoxExpertLinears20_1.TabIndex = 42;
+            this.toolTip1.SetToolTip(this.checkBoxExpertLinears20_1, "Check to enable antenna for tune\r\nCtrl-Click to enable/disable  all");
+            this.checkBoxExpertLinears20_1.UseVisualStyleBackColor = true;
+            this.checkBoxExpertLinears20_1.CheckedChanged += new System.EventHandler(this.CheckBoxExpertLinearsCheckedChanged);
+            // 
+            // checkBoxExpertLinears30_1
+            // 
+            this.checkBoxExpertLinears30_1.AutoSize = true;
+            this.checkBoxExpertLinears30_1.Location = new System.Drawing.Point(77, 116);
+            this.checkBoxExpertLinears30_1.Name = "checkBoxExpertLinears30_1";
+            this.checkBoxExpertLinears30_1.Size = new System.Drawing.Size(15, 14);
+            this.checkBoxExpertLinears30_1.TabIndex = 41;
+            this.toolTip1.SetToolTip(this.checkBoxExpertLinears30_1, "Check to enable antenna for tune\r\nCtrl-Click to enable/disable  all");
+            this.checkBoxExpertLinears30_1.UseVisualStyleBackColor = true;
+            this.checkBoxExpertLinears30_1.CheckedChanged += new System.EventHandler(this.CheckBoxExpertLinearsCheckedChanged);
+            // 
+            // checkBoxExpertLinears40_1
+            // 
+            this.checkBoxExpertLinears40_1.AutoSize = true;
+            this.checkBoxExpertLinears40_1.Location = new System.Drawing.Point(77, 89);
+            this.checkBoxExpertLinears40_1.Name = "checkBoxExpertLinears40_1";
+            this.checkBoxExpertLinears40_1.Size = new System.Drawing.Size(15, 14);
+            this.checkBoxExpertLinears40_1.TabIndex = 40;
+            this.toolTip1.SetToolTip(this.checkBoxExpertLinears40_1, "Check to enable antenna for tune\r\nCtrl-Click to enable/disable  all");
+            this.checkBoxExpertLinears40_1.UseVisualStyleBackColor = true;
+            this.checkBoxExpertLinears40_1.CheckedChanged += new System.EventHandler(this.CheckBoxExpertLinearsCheckedChanged);
+            // 
+            // checkBoxExpertLinears60_1
+            // 
+            this.checkBoxExpertLinears60_1.AutoSize = true;
+            this.checkBoxExpertLinears60_1.Location = new System.Drawing.Point(77, 62);
+            this.checkBoxExpertLinears60_1.Name = "checkBoxExpertLinears60_1";
+            this.checkBoxExpertLinears60_1.Size = new System.Drawing.Size(15, 14);
+            this.checkBoxExpertLinears60_1.TabIndex = 39;
+            this.toolTip1.SetToolTip(this.checkBoxExpertLinears60_1, "Check to enable antenna for tune\r\nCtrl-Click to enable/disable  all");
+            this.checkBoxExpertLinears60_1.UseVisualStyleBackColor = true;
+            this.checkBoxExpertLinears60_1.CheckedChanged += new System.EventHandler(this.CheckBoxExpertLinearsCheckedChanged);
+            // 
+            // checkBoxExpertLinears80_1
+            // 
+            this.checkBoxExpertLinears80_1.AutoSize = true;
+            this.checkBoxExpertLinears80_1.Location = new System.Drawing.Point(77, 36);
+            this.checkBoxExpertLinears80_1.Name = "checkBoxExpertLinears80_1";
+            this.checkBoxExpertLinears80_1.Size = new System.Drawing.Size(15, 14);
+            this.checkBoxExpertLinears80_1.TabIndex = 38;
+            this.toolTip1.SetToolTip(this.checkBoxExpertLinears80_1, "Check to enable antenna for tune\r\nCtrl-Click to enable/disable  all\r\n");
+            this.checkBoxExpertLinears80_1.UseVisualStyleBackColor = true;
+            this.checkBoxExpertLinears80_1.CheckedChanged += new System.EventHandler(this.CheckBoxExpertLinearsCheckedChanged);
+            // 
+            // checkBoxExpertLinears160_1
+            // 
+            this.checkBoxExpertLinears160_1.AutoSize = true;
+            this.checkBoxExpertLinears160_1.Location = new System.Drawing.Point(77, 9);
+            this.checkBoxExpertLinears160_1.Name = "checkBoxExpertLinears160_1";
+            this.checkBoxExpertLinears160_1.Size = new System.Drawing.Size(15, 14);
+            this.checkBoxExpertLinears160_1.TabIndex = 37;
+            this.toolTip1.SetToolTip(this.checkBoxExpertLinears160_1, "Check to enable antenna for tune\r\nCtrl-Click to enable/disable  all\r\n");
+            this.checkBoxExpertLinears160_1.UseVisualStyleBackColor = true;
+            this.checkBoxExpertLinears160_1.CheckedChanged += new System.EventHandler(this.CheckBoxExpertLinearsCheckedChanged);
+            // 
+            // buttonExpertLinearsTune
+            // 
+            this.buttonExpertLinearsTune.Location = new System.Drawing.Point(283, 165);
+            this.buttonExpertLinearsTune.Name = "buttonExpertLinearsTune";
+            this.buttonExpertLinearsTune.Size = new System.Drawing.Size(75, 23);
+            this.buttonExpertLinearsTune.TabIndex = 36;
+            this.buttonExpertLinearsTune.Text = "Tune";
+            this.toolTip1.SetToolTip(this.buttonExpertLinearsTune, "Tune selected antennas");
+            this.buttonExpertLinearsTune.UseVisualStyleBackColor = true;
+            this.buttonExpertLinearsTune.Click += new System.EventHandler(this.buttonExpertLinearsTune_Click);
+            // 
+            // comboBoxExpertLinears4_2
+            // 
+            this.comboBoxExpertLinears4_2.FormattingEnabled = true;
+            this.comboBoxExpertLinears4_2.Items.AddRange(new object[] {
+            "NO",
+            "1",
+            "2",
+            "3",
+            "4"});
+            this.comboBoxExpertLinears4_2.Location = new System.Drawing.Point(254, 140);
+            this.comboBoxExpertLinears4_2.Name = "comboBoxExpertLinears4_2";
+            this.comboBoxExpertLinears4_2.Size = new System.Drawing.Size(40, 21);
+            this.comboBoxExpertLinears4_2.TabIndex = 35;
+            this.comboBoxExpertLinears4_2.Enter += new System.EventHandler(this.comboBoxExpertLinears4_2_Enter);
+            // 
+            // label28
+            // 
+            this.label28.AutoSize = true;
+            this.label28.Location = new System.Drawing.Point(168, 144);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(22, 13);
+            this.label28.TabIndex = 34;
+            this.label28.Text = "4M";
+            // 
+            // comboBoxExpertLinears4_1
+            // 
+            this.comboBoxExpertLinears4_1.FormattingEnabled = true;
+            this.comboBoxExpertLinears4_1.Items.AddRange(new object[] {
+            "NO",
+            "1",
+            "2",
+            "3",
+            "4"});
+            this.comboBoxExpertLinears4_1.Location = new System.Drawing.Point(196, 140);
+            this.comboBoxExpertLinears4_1.Name = "comboBoxExpertLinears4_1";
+            this.comboBoxExpertLinears4_1.Size = new System.Drawing.Size(40, 21);
+            this.comboBoxExpertLinears4_1.TabIndex = 33;
+            // 
+            // comboBoxExpertLinears6_2
+            // 
+            this.comboBoxExpertLinears6_2.FormattingEnabled = true;
+            this.comboBoxExpertLinears6_2.Items.AddRange(new object[] {
+            "NO",
+            "1",
+            "2",
+            "3",
+            "4"});
+            this.comboBoxExpertLinears6_2.Location = new System.Drawing.Point(254, 114);
+            this.comboBoxExpertLinears6_2.Name = "comboBoxExpertLinears6_2";
+            this.comboBoxExpertLinears6_2.Size = new System.Drawing.Size(40, 21);
+            this.comboBoxExpertLinears6_2.TabIndex = 32;
+            // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.Location = new System.Drawing.Point(168, 118);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(22, 13);
+            this.label27.TabIndex = 31;
+            this.label27.Text = "6M";
+            // 
+            // comboBoxExpertLinears6_1
+            // 
+            this.comboBoxExpertLinears6_1.FormattingEnabled = true;
+            this.comboBoxExpertLinears6_1.Items.AddRange(new object[] {
+            "NO",
+            "1",
+            "2",
+            "3",
+            "4"});
+            this.comboBoxExpertLinears6_1.Location = new System.Drawing.Point(196, 114);
+            this.comboBoxExpertLinears6_1.Name = "comboBoxExpertLinears6_1";
+            this.comboBoxExpertLinears6_1.Size = new System.Drawing.Size(40, 21);
+            this.comboBoxExpertLinears6_1.TabIndex = 30;
+            // 
+            // comboBoxExpertLinears10_2
+            // 
+            this.comboBoxExpertLinears10_2.FormattingEnabled = true;
+            this.comboBoxExpertLinears10_2.Items.AddRange(new object[] {
+            "NO",
+            "1",
+            "2",
+            "3",
+            "4"});
+            this.comboBoxExpertLinears10_2.Location = new System.Drawing.Point(254, 87);
+            this.comboBoxExpertLinears10_2.Name = "comboBoxExpertLinears10_2";
+            this.comboBoxExpertLinears10_2.Size = new System.Drawing.Size(40, 21);
+            this.comboBoxExpertLinears10_2.TabIndex = 29;
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.Location = new System.Drawing.Point(168, 91);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(28, 13);
+            this.label26.TabIndex = 28;
+            this.label26.Text = "10M";
+            // 
+            // comboBoxExpertLinears10_1
+            // 
+            this.comboBoxExpertLinears10_1.FormattingEnabled = true;
+            this.comboBoxExpertLinears10_1.Items.AddRange(new object[] {
+            "NO",
+            "1",
+            "2",
+            "3",
+            "4"});
+            this.comboBoxExpertLinears10_1.Location = new System.Drawing.Point(196, 87);
+            this.comboBoxExpertLinears10_1.Name = "comboBoxExpertLinears10_1";
+            this.comboBoxExpertLinears10_1.Size = new System.Drawing.Size(40, 21);
+            this.comboBoxExpertLinears10_1.TabIndex = 27;
+            // 
+            // comboBoxExpertLinears12_2
+            // 
+            this.comboBoxExpertLinears12_2.FormattingEnabled = true;
+            this.comboBoxExpertLinears12_2.Items.AddRange(new object[] {
+            "NO",
+            "1",
+            "2",
+            "3",
+            "4"});
+            this.comboBoxExpertLinears12_2.Location = new System.Drawing.Point(254, 60);
+            this.comboBoxExpertLinears12_2.Name = "comboBoxExpertLinears12_2";
+            this.comboBoxExpertLinears12_2.Size = new System.Drawing.Size(40, 21);
+            this.comboBoxExpertLinears12_2.TabIndex = 26;
+            // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Location = new System.Drawing.Point(168, 64);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(28, 13);
+            this.label25.TabIndex = 25;
+            this.label25.Text = "12M";
+            // 
+            // comboBoxExpertLinears12_1
+            // 
+            this.comboBoxExpertLinears12_1.FormattingEnabled = true;
+            this.comboBoxExpertLinears12_1.Items.AddRange(new object[] {
+            "NO",
+            "1",
+            "2",
+            "3",
+            "4"});
+            this.comboBoxExpertLinears12_1.Location = new System.Drawing.Point(196, 60);
+            this.comboBoxExpertLinears12_1.Name = "comboBoxExpertLinears12_1";
+            this.comboBoxExpertLinears12_1.Size = new System.Drawing.Size(40, 21);
+            this.comboBoxExpertLinears12_1.TabIndex = 24;
+            // 
+            // comboBoxExpertLinears15_2
+            // 
+            this.comboBoxExpertLinears15_2.FormattingEnabled = true;
+            this.comboBoxExpertLinears15_2.Items.AddRange(new object[] {
+            "NO",
+            "1",
+            "2",
+            "3",
+            "4"});
+            this.comboBoxExpertLinears15_2.Location = new System.Drawing.Point(254, 33);
+            this.comboBoxExpertLinears15_2.Name = "comboBoxExpertLinears15_2";
+            this.comboBoxExpertLinears15_2.Size = new System.Drawing.Size(40, 21);
+            this.comboBoxExpertLinears15_2.TabIndex = 23;
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Location = new System.Drawing.Point(168, 37);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(28, 13);
+            this.label24.TabIndex = 22;
+            this.label24.Text = "15M";
+            // 
+            // comboBoxExpertLinears15_1
+            // 
+            this.comboBoxExpertLinears15_1.FormattingEnabled = true;
+            this.comboBoxExpertLinears15_1.Items.AddRange(new object[] {
+            "NO",
+            "1",
+            "2",
+            "3",
+            "4"});
+            this.comboBoxExpertLinears15_1.Location = new System.Drawing.Point(196, 33);
+            this.comboBoxExpertLinears15_1.Name = "comboBoxExpertLinears15_1";
+            this.comboBoxExpertLinears15_1.Size = new System.Drawing.Size(40, 21);
+            this.comboBoxExpertLinears15_1.TabIndex = 21;
+            // 
+            // comboBoxExpertLinears17_2
+            // 
+            this.comboBoxExpertLinears17_2.FormattingEnabled = true;
+            this.comboBoxExpertLinears17_2.Items.AddRange(new object[] {
+            "NO",
+            "1",
+            "2",
+            "3",
+            "4"});
+            this.comboBoxExpertLinears17_2.Location = new System.Drawing.Point(254, 6);
+            this.comboBoxExpertLinears17_2.Name = "comboBoxExpertLinears17_2";
+            this.comboBoxExpertLinears17_2.Size = new System.Drawing.Size(40, 21);
+            this.comboBoxExpertLinears17_2.TabIndex = 20;
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Location = new System.Drawing.Point(168, 10);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(28, 13);
+            this.label23.TabIndex = 19;
+            this.label23.Text = "17M";
+            // 
+            // comboBoxExpertLinears17_1
+            // 
+            this.comboBoxExpertLinears17_1.FormattingEnabled = true;
+            this.comboBoxExpertLinears17_1.Items.AddRange(new object[] {
+            "NO",
+            "1",
+            "2",
+            "3",
+            "4"});
+            this.comboBoxExpertLinears17_1.Location = new System.Drawing.Point(196, 6);
+            this.comboBoxExpertLinears17_1.Name = "comboBoxExpertLinears17_1";
+            this.comboBoxExpertLinears17_1.Size = new System.Drawing.Size(40, 21);
+            this.comboBoxExpertLinears17_1.TabIndex = 18;
+            // 
+            // comboBoxExpertLinears20_2
+            // 
+            this.comboBoxExpertLinears20_2.FormattingEnabled = true;
+            this.comboBoxExpertLinears20_2.Items.AddRange(new object[] {
+            "NO",
+            "1",
+            "2",
+            "3",
+            "4"});
+            this.comboBoxExpertLinears20_2.Location = new System.Drawing.Point(94, 140);
+            this.comboBoxExpertLinears20_2.Name = "comboBoxExpertLinears20_2";
+            this.comboBoxExpertLinears20_2.Size = new System.Drawing.Size(40, 21);
+            this.comboBoxExpertLinears20_2.TabIndex = 17;
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Location = new System.Drawing.Point(8, 144);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(28, 13);
+            this.label22.TabIndex = 16;
+            this.label22.Text = "20M";
+            // 
+            // comboBoxExpertLinears20_1
+            // 
+            this.comboBoxExpertLinears20_1.FormattingEnabled = true;
+            this.comboBoxExpertLinears20_1.Items.AddRange(new object[] {
+            "NO",
+            "1",
+            "2",
+            "3",
+            "4"});
+            this.comboBoxExpertLinears20_1.Location = new System.Drawing.Point(36, 140);
+            this.comboBoxExpertLinears20_1.Name = "comboBoxExpertLinears20_1";
+            this.comboBoxExpertLinears20_1.Size = new System.Drawing.Size(40, 21);
+            this.comboBoxExpertLinears20_1.TabIndex = 15;
+            // 
+            // comboBoxExpertLinears30_2
+            // 
+            this.comboBoxExpertLinears30_2.FormattingEnabled = true;
+            this.comboBoxExpertLinears30_2.Items.AddRange(new object[] {
+            "NO",
+            "1",
+            "2",
+            "3",
+            "4"});
+            this.comboBoxExpertLinears30_2.Location = new System.Drawing.Point(94, 113);
+            this.comboBoxExpertLinears30_2.Name = "comboBoxExpertLinears30_2";
+            this.comboBoxExpertLinears30_2.Size = new System.Drawing.Size(40, 21);
+            this.comboBoxExpertLinears30_2.TabIndex = 14;
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Location = new System.Drawing.Point(8, 117);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(28, 13);
+            this.label21.TabIndex = 13;
+            this.label21.Text = "30M";
+            // 
+            // comboBoxExpertLinears30_1
+            // 
+            this.comboBoxExpertLinears30_1.FormattingEnabled = true;
+            this.comboBoxExpertLinears30_1.Items.AddRange(new object[] {
+            "NO",
+            "1",
+            "2",
+            "3",
+            "4"});
+            this.comboBoxExpertLinears30_1.Location = new System.Drawing.Point(36, 113);
+            this.comboBoxExpertLinears30_1.Name = "comboBoxExpertLinears30_1";
+            this.comboBoxExpertLinears30_1.Size = new System.Drawing.Size(40, 21);
+            this.comboBoxExpertLinears30_1.TabIndex = 12;
+            // 
+            // comboBoxExpertLinears40_2
+            // 
+            this.comboBoxExpertLinears40_2.FormattingEnabled = true;
+            this.comboBoxExpertLinears40_2.Items.AddRange(new object[] {
+            "NO",
+            "1",
+            "2",
+            "3",
+            "4"});
+            this.comboBoxExpertLinears40_2.Location = new System.Drawing.Point(94, 86);
+            this.comboBoxExpertLinears40_2.Name = "comboBoxExpertLinears40_2";
+            this.comboBoxExpertLinears40_2.Size = new System.Drawing.Size(40, 21);
+            this.comboBoxExpertLinears40_2.TabIndex = 11;
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(8, 90);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(28, 13);
+            this.label20.TabIndex = 10;
+            this.label20.Text = "40M";
+            // 
+            // comboBoxExpertLinears40_1
+            // 
+            this.comboBoxExpertLinears40_1.FormattingEnabled = true;
+            this.comboBoxExpertLinears40_1.Items.AddRange(new object[] {
+            "NO",
+            "1",
+            "2",
+            "3",
+            "4"});
+            this.comboBoxExpertLinears40_1.Location = new System.Drawing.Point(36, 86);
+            this.comboBoxExpertLinears40_1.Name = "comboBoxExpertLinears40_1";
+            this.comboBoxExpertLinears40_1.Size = new System.Drawing.Size(40, 21);
+            this.comboBoxExpertLinears40_1.TabIndex = 9;
+            // 
+            // comboBoxExpertLinears60_2
+            // 
+            this.comboBoxExpertLinears60_2.FormattingEnabled = true;
+            this.comboBoxExpertLinears60_2.Items.AddRange(new object[] {
+            "NO",
+            "1",
+            "2",
+            "3",
+            "4"});
+            this.comboBoxExpertLinears60_2.Location = new System.Drawing.Point(94, 59);
+            this.comboBoxExpertLinears60_2.Name = "comboBoxExpertLinears60_2";
+            this.comboBoxExpertLinears60_2.Size = new System.Drawing.Size(40, 21);
+            this.comboBoxExpertLinears60_2.TabIndex = 8;
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(8, 63);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(28, 13);
+            this.label19.TabIndex = 7;
+            this.label19.Text = "60M";
+            // 
+            // comboBoxExpertLinears60_1
+            // 
+            this.comboBoxExpertLinears60_1.FormattingEnabled = true;
+            this.comboBoxExpertLinears60_1.Items.AddRange(new object[] {
+            "NO",
+            "1",
+            "2",
+            "3",
+            "4"});
+            this.comboBoxExpertLinears60_1.Location = new System.Drawing.Point(36, 59);
+            this.comboBoxExpertLinears60_1.Name = "comboBoxExpertLinears60_1";
+            this.comboBoxExpertLinears60_1.Size = new System.Drawing.Size(40, 21);
+            this.comboBoxExpertLinears60_1.TabIndex = 6;
+            // 
+            // comboBoxExpertLinears80_2
+            // 
+            this.comboBoxExpertLinears80_2.FormattingEnabled = true;
+            this.comboBoxExpertLinears80_2.Items.AddRange(new object[] {
+            "NO",
+            "1",
+            "2",
+            "3",
+            "4"});
+            this.comboBoxExpertLinears80_2.Location = new System.Drawing.Point(94, 32);
+            this.comboBoxExpertLinears80_2.Name = "comboBoxExpertLinears80_2";
+            this.comboBoxExpertLinears80_2.Size = new System.Drawing.Size(40, 21);
+            this.comboBoxExpertLinears80_2.TabIndex = 5;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(8, 36);
+            this.label13.Name = "label13";
+            this.label13.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.label13.Size = new System.Drawing.Size(28, 13);
+            this.label13.TabIndex = 4;
+            this.label13.Text = "80M";
+            this.label13.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // comboBoxExpertLinears80_1
+            // 
+            this.comboBoxExpertLinears80_1.FormattingEnabled = true;
+            this.comboBoxExpertLinears80_1.Items.AddRange(new object[] {
+            "NO",
+            "1",
+            "2",
+            "3",
+            "4"});
+            this.comboBoxExpertLinears80_1.Location = new System.Drawing.Point(36, 32);
+            this.comboBoxExpertLinears80_1.Name = "comboBoxExpertLinears80_1";
+            this.comboBoxExpertLinears80_1.Size = new System.Drawing.Size(40, 21);
+            this.comboBoxExpertLinears80_1.TabIndex = 3;
+            // 
+            // comboBoxExpertLinears160_2
+            // 
+            this.comboBoxExpertLinears160_2.FormattingEnabled = true;
+            this.comboBoxExpertLinears160_2.Items.AddRange(new object[] {
+            "NO",
+            "1",
+            "2",
+            "3",
+            "4"});
+            this.comboBoxExpertLinears160_2.Location = new System.Drawing.Point(94, 5);
+            this.comboBoxExpertLinears160_2.Name = "comboBoxExpertLinears160_2";
+            this.comboBoxExpertLinears160_2.Size = new System.Drawing.Size(40, 21);
+            this.comboBoxExpertLinears160_2.TabIndex = 2;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(1, 9);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(34, 13);
+            this.label12.TabIndex = 1;
+            this.label12.Text = "160M";
+            // 
+            // comboBoxExpertLinears160_1
+            // 
+            this.comboBoxExpertLinears160_1.FormattingEnabled = true;
+            this.comboBoxExpertLinears160_1.Items.AddRange(new object[] {
+            "NO",
+            "1",
+            "2",
+            "3",
+            "4"});
+            this.comboBoxExpertLinears160_1.Location = new System.Drawing.Point(36, 5);
+            this.comboBoxExpertLinears160_1.Name = "comboBoxExpertLinears160_1";
+            this.comboBoxExpertLinears160_1.Size = new System.Drawing.Size(40, 21);
+            this.comboBoxExpertLinears160_1.TabIndex = 0;
+            // 
+            // tabPage
+            // 
+            this.tabPage.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tabPage.Controls.Add(this.tabPageControl);
+            this.tabPage.Controls.Add(this.tabPageDebug);
+            this.tabPage.Controls.Add(this.tabPageTuner);
+            this.tabPage.Controls.Add(this.tabPagePower);
+            this.tabPage.Controls.Add(this.tabPageAntenna);
+            this.tabPage.Controls.Add(this.tabPageFreqWalk);
+            this.tabPage.Controls.Add(this.tabPageRelay1);
+            this.tabPage.Controls.Add(this.tabPageRelay2);
+            this.tabPage.Controls.Add(this.tabPageRelay3);
+            this.tabPage.Controls.Add(this.tabPageRelay4);
+            this.tabPage.Controls.Add(this.tabPageExpertLinears);
+            this.tabPage.Location = new System.Drawing.Point(0, 20);
+            this.tabPage.Margin = new System.Windows.Forms.Padding(2);
+            this.tabPage.Name = "tabPage";
+            this.tabPage.SelectedIndex = 0;
+            this.tabPage.ShowToolTips = true;
+            this.tabPage.Size = new System.Drawing.Size(373, 221);
+            this.tabPage.TabIndex = 8;
+            this.tabPage.SelectedIndexChanged += new System.EventHandler(this.TabControl1_SelectedIndexChanged);
+            this.tabPage.Selecting += new System.Windows.Forms.TabControlCancelEventHandler(this.tabPage_Selecting);
+            this.tabPage.Selected += new System.Windows.Forms.TabControlEventHandler(this.tabPage_Selected);
+            this.tabPage.TabIndexChanged += new System.EventHandler(this.TabControl1_TabIndexChanged);
+            this.tabPage.VisibleChanged += new System.EventHandler(this.TabControl1_VisibleChanged);
+            this.tabPage.KeyUp += new System.Windows.Forms.KeyEventHandler(this.RichTextBox1_KeyUp);
+            this.tabPage.Validated += new System.EventHandler(this.tabPage_Validated);
+            // 
+            // tabPageControl
+            // 
+            this.tabPageControl.BackColor = System.Drawing.Color.LightGray;
+            this.tabPageControl.Controls.Add(this.labelControlLog2);
+            this.tabPageControl.Controls.Add(this.labelControlLog);
+            this.tabPageControl.Controls.Add(this.groupBox2);
+            this.tabPageControl.Controls.Add(this.groupBox1);
+            this.tabPageControl.Location = new System.Drawing.Point(4, 22);
+            this.tabPageControl.Margin = new System.Windows.Forms.Padding(22, 24, 22, 24);
+            this.tabPageControl.Name = "tabPageControl";
+            this.tabPageControl.Padding = new System.Windows.Forms.Padding(22, 24, 22, 24);
+            this.tabPageControl.Size = new System.Drawing.Size(365, 195);
+            this.tabPageControl.TabIndex = 7;
+            this.tabPageControl.Text = "Control";
+            // 
+            // labelControlLog2
+            // 
+            this.labelControlLog2.AutoSize = true;
+            this.labelControlLog2.Location = new System.Drawing.Point(11, 171);
+            this.labelControlLog2.Name = "labelControlLog2";
+            this.labelControlLog2.Size = new System.Drawing.Size(0, 13);
+            this.labelControlLog2.TabIndex = 18;
+            // 
+            // labelControlLog
+            // 
+            this.labelControlLog.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.labelControlLog.AutoSize = true;
+            this.labelControlLog.Location = new System.Drawing.Point(11, 156);
+            this.labelControlLog.Name = "labelControlLog";
+            this.labelControlLog.Size = new System.Drawing.Size(65, 13);
+            this.labelControlLog.TabIndex = 17;
+            this.labelControlLog.Text = "Logging info";
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.buttonTunerPwr);
+            this.groupBox2.Controls.Add(this.labelClock);
+            this.groupBox2.Controls.Add(this.buttonAntennaPick8);
+            this.groupBox2.Controls.Add(this.buttonAntennaPick1);
+            this.groupBox2.Controls.Add(this.buttonAntennaPick2);
+            this.groupBox2.Controls.Add(this.buttonAntennaPick3);
+            this.groupBox2.Controls.Add(this.buttonAntennaPick4);
+            this.groupBox2.Controls.Add(this.buttonAntennaPick5);
+            this.groupBox2.Controls.Add(this.buttonAntennaPick6);
+            this.groupBox2.Controls.Add(this.buttonAntennaPick7);
+            this.groupBox2.Controls.Add(this.labelAntennaSelected);
+            this.groupBox2.Controls.Add(this.labelFreq);
+            this.groupBox2.Controls.Add(this.labelPower);
+            this.groupBox2.Controls.Add(this.labelSWR);
+            this.groupBox2.Location = new System.Drawing.Point(130, 9);
+            this.groupBox2.Margin = new System.Windows.Forms.Padding(2);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(2);
+            this.groupBox2.Size = new System.Drawing.Size(235, 135);
+            this.groupBox2.TabIndex = 16;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Info";
+            this.groupBox2.Enter += new System.EventHandler(this.GroupBox2_Enter);
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.buttonWalk);
+            this.groupBox1.Controls.Add(this.buttonAmp);
+            this.groupBox1.Controls.Add(this.buttonTunePause);
+            this.groupBox1.Controls.Add(this.buttonTune);
+            this.groupBox1.Controls.Add(this.buttonTunerStatus);
+            this.groupBox1.Location = new System.Drawing.Point(5, 9);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
+            this.groupBox1.Size = new System.Drawing.Size(120, 135);
+            this.groupBox1.TabIndex = 15;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Tuner Control/Status";
+            // 
+            // tabPageDebug
+            // 
+            this.tabPageDebug.BackColor = System.Drawing.Color.LightGray;
+            this.tabPageDebug.Controls.Add(this.checkBoxPause);
+            this.tabPageDebug.Controls.Add(this.comboBoxDebugLevel);
+            this.tabPageDebug.Controls.Add(this.richTextBoxDebug);
+            this.tabPageDebug.Location = new System.Drawing.Point(4, 22);
+            this.tabPageDebug.Margin = new System.Windows.Forms.Padding(2);
+            this.tabPageDebug.Name = "tabPageDebug";
+            this.tabPageDebug.Padding = new System.Windows.Forms.Padding(2);
+            this.tabPageDebug.Size = new System.Drawing.Size(365, 195);
+            this.tabPageDebug.TabIndex = 2;
+            this.tabPageDebug.Text = "Debug";
+            // 
+            // checkBoxPause
+            // 
+            this.checkBoxPause.AutoSize = true;
+            this.checkBoxPause.Location = new System.Drawing.Point(102, 5);
+            this.checkBoxPause.Margin = new System.Windows.Forms.Padding(2);
+            this.checkBoxPause.Name = "checkBoxPause";
+            this.checkBoxPause.Size = new System.Drawing.Size(56, 17);
+            this.checkBoxPause.TabIndex = 10;
+            this.checkBoxPause.Text = "Pause";
+            this.checkBoxPause.UseVisualStyleBackColor = true;
+            // 
+            // comboBoxDebugLevel
+            // 
+            this.comboBoxDebugLevel.DataBindings.Add(new System.Windows.Forms.Binding("ValueMember", global::AmpAutoTunerUtility.Properties.Settings.Default, "Tune5Power", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.comboBoxDebugLevel.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::AmpAutoTunerUtility.Properties.Settings.Default, "DebugLevel", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.comboBoxDebugLevel.DisplayMember = "0";
+            this.comboBoxDebugLevel.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxDebugLevel.FormattingEnabled = true;
+            this.comboBoxDebugLevel.Items.AddRange(new object[] {
+            "Error",
+            "Warning",
+            "Trace",
+            "Verbose"});
+            this.comboBoxDebugLevel.Location = new System.Drawing.Point(6, 5);
+            this.comboBoxDebugLevel.Margin = new System.Windows.Forms.Padding(2);
+            this.comboBoxDebugLevel.Name = "comboBoxDebugLevel";
+            this.comboBoxDebugLevel.Size = new System.Drawing.Size(92, 21);
+            this.comboBoxDebugLevel.TabIndex = 9;
+            this.comboBoxDebugLevel.Text = global::AmpAutoTunerUtility.Properties.Settings.Default.DebugLevel;
+            this.comboBoxDebugLevel.ValueMember = global::AmpAutoTunerUtility.Properties.Settings.Default.Tune5Power;
+            this.comboBoxDebugLevel.SelectedIndexChanged += new System.EventHandler(this.ComboBoxDebugLevel_SelectedIndexChanged);
+            // 
+            // richTextBoxDebug
+            // 
+            this.richTextBoxDebug.HideSelection = false;
+            this.richTextBoxDebug.Location = new System.Drawing.Point(5, 29);
+            this.richTextBoxDebug.Margin = new System.Windows.Forms.Padding(2);
+            this.richTextBoxDebug.Name = "richTextBoxDebug";
+            this.richTextBoxDebug.Size = new System.Drawing.Size(370, 163);
+            this.richTextBoxDebug.TabIndex = 8;
+            this.richTextBoxDebug.Text = "";
+            this.richTextBoxDebug.TextChanged += new System.EventHandler(this.RichTextBoxDebug_TextChanged);
+            // 
+            // tabPageTuner
+            // 
+            this.tabPageTuner.BackColor = System.Drawing.Color.LightGray;
+            this.tabPageTuner.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.tabPageTuner.Controls.Add(this.groupBoxOptions);
+            this.tabPageTuner.Controls.Add(this.panel2);
+            this.tabPageTuner.Controls.Add(this.panel3);
+            this.tabPageTuner.Location = new System.Drawing.Point(4, 22);
+            this.tabPageTuner.Margin = new System.Windows.Forms.Padding(2);
+            this.tabPageTuner.Name = "tabPageTuner";
+            this.tabPageTuner.Padding = new System.Windows.Forms.Padding(2);
+            this.tabPageTuner.Size = new System.Drawing.Size(365, 195);
+            this.tabPageTuner.TabIndex = 1;
+            this.tabPageTuner.Text = "Tuner";
+            this.tabPageTuner.Click += new System.EventHandler(this.TabPageTuner_Click);
+            // 
+            // groupBoxOptions
+            // 
+            this.groupBoxOptions.Controls.Add(this.checkBox1);
+            this.groupBoxOptions.Controls.Add(this.numericUpDownPostPttDelay);
+            this.groupBoxOptions.Controls.Add(this.buttonTunerSave);
+            this.groupBoxOptions.Controls.Add(this.numericUpDownInductance);
+            this.groupBoxOptions.Controls.Add(this.numericUpDownCapacitance);
+            this.groupBoxOptions.Location = new System.Drawing.Point(7, 145);
+            this.groupBoxOptions.Margin = new System.Windows.Forms.Padding(2);
+            this.groupBoxOptions.Name = "groupBoxOptions";
+            this.groupBoxOptions.Padding = new System.Windows.Forms.Padding(2);
+            this.groupBoxOptions.Size = new System.Drawing.Size(362, 42);
+            this.groupBoxOptions.TabIndex = 18;
+            this.groupBoxOptions.TabStop = false;
+            this.groupBoxOptions.Text = "Options";
+            this.groupBoxOptions.Visible = false;
+            // 
+            // buttonTunerSave
+            // 
+            this.buttonTunerSave.Location = new System.Drawing.Point(275, 14);
+            this.buttonTunerSave.Name = "buttonTunerSave";
+            this.buttonTunerSave.Size = new System.Drawing.Size(75, 23);
+            this.buttonTunerSave.TabIndex = 14;
+            this.buttonTunerSave.Text = "Save";
+            this.buttonTunerSave.UseVisualStyleBackColor = true;
+            this.buttonTunerSave.Click += new System.EventHandler(this.ButtonTunerSave_Click);
+            // 
+            // panel2
+            // 
+            this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel2.Controls.Add(this.label11);
+            this.panel2.Controls.Add(this.comboBoxAmpBits);
+            this.panel2.Controls.Add(this.checkBoxToneEnabled);
+            this.panel2.Controls.Add(this.checkBoxPTTEnabled);
+            this.panel2.Controls.Add(this.checkBoxPowerSDR);
+            this.panel2.Controls.Add(this.checkBoxRig);
+            this.panel2.Controls.Add(this.radioButtonVFOB);
+            this.panel2.Controls.Add(this.radioButtonVFOA);
+            this.panel2.Location = new System.Drawing.Point(194, 7);
+            this.panel2.Margin = new System.Windows.Forms.Padding(2);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(173, 144);
+            this.panel2.TabIndex = 14;
+            // 
+            // comboBoxAmpBits
+            // 
+            this.comboBoxAmpBits.FormattingEnabled = true;
+            this.comboBoxAmpBits.Items.AddRange(new object[] {
+            "3/0",
+            "3/1",
+            "3/2",
+            "3/3",
+            "3/4",
+            "3/5",
+            "3/6",
+            "3/7",
+            "8/0",
+            "8/1",
+            "8/2",
+            "8/3",
+            "8/4",
+            "8/5",
+            "8/6",
+            "8/7",
+            "8/8"});
+            this.comboBoxAmpBits.Location = new System.Drawing.Point(16, 118);
+            this.comboBoxAmpBits.Name = "comboBoxAmpBits";
+            this.comboBoxAmpBits.Size = new System.Drawing.Size(46, 21);
+            this.comboBoxAmpBits.TabIndex = 73;
+            this.comboBoxAmpBits.SelectedIndexChanged += new System.EventHandler(this.ComboBoxAmpBits_SelectedIndexChanged);
+            // 
+            // tabPagePower
+            // 
+            this.tabPagePower.BackColor = System.Drawing.Color.LightGray;
+            this.tabPagePower.Controls.Add(this.label8);
+            this.tabPagePower.Controls.Add(this.checkBoxAmp8);
+            this.tabPagePower.Controls.Add(this.checkBoxAmp7);
+            this.tabPagePower.Controls.Add(this.checkBoxAmp6);
+            this.tabPagePower.Controls.Add(this.checkBoxAmp5);
+            this.tabPagePower.Controls.Add(this.checkBoxAmp4);
+            this.tabPagePower.Controls.Add(this.checkBoxAmp3);
+            this.tabPagePower.Controls.Add(this.checkBoxAmp2);
+            this.tabPagePower.Controls.Add(this.checkBoxAmp1);
+            this.tabPagePower.Controls.Add(this.label7);
+            this.tabPagePower.Controls.Add(this.textBoxTune8Power);
+            this.tabPagePower.Controls.Add(this.textBoxTune7Power);
+            this.tabPagePower.Controls.Add(this.textBoxTune6Power);
+            this.tabPagePower.Controls.Add(this.textBoxTune5Power);
+            this.tabPagePower.Controls.Add(this.textBoxTune4Power);
+            this.tabPagePower.Controls.Add(this.textBoxTune3Power);
+            this.tabPagePower.Controls.Add(this.textBoxTune2Power);
+            this.tabPagePower.Controls.Add(this.textBoxTune1Power);
+            this.tabPagePower.Controls.Add(this.textBoxPower8Watts);
+            this.tabPagePower.Controls.Add(this.textBoxPower7Watts);
+            this.tabPagePower.Controls.Add(this.textBoxPower6Watts);
+            this.tabPagePower.Controls.Add(this.textBoxPower5Watts);
+            this.tabPagePower.Controls.Add(this.textBoxPower4Watts);
+            this.tabPagePower.Controls.Add(this.textBoxPower3Watts);
+            this.tabPagePower.Controls.Add(this.textBoxPower2Watts);
+            this.tabPagePower.Controls.Add(this.textBoxPower1Watts);
+            this.tabPagePower.Controls.Add(this.textBoxPower8To);
+            this.tabPagePower.Controls.Add(this.textBoxPower8From);
+            this.tabPagePower.Controls.Add(this.textBoxPower7To);
+            this.tabPagePower.Controls.Add(this.textBoxPower7From);
+            this.tabPagePower.Controls.Add(this.textBoxPower6To);
+            this.tabPagePower.Controls.Add(this.textBoxPower6From);
+            this.tabPagePower.Controls.Add(this.textBoxPower5To);
+            this.tabPagePower.Controls.Add(this.textBoxPower5From);
+            this.tabPagePower.Controls.Add(this.textBoxPower4To);
+            this.tabPagePower.Controls.Add(this.textBoxPower4From);
+            this.tabPagePower.Controls.Add(this.textBoxPower3To);
+            this.tabPagePower.Controls.Add(this.textBoxPower3From);
+            this.tabPagePower.Controls.Add(this.textBoxPower2To);
+            this.tabPagePower.Controls.Add(this.textBoxPower2From);
+            this.tabPagePower.Controls.Add(this.textBoxPower1To);
+            this.tabPagePower.Controls.Add(this.textBoxPower1From);
+            this.tabPagePower.Controls.Add(this.label6);
+            this.tabPagePower.Controls.Add(this.comboBoxPower8Mode);
+            this.tabPagePower.Controls.Add(this.comboBoxPower7Mode);
+            this.tabPagePower.Controls.Add(this.comboBoxPower6Mode);
+            this.tabPagePower.Controls.Add(this.comboBoxPower5Mode);
+            this.tabPagePower.Controls.Add(this.comboBoxPower4Mode);
+            this.tabPagePower.Controls.Add(this.comboBoxPower3Mode);
+            this.tabPagePower.Controls.Add(this.comboBoxPower2Mode);
+            this.tabPagePower.Controls.Add(this.comboBoxPower1Mode);
+            this.tabPagePower.Controls.Add(this.label5);
+            this.tabPagePower.Controls.Add(this.label4);
+            this.tabPagePower.Controls.Add(this.checkBoxPower8Enabled);
+            this.tabPagePower.Controls.Add(this.checkBoxPower7Enabled);
+            this.tabPagePower.Controls.Add(this.checkBoxPower6Enabled);
+            this.tabPagePower.Controls.Add(this.checkBoxPower5Enabled);
+            this.tabPagePower.Controls.Add(this.checkBoxPower4Enabled);
+            this.tabPagePower.Controls.Add(this.checkBoxPower3Enabled);
+            this.tabPagePower.Controls.Add(this.checkBoxPower2Enabled);
+            this.tabPagePower.Controls.Add(this.checkBoxPower1Enabled);
+            this.tabPagePower.Controls.Add(this.label1);
+            this.tabPagePower.Controls.Add(this.label3);
+            this.tabPagePower.Location = new System.Drawing.Point(4, 22);
+            this.tabPagePower.Margin = new System.Windows.Forms.Padding(2);
+            this.tabPagePower.Name = "tabPagePower";
+            this.tabPagePower.Padding = new System.Windows.Forms.Padding(2);
+            this.tabPagePower.Size = new System.Drawing.Size(365, 195);
+            this.tabPagePower.TabIndex = 8;
+            this.tabPagePower.Text = "Power";
+            // 
+            // textBoxPower8Watts
+            // 
+            this.textBoxPower8Watts.Location = new System.Drawing.Point(125, 165);
+            this.textBoxPower8Watts.Margin = new System.Windows.Forms.Padding(2);
+            this.textBoxPower8Watts.Name = "textBoxPower8Watts";
+            this.textBoxPower8Watts.Size = new System.Drawing.Size(32, 20);
+            this.textBoxPower8Watts.TabIndex = 81;
+            // 
+            // textBoxPower7Watts
+            // 
+            this.textBoxPower7Watts.Location = new System.Drawing.Point(125, 144);
+            this.textBoxPower7Watts.Margin = new System.Windows.Forms.Padding(2);
+            this.textBoxPower7Watts.Name = "textBoxPower7Watts";
+            this.textBoxPower7Watts.Size = new System.Drawing.Size(32, 20);
+            this.textBoxPower7Watts.TabIndex = 80;
+            // 
+            // textBoxPower6Watts
+            // 
+            this.textBoxPower6Watts.Location = new System.Drawing.Point(125, 123);
+            this.textBoxPower6Watts.Margin = new System.Windows.Forms.Padding(2);
+            this.textBoxPower6Watts.Name = "textBoxPower6Watts";
+            this.textBoxPower6Watts.Size = new System.Drawing.Size(32, 20);
+            this.textBoxPower6Watts.TabIndex = 79;
+            // 
+            // textBoxPower5Watts
+            // 
+            this.textBoxPower5Watts.Location = new System.Drawing.Point(125, 102);
+            this.textBoxPower5Watts.Margin = new System.Windows.Forms.Padding(2);
+            this.textBoxPower5Watts.Name = "textBoxPower5Watts";
+            this.textBoxPower5Watts.Size = new System.Drawing.Size(32, 20);
+            this.textBoxPower5Watts.TabIndex = 78;
+            // 
+            // textBoxPower4Watts
+            // 
+            this.textBoxPower4Watts.Location = new System.Drawing.Point(125, 81);
+            this.textBoxPower4Watts.Margin = new System.Windows.Forms.Padding(2);
+            this.textBoxPower4Watts.Name = "textBoxPower4Watts";
+            this.textBoxPower4Watts.Size = new System.Drawing.Size(32, 20);
+            this.textBoxPower4Watts.TabIndex = 77;
+            // 
+            // textBoxPower3Watts
+            // 
+            this.textBoxPower3Watts.Location = new System.Drawing.Point(125, 60);
+            this.textBoxPower3Watts.Margin = new System.Windows.Forms.Padding(2);
+            this.textBoxPower3Watts.Name = "textBoxPower3Watts";
+            this.textBoxPower3Watts.Size = new System.Drawing.Size(32, 20);
+            this.textBoxPower3Watts.TabIndex = 76;
+            // 
+            // textBoxPower2Watts
+            // 
+            this.textBoxPower2Watts.Location = new System.Drawing.Point(125, 39);
+            this.textBoxPower2Watts.Margin = new System.Windows.Forms.Padding(2);
+            this.textBoxPower2Watts.Name = "textBoxPower2Watts";
+            this.textBoxPower2Watts.Size = new System.Drawing.Size(32, 20);
+            this.textBoxPower2Watts.TabIndex = 75;
+            // 
+            // textBoxPower1Watts
+            // 
+            this.textBoxPower1Watts.Location = new System.Drawing.Point(125, 18);
+            this.textBoxPower1Watts.Margin = new System.Windows.Forms.Padding(2);
+            this.textBoxPower1Watts.Name = "textBoxPower1Watts";
+            this.textBoxPower1Watts.Size = new System.Drawing.Size(32, 20);
+            this.textBoxPower1Watts.TabIndex = 73;
+            // 
+            // textBoxPower8To
+            // 
+            this.textBoxPower8To.Location = new System.Drawing.Point(71, 165);
+            this.textBoxPower8To.Margin = new System.Windows.Forms.Padding(2);
+            this.textBoxPower8To.Name = "textBoxPower8To";
+            this.textBoxPower8To.Size = new System.Drawing.Size(53, 20);
+            this.textBoxPower8To.TabIndex = 63;
+            // 
+            // textBoxPower8From
+            // 
+            this.textBoxPower8From.Location = new System.Drawing.Point(15, 165);
+            this.textBoxPower8From.Margin = new System.Windows.Forms.Padding(2);
+            this.textBoxPower8From.Name = "textBoxPower8From";
+            this.textBoxPower8From.Size = new System.Drawing.Size(55, 20);
+            this.textBoxPower8From.TabIndex = 62;
+            // 
+            // textBoxPower7To
+            // 
+            this.textBoxPower7To.Location = new System.Drawing.Point(71, 144);
+            this.textBoxPower7To.Margin = new System.Windows.Forms.Padding(2);
+            this.textBoxPower7To.Name = "textBoxPower7To";
+            this.textBoxPower7To.Size = new System.Drawing.Size(53, 20);
+            this.textBoxPower7To.TabIndex = 61;
+            // 
+            // textBoxPower7From
+            // 
+            this.textBoxPower7From.Location = new System.Drawing.Point(15, 144);
+            this.textBoxPower7From.Margin = new System.Windows.Forms.Padding(2);
+            this.textBoxPower7From.Name = "textBoxPower7From";
+            this.textBoxPower7From.Size = new System.Drawing.Size(55, 20);
+            this.textBoxPower7From.TabIndex = 60;
+            // 
+            // textBoxPower6To
+            // 
+            this.textBoxPower6To.Location = new System.Drawing.Point(71, 123);
+            this.textBoxPower6To.Margin = new System.Windows.Forms.Padding(2);
+            this.textBoxPower6To.Name = "textBoxPower6To";
+            this.textBoxPower6To.Size = new System.Drawing.Size(53, 20);
+            this.textBoxPower6To.TabIndex = 59;
+            // 
+            // textBoxPower6From
+            // 
+            this.textBoxPower6From.Location = new System.Drawing.Point(15, 123);
+            this.textBoxPower6From.Margin = new System.Windows.Forms.Padding(2);
+            this.textBoxPower6From.Name = "textBoxPower6From";
+            this.textBoxPower6From.Size = new System.Drawing.Size(55, 20);
+            this.textBoxPower6From.TabIndex = 58;
+            // 
+            // textBoxPower5To
+            // 
+            this.textBoxPower5To.Location = new System.Drawing.Point(71, 102);
+            this.textBoxPower5To.Margin = new System.Windows.Forms.Padding(2);
+            this.textBoxPower5To.Name = "textBoxPower5To";
+            this.textBoxPower5To.Size = new System.Drawing.Size(53, 20);
+            this.textBoxPower5To.TabIndex = 57;
+            // 
+            // textBoxPower5From
+            // 
+            this.textBoxPower5From.Location = new System.Drawing.Point(15, 102);
+            this.textBoxPower5From.Margin = new System.Windows.Forms.Padding(2);
+            this.textBoxPower5From.Name = "textBoxPower5From";
+            this.textBoxPower5From.Size = new System.Drawing.Size(55, 20);
+            this.textBoxPower5From.TabIndex = 56;
+            // 
+            // textBoxPower4To
+            // 
+            this.textBoxPower4To.Location = new System.Drawing.Point(71, 81);
+            this.textBoxPower4To.Margin = new System.Windows.Forms.Padding(2);
+            this.textBoxPower4To.Name = "textBoxPower4To";
+            this.textBoxPower4To.Size = new System.Drawing.Size(53, 20);
+            this.textBoxPower4To.TabIndex = 55;
+            // 
+            // textBoxPower4From
+            // 
+            this.textBoxPower4From.Location = new System.Drawing.Point(15, 81);
+            this.textBoxPower4From.Margin = new System.Windows.Forms.Padding(2);
+            this.textBoxPower4From.Name = "textBoxPower4From";
+            this.textBoxPower4From.Size = new System.Drawing.Size(55, 20);
+            this.textBoxPower4From.TabIndex = 54;
+            // 
+            // textBoxPower3To
+            // 
+            this.textBoxPower3To.Location = new System.Drawing.Point(71, 60);
+            this.textBoxPower3To.Margin = new System.Windows.Forms.Padding(2);
+            this.textBoxPower3To.Name = "textBoxPower3To";
+            this.textBoxPower3To.Size = new System.Drawing.Size(53, 20);
+            this.textBoxPower3To.TabIndex = 53;
+            // 
+            // textBoxPower3From
+            // 
+            this.textBoxPower3From.Location = new System.Drawing.Point(15, 60);
+            this.textBoxPower3From.Margin = new System.Windows.Forms.Padding(2);
+            this.textBoxPower3From.Name = "textBoxPower3From";
+            this.textBoxPower3From.Size = new System.Drawing.Size(55, 20);
+            this.textBoxPower3From.TabIndex = 52;
+            // 
+            // textBoxPower2To
+            // 
+            this.textBoxPower2To.Location = new System.Drawing.Point(71, 39);
+            this.textBoxPower2To.Margin = new System.Windows.Forms.Padding(2);
+            this.textBoxPower2To.Name = "textBoxPower2To";
+            this.textBoxPower2To.Size = new System.Drawing.Size(53, 20);
+            this.textBoxPower2To.TabIndex = 51;
+            // 
+            // textBoxPower2From
+            // 
+            this.textBoxPower2From.Location = new System.Drawing.Point(15, 39);
+            this.textBoxPower2From.Margin = new System.Windows.Forms.Padding(2);
+            this.textBoxPower2From.Name = "textBoxPower2From";
+            this.textBoxPower2From.Size = new System.Drawing.Size(55, 20);
+            this.textBoxPower2From.TabIndex = 50;
+            // 
+            // textBoxPower1To
+            // 
+            this.textBoxPower1To.Location = new System.Drawing.Point(71, 18);
+            this.textBoxPower1To.Margin = new System.Windows.Forms.Padding(2);
+            this.textBoxPower1To.Name = "textBoxPower1To";
+            this.textBoxPower1To.Size = new System.Drawing.Size(53, 20);
+            this.textBoxPower1To.TabIndex = 47;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(261, 16);
+            this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(94, 143);
+            this.label4.TabIndex = 72;
+            this.label4.Text = "First pass through\r\nwill select the first\r\nmode match.\r\nSecond pass will\r\nselect " +
+    "the first\r\n\"Any\" match.\r\n\r\nNote: Power is not\r\na watts value but \r\nis the Pwr va" +
+    "lue\r\nin FLRig.";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(71, 3);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(45, 13);
+            this.label1.TabIndex = 49;
+            this.label1.Text = "To MHz";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(15, 3);
+            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(55, 13);
+            this.label3.TabIndex = 48;
+            this.label3.Text = "From MHz";
+            // 
+            // tabPageAntenna
+            // 
+            this.tabPageAntenna.BackColor = System.Drawing.Color.LightGray;
+            this.tabPageAntenna.Controls.Add(this.checkBoxAntenna8Amp);
+            this.tabPageAntenna.Controls.Add(this.checkBoxAntenna7Amp);
+            this.tabPageAntenna.Controls.Add(this.checkBoxAntenna6Amp);
+            this.tabPageAntenna.Controls.Add(this.checkBoxAntenna5Amp);
+            this.tabPageAntenna.Controls.Add(this.checkBoxAntenna4Amp);
+            this.tabPageAntenna.Controls.Add(this.checkBoxAntenna3Amp);
+            this.tabPageAntenna.Controls.Add(this.checkBoxAntenna2Amp);
+            this.tabPageAntenna.Controls.Add(this.checkBoxAntenna1Amp);
+            this.tabPageAntenna.Controls.Add(this.ComboBoxAntenna8Bits);
+            this.tabPageAntenna.Controls.Add(this.ComboBoxAntenna7Bits);
+            this.tabPageAntenna.Controls.Add(this.ComboBoxAntenna6Bits);
+            this.tabPageAntenna.Controls.Add(this.ComboBoxAntenna5Bits);
+            this.tabPageAntenna.Controls.Add(this.ComboBoxAntenna4Bits);
+            this.tabPageAntenna.Controls.Add(this.ComboBoxAntenna3Bits);
+            this.tabPageAntenna.Controls.Add(this.ComboBoxAntenna2Bits);
+            this.tabPageAntenna.Controls.Add(this.ComboBoxAntenna1Bits);
+            this.tabPageAntenna.Controls.Add(this.label10);
+            this.tabPageAntenna.Controls.Add(this.comboBoxAntSelect8);
+            this.tabPageAntenna.Controls.Add(this.comboBoxAntSelect7);
+            this.tabPageAntenna.Controls.Add(this.comboBoxAntSelect6);
+            this.tabPageAntenna.Controls.Add(this.comboBoxAntSelect5);
+            this.tabPageAntenna.Controls.Add(this.comboBoxAntSelect4);
+            this.tabPageAntenna.Controls.Add(this.comboBoxAntSelect3);
+            this.tabPageAntenna.Controls.Add(this.comboBoxAntSelect2);
+            this.tabPageAntenna.Controls.Add(this.comboBoxAntSelect1);
+            this.tabPageAntenna.Controls.Add(this.buttonAntenna8);
+            this.tabPageAntenna.Controls.Add(this.buttonAntenna7);
+            this.tabPageAntenna.Controls.Add(this.buttonAntenna6);
+            this.tabPageAntenna.Controls.Add(this.buttonAntenna5);
+            this.tabPageAntenna.Controls.Add(this.buttonAntenna4);
+            this.tabPageAntenna.Controls.Add(this.buttonAntenna3);
+            this.tabPageAntenna.Controls.Add(this.buttonAntenna2);
+            this.tabPageAntenna.Controls.Add(this.buttonAntenna1);
+            this.tabPageAntenna.Controls.Add(this.label18);
+            this.tabPageAntenna.Controls.Add(this.textBoxAntenna8);
+            this.tabPageAntenna.Controls.Add(this.textBoxAntenna7);
+            this.tabPageAntenna.Controls.Add(this.textBoxAntenna6);
+            this.tabPageAntenna.Controls.Add(this.textBoxAntenna5);
+            this.tabPageAntenna.Controls.Add(this.textBoxAntenna4);
+            this.tabPageAntenna.Controls.Add(this.textBoxAntenna3);
+            this.tabPageAntenna.Controls.Add(this.textBoxAntenna2);
+            this.tabPageAntenna.Controls.Add(this.textBoxAntenna1);
+            this.tabPageAntenna.Controls.Add(this.textBoxAntennaFreq8To);
+            this.tabPageAntenna.Controls.Add(this.textBoxAntennaFreq8From);
+            this.tabPageAntenna.Controls.Add(this.textBoxAntennaFreq7To);
+            this.tabPageAntenna.Controls.Add(this.textBoxAntennaFreq7From);
+            this.tabPageAntenna.Controls.Add(this.textBoxAntennaFreq6To);
+            this.tabPageAntenna.Controls.Add(this.textBoxAntennaFreq6From);
+            this.tabPageAntenna.Controls.Add(this.textBoxAntennaFreq5To);
+            this.tabPageAntenna.Controls.Add(this.textBoxAntennaFreq5From);
+            this.tabPageAntenna.Controls.Add(this.textBoxAntennaFreq4To);
+            this.tabPageAntenna.Controls.Add(this.textBoxAntennaFreq4From);
+            this.tabPageAntenna.Controls.Add(this.textBoxAntennaFreq3To);
+            this.tabPageAntenna.Controls.Add(this.textBoxAntennaFreq3From);
+            this.tabPageAntenna.Controls.Add(this.textBoxAntennaFreq2To);
+            this.tabPageAntenna.Controls.Add(this.textBoxAntennaFreq2From);
+            this.tabPageAntenna.Controls.Add(this.textBoxAntennaFreq1To);
+            this.tabPageAntenna.Controls.Add(this.textBoxAntennaFreq1From);
+            this.tabPageAntenna.Controls.Add(this.checkBoxAntenna8);
+            this.tabPageAntenna.Controls.Add(this.checkBoxAntenna7);
+            this.tabPageAntenna.Controls.Add(this.checkBoxAntenna6);
+            this.tabPageAntenna.Controls.Add(this.checkBoxAntenna5);
+            this.tabPageAntenna.Controls.Add(this.checkBoxAntenna4);
+            this.tabPageAntenna.Controls.Add(this.checkBoxAntenna3);
+            this.tabPageAntenna.Controls.Add(this.checkBoxAntenna2);
+            this.tabPageAntenna.Controls.Add(this.checkBoxAntenna1);
+            this.tabPageAntenna.Controls.Add(this.comboBoxAntenna8Controller);
+            this.tabPageAntenna.Controls.Add(this.comboBoxAntenna7Controller);
+            this.tabPageAntenna.Controls.Add(this.comboBoxAntenna6Controller);
+            this.tabPageAntenna.Controls.Add(this.comboBoxAntenna5Controller);
+            this.tabPageAntenna.Controls.Add(this.comboBoxAntenna4Controller);
+            this.tabPageAntenna.Controls.Add(this.comboBoxAntenna3Controller);
+            this.tabPageAntenna.Controls.Add(this.comboBoxAntenna2Controller);
+            this.tabPageAntenna.Controls.Add(this.label17);
+            this.tabPageAntenna.Controls.Add(this.label16);
+            this.tabPageAntenna.Controls.Add(this.comboBoxAntenna1Controller);
+            this.tabPageAntenna.Controls.Add(this.label15);
+            this.tabPageAntenna.Controls.Add(this.label14);
+            this.tabPageAntenna.Location = new System.Drawing.Point(4, 22);
+            this.tabPageAntenna.Margin = new System.Windows.Forms.Padding(2);
+            this.tabPageAntenna.Name = "tabPageAntenna";
+            this.tabPageAntenna.Padding = new System.Windows.Forms.Padding(2);
+            this.tabPageAntenna.Size = new System.Drawing.Size(365, 195);
+            this.tabPageAntenna.TabIndex = 6;
+            this.tabPageAntenna.Text = "Antenna";
+            // 
+            // textBoxAntennaFreq8To
+            // 
+            this.textBoxAntennaFreq8To.Location = new System.Drawing.Point(66, 171);
+            this.textBoxAntennaFreq8To.Margin = new System.Windows.Forms.Padding(2);
+            this.textBoxAntennaFreq8To.Name = "textBoxAntennaFreq8To";
+            this.textBoxAntennaFreq8To.Size = new System.Drawing.Size(50, 20);
+            this.textBoxAntennaFreq8To.TabIndex = 33;
+            this.textBoxAntennaFreq8To.Leave += new System.EventHandler(this.TextBoxAntennaFreq1From_Leave);
+            // 
+            // textBoxAntennaFreq8From
+            // 
+            this.textBoxAntennaFreq8From.Location = new System.Drawing.Point(16, 171);
+            this.textBoxAntennaFreq8From.Margin = new System.Windows.Forms.Padding(2);
+            this.textBoxAntennaFreq8From.Name = "textBoxAntennaFreq8From";
+            this.textBoxAntennaFreq8From.Size = new System.Drawing.Size(50, 20);
+            this.textBoxAntennaFreq8From.TabIndex = 32;
+            this.textBoxAntennaFreq8From.Leave += new System.EventHandler(this.TextBoxAntennaFreq1From_Leave);
+            // 
+            // textBoxAntennaFreq7To
+            // 
+            this.textBoxAntennaFreq7To.Location = new System.Drawing.Point(66, 149);
+            this.textBoxAntennaFreq7To.Margin = new System.Windows.Forms.Padding(2);
+            this.textBoxAntennaFreq7To.Name = "textBoxAntennaFreq7To";
+            this.textBoxAntennaFreq7To.Size = new System.Drawing.Size(50, 20);
+            this.textBoxAntennaFreq7To.TabIndex = 31;
+            this.textBoxAntennaFreq7To.Leave += new System.EventHandler(this.TextBoxAntennaFreq1From_Leave);
+            // 
+            // textBoxAntennaFreq7From
+            // 
+            this.textBoxAntennaFreq7From.Location = new System.Drawing.Point(16, 149);
+            this.textBoxAntennaFreq7From.Margin = new System.Windows.Forms.Padding(2);
+            this.textBoxAntennaFreq7From.Name = "textBoxAntennaFreq7From";
+            this.textBoxAntennaFreq7From.Size = new System.Drawing.Size(50, 20);
+            this.textBoxAntennaFreq7From.TabIndex = 30;
+            this.textBoxAntennaFreq7From.Leave += new System.EventHandler(this.TextBoxAntennaFreq1From_Leave);
+            // 
+            // textBoxAntennaFreq6To
+            // 
+            this.textBoxAntennaFreq6To.Location = new System.Drawing.Point(66, 127);
+            this.textBoxAntennaFreq6To.Margin = new System.Windows.Forms.Padding(2);
+            this.textBoxAntennaFreq6To.Name = "textBoxAntennaFreq6To";
+            this.textBoxAntennaFreq6To.Size = new System.Drawing.Size(50, 20);
+            this.textBoxAntennaFreq6To.TabIndex = 13;
+            this.textBoxAntennaFreq6To.Leave += new System.EventHandler(this.TextBoxAntennaFreq1From_Leave);
+            // 
+            // textBoxAntennaFreq6From
+            // 
+            this.textBoxAntennaFreq6From.Location = new System.Drawing.Point(16, 127);
+            this.textBoxAntennaFreq6From.Margin = new System.Windows.Forms.Padding(2);
+            this.textBoxAntennaFreq6From.Name = "textBoxAntennaFreq6From";
+            this.textBoxAntennaFreq6From.Size = new System.Drawing.Size(50, 20);
+            this.textBoxAntennaFreq6From.TabIndex = 12;
+            this.textBoxAntennaFreq6From.Leave += new System.EventHandler(this.TextBoxAntennaFreq1From_Leave);
+            // 
+            // textBoxAntennaFreq5To
+            // 
+            this.textBoxAntennaFreq5To.Location = new System.Drawing.Point(66, 105);
+            this.textBoxAntennaFreq5To.Margin = new System.Windows.Forms.Padding(2);
+            this.textBoxAntennaFreq5To.Name = "textBoxAntennaFreq5To";
+            this.textBoxAntennaFreq5To.Size = new System.Drawing.Size(50, 20);
+            this.textBoxAntennaFreq5To.TabIndex = 11;
+            this.textBoxAntennaFreq5To.Leave += new System.EventHandler(this.TextBoxAntennaFreq1From_Leave);
+            // 
+            // textBoxAntennaFreq5From
+            // 
+            this.textBoxAntennaFreq5From.Location = new System.Drawing.Point(16, 105);
+            this.textBoxAntennaFreq5From.Margin = new System.Windows.Forms.Padding(2);
+            this.textBoxAntennaFreq5From.Name = "textBoxAntennaFreq5From";
+            this.textBoxAntennaFreq5From.Size = new System.Drawing.Size(50, 20);
+            this.textBoxAntennaFreq5From.TabIndex = 10;
+            this.textBoxAntennaFreq5From.Leave += new System.EventHandler(this.TextBoxAntennaFreq1From_Leave);
+            // 
+            // textBoxAntennaFreq4To
+            // 
+            this.textBoxAntennaFreq4To.Location = new System.Drawing.Point(66, 83);
+            this.textBoxAntennaFreq4To.Margin = new System.Windows.Forms.Padding(2);
+            this.textBoxAntennaFreq4To.Name = "textBoxAntennaFreq4To";
+            this.textBoxAntennaFreq4To.Size = new System.Drawing.Size(50, 20);
+            this.textBoxAntennaFreq4To.TabIndex = 9;
+            this.textBoxAntennaFreq4To.Leave += new System.EventHandler(this.TextBoxAntennaFreq1From_Leave);
+            // 
+            // textBoxAntennaFreq4From
+            // 
+            this.textBoxAntennaFreq4From.Location = new System.Drawing.Point(16, 83);
+            this.textBoxAntennaFreq4From.Margin = new System.Windows.Forms.Padding(2);
+            this.textBoxAntennaFreq4From.Name = "textBoxAntennaFreq4From";
+            this.textBoxAntennaFreq4From.Size = new System.Drawing.Size(50, 20);
+            this.textBoxAntennaFreq4From.TabIndex = 8;
+            this.textBoxAntennaFreq4From.Leave += new System.EventHandler(this.TextBoxAntennaFreq1From_Leave);
+            // 
+            // textBoxAntennaFreq3To
+            // 
+            this.textBoxAntennaFreq3To.Location = new System.Drawing.Point(66, 61);
+            this.textBoxAntennaFreq3To.Margin = new System.Windows.Forms.Padding(2);
+            this.textBoxAntennaFreq3To.Name = "textBoxAntennaFreq3To";
+            this.textBoxAntennaFreq3To.Size = new System.Drawing.Size(50, 20);
+            this.textBoxAntennaFreq3To.TabIndex = 7;
+            this.textBoxAntennaFreq3To.Leave += new System.EventHandler(this.TextBoxAntennaFreq1From_Leave);
+            // 
+            // textBoxAntennaFreq3From
+            // 
+            this.textBoxAntennaFreq3From.Location = new System.Drawing.Point(16, 61);
+            this.textBoxAntennaFreq3From.Margin = new System.Windows.Forms.Padding(2);
+            this.textBoxAntennaFreq3From.Name = "textBoxAntennaFreq3From";
+            this.textBoxAntennaFreq3From.Size = new System.Drawing.Size(50, 20);
+            this.textBoxAntennaFreq3From.TabIndex = 6;
+            this.textBoxAntennaFreq3From.Leave += new System.EventHandler(this.TextBoxAntennaFreq1From_Leave);
+            // 
+            // textBoxAntennaFreq2To
+            // 
+            this.textBoxAntennaFreq2To.Location = new System.Drawing.Point(66, 40);
+            this.textBoxAntennaFreq2To.Margin = new System.Windows.Forms.Padding(2);
+            this.textBoxAntennaFreq2To.Name = "textBoxAntennaFreq2To";
+            this.textBoxAntennaFreq2To.Size = new System.Drawing.Size(50, 20);
+            this.textBoxAntennaFreq2To.TabIndex = 5;
+            this.textBoxAntennaFreq2To.Text = "60";
+            this.textBoxAntennaFreq2To.Leave += new System.EventHandler(this.TextBoxAntennaFreq1From_Leave);
+            // 
+            // textBoxAntennaFreq2From
+            // 
+            this.textBoxAntennaFreq2From.Location = new System.Drawing.Point(16, 40);
+            this.textBoxAntennaFreq2From.Margin = new System.Windows.Forms.Padding(2);
+            this.textBoxAntennaFreq2From.Name = "textBoxAntennaFreq2From";
+            this.textBoxAntennaFreq2From.Size = new System.Drawing.Size(50, 20);
+            this.textBoxAntennaFreq2From.TabIndex = 4;
+            this.textBoxAntennaFreq2From.Text = "12";
+            this.textBoxAntennaFreq2From.Leave += new System.EventHandler(this.TextBoxAntennaFreq1From_Leave);
+            // 
+            // textBoxAntennaFreq1To
+            // 
+            this.textBoxAntennaFreq1To.Location = new System.Drawing.Point(66, 18);
+            this.textBoxAntennaFreq1To.Margin = new System.Windows.Forms.Padding(2);
+            this.textBoxAntennaFreq1To.Name = "textBoxAntennaFreq1To";
+            this.textBoxAntennaFreq1To.Size = new System.Drawing.Size(50, 20);
+            this.textBoxAntennaFreq1To.TabIndex = 1;
+            this.textBoxAntennaFreq1To.Text = "11";
+            this.textBoxAntennaFreq1To.Leave += new System.EventHandler(this.TextBoxAntennaFreq1From_Leave);
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(66, 2);
+            this.label15.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(45, 13);
+            this.label15.TabIndex = 3;
+            this.label15.Text = "To MHz";
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(15, 2);
+            this.label14.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(55, 13);
+            this.label14.TabIndex = 2;
+            this.label14.Text = "From MHz";
+            // 
+            // tabPageFreqWalk
+            // 
+            this.tabPageFreqWalk.BackColor = System.Drawing.Color.LightGray;
+            this.tabPageFreqWalk.Controls.Add(this.comboBoxFreqWalkAntenna);
+            this.tabPageFreqWalk.Controls.Add(this.checkBoxWalk3);
+            this.tabPageFreqWalk.Controls.Add(this.checkBoxWalk2);
+            this.tabPageFreqWalk.Controls.Add(this.checkBoxWalk1);
+            this.tabPageFreqWalk.Controls.Add(this.numericUpDownFreqWalkDelay);
+            this.tabPageFreqWalk.Controls.Add(this.labelFreqWalk3);
+            this.tabPageFreqWalk.Controls.Add(this.labelFreqWalk2);
+            this.tabPageFreqWalk.Controls.Add(this.labelFreqWalk1);
+            this.tabPageFreqWalk.Controls.Add(this.checkedListBoxWalk3);
+            this.tabPageFreqWalk.Controls.Add(this.checkedListBoxWalk2);
+            this.tabPageFreqWalk.Controls.Add(this.checkedListBoxWalk1);
+            this.tabPageFreqWalk.Controls.Add(this.labelInterval);
+            this.tabPageFreqWalk.Location = new System.Drawing.Point(4, 22);
+            this.tabPageFreqWalk.Name = "tabPageFreqWalk";
+            this.tabPageFreqWalk.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageFreqWalk.Size = new System.Drawing.Size(365, 195);
+            this.tabPageFreqWalk.TabIndex = 9;
+            this.tabPageFreqWalk.Text = "FreqWalk";
             // 
             // tabPageRelay1
             // 
@@ -4288,837 +5149,6 @@
             this.comboBoxComRelay4.Size = new System.Drawing.Size(92, 21);
             this.comboBoxComRelay4.TabIndex = 0;
             // 
-            // tabPageExpertLinears
-            // 
-            this.tabPageExpertLinears.Controls.Add(this.button2);
-            this.tabPageExpertLinears.Controls.Add(this.button1);
-            this.tabPageExpertLinears.Controls.Add(this.labelExpertLinearsInfo);
-            this.tabPageExpertLinears.Controls.Add(this.checkBoxExpertLinears4_2);
-            this.tabPageExpertLinears.Controls.Add(this.checkBoxExpertLinears6_2);
-            this.tabPageExpertLinears.Controls.Add(this.checkBoxExpertLinears10_2);
-            this.tabPageExpertLinears.Controls.Add(this.checkBoxExpertLinears12_2);
-            this.tabPageExpertLinears.Controls.Add(this.checkBoxExpertLinears15_2);
-            this.tabPageExpertLinears.Controls.Add(this.checkBoxExpertLinears17_2);
-            this.tabPageExpertLinears.Controls.Add(this.checkBoxExpertLinears4_1);
-            this.tabPageExpertLinears.Controls.Add(this.checkBoxExpertLinears6_1);
-            this.tabPageExpertLinears.Controls.Add(this.checkBoxExpertLinears10_1);
-            this.tabPageExpertLinears.Controls.Add(this.checkBoxExpertLinears12_1);
-            this.tabPageExpertLinears.Controls.Add(this.checkBoxExpertLinears15_1);
-            this.tabPageExpertLinears.Controls.Add(this.checkBoxExpertLinears17_1);
-            this.tabPageExpertLinears.Controls.Add(this.checkBoxExpertLinears20_2);
-            this.tabPageExpertLinears.Controls.Add(this.checkBoxExpertLinears30_2);
-            this.tabPageExpertLinears.Controls.Add(this.checkBoxExpertLinears40_2);
-            this.tabPageExpertLinears.Controls.Add(this.checkBoxExpertLinears60_2);
-            this.tabPageExpertLinears.Controls.Add(this.checkBoxExpertLinears80_2);
-            this.tabPageExpertLinears.Controls.Add(this.checkBoxExpertLinears160_2);
-            this.tabPageExpertLinears.Controls.Add(this.checkBoxExpertLinears20_1);
-            this.tabPageExpertLinears.Controls.Add(this.checkBoxExpertLinears30_1);
-            this.tabPageExpertLinears.Controls.Add(this.checkBoxExpertLinears40_1);
-            this.tabPageExpertLinears.Controls.Add(this.checkBoxExpertLinears60_1);
-            this.tabPageExpertLinears.Controls.Add(this.checkBoxExpertLinears80_1);
-            this.tabPageExpertLinears.Controls.Add(this.checkBoxExpertLinears160_1);
-            this.tabPageExpertLinears.Controls.Add(this.buttonExpertLinearsTune);
-            this.tabPageExpertLinears.Controls.Add(this.comboBoxExpertLinears4_2);
-            this.tabPageExpertLinears.Controls.Add(this.label28);
-            this.tabPageExpertLinears.Controls.Add(this.comboBoxExpertLinears4_1);
-            this.tabPageExpertLinears.Controls.Add(this.comboBoxExpertLinears6_2);
-            this.tabPageExpertLinears.Controls.Add(this.label27);
-            this.tabPageExpertLinears.Controls.Add(this.comboBoxExpertLinears6_1);
-            this.tabPageExpertLinears.Controls.Add(this.comboBoxExpertLinears10_2);
-            this.tabPageExpertLinears.Controls.Add(this.label26);
-            this.tabPageExpertLinears.Controls.Add(this.comboBoxExpertLinears10_1);
-            this.tabPageExpertLinears.Controls.Add(this.comboBoxExpertLinears12_2);
-            this.tabPageExpertLinears.Controls.Add(this.label25);
-            this.tabPageExpertLinears.Controls.Add(this.comboBoxExpertLinears12_1);
-            this.tabPageExpertLinears.Controls.Add(this.comboBoxExpertLinears15_2);
-            this.tabPageExpertLinears.Controls.Add(this.label24);
-            this.tabPageExpertLinears.Controls.Add(this.comboBoxExpertLinears15_1);
-            this.tabPageExpertLinears.Controls.Add(this.comboBoxExpertLinears17_2);
-            this.tabPageExpertLinears.Controls.Add(this.label23);
-            this.tabPageExpertLinears.Controls.Add(this.comboBoxExpertLinears17_1);
-            this.tabPageExpertLinears.Controls.Add(this.comboBoxExpertLinears20_2);
-            this.tabPageExpertLinears.Controls.Add(this.label22);
-            this.tabPageExpertLinears.Controls.Add(this.comboBoxExpertLinears20_1);
-            this.tabPageExpertLinears.Controls.Add(this.comboBoxExpertLinears30_2);
-            this.tabPageExpertLinears.Controls.Add(this.label21);
-            this.tabPageExpertLinears.Controls.Add(this.comboBoxExpertLinears30_1);
-            this.tabPageExpertLinears.Controls.Add(this.comboBoxExpertLinears40_2);
-            this.tabPageExpertLinears.Controls.Add(this.label20);
-            this.tabPageExpertLinears.Controls.Add(this.comboBoxExpertLinears40_1);
-            this.tabPageExpertLinears.Controls.Add(this.comboBoxExpertLinears60_2);
-            this.tabPageExpertLinears.Controls.Add(this.label19);
-            this.tabPageExpertLinears.Controls.Add(this.comboBoxExpertLinears60_1);
-            this.tabPageExpertLinears.Controls.Add(this.comboBoxExpertLinears80_2);
-            this.tabPageExpertLinears.Controls.Add(this.label13);
-            this.tabPageExpertLinears.Controls.Add(this.comboBoxExpertLinears80_1);
-            this.tabPageExpertLinears.Controls.Add(this.comboBoxExpertLinears160_2);
-            this.tabPageExpertLinears.Controls.Add(this.label12);
-            this.tabPageExpertLinears.Controls.Add(this.comboBoxExpertLinears160_1);
-            this.tabPageExpertLinears.Location = new System.Drawing.Point(4, 22);
-            this.tabPageExpertLinears.Name = "tabPageExpertLinears";
-            this.tabPageExpertLinears.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageExpertLinears.Size = new System.Drawing.Size(365, 195);
-            this.tabPageExpertLinears.TabIndex = 10;
-            this.tabPageExpertLinears.Text = "ExpertLinears";
-            this.toolTip1.SetToolTip(this.tabPageExpertLinears, "Enable to tune this band/antenna");
-            this.tabPageExpertLinears.UseVisualStyleBackColor = true;
-            this.tabPageExpertLinears.Click += new System.EventHandler(this.tabPageExpertLinears_Click);
-            this.tabPageExpertLinears.Enter += new System.EventHandler(this.tabPageExpertLinears_Enter);
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(317, 30);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(42, 23);
-            this.button2.TabIndex = 63;
-            this.button2.Text = "Off";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(317, 6);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(42, 23);
-            this.button1.TabIndex = 62;
-            this.button1.Text = "On";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click_1);
-            // 
-            // labelExpertLinearsInfo
-            // 
-            this.labelExpertLinearsInfo.AutoSize = true;
-            this.labelExpertLinearsInfo.Location = new System.Drawing.Point(36, 169);
-            this.labelExpertLinearsInfo.Name = "labelExpertLinearsInfo";
-            this.labelExpertLinearsInfo.Size = new System.Drawing.Size(59, 13);
-            this.labelExpertLinearsInfo.TabIndex = 61;
-            this.labelExpertLinearsInfo.Text = "Information";
-            // 
-            // checkBoxExpertLinears4_2
-            // 
-            this.checkBoxExpertLinears4_2.AutoSize = true;
-            this.checkBoxExpertLinears4_2.Enabled = false;
-            this.checkBoxExpertLinears4_2.Location = new System.Drawing.Point(295, 144);
-            this.checkBoxExpertLinears4_2.Name = "checkBoxExpertLinears4_2";
-            this.checkBoxExpertLinears4_2.Size = new System.Drawing.Size(15, 14);
-            this.checkBoxExpertLinears4_2.TabIndex = 60;
-            this.toolTip1.SetToolTip(this.checkBoxExpertLinears4_2, "Check to enable antenna for tune\r\nCtrl-Click to enable/disable  all");
-            this.checkBoxExpertLinears4_2.UseVisualStyleBackColor = true;
-            this.checkBoxExpertLinears4_2.CheckedChanged += new System.EventHandler(this.CheckBoxExpertLinearsCheckedChanged);
-            // 
-            // checkBoxExpertLinears6_2
-            // 
-            this.checkBoxExpertLinears6_2.AutoSize = true;
-            this.checkBoxExpertLinears6_2.Location = new System.Drawing.Point(295, 116);
-            this.checkBoxExpertLinears6_2.Name = "checkBoxExpertLinears6_2";
-            this.checkBoxExpertLinears6_2.Size = new System.Drawing.Size(15, 14);
-            this.checkBoxExpertLinears6_2.TabIndex = 59;
-            this.toolTip1.SetToolTip(this.checkBoxExpertLinears6_2, "Check to enable antenna for tune\r\nCtrl-Click to enable/disable  all");
-            this.checkBoxExpertLinears6_2.UseVisualStyleBackColor = true;
-            this.checkBoxExpertLinears6_2.CheckedChanged += new System.EventHandler(this.CheckBoxExpertLinearsCheckedChanged);
-            // 
-            // checkBoxExpertLinears10_2
-            // 
-            this.checkBoxExpertLinears10_2.AutoSize = true;
-            this.checkBoxExpertLinears10_2.Location = new System.Drawing.Point(295, 89);
-            this.checkBoxExpertLinears10_2.Name = "checkBoxExpertLinears10_2";
-            this.checkBoxExpertLinears10_2.Size = new System.Drawing.Size(15, 14);
-            this.checkBoxExpertLinears10_2.TabIndex = 58;
-            this.toolTip1.SetToolTip(this.checkBoxExpertLinears10_2, "Check to enable antenna for tune\r\nCtrl-Click to enable/disable  all");
-            this.checkBoxExpertLinears10_2.UseVisualStyleBackColor = true;
-            this.checkBoxExpertLinears10_2.CheckedChanged += new System.EventHandler(this.CheckBoxExpertLinearsCheckedChanged);
-            // 
-            // checkBoxExpertLinears12_2
-            // 
-            this.checkBoxExpertLinears12_2.AutoSize = true;
-            this.checkBoxExpertLinears12_2.Location = new System.Drawing.Point(295, 62);
-            this.checkBoxExpertLinears12_2.Name = "checkBoxExpertLinears12_2";
-            this.checkBoxExpertLinears12_2.Size = new System.Drawing.Size(15, 14);
-            this.checkBoxExpertLinears12_2.TabIndex = 57;
-            this.toolTip1.SetToolTip(this.checkBoxExpertLinears12_2, "Check to enable antenna for tune\r\nCtrl-Click to enable/disable  all");
-            this.checkBoxExpertLinears12_2.UseVisualStyleBackColor = true;
-            this.checkBoxExpertLinears12_2.CheckedChanged += new System.EventHandler(this.CheckBoxExpertLinearsCheckedChanged);
-            // 
-            // checkBoxExpertLinears15_2
-            // 
-            this.checkBoxExpertLinears15_2.AutoSize = true;
-            this.checkBoxExpertLinears15_2.Location = new System.Drawing.Point(295, 36);
-            this.checkBoxExpertLinears15_2.Name = "checkBoxExpertLinears15_2";
-            this.checkBoxExpertLinears15_2.Size = new System.Drawing.Size(15, 14);
-            this.checkBoxExpertLinears15_2.TabIndex = 56;
-            this.toolTip1.SetToolTip(this.checkBoxExpertLinears15_2, "Check to enable antenna for tune\r\nCtrl-Click to enable/disable  all");
-            this.checkBoxExpertLinears15_2.UseVisualStyleBackColor = true;
-            this.checkBoxExpertLinears15_2.CheckedChanged += new System.EventHandler(this.CheckBoxExpertLinearsCheckedChanged);
-            // 
-            // checkBoxExpertLinears17_2
-            // 
-            this.checkBoxExpertLinears17_2.AutoSize = true;
-            this.checkBoxExpertLinears17_2.Location = new System.Drawing.Point(295, 9);
-            this.checkBoxExpertLinears17_2.Name = "checkBoxExpertLinears17_2";
-            this.checkBoxExpertLinears17_2.Size = new System.Drawing.Size(15, 14);
-            this.checkBoxExpertLinears17_2.TabIndex = 55;
-            this.toolTip1.SetToolTip(this.checkBoxExpertLinears17_2, "Check to enable antenna for tune\r\nCtrl-Click to enable/disable  all");
-            this.checkBoxExpertLinears17_2.UseVisualStyleBackColor = true;
-            this.checkBoxExpertLinears17_2.CheckedChanged += new System.EventHandler(this.CheckBoxExpertLinearsCheckedChanged);
-            // 
-            // checkBoxExpertLinears4_1
-            // 
-            this.checkBoxExpertLinears4_1.AutoSize = true;
-            this.checkBoxExpertLinears4_1.Enabled = false;
-            this.checkBoxExpertLinears4_1.Location = new System.Drawing.Point(237, 144);
-            this.checkBoxExpertLinears4_1.Name = "checkBoxExpertLinears4_1";
-            this.checkBoxExpertLinears4_1.Size = new System.Drawing.Size(15, 14);
-            this.checkBoxExpertLinears4_1.TabIndex = 54;
-            this.toolTip1.SetToolTip(this.checkBoxExpertLinears4_1, "Check to enable antenna for tune\r\nCtrl-Click to enable/disable  all");
-            this.checkBoxExpertLinears4_1.UseVisualStyleBackColor = true;
-            this.checkBoxExpertLinears4_1.CheckedChanged += new System.EventHandler(this.CheckBoxExpertLinearsCheckedChanged);
-            // 
-            // checkBoxExpertLinears6_1
-            // 
-            this.checkBoxExpertLinears6_1.AutoSize = true;
-            this.checkBoxExpertLinears6_1.Location = new System.Drawing.Point(237, 116);
-            this.checkBoxExpertLinears6_1.Name = "checkBoxExpertLinears6_1";
-            this.checkBoxExpertLinears6_1.Size = new System.Drawing.Size(15, 14);
-            this.checkBoxExpertLinears6_1.TabIndex = 53;
-            this.toolTip1.SetToolTip(this.checkBoxExpertLinears6_1, "Check to enable antenna for tune\r\nCtrl-Click to enable/disable  all");
-            this.checkBoxExpertLinears6_1.UseVisualStyleBackColor = true;
-            this.checkBoxExpertLinears6_1.CheckedChanged += new System.EventHandler(this.CheckBoxExpertLinearsCheckedChanged);
-            // 
-            // checkBoxExpertLinears10_1
-            // 
-            this.checkBoxExpertLinears10_1.AutoSize = true;
-            this.checkBoxExpertLinears10_1.Location = new System.Drawing.Point(237, 89);
-            this.checkBoxExpertLinears10_1.Name = "checkBoxExpertLinears10_1";
-            this.checkBoxExpertLinears10_1.Size = new System.Drawing.Size(15, 14);
-            this.checkBoxExpertLinears10_1.TabIndex = 52;
-            this.toolTip1.SetToolTip(this.checkBoxExpertLinears10_1, "Check to enable antenna for tune\r\nCtrl-Click to enable/disable  all");
-            this.checkBoxExpertLinears10_1.UseVisualStyleBackColor = true;
-            this.checkBoxExpertLinears10_1.CheckedChanged += new System.EventHandler(this.CheckBoxExpertLinearsCheckedChanged);
-            // 
-            // checkBoxExpertLinears12_1
-            // 
-            this.checkBoxExpertLinears12_1.AutoSize = true;
-            this.checkBoxExpertLinears12_1.Location = new System.Drawing.Point(237, 62);
-            this.checkBoxExpertLinears12_1.Name = "checkBoxExpertLinears12_1";
-            this.checkBoxExpertLinears12_1.Size = new System.Drawing.Size(15, 14);
-            this.checkBoxExpertLinears12_1.TabIndex = 51;
-            this.toolTip1.SetToolTip(this.checkBoxExpertLinears12_1, "Check to enable antenna for tune\r\nCtrl-Click to enable/disable  all");
-            this.checkBoxExpertLinears12_1.UseVisualStyleBackColor = true;
-            this.checkBoxExpertLinears12_1.CheckedChanged += new System.EventHandler(this.CheckBoxExpertLinearsCheckedChanged);
-            // 
-            // checkBoxExpertLinears15_1
-            // 
-            this.checkBoxExpertLinears15_1.AutoSize = true;
-            this.checkBoxExpertLinears15_1.Location = new System.Drawing.Point(237, 36);
-            this.checkBoxExpertLinears15_1.Name = "checkBoxExpertLinears15_1";
-            this.checkBoxExpertLinears15_1.Size = new System.Drawing.Size(15, 14);
-            this.checkBoxExpertLinears15_1.TabIndex = 50;
-            this.toolTip1.SetToolTip(this.checkBoxExpertLinears15_1, "Check to enable antenna for tune\r\nCtrl-Click to enable/disable  all");
-            this.checkBoxExpertLinears15_1.UseVisualStyleBackColor = true;
-            this.checkBoxExpertLinears15_1.CheckedChanged += new System.EventHandler(this.CheckBoxExpertLinearsCheckedChanged);
-            // 
-            // checkBoxExpertLinears17_1
-            // 
-            this.checkBoxExpertLinears17_1.AutoSize = true;
-            this.checkBoxExpertLinears17_1.Location = new System.Drawing.Point(237, 9);
-            this.checkBoxExpertLinears17_1.Name = "checkBoxExpertLinears17_1";
-            this.checkBoxExpertLinears17_1.Size = new System.Drawing.Size(15, 14);
-            this.checkBoxExpertLinears17_1.TabIndex = 49;
-            this.toolTip1.SetToolTip(this.checkBoxExpertLinears17_1, "Check to enable antenna for tune\r\nCtrl-Click to enable/disable  all");
-            this.checkBoxExpertLinears17_1.UseVisualStyleBackColor = true;
-            this.checkBoxExpertLinears17_1.CheckedChanged += new System.EventHandler(this.CheckBoxExpertLinearsCheckedChanged);
-            // 
-            // checkBoxExpertLinears20_2
-            // 
-            this.checkBoxExpertLinears20_2.AutoSize = true;
-            this.checkBoxExpertLinears20_2.Location = new System.Drawing.Point(135, 144);
-            this.checkBoxExpertLinears20_2.Name = "checkBoxExpertLinears20_2";
-            this.checkBoxExpertLinears20_2.Size = new System.Drawing.Size(15, 14);
-            this.checkBoxExpertLinears20_2.TabIndex = 48;
-            this.toolTip1.SetToolTip(this.checkBoxExpertLinears20_2, "Check to enable antenna for tune\r\nCtrl-Click to enable/disable  all");
-            this.checkBoxExpertLinears20_2.UseVisualStyleBackColor = true;
-            this.checkBoxExpertLinears20_2.CheckedChanged += new System.EventHandler(this.CheckBoxExpertLinearsCheckedChanged);
-            // 
-            // checkBoxExpertLinears30_2
-            // 
-            this.checkBoxExpertLinears30_2.AutoSize = true;
-            this.checkBoxExpertLinears30_2.Location = new System.Drawing.Point(135, 116);
-            this.checkBoxExpertLinears30_2.Name = "checkBoxExpertLinears30_2";
-            this.checkBoxExpertLinears30_2.Size = new System.Drawing.Size(15, 14);
-            this.checkBoxExpertLinears30_2.TabIndex = 47;
-            this.toolTip1.SetToolTip(this.checkBoxExpertLinears30_2, "Check to enable antenna for tune\r\nCtrl-Click to enable/disable  all");
-            this.checkBoxExpertLinears30_2.UseVisualStyleBackColor = true;
-            this.checkBoxExpertLinears30_2.CheckedChanged += new System.EventHandler(this.CheckBoxExpertLinearsCheckedChanged);
-            // 
-            // checkBoxExpertLinears40_2
-            // 
-            this.checkBoxExpertLinears40_2.AutoSize = true;
-            this.checkBoxExpertLinears40_2.Location = new System.Drawing.Point(135, 89);
-            this.checkBoxExpertLinears40_2.Name = "checkBoxExpertLinears40_2";
-            this.checkBoxExpertLinears40_2.Size = new System.Drawing.Size(15, 14);
-            this.checkBoxExpertLinears40_2.TabIndex = 46;
-            this.toolTip1.SetToolTip(this.checkBoxExpertLinears40_2, "Check to enable antenna for tune\r\nCtrl-Click to enable/disable  all");
-            this.checkBoxExpertLinears40_2.UseVisualStyleBackColor = true;
-            this.checkBoxExpertLinears40_2.CheckedChanged += new System.EventHandler(this.CheckBoxExpertLinearsCheckedChanged);
-            // 
-            // checkBoxExpertLinears60_2
-            // 
-            this.checkBoxExpertLinears60_2.AutoSize = true;
-            this.checkBoxExpertLinears60_2.Location = new System.Drawing.Point(135, 62);
-            this.checkBoxExpertLinears60_2.Name = "checkBoxExpertLinears60_2";
-            this.checkBoxExpertLinears60_2.Size = new System.Drawing.Size(15, 14);
-            this.checkBoxExpertLinears60_2.TabIndex = 45;
-            this.toolTip1.SetToolTip(this.checkBoxExpertLinears60_2, "Check to enable antenna for tune\r\nCtrl-Click to enable/disable  all");
-            this.checkBoxExpertLinears60_2.UseVisualStyleBackColor = true;
-            this.checkBoxExpertLinears60_2.CheckedChanged += new System.EventHandler(this.CheckBoxExpertLinearsCheckedChanged);
-            // 
-            // checkBoxExpertLinears80_2
-            // 
-            this.checkBoxExpertLinears80_2.AutoSize = true;
-            this.checkBoxExpertLinears80_2.Location = new System.Drawing.Point(135, 36);
-            this.checkBoxExpertLinears80_2.Name = "checkBoxExpertLinears80_2";
-            this.checkBoxExpertLinears80_2.Size = new System.Drawing.Size(15, 14);
-            this.checkBoxExpertLinears80_2.TabIndex = 44;
-            this.toolTip1.SetToolTip(this.checkBoxExpertLinears80_2, "Check to enable antenna for tune\r\nCtrl-Click to enable/disable  all\r\n");
-            this.checkBoxExpertLinears80_2.UseVisualStyleBackColor = true;
-            this.checkBoxExpertLinears80_2.CheckedChanged += new System.EventHandler(this.CheckBoxExpertLinearsCheckedChanged);
-            this.checkBoxExpertLinears80_2.Click += new System.EventHandler(this.CheckBoxExpertLinearsCheckedChanged);
-            // 
-            // checkBoxExpertLinears160_2
-            // 
-            this.checkBoxExpertLinears160_2.AutoSize = true;
-            this.checkBoxExpertLinears160_2.Location = new System.Drawing.Point(135, 9);
-            this.checkBoxExpertLinears160_2.Name = "checkBoxExpertLinears160_2";
-            this.checkBoxExpertLinears160_2.Size = new System.Drawing.Size(15, 14);
-            this.checkBoxExpertLinears160_2.TabIndex = 43;
-            this.toolTip1.SetToolTip(this.checkBoxExpertLinears160_2, "Check to enable antenna for tune\r\nCtrl-Click to enable/disable  all\r\n");
-            this.checkBoxExpertLinears160_2.UseVisualStyleBackColor = true;
-            this.checkBoxExpertLinears160_2.CheckedChanged += new System.EventHandler(this.CheckBoxExpertLinearsCheckedChanged);
-            // 
-            // checkBoxExpertLinears20_1
-            // 
-            this.checkBoxExpertLinears20_1.AutoSize = true;
-            this.checkBoxExpertLinears20_1.Location = new System.Drawing.Point(77, 144);
-            this.checkBoxExpertLinears20_1.Name = "checkBoxExpertLinears20_1";
-            this.checkBoxExpertLinears20_1.Size = new System.Drawing.Size(15, 14);
-            this.checkBoxExpertLinears20_1.TabIndex = 42;
-            this.toolTip1.SetToolTip(this.checkBoxExpertLinears20_1, "Check to enable antenna for tune\r\nCtrl-Click to enable/disable  all");
-            this.checkBoxExpertLinears20_1.UseVisualStyleBackColor = true;
-            this.checkBoxExpertLinears20_1.CheckedChanged += new System.EventHandler(this.CheckBoxExpertLinearsCheckedChanged);
-            // 
-            // checkBoxExpertLinears30_1
-            // 
-            this.checkBoxExpertLinears30_1.AutoSize = true;
-            this.checkBoxExpertLinears30_1.Location = new System.Drawing.Point(77, 116);
-            this.checkBoxExpertLinears30_1.Name = "checkBoxExpertLinears30_1";
-            this.checkBoxExpertLinears30_1.Size = new System.Drawing.Size(15, 14);
-            this.checkBoxExpertLinears30_1.TabIndex = 41;
-            this.toolTip1.SetToolTip(this.checkBoxExpertLinears30_1, "Check to enable antenna for tune\r\nCtrl-Click to enable/disable  all");
-            this.checkBoxExpertLinears30_1.UseVisualStyleBackColor = true;
-            this.checkBoxExpertLinears30_1.CheckedChanged += new System.EventHandler(this.CheckBoxExpertLinearsCheckedChanged);
-            // 
-            // checkBoxExpertLinears40_1
-            // 
-            this.checkBoxExpertLinears40_1.AutoSize = true;
-            this.checkBoxExpertLinears40_1.Location = new System.Drawing.Point(77, 89);
-            this.checkBoxExpertLinears40_1.Name = "checkBoxExpertLinears40_1";
-            this.checkBoxExpertLinears40_1.Size = new System.Drawing.Size(15, 14);
-            this.checkBoxExpertLinears40_1.TabIndex = 40;
-            this.toolTip1.SetToolTip(this.checkBoxExpertLinears40_1, "Check to enable antenna for tune\r\nCtrl-Click to enable/disable  all");
-            this.checkBoxExpertLinears40_1.UseVisualStyleBackColor = true;
-            this.checkBoxExpertLinears40_1.CheckedChanged += new System.EventHandler(this.CheckBoxExpertLinearsCheckedChanged);
-            // 
-            // checkBoxExpertLinears60_1
-            // 
-            this.checkBoxExpertLinears60_1.AutoSize = true;
-            this.checkBoxExpertLinears60_1.Location = new System.Drawing.Point(77, 62);
-            this.checkBoxExpertLinears60_1.Name = "checkBoxExpertLinears60_1";
-            this.checkBoxExpertLinears60_1.Size = new System.Drawing.Size(15, 14);
-            this.checkBoxExpertLinears60_1.TabIndex = 39;
-            this.toolTip1.SetToolTip(this.checkBoxExpertLinears60_1, "Check to enable antenna for tune\r\nCtrl-Click to enable/disable  all");
-            this.checkBoxExpertLinears60_1.UseVisualStyleBackColor = true;
-            this.checkBoxExpertLinears60_1.CheckedChanged += new System.EventHandler(this.CheckBoxExpertLinearsCheckedChanged);
-            // 
-            // checkBoxExpertLinears80_1
-            // 
-            this.checkBoxExpertLinears80_1.AutoSize = true;
-            this.checkBoxExpertLinears80_1.Location = new System.Drawing.Point(77, 36);
-            this.checkBoxExpertLinears80_1.Name = "checkBoxExpertLinears80_1";
-            this.checkBoxExpertLinears80_1.Size = new System.Drawing.Size(15, 14);
-            this.checkBoxExpertLinears80_1.TabIndex = 38;
-            this.toolTip1.SetToolTip(this.checkBoxExpertLinears80_1, "Check to enable antenna for tune\r\nCtrl-Click to enable/disable  all\r\n");
-            this.checkBoxExpertLinears80_1.UseVisualStyleBackColor = true;
-            this.checkBoxExpertLinears80_1.CheckedChanged += new System.EventHandler(this.CheckBoxExpertLinearsCheckedChanged);
-            // 
-            // checkBoxExpertLinears160_1
-            // 
-            this.checkBoxExpertLinears160_1.AutoSize = true;
-            this.checkBoxExpertLinears160_1.Location = new System.Drawing.Point(77, 9);
-            this.checkBoxExpertLinears160_1.Name = "checkBoxExpertLinears160_1";
-            this.checkBoxExpertLinears160_1.Size = new System.Drawing.Size(15, 14);
-            this.checkBoxExpertLinears160_1.TabIndex = 37;
-            this.toolTip1.SetToolTip(this.checkBoxExpertLinears160_1, "Check to enable antenna for tune\r\nCtrl-Click to enable/disable  all\r\n");
-            this.checkBoxExpertLinears160_1.UseVisualStyleBackColor = true;
-            this.checkBoxExpertLinears160_1.CheckedChanged += new System.EventHandler(this.CheckBoxExpertLinearsCheckedChanged);
-            // 
-            // buttonExpertLinearsTune
-            // 
-            this.buttonExpertLinearsTune.Location = new System.Drawing.Point(272, 165);
-            this.buttonExpertLinearsTune.Name = "buttonExpertLinearsTune";
-            this.buttonExpertLinearsTune.Size = new System.Drawing.Size(75, 23);
-            this.buttonExpertLinearsTune.TabIndex = 36;
-            this.buttonExpertLinearsTune.Text = "Tune";
-            this.toolTip1.SetToolTip(this.buttonExpertLinearsTune, "Tune selected antennas");
-            this.buttonExpertLinearsTune.UseVisualStyleBackColor = true;
-            this.buttonExpertLinearsTune.Click += new System.EventHandler(this.buttonExpertLinearsTune_Click);
-            // 
-            // comboBoxExpertLinears4_2
-            // 
-            this.comboBoxExpertLinears4_2.FormattingEnabled = true;
-            this.comboBoxExpertLinears4_2.Items.AddRange(new object[] {
-            "NO",
-            "1",
-            "2",
-            "3",
-            "4"});
-            this.comboBoxExpertLinears4_2.Location = new System.Drawing.Point(254, 140);
-            this.comboBoxExpertLinears4_2.Name = "comboBoxExpertLinears4_2";
-            this.comboBoxExpertLinears4_2.Size = new System.Drawing.Size(40, 21);
-            this.comboBoxExpertLinears4_2.TabIndex = 35;
-            this.comboBoxExpertLinears4_2.Enter += new System.EventHandler(this.comboBoxExpertLinears4_2_Enter);
-            // 
-            // label28
-            // 
-            this.label28.AutoSize = true;
-            this.label28.Location = new System.Drawing.Point(168, 144);
-            this.label28.Name = "label28";
-            this.label28.Size = new System.Drawing.Size(22, 13);
-            this.label28.TabIndex = 34;
-            this.label28.Text = "4M";
-            // 
-            // comboBoxExpertLinears4_1
-            // 
-            this.comboBoxExpertLinears4_1.FormattingEnabled = true;
-            this.comboBoxExpertLinears4_1.Items.AddRange(new object[] {
-            "NO",
-            "1",
-            "2",
-            "3",
-            "4"});
-            this.comboBoxExpertLinears4_1.Location = new System.Drawing.Point(196, 140);
-            this.comboBoxExpertLinears4_1.Name = "comboBoxExpertLinears4_1";
-            this.comboBoxExpertLinears4_1.Size = new System.Drawing.Size(40, 21);
-            this.comboBoxExpertLinears4_1.TabIndex = 33;
-            // 
-            // comboBoxExpertLinears6_2
-            // 
-            this.comboBoxExpertLinears6_2.FormattingEnabled = true;
-            this.comboBoxExpertLinears6_2.Items.AddRange(new object[] {
-            "NO",
-            "1",
-            "2",
-            "3",
-            "4"});
-            this.comboBoxExpertLinears6_2.Location = new System.Drawing.Point(254, 114);
-            this.comboBoxExpertLinears6_2.Name = "comboBoxExpertLinears6_2";
-            this.comboBoxExpertLinears6_2.Size = new System.Drawing.Size(40, 21);
-            this.comboBoxExpertLinears6_2.TabIndex = 32;
-            // 
-            // label27
-            // 
-            this.label27.AutoSize = true;
-            this.label27.Location = new System.Drawing.Point(168, 118);
-            this.label27.Name = "label27";
-            this.label27.Size = new System.Drawing.Size(22, 13);
-            this.label27.TabIndex = 31;
-            this.label27.Text = "6M";
-            // 
-            // comboBoxExpertLinears6_1
-            // 
-            this.comboBoxExpertLinears6_1.FormattingEnabled = true;
-            this.comboBoxExpertLinears6_1.Items.AddRange(new object[] {
-            "NO",
-            "1",
-            "2",
-            "3",
-            "4"});
-            this.comboBoxExpertLinears6_1.Location = new System.Drawing.Point(196, 114);
-            this.comboBoxExpertLinears6_1.Name = "comboBoxExpertLinears6_1";
-            this.comboBoxExpertLinears6_1.Size = new System.Drawing.Size(40, 21);
-            this.comboBoxExpertLinears6_1.TabIndex = 30;
-            // 
-            // comboBoxExpertLinears10_2
-            // 
-            this.comboBoxExpertLinears10_2.FormattingEnabled = true;
-            this.comboBoxExpertLinears10_2.Items.AddRange(new object[] {
-            "NO",
-            "1",
-            "2",
-            "3",
-            "4"});
-            this.comboBoxExpertLinears10_2.Location = new System.Drawing.Point(254, 87);
-            this.comboBoxExpertLinears10_2.Name = "comboBoxExpertLinears10_2";
-            this.comboBoxExpertLinears10_2.Size = new System.Drawing.Size(40, 21);
-            this.comboBoxExpertLinears10_2.TabIndex = 29;
-            // 
-            // label26
-            // 
-            this.label26.AutoSize = true;
-            this.label26.Location = new System.Drawing.Point(168, 91);
-            this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(28, 13);
-            this.label26.TabIndex = 28;
-            this.label26.Text = "10M";
-            // 
-            // comboBoxExpertLinears10_1
-            // 
-            this.comboBoxExpertLinears10_1.FormattingEnabled = true;
-            this.comboBoxExpertLinears10_1.Items.AddRange(new object[] {
-            "NO",
-            "1",
-            "2",
-            "3",
-            "4"});
-            this.comboBoxExpertLinears10_1.Location = new System.Drawing.Point(196, 87);
-            this.comboBoxExpertLinears10_1.Name = "comboBoxExpertLinears10_1";
-            this.comboBoxExpertLinears10_1.Size = new System.Drawing.Size(40, 21);
-            this.comboBoxExpertLinears10_1.TabIndex = 27;
-            // 
-            // comboBoxExpertLinears12_2
-            // 
-            this.comboBoxExpertLinears12_2.FormattingEnabled = true;
-            this.comboBoxExpertLinears12_2.Items.AddRange(new object[] {
-            "NO",
-            "1",
-            "2",
-            "3",
-            "4"});
-            this.comboBoxExpertLinears12_2.Location = new System.Drawing.Point(254, 60);
-            this.comboBoxExpertLinears12_2.Name = "comboBoxExpertLinears12_2";
-            this.comboBoxExpertLinears12_2.Size = new System.Drawing.Size(40, 21);
-            this.comboBoxExpertLinears12_2.TabIndex = 26;
-            // 
-            // label25
-            // 
-            this.label25.AutoSize = true;
-            this.label25.Location = new System.Drawing.Point(168, 64);
-            this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(28, 13);
-            this.label25.TabIndex = 25;
-            this.label25.Text = "12M";
-            // 
-            // comboBoxExpertLinears12_1
-            // 
-            this.comboBoxExpertLinears12_1.FormattingEnabled = true;
-            this.comboBoxExpertLinears12_1.Items.AddRange(new object[] {
-            "NO",
-            "1",
-            "2",
-            "3",
-            "4"});
-            this.comboBoxExpertLinears12_1.Location = new System.Drawing.Point(196, 60);
-            this.comboBoxExpertLinears12_1.Name = "comboBoxExpertLinears12_1";
-            this.comboBoxExpertLinears12_1.Size = new System.Drawing.Size(40, 21);
-            this.comboBoxExpertLinears12_1.TabIndex = 24;
-            // 
-            // comboBoxExpertLinears15_2
-            // 
-            this.comboBoxExpertLinears15_2.FormattingEnabled = true;
-            this.comboBoxExpertLinears15_2.Items.AddRange(new object[] {
-            "NO",
-            "1",
-            "2",
-            "3",
-            "4"});
-            this.comboBoxExpertLinears15_2.Location = new System.Drawing.Point(254, 33);
-            this.comboBoxExpertLinears15_2.Name = "comboBoxExpertLinears15_2";
-            this.comboBoxExpertLinears15_2.Size = new System.Drawing.Size(40, 21);
-            this.comboBoxExpertLinears15_2.TabIndex = 23;
-            // 
-            // label24
-            // 
-            this.label24.AutoSize = true;
-            this.label24.Location = new System.Drawing.Point(168, 37);
-            this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(28, 13);
-            this.label24.TabIndex = 22;
-            this.label24.Text = "15M";
-            // 
-            // comboBoxExpertLinears15_1
-            // 
-            this.comboBoxExpertLinears15_1.FormattingEnabled = true;
-            this.comboBoxExpertLinears15_1.Items.AddRange(new object[] {
-            "NO",
-            "1",
-            "2",
-            "3",
-            "4"});
-            this.comboBoxExpertLinears15_1.Location = new System.Drawing.Point(196, 33);
-            this.comboBoxExpertLinears15_1.Name = "comboBoxExpertLinears15_1";
-            this.comboBoxExpertLinears15_1.Size = new System.Drawing.Size(40, 21);
-            this.comboBoxExpertLinears15_1.TabIndex = 21;
-            // 
-            // comboBoxExpertLinears17_2
-            // 
-            this.comboBoxExpertLinears17_2.FormattingEnabled = true;
-            this.comboBoxExpertLinears17_2.Items.AddRange(new object[] {
-            "NO",
-            "1",
-            "2",
-            "3",
-            "4"});
-            this.comboBoxExpertLinears17_2.Location = new System.Drawing.Point(254, 6);
-            this.comboBoxExpertLinears17_2.Name = "comboBoxExpertLinears17_2";
-            this.comboBoxExpertLinears17_2.Size = new System.Drawing.Size(40, 21);
-            this.comboBoxExpertLinears17_2.TabIndex = 20;
-            // 
-            // label23
-            // 
-            this.label23.AutoSize = true;
-            this.label23.Location = new System.Drawing.Point(168, 10);
-            this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(28, 13);
-            this.label23.TabIndex = 19;
-            this.label23.Text = "17M";
-            // 
-            // comboBoxExpertLinears17_1
-            // 
-            this.comboBoxExpertLinears17_1.FormattingEnabled = true;
-            this.comboBoxExpertLinears17_1.Items.AddRange(new object[] {
-            "NO",
-            "1",
-            "2",
-            "3",
-            "4"});
-            this.comboBoxExpertLinears17_1.Location = new System.Drawing.Point(196, 6);
-            this.comboBoxExpertLinears17_1.Name = "comboBoxExpertLinears17_1";
-            this.comboBoxExpertLinears17_1.Size = new System.Drawing.Size(40, 21);
-            this.comboBoxExpertLinears17_1.TabIndex = 18;
-            // 
-            // comboBoxExpertLinears20_2
-            // 
-            this.comboBoxExpertLinears20_2.FormattingEnabled = true;
-            this.comboBoxExpertLinears20_2.Items.AddRange(new object[] {
-            "NO",
-            "1",
-            "2",
-            "3",
-            "4"});
-            this.comboBoxExpertLinears20_2.Location = new System.Drawing.Point(94, 140);
-            this.comboBoxExpertLinears20_2.Name = "comboBoxExpertLinears20_2";
-            this.comboBoxExpertLinears20_2.Size = new System.Drawing.Size(40, 21);
-            this.comboBoxExpertLinears20_2.TabIndex = 17;
-            // 
-            // label22
-            // 
-            this.label22.AutoSize = true;
-            this.label22.Location = new System.Drawing.Point(8, 144);
-            this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(28, 13);
-            this.label22.TabIndex = 16;
-            this.label22.Text = "20M";
-            // 
-            // comboBoxExpertLinears20_1
-            // 
-            this.comboBoxExpertLinears20_1.FormattingEnabled = true;
-            this.comboBoxExpertLinears20_1.Items.AddRange(new object[] {
-            "NO",
-            "1",
-            "2",
-            "3",
-            "4"});
-            this.comboBoxExpertLinears20_1.Location = new System.Drawing.Point(36, 140);
-            this.comboBoxExpertLinears20_1.Name = "comboBoxExpertLinears20_1";
-            this.comboBoxExpertLinears20_1.Size = new System.Drawing.Size(40, 21);
-            this.comboBoxExpertLinears20_1.TabIndex = 15;
-            // 
-            // comboBoxExpertLinears30_2
-            // 
-            this.comboBoxExpertLinears30_2.FormattingEnabled = true;
-            this.comboBoxExpertLinears30_2.Items.AddRange(new object[] {
-            "NO",
-            "1",
-            "2",
-            "3",
-            "4"});
-            this.comboBoxExpertLinears30_2.Location = new System.Drawing.Point(94, 113);
-            this.comboBoxExpertLinears30_2.Name = "comboBoxExpertLinears30_2";
-            this.comboBoxExpertLinears30_2.Size = new System.Drawing.Size(40, 21);
-            this.comboBoxExpertLinears30_2.TabIndex = 14;
-            // 
-            // label21
-            // 
-            this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(8, 117);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(28, 13);
-            this.label21.TabIndex = 13;
-            this.label21.Text = "30M";
-            // 
-            // comboBoxExpertLinears30_1
-            // 
-            this.comboBoxExpertLinears30_1.FormattingEnabled = true;
-            this.comboBoxExpertLinears30_1.Items.AddRange(new object[] {
-            "NO",
-            "1",
-            "2",
-            "3",
-            "4"});
-            this.comboBoxExpertLinears30_1.Location = new System.Drawing.Point(36, 113);
-            this.comboBoxExpertLinears30_1.Name = "comboBoxExpertLinears30_1";
-            this.comboBoxExpertLinears30_1.Size = new System.Drawing.Size(40, 21);
-            this.comboBoxExpertLinears30_1.TabIndex = 12;
-            // 
-            // comboBoxExpertLinears40_2
-            // 
-            this.comboBoxExpertLinears40_2.FormattingEnabled = true;
-            this.comboBoxExpertLinears40_2.Items.AddRange(new object[] {
-            "NO",
-            "1",
-            "2",
-            "3",
-            "4"});
-            this.comboBoxExpertLinears40_2.Location = new System.Drawing.Point(94, 86);
-            this.comboBoxExpertLinears40_2.Name = "comboBoxExpertLinears40_2";
-            this.comboBoxExpertLinears40_2.Size = new System.Drawing.Size(40, 21);
-            this.comboBoxExpertLinears40_2.TabIndex = 11;
-            // 
-            // label20
-            // 
-            this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(8, 90);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(28, 13);
-            this.label20.TabIndex = 10;
-            this.label20.Text = "40M";
-            // 
-            // comboBoxExpertLinears40_1
-            // 
-            this.comboBoxExpertLinears40_1.FormattingEnabled = true;
-            this.comboBoxExpertLinears40_1.Items.AddRange(new object[] {
-            "NO",
-            "1",
-            "2",
-            "3",
-            "4"});
-            this.comboBoxExpertLinears40_1.Location = new System.Drawing.Point(36, 86);
-            this.comboBoxExpertLinears40_1.Name = "comboBoxExpertLinears40_1";
-            this.comboBoxExpertLinears40_1.Size = new System.Drawing.Size(40, 21);
-            this.comboBoxExpertLinears40_1.TabIndex = 9;
-            // 
-            // comboBoxExpertLinears60_2
-            // 
-            this.comboBoxExpertLinears60_2.FormattingEnabled = true;
-            this.comboBoxExpertLinears60_2.Items.AddRange(new object[] {
-            "NO",
-            "1",
-            "2",
-            "3",
-            "4"});
-            this.comboBoxExpertLinears60_2.Location = new System.Drawing.Point(94, 59);
-            this.comboBoxExpertLinears60_2.Name = "comboBoxExpertLinears60_2";
-            this.comboBoxExpertLinears60_2.Size = new System.Drawing.Size(40, 21);
-            this.comboBoxExpertLinears60_2.TabIndex = 8;
-            // 
-            // label19
-            // 
-            this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(8, 63);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(28, 13);
-            this.label19.TabIndex = 7;
-            this.label19.Text = "60M";
-            // 
-            // comboBoxExpertLinears60_1
-            // 
-            this.comboBoxExpertLinears60_1.FormattingEnabled = true;
-            this.comboBoxExpertLinears60_1.Items.AddRange(new object[] {
-            "NO",
-            "1",
-            "2",
-            "3",
-            "4"});
-            this.comboBoxExpertLinears60_1.Location = new System.Drawing.Point(36, 59);
-            this.comboBoxExpertLinears60_1.Name = "comboBoxExpertLinears60_1";
-            this.comboBoxExpertLinears60_1.Size = new System.Drawing.Size(40, 21);
-            this.comboBoxExpertLinears60_1.TabIndex = 6;
-            // 
-            // comboBoxExpertLinears80_2
-            // 
-            this.comboBoxExpertLinears80_2.FormattingEnabled = true;
-            this.comboBoxExpertLinears80_2.Items.AddRange(new object[] {
-            "NO",
-            "1",
-            "2",
-            "3",
-            "4"});
-            this.comboBoxExpertLinears80_2.Location = new System.Drawing.Point(94, 32);
-            this.comboBoxExpertLinears80_2.Name = "comboBoxExpertLinears80_2";
-            this.comboBoxExpertLinears80_2.Size = new System.Drawing.Size(40, 21);
-            this.comboBoxExpertLinears80_2.TabIndex = 5;
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(8, 36);
-            this.label13.Name = "label13";
-            this.label13.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.label13.Size = new System.Drawing.Size(28, 13);
-            this.label13.TabIndex = 4;
-            this.label13.Text = "80M";
-            this.label13.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            // 
-            // comboBoxExpertLinears80_1
-            // 
-            this.comboBoxExpertLinears80_1.FormattingEnabled = true;
-            this.comboBoxExpertLinears80_1.Items.AddRange(new object[] {
-            "NO",
-            "1",
-            "2",
-            "3",
-            "4"});
-            this.comboBoxExpertLinears80_1.Location = new System.Drawing.Point(36, 32);
-            this.comboBoxExpertLinears80_1.Name = "comboBoxExpertLinears80_1";
-            this.comboBoxExpertLinears80_1.Size = new System.Drawing.Size(40, 21);
-            this.comboBoxExpertLinears80_1.TabIndex = 3;
-            // 
-            // comboBoxExpertLinears160_2
-            // 
-            this.comboBoxExpertLinears160_2.FormattingEnabled = true;
-            this.comboBoxExpertLinears160_2.Items.AddRange(new object[] {
-            "NO",
-            "1",
-            "2",
-            "3",
-            "4"});
-            this.comboBoxExpertLinears160_2.Location = new System.Drawing.Point(94, 5);
-            this.comboBoxExpertLinears160_2.Name = "comboBoxExpertLinears160_2";
-            this.comboBoxExpertLinears160_2.Size = new System.Drawing.Size(40, 21);
-            this.comboBoxExpertLinears160_2.TabIndex = 2;
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(1, 9);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(34, 13);
-            this.label12.TabIndex = 1;
-            this.label12.Text = "160M";
-            // 
-            // comboBoxExpertLinears160_1
-            // 
-            this.comboBoxExpertLinears160_1.FormattingEnabled = true;
-            this.comboBoxExpertLinears160_1.Items.AddRange(new object[] {
-            "NO",
-            "1",
-            "2",
-            "3",
-            "4"});
-            this.comboBoxExpertLinears160_1.Location = new System.Drawing.Point(36, 5);
-            this.comboBoxExpertLinears160_1.Name = "comboBoxExpertLinears160_1";
-            this.comboBoxExpertLinears160_1.Size = new System.Drawing.Size(40, 21);
-            this.comboBoxExpertLinears160_1.TabIndex = 0;
-            // 
             // timerGetFreq
             // 
             this.timerGetFreq.Tick += new System.EventHandler(this.TimerGetFreq_Tick);
@@ -5291,7 +5321,7 @@
             this.Margin = new System.Windows.Forms.Padding(2);
             this.MaximumSize = new System.Drawing.Size(417, 310);
             this.Name = "Form1";
-            this.Text = "AmpAutoTunerUtility 230404";
+            this.Text = "AmpAutoTunerUtility 230408";
             this.HelpButtonClicked += new System.ComponentModel.CancelEventHandler(this.Form1_HelpButtonClicked);
             this.Activated += new System.EventHandler(this.Form1_Activated);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
@@ -5299,6 +5329,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCapacitance)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownInductance)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPostPttDelay)).EndInit();
+            this.panel3.ResumeLayout(false);
+            this.panel3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFreqWalkDelay)).EndInit();
+            this.tabPageExpertLinears.ResumeLayout(false);
+            this.tabPageExpertLinears.PerformLayout();
             this.tabPage.ResumeLayout(false);
             this.tabPageControl.ResumeLayout(false);
             this.tabPageControl.PerformLayout();
@@ -5312,15 +5347,12 @@
             this.groupBoxOptions.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
-            this.panel3.ResumeLayout(false);
-            this.panel3.PerformLayout();
             this.tabPagePower.ResumeLayout(false);
             this.tabPagePower.PerformLayout();
             this.tabPageAntenna.ResumeLayout(false);
             this.tabPageAntenna.PerformLayout();
             this.tabPageFreqWalk.ResumeLayout(false);
             this.tabPageFreqWalk.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFreqWalkDelay)).EndInit();
             this.tabPageRelay1.ResumeLayout(false);
             this.tabPageRelay1.PerformLayout();
             this.panel1.ResumeLayout(false);
@@ -5337,8 +5369,6 @@
             this.tabPageRelay4.PerformLayout();
             this.panel6.ResumeLayout(false);
             this.panel6.PerformLayout();
-            this.tabPageExpertLinears.ResumeLayout(false);
-            this.tabPageExpertLinears.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -5730,6 +5760,8 @@
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button buttonTunerPwr;
+        private System.Windows.Forms.Label labelSPE_C;
+        private System.Windows.Forms.Label labelSPE_L;
     }
 }
 

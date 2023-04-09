@@ -11,6 +11,7 @@ using System.Globalization;
 using System.Linq;
 using System.Management;
 using System.Media;
+using System.Net;
 using System.Net.Sockets;
 using System.Reflection;
 using System.Runtime.CompilerServices;
@@ -845,6 +846,8 @@ namespace AmpAutoTunerUtility
                         buttonTunerPwr.BackColor = Color.Green;
                         buttonTunerPwr.ForeColor = Color.White;
                     }
+                    tuner1.GetStatus();
+                    tabPageExpertLinears.Text = "SPE " + tuner1.GetModel();
                     // We don't need any command information
                 }
 
@@ -2945,16 +2948,16 @@ namespace AmpAutoTunerUtility
                     Application.DoEvents();
                     if (_disposed) return;
                     labelSWR.Text = SWR;
-                    if (tuner1.SWR == 0)
+                    if (tuner1.GetSWR() == 0)
                     {
                         labelSWR.Text = "SWR Unknown";
                         buttonTunerStatus.BackColor = Color.Gray;
                     }
-                    else if (tuner1.SWR < 2.0)
+                    else if (tuner1.GetSWR() < 2.0)
                     {
                         buttonTunerStatus.BackColor = Color.Green;
                     }
-                    else if (tuner1.SWR < 3)
+                    else if (tuner1.GetSWR() < 3)
                     {
                         buttonTunerStatus.BackColor = Color.Yellow;
                     }
@@ -5335,26 +5338,29 @@ namespace AmpAutoTunerUtility
           
             if (ModifierKeys == Keys.Control)
             {
+                /*
                 //tuner1.SelectManualTunePage();
-                byte cmdBack = 0x07; // C Down
-                byte cmdFwd = 0x08; // C Up
+                byte cmdDown = 0x07; // C Down
+                //byte cmdUp = 0x08; // C Up
                 int bytes = 1024; // 128 for L 1024 for C
                 //byte cmdBack = 0x05; // L Down
                 //byte cmdFwd = 0x06; // L Up
                 //int bytes = 128; // 128 for L 1024 for C
-                tuner1.SendCmd(cmdBack); // step C back to get status msg
+                tuner1.SendCmd(cmdDown); // step C back to get status msg
                 tuner1.GetStatus2(Tuner.Screen.Tune);
                 myStuff += (tuner1.cIndex.ToString("X") + "\n");
                 for (int i = 1;i<=bytes;++i)
                 {
                     DebugMsg.DebugAddMsg(DebugEnum.LOG, "Special execuction #" + i + "\n");
-                    tuner1.SendCmd(cmdFwd);  // 126 settings of L, 1024 of C
+                    tuner1.SendCmd(cmdDown);  // 126 settings of L, 1024 of C
                     tuner1.GetStatus2(Tuner.Screen.Tune);
                     myStuff += (tuner1.lIndex.ToString("X")+"\n");
                     //Application.DoEvents();
                     //Thread.Sleep(50);
                 }
                 DebugAddMsg(DebugEnum.LOG, myStuff);
+                */
+                tuner1.SetInductance(5.0);
             }
             else
             {
@@ -5363,7 +5369,10 @@ namespace AmpAutoTunerUtility
         }
         private void TuneManual()
         {
-            tuner1.GetStatus2(Tuner.Screen.Tune);
+            byte cmdTune = 0x09;
+            labelExpertLinearsInfo.Text = "Tuning " + frequencyHz;
+            tuner1.GetStatus();
+            tuner1.GetStatus2(Tuner.Screen.ManualTune);
             double l = tuner1.GetInductance();
             double c = tuner1.GetCapacitance();
             DebugMsg.DebugAddMsg(DebugEnum.LOG, "L=" + l.ToString("0.0") + "C=" + c.ToString("0,0"));
@@ -5378,90 +5387,173 @@ namespace AmpAutoTunerUtility
             { // Abort if FLRig is giving an error
                 Debug(DebugEnum.ERR, "FLRig set_modeB got an error??\n");
             }
+            
+            // Ready for finding min SWR test
+            double SWRStart;
+            // need the band
+            var nFreqs = tuner1.tuneFrequencies[tuner1.band,0];
+            var step = tuner1.tuneFrequencies[tuner1.band, 1];
+            var freq = tuner1.tuneFrequencies[tuner1.band, 2];
+            // build freq table
+            int[] freqTable = new int[nFreqs];
+            for(int i=0;i<nFreqs; i++)
+            {
+                if (tuner1.band == 1 && i!=0 && i!=1 && i!=27 && i!=28)
+                    freqTable[i] = (freq + (step * i))*1000;
+            }
+            myparam = "<params><param><value><double>" + freqTable[0] + "</double></value></param></params";
+            xml = FLRigXML("rig.set_vfo" + 'A', myparam);
+            if (FLRigSend(xml) == false)
+            { // Abort if FLRig is giving an error
+                Debug(DebugEnum.ERR, "FLRigSend got an error??\n");
+            }
+            xml = FLRigXML("rig.set_vfo" + 'B', myparam);
+            if (FLRigSend(xml) == false)
+            { // Abort if FLRig is giving an error
+                Debug(DebugEnum.ERR, "FLRigSend got an error??\n");
+            }
+            tuner1.SelectManualTunePage();
             xml = FLRigXML("rig.set_ptt", "<params><param><value><i4>1</i4></value></param></params");
-            if (FLRigSend(xml) == false) return; // Abort if FLRig is giving an error
             if (FLRigSend(xml) == false)
             { // Abort if FLRig is giving an error
                 Debug(DebugEnum.ERR, "FLRig set_ptt got an error??\n");
             }
-            // Ready for finding min SWR test
-            FindMinSWR_L();
-            FindMinSWR_C();
-
+            Thread.Sleep(500);
+            tuner1.GetStatus2(Tuner.Screen.ManualTune);
+            var lastL = tuner1.GetInductance();
+            var lastC = tuner1.GetCapacitance();
+            bool firstFlag = true;
+            // loop freq table
+            foreach (int freq2Tune in freqTable)
+            {
+                if (freq2Tune == 0) continue;
+                myparam = "<params><param><value><double>" + freq2Tune + "</double></value></param></params";
+                xml = FLRigXML("rig.set_vfo" + 'A', myparam);
+                if (FLRigSend(xml) == false)
+                { // Abort if FLRig is giving an error
+                    Debug(DebugEnum.ERR, "FLRigSend got an error??\n");
+                }
+                xml = FLRigXML("rig.set_vfo" + 'B', myparam);
+                if (FLRigSend(xml) == false)
+                { // Abort if FLRig is giving an error
+                    Debug(DebugEnum.ERR, "FLRigSend got an error??\n");
+                }
+                if (!firstFlag)
+                {
+                    Thread.Sleep(500);
+                    tuner1.SetCapacitance(lastC);
+                    tuner1.SetInductance(lastL);
+                }
+                firstFlag = false;
+                do
+                {
+                    SWRStart = tuner1.GetSWR();
+                    FindMinSWR_L();
+                    FindMinSWR_C();
+                    var logmsg = frequencyHz + "\t" + tuner1.GetSWR() + "\t" + tuner1.GetInductance().ToString("{.0}") + "\t" + tuner1.GetCapacitance().ToString("{.0}") + "\n";
+                    labelExpertLinearsInfo.Text = logmsg;
+                    DebugMsg.DebugAddMsg(DebugEnum.LOG, logmsg);
+                } while (tuner1.GetSWR() < SWRStart && tuner1.GetSWR() > 1);
+                lastC = tuner1.GetCapacitance();
+                lastL = tuner1.GetInductance();
+                if (lastC == 0 || lastL == 0)
+                {
+                    lastC = 0;
+                }
+                tuner1.SendCmd(cmdTune);  // remember out tuning values
+                Thread.Sleep(200);
+            }
             xml = FLRigXML("rig.set_ptt", "<params><param><value><i4>0</i4></value></param></params");
             if (FLRigSend(xml) == false) return; // Abort if FLRig is giving an error
         }
 
         void FindMinSWR_L()
         {
-            tuner1.GetStatus2(Tuner.Screen.Tune);
+            tuner1.GetStatus2(Tuner.Screen.ManualTune);
             tuner1.GetStatus();
             double l = tuner1.GetInductance();
-            var SWRMin = tuner1.SWR;
-            byte cmdDownC = 0x07; // C Down
-            byte cmdUpC = 0x08; // C Up
+            var SWRMin = tuner1.GetSWR();
             byte cmdDownL = 0x05; // L Down
             byte cmdUpL = 0x06; // L Up
-            byte cmdTune = 0x09; 
-            while (tuner1.SWR <= SWRMin && SWRMin > 1)
+            double minSWR_L = l;
+            while (tuner1.GetSWR() <= SWRMin && SWRMin > 1 && l > 0 && l < 269)
             {
                 // Step L up
                 tuner1.SendCmd(cmdUpL);
+                tuner1.SendCmd(cmdUpL);
                 Thread.Sleep(100);
                 tuner1.GetStatus();
-                if (tuner1.SWR < SWRMin) SWRMin = tuner1.SWR;
+                if (tuner1.GetSWR() < SWRMin)
+                { 
+                    SWRMin = tuner1.GetSWR();
+                    minSWR_L = tuner1.GetInductance();
+                }
+                l = tuner1.GetInductance();
             }
             // Move to last best one
-            tuner1.SendCmd(cmdDownL);
+            tuner1.SetInductance(minSWR_L);
             tuner1.GetStatus();
-            SWRMin = tuner1.SWR;  
-            while (tuner1.SWR <= SWRMin && SWRMin > 1)
+            SWRMin = tuner1.GetSWR();  
+            while (tuner1.GetSWR() <= SWRMin && SWRMin > 1 && l > 0 && l < 269)
             {
                 // Step L down
                 tuner1.SendCmd(cmdDownL);
+                tuner1.SendCmd(cmdDownL);
                 Thread.Sleep(100);
                 tuner1.GetStatus();
-                SWRMin = tuner1.SWR;
-                if (tuner1.SWR < SWRMin) SWRMin = tuner1.SWR;
-
+                if (tuner1.GetSWR() < SWRMin)
+                {
+                    SWRMin = tuner1.GetSWR();
+                    minSWR_L = tuner1.GetInductance();
+                }
+                l = tuner1.GetInductance();
             }
             // Move to last best one
-            if (tuner1.GetInductance() > 0 && tuner1.SWR > 1) tuner1.SendCmd(cmdUpL); 
-            tuner1.GetStatus2(Tuner.Screen.Tune);
+            tuner1.SetInductance(minSWR_L);
+            tuner1.GetStatus2(Tuner.Screen.ManualTune);
         }
         void FindMinSWR_C()
         {
-            double c = tuner1.GetCapacitance();
-            tuner1.GetStatus2(Tuner.Screen.Tune);
+            tuner1.GetStatus2(Tuner.Screen.ManualTune);
             tuner1.GetStatus();
-            var SWRMin = tuner1.SWR;
+            double c = tuner1.GetCapacitance();
+            var SWRMin = tuner1.GetSWR();
             byte cmdDownC = 0x07; // C Down
             byte cmdUpC = 0x08; // C Up
-            while (tuner1.SWR <= SWRMin && SWRMin > 1)
+            double minSWR_C = c;
+            while (tuner1.GetSWR() <= SWRMin && SWRMin > 1 && minSWR_C <= 2629.5)
             {
-                // Step L up
+                // Step C up
+                tuner1.SendCmd(cmdUpC);
                 tuner1.SendCmd(cmdUpC);
                 Thread.Sleep(100);
                 tuner1.GetStatus();
-                if (tuner1.SWR < SWRMin) SWRMin = tuner1.SWR;
+                if (tuner1.GetSWR() < SWRMin)
+                {
+                    SWRMin = tuner1.GetSWR();
+                    minSWR_C = tuner1.GetCapacitance();
+                }
             }
             // Move to last best one
-            tuner1.SendCmd(cmdDownC);
+            tuner1.SetCapacitance(minSWR_C);
             tuner1.GetStatus();
-            SWRMin = tuner1.SWR;
-            while (tuner1.SWR <= SWRMin && SWRMin > 1)
+            SWRMin = tuner1.GetSWR();
+            while (tuner1.GetSWR() <= SWRMin && SWRMin > 1 && minSWR_C > 0)
             {
-                // Step L down
+                // Step C down
+                tuner1.SendCmd(cmdDownC);
                 tuner1.SendCmd(cmdDownC);
                 Thread.Sleep(100);
                 tuner1.GetStatus();
-                SWRMin = tuner1.SWR;
-                if (tuner1.SWR < SWRMin) SWRMin = tuner1.SWR;
-
+                if (tuner1.GetSWR() < SWRMin)
+                {
+                    SWRMin = tuner1.GetSWR();
+                    minSWR_C = tuner1.GetCapacitance();
+                }
             }
             // Move to last best one
-            if (tuner1.GetCapacitance() > 0 && tuner1.SWR > 1) tuner1.SendCmd(cmdUpC);
-            tuner1.GetStatus2(Tuner.Screen.Tune);
+            tuner1.SetCapacitance(minSWR_C);
+            tuner1.GetStatus2(Tuner.Screen.ManualTune);
         }
         private void comboBoxExpertLinears4_2_Enter(object sender, EventArgs e)
         {
@@ -5470,10 +5562,20 @@ namespace AmpAutoTunerUtility
 
         private void tabPageExpertLinears_Enter(object sender, EventArgs e)
         {
+            TabPage myPage = (TabPage)sender;
+            myPage.Refresh();
+            Cursor.Current = Cursors.WaitCursor;
+            tabPageExpertLinears.Refresh();
             if (tuner1 == null) return;
             //tuner1.Poll();
             //tuner1.SelectAntennaPage();
             tuner1.GetStatus2(Tuner.Screen.Antenna);
+            
+            Application.DoEvents();
+            labelSPE_L.Text = tuner1.GetInductance() + "uH";
+            labelSPE_C.Text = tuner1.GetCapacitance() + "pF";
+            tuner1.GetStatus2(Tuner.Screen.Antenna);
+            Application.DoEvents();
             comboBoxExpertLinears160_1.SelectedIndex = comboBoxExpertLinears160_1.FindStringExact(tuner1.antennas[0, 0]);
             if (comboBoxExpertLinears160_1.SelectedIndex < 0) comboBoxExpertLinears160_1.SelectedIndex = 0;
             comboBoxExpertLinears160_2.SelectedIndex = comboBoxExpertLinears160_1.FindStringExact(tuner1.antennas[0, 1]);
@@ -5522,6 +5624,7 @@ namespace AmpAutoTunerUtility
             if (comboBoxExpertLinears4_1.SelectedIndex < 0) comboBoxExpertLinears160_1.SelectedIndex = 0;
             comboBoxExpertLinears4_2.SelectedIndex = comboBoxExpertLinears4_1.FindStringExact(tuner1.antennas[11, 1]);
             if (comboBoxExpertLinears4_2.SelectedIndex < 0) comboBoxExpertLinears160_1.SelectedIndex = 0;
+            tabPageExpertLinears.Refresh();
             Application.DoEvents();
             if (comboBoxExpertLinears160_1.SelectedItem == null) return;
             checkBoxExpertLinears160_1.Enabled = !comboBoxExpertLinears160_1.SelectedItem.ToString().Equals("NO");
@@ -5548,6 +5651,7 @@ namespace AmpAutoTunerUtility
             checkBoxExpertLinears6_2.Enabled = !comboBoxExpertLinears6_2.SelectedItem.ToString().Equals("NO");
             checkBoxExpertLinears4_1.Enabled = !comboBoxExpertLinears4_1.SelectedItem.ToString().Equals("NO");
             checkBoxExpertLinears4_2.Enabled = !comboBoxExpertLinears4_2.SelectedItem.ToString().Equals("NO");
+            Cursor.Current = Cursors.Default;
         }
 
         private void CheckBoxExpertLinearsCheckAll(bool isChecked)
@@ -5657,7 +5761,42 @@ namespace AmpAutoTunerUtility
 
         private void tabPageExpertLinears_Click(object sender, EventArgs e)
         {
+            //Cursor = Cursors.WaitCursor;
+            //Cursor = Cursors.Default;
+        }
 
+        private void tabPageExpertLinears_Validated(object sender, EventArgs e)
+        {
+            Cursor = Cursors.Default;
+        }
+
+        private void tabPageExpertLinears_Validating(object sender, CancelEventArgs e)
+        {
+            Cursor = Cursors.Default;
+        }
+
+        private void tabPageExpertLinears_Paint(object sender, PaintEventArgs e)
+        {
+            Cursor = Cursors.Default;
+        }
+
+        private void tabPage_Selecting(object sender, TabControlCancelEventArgs e)
+        {
+            Cursor= Cursors.Default;   
+            TabControl tabControl = (TabControl)sender;
+            tabControl.Show();
+            Application.DoEvents();
+            Cursor = Cursors.Default;
+        }
+
+        private void tabPage_Validated(object sender, EventArgs e)
+        {
+            Cursor = Cursors.Default;
+        }
+
+        private void tabPage_Selected(object sender, TabControlEventArgs e)
+        {
+            Cursor = Cursor.Current;
         }
     }
 
