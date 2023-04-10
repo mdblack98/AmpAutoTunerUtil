@@ -1752,7 +1752,7 @@
             this.comboBoxTunerModel.Items.AddRange(new object[] {
             "LDG",
             "MFJ-928",
-            "Expert Linears"});
+            "SPE"});
             this.comboBoxTunerModel.Location = new System.Drawing.Point(8, 7);
             this.comboBoxTunerModel.Margin = new System.Windows.Forms.Padding(2);
             this.comboBoxTunerModel.Name = "comboBoxTunerModel";

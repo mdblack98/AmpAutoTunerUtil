@@ -64,7 +64,7 @@ namespace AmpAutoTunerUtility
         bool getFreqIsRunning = false;
         private string modeCurrent = "UNK";
         private readonly string MFJ928 = "MFJ-928";
-        private readonly string EXPERTLINEARS = "Expert Linears";
+        private readonly string EXPERTLINEARS = "SPE";
         //private int Capacitance = 0;
         //private int Inductance = 0;
         DebugEnum debugLevel = DebugEnum.WARN;
@@ -2316,7 +2316,7 @@ namespace AmpAutoTunerUtility
             {
                 if (comboBoxAntenna1Controller.SelectedIndex < 0)
                 {
-                    MessageBox.Show("No Relay picked");
+                    //MessageBox.Show("No Relay picked");
                     return;
                 }
                 comboBoxAntenna1Controller.SelectedIndex = 0;
@@ -3736,6 +3736,7 @@ namespace AmpAutoTunerUtility
                         labelControlLog2.Text = msg.Text;
                     }
                     Application.DoEvents();
+                    if (richTextBoxDebug.Disposing) return;
                     richTextBoxDebug.SelectionStart = 0;
                     richTextBoxDebug.ScrollToCaret();
                     while (richTextBoxDebug.Lines.Length > 2000)
@@ -4046,7 +4047,7 @@ namespace AmpAutoTunerUtility
                     // Otherwise amp should be on 8/0
                     var s = comboBoxAmpBits.Text;
                     var tokens = s.Split('/');
-                    if (int.TryParse(tokens[1], out int ampRelayBit))
+                    if (s.Length == 2 && int.TryParse(tokens[1], out int ampRelayBit))
                     {
                         relay1.AmpRelay = (byte)ampRelayBit;
                         Debug(DebugEnum.LOG, "Calling RelaySet ampStatus=" + onOff + "\n");
