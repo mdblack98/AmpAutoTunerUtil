@@ -1,0 +1,13 @@
+diff --git a/TunerUtil/Form1.cs b/TunerUtil/Form1.cs
+index 381fd92..ed0d8cc 100644
+--- a/TunerUtil/Form1.cs
++++ b/TunerUtil/Form1.cs
+@@ -5562,6 +5562,8 @@ namespace AmpAutoTunerUtility
+ 
+         private void tabPageExpertLinears_Enter(object sender, EventArgs e)
+         {
++            if (!tuner1.GetModel().Equals(EXPERTLINEARS)) 
++                return;
+             TabPage myPage = (TabPage)sender;
+             myPage.Refresh();
+             Cursor.Current = Cursors.WaitCursor;

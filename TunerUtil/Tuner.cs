@@ -7,7 +7,6 @@ namespace AmpAutoTunerUtility
     public abstract class Tuner : IDisposable
     {
         private bool _disposed = false;
-        public static readonly string[] DebugEnumText = { "LOG", "ERR", "WRN", "TRC", "VER" };
         private double sWR;
 
         //public enum TunerState

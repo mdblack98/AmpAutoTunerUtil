@@ -74,7 +74,6 @@ namespace AmpAutoTunerUtility
         private bool _disposed;
         private int lastAntennaNumber = -1;
         //private int lastRelayUsed = -1;
-        public static bool clockIsZulu;
         bool tuning;
 
 
@@ -859,7 +858,9 @@ namespace AmpAutoTunerUtility
                     }
                     else
                     {
-                        MyMessageBox("Error starting tuner!!!");
+                        DebugAddMsg(DebugEnum.ERR, "Tuner not working\n");
+                        labelControlLog.Text = "Tuner not working\n";
+                        //MyMessageBox("Error starting tuner!!!");
                     }
                 }
                 else
@@ -1336,8 +1337,15 @@ namespace AmpAutoTunerUtility
             richTextBoxDebug.Clear();
         }
 
+        Rig myRig;
         private void FLRigConnect()
         {
+            if (myRig == null)
+            {
+                myRig = new RigFLRig();
+                myRig.Open();
+            }
+            return;
             int port = 12345;
             try
             {
@@ -1355,7 +1363,7 @@ namespace AmpAutoTunerUtility
                 else
                 {
                     GetModes();
-                    // FLRig return 14070000 until it polls the rig
+                    // FLRig returns 14070000 until it polls the rig
                     // So we'll wait for 3 seconds or until a different value returns
                     Thread.Sleep(3000);
                     Debug(DebugEnum.LOG, "FLRig connected\n");
@@ -1858,16 +1866,6 @@ namespace AmpAutoTunerUtility
             return mode;
         }
 
-        public static string MyTime()
-        {
-            string time;
-            if (clockIsZulu)
-                time = DateTime.UtcNow.ToString("HH:mm:ss.fffZ", CultureInfo.InvariantCulture) + ": ";
-            else
-                time = DateTime.Now.ToString("HH:mm:ss.fff", CultureInfo.InvariantCulture) + ": ";
-            return time;
-        }
-
         private void SetDummyLoad()
         {
             const string dummy = "dummy";
@@ -2117,7 +2115,7 @@ namespace AmpAutoTunerUtility
             else
             {
                 // we don't need to set antenna here when tuner automatically selects it
-                if (!comboBoxAntenna1Controller.Text.Equals(EXPERTLINEARS))
+                if (tuner1 != null && !comboBoxAntenna1Controller.Text.Equals(EXPERTLINEARS))
                     tuner1.SetAntenna(antennaOnTuner);
             }
             if (antennaNumberNew.Length == 0) antennaNumberNew = "1";
@@ -2407,8 +2405,8 @@ namespace AmpAutoTunerUtility
                 {
                     Debug(DebugEnum.ERR, "GetActiveVFO error #" + ++retryCount + "\n");
                     Thread.Sleep(2000);
-                    if (rigStream != null) rigStream.Close();
-                    FLRigConnect();
+                    //if (rigStream != null) rigStream.Close();
+                    //FLRigConnect();
                 }
             } while (retry);
             return vfo;
@@ -2607,20 +2605,21 @@ namespace AmpAutoTunerUtility
 
         private void FLRigGetFreq(bool needTuning = true)
         {
+            return;
             getFreqIsRunning = true;
             if (!checkBoxRig.Checked || formClosing)
             {
                 getFreqIsRunning = false;
                 return;
             }
-            if (rigClient == null)
+            //if (rigClient == null)
             {
                 FLRigConnect();
-                if (rigClient == null)
-                {
-                    getFreqIsRunning = false;
-                    return;
-                }
+                //if (rigClient == null)
+                //{
+                //    getFreqIsRunning = false;
+                //    return;
+                //}
             }
             string currVFO = FLRigGetActiveVFO();
             if (currVFO.Equals("B", StringComparison.InvariantCulture))
@@ -3256,7 +3255,9 @@ namespace AmpAutoTunerUtility
                 catch (Exception ex)
                 {
                     checkBoxTunerEnabled.Checked = false;
-                    MyMessageBox("Error starting tuner\nFix problem and reenable the Tuner" + ex.Message);
+                    Debug(DebugEnum.ERR, "Tuner error:"+ex.Message+"\n");
+                    labelControlLog.Text = "Tuner error";
+                    //MyMessageBox("Error starting tuner\nFix problem and reenable the Tuner" + ex.Message);
                 }
             }
             else
@@ -3721,7 +3722,7 @@ namespace AmpAutoTunerUtility
             if (tuner1 == null) { timerDebug.Enabled = true; return; }
             if (relay1 != null) relay1.Status();
             if (checkBoxPause.Checked) { timerDebug.Enabled = true; return; }
-            DebugMsg msg = DebugMsg.DebugGetMsg();
+            DebugMsg msg = DebugGetMsg();
             debugLevel = (DebugEnum)comboBoxDebugLevel.SelectedIndex + 1;
             if (debugLevel < 0) debugLevel = DebugEnum.WARN;
             if (tuner1 != null) tuner1.SetDebugLevel(debugLevel);
@@ -3998,6 +3999,7 @@ namespace AmpAutoTunerUtility
             if (activatedHasExecuted) return;
             activatedHasExecuted = true;
             TunerOpen();
+            FLRigConnect();
             FLRigGetFreq();
             SetAntennaInUseForGUI(true);
         }
@@ -5563,7 +5565,9 @@ namespace AmpAutoTunerUtility
 
         private void tabPageExpertLinears_Enter(object sender, EventArgs e)
         {
+
             TabPage myPage = (TabPage)sender;
+            myPage.SuspendLayout();
             myPage.Refresh();
             Cursor.Current = Cursors.WaitCursor;
             tabPageExpertLinears.Refresh();
@@ -5653,6 +5657,8 @@ namespace AmpAutoTunerUtility
             checkBoxExpertLinears4_1.Enabled = !comboBoxExpertLinears4_1.SelectedItem.ToString().Equals("NO");
             checkBoxExpertLinears4_2.Enabled = !comboBoxExpertLinears4_2.SelectedItem.ToString().Equals("NO");
             Cursor.Current = Cursors.Default;
+            myPage.ResumeLayout();
+
         }
 
         private void CheckBoxExpertLinearsCheckAll(bool isChecked)

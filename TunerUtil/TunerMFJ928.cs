@@ -641,11 +641,11 @@ namespace AmpAutoTunerUtility
         }
         public override void SetAntenna(int antennaNumberRequested, bool tuneIsRunning = false)
         {
-            SetText(DebugEnum.TRACE, "SetAntenna() requested=" + antennaNumberRequested + "\n");
+            //SetText(DebugEnum.TRACE, "SetAntenna() requested=" + antennaNumberRequested + "\n");
             byte[] cmd = { 0xfe, 0xfe, 0x21, 0x03, (byte)(antennaNumberRequested - 1), 0x00, 0x00, 0xfd };
             SendCmd(cmd);
             Thread.Sleep(200);
-            SetText(DebugEnum.TRACE, "SetAntenna() result=" + AntennaNumber + "\n");
+            //SetText(DebugEnum.TRACE, "SetAntenna() result=" + AntennaNumber + "\n");
         }
         /*
         public override void Dispose(bool disposing)
