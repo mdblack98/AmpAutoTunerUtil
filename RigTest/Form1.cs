@@ -21,25 +21,34 @@ namespace RigTest
             timer1.Start();
         }
 
+        private void RigOpen()
+        {
+            if (myRig == null) myRig = new RigFLRig();
+            myRig.Open();
+            if (myRig != null)
+            {
+                buttonConnect.BackColor = Color.Green;
+                buttonConnect.ForeColor = Color.White;
+                buttonConnect.Text = "Disconnect";
+            }
+        }
+
+        private void RigClose()
+        {
+            if (myRig != null) myRig.Close();
+            buttonConnect.BackColor = Color.WhiteSmoke;
+            buttonConnect.ForeColor = Color.Black;
+            buttonConnect.Text = "Connect";
+        }
         private void button1_Click(object sender, EventArgs e)
         {
-            if (button1.Text == "Connect")
+            if (buttonConnect.Text == "Connect")
             {
-                myRig = new RigFLRig();
-                myRig.Open();
-                if (myRig != null)
-                {
-                    button1.BackColor = Color.Green;
-                    button1.ForeColor = Color.White;
-                    button1.Text = "Disconnect";
-                }
+                RigOpen();
             }
             else
             {
-                if (myRig != null) myRig.Close();
-                button1.BackColor = Color.WhiteSmoke;
-                button1.ForeColor = Color.Black;
-                button1.Text = "Connect";
+                RigClose();
             }
         }
 
@@ -58,7 +67,7 @@ namespace RigTest
             if (myRig != null)
             {
                 if (myRig.VFO == 'A')
-                { 
+                {
                     labelVFO.Font = new Font(labelVFO.Font, FontStyle.Bold);
                     labelVFOB.Font = new Font(labelVFO.Font, FontStyle.Regular);
                 }
@@ -73,6 +82,10 @@ namespace RigTest
                 if (!textBoxFrequencyB.Focused)
                     textBoxFrequencyB.Text = myRig.FrequencyB.ToString(".0");
             }
+            if (!myRig.ModeA.Equals(comboBoxModeA.SelectedItem))
+                comboBoxModeA.SelectedIndex = comboBoxModeA.FindStringExact(myRig.ModeA);
+            if (!myRig.ModeB.Equals(comboBoxModeB.SelectedItem))
+                comboBoxModeB.SelectedIndex = comboBoxModeB.FindStringExact(myRig.ModeB);
             timer1.Start();
         }
 
@@ -102,7 +115,7 @@ namespace RigTest
             {
                 double f = Double.Parse(textBoxFrequencyB.Text);
                 myRig.SetFrequency('B', f);
-                button1.Focus();
+                buttonConnect.Focus();
                 myRig.FrequencyB = f; // to avoid flashing the freq to the old freq
             }
         }
@@ -114,8 +127,71 @@ namespace RigTest
                 double f = Double.Parse(textBoxFrequencyA.Text);
                 myRig.SetFrequency('A', f);
                 myRig.FrequencyA = f; // to avoid flashing the freq to the old freq
-                button1.Focus();
+                buttonConnect.Focus();
             }
+        }
+
+        private void buttonPTT_Click(object sender, EventArgs e)
+        {
+            if (buttonPTT.Text.Equals("PTT"))
+            {
+                buttonPTT.BackColor = Color.Red;
+                buttonPTT.ForeColor = Color.Black;
+                buttonPTT.Text = "TX";
+                myRig.PTT = true;
+            }
+            else
+            {
+                buttonPTT.BackColor = Color.WhiteSmoke;
+                buttonPTT.Text = "PTT";
+                buttonPTT.ForeColor = Color.Black;
+                myRig.PTT = false;
+            }
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            RigOpen();
+            List<string> modes = myRig.GetModes();
+            myRig.GetMode('A');
+            myRig.GetMode('B');
+            foreach (string mode in modes)
+            {
+                comboBoxModeA.Items.Add(mode);
+                comboBoxModeB.Items.Add(mode);
+            }
+            //comboBoxModeA.SelectedIndex = comboBoxModeA.FindStringExact(myRig.ModeA);
+            //comboBoxModeB.SelectedIndex = comboBoxModeB.FindStringExact(myRig.ModeB);
+        }
+
+        private void comboBoxModeA_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            myRig.ModeA = (string)comboBoxModeA.SelectedItem;
+        }
+
+        private void comboBoxModeB_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            myRig.ModeB = (string)comboBoxModeB.SelectedItem;
+        }
+
+        private void comboBoxModeA_DropDown(object sender, EventArgs e)
+        {
+            timer1.Stop();
+        }
+
+        private void comboBoxModeA_DropDownClosed(object sender, EventArgs e)
+        {
+            timer1.Start();
+        }
+
+        private void comboBoxModeB_DropDown(object sender, EventArgs e)
+        {
+            timer1.Stop();
+        }
+
+        private void comboBoxModeB_DropDownClosed(object sender, EventArgs e)
+        {
+            timer1.Start();
         }
     }
 }

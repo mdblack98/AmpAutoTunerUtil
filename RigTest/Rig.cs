@@ -38,5 +38,8 @@ namespace AmpAutoTunerUtility
         public abstract List<string> GetModes();
 
         public abstract void SetFrequency(char vfo, double frequency);
+        public abstract void SetPTT(bool ptt);
+        public abstract bool GetPTT();
+
     }
 }
