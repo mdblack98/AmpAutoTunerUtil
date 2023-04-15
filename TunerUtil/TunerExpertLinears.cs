@@ -26,7 +26,7 @@ namespace AmpAutoTunerUtility
         private string antenna = "?";
         private string bandstr = "?";
         public bool tuning = false;
-        Byte[] responseOld = new byte[512];
+        //Byte[] responseOld = new byte[512];
         public TunerExpertLinears(string model, string comport, string baud, out string errmsg)
         {
             InitArrays();
@@ -56,8 +56,10 @@ namespace AmpAutoTunerUtility
             };
             SerialPortTuner.Open();
             Thread.Sleep(500);
-            myThread = new Thread(new ThreadStart(this.ThreadTask));
-            myThread.IsBackground = true;
+            myThread = new Thread(new ThreadStart(this.ThreadTask))
+            {
+                IsBackground = true
+            };
             myThread.Start();
             isOn = GetStatus();
             //}
@@ -86,7 +88,7 @@ namespace AmpAutoTunerUtility
         {
             if (disposing)
             {
-                if (SerialPortTuner != null) SerialPortTuner.Dispose();
+                SerialPortTuner?.Dispose();
             }
         }
         public override void Close()
@@ -103,7 +105,7 @@ namespace AmpAutoTunerUtility
                 SerialPortTuner = null;
             }
         }
-        static Mutex SerialLock = new Mutex(false, "AmpSerial");
+        static readonly Mutex SerialLock = new Mutex(false, "AmpSerial");
 
         public override void SelectDisplayPage()
         {
@@ -160,7 +162,7 @@ namespace AmpAutoTunerUtility
             SerialLock.ReleaseMutex();
         }
 
-        char[] lookup = { ' ', '!', '"', '#','$', '%', '&', '\\', '(', ')', '*', '+', ',', '-','.', '/','0','1','2','3','4','5','6','7','8','9',':',';','<','=','>','?','@','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','Z','[','\\','^','_','?','a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z','{','|','}','?' };
+        readonly char[] lookup = { ' ', '!', '"', '#','$', '%', '&', '\\', '(', ')', '*', '+', ',', '-','.', '/','0','1','2','3','4','5','6','7','8','9',':',';','<','=','>','?','@','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','Z','[','\\','^','_','?','a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z','{','|','}','?' };
         private Screen screenLast = Screen.Unknown;
         //public override bool GetStatus2(screen myScreen)
         public override bool GetStatus2(Screen myScreen = Screen.Unknown)
@@ -251,6 +253,7 @@ namespace AmpAutoTunerUtility
                 return false; 
             }
             byte ledStatus = response[8];
+            DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.LOG, "LED status: " + ledStatus.ToString("X2") + "\n");
             if (myScreen == Screen.ManualTune)
             {
                 try
@@ -433,7 +436,7 @@ namespace AmpAutoTunerUtility
             return true;
         }
 
-        Thread myThread;
+        readonly Thread myThread;
         private void ThreadTask()
         {
             runThread = true;
@@ -488,8 +491,7 @@ namespace AmpAutoTunerUtility
                 Thread.Sleep(1000);
                 DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.TRACE, "SetAntenna " + antennaNumberRequested + " getting amp status\n");
                 while (GetStatus() == false) ;
-                int tmp;
-                if (int.TryParse(antenna.Substring(0, 1), out tmp) == false)
+                if (int.TryParse(antenna.Substring(0, 1), out int tmp) == false)
                     Thread.Sleep(2000);
                 if (int.Parse(antenna.Substring(0, 1)) == antennaNumberRequested)
                 {
@@ -526,7 +528,7 @@ namespace AmpAutoTunerUtility
             Byte[] cmdMsg = { 0x55, 0x55, 0x55, 0x01, 0x80, 0x80 };
             SerialPortTuner.DiscardInBuffer();
             SerialPortTuner.Write(cmdMsg, 0, 6);
-            Byte[] response = new Byte[128];
+            Byte[] response;
             SerialPortTuner.Write(cmd, 0, 6);
             int loopCount = 0;
             while (tuning == false && ++loopCount < 20)

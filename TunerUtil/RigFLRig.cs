@@ -25,7 +25,7 @@ namespace AmpAutoTunerUtility
         private string modeA = "CW";
         private string modeB = "CW";
         private bool ptt;
-        Mutex FLRigLock = new Mutex(false, "RigFLRig");
+        readonly Mutex FLRigLock = new Mutex(false, "RigFLRig");
         public override bool Open()
         {
             model = "Unknown";
@@ -44,9 +44,7 @@ namespace AmpAutoTunerUtility
                 //    richTextBoxRig.AppendText("FLRig connected\n");
                 //}
             }
-#pragma warning disable CA1031 // Do not catch general exception types
             catch (Exception ex)
-#pragma warning restore CA1031 // Do not catch general exception types
             {
                 //checkBoxRig.Checked = false;
                 if (ex.Message.Contains("actively refused"))
@@ -63,8 +61,10 @@ namespace AmpAutoTunerUtility
             }
             // Prime a few things
             FLRigGetVFO();
-            myThread = new Thread(new ThreadStart(Poll));
-            myThread.IsBackground = true;
+            myThread = new Thread(new ThreadStart(Poll))
+            {
+                IsBackground = true
+            };
             myThread.Start();
             return true;
         }
@@ -342,12 +342,12 @@ namespace AmpAutoTunerUtility
                         }
                     }
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
 
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
 
             }
@@ -428,12 +428,12 @@ namespace AmpAutoTunerUtility
                         frequency = Double.Parse(freqString, CultureInfo.InvariantCulture);
                     }
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
 
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
 
             }
@@ -529,12 +529,12 @@ namespace AmpAutoTunerUtility
                         mode = responseData.Substring(offset1, offset2 - offset1);
                     }
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
 
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
 
             }
@@ -725,12 +725,12 @@ namespace AmpAutoTunerUtility
                         ptt = Boolean.Parse(freqString);
                     }
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
 
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
 
             }
