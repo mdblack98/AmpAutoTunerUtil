@@ -35,12 +35,12 @@ namespace RigTest
 
         private void RigClose()
         {
-            if (myRig != null) myRig.Close();
+            myRig?.Close();
             buttonConnect.BackColor = Color.WhiteSmoke;
             buttonConnect.ForeColor = Color.Black;
             buttonConnect.Text = "Connect";
         }
-        private void button1_Click(object sender, EventArgs e)
+        private void Button1_Click(object sender, EventArgs e)
         {
             if (buttonConnect.Text == "Connect")
             {
@@ -52,18 +52,17 @@ namespace RigTest
             }
         }
 
-        private void labelVFOA_Click(object sender, EventArgs e)
+        private void LabelVFOA_Click(object sender, EventArgs e)
         {
             myRig.VFO = 'A';
         }
-        private void labelVFOB_Click(object sender, EventArgs e)
+        private void LabelVFOB_Click(object sender, EventArgs e)
         {
             myRig.VFO = 'B';
         }
 
-        private void timer1_Tick(object sender, EventArgs e)
+        private void Timer1_Tick(object sender, EventArgs e)
         {
-            timer1.Stop();
             if (myRig != null)
             {
                 if (myRig.VFO == 'A')
@@ -86,30 +85,29 @@ namespace RigTest
                 comboBoxModeA.SelectedIndex = comboBoxModeA.FindStringExact(myRig.ModeA);
             if (!myRig.ModeB.Equals(comboBoxModeB.SelectedItem))
                 comboBoxModeB.SelectedIndex = comboBoxModeB.FindStringExact(myRig.ModeB);
-            timer1.Start();
         }
 
-        private void label1_Click(object sender, EventArgs e)
+        private void Label1_Click(object sender, EventArgs e)
         {
 
         }
 
-        private void textBoxFrequencyA_TextChanged(object sender, EventArgs e)
+        private void TextBoxFrequencyA_TextChanged(object sender, EventArgs e)
         {
             //myRig.SetFrequency('A', Double.Parse(textBoxFrequencyA.Text));
         }
 
-        private void textBoxFrequencyB_TextChanged(object sender, EventArgs e)
+        private void TextBoxFrequencyB_TextChanged(object sender, EventArgs e)
         {
             //myRig.SetFrequency('B', Double.Parse(textBoxFrequencyB.Text));
         }
 
-        private void textBoxFrequencyB_Enter(object sender, EventArgs e)
+        private void TextBoxFrequencyB_Enter(object sender, EventArgs e)
         {
             //MessageBox.Show("Here");
         }
 
-        private void textBoxFrequencyB_KeyUp(object sender, KeyEventArgs e)
+        private void TextBoxFrequencyB_KeyUp(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
@@ -120,7 +118,7 @@ namespace RigTest
             }
         }
 
-        private void textBoxFrequencyA_KeyUp(object sender, KeyEventArgs e)
+        private void TextBoxFrequencyA_KeyUp(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
@@ -131,7 +129,7 @@ namespace RigTest
             }
         }
 
-        private void buttonPTT_Click(object sender, EventArgs e)
+        private void ButtonPTT_Click(object sender, EventArgs e)
         {
             if (buttonPTT.Text.Equals("PTT"))
             {
@@ -164,32 +162,32 @@ namespace RigTest
             //comboBoxModeB.SelectedIndex = comboBoxModeB.FindStringExact(myRig.ModeB);
         }
 
-        private void comboBoxModeA_SelectedIndexChanged(object sender, EventArgs e)
+        private void ComboBoxModeA_SelectedIndexChanged(object sender, EventArgs e)
         {
             myRig.ModeA = (string)comboBoxModeA.SelectedItem;
         }
 
-        private void comboBoxModeB_SelectedIndexChanged(object sender, EventArgs e)
+        private void ComboBoxModeB_SelectedIndexChanged(object sender, EventArgs e)
         {
             myRig.ModeB = (string)comboBoxModeB.SelectedItem;
         }
 
-        private void comboBoxModeA_DropDown(object sender, EventArgs e)
+        private void ComboBoxModeA_DropDown(object sender, EventArgs e)
         {
             timer1.Stop();
         }
 
-        private void comboBoxModeA_DropDownClosed(object sender, EventArgs e)
+        private void ComboBoxModeA_DropDownClosed(object sender, EventArgs e)
         {
             timer1.Start();
         }
 
-        private void comboBoxModeB_DropDown(object sender, EventArgs e)
+        private void ComboBoxModeB_DropDown(object sender, EventArgs e)
         {
             timer1.Stop();
         }
 
-        private void comboBoxModeB_DropDownClosed(object sender, EventArgs e)
+        private void ComboBoxModeB_DropDownClosed(object sender, EventArgs e)
         {
             timer1.Start();
         }

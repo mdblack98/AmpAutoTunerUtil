@@ -48,7 +48,7 @@
             this.buttonConnect.TabIndex = 0;
             this.buttonConnect.Text = "Connect";
             this.buttonConnect.UseVisualStyleBackColor = true;
-            this.buttonConnect.Click += new System.EventHandler(this.button1_Click);
+            this.buttonConnect.Click += new System.EventHandler(this.Button1_Click);
             // 
             // labelVFO
             // 
@@ -58,12 +58,12 @@
             this.labelVFO.Size = new System.Drawing.Size(35, 13);
             this.labelVFO.TabIndex = 1;
             this.labelVFO.Text = "VFOA";
-            this.labelVFO.Click += new System.EventHandler(this.labelVFOA_Click);
+            this.labelVFO.Click += new System.EventHandler(this.LabelVFOA_Click);
             // 
             // timer1
             // 
             this.timer1.Interval = 300;
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            this.timer1.Tick += new System.EventHandler(this.Timer1_Tick);
             // 
             // textBoxFrequencyA
             // 
@@ -71,8 +71,8 @@
             this.textBoxFrequencyA.Name = "textBoxFrequencyA";
             this.textBoxFrequencyA.Size = new System.Drawing.Size(100, 20);
             this.textBoxFrequencyA.TabIndex = 2;
-            this.textBoxFrequencyA.TextChanged += new System.EventHandler(this.textBoxFrequencyA_TextChanged);
-            this.textBoxFrequencyA.KeyUp += new System.Windows.Forms.KeyEventHandler(this.textBoxFrequencyA_KeyUp);
+            this.textBoxFrequencyA.TextChanged += new System.EventHandler(this.TextBoxFrequencyA_TextChanged);
+            this.textBoxFrequencyA.KeyUp += new System.Windows.Forms.KeyEventHandler(this.TextBoxFrequencyA_KeyUp);
             // 
             // textBoxFrequencyB
             // 
@@ -81,9 +81,9 @@
             this.textBoxFrequencyB.Name = "textBoxFrequencyB";
             this.textBoxFrequencyB.Size = new System.Drawing.Size(100, 20);
             this.textBoxFrequencyB.TabIndex = 3;
-            this.textBoxFrequencyB.TextChanged += new System.EventHandler(this.textBoxFrequencyB_TextChanged);
-            this.textBoxFrequencyB.Enter += new System.EventHandler(this.textBoxFrequencyB_Enter);
-            this.textBoxFrequencyB.KeyUp += new System.Windows.Forms.KeyEventHandler(this.textBoxFrequencyB_KeyUp);
+            this.textBoxFrequencyB.TextChanged += new System.EventHandler(this.TextBoxFrequencyB_TextChanged);
+            this.textBoxFrequencyB.Enter += new System.EventHandler(this.TextBoxFrequencyB_Enter);
+            this.textBoxFrequencyB.KeyUp += new System.Windows.Forms.KeyEventHandler(this.TextBoxFrequencyB_KeyUp);
             // 
             // labelVFOB
             // 
@@ -93,7 +93,7 @@
             this.labelVFOB.Size = new System.Drawing.Size(35, 13);
             this.labelVFOB.TabIndex = 4;
             this.labelVFOB.Text = "VFOB";
-            this.labelVFOB.Click += new System.EventHandler(this.labelVFOB_Click);
+            this.labelVFOB.Click += new System.EventHandler(this.LabelVFOB_Click);
             // 
             // buttonPTT
             // 
@@ -103,7 +103,7 @@
             this.buttonPTT.TabIndex = 5;
             this.buttonPTT.Text = "PTT";
             this.buttonPTT.UseVisualStyleBackColor = true;
-            this.buttonPTT.Click += new System.EventHandler(this.buttonPTT_Click);
+            this.buttonPTT.Click += new System.EventHandler(this.ButtonPTT_Click);
             // 
             // comboBoxModeA
             // 
@@ -112,9 +112,9 @@
             this.comboBoxModeA.Name = "comboBoxModeA";
             this.comboBoxModeA.Size = new System.Drawing.Size(75, 21);
             this.comboBoxModeA.TabIndex = 6;
-            this.comboBoxModeA.DropDown += new System.EventHandler(this.comboBoxModeA_DropDown);
-            this.comboBoxModeA.SelectedIndexChanged += new System.EventHandler(this.comboBoxModeA_SelectedIndexChanged);
-            this.comboBoxModeA.DropDownClosed += new System.EventHandler(this.comboBoxModeA_DropDownClosed);
+            this.comboBoxModeA.DropDown += new System.EventHandler(this.ComboBoxModeA_DropDown);
+            this.comboBoxModeA.SelectedIndexChanged += new System.EventHandler(this.ComboBoxModeA_SelectedIndexChanged);
+            this.comboBoxModeA.DropDownClosed += new System.EventHandler(this.ComboBoxModeA_DropDownClosed);
             // 
             // comboBoxModeB
             // 
@@ -123,9 +123,9 @@
             this.comboBoxModeB.Name = "comboBoxModeB";
             this.comboBoxModeB.Size = new System.Drawing.Size(75, 21);
             this.comboBoxModeB.TabIndex = 7;
-            this.comboBoxModeB.DropDown += new System.EventHandler(this.comboBoxModeB_DropDown);
-            this.comboBoxModeB.SelectedIndexChanged += new System.EventHandler(this.comboBoxModeB_SelectedIndexChanged);
-            this.comboBoxModeB.DropDownClosed += new System.EventHandler(this.comboBoxModeB_DropDownClosed);
+            this.comboBoxModeB.DropDown += new System.EventHandler(this.ComboBoxModeB_DropDown);
+            this.comboBoxModeB.SelectedIndexChanged += new System.EventHandler(this.ComboBoxModeB_SelectedIndexChanged);
+            this.comboBoxModeB.DropDownClosed += new System.EventHandler(this.ComboBoxModeB_DropDownClosed);
             // 
             // Form1
             // 

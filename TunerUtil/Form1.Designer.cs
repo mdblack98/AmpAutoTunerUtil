@@ -576,7 +576,7 @@
             this.label16.TabIndex = 17;
             this.label16.Text = "Controller";
             this.toolTip1.SetToolTip(this.label16, "Relay card# to use");
-            this.label16.Click += new System.EventHandler(this.label16_Click);
+            this.label16.Click += new System.EventHandler(this.Label16_Click);
             // 
             // comboBoxAntenna2Controller
             // 
@@ -1516,7 +1516,7 @@
             this.buttonTunerPwr.Text = "Pwr";
             this.toolTip1.SetToolTip(this.buttonTunerPwr, "Start a tune cycle");
             this.buttonTunerPwr.UseVisualStyleBackColor = false;
-            this.buttonTunerPwr.Click += new System.EventHandler(this.button5_Click);
+            this.buttonTunerPwr.Click += new System.EventHandler(this.Button5_Click);
             // 
             // labelClock
             // 
@@ -1708,7 +1708,7 @@
             this.button4.TabIndex = 17;
             this.button4.Text = "Off";
             this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
+            this.button4.Click += new System.EventHandler(this.Button4_Click);
             // 
             // button3
             // 
@@ -1718,7 +1718,7 @@
             this.button3.TabIndex = 16;
             this.button3.Text = "On";
             this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
+            this.button3.Click += new System.EventHandler(this.Button3_Click);
             // 
             // checkBoxTuneStartup
             // 
@@ -2413,7 +2413,7 @@
             this.comboBoxFreqWalkAntenna.Size = new System.Drawing.Size(41, 21);
             this.comboBoxFreqWalkAntenna.TabIndex = 13;
             this.toolTip1.SetToolTip(this.comboBoxFreqWalkAntenna, "Antenna for FreqWalk");
-            this.comboBoxFreqWalkAntenna.SelectedIndexChanged += new System.EventHandler(this.comboBoxFreqWalkAntenna_SelectedIndexChanged);
+            this.comboBoxFreqWalkAntenna.SelectedIndexChanged += new System.EventHandler(this.ComboBoxFreqWalkAntenna_SelectedIndexChanged);
             // 
             // checkBoxWalk3
             // 
@@ -2424,7 +2424,7 @@
             this.checkBoxWalk3.TabIndex = 12;
             this.toolTip1.SetToolTip(this.checkBoxWalk3, "Click to Enable");
             this.checkBoxWalk3.UseVisualStyleBackColor = true;
-            this.checkBoxWalk3.CheckedChanged += new System.EventHandler(this.checkBoxWalkCustom_CheckedChanged);
+            this.checkBoxWalk3.CheckedChanged += new System.EventHandler(this.CheckBoxWalkCustom_CheckedChanged);
             // 
             // checkBoxWalk2
             // 
@@ -2435,7 +2435,7 @@
             this.checkBoxWalk2.TabIndex = 11;
             this.toolTip1.SetToolTip(this.checkBoxWalk2, "Click to Enable");
             this.checkBoxWalk2.UseVisualStyleBackColor = true;
-            this.checkBoxWalk2.CheckedChanged += new System.EventHandler(this.checkBoxWalkFT4_CheckedChanged);
+            this.checkBoxWalk2.CheckedChanged += new System.EventHandler(this.CheckBoxWalkFT4_CheckedChanged);
             // 
             // checkBoxWalk1
             // 
@@ -2446,7 +2446,7 @@
             this.checkBoxWalk1.TabIndex = 10;
             this.toolTip1.SetToolTip(this.checkBoxWalk1, "Click to Enable");
             this.checkBoxWalk1.UseVisualStyleBackColor = true;
-            this.checkBoxWalk1.CheckedChanged += new System.EventHandler(this.checkBoxWalkFT8_CheckedChanged);
+            this.checkBoxWalk1.CheckedChanged += new System.EventHandler(this.CheckBoxWalkFT8_CheckedChanged);
             // 
             // numericUpDownFreqWalkDelay
             // 
@@ -2486,7 +2486,7 @@
             this.labelFreqWalk3.Text = "Custom";
             this.labelFreqWalk3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.toolTip1.SetToolTip(this.labelFreqWalk3, "Ctrl-click to edit freq");
-            this.labelFreqWalk3.Click += new System.EventHandler(this.labelFreqWalk3_Click);
+            this.labelFreqWalk3.Click += new System.EventHandler(this.LabelFreqWalk3_Click);
             // 
             // labelFreqWalk2
             // 
@@ -2498,7 +2498,7 @@
             this.labelFreqWalk2.Text = "FT4";
             this.labelFreqWalk2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.toolTip1.SetToolTip(this.labelFreqWalk2, "Ctrl-click to edit freq");
-            this.labelFreqWalk2.Click += new System.EventHandler(this.labelFreqWalk2_Click);
+            this.labelFreqWalk2.Click += new System.EventHandler(this.LabelFreqWalk2_Click);
             // 
             // labelFreqWalk1
             // 
@@ -2510,7 +2510,7 @@
             this.labelFreqWalk1.Text = "FT8";
             this.labelFreqWalk1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.toolTip1.SetToolTip(this.labelFreqWalk1, "Ctrl-click to edit freq");
-            this.labelFreqWalk1.Click += new System.EventHandler(this.labelFreqWalk1_Click);
+            this.labelFreqWalk1.Click += new System.EventHandler(this.LabelFreqWalk1_Click);
             // 
             // checkedListBoxWalk3
             // 
@@ -2666,11 +2666,11 @@
             this.tabPageExpertLinears.Text = "SPE";
             this.toolTip1.SetToolTip(this.tabPageExpertLinears, "Enable to tune this band/antenna");
             this.tabPageExpertLinears.UseVisualStyleBackColor = true;
-            this.tabPageExpertLinears.Click += new System.EventHandler(this.tabPageExpertLinears_Click);
-            this.tabPageExpertLinears.Paint += new System.Windows.Forms.PaintEventHandler(this.tabPageExpertLinears_Paint);
-            this.tabPageExpertLinears.Enter += new System.EventHandler(this.tabPageExpertLinears_Enter);
-            this.tabPageExpertLinears.Validating += new System.ComponentModel.CancelEventHandler(this.tabPageExpertLinears_Validating);
-            this.tabPageExpertLinears.Validated += new System.EventHandler(this.tabPageExpertLinears_Validated);
+            this.tabPageExpertLinears.Click += new System.EventHandler(this.TabPageExpertLinears_Click);
+            this.tabPageExpertLinears.Paint += new System.Windows.Forms.PaintEventHandler(this.TabPageExpertLinears_Paint);
+            this.tabPageExpertLinears.Enter += new System.EventHandler(this.TabPageExpertLinears_Enter);
+            this.tabPageExpertLinears.Validating += new System.ComponentModel.CancelEventHandler(this.TabPageExpertLinears_Validating);
+            this.tabPageExpertLinears.Validated += new System.EventHandler(this.TabPageExpertLinears_Validated);
             // 
             // labelSPE_C
             // 
@@ -2701,7 +2701,7 @@
             this.button2.TabIndex = 63;
             this.button2.Text = "Off";
             this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.button2.Click += new System.EventHandler(this.Button2_Click);
             // 
             // button1
             // 
@@ -2711,7 +2711,7 @@
             this.button1.TabIndex = 62;
             this.button1.Text = "On";
             this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click_1);
+            this.button1.Click += new System.EventHandler(this.Button1_Click_1);
             // 
             // labelExpertLinearsInfo
             // 
@@ -2998,7 +2998,7 @@
             this.buttonExpertLinearsTune.Text = "Tune";
             this.toolTip1.SetToolTip(this.buttonExpertLinearsTune, "Tune selected antennas");
             this.buttonExpertLinearsTune.UseVisualStyleBackColor = true;
-            this.buttonExpertLinearsTune.Click += new System.EventHandler(this.buttonExpertLinearsTune_Click);
+            this.buttonExpertLinearsTune.Click += new System.EventHandler(this.ButtonExpertLinearsTune_Click);
             // 
             // comboBoxExpertLinears4_2
             // 
@@ -3013,7 +3013,7 @@
             this.comboBoxExpertLinears4_2.Name = "comboBoxExpertLinears4_2";
             this.comboBoxExpertLinears4_2.Size = new System.Drawing.Size(40, 21);
             this.comboBoxExpertLinears4_2.TabIndex = 35;
-            this.comboBoxExpertLinears4_2.Enter += new System.EventHandler(this.comboBoxExpertLinears4_2_Enter);
+            this.comboBoxExpertLinears4_2.Enter += new System.EventHandler(this.ComboBoxExpertLinears4_2_Enter);
             // 
             // label28
             // 
@@ -3471,12 +3471,12 @@
             this.tabPage.Size = new System.Drawing.Size(373, 221);
             this.tabPage.TabIndex = 8;
             this.tabPage.SelectedIndexChanged += new System.EventHandler(this.TabControl1_SelectedIndexChanged);
-            this.tabPage.Selecting += new System.Windows.Forms.TabControlCancelEventHandler(this.tabPage_Selecting);
-            this.tabPage.Selected += new System.Windows.Forms.TabControlEventHandler(this.tabPage_Selected);
+            this.tabPage.Selecting += new System.Windows.Forms.TabControlCancelEventHandler(this.TabPage_Selecting);
+            this.tabPage.Selected += new System.Windows.Forms.TabControlEventHandler(this.TabPage_Selected);
             this.tabPage.TabIndexChanged += new System.EventHandler(this.TabControl1_TabIndexChanged);
             this.tabPage.VisibleChanged += new System.EventHandler(this.TabControl1_VisibleChanged);
             this.tabPage.KeyUp += new System.Windows.Forms.KeyEventHandler(this.RichTextBox1_KeyUp);
-            this.tabPage.Validated += new System.EventHandler(this.tabPage_Validated);
+            this.tabPage.Validated += new System.EventHandler(this.TabPage_Validated);
             // 
             // tabPageControl
             // 
@@ -5211,7 +5211,7 @@
             this.antennaToolStripMenuItem.Name = "antennaToolStripMenuItem";
             this.antennaToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
             this.antennaToolStripMenuItem.Text = "Antenna";
-            this.antennaToolStripMenuItem.Click += new System.EventHandler(this.antennaToolStripMenuItem_Click);
+            this.antennaToolStripMenuItem.Click += new System.EventHandler(this.AntennaToolStripMenuItem_Click);
             // 
             // debugToolStripMenuItem
             // 
@@ -5220,7 +5220,7 @@
             this.debugToolStripMenuItem.Name = "debugToolStripMenuItem";
             this.debugToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
             this.debugToolStripMenuItem.Text = "Debug";
-            this.debugToolStripMenuItem.Click += new System.EventHandler(this.debugToolStripMenuItem_Click);
+            this.debugToolStripMenuItem.Click += new System.EventHandler(this.DebugToolStripMenuItem_Click);
             // 
             // powerToolStripMenuItem
             // 
@@ -5237,14 +5237,14 @@
             this.tunerToolStripMenuItem.Name = "tunerToolStripMenuItem";
             this.tunerToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
             this.tunerToolStripMenuItem.Text = "Tuner";
-            this.tunerToolStripMenuItem.Click += new System.EventHandler(this.tunerToolStripMenuItem_Click);
+            this.tunerToolStripMenuItem.Click += new System.EventHandler(this.TunerToolStripMenuItem_Click);
             // 
             // expertLinearsToolStripMenuItem
             // 
             this.expertLinearsToolStripMenuItem.Name = "expertLinearsToolStripMenuItem";
             this.expertLinearsToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
             this.expertLinearsToolStripMenuItem.Text = "Expert Linears";
-            this.expertLinearsToolStripMenuItem.Click += new System.EventHandler(this.expertLinearsToolStripMenuItem_Click);
+            this.expertLinearsToolStripMenuItem.Click += new System.EventHandler(this.ExpertLinearsToolStripMenuItem_Click);
             // 
             // relay1ToolStripMenuItem
             // 
@@ -5269,7 +5269,7 @@
             this.relay3ToolStripMenuItem.Name = "relay3ToolStripMenuItem";
             this.relay3ToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
             this.relay3ToolStripMenuItem.Text = "Relay3";
-            this.relay3ToolStripMenuItem.Click += new System.EventHandler(this.relay3ToolStripMenuItem_Click);
+            this.relay3ToolStripMenuItem.Click += new System.EventHandler(this.Relay3ToolStripMenuItem_Click);
             // 
             // relay4ToolStripMenuItem
             // 
@@ -5277,7 +5277,7 @@
             this.relay4ToolStripMenuItem.Name = "relay4ToolStripMenuItem";
             this.relay4ToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
             this.relay4ToolStripMenuItem.Text = "Relay4";
-            this.relay4ToolStripMenuItem.Click += new System.EventHandler(this.relay4ToolStripMenuItem_Click);
+            this.relay4ToolStripMenuItem.Click += new System.EventHandler(this.Relay4ToolStripMenuItem_Click);
             // 
             // aboutToolStripMenuItem
             // 

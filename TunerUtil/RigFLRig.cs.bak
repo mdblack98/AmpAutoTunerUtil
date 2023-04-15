@@ -1,7 +1,9 @@
-﻿using System;
+﻿// Version 20240412a
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Net.Sockets;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
@@ -17,7 +19,13 @@ namespace AmpAutoTunerUtility
         public string errorMessage = "None";
         private Thread myThread;
         private string model;
-        private char vfo;
+        private char vfo = '?';
+        private double frequencyA = 0;
+        private double frequencyB = 0;
+        private string modeA = "CW";
+        private string modeB = "CW";
+        private bool ptt;
+        Mutex FLRigLock = new Mutex(false, "RigFLRig");
         public override bool Open()
         {
             model = "Unknown";
@@ -53,6 +61,8 @@ namespace AmpAutoTunerUtility
                 }
                 return false;
             }
+            // Prime a few things
+            FLRigGetVFO();
             myThread = new Thread(new ThreadStart(Poll));
             myThread.IsBackground = true;
             myThread.Start();
@@ -70,12 +80,12 @@ namespace AmpAutoTunerUtility
             while ((xcvr = FLRigGetXcvr()) == null && --n > 0)
             {
                 Thread.Sleep(1000);
-                DebugAddMsg(DebugEnum.LOG, "Waiting for FLRigv " + n + "\n");
+                //DebugAddMsg(DebugEnum.LOG, "Waiting for FLRig " + n + "\n");
                 Application.DoEvents();
             }
             if (xcvr == null)
             {
-                DebugAddMsg(DebugEnum.ERR, "No transceiver?  Aborting FLRigWait\n");
+                //DebugAddMsg(DebugEnum.ERR, "No transceiver?  Aborting FLRigWait\n");
                 return false;
             }
             //if (formClosing == true)
@@ -83,72 +93,6 @@ namespace AmpAutoTunerUtility
             //    return false;
             //}
             DebugAddMsg(DebugEnum.LOG, "Rig is " + xcvr + "\n");
-            return true;
-        }
-        private bool FLRigSend(string xml, out string value)
-        {
-            value = "";
-            if (rigStream == null)
-            {
-                return false;
-            }
-            Byte[] data = System.Text.Encoding.ASCII.GetBytes(xml);
-            try
-            {
-                rigStream.Write(data, 0, data.Length);
-                if (xml.Contains("rig.set") || xml.Contains("rig.cat_string"))
-                {
-                    int saveTimeout = rigStream.ReadTimeout;
-                    // Just read the response and ignore it for now
-                    rigStream.ReadTimeout = 2000;
-                    byte[] data2 = new byte[4096];
-                    Int32 bytes = rigStream.Read(data2, 0, data2.Length);
-                    String responseData = Encoding.ASCII.GetString(data2, 0, bytes);
-                    if (!responseData.Contains("200 OK"))
-                    {
-                        DebugAddMsg(DebugEnum.ERR, "FLRig error: unknown response=" + responseData + "\n");
-                        //MyMessageBox("Unknown response from FLRig\n" + responseData);
-                        return false;
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                DebugAddMsg(DebugEnum.ERR, "FLRig error:\n" + ex.Message + "\n");
-                if (rigClient != null)
-                {
-                    rigStream.Close();
-                    rigClient.Close();
-                    rigStream = null;
-                    rigClient = null;
-                }
-                //checkBoxRig.Checked = false;
-                //DisconnectFLRig();
-                return false;
-            }
-            return true;
-        }
-
-        private bool FLRigSend(string xml)
-        {
-            Byte[] data = System.Text.Encoding.ASCII.GetBytes(xml);
-            try
-            {
-                rigStream.Write(data, 0, data.Length);
-            }
-            catch (Exception ex)
-            {
-                DebugAddMsg(DebugEnum.ERR, "FLRigGetXcvr error:\n" + ex.Message + "\n");
-                if (rigClient != null)
-                {
-                    rigStream.Close();
-                    rigClient.Close();
-                    rigStream = null;
-                    rigClient = null;
-                }
-                //tabPage.SelectedTab = tabPageDebug;
-                return false;
-            }
             return true;
         }
         private string FLRigGetXcvr()
@@ -202,14 +146,14 @@ namespace AmpAutoTunerUtility
                 catch (Exception)
                 {
                     DebugAddMsg(DebugEnum.ERR, "Error parsing freq from answer:\n" + responseData + "\n");
-                    FrequencyA = FrequencyB = 0;
+                    frequencyA = frequencyB = 0;
                     ModeA = ModeB = "?";
                 }
             }
             catch (Exception ex)
             {
                 DebugAddMsg(DebugEnum.ERR, "Rig not responding\n" + ex.Message + "\n");
-                FrequencyA = FrequencyB = 0;
+                frequencyA = frequencyB = 0;
                 ModeA = ModeB = "?";
             }
             rigStream.ReadTimeout = timeoutSave;
@@ -239,60 +183,110 @@ namespace AmpAutoTunerUtility
 
         public override void Poll()
         {
-            while (myThread.IsAlive == true) 
+            int n = 0;
+            while (myThread.IsAlive == true)
             {
+                FLRigLock.WaitOne();
                 FLRigGetVFO();
-                //FLRigGetFrequency('A');
-                //FLRigGetFrequency('B');
-                Thread.Sleep(1000);
+                frequencyA = FLRigGetFrequency('A');
+                frequencyB = FLRigGetFrequency('B');
+                ptt = FLRigGetPTT();
+                if (++n % 2 == 0)  // do every other one
+                {
+                    modeA = FLRigGetMode('A');
+                    modeB = FLRigGetMode('A');
+                }
+                FLRigLock.ReleaseMutex();
+                Thread.Sleep(500);
             }
         }
 
-
-        private void FLRigSetVFO(char newvfo)
+        private void FLRigSetVFO(char vfo)
         {
-            var xml = FLRigXML("rig.set_vfoAB", "" + newvfo);
-            if (FLRigSend(xml) == false)
-            { // Abort if FLRig is giving an error
-                DebugAddMsg(DebugEnum.ERR, "FLRigSend got an error??\n");
+            try
+            {
+                var myparam = "<params><param><value>" + vfo + "</value></param></params";
+                string xml = FLRigXML("rig.set_AB", myparam);
+                Byte[] data = System.Text.Encoding.ASCII.GetBytes(xml);
+                rigStream.Write(data, 0, data.Length);
+                Byte[] data2 = new byte[4096];
+                Int32 bytes = rigStream.Read(data2, 0, data2.Length);
+                string responseData = Encoding.ASCII.GetString(data2, 0, bytes);
+                if (!responseData.Contains("200 OK"))
+                {
+                    DebugAddMsg(DebugEnum.ERR, "FLRigSetVFO response != 200 OK\n" + responseData + "\n");
+                }
             }
-            vfo = newvfo;
+            catch (Exception ex)
+            {
+                DebugAddMsg(DebugEnum.ERR, "SetVFO error: " + ex.Message + "\n" + ex.StackTrace);
+                Thread.Sleep(2000);
+            }
         }
-
         private char FLRigGetVFO()
         {
-            string xml = FLRigXML("rig.get_AB", null);
-            if (FLRigSend(xml, out string value))
-                return value[0];
-            return '?';
+            bool retry = true;
+            int retryCount = 0;
+            do
+            {
+                try
+                {
+                    FLRigLock.WaitOne();
+                    string xml = FLRigXML("rig.get_AB", null);
+                    Byte[] data = System.Text.Encoding.ASCII.GetBytes(xml);
+                    rigStream.Write(data, 0, data.Length);
+                    Byte[] data2 = new byte[4096];
+                    Int32 bytes = rigStream.Read(data2, 0, data2.Length);
+                    FLRigLock.ReleaseMutex();
+                    string responseData = Encoding.ASCII.GetString(data2, 0, bytes);
+                    if (responseData.Contains("<value>B"))
+                    {
+                        vfo = 'B';
+                    }
+                    else
+                    {
+                        vfo = 'A';
+                    }
+                    retry = false; // got here so we're good
+                }
+                catch (Exception)
+                {
+                    DebugAddMsg(DebugEnum.ERR, "GetActiveVFO error #" + ++retryCount + "\n");
+                    Thread.Sleep(2000);
+                    //if (rigStream != null) rigStream.Close();
+                    //FLRigConnect();
+                }
+            } while (retry);
+            return vfo;
         }
         public override char VFO
         {
-            get 
+            get
             {
-                return vfo; 
+                return vfo;
             }
-            set 
-            { 
-                vfo = value; 
+            set
+            {
+                FLRigSetVFO(value);
+                vfo = value;
             }
         }
         public override double GetFrequency(char vfo)
         {
             if (vfo == 'A')
-                return FrequencyA;
-            else if (vfo == 'B')
-                return FrequencyB;
-            else if (this.VFO == 'A')
-                return FrequencyA;
+                return frequencyA;
             else
-                return FrequencyB;
+                return frequencyB;
             // do we need VFOC ever for FLRig?
         }
 
+        //public override void SetFrequency(double frequency)
+        //{
+        //    FLRigSetFrequency(this.VFO, frequency);
+        //}
         public override string GetMode(char vfo)
         {
-            throw new NotImplementedException();
+            return FLRigGetMode(vfo);
         }
 
         public override string GetRig()
@@ -303,13 +297,61 @@ namespace AmpAutoTunerUtility
         // Return a list of all available modes
         public override List<string> GetModes()
         {
-            throw new NotImplementedException();
-        }
+            FLRigLock.WaitOne();
+            rigStream.Flush();
+            var xml = FLRigXML("rig.get_modes", null);
+            Byte[] data = System.Text.Encoding.ASCII.GetBytes(xml);
+            try
+            {
+                if (rigStream == null) return null;
+                rigStream.Write(data, 0, data.Length);
+            }
+            catch (Exception ex)
+            {
+                if (rigStream == null || ex.Message.Contains("Unable to write"))
+                {
+                    DebugAddMsg(DebugEnum.ERR, "Error...Did FLRig shut down?\n");
+                }
+                else
+                {
+                    DebugAddMsg(DebugEnum.ERR, "FLRig unexpected error:\n" + ex.Message + "\n");
+                }
+                return null;
+            }
+            data = new Byte[4096];
+            List<string> modes = new List<string>();
+            rigStream.ReadTimeout = 5000;
+            try
+            {
+                Int32 bytes = rigStream.Read(data, 0, data.Length);
+                FLRigLock.ReleaseMutex();
+                String responseData = Encoding.ASCII.GetString(data, 0, bytes);
+                //richTextBoxRig.AppendText(responseData + "\n");
+                try
+                {
+                    char[] sep = { '<', '>' };
+                    if (responseData.Contains("<value>")) // then we have some info
+                    {
+                        string[] tokens = responseData.Split(sep);
+                        for(int i=0; i<tokens.Length; i++)
+                        {
+                            if (tokens[i].Equals("value"))
+                            {
+                                if (tokens[i+1].Length > 0) modes.Add(tokens[i+1]);
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
 
+                }
+            }
+            catch (Exception ex)
+            {
 
-        public override void SetFrequency(char vfo, double frequency)
-        {
-            throw new NotImplementedException();
+            }
+            return modes;
         }
 
         public override void SetMode(char vfo, string mode)
@@ -348,7 +390,8 @@ namespace AmpAutoTunerUtility
         private double FLRigGetFrequency(char vfo)
         {
             double frequency = 0;
-            string xml = FLRigXML("rig.get_vfo" + 'A', null);
+            FLRigLock.WaitOne();
+            string xml = FLRigXML("rig.get_vfo" + vfo, null);
             Byte[] data = System.Text.Encoding.ASCII.GetBytes(xml);
             try
             {
@@ -372,6 +415,7 @@ namespace AmpAutoTunerUtility
             try
             {
                 Int32 bytes = rigStream.Read(data, 0, data.Length);
+                FLRigLock.ReleaseMutex();
                 String responseData = Encoding.ASCII.GetString(data, 0, bytes);
                 //richTextBoxRig.AppendText(responseData + "\n");
                 try
@@ -398,11 +442,61 @@ namespace AmpAutoTunerUtility
 
         private void FLRigSetFrequency(char vfo, double frequency)
         {
-            frequency = 0;
-            string xml = FLRigXML("rig.get_vfo" + 'A', null);
+            try
+            {
+                FLRigLock.WaitOne();
+                var myparam = "<params><param><value><double>" + frequency + "</double></value></param></params";
+                string xml = FLRigXML("rig.set_vfo" + vfo, myparam);
+                Byte[] data = System.Text.Encoding.ASCII.GetBytes(xml);
+                rigStream.Write(data, 0, data.Length);
+                Byte[] data2 = new byte[4096];
+                Int32 bytes = rigStream.Read(data2, 0, data2.Length);
+                FLRigLock.ReleaseMutex();
+                string responseData = Encoding.ASCII.GetString(data2, 0, bytes);
+                if (!responseData.Contains("200 OK"))
+                {
+                    DebugAddMsg(DebugEnum.ERR, "FLRigSetVFOA/B response != 200 OK\n" + responseData + "\n");
+                }
+            }
+            catch (Exception ex)
+            {
+                DebugAddMsg(DebugEnum.ERR, "SetVFO error: " + ex.Message + "\n" + ex.StackTrace);
+                Thread.Sleep(2000);
+            }
+        }
+        public override double FrequencyA
+        {
+            get
+            {
+                return frequencyA;
+            }
+            set
+            {
+                frequencyA = value;
+                FLRigSetFrequency('A', value);
+            }
+        }
+        public override double FrequencyB
+        {
+            get
+            {
+                return frequencyB;
+            }
+            set
+            {
+                frequencyA = value;
+                FLRigSetFrequency('B', value);
+            }
+        }
+
+        private string FLRigGetMode(char vfo)
+        {
+            FLRigLock.WaitOne();
+            string xml = FLRigXML("rig.get_mode" + vfo, null);
             Byte[] data = System.Text.Encoding.ASCII.GetBytes(xml);
             try
             {
+                if (rigStream == null) return "";
                 rigStream.Write(data, 0, data.Length);
             }
             catch (Exception ex)
@@ -415,13 +509,15 @@ namespace AmpAutoTunerUtility
                 {
                     DebugAddMsg(DebugEnum.ERR, "FLRig unexpected error:\n" + ex.Message + "\n");
                 }
-                return;
+                return "";
             }
             data = new Byte[4096];
             rigStream.ReadTimeout = 5000;
+            string mode = "?";
             try
             {
                 Int32 bytes = rigStream.Read(data, 0, data.Length);
+                FLRigLock.ReleaseMutex();
                 String responseData = Encoding.ASCII.GetString(data, 0, bytes);
                 //richTextBoxRig.AppendText(responseData + "\n");
                 try
@@ -430,8 +526,7 @@ namespace AmpAutoTunerUtility
                     {
                         int offset1 = responseData.IndexOf("<value>", StringComparison.InvariantCulture) + "<value>".Length;
                         int offset2 = responseData.IndexOf("</value>", StringComparison.InvariantCulture);
-                        string freqString = responseData.Substring(offset1, offset2 - offset1);
-                        frequency = Double.Parse(freqString, CultureInfo.InvariantCulture);
+                        mode = responseData.Substring(offset1, offset2 - offset1);
                     }
                 }
                 catch (Exception ex)
@@ -443,24 +538,67 @@ namespace AmpAutoTunerUtility
             {
 
             }
-
+            if (vfo == 'A') modeA = mode;
+            else modeB = mode;
+            return mode;
         }
-        public override double FrequencyA
+
+    
+
+        private void FLRigSetMode(char vfo, string mode)
+        {
+            FLRigLock.WaitOne();
+            try
+            {
+                var myparam = "<params><param><value>" + mode + "</value></param></params";
+                string xml = FLRigXML("rig.set_mode" + vfo, myparam);
+                Byte[] data = System.Text.Encoding.ASCII.GetBytes(xml);
+                rigStream.Write(data, 0, data.Length);
+                Byte[] data2 = new byte[4096];
+                Int32 bytes = rigStream.Read(data2, 0, data2.Length);
+                string responseData = Encoding.ASCII.GetString(data2, 0, bytes);
+                if (!responseData.Contains("200 OK"))
+                {
+                    DebugAddMsg(DebugEnum.ERR, "FLRigSetVFO response != 200 OK\n" + responseData + "\n");
+                }
+            }
+            catch (Exception ex)
+            {
+                DebugAddMsg(DebugEnum.ERR, "SetVFO error: " + ex.Message + "\n" + ex.StackTrace);
+                Thread.Sleep(2000);
+            }
+            FLRigLock.ReleaseMutex();
+        }
+        public override string ModeA 
+        {
+            get { return modeA; }
+            set 
+            {
+                FLRigSetMode('A', value);
+                modeA = FLRigGetMode('A');
+            } 
+        }
+        public override string ModeB 
+        { 
+            get { return modeB; }
+            set 
+            {
+                FLRigSetMode('B', value);
+                modeB = FLRigGetMode('B');
+            }
+        }
+        public override bool PTT
         {
             get
             {
-                return this.FrequencyA;
+                return ptt;
             }
-            set 
+            set
             {
-                this.FrequencyA = value;
-                FLRigSetFrequency('A', this.FrequencyA);
+                FLRigSetPTT(value);
+                ptt = value;
             }
         }
-        public override double FrequencyB { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public override string ModeA { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public override string ModeB { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public override bool PTT { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
         protected virtual void Dispose(bool disposing)
         {
@@ -495,6 +633,112 @@ namespace AmpAutoTunerUtility
             Dispose(true);
             // TODO: uncomment the following line if the finalizer is overridden above.
             // GC.SuppressFinalize(this);
+        }
+
+        public override void SetFrequency(double frequency)
+        {
+            SetFrequency(this.VFO, frequency);
+        }
+
+        public override void SetFrequency(char vfo, double frequency)
+        {
+            if (vfo == 'A' || vfo == 'B')
+            {
+                FLRigSetFrequency(vfo, frequency);
+            }
+            else
+            { 
+                FLRigSetFrequency(this.VFO, frequency);
+            }
+        }
+
+        private void FLRigSetPTT(bool ptt)
+        {
+            try
+            {
+                int pttFlag = 0;
+                if (ptt == true) pttFlag = 1;
+                FLRigLock.WaitOne();
+                var myparam = "<params><param><value><i4>" + pttFlag + "</i4></value></param></params";
+                string xml = FLRigXML("rig.set_ptt", myparam);
+                Byte[] data = System.Text.Encoding.ASCII.GetBytes(xml);
+                rigStream.Write(data, 0, data.Length);
+                Byte[] data2 = new byte[4096];
+                Int32 bytes = rigStream.Read(data2, 0, data2.Length);
+                FLRigLock.ReleaseMutex();
+                string responseData = Encoding.ASCII.GetString(data2, 0, bytes);
+                if (!responseData.Contains("200 OK"))
+                {
+                    DebugAddMsg(DebugEnum.ERR, "FLRigSetPTT response != 200 OK\n" + responseData + "\n");
+                }
+            }
+            catch (Exception ex)
+            {
+                DebugAddMsg(DebugEnum.ERR, "SetPTT error: " + ex.Message + "\n" + ex.StackTrace);
+                Thread.Sleep(2000);
+            }
+
+        }
+        public override void SetPTT(bool ptt)
+        {
+            FLRigSetPTT(ptt);
+            this.ptt = ptt;
+        }
+
+        private  bool FLRigGetPTT()
+        {
+            FLRigLock.WaitOne();
+            var xml = FLRigXML("get_ptt", null);
+            Byte[] data = System.Text.Encoding.ASCII.GetBytes(xml);
+            try
+            {
+                if (rigStream == null) return false;
+                rigStream.Write(data, 0, data.Length);
+            }
+            catch (Exception ex)
+            {
+                if (rigStream == null || ex.Message.Contains("Unable to write"))
+                {
+                    DebugAddMsg(DebugEnum.ERR, "Error...Did FLRig shut down?\n");
+                }
+                else
+                {
+                    DebugAddMsg(DebugEnum.ERR, "FLRig unexpected error:\n" + ex.Message + "\n");
+                }
+                return false;
+            }
+            data = new Byte[4096];
+            rigStream.ReadTimeout = 5000;
+            try
+            {
+                Int32 bytes = rigStream.Read(data, 0, data.Length);
+                FLRigLock.ReleaseMutex();
+                String responseData = Encoding.ASCII.GetString(data, 0, bytes);
+                //richTextBoxRig.AppendText(responseData + "\n");
+                try
+                {
+                    if (responseData.Contains("<value>")) // then we have a frequency
+                    {
+                        int offset1 = responseData.IndexOf("<value>", StringComparison.InvariantCulture) + "<value>".Length;
+                        int offset2 = responseData.IndexOf("</value>", StringComparison.InvariantCulture);
+                        string freqString = responseData.Substring(offset1, offset2 - offset1);
+                        ptt = Boolean.Parse(freqString);
+                    }
+                }
+                catch (Exception ex)
+                {
+
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return ptt;
+        }
+        public override bool GetPTT()
+        {
+            return FLRigGetPTT();
         }
         #endregion
     }

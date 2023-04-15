@@ -43,6 +43,7 @@ namespace AmpAutoTunerUtility
         AboutForm aboutForm;
         TcpClient rigClient;
         NetworkStream rigStream;
+        private Rig myRig;
         double frequencyHz = 0;
         double frequencyLast = 0;
         double frequencyLastTunedHz = 0;
@@ -793,7 +794,8 @@ namespace AmpAutoTunerUtility
 
         private void GetModes()
         {
-            List<string> modes = FLRigGetModes();
+            List<string> modes = myRig.GetModes();
+            //List<string> modes = FLRigGetModes();
             if (modes != null)
             {
                 modes.Sort();
@@ -814,7 +816,7 @@ namespace AmpAutoTunerUtility
         }
         private void TunerClose()
         {
-            if (tuner1 != null) tuner1.Close();
+            tuner1?.Close();
             tuner1 = null;
         }
 
@@ -1337,7 +1339,6 @@ namespace AmpAutoTunerUtility
             richTextBoxDebug.Clear();
         }
 
-        Rig myRig;
         private void FLRigConnect()
         {
             if (myRig == null)
@@ -1346,49 +1347,11 @@ namespace AmpAutoTunerUtility
                 myRig.Open();
             }
             return;
-            int port = 12345;
-            try
-            {
-                rigClient = new TcpClient("127.0.0.1", port)
-                {
-                    SendTimeout = 500
-                };
-                rigStream = rigClient.GetStream();
-                rigStream.ReadTimeout = 500;
-                if (FLRigWait() == false)
-                {
-                    DebugAddMsg(DebugEnum.ERR, "Flrig not connected?");
-                    return;
-                }
-                else
-                {
-                    GetModes();
-                    // FLRig returns 14070000 until it polls the rig
-                    // So we'll wait for 3 seconds or until a different value returns
-                    Thread.Sleep(3000);
-                    Debug(DebugEnum.LOG, "FLRig connected\n");
-                }
-            }
-            catch (Exception ex)
-            {
-                Application.DoEvents();
-                //checkBoxRig.Checked = false;
-                if (ex.Message.Contains("actively refused"))
-                {
-                    Debug(DebugEnum.LOG, "FLRig error...not responding...\n");
-                    frequencyLast = 0;
-
-                }
-                else
-                {
-                    Debug(DebugEnum.ERR, "FLRig unexpected error:\n" + ex.Message + "\n");
-                    Application.DoEvents();
-                }
-            }
         }
 
         private void DisconnectFLRig()
         {
+            myRig.Close();
             // Nothing to do
             // If we let it close naturally we don't get the TIME_WAIT 
             try
@@ -2103,12 +2066,12 @@ namespace AmpAutoTunerUtility
                 if (comboBoxFreqWalkAntenna.SelectedIndex >= 0)
                 {
                     var s = (string)comboBoxFreqWalkAntenna.Items[comboBoxFreqWalkAntenna.SelectedIndex];
-                    if (tuner1 != null) tuner1.SetAntenna(int.Parse(s)); 
+                    tuner1?.SetAntenna(int.Parse(s)); 
                 }
                 else
                 {
                     MessageBox.Show("Need to select walk antenna in FreqWalk tab, defaulting to antenna#1", "FreqWalk", MessageBoxButtons.OK);
-                    if (tuner1 != null) tuner1.SetAntenna(1);
+                    tuner1?.SetAntenna(1);
                     return;
                 }
             }
@@ -2605,31 +2568,21 @@ namespace AmpAutoTunerUtility
 
         private void FLRigGetFreq(bool needTuning = true)
         {
-            return;
             getFreqIsRunning = true;
             if (!checkBoxRig.Checked || formClosing)
             {
                 getFreqIsRunning = false;
                 return;
             }
-            //if (rigClient == null)
-            {
-                FLRigConnect();
-                //if (rigClient == null)
-                //{
-                //    getFreqIsRunning = false;
-                //    return;
-                //}
-            }
-            string currVFO = FLRigGetActiveVFO();
-            if (currVFO.Equals("B", StringComparison.InvariantCulture))
+            char currVFO = this.myRig.VFO;
+            if (currVFO == 'B')
             {// could be rigctl temp change to VFOB so should be done in < 1 second
-                Thread.Sleep(1000);
-                currVFO = FLRigGetActiveVFO();
+                Thread.Sleep(5000);
+                currVFO = this.myRig.VFO;
             }
 
 
-            if (currVFO.Equals("B", StringComparison.InvariantCulture))
+            if (currVFO == 'B')
             {
                 //MyMessageBox("Auto tuning paused because VFOB is active, click OK when you're done", MessageBoxButtons.OK);
                 DebugAddMsg(DebugEnum.LOG, "VFOB active...pausing\n");
@@ -2643,7 +2596,7 @@ namespace AmpAutoTunerUtility
             string vfo = "B";
             if (radioButtonVFOA.Checked) vfo = "A";
             char cvfo = 'A';
-            string mode = FLRigGetMode();
+            string mode = this.myRig.VFO=='A' ? this.myRig.ModeA : this.myRig.ModeB;
             //Debug(DebugEnum.VERBOSE, "VFOA mode is " + mode + "\n");
             if (radioButtonVFOA.Checked) cvfo = 'B';
             string xml = FLRigXML("rig.get_vfo" + vfo, null);
@@ -2844,7 +2797,7 @@ namespace AmpAutoTunerUtility
             ManagementObjectSearcher commandLineSearcher = new ManagementObjectSearcher(
                 "SELECT CommandLine FROM Win32_Process WHERE ProcessId = " + process.Id);
             String commandLine = "";
-            foreach (ManagementObject commandLineObject in commandLineSearcher.Get())
+            foreach (ManagementObject commandLineObject in commandLineSearcher.Get().Cast<ManagementObject>())
             {
                 commandLine += (String)commandLineObject["CommandLine"];
             }
@@ -2869,7 +2822,6 @@ namespace AmpAutoTunerUtility
             if (tuner1 != null) SetAntennaInUseForGUI(false,tuner1.AntennaNumber);
             if (pausedTuning)
                 return;
-            timerGetFreq.Stop();
             //DebugAddMsg(DebugEnum.VERBOSE, "Timer tick\n");
             if (checkBoxRelay1Enabled.Checked && relay1 != null && relay1.relayError == true)
             {
@@ -2972,22 +2924,26 @@ namespace AmpAutoTunerUtility
                 if (FwdPwr != null) labelPower.Text = FwdPwr;
             }
 
-            if (checkBoxTunerEnabled.Checked && comboBoxTunerModel.Text.Equals(MFJ928))
+            if (checkBoxTunerEnabled.Checked)
             {
-                numericUpDownCapacitance.Visible = true;
-                numericUpDownInductance.Visible = true;
-                buttonTunerSave.Visible = true;
-                checkBox1.Visible = false;
-                groupBoxOptions.Enabled = true;
-                groupBoxOptions.Visible = true;
-            }
-            else
-            {
-                numericUpDownCapacitance.Visible = false;
-                numericUpDownInductance.Visible = false;
-                buttonTunerSave.Visible = false;
-                checkBox1.Visible = false;
-                groupBoxOptions.Visible = false;
+                if (comboBoxTunerModel.Text.Equals(MFJ928))
+                {
+                    numericUpDownCapacitance.Visible = true;
+                    numericUpDownInductance.Visible = true;
+                    buttonTunerSave.Visible = true;
+                    checkBox1.Visible = false;
+                    groupBoxOptions.Enabled = true;
+                    groupBoxOptions.Visible = true;
+                }
+                else if (comboBoxTunerModel.Text.Equals(EXPERTLINEARS))
+                {
+                    numericUpDownCapacitance.Visible = true;
+                    numericUpDownInductance.Visible = true;
+                    buttonTunerSave.Visible = false;
+                    checkBox1.Visible = false;
+                    groupBoxOptions.Visible = true;
+                }
+
             }
             if (checkBoxRig.Checked)
             {
@@ -2999,7 +2955,6 @@ namespace AmpAutoTunerUtility
             {
                 labelFreq.Text = "?";
             }
-            timerGetFreq.Start();
         }
 
         private void CheckBox1_CheckedChanged(object sender, EventArgs e)
@@ -3304,7 +3259,7 @@ namespace AmpAutoTunerUtility
             if (checkBoxRelay1Enabled.Checked && comboBoxComRelay1.Text.Contains("COM") && comboBoxComRelay1.SelectedText == "")
             {
                 //if (relay1 != null) MyMessageBox("Relay1 != null??");
-                if (relay1 != null) relay1.Close();
+                relay1?.Close();
                 relay1 = new Relay();
                 Debug(DebugEnum.LOG, "Relay1 open\n");
                 relay1.Open(comboBoxComRelay1.Text);
@@ -3720,12 +3675,12 @@ namespace AmpAutoTunerUtility
             GC.Collect(0);
             GC.WaitForPendingFinalizers();
             if (tuner1 == null) { timerDebug.Enabled = true; return; }
-            if (relay1 != null) relay1.Status();
+            relay1?.Status();
             if (checkBoxPause.Checked) { timerDebug.Enabled = true; return; }
             DebugMsg msg = DebugGetMsg();
             debugLevel = (DebugEnum)comboBoxDebugLevel.SelectedIndex + 1;
             if (debugLevel < 0) debugLevel = DebugEnum.WARN;
-            if (tuner1 != null) tuner1.SetDebugLevel(debugLevel);
+            tuner1?.SetDebugLevel(debugLevel);
             while (msg != null)
             {
                 if (msg.Level <= debugLevel || msg.Level == DebugEnum.LOG)
@@ -3832,8 +3787,10 @@ namespace AmpAutoTunerUtility
             Cursor.Current = Cursors.WaitCursor;
             timerDebug.Stop();
             timerGetFreq.Stop();
+            timerFreqWalk.Stop();
             timerDebug.Enabled = false;
             timerGetFreq.Enabled = false;
+            timerFreqWalk.Enabled = false;
             Application.Exit();
         }
         private void CloseToolStripMenuItem_Click(object sender, EventArgs e)
@@ -5073,23 +5030,23 @@ namespace AmpAutoTunerUtility
             antennaLocked = labelAntennaSelected.ForeColor == Color.Red;
         }
 
-        private void checkBoxWalkFT8_CheckedChanged(object sender, EventArgs e)
+        private void CheckBoxWalkFT8_CheckedChanged(object sender, EventArgs e)
         {
             checkedListBoxWalk1.Enabled = checkBoxWalk1.Checked;
         }
 
-        private void checkBoxWalkFT4_CheckedChanged(object sender, EventArgs e)
+        private void CheckBoxWalkFT4_CheckedChanged(object sender, EventArgs e)
         {
             checkedListBoxWalk2.Enabled = checkBoxWalk2.Checked;
         }
 
-        private void checkBoxWalkCustom_CheckedChanged(object sender, EventArgs e)
+        private void CheckBoxWalkCustom_CheckedChanged(object sender, EventArgs e)
         {
             checkedListBoxWalk3.Enabled = checkBoxWalk3.Checked;
 
         }
 
-        private void labelFreqWalk1_Click(object sender, EventArgs e)
+        private void LabelFreqWalk1_Click(object sender, EventArgs e)
         {
             if (ModifierKeys == Keys.Control)
             {
@@ -5097,7 +5054,7 @@ namespace AmpAutoTunerUtility
                 if (newLabel.Length > 0) labelFreqWalk1.Text = newLabel;
             }
         }
-        private void labelFreqWalk2_Click(object sender, EventArgs e)
+        private void LabelFreqWalk2_Click(object sender, EventArgs e)
         {
             if (ModifierKeys == Keys.Control)
             {
@@ -5105,7 +5062,7 @@ namespace AmpAutoTunerUtility
                 if (newLabel.Length > 0) labelFreqWalk2.Text = newLabel;
             }
         }
-        private void labelFreqWalk3_Click(object sender, EventArgs e)
+        private void LabelFreqWalk3_Click(object sender, EventArgs e)
         {
             if (ModifierKeys == Keys.Control)
             {
@@ -5114,12 +5071,12 @@ namespace AmpAutoTunerUtility
             }
         }
 
-        private void label16_Click(object sender, EventArgs e)
+        private void Label16_Click(object sender, EventArgs e)
         {
 
         }
 
-        private void antennaToolStripMenuItem_Click(object sender, EventArgs e)
+        private void AntennaToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (antennaToolStripMenuItem.Checked)
             {
@@ -5134,7 +5091,7 @@ namespace AmpAutoTunerUtility
             }
         }
 
-        private void debugToolStripMenuItem_Click(object sender, EventArgs e)
+        private void DebugToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (debugToolStripMenuItem.Checked)
             {
@@ -5149,7 +5106,7 @@ namespace AmpAutoTunerUtility
             }
         }
 
-        private void tunerToolStripMenuItem_Click(object sender, EventArgs e)
+        private void TunerToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (tunerToolStripMenuItem.Checked)
             {
@@ -5164,7 +5121,7 @@ namespace AmpAutoTunerUtility
             }
         }
 
-        private void relay3ToolStripMenuItem_Click(object sender, EventArgs e)
+        private void Relay3ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (relay3ToolStripMenuItem.Checked)
             {
@@ -5179,7 +5136,7 @@ namespace AmpAutoTunerUtility
             }
         }
 
-        private void relay4ToolStripMenuItem_Click(object sender, EventArgs e)
+        private void Relay4ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (relay4ToolStripMenuItem.Checked)
             {
@@ -5194,12 +5151,12 @@ namespace AmpAutoTunerUtility
             }
         }
 
-        private void comboBoxFreqWalkAntenna_SelectedIndexChanged(object sender, EventArgs e)
+        private void ComboBoxFreqWalkAntenna_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }
 
-        private void expertLinearsToolStripMenuItem_Click(object sender, EventArgs e)
+        private void ExpertLinearsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (expertLinearsToolStripMenuItem.Checked)
             {
@@ -5215,7 +5172,7 @@ namespace AmpAutoTunerUtility
 
         // band = 0-11 (160-4) and antennaNumber is 1 or 2
 
-        private string[] bandList = { "160M", "80M", "60M", "40M", "30M", "20M", "17M", "15M", "12M", "10M", "6M", "4M" };
+        private readonly string[] bandList = { "160M", "80M", "60M", "40M", "30M", "20M", "17M", "15M", "12M", "10M", "6M", "4M" };
         private void TuneAll(int band, int antennaNumber, string antennaSelected)
         {
             {
@@ -5335,9 +5292,9 @@ namespace AmpAutoTunerUtility
                 }
             }
         }
-        private void buttonExpertLinearsTune_Click(object sender, EventArgs e)
+        private void ButtonExpertLinearsTune_Click(object sender, EventArgs e)
         {
-            string myStuff = "";
+            //string myStuff = "";
           
             if (ModifierKeys == Keys.Control)
             {
@@ -5558,14 +5515,13 @@ namespace AmpAutoTunerUtility
             tuner1.SetCapacitance(minSWR_C);
             tuner1.GetStatus2(Tuner.Screen.ManualTune);
         }
-        private void comboBoxExpertLinears4_2_Enter(object sender, EventArgs e)
+        private void ComboBoxExpertLinears4_2_Enter(object sender, EventArgs e)
         {
 
         }
 
-        private void tabPageExpertLinears_Enter(object sender, EventArgs e)
+        void TabPageExpertLinears_Init(object sender)
         {
-
             TabPage myPage = (TabPage)sender;
             myPage.SuspendLayout();
             myPage.Refresh();
@@ -5575,7 +5531,7 @@ namespace AmpAutoTunerUtility
             //tuner1.Poll();
             //tuner1.SelectAntennaPage();
             tuner1.GetStatus2(Tuner.Screen.Antenna);
-            
+
             Application.DoEvents();
             labelSPE_L.Text = tuner1.GetInductance() + "uH";
             labelSPE_C.Text = tuner1.GetCapacitance() + "pF";
@@ -5657,8 +5613,10 @@ namespace AmpAutoTunerUtility
             checkBoxExpertLinears4_1.Enabled = !comboBoxExpertLinears4_1.SelectedItem.ToString().Equals("NO");
             checkBoxExpertLinears4_2.Enabled = !comboBoxExpertLinears4_2.SelectedItem.ToString().Equals("NO");
             Cursor.Current = Cursors.Default;
-            myPage.ResumeLayout();
-
+        }
+        private void TabPageExpertLinears_Enter(object sender, EventArgs e)
+        {
+            this.BeginInvoke(new Action(() => TabPageExpertLinears_Init(sender)));
         }
 
         private void CheckBoxExpertLinearsCheckAll(bool isChecked)
@@ -5698,12 +5656,12 @@ namespace AmpAutoTunerUtility
             }
         }
 
-        private void checkBoxExpertLinears160_2_CheckedChanged(object sender, EventArgs e)
+        private void CheckBoxExpertLinears160_2_CheckedChanged(object sender, EventArgs e)
         {
 
         }
 
-        private void checkBoxExpertLinears80_1_CheckedChanged(object sender, EventArgs e)
+        private void CheckBoxExpertLinears80_1_CheckedChanged(object sender, EventArgs e)
         {
             CheckBox myCheckBox = (CheckBox)sender;
 
@@ -5713,27 +5671,27 @@ namespace AmpAutoTunerUtility
             }
         }
 
-        private void button1_Click_1(object sender, EventArgs e)
+        private void Button1_Click_1(object sender, EventArgs e)
         {
             tuner1.On();
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void Button2_Click(object sender, EventArgs e)
         {
             tuner1.Off();
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        private void Button3_Click(object sender, EventArgs e)
         {
             tuner1.On();
         }
 
-        private void button4_Click(object sender, EventArgs e)
+        private void Button4_Click(object sender, EventArgs e)
         {
             tuner1.Off();
         }
 
-        private void button5_Click(object sender, EventArgs e)
+        private void Button5_Click(object sender, EventArgs e)
         {
             if (buttonTunerPwr.BackColor == Color.Yellow) 
                 return;
@@ -5766,28 +5724,28 @@ namespace AmpAutoTunerUtility
             }
         }
 
-        private void tabPageExpertLinears_Click(object sender, EventArgs e)
+        private void TabPageExpertLinears_Click(object sender, EventArgs e)
         {
             //Cursor = Cursors.WaitCursor;
             //Cursor = Cursors.Default;
         }
 
-        private void tabPageExpertLinears_Validated(object sender, EventArgs e)
+        private void TabPageExpertLinears_Validated(object sender, EventArgs e)
         {
             Cursor = Cursors.Default;
         }
 
-        private void tabPageExpertLinears_Validating(object sender, CancelEventArgs e)
+        private void TabPageExpertLinears_Validating(object sender, CancelEventArgs e)
         {
             Cursor = Cursors.Default;
         }
 
-        private void tabPageExpertLinears_Paint(object sender, PaintEventArgs e)
+        private void TabPageExpertLinears_Paint(object sender, PaintEventArgs e)
         {
             Cursor = Cursors.Default;
         }
 
-        private void tabPage_Selecting(object sender, TabControlCancelEventArgs e)
+        private void TabPage_Selecting(object sender, TabControlCancelEventArgs e)
         {
             Cursor= Cursors.Default;   
             TabControl tabControl = (TabControl)sender;
@@ -5796,12 +5754,12 @@ namespace AmpAutoTunerUtility
             Cursor = Cursors.Default;
         }
 
-        private void tabPage_Validated(object sender, EventArgs e)
+        private void TabPage_Validated(object sender, EventArgs e)
         {
             Cursor = Cursors.Default;
         }
 
-        private void tabPage_Selected(object sender, TabControlEventArgs e)
+        private void TabPage_Selected(object sender, TabControlEventArgs e)
         {
             Cursor = Cursor.Current;
         }
