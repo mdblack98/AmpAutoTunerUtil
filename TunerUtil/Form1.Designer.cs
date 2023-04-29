@@ -3475,6 +3475,7 @@
             this.tabPage.Selected += new System.Windows.Forms.TabControlEventHandler(this.TabPage_Selected);
             this.tabPage.TabIndexChanged += new System.EventHandler(this.TabControl1_TabIndexChanged);
             this.tabPage.VisibleChanged += new System.EventHandler(this.TabControl1_VisibleChanged);
+            this.tabPage.Enter += new System.EventHandler(this.TabPage_Enter);
             this.tabPage.KeyUp += new System.Windows.Forms.KeyEventHandler(this.RichTextBox1_KeyUp);
             this.tabPage.Validated += new System.EventHandler(this.TabPage_Validated);
             // 

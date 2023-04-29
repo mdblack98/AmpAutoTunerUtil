@@ -14,6 +14,7 @@ namespace AmpAutoTunerUtility
         public abstract string ModeA { get; set; }
         public abstract string ModeB { get; set; }
         public abstract bool PTT { get; set; }
+        public abstract int Power { get; set; }
         public Rig()
         {
             //Model = "Unknown";

@@ -9,6 +9,7 @@ using System.Diagnostics.Contracts;
 using System.Drawing;
 using System.Globalization;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Management;
 using System.Media;
 using System.Net;
@@ -75,7 +76,7 @@ namespace AmpAutoTunerUtility
         private bool _disposed;
         private int lastAntennaNumber = -1;
         //private int lastRelayUsed = -1;
-        bool tuning;
+        //bool tuning;
 
 
         public Form1()
@@ -792,28 +793,6 @@ namespace AmpAutoTunerUtility
             timerDebug.Start();
         }
 
-        private void GetModes()
-        {
-            List<string> modes = myRig.GetModes();
-            //List<string> modes = FLRigGetModes();
-            if (modes != null)
-            {
-                modes.Sort();
-                modes.Insert(0, "Any");
-                foreach (string mode in modes)
-                {
-                    comboBoxPower1Mode.Items.Add(mode);
-                    comboBoxPower2Mode.Items.Add(mode);
-                    comboBoxPower3Mode.Items.Add(mode);
-                    comboBoxPower4Mode.Items.Add(mode);
-                    comboBoxPower5Mode.Items.Add(mode);
-                    comboBoxPower6Mode.Items.Add(mode);
-                    comboBoxPower7Mode.Items.Add(mode);
-                    comboBoxPower8Mode.Items.Add(mode);
-                }
-            }
-
-        }
         private void TunerClose()
         {
             tuner1?.Close();
@@ -1237,39 +1216,50 @@ namespace AmpAutoTunerUtility
 
         private void LoadComPorts()
         {
-            comboBoxComTuner.Items.Clear();
-            foreach (string s in System.IO.Ports.SerialPort.GetPortNames())
+            try
             {
-                if (!s.StartsWith("COM")) continue;
-                if (comboBoxComTuner.Items.Count == 0)
+                comboBoxComTuner.Items.Clear();
+                foreach (string s in System.IO.Ports.SerialPort.GetPortNames())
                 {
-                    comboBoxComTuner.Items.Add(s);
-                }
-                else
-                {
-                    int numSerPort = Int32.Parse(s.Substring(3), CultureInfo.InvariantCulture);
-                    string s2 = comboBoxComTuner.Items[comboBoxComTuner.Items.Count - 1].ToString();
-                    int numLastItem = Int32.Parse(s2.Substring(3), CultureInfo.InvariantCulture);
-                    if (numSerPort > numLastItem)
+                    string[] tokens = s.Split(' ');
+                    string comName = "";
+                    if (tokens[0].Contains("COM")) comName = tokens[0];
+                    if (!comName.StartsWith("COM")) continue;
+                    if (comboBoxComTuner.Items.Count == 0)
                     {
                         comboBoxComTuner.Items.Add(s);
                     }
                     else
                     {
-                        // Figure out where it goes
-                        int ii = 0;
-                        foreach (string s3 in comboBoxComTuner.Items)
+                        int numSerPort = Int32.Parse(comName.Substring(3), CultureInfo.InvariantCulture);
+                        string s2 = comboBoxComTuner.Items[comboBoxComTuner.Items.Count - 1].ToString();
+                        int numLastItem = Int32.Parse(s2.Substring(3), CultureInfo.InvariantCulture);
+                        if (numSerPort > numLastItem)
                         {
-                            int numCurrentItem = Int32.Parse(s3.Substring(3), CultureInfo.InvariantCulture);
-                            if (numSerPort < numCurrentItem)
+                            comboBoxComTuner.Items.Add(s);
+                        }
+                        else
+                        {
+                            // Figure out where it goes
+                            int ii = 0;
+                            foreach (string s3 in comboBoxComTuner.Items)
                             {
-                                comboBoxComTuner.Items.Insert(ii, s);
-                                break;
+                                tokens = s3.Split(' ');
+                                int numCurrentItem = Int32.Parse(tokens[0].Substring(3), CultureInfo.InvariantCulture);
+                                if (numSerPort < numCurrentItem)
+                                {
+                                    comboBoxComTuner.Items.Insert(ii, s);
+                                    break;
+                                }
+                                ++ii;
                             }
-                            ++ii;
                         }
                     }
                 }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error logind COM ports\n" + ex.Message + "\n" + ex.StackTrace);
             }
         }
 
@@ -1413,6 +1403,7 @@ namespace AmpAutoTunerUtility
             return true;
         }
 
+        /*
         private bool TuneSequence([CallerMemberName] string name = "",
                    [CallerLineNumber] int line = -1)
                    //[CallerFilePath] string path = "")
@@ -1454,6 +1445,7 @@ namespace AmpAutoTunerUtility
             System.IO.File.Create(tunerStatus);
             return retval;
         }
+        */
         // returns true when Tuner and FLRig are talking to us
         // if ptt is true then will use ptt and audio tone for tuning -- e.g. MFJ-928 without radio interface
         private bool Tune()
@@ -1590,245 +1582,6 @@ namespace AmpAutoTunerUtility
             }
             return true;
         }
-
-        private List<string> FLRigGetModes()
-        {
-            List<string> modes = new List<string>();
-            if (rigClient == null) { FLRigConnect(); }
-            string xml2 = FLRigXML("rig.get_modes", null);
-            Byte[] data = System.Text.Encoding.ASCII.GetBytes(xml2);
-            try
-            {
-                rigStream.Write(data, 0, data.Length);
-            }
-            catch (Exception ex)
-            {
-                Debug(DebugEnum.ERR, "FLRigGetModes error:\n" + ex.Message + "\n");
-                if (rigClient != null)
-                {
-                    rigStream.Close();
-                    rigClient.Close();
-                    rigStream = null;
-                    rigClient = null;
-                }
-                tabPage.SelectedTab = tabPageDebug;
-                return null;
-            }
-            data = new Byte[4096];
-            rigStream.ReadTimeout = 2000;
-            try
-            {
-                Int32 bytes = rigStream.Read(data, 0, data.Length);
-                String responseData = Encoding.ASCII.GetString(data, 0, bytes);
-                //richTextBoxRig.AppendText(responseData + "\n");
-                try
-                {
-                    char[] delims = { '<', '>', '\r', '\n' };
-                    string[] tokens = responseData.Split(delims);
-                    int i = 0;
-                    bool value = false;
-                    for (; i < tokens.Length; ++i)
-                    {
-                        if (tokens[i].Equals("data", StringComparison.InvariantCulture)) value = true;
-                        if (value == true && tokens[i].Equals("value", StringComparison.InvariantCulture))
-                        {
-                            modes.Add(tokens[i + 1]);
-                        }
-                    }
-                    if (responseData.Contains("<value>")) // then we have a frequency
-                    {
-                        int offset1 = responseData.IndexOf("<value>", StringComparison.InvariantCulture) + "<value>".Length;
-                        int offset2 = responseData.IndexOf("</value>", StringComparison.InvariantCulture);
-                        //mode = responseData.Substring(offset1, offset2 - offset1);
-                    }
-                    else
-                    {
-                        labelFreq.Text = "?";
-                        Debug(DebugEnum.ERR, responseData + "\n");
-                        tabPage.SelectedTab = tabPageDebug;
-                    }
-                }
-                catch (Exception)
-                {
-                    Debug(DebugEnum.ERR, "Error parsing freq from answer:\n" + responseData + "\n");
-                    frequencyHz = 0;
-                }
-            }
-            catch (Exception ex)
-            {
-                Debug(DebugEnum.ERR, "Error...Rig not responding\n" + ex.Message + "\n");
-                frequencyHz = 0;
-            }
-            return modes;
-
-
-        }
-        // Wait for FLRig to return valid data
-        private bool FLRigWait()
-        {
-            String xcvr;
-            int n = 16;
-            while ((xcvr = FLRigGetXcvr()) == null && formClosing == false && --n > 0)
-            {
-                Thread.Sleep(1000);
-                DebugAddMsg(DebugEnum.LOG, "Waiting for FLRigv " + n + "\n");
-                Application.DoEvents();
-            }
-            if (xcvr == null)
-            {
-                DebugAddMsg(DebugEnum.ERR, "No transceiver?  Aborting FLRigWait\n");
-                return false;
-            }
-            if (formClosing == true)
-            {
-                return false;
-            }
-            Debug(DebugEnum.LOG, "Rig is " + xcvr + "\n");
-            Application.DoEvents();
-            return true;
-        }
-
-        private string FLRigGetXcvr()
-        {
-            string xcvr = null;
-            //if (!checkBoxRig.Checked) return null;
-            if (rigClient == null || rigStream == null) { FLRigConnect(); }
-            string xml2 = FLRigXML("rig.get_xcvr", null);
-            Byte[] data = System.Text.Encoding.ASCII.GetBytes(xml2);
-            try
-            {
-                rigStream.Write(data, 0, data.Length);
-            }
-            catch (Exception ex)
-            {
-                Debug(DebugEnum.ERR, "FLRigGetXcvr error:\n" + ex.Message + "\n");
-                if (rigClient != null)
-                {
-                    rigStream.Close();
-                    rigClient.Close();
-                    rigStream = null;
-                    rigClient = null;
-                }
-                tabPage.SelectedTab = tabPageDebug;
-                return null;
-            }
-            data = new Byte[4096];
-            int timeoutSave = rigStream.ReadTimeout;
-            rigStream.ReadTimeout = 2000;
-            try
-            {
-                Int32 bytes = rigStream.Read(data, 0, data.Length);
-                String responseData = Encoding.ASCII.GetString(data, 0, bytes);
-                //richTextBoxRig.AppendText(responseData + "\n");
-                try
-                {
-                    if (responseData.Contains("<value>")) // then we have a frequency
-                    {
-                        int offset1 = responseData.IndexOf("<value>", StringComparison.InvariantCulture) + "<value>".Length;
-                        int offset2 = responseData.IndexOf("</value>", StringComparison.InvariantCulture);
-                        xcvr = responseData.Substring(offset1, offset2 - offset1);
-                        if (xcvr.Length == 0) xcvr = null;
-                    }
-                    else
-                    {
-                        labelFreq.Text = "?";
-                        Debug(DebugEnum.ERR, responseData + "\n");
-                        tabPage.SelectedTab = tabPageDebug;
-                    }
-                }
-                catch (Exception)
-                {
-                    Debug(DebugEnum.ERR, "Error parsing freq from answer:\n" + responseData + "\n");
-                    frequencyHz = 0;
-                }
-            }
-            catch (Exception ex)
-            {
-                Debug(DebugEnum.ERR, "Rig not responding\n" + ex.Message + "\n");
-                frequencyHz = 0;
-            }
-            rigStream.ReadTimeout = timeoutSave;
-            return xcvr;
-        }
-
-        private string FLRigGetMode()
-        {
-            string mode = "Unknown";
-
-            if (!checkBoxRig.Checked) return null;
-            while (rigClient == null || rigStream == null)
-            {
-                for (int i = 1; i < 100; ++i)
-                {
-                    Application.DoEvents();
-                    Thread.Sleep(20);
-                }
-                FLRigConnect();
-            }
-            string xml2 = FLRigXML("rig.get_modeA", null);
-            Byte[] data = System.Text.Encoding.ASCII.GetBytes(xml2);
-            try
-            {
-                rigStream.Write(data, 0, data.Length);
-            }
-            catch (Exception ex)
-            {
-                Debug(DebugEnum.ERR, "FLRigGetMode error:\n" + ex.Message + "\n");
-                frequencyLast = 0;
-                if (rigClient != null)
-                {
-                    rigStream.Close();
-                    rigClient.Close();
-                    rigStream = null;
-                    rigClient = null;
-                }
-                tabPage.SelectedTab = tabPageDebug;
-                return null;
-            }
-            data = new Byte[4096];
-            rigStream.ReadTimeout = 2000;
-            bool retry = true;
-            int retryCount = 0;
-            do
-            {
-                try
-                {
-                    Int32 bytes = rigStream.Read(data, 0, data.Length);
-                    String responseData = Encoding.ASCII.GetString(data, 0, bytes);
-                    //richTextBoxRig.AppendText(responseData + "\n");
-                    try
-                    {
-                        if (responseData.Contains("<value>")) // then we have a mode
-                        {
-                            retry = false;
-                            int offset1 = responseData.IndexOf("<value>", StringComparison.InvariantCulture) + "<value>".Length;
-                            int offset2 = responseData.IndexOf("</value>", StringComparison.InvariantCulture);
-                            mode = responseData.Substring(offset1, offset2 - offset1);
-                        }
-                        else
-                        {
-                            labelFreq.Text = "?";
-                            Debug(DebugEnum.ERR, responseData + "\n");
-                            tabPage.SelectedTab = tabPageDebug;
-                        }
-                    }
-                    catch (Exception)
-                    {
-                        Debug(DebugEnum.ERR, "Error parsing freq from answer:\n" + responseData + "\n");
-                        frequencyHz = 0;
-                        retry = true;
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Debug(DebugEnum.ERR, "Error...Rig get_modeA not responding try#" + ++retryCount + "\n" + ex.Message + "\n");
-                    frequencyHz = 0;
-                    retry = false;
-                }
-            } while (retry);
-            return mode;
-        }
-
         private void SetDummyLoad()
         {
             const string dummy = "dummy";
@@ -2343,37 +2096,6 @@ namespace AmpAutoTunerUtility
             //lastRelayUsed = relayValue;
             Application.DoEvents();
         }
-        private string FLRigGetActiveVFO()
-        {
-            string vfo = "A";
-            bool retry = true;
-            int retryCount = 0;
-            do
-            {
-                try
-                {
-                    string xml2 = FLRigXML("rig.get_AB", null);
-                    Byte[] data = System.Text.Encoding.ASCII.GetBytes(xml2);
-                    rigStream.Write(data, 0, data.Length);
-                    Byte[] data2 = new byte[4096];
-                    Int32 bytes = rigStream.Read(data2, 0, data2.Length);
-                    string responseData = Encoding.ASCII.GetString(data2, 0, bytes);
-                    if (responseData.Contains("<value>B"))
-                    {
-                        vfo = "B";
-                    }
-                    retry = false; // got here so we're good
-                }
-                catch (Exception)
-                {
-                    Debug(DebugEnum.ERR, "GetActiveVFO error #" + ++retryCount + "\n");
-                    Thread.Sleep(2000);
-                    //if (rigStream != null) rigStream.Close();
-                    //FLRigConnect();
-                }
-            } while (retry);
-            return vfo;
-        }
 
         private void FLRigSetActiveVFO(string mode)
         {
@@ -2574,6 +2296,8 @@ namespace AmpAutoTunerUtility
                 getFreqIsRunning = false;
                 return;
             }
+            if (this.myRig == null) 
+                return;
             char currVFO = this.myRig.VFO;
             if (currVFO == 'B')
             {// could be rigctl temp change to VFOB so should be done in < 1 second
@@ -2593,55 +2317,17 @@ namespace AmpAutoTunerUtility
                 //FLRigSetActiveVFO("A");
             }
 
-            string vfo = "B";
-            if (radioButtonVFOA.Checked) vfo = "A";
             char cvfo = 'A';
             string mode = this.myRig.VFO=='A' ? this.myRig.ModeA : this.myRig.ModeB;
             //Debug(DebugEnum.VERBOSE, "VFOA mode is " + mode + "\n");
             if (radioButtonVFOA.Checked) cvfo = 'B';
-            string xml = FLRigXML("rig.get_vfo" + vfo, null);
-            Byte[] data = System.Text.Encoding.ASCII.GetBytes(xml);
             try
             {
-                if (rigStream == null) return;
-                rigStream.Write(data, 0, data.Length);
-            }
-            catch (Exception ex)
-            {
-                if (rigStream == null || ex.Message.Contains("Unable to write"))
-                {
-                    Debug(DebugEnum.ERR, "Error...Did FLRig shut down?\n");
-                }
-                else
-                {
-                    Debug(DebugEnum.ERR, "FLRig unexpected error:\n" + ex.Message + "\n");
-                }
-                if (rigClient != null)
-                {
-                    rigStream.Close();
-                    rigClient.Close();
-                    rigStream = null;
-                    rigClient = null;
-                }
-                tabPage.SelectedTab = tabPageDebug;
-                getFreqIsRunning = false;
-                return;
-            }
-            data = new Byte[4096];
-            rigStream.ReadTimeout = 5000;
-            try
-            {
-                Int32 bytes = rigStream.Read(data, 0, data.Length);
-                String responseData = Encoding.ASCII.GetString(data, 0, bytes);
-                //richTextBoxRig.AppendText(responseData + "\n");
                 try
                 {
-                    if (responseData.Contains("<value>")) // then we have a frequency
+                    //if (responseData.Contains("<value>")) // then we have a frequency
                     {
-                        int offset1 = responseData.IndexOf("<value>", StringComparison.InvariantCulture) + "<value>".Length;
-                        int offset2 = responseData.IndexOf("</value>", StringComparison.InvariantCulture);
-                        string freqString = responseData.Substring(offset1, offset2 - offset1);
-                        frequencyHz = Double.Parse(freqString, CultureInfo.InvariantCulture);
+                        frequencyHz = cvfo == 'A'? this.myRig.FrequencyA : this.myRig.FrequencyB;
                         if (frequencyLast != 0 && Math.Abs(frequencyHz - frequencyLast) > tolTune)
                         {
                             DebugAddMsg(DebugEnum.LOG, "Freq change from " + frequencyLast + " to " + frequencyHz + "\n");
@@ -2651,7 +2337,7 @@ namespace AmpAutoTunerUtility
                             if (!pausedTuning) SetAntennaInUseForGUI(frequencyLast != 0);
                         }
                         string modeOld = modeCurrent;
-                        modeCurrent = FLRigGetMode(); // get our current mode now
+                        modeCurrent = this.myRig.ModeA; // FLRigGetMode(); // get our current mode now
                         labelFreq.Text = (frequencyHz / 1e6).ToString(CultureInfo.InvariantCulture) + "MHz" + " " + modeCurrent;
                         if (comboBoxPower1Mode.SelectedItem != null && !modeCurrent.Equals(modeOld, StringComparison.InvariantCulture))
                             PowerSelect(frequencyHz, modeCurrent, tuneIsRunning);
@@ -2683,17 +2369,11 @@ namespace AmpAutoTunerUtility
                             {
                                 frequencyHzVFOB = frequencyHz + 1000;
                             }
-                            xml = FLRigXML("rig.set_vfo" + cvfo, "<params><param><value><double> " + frequencyHzVFOB + " </double></value></param></params");
-                            if (FLRigSend(xml) == false) return; // Abort if FLRig is giving an error
+                            this.myRig.FrequencyB = frequencyHzVFOB;
                             Thread.Sleep(1000);  // give the rig a chance to restore it's band memory
                             if (!mode.Equals("FM"))
                             {
-                                string myparam = "<params><param><value>" + mode + "</value></param></params>";
-                                xml = FLRigXML("rig.set_modeB", myparam);
-                                if (FLRigSend(xml) == false)
-                                { // Abort if FLRig is giving an error
-                                    Debug(DebugEnum.ERR, "FLRig Tune got an error??\n");
-                                }
+                                this.myRig.ModeB = mode;
                                 Debug(DebugEnum.LOG, "Rig mode VFOB set to " + mode + "\n");
                             }
                             stopWatchTuner.Restart();
@@ -2704,23 +2384,13 @@ namespace AmpAutoTunerUtility
                             }
                             if (checkBoxTunerEnabled.Checked && !pausedTuning && !pauseButtonClicked)
                             {
-                                char vfoOther = 'A';
-                                if (radioButtonVFOA.Checked) vfoOther = 'B';
                                 var frequencyHzTune = frequencyHz - 1000;
                                 if (mode.Contains("-R") || mode.Contains("LSB"))
                                 {
                                     frequencyHzTune = frequencyHz + 1000;
                                 }
                                 // Set VFO mode to match primary VFO
-                                var myparam = "<params><param><value>" + modeCurrent + "</value></param></params>";
-                                /* This was causing problems and since JTDX and WSJTX set vfoB now we can remove this
-                                xml = FLRigXML("rig.set_modeB", myparam);
-                                if (FLRigSend(xml) == false)
-                                { // Abort if FLRig is giving an error
-                                    Debug(DebugEnum.ERR, "FLRigSend got an error??\n");
-                                }
-                                Thread.Sleep(200);
-                                */
+                                //myRig.ModeB = modeCurrent;
                                 frequencyLastTunedHz = frequencyHz;
                                 //PowerSelect(frequencyHz, modeCurrent);
                                 if (needTuning)
@@ -2730,12 +2400,7 @@ namespace AmpAutoTunerUtility
                                     timerGetFreq.Start();
                                 }
                                 // Reset VFOB to same freq as VFOA
-                                myparam = "<params><param><value><double>" + frequencyHz + "</double></value></param></params";
-                                xml = FLRigXML("rig.set_vfo" + vfoOther, myparam);
-                                if (FLRigSend(xml) == false)
-                                { // Abort if FLRig is giving an error
-                                    Debug(DebugEnum.ERR, "FLRigSend got an error??\n");
-                                }
+                                myRig.FrequencyB = frequencyHz;
                             }
                             else if (!pausedTuning && !pauseButtonClicked)
                             {
@@ -2743,20 +2408,8 @@ namespace AmpAutoTunerUtility
                                 Debug(DebugEnum.ERR, "Simulate tuning to " + frequencyHz + "\n");
                                 char vfoOther = 'A';
                                 if (radioButtonVFOA.Checked) vfoOther = 'B';
-                                var myparam = "<params><param><value><double>" + frequencyHz + "</double></value></param></params";
-                                xml = FLRigXML("rig.set_vfo" + vfoOther, myparam);
-                                if (FLRigSend(xml) == false)
-                                { // Abort if FLRig is giving an error
-                                    Debug(DebugEnum.ERR, "FLRigSend got an error??\n");
-                                }
-                                // Set VFO mode to match primary VFO
-                                myparam = "<params><param><value>" + modeCurrent + "</value></param></params>";
-                                xml = FLRigXML("rig.set_modeB", myparam);
-                                if (FLRigSend(xml) == false)
-                                { // Abort if FLRig is giving an error
-                                    Debug(DebugEnum.ERR, "FLRigSend got an error??\n");
-                                }
-
+                                myRig.SetFrequency(vfoOther, frequencyHz);
+                                myRig.SetMode(vfoOther, modeCurrent);
                                 frequencyLastTunedHz = frequencyLast = frequencyHz;
                                 freqStableCount = 0;
                             }
@@ -2766,16 +2419,10 @@ namespace AmpAutoTunerUtility
                             frequencyLast = frequencyHz;
                         }
                     }
-                    else
-                    {
-                        labelFreq.Text = "?";
-                        Debug(DebugEnum.ERR, responseData + "\n");
-                        tabPage.SelectedTab = tabPageDebug;
-                    }
                 }
                 catch (Exception)
                 {
-                    Debug(DebugEnum.ERR, "Error parsing freq from answer:\n" + responseData + "\n");
+                    Debug(DebugEnum.ERR, "Error in " + System.Reflection.MethodBase.GetCurrentMethod().Name + "\n");
                     //frequencyHz = 0;
                 }
             }
@@ -5212,11 +4859,12 @@ namespace AmpAutoTunerUtility
         labelExpertLinearsInfo.Text = "Tuned " + frequencyHzTune;
         */
     }
-        }private void TuneSequence()
+        }
+        private void TuneSequence()
         {
             labelExpertLinearsInfo.Text = "Tuning Expert Linears";
             Application.DoEvents();
-            string saveMode = FLRigGetMode();
+            string saveMode = myRig.ModeA;
             string desiredMode = "AM";
             if (!saveMode.Equals(desiredMode))
             {
@@ -5762,6 +5410,12 @@ namespace AmpAutoTunerUtility
         private void TabPage_Selected(object sender, TabControlEventArgs e)
         {
             Cursor = Cursor.Current;
+        }
+
+        private void TabPage_Enter(object sender, EventArgs e)
+        {
+            //Application.DoEvents();
+            //this.ResumeLayout();
         }
     }
 

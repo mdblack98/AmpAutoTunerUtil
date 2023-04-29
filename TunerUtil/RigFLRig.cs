@@ -25,6 +25,7 @@ namespace AmpAutoTunerUtility
         private string modeA = "CW";
         private string modeB = "CW";
         private bool ptt;
+        private int power;
         readonly Mutex FLRigLock = new Mutex(false, "RigFLRig");
         public override bool Open()
         {
@@ -70,8 +71,8 @@ namespace AmpAutoTunerUtility
         }
         public override void Close()
         {
-            rigStream.Close();
-            rigClient.Close();
+            rigStream?.Close();
+            rigClient?.Close();
         }
         private bool FLRigWait()
         {
@@ -191,6 +192,7 @@ namespace AmpAutoTunerUtility
                 frequencyA = FLRigGetFrequency('A');
                 frequencyB = FLRigGetFrequency('B');
                 ptt = FLRigGetPTT();
+                power = FLRigGetPower();
                 if (++n % 2 == 0)  // do every other one
                 {
                     modeA = FLRigGetMode('A');
@@ -600,6 +602,91 @@ namespace AmpAutoTunerUtility
             }
         }
 
+        private int FLRigGetPower()
+        {
+            FLRigLock.WaitOne();
+            string xml = FLRigXML("rig.get_power", null);
+            Byte[] data = System.Text.Encoding.ASCII.GetBytes(xml);
+            try
+            {
+                if (rigStream == null) return 0;
+                rigStream.Write(data, 0, data.Length);
+            }
+            catch (Exception ex)
+            {
+                if (rigStream == null || ex.Message.Contains("Unable to write"))
+                {
+                    DebugAddMsg(DebugEnum.ERR, "Error...Did FLRig shut down?\n");
+                }
+                else
+                {
+                    DebugAddMsg(DebugEnum.ERR, "FLRig unexpected error:\n" + ex.Message + "\n");
+                }
+                return 0;
+            }
+            data = new Byte[4096];
+            rigStream.ReadTimeout = 5000;
+            int power = 0;
+            try
+            {
+                Int32 bytes = rigStream.Read(data, 0, data.Length);
+                FLRigLock.ReleaseMutex();
+                String responseData = Encoding.ASCII.GetString(data, 0, bytes);
+                //richTextBoxRig.AppendText(responseData + "\n");
+                try
+                {
+                    if (responseData.Contains("<value>")) // then we have a frequency
+                    {
+                        int offset1 = responseData.IndexOf("<value>", StringComparison.InvariantCulture) + "<value>".Length;
+                        int offset2 = responseData.IndexOf("</value>", StringComparison.InvariantCulture);
+                        var s = responseData.Substring(offset1, offset2 - offset1);
+                        power = int.Parse(s);
+                    }
+                }
+                catch (Exception)
+                {
+
+                }
+            }
+            catch (Exception)
+            {
+
+            }
+            return power;
+        }
+        void FLRigSetPower(int value)
+        {
+            try
+            {
+                FLRigLock.WaitOne();
+                var myparam = "<params><param><value><i4>" + value + "</i4></value></param></params";
+                string xml = FLRigXML("rig.set_power", myparam);
+                Byte[] data = System.Text.Encoding.ASCII.GetBytes(xml);
+                rigStream.Write(data, 0, data.Length);
+                Byte[] data2 = new byte[4096];
+                Int32 bytes = rigStream.Read(data2, 0, data2.Length);
+                FLRigLock.ReleaseMutex();
+                string responseData = Encoding.ASCII.GetString(data2, 0, bytes);
+                if (!responseData.Contains("200 OK"))
+                {
+                    DebugAddMsg(DebugEnum.ERR, "FLRigSetPTT response != 200 OK\n" + responseData + "\n");
+                }
+            }
+            catch (Exception ex)
+            {
+                DebugAddMsg(DebugEnum.ERR, "SetPTT error: " + ex.Message + "\n" + ex.StackTrace);
+                Thread.Sleep(2000);
+            }
+        }
+        public override int Power
+        {
+            get { return power;  }
+            set 
+            {
+                FLRigSetPower(value);
+            }
+        }
+
         protected virtual void Dispose(bool disposing)
         {
             if (!disposedValue)
@@ -685,7 +772,7 @@ namespace AmpAutoTunerUtility
             this.ptt = ptt;
         }
 
-        private  bool FLRigGetPTT()
+        private bool FLRigGetPTT()
         {
             FLRigLock.WaitOne();
             var xml = FLRigXML("get_ptt", null);
