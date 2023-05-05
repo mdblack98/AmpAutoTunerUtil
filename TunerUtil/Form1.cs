@@ -803,6 +803,7 @@ namespace AmpAutoTunerUtility
 
         private void TunerOpen()
         {
+            if (checkBoxTunerEnabled.Checked == false) return;
             Application.DoEvents();
             try
             {
@@ -833,7 +834,7 @@ namespace AmpAutoTunerUtility
                     // We don't need any command information
                 }
 
-                if (tuner1 == null || tuner1.GetSerialPortTuner() == null || errorMsg != null)
+                if (checkBoxTunerEnabled.Checked &&  tuner1 == null || tuner1.GetSerialPortTuner() == null || errorMsg != null)
                 {
                     if (errorMsg != null && !errorMsg.Equals("OK"))
                     {
@@ -1833,8 +1834,8 @@ namespace AmpAutoTunerUtility
             else
             {
                 // we don't need to set antenna here when tuner automatically selects it
-                if (tuner1 != null && !comboBoxAntenna1Controller.Text.Equals(EXPERTLINEARS))
-                    tuner1.SetAntenna(antennaOnTuner);
+                //if (tuner1 != null && !comboBoxAntenna1Controller.Text.Equals(EXPERTLINEARS))
+                    //tuner1.SetAntenna(antennaOnTuner);
             }
             if (antennaNumberNew.Length == 0) antennaNumberNew = "1";
             var tmp = Convert.ToInt32(antennaNumberNew, CultureInfo.InvariantCulture);
@@ -1906,7 +1907,7 @@ namespace AmpAutoTunerUtility
                 case 1:
                     if (comboBoxAntenna1Controller.Text.Equals(EXPERTLINEARS))
                     {
-                        tuner1.SetAntenna(antennaNumber, false);
+                        //tuner1.SetAntenna(antennaNumber, false);
                     }
                     else if (comboBoxAntenna1Controller.Text.Contains("relay"))
                     {
@@ -3565,20 +3566,21 @@ namespace AmpAutoTunerUtility
         private void ComboBoxBaudTuner_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (formLoading || formClosing) return;
-            if (comboBoxTunerModel.Text.Length > 0 && comboBoxComTuner.Text.Length > 0)
-            {
-                checkBoxTunerEnabled.Checked = true;
-            }
-            else
-            {
-                checkBoxTunerEnabled.Checked = false;
-            }
+            //if (comboBoxTunerModel.Text.Length > 0 && comboBoxComTuner.Text.Length > 0)
+            //{
+            //    checkBoxTunerEnabled.Checked = true;
+            //}
+            //else
+            //{
+            //    checkBoxTunerEnabled.Checked = false;
+            //}
 
         }
 
         private void ComboBoxComTuner_SelectedIndexChanged_1(object sender, EventArgs e)
         {
             if (formLoading || formClosing) return;
+            /*
             if (comboBoxTunerModel.Text.Length > 0 && comboBoxComTuner.Text.Length > 0)
             {
                 checkBoxTunerEnabled.Checked = true;
@@ -3589,6 +3591,7 @@ namespace AmpAutoTunerUtility
             }
             //string s = comboBoxTunerModel.SelectedIndex+"\n"+comboBoxBaudTuner.SelectedIndex+"\n";
             //MyMessageBox(s);
+            */
         }
 
         private void CheckBoxTunerEnabled_CheckedChanged_1(object sender, EventArgs e)

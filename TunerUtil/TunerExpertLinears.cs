@@ -563,7 +563,9 @@ namespace AmpAutoTunerUtility
 
         private void InitArrays()
         {
-            //return;
+            return;
+            cDict?.Clear();
+            lDict?.Clear();
             try
             {
                 cDict = new Dictionary<int, double>
