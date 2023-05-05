@@ -372,6 +372,7 @@ namespace AmpAutoTunerUtility
                 debugToolStripMenuItem.Checked = Properties.Settings.Default.ViewDebug;
                 tunerToolStripMenuItem.Checked = Properties.Settings.Default.ViewTuner;
                 expertLinearsToolStripMenuItem.Checked = Properties.Settings.Default.ViewExpertLinears;
+                if (!expertLinearsToolStripMenuItem.Checked) tabPage.TabPages.Remove(tabPageExpertLinears);
                 //textBoxFrequencyWalkList.Text = Properties.Settings.Default.FrequencyWalkList;
 
             }
@@ -791,6 +792,7 @@ namespace AmpAutoTunerUtility
             timerDebug.Interval = 100;
             timerDebug.Enabled = true;
             timerDebug.Start();
+            Cursor = Cursors.Default;
         }
 
         private void TunerClose()
@@ -2085,11 +2087,11 @@ namespace AmpAutoTunerUtility
                 AntennaUpdateSelected(antennaNumber);
                 if (lastAntennaNumber >= 0 && needTuning && lastAntennaNumber != antennaNumber & !antennaLocked)
                 {
-                    Cursor.Current = Cursors.WaitCursor;
+                    //Cursor.Current = Cursors.WaitCursor;
                     timerGetFreq.Stop();
                     TuneSequence();
                     timerGetFreq.Start();
-                    Cursor.Current = Cursors.Default;
+                    //Cursor.Current = Cursors.Default;
                 }
             }
             lastAntennaNumber = antennaNumber;
@@ -2792,11 +2794,11 @@ namespace AmpAutoTunerUtility
             //    return;
             //}
             // MDB need to allow for different line in Power tab to check amplifier usage
-            Cursor.Current = Cursors.WaitCursor;
+            //Cursor.Current = Cursors.WaitCursor;
             timerGetFreq.Stop();
             TuneSequence();
             timerGetFreq.Start();
-            Cursor.Current = Cursors.Default;
+            //Cursor.Current = Cursors.Default;
             //if (checkBoxAmp1.Checked) relay1.Set(1, 0);
         }
 
@@ -3431,7 +3433,7 @@ namespace AmpAutoTunerUtility
 
         private void Exit()
         {
-            Cursor.Current = Cursors.WaitCursor;
+            //Cursor.Current = Cursors.WaitCursor;
             timerDebug.Stop();
             timerGetFreq.Stop();
             timerFreqWalk.Stop();
@@ -3442,7 +3444,7 @@ namespace AmpAutoTunerUtility
         }
         private void CloseToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Cursor.Current = Cursors.WaitCursor;
+            //Cursor.Current = Cursors.WaitCursor;
             Exit();
         }
 
@@ -3998,24 +4000,8 @@ namespace AmpAutoTunerUtility
                 return;
             }
             Debug(DebugEnum.TRACE, "Set VFOA " + frequenciesToWalk[index] / 1e6 + "MHz\n");
-            var myparam = "<params><param><value><double>" + frequenciesToWalk[index] + "</double></value></param></params";
-            //var xml = FLRigXML("rig.set_split", "0");
-            //if (FLRigSend(xml) == false)
-            //{ // Abort if FLRig is giving an error
-            //    Debug(DebugEnum.ERR, "FLRigSend got an error??\n");
-            //}
             myRig.FrequencyA = frequenciesToWalk[index];
-            myRig. SetFrequency(frequenciesToWalk[index]);
-            //xml = FLRigXML("rig.set_vfo" + 'A', myparam);
-            //if (FLRigSend(xml) == false)
-            //{ // Abort if FLRig is giving an error
-            //    Debug(DebugEnum.ERR, "FLRigSend got an error??\n");
-            //}
-            xml = FLRigXML("rig.set_vfo" + 'B', myparam);
-            if (FLRigSend(xml) == false)
-            { // Abort if FLRig is giving an error
-                Debug(DebugEnum.ERR, "FLRigSend got an error??\n");
-            }
+            myRig.FrequencyB = frequenciesToWalk[index];
             labelFreq.Text = frequenciesToWalk[index] / 1e6 + "MHz";
             labelFreq.Text = (frequenciesToWalk[index] / 1e6).ToString(CultureInfo.InvariantCulture) + "MHz" + " " + modeCurrent;
         }
@@ -5175,9 +5161,12 @@ namespace AmpAutoTunerUtility
             TabPage myPage = (TabPage)sender;
             myPage.SuspendLayout();
             myPage.Refresh();
-            Cursor.Current = Cursors.WaitCursor;
+            if (tuner1 == null)
+            {
+                return;
+            }
+            //Cursor.Current = Cursors.WaitCursor;
             tabPageExpertLinears.Refresh();
-            if (tuner1 == null) return;
             //tuner1.Poll();
             //tuner1.SelectAntennaPage();
             tuner1.GetStatus2(Tuner.Screen.Antenna);
