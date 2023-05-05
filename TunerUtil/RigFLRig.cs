@@ -196,7 +196,7 @@ namespace AmpAutoTunerUtility
                 if (++n % 2 == 0)  // do every other one
                 {
                     modeA = FLRigGetMode('A');
-                    modeB = FLRigGetMode('A');
+                    modeB = FLRigGetMode('B');
                 }
                 FLRigLock.ReleaseMutex();
                 Thread.Sleep(500);

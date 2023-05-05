@@ -20,7 +20,7 @@ namespace AmpAutoTunerUtility
                 baud = "38400"; // baud rate is fixed
             if (comport.Length == 0 || baud.Length == 0)
             {
-                MessageBox.Show("com port("+comport+") or baud("+baud+") is empty");
+                //MessageBox.Show("com port("+comport+") or baud("+baud+") is empty");
                 return;
             }
             //try
@@ -141,6 +141,7 @@ namespace AmpAutoTunerUtility
         //}
         public override void SetAntenna(int antennaNumberRequested, bool tuneIsRunning=false)
         {
+            if (SerialPortTuner == null) return;
             try
             {
                 if (antennaNumberRequested == AntennaNumber) return;
