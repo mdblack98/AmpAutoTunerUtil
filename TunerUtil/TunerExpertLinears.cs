@@ -414,7 +414,7 @@ namespace AmpAutoTunerUtility
                     antenna = newAntenna;
                 }
                 AntennaNumber = int.Parse(antenna.Substring(0, 1));
-                model = mytokens[1];
+                model = "SPE " + mytokens[1];
                 power = mytokens[10];
                 swr1 = mytokens[11];
                 SetSWR(Double.Parse(swr1));
@@ -477,10 +477,12 @@ namespace AmpAutoTunerUtility
         }
         public override int GetAntenna()
         {
-            return int.Parse(antenna);
+            if (antenna.Equals("?")) return 0;
+            return int.Parse(antenna.Substring(0,1));
         }
         public override void SetAntenna(int antennaNumberRequested, bool tuneIsRunning = false)
         {
+            return;
             try
             {
                 //if (antennaNumberRequested != freqWalkAntenna)

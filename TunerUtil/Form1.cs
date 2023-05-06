@@ -373,6 +373,18 @@ namespace AmpAutoTunerUtility
                 tunerToolStripMenuItem.Checked = Properties.Settings.Default.ViewTuner;
                 expertLinearsToolStripMenuItem.Checked = Properties.Settings.Default.ViewExpertLinears;
                 if (!expertLinearsToolStripMenuItem.Checked) tabPage.TabPages.Remove(tabPageExpertLinears);
+                if (!antennaToolStripMenuItem.Checked)
+                {
+                    tabPage.TabPages.Remove(tabPageAntenna);
+                    buttonAntennaPick1.Visible = false;
+                    buttonAntennaPick2.Visible = false;
+                    buttonAntennaPick3.Visible = false;
+                    buttonAntennaPick4.Visible = false;
+                    buttonAntennaPick5.Visible = false;
+                    buttonAntennaPick6.Visible = false;
+                    buttonAntennaPick7.Visible = false;
+                    buttonAntennaPick8.Visible = false;
+                }
                 //textBoxFrequencyWalkList.Text = Properties.Settings.Default.FrequencyWalkList;
 
             }
@@ -830,7 +842,7 @@ namespace AmpAutoTunerUtility
                         buttonTunerPwr.ForeColor = Color.White;
                     }
                     tuner1.GetStatus();
-                    tabPageExpertLinears.Text = "SPE " + tuner1.GetModel();
+                    tabPageExpertLinears.Text = tuner1.GetModel();
                     // We don't need any command information
                 }
 
@@ -1706,116 +1718,123 @@ namespace AmpAutoTunerUtility
                 return;
             }
             int antennaOnTuner = 1;
-            try
+            if (antennaToolStripMenuItem.Checked)
             {
-                if (checkBoxAntenna1.Checked == true && 
-                    ((!freqWalkIsRunning && frequencyMHz >= Convert.ToDouble(textBoxAntennaFreq1From.Text, CultureInfo.InvariantCulture) && frequencyMHz <= Convert.ToDouble(textBoxAntennaFreq1To.Text, CultureInfo.InvariantCulture)
-                    ) || (freqWalkIsRunning && textBoxAntenna1.BackColor == Color.LightYellow))
-                    || tunerAntenna == 1)
+                try
                 {
-                    checkBoxAntenna1.Checked = true;
-                    buttonAntenna1.BackColor = Color.Green;
-                    labelAntennaSelected.Text = textBoxAntenna1.Text;
-                    ButtonAntennaPickSet(buttonAntennaPick1);
-                    antennaNumberNew = "1";
-                    antennaAmpChecked = checkBoxAntenna1Amp.Checked;
-                    Int32.TryParse(comboBoxAntSelect1.Text, out antennaOnTuner);
+                    if (checkBoxAntenna1.Checked == true &&
+                        ((!freqWalkIsRunning && frequencyMHz >= Convert.ToDouble(textBoxAntennaFreq1From.Text, CultureInfo.InvariantCulture) && frequencyMHz <= Convert.ToDouble(textBoxAntennaFreq1To.Text, CultureInfo.InvariantCulture)
+                        ) || (freqWalkIsRunning && textBoxAntenna1.BackColor == Color.LightYellow))
+                        || tunerAntenna == 1)
+                    {
+                        checkBoxAntenna1.Checked = true;
+                        buttonAntenna1.BackColor = Color.Green;
+                        labelAntennaSelected.Text = textBoxAntenna1.Text;
+                        ButtonAntennaPickSet(buttonAntennaPick1);
+                        antennaNumberNew = "1";
+                        antennaAmpChecked = checkBoxAntenna1Amp.Checked;
+                        Int32.TryParse(comboBoxAntSelect1.Text, out antennaOnTuner);
+                    }
+                    else if (checkBoxAntenna2.Checked == true &&
+                        ((!freqWalkIsRunning && frequencyMHz >= Convert.ToDouble(textBoxAntennaFreq2From.Text, CultureInfo.InvariantCulture) && frequencyMHz <= Convert.ToDouble(textBoxAntennaFreq2To.Text, CultureInfo.InvariantCulture)
+                        ) || (freqWalkIsRunning && textBoxAntenna2.BackColor == Color.Yellow))
+                        || tunerAntenna == 2)
+                    {
+                        checkBoxAntenna2.Checked = true;
+                        buttonAntenna2.BackColor = Color.Green;
+                        labelAntennaSelected.Text = textBoxAntenna2.Text;
+                        ButtonAntennaPickSet(buttonAntennaPick2);
+                        antennaNumberNew = "2";
+                        antennaAmpChecked = checkBoxAntenna2Amp.Checked;
+                        Int32.TryParse(comboBoxAntSelect2.Text, out antennaOnTuner);
+                    }
+                    else if (checkBoxAntenna3.Checked == true &&
+                        ((!freqWalkIsRunning && frequencyMHz >= Convert.ToDouble(textBoxAntennaFreq3From.Text, CultureInfo.InvariantCulture) && frequencyMHz <= Convert.ToDouble(textBoxAntennaFreq3To.Text, CultureInfo.InvariantCulture)
+                        ) || (freqWalkIsRunning && textBoxAntenna3.BackColor == Color.Yellow))
+                        || tunerAntenna == 3)
+                    {
+                        checkBoxAntenna3.Checked = true;
+                        buttonAntenna3.BackColor = Color.Green;
+                        ButtonAntennaPickSet(buttonAntennaPick3);
+                        labelAntennaSelected.Text = textBoxAntenna3.Text;
+                        antennaNumberNew = "3";
+                        antennaAmpChecked = checkBoxAntenna3Amp.Checked;
+                        Int32.TryParse(comboBoxAntSelect3.Text, out antennaOnTuner);
+                    }
+                    else if (checkBoxAntenna4.Checked == true &&
+                        ((!freqWalkIsRunning && frequencyMHz >= Convert.ToDouble(textBoxAntennaFreq4From.Text, CultureInfo.InvariantCulture) && frequencyMHz <= Convert.ToDouble(textBoxAntennaFreq4To.Text, CultureInfo.InvariantCulture)
+                        ) || (freqWalkIsRunning && textBoxAntenna4.BackColor == Color.Yellow))
+                        || tunerAntenna == 4)
+                    {
+                        checkBoxAntenna4.Checked = true;
+                        buttonAntenna4.BackColor = Color.Green;
+                        ButtonAntennaPickSet(buttonAntennaPick4);
+                        labelAntennaSelected.Text = textBoxAntenna4.Text;
+                        antennaNumberNew = "4";
+                        antennaAmpChecked = checkBoxAntenna4Amp.Checked;
+                        Int32.TryParse(comboBoxAntSelect4.Text, out antennaOnTuner);
+                    }
+                    else if (checkBoxAntenna5.Checked == true &&
+                        ((!freqWalkIsRunning && frequencyMHz >= Convert.ToDouble(textBoxAntennaFreq5From.Text, CultureInfo.InvariantCulture) && frequencyMHz <= Convert.ToDouble(textBoxAntennaFreq5To.Text, CultureInfo.InvariantCulture)
+                        ) || (freqWalkIsRunning && textBoxAntenna5.BackColor == Color.Yellow))
+                        || tunerAntenna == 5)
+                    {
+                        checkBoxAntenna5.Checked = true;
+                        buttonAntenna5.BackColor = Color.Green;
+                        ButtonAntennaPickSet(buttonAntennaPick5);
+                        labelAntennaSelected.Text = textBoxAntenna5.Text;
+                        antennaNumberNew = "5";
+                        antennaAmpChecked = checkBoxAntenna5Amp.Checked;
+                        Int32.TryParse(comboBoxAntSelect5.Text, out antennaOnTuner);
+                    }
+                    else if (checkBoxAntenna6.Checked == true &&
+                        ((!freqWalkIsRunning && frequencyMHz >= Convert.ToDouble(textBoxAntennaFreq6From.Text, CultureInfo.InvariantCulture) && frequencyMHz <= Convert.ToDouble(textBoxAntennaFreq6To.Text, CultureInfo.InvariantCulture)
+                        ) || (freqWalkIsRunning && textBoxAntenna6.BackColor == Color.Yellow))
+                        || tunerAntenna == 6)
+                    {
+                        checkBoxAntenna6.Checked = true;
+                        buttonAntenna6.BackColor = Color.Green;
+                        ButtonAntennaPickSet(buttonAntennaPick6);
+                        labelAntennaSelected.Text = textBoxAntenna6.Text;
+                        antennaNumberNew = "6";
+                        antennaAmpChecked = checkBoxAntenna6Amp.Checked;
+                        Int32.TryParse(comboBoxAntSelect6.Text, out antennaOnTuner);
+                    }
+                    else if (checkBoxAntenna7.Checked == true &&
+                        ((!freqWalkIsRunning && frequencyMHz >= Convert.ToDouble(textBoxAntennaFreq7From.Text, CultureInfo.InvariantCulture) && frequencyMHz <= Convert.ToDouble(textBoxAntennaFreq7To.Text, CultureInfo.InvariantCulture)
+                        ) || (freqWalkIsRunning && textBoxAntenna7.BackColor == Color.Yellow))
+                        || tunerAntenna == 7)
+                    {
+                        checkBoxAntenna7.Checked = true;
+                        buttonAntenna7.BackColor = Color.Green;
+                        ButtonAntennaPickSet(buttonAntennaPick7);
+                        labelAntennaSelected.Text = textBoxAntenna7.Text;
+                        antennaNumberNew = "7";
+                        antennaAmpChecked = checkBoxAntenna7Amp.Checked;
+                        Int32.TryParse(comboBoxAntSelect7.Text, out antennaOnTuner);
+                    }
+                    else if (checkBoxAntenna8.Checked == true &&
+                        ((!freqWalkIsRunning && frequencyMHz >= Convert.ToDouble(textBoxAntennaFreq8From.Text, CultureInfo.InvariantCulture) && frequencyMHz <= Convert.ToDouble(textBoxAntennaFreq8To.Text, CultureInfo.InvariantCulture)
+                        ) || (freqWalkIsRunning && textBoxAntenna8.BackColor == Color.Yellow))
+                        || tunerAntenna == 8)
+                    {
+                        checkBoxAntenna8.Checked = true;
+                        buttonAntenna8.BackColor = Color.Green;
+                        ButtonAntennaPickSet(buttonAntennaPick8);
+                        labelAntennaSelected.Text = textBoxAntenna8.Text;
+                        antennaNumberNew = "8";
+                        antennaAmpChecked = checkBoxAntenna8Amp.Checked;
+                        Int32.TryParse(comboBoxAntSelect8.Text, out antennaOnTuner);
+                    }
                 }
-                else if (checkBoxAntenna2.Checked == true && 
-                    ((!freqWalkIsRunning && frequencyMHz >= Convert.ToDouble(textBoxAntennaFreq2From.Text, CultureInfo.InvariantCulture) && frequencyMHz <= Convert.ToDouble(textBoxAntennaFreq2To.Text, CultureInfo.InvariantCulture)
-                    ) || (freqWalkIsRunning && textBoxAntenna2.BackColor == Color.Yellow))
-                    || tunerAntenna == 2)
+                catch (Exception)
                 {
-                    checkBoxAntenna2.Checked = true;
-                    buttonAntenna2.BackColor = Color.Green;
-                    labelAntennaSelected.Text = textBoxAntenna2.Text;
-                    ButtonAntennaPickSet(buttonAntennaPick2);
-                    antennaNumberNew = "2";
-                    antennaAmpChecked = checkBoxAntenna2Amp.Checked;
-                    Int32.TryParse(comboBoxAntSelect2.Text, out antennaOnTuner);
-                }
-                else if (checkBoxAntenna3.Checked == true && 
-                    ((!freqWalkIsRunning && frequencyMHz >= Convert.ToDouble(textBoxAntennaFreq3From.Text, CultureInfo.InvariantCulture) && frequencyMHz <= Convert.ToDouble(textBoxAntennaFreq3To.Text, CultureInfo.InvariantCulture)
-                    ) || (freqWalkIsRunning && textBoxAntenna3.BackColor == Color.Yellow))
-                    || tunerAntenna == 3)
-                {
-                    checkBoxAntenna3.Checked = true;
-                    buttonAntenna3.BackColor = Color.Green;
-                    ButtonAntennaPickSet(buttonAntennaPick3);
-                    labelAntennaSelected.Text = textBoxAntenna3.Text;
-                    antennaNumberNew = "3";
-                    antennaAmpChecked = checkBoxAntenna3Amp.Checked;
-                    Int32.TryParse(comboBoxAntSelect3.Text, out antennaOnTuner);
-                }
-                else if (checkBoxAntenna4.Checked == true && 
-                    ((!freqWalkIsRunning && frequencyMHz >= Convert.ToDouble(textBoxAntennaFreq4From.Text, CultureInfo.InvariantCulture) && frequencyMHz <= Convert.ToDouble(textBoxAntennaFreq4To.Text, CultureInfo.InvariantCulture)
-                    ) || (freqWalkIsRunning && textBoxAntenna4.BackColor == Color.Yellow))
-                    || tunerAntenna == 4)
-                {
-                    checkBoxAntenna4.Checked = true;
-                    buttonAntenna4.BackColor = Color.Green;
-                    ButtonAntennaPickSet(buttonAntennaPick4);
-                    labelAntennaSelected.Text = textBoxAntenna4.Text;
-                    antennaNumberNew = "4";
-                    antennaAmpChecked = checkBoxAntenna4Amp.Checked;
-                    Int32.TryParse(comboBoxAntSelect4.Text, out antennaOnTuner);
-                }
-                else if (checkBoxAntenna5.Checked == true && 
-                    ((!freqWalkIsRunning && frequencyMHz >= Convert.ToDouble(textBoxAntennaFreq5From.Text, CultureInfo.InvariantCulture) && frequencyMHz <= Convert.ToDouble(textBoxAntennaFreq5To.Text, CultureInfo.InvariantCulture)
-                    ) || (freqWalkIsRunning && textBoxAntenna5.BackColor == Color.Yellow))
-                    || tunerAntenna == 5)
-                {
-                    checkBoxAntenna5.Checked = true;
-                    buttonAntenna5.BackColor = Color.Green;
-                    ButtonAntennaPickSet(buttonAntennaPick5);
-                    labelAntennaSelected.Text = textBoxAntenna5.Text;
-                    antennaNumberNew = "5";
-                    antennaAmpChecked = checkBoxAntenna5Amp.Checked;
-                    Int32.TryParse(comboBoxAntSelect5.Text, out antennaOnTuner);
-                }
-                else if (checkBoxAntenna6.Checked == true && 
-                    ((!freqWalkIsRunning && frequencyMHz >= Convert.ToDouble(textBoxAntennaFreq6From.Text, CultureInfo.InvariantCulture) && frequencyMHz <= Convert.ToDouble(textBoxAntennaFreq6To.Text, CultureInfo.InvariantCulture)
-                    ) || (freqWalkIsRunning && textBoxAntenna6.BackColor == Color.Yellow))
-                    || tunerAntenna == 6)
-                {
-                    checkBoxAntenna6.Checked = true;
-                    buttonAntenna6.BackColor = Color.Green;
-                    ButtonAntennaPickSet(buttonAntennaPick6);
-                    labelAntennaSelected.Text = textBoxAntenna6.Text;
-                    antennaNumberNew = "6";
-                    antennaAmpChecked = checkBoxAntenna6Amp.Checked;
-                    Int32.TryParse(comboBoxAntSelect6.Text, out antennaOnTuner);
-                }
-                else if (checkBoxAntenna7.Checked == true && 
-                    ((!freqWalkIsRunning && frequencyMHz >= Convert.ToDouble(textBoxAntennaFreq7From.Text, CultureInfo.InvariantCulture) && frequencyMHz <= Convert.ToDouble(textBoxAntennaFreq7To.Text, CultureInfo.InvariantCulture)
-                    ) || (freqWalkIsRunning && textBoxAntenna7.BackColor == Color.Yellow))
-                    || tunerAntenna == 7)
-                {
-                    checkBoxAntenna7.Checked = true;
-                    buttonAntenna7.BackColor = Color.Green;
-                    ButtonAntennaPickSet(buttonAntennaPick7);
-                    labelAntennaSelected.Text = textBoxAntenna7.Text;
-                    antennaNumberNew = "7";
-                    antennaAmpChecked = checkBoxAntenna7Amp.Checked;
-                    Int32.TryParse(comboBoxAntSelect7.Text, out antennaOnTuner);
-                }
-                else if (checkBoxAntenna8.Checked == true && 
-                    ((!freqWalkIsRunning && frequencyMHz >= Convert.ToDouble(textBoxAntennaFreq8From.Text, CultureInfo.InvariantCulture) && frequencyMHz <= Convert.ToDouble(textBoxAntennaFreq8To.Text, CultureInfo.InvariantCulture)
-                    ) || (freqWalkIsRunning && textBoxAntenna8.BackColor == Color.Yellow))
-                    || tunerAntenna == 8)
-                {
-                    checkBoxAntenna8.Checked = true;
-                    buttonAntenna8.BackColor = Color.Green;
-                    ButtonAntennaPickSet(buttonAntennaPick8);
-                    labelAntennaSelected.Text = textBoxAntenna8.Text;
-                    antennaNumberNew = "8";
-                    antennaAmpChecked = checkBoxAntenna8Amp.Checked;
-                    Int32.TryParse(comboBoxAntSelect8.Text, out antennaOnTuner);
+                    // don't do anything here...just catching the parse errors from blank boxes
                 }
             }
-            catch (Exception)
+            else if (tuner1.GetModel().Contains("SPE"))
             {
-                // don't do anything here...just catching the parse errors from blank boxes
+                labelAntennaSelected.Text = "SPE Ant#" + tuner1.GetAntenna();
             }
             if (freqWalkIsRunning)
             {
@@ -4198,6 +4217,20 @@ namespace AmpAutoTunerUtility
 
         private void AntennaSetPickButtons()
         {
+            if (antennaToolStripMenuItem.Checked == false)
+            {
+                buttonAntennaPick1.Visible = false;
+                buttonAntennaPick2.Visible = false;
+                buttonAntennaPick3.Visible = false;
+                buttonAntennaPick4.Visible = false;
+                buttonAntennaPick5.Visible = false;
+                buttonAntennaPick6.Visible = false;
+                buttonAntennaPick7.Visible = false;
+                buttonAntennaPick8.Visible = false;
+                labelAntennaSelected.Text = "";
+                return;
+            }
+
             buttonAntennaPick1.Visible = textBoxAntenna1.Text.Length > 0;
             buttonAntennaPick2.Visible = textBoxAntenna2.Text.Length > 0;
             buttonAntennaPick3.Visible = textBoxAntenna3.Text.Length > 0;
@@ -4720,6 +4753,14 @@ namespace AmpAutoTunerUtility
             {
                 antennaToolStripMenuItem.Checked = false;
                 tabPage.TabPages.Remove(tabPageAntenna);
+                buttonAntennaPick1.Visible = false;
+                buttonAntennaPick2.Visible = false;
+                buttonAntennaPick3.Visible = false;
+                buttonAntennaPick4.Visible = false;
+                buttonAntennaPick5.Visible = false;
+                buttonAntennaPick6.Visible = false;
+                buttonAntennaPick7.Visible = false;
+                buttonAntennaPick8.Visible = false;
 
             }
             else
