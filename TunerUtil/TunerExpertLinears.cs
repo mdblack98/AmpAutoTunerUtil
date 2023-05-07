@@ -167,7 +167,7 @@ namespace AmpAutoTunerUtility
         //public override bool GetStatus2(screen myScreen)
         public override bool GetStatus2(Screen myScreen = Screen.Unknown)
         {
-
+            int loop = 10;
             SerialLock.WaitOne();
             if (screenLast != myScreen)
             {
@@ -197,6 +197,7 @@ namespace AmpAutoTunerUtility
                 try
                 {
                     myByte = (byte)SerialPortTuner.ReadByte();
+                    if (myByte == 0 && --loop == 0) return false;
                     //DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.LOG, "Got " + String.Format("{0:X}", myByte));
                 }
                 catch (Exception ex)
@@ -1755,11 +1756,11 @@ namespace AmpAutoTunerUtility
             bool ok = GetStatus2(Tuner.Screen.ManualTune);
             if (ok == false)
             {
-                do
-                {
+                //do
+                //{
                     //SelectManualTunePage();
                     ok = GetStatus2(Tuner.Screen.ManualTune);
-                } while (!ok);
+                //} while (!ok);
             }
             return Inductance;
         }
@@ -1768,11 +1769,11 @@ namespace AmpAutoTunerUtility
             bool ok = GetStatus2(Tuner.Screen.ManualTune);
             if (ok == false)
             {
-                do
-                {
+                //do
+                //{
                     //SelectManualTunePage();
                     ok = GetStatus2(Tuner.Screen.ManualTune);
-                } while( !ok );
+                //} while( !ok );
             }
             return Capacitance;
         }

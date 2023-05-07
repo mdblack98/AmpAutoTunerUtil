@@ -183,8 +183,6 @@
             this.tabPageExpertLinears = new System.Windows.Forms.TabPage();
             this.labelSPE_C = new System.Windows.Forms.Label();
             this.labelSPE_L = new System.Windows.Forms.Label();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
             this.labelExpertLinearsInfo = new System.Windows.Forms.Label();
             this.checkBoxExpertLinears4_2 = new System.Windows.Forms.CheckBox();
             this.checkBoxExpertLinears6_2 = new System.Windows.Forms.CheckBox();
@@ -247,6 +245,8 @@
             this.comboBoxExpertLinears160_2 = new System.Windows.Forms.ComboBox();
             this.label12 = new System.Windows.Forms.Label();
             this.comboBoxExpertLinears160_1 = new System.Windows.Forms.ComboBox();
+            this.button2 = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.tabPage = new System.Windows.Forms.TabControl();
             this.tabPageControl = new System.Windows.Forms.TabPage();
             this.labelControlLog2 = new System.Windows.Forms.Label();
@@ -1514,7 +1514,7 @@
             this.buttonTunerPwr.Size = new System.Drawing.Size(56, 22);
             this.buttonTunerPwr.TabIndex = 14;
             this.buttonTunerPwr.Text = "Pwr";
-            this.toolTip1.SetToolTip(this.buttonTunerPwr, "Start a tune cycle");
+            this.toolTip1.SetToolTip(this.buttonTunerPwr, "Power On/Off");
             this.buttonTunerPwr.UseVisualStyleBackColor = false;
             this.buttonTunerPwr.Click += new System.EventHandler(this.Button5_Click);
             // 
@@ -2594,8 +2594,6 @@
             // 
             this.tabPageExpertLinears.Controls.Add(this.labelSPE_C);
             this.tabPageExpertLinears.Controls.Add(this.labelSPE_L);
-            this.tabPageExpertLinears.Controls.Add(this.button2);
-            this.tabPageExpertLinears.Controls.Add(this.button1);
             this.tabPageExpertLinears.Controls.Add(this.labelExpertLinearsInfo);
             this.tabPageExpertLinears.Controls.Add(this.checkBoxExpertLinears4_2);
             this.tabPageExpertLinears.Controls.Add(this.checkBoxExpertLinears6_2);
@@ -2658,6 +2656,8 @@
             this.tabPageExpertLinears.Controls.Add(this.comboBoxExpertLinears160_2);
             this.tabPageExpertLinears.Controls.Add(this.label12);
             this.tabPageExpertLinears.Controls.Add(this.comboBoxExpertLinears160_1);
+            this.tabPageExpertLinears.Controls.Add(this.button2);
+            this.tabPageExpertLinears.Controls.Add(this.button1);
             this.tabPageExpertLinears.Location = new System.Drawing.Point(4, 22);
             this.tabPageExpertLinears.Name = "tabPageExpertLinears";
             this.tabPageExpertLinears.Padding = new System.Windows.Forms.Padding(3);
@@ -2692,26 +2692,6 @@
             this.labelSPE_L.TabIndex = 64;
             this.labelSPE_L.Text = "? uH";
             this.labelSPE_L.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(317, 30);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(42, 23);
-            this.button2.TabIndex = 63;
-            this.button2.Text = "Off";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.Button2_Click);
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(317, 6);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(42, 23);
-            this.button1.TabIndex = 62;
-            this.button1.Text = "On";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.Button1_Click_1);
             // 
             // labelExpertLinearsInfo
             // 
@@ -3446,6 +3426,26 @@
             this.comboBoxExpertLinears160_1.Name = "comboBoxExpertLinears160_1";
             this.comboBoxExpertLinears160_1.Size = new System.Drawing.Size(40, 21);
             this.comboBoxExpertLinears160_1.TabIndex = 0;
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(317, 30);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(42, 23);
+            this.button2.TabIndex = 63;
+            this.button2.Text = "Off";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.Button2_Click);
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(317, 6);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(42, 23);
+            this.button1.TabIndex = 62;
+            this.button1.Text = "On";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.Button1_Click_1);
             // 
             // tabPage
             // 
@@ -5322,7 +5322,7 @@
             this.Margin = new System.Windows.Forms.Padding(2);
             this.MaximumSize = new System.Drawing.Size(417, 310);
             this.Name = "Form1";
-            this.Text = "AmpAutoTunerUtility 230505";
+            this.Text = "AmpAutoTunerUtility 230507";
             this.HelpButtonClicked += new System.ComponentModel.CancelEventHandler(this.Form1_HelpButtonClicked);
             this.Activated += new System.EventHandler(this.Form1_Activated);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
@@ -5756,13 +5756,13 @@
         private System.Windows.Forms.CheckBox checkBoxExpertLinears160_1;
         private System.Windows.Forms.Button buttonExpertLinearsTune;
         private System.Windows.Forms.Label labelExpertLinearsInfo;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button buttonTunerPwr;
         private System.Windows.Forms.Label labelSPE_C;
         private System.Windows.Forms.Label labelSPE_L;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button button1;
     }
 }
 

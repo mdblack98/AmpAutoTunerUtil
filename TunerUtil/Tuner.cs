@@ -8,7 +8,6 @@ namespace AmpAutoTunerUtility
     {
         private bool _disposed = false;
         private double sWR;
-
         //public enum TunerState
         //{
         //    Unknown,

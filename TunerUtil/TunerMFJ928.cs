@@ -85,6 +85,7 @@ namespace AmpAutoTunerUtility
                             {
                                 if (cmd[0] == 0xfe && cmd.Length != 8)
                                 {
+                                    isOn = true;
                                     continue;
                                 }
                                 RaiseAppSerialDataEvent(cmd);
@@ -110,7 +111,7 @@ namespace AmpAutoTunerUtility
             kickoffRead();
             CMDAmp(1);
             GetAmpStatus();
-            Thread.Sleep(1000);
+            Thread.Sleep(2000);
             if (!dataReceived)
             {
                 DebugAddMsg(DebugEnum.ERR, "Tuner not talking??\n");

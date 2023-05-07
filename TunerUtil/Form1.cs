@@ -836,12 +836,12 @@ namespace AmpAutoTunerUtility
                 {
                     comboBoxBaudTuner.Text = "115200";
                     tuner1 = new TunerExpertLinears(comboBoxTunerModel.Text, comboBoxComTuner.Text, comboBoxBaudTuner.Text, out errorMsg);
+                    tuner1.GetStatus();
                     if (tuner1 != null && tuner1.isOn)
                     {
                         buttonTunerPwr.BackColor = Color.Green;
                         buttonTunerPwr.ForeColor = Color.White;
                     }
-                    tuner1.GetStatus();
                     tabPageExpertLinears.Text = tuner1.GetModel();
                     // We don't need any command information
                 }
