@@ -5386,6 +5386,8 @@ namespace AmpAutoTunerUtility
                 buttonTunerPwr.Enabled = false;
                 Application.DoEvents();
                 tuner1.On();
+                Thread.Sleep(100);
+                tuner1.On();
                 Thread.Sleep(3000);
                 Application.DoEvents();
                 buttonTunerPwr.BackColor = Color.Green;
@@ -5398,6 +5400,8 @@ namespace AmpAutoTunerUtility
                 buttonTunerPwr.ForeColor = Color.Black;
                 buttonTunerPwr.Enabled = false;
                 Application.DoEvents();
+                tuner1.Off();
+                Thread.Sleep(100);
                 tuner1.Off();
                 Thread.Sleep(6000);
                 Application.DoEvents();

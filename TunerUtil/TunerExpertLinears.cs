@@ -323,7 +323,7 @@ namespace AmpAutoTunerUtility
             Byte[] cmd = { 0x55, 0x55, 0x55, 0x01, 0x90, 0x90 };
             Byte[] response = new Byte[128];
             //SerialPortTuner.Write(cmd, 0, 6);
-            Byte myByte;
+            int myByte;
             for (int i = 0; i < response.Length; ++i) response[i] = 0;
             myByte = 0x00;
             try
@@ -340,7 +340,7 @@ namespace AmpAutoTunerUtility
                 try
                 {
                     myByte = (byte)SerialPortTuner.ReadByte();
-                    if (myByte == 0)
+                    if (myByte == -1)
                     {
                         SerialLock.ReleaseMutex();
                         return false;
@@ -355,7 +355,7 @@ namespace AmpAutoTunerUtility
                     return false;
                 }
             }
-            response[0] = myByte;
+            response[0] = (byte)myByte;
             response[1] = (byte)SerialPortTuner.ReadByte();
             if (response[1] != 0xaa) { SerialLock.ReleaseMutex(); return false; }
             response[2] = (byte)SerialPortTuner.ReadByte();
@@ -443,11 +443,19 @@ namespace AmpAutoTunerUtility
             runThread = true;
             while (runThread)
             {
-                while (GetStatus() && runThread)
+                try
                 {
-                    //DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.LOG, "Expert Linears thread got status\n");
-                    Thread.Sleep(1000);
-                };
+                    while (runThread)
+                    {
+                        GetStatus();
+                        //DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.LOG, "Expert Linears thread got status\n");
+                        Thread.Sleep(1000);
+                    };
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show(e.Message + "\n" + e.StackTrace, "SPE Thread");
+                }
             }
             DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.LOG, "Expert Linears thread stopped\n");
         }
