@@ -842,6 +842,11 @@ namespace AmpAutoTunerUtility
                         buttonTunerPwr.BackColor = Color.Green;
                         buttonTunerPwr.ForeColor = Color.White;
                     }
+                    else
+                    {
+                        buttonTunerPwr.BackColor = Color.LightGray;
+                        buttonTunerPwr.ForeColor = Color.Black;
+                    }
                     tabPageExpertLinears.Text = tuner1.GetModel();
                     // We don't need any command information
                 }
@@ -2487,6 +2492,34 @@ namespace AmpAutoTunerUtility
         }
         private void TimerGetFreq_Tick(object sender, EventArgs e)
         {
+            if (tuner1 != null && tuner1.isOn)
+            {
+                buttonTunerPwr.BackColor = Color.Green;
+                buttonTunerPwr.ForeColor = Color.White;
+            }
+            else
+            {
+                buttonTunerPwr.BackColor = Color.LightGray;
+                buttonTunerPwr.ForeColor = Color.Black;
+            }
+            if (tuner1 != null && tuner1.GetModel().Contains(EXPERTLINEARS))
+            {
+                radioButtonBankA.CheckedChanged -= radioButtonBankA_CheckedChanged;
+                radioButtonBankB.CheckedChanged -= radioButtonBankB_CheckedChanged;
+                if (tuner1.bank == 'A')
+                {
+                    radioButtonBankA.Checked = true;
+                    radioButtonBankB.Checked = false;
+                }
+                else if (tuner1.bank == 'B')
+                {
+                    radioButtonBankA.Checked = false;
+                    radioButtonBankB.Checked = true;
+                }
+                radioButtonBankA.CheckedChanged += radioButtonBankA_CheckedChanged;
+                radioButtonBankB.CheckedChanged += radioButtonBankB_CheckedChanged;
+
+            }
             ClockSetGUI();
             if (tuner1 != null) SetAntennaInUseForGUI(false,tuner1.AntennaNumber);
             if (pausedTuning)
@@ -5455,6 +5488,65 @@ namespace AmpAutoTunerUtility
         {
             //Application.DoEvents();
             //this.ResumeLayout();
+        }
+
+        private void radioButtonBankA_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButtonBankA.Checked)
+            {
+                radioButtonBankB.Checked = false;
+                tuner1.SelectDisplayPage();
+                byte right = 0x10;
+                byte left = 0x0f;
+                byte set = 0x11;
+                tuner1.SendCmd(set);
+                tuner1.SendCmd(set);
+                tuner1.SendCmd(left);
+                tuner1.SendCmd(set);
+                tuner1.SendCmd(right);
+                tuner1.SendCmd(right);
+                tuner1.SendCmd(right);
+                tuner1.SendCmd(right);
+                tuner1.SendCmd(right);
+                tuner1.SendCmd(set);
+            }
+            else
+            {
+                radioButtonBankB.Checked = true;
+                /*
+                 * Bank B sequence
+Set 
+Set (Other Settings)
+Right
+Set
+Right 4
+Set
+
+                 */
+                tuner1.SelectDisplayPage();
+                byte right = 0x10;
+                byte set = 0x11;
+                tuner1.SendCmd(set);
+                tuner1.SendCmd(set);
+                tuner1.SendCmd(right);
+                tuner1.SendCmd(set);
+                tuner1.SendCmd(right);
+                tuner1.SendCmd(right);
+                tuner1.SendCmd(right);
+                tuner1.SendCmd(right);
+                tuner1.SendCmd(set);
+            }
+        }
+
+        private void radioButtonBankB_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButtonBankB.Checked)
+            {
+                radioButtonBankA.Checked = false;
+            }
+            else { 
+                radioButtonBankA.Checked = true;
+            }
         }
     }
 

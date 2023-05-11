@@ -11,6 +11,7 @@ using System.Threading;
 using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
+using System.Windows.Media.Animation;
 
 namespace AmpAutoTunerUtility
 {
@@ -22,6 +23,7 @@ namespace AmpAutoTunerUtility
         private string swr1 = "?";
         private string swr2 = "?";
         private string power = "?";
+        //public char bank = "?";
         private string temp1 = "?";
         private string antenna = "?";
         private string bandstr = "?";
@@ -51,7 +53,7 @@ namespace AmpAutoTunerUtility
                 DataBits = 8,
                 StopBits = StopBits.One,
                 Handshake = Handshake.None,
-                ReadTimeout = 1000,
+                ReadTimeout = 5000,
                 WriteTimeout = 500
             };
             SerialPortTuner.Open();
@@ -62,6 +64,10 @@ namespace AmpAutoTunerUtility
             };
             myThread.Start();
             isOn = GetStatus();
+            if (isOn == false)
+            {
+                isOn = isOn;
+            }
             //}
             //catch (Exception ex)
             //{
@@ -317,8 +323,10 @@ namespace AmpAutoTunerUtility
         }
         public override bool GetStatus()
         {
-            if (SerialPortTuner == null) return false;
+            if (SerialPortTuner == null) 
+                return false;
             SerialLock.WaitOne();
+        writeagain:
             SerialPortTuner.DiscardInBuffer();
             Byte[] cmd = { 0x55, 0x55, 0x55, 0x01, 0x90, 0x90 };
             Byte[] response = new Byte[128];
@@ -335,11 +343,20 @@ namespace AmpAutoTunerUtility
                 SerialLock.ReleaseMutex();
                 return false;
             }
+            //int zeroCount = 0;
+            readagain:
+            var watch = System.Diagnostics.Stopwatch.StartNew();
             while (myByte != 0xaa)
             {
                 try
                 {
                     myByte = (byte)SerialPortTuner.ReadByte();
+                    if (myByte == 0 && watch.ElapsedMilliseconds > 10000)
+                    {
+                        watch.Restart();
+                        SerialLock.ReleaseMutex();
+                        return false;
+                    }
                     if (myByte == -1)
                     {
                         SerialLock.ReleaseMutex();
@@ -357,9 +374,11 @@ namespace AmpAutoTunerUtility
             }
             response[0] = (byte)myByte;
             response[1] = (byte)SerialPortTuner.ReadByte();
-            if (response[1] != 0xaa) { SerialLock.ReleaseMutex(); return false; }
+            if (response[1] != 0xaa) { //SerialLock.ReleaseMutex(); 
+                goto writeagain; }
             response[2] = (byte)SerialPortTuner.ReadByte();
-            if (response[2] != 0xaa) { SerialLock.ReleaseMutex(); return false; }
+            if (response[2] != 0xaa) { //SerialLock.ReleaseMutex(); 
+                goto writeagain; }
             response[3] = (byte)SerialPortTuner.ReadByte(); // should be the length
             int n = 4;
             //DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.LOG, "bytes=" + response[3]);
@@ -378,6 +397,8 @@ namespace AmpAutoTunerUtility
                 ++n;
             }
             long sum = 0;
+            // wrong packet?
+            if (response[3] != 0x43) goto readagain;
             for (int i = 0; i < 67; ++i)
             {
                 sum += response[i + 4];
@@ -387,8 +408,10 @@ namespace AmpAutoTunerUtility
             long resByte0 = response[71];
             long resByte1 = response[72];
             var sresponse = System.Text.Encoding.Default.GetString(response, 0, n - 5);
-            if (chkByte0 != resByte0) { SerialLock.ReleaseMutex(); return false; }
-            if (chkByte1 != resByte1) { SerialLock.ReleaseMutex(); return false; }
+            if (chkByte0 != resByte0) { SerialLock.ReleaseMutex(); 
+                return false; }
+            if (chkByte1 != resByte1) { SerialLock.ReleaseMutex(); 
+                return false; }
 
             //DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.LOG, sresponse);
             // "ªªªC,13K,S,R,A,1,10,1a,0r,L,00\00, 0.00, 0.00, 0.0, 0.0,081,000,000,N,N,
@@ -416,6 +439,7 @@ namespace AmpAutoTunerUtility
                 }
                 AntennaNumber = int.Parse(antenna.Substring(0, 1));
                 model = "SPE " + mytokens[1];
+                bank = mytokens[4][0];
                 power = mytokens[10];
                 swr1 = mytokens[11];
                 SetSWR(Double.Parse(swr1));
@@ -447,7 +471,7 @@ namespace AmpAutoTunerUtility
                 {
                     while (runThread)
                     {
-                        GetStatus();
+                        isOn = GetStatus();
                         //DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.LOG, "Expert Linears thread got status\n");
                         Thread.Sleep(1000);
                     };

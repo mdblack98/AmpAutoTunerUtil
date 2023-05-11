@@ -403,6 +403,8 @@
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.timerFreqWalk = new System.Windows.Forms.Timer(this.components);
+            this.radioButtonBankA = new System.Windows.Forms.RadioButton();
+            this.radioButtonBankB = new System.Windows.Forms.RadioButton();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCapacitance)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownInductance)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPostPttDelay)).BeginInit();
@@ -2592,6 +2594,8 @@
             // 
             // tabPageExpertLinears
             // 
+            this.tabPageExpertLinears.Controls.Add(this.radioButtonBankB);
+            this.tabPageExpertLinears.Controls.Add(this.radioButtonBankA);
             this.tabPageExpertLinears.Controls.Add(this.labelSPE_C);
             this.tabPageExpertLinears.Controls.Add(this.labelSPE_L);
             this.tabPageExpertLinears.Controls.Add(this.labelExpertLinearsInfo);
@@ -2706,7 +2710,7 @@
             // 
             this.checkBoxExpertLinears4_2.AutoSize = true;
             this.checkBoxExpertLinears4_2.Enabled = false;
-            this.checkBoxExpertLinears4_2.Location = new System.Drawing.Point(295, 144);
+            this.checkBoxExpertLinears4_2.Location = new System.Drawing.Point(287, 144);
             this.checkBoxExpertLinears4_2.Name = "checkBoxExpertLinears4_2";
             this.checkBoxExpertLinears4_2.Size = new System.Drawing.Size(15, 14);
             this.checkBoxExpertLinears4_2.TabIndex = 60;
@@ -2717,7 +2721,7 @@
             // checkBoxExpertLinears6_2
             // 
             this.checkBoxExpertLinears6_2.AutoSize = true;
-            this.checkBoxExpertLinears6_2.Location = new System.Drawing.Point(295, 116);
+            this.checkBoxExpertLinears6_2.Location = new System.Drawing.Point(287, 116);
             this.checkBoxExpertLinears6_2.Name = "checkBoxExpertLinears6_2";
             this.checkBoxExpertLinears6_2.Size = new System.Drawing.Size(15, 14);
             this.checkBoxExpertLinears6_2.TabIndex = 59;
@@ -2728,7 +2732,7 @@
             // checkBoxExpertLinears10_2
             // 
             this.checkBoxExpertLinears10_2.AutoSize = true;
-            this.checkBoxExpertLinears10_2.Location = new System.Drawing.Point(295, 89);
+            this.checkBoxExpertLinears10_2.Location = new System.Drawing.Point(287, 89);
             this.checkBoxExpertLinears10_2.Name = "checkBoxExpertLinears10_2";
             this.checkBoxExpertLinears10_2.Size = new System.Drawing.Size(15, 14);
             this.checkBoxExpertLinears10_2.TabIndex = 58;
@@ -2739,7 +2743,7 @@
             // checkBoxExpertLinears12_2
             // 
             this.checkBoxExpertLinears12_2.AutoSize = true;
-            this.checkBoxExpertLinears12_2.Location = new System.Drawing.Point(295, 62);
+            this.checkBoxExpertLinears12_2.Location = new System.Drawing.Point(287, 62);
             this.checkBoxExpertLinears12_2.Name = "checkBoxExpertLinears12_2";
             this.checkBoxExpertLinears12_2.Size = new System.Drawing.Size(15, 14);
             this.checkBoxExpertLinears12_2.TabIndex = 57;
@@ -2750,7 +2754,7 @@
             // checkBoxExpertLinears15_2
             // 
             this.checkBoxExpertLinears15_2.AutoSize = true;
-            this.checkBoxExpertLinears15_2.Location = new System.Drawing.Point(295, 36);
+            this.checkBoxExpertLinears15_2.Location = new System.Drawing.Point(287, 36);
             this.checkBoxExpertLinears15_2.Name = "checkBoxExpertLinears15_2";
             this.checkBoxExpertLinears15_2.Size = new System.Drawing.Size(15, 14);
             this.checkBoxExpertLinears15_2.TabIndex = 56;
@@ -2761,7 +2765,7 @@
             // checkBoxExpertLinears17_2
             // 
             this.checkBoxExpertLinears17_2.AutoSize = true;
-            this.checkBoxExpertLinears17_2.Location = new System.Drawing.Point(295, 9);
+            this.checkBoxExpertLinears17_2.Location = new System.Drawing.Point(287, 9);
             this.checkBoxExpertLinears17_2.Name = "checkBoxExpertLinears17_2";
             this.checkBoxExpertLinears17_2.Size = new System.Drawing.Size(15, 14);
             this.checkBoxExpertLinears17_2.TabIndex = 55;
@@ -2773,7 +2777,7 @@
             // 
             this.checkBoxExpertLinears4_1.AutoSize = true;
             this.checkBoxExpertLinears4_1.Enabled = false;
-            this.checkBoxExpertLinears4_1.Location = new System.Drawing.Point(237, 144);
+            this.checkBoxExpertLinears4_1.Location = new System.Drawing.Point(229, 144);
             this.checkBoxExpertLinears4_1.Name = "checkBoxExpertLinears4_1";
             this.checkBoxExpertLinears4_1.Size = new System.Drawing.Size(15, 14);
             this.checkBoxExpertLinears4_1.TabIndex = 54;
@@ -2784,7 +2788,7 @@
             // checkBoxExpertLinears6_1
             // 
             this.checkBoxExpertLinears6_1.AutoSize = true;
-            this.checkBoxExpertLinears6_1.Location = new System.Drawing.Point(237, 116);
+            this.checkBoxExpertLinears6_1.Location = new System.Drawing.Point(229, 116);
             this.checkBoxExpertLinears6_1.Name = "checkBoxExpertLinears6_1";
             this.checkBoxExpertLinears6_1.Size = new System.Drawing.Size(15, 14);
             this.checkBoxExpertLinears6_1.TabIndex = 53;
@@ -2795,7 +2799,7 @@
             // checkBoxExpertLinears10_1
             // 
             this.checkBoxExpertLinears10_1.AutoSize = true;
-            this.checkBoxExpertLinears10_1.Location = new System.Drawing.Point(237, 89);
+            this.checkBoxExpertLinears10_1.Location = new System.Drawing.Point(229, 89);
             this.checkBoxExpertLinears10_1.Name = "checkBoxExpertLinears10_1";
             this.checkBoxExpertLinears10_1.Size = new System.Drawing.Size(15, 14);
             this.checkBoxExpertLinears10_1.TabIndex = 52;
@@ -2806,7 +2810,7 @@
             // checkBoxExpertLinears12_1
             // 
             this.checkBoxExpertLinears12_1.AutoSize = true;
-            this.checkBoxExpertLinears12_1.Location = new System.Drawing.Point(237, 62);
+            this.checkBoxExpertLinears12_1.Location = new System.Drawing.Point(229, 62);
             this.checkBoxExpertLinears12_1.Name = "checkBoxExpertLinears12_1";
             this.checkBoxExpertLinears12_1.Size = new System.Drawing.Size(15, 14);
             this.checkBoxExpertLinears12_1.TabIndex = 51;
@@ -2817,7 +2821,7 @@
             // checkBoxExpertLinears15_1
             // 
             this.checkBoxExpertLinears15_1.AutoSize = true;
-            this.checkBoxExpertLinears15_1.Location = new System.Drawing.Point(237, 36);
+            this.checkBoxExpertLinears15_1.Location = new System.Drawing.Point(229, 36);
             this.checkBoxExpertLinears15_1.Name = "checkBoxExpertLinears15_1";
             this.checkBoxExpertLinears15_1.Size = new System.Drawing.Size(15, 14);
             this.checkBoxExpertLinears15_1.TabIndex = 50;
@@ -2828,7 +2832,7 @@
             // checkBoxExpertLinears17_1
             // 
             this.checkBoxExpertLinears17_1.AutoSize = true;
-            this.checkBoxExpertLinears17_1.Location = new System.Drawing.Point(237, 9);
+            this.checkBoxExpertLinears17_1.Location = new System.Drawing.Point(229, 9);
             this.checkBoxExpertLinears17_1.Name = "checkBoxExpertLinears17_1";
             this.checkBoxExpertLinears17_1.Size = new System.Drawing.Size(15, 14);
             this.checkBoxExpertLinears17_1.TabIndex = 49;
@@ -2989,7 +2993,7 @@
             "2",
             "3",
             "4"});
-            this.comboBoxExpertLinears4_2.Location = new System.Drawing.Point(254, 140);
+            this.comboBoxExpertLinears4_2.Location = new System.Drawing.Point(246, 140);
             this.comboBoxExpertLinears4_2.Name = "comboBoxExpertLinears4_2";
             this.comboBoxExpertLinears4_2.Size = new System.Drawing.Size(40, 21);
             this.comboBoxExpertLinears4_2.TabIndex = 35;
@@ -2998,7 +3002,7 @@
             // label28
             // 
             this.label28.AutoSize = true;
-            this.label28.Location = new System.Drawing.Point(168, 144);
+            this.label28.Location = new System.Drawing.Point(160, 144);
             this.label28.Name = "label28";
             this.label28.Size = new System.Drawing.Size(22, 13);
             this.label28.TabIndex = 34;
@@ -3013,7 +3017,7 @@
             "2",
             "3",
             "4"});
-            this.comboBoxExpertLinears4_1.Location = new System.Drawing.Point(196, 140);
+            this.comboBoxExpertLinears4_1.Location = new System.Drawing.Point(188, 140);
             this.comboBoxExpertLinears4_1.Name = "comboBoxExpertLinears4_1";
             this.comboBoxExpertLinears4_1.Size = new System.Drawing.Size(40, 21);
             this.comboBoxExpertLinears4_1.TabIndex = 33;
@@ -3027,7 +3031,7 @@
             "2",
             "3",
             "4"});
-            this.comboBoxExpertLinears6_2.Location = new System.Drawing.Point(254, 114);
+            this.comboBoxExpertLinears6_2.Location = new System.Drawing.Point(246, 114);
             this.comboBoxExpertLinears6_2.Name = "comboBoxExpertLinears6_2";
             this.comboBoxExpertLinears6_2.Size = new System.Drawing.Size(40, 21);
             this.comboBoxExpertLinears6_2.TabIndex = 32;
@@ -3035,7 +3039,7 @@
             // label27
             // 
             this.label27.AutoSize = true;
-            this.label27.Location = new System.Drawing.Point(168, 118);
+            this.label27.Location = new System.Drawing.Point(160, 118);
             this.label27.Name = "label27";
             this.label27.Size = new System.Drawing.Size(22, 13);
             this.label27.TabIndex = 31;
@@ -3050,7 +3054,7 @@
             "2",
             "3",
             "4"});
-            this.comboBoxExpertLinears6_1.Location = new System.Drawing.Point(196, 114);
+            this.comboBoxExpertLinears6_1.Location = new System.Drawing.Point(188, 114);
             this.comboBoxExpertLinears6_1.Name = "comboBoxExpertLinears6_1";
             this.comboBoxExpertLinears6_1.Size = new System.Drawing.Size(40, 21);
             this.comboBoxExpertLinears6_1.TabIndex = 30;
@@ -3064,7 +3068,7 @@
             "2",
             "3",
             "4"});
-            this.comboBoxExpertLinears10_2.Location = new System.Drawing.Point(254, 87);
+            this.comboBoxExpertLinears10_2.Location = new System.Drawing.Point(246, 87);
             this.comboBoxExpertLinears10_2.Name = "comboBoxExpertLinears10_2";
             this.comboBoxExpertLinears10_2.Size = new System.Drawing.Size(40, 21);
             this.comboBoxExpertLinears10_2.TabIndex = 29;
@@ -3072,7 +3076,7 @@
             // label26
             // 
             this.label26.AutoSize = true;
-            this.label26.Location = new System.Drawing.Point(168, 91);
+            this.label26.Location = new System.Drawing.Point(160, 91);
             this.label26.Name = "label26";
             this.label26.Size = new System.Drawing.Size(28, 13);
             this.label26.TabIndex = 28;
@@ -3087,7 +3091,7 @@
             "2",
             "3",
             "4"});
-            this.comboBoxExpertLinears10_1.Location = new System.Drawing.Point(196, 87);
+            this.comboBoxExpertLinears10_1.Location = new System.Drawing.Point(188, 87);
             this.comboBoxExpertLinears10_1.Name = "comboBoxExpertLinears10_1";
             this.comboBoxExpertLinears10_1.Size = new System.Drawing.Size(40, 21);
             this.comboBoxExpertLinears10_1.TabIndex = 27;
@@ -3101,7 +3105,7 @@
             "2",
             "3",
             "4"});
-            this.comboBoxExpertLinears12_2.Location = new System.Drawing.Point(254, 60);
+            this.comboBoxExpertLinears12_2.Location = new System.Drawing.Point(246, 60);
             this.comboBoxExpertLinears12_2.Name = "comboBoxExpertLinears12_2";
             this.comboBoxExpertLinears12_2.Size = new System.Drawing.Size(40, 21);
             this.comboBoxExpertLinears12_2.TabIndex = 26;
@@ -3109,7 +3113,7 @@
             // label25
             // 
             this.label25.AutoSize = true;
-            this.label25.Location = new System.Drawing.Point(168, 64);
+            this.label25.Location = new System.Drawing.Point(160, 64);
             this.label25.Name = "label25";
             this.label25.Size = new System.Drawing.Size(28, 13);
             this.label25.TabIndex = 25;
@@ -3124,7 +3128,7 @@
             "2",
             "3",
             "4"});
-            this.comboBoxExpertLinears12_1.Location = new System.Drawing.Point(196, 60);
+            this.comboBoxExpertLinears12_1.Location = new System.Drawing.Point(188, 60);
             this.comboBoxExpertLinears12_1.Name = "comboBoxExpertLinears12_1";
             this.comboBoxExpertLinears12_1.Size = new System.Drawing.Size(40, 21);
             this.comboBoxExpertLinears12_1.TabIndex = 24;
@@ -3138,7 +3142,7 @@
             "2",
             "3",
             "4"});
-            this.comboBoxExpertLinears15_2.Location = new System.Drawing.Point(254, 33);
+            this.comboBoxExpertLinears15_2.Location = new System.Drawing.Point(246, 33);
             this.comboBoxExpertLinears15_2.Name = "comboBoxExpertLinears15_2";
             this.comboBoxExpertLinears15_2.Size = new System.Drawing.Size(40, 21);
             this.comboBoxExpertLinears15_2.TabIndex = 23;
@@ -3146,7 +3150,7 @@
             // label24
             // 
             this.label24.AutoSize = true;
-            this.label24.Location = new System.Drawing.Point(168, 37);
+            this.label24.Location = new System.Drawing.Point(160, 37);
             this.label24.Name = "label24";
             this.label24.Size = new System.Drawing.Size(28, 13);
             this.label24.TabIndex = 22;
@@ -3161,7 +3165,7 @@
             "2",
             "3",
             "4"});
-            this.comboBoxExpertLinears15_1.Location = new System.Drawing.Point(196, 33);
+            this.comboBoxExpertLinears15_1.Location = new System.Drawing.Point(188, 33);
             this.comboBoxExpertLinears15_1.Name = "comboBoxExpertLinears15_1";
             this.comboBoxExpertLinears15_1.Size = new System.Drawing.Size(40, 21);
             this.comboBoxExpertLinears15_1.TabIndex = 21;
@@ -3175,7 +3179,7 @@
             "2",
             "3",
             "4"});
-            this.comboBoxExpertLinears17_2.Location = new System.Drawing.Point(254, 6);
+            this.comboBoxExpertLinears17_2.Location = new System.Drawing.Point(246, 6);
             this.comboBoxExpertLinears17_2.Name = "comboBoxExpertLinears17_2";
             this.comboBoxExpertLinears17_2.Size = new System.Drawing.Size(40, 21);
             this.comboBoxExpertLinears17_2.TabIndex = 20;
@@ -3183,7 +3187,7 @@
             // label23
             // 
             this.label23.AutoSize = true;
-            this.label23.Location = new System.Drawing.Point(168, 10);
+            this.label23.Location = new System.Drawing.Point(160, 10);
             this.label23.Name = "label23";
             this.label23.Size = new System.Drawing.Size(28, 13);
             this.label23.TabIndex = 19;
@@ -3198,7 +3202,7 @@
             "2",
             "3",
             "4"});
-            this.comboBoxExpertLinears17_1.Location = new System.Drawing.Point(196, 6);
+            this.comboBoxExpertLinears17_1.Location = new System.Drawing.Point(188, 6);
             this.comboBoxExpertLinears17_1.Name = "comboBoxExpertLinears17_1";
             this.comboBoxExpertLinears17_1.Size = new System.Drawing.Size(40, 21);
             this.comboBoxExpertLinears17_1.TabIndex = 18;
@@ -3434,6 +3438,7 @@
             this.button2.Size = new System.Drawing.Size(42, 23);
             this.button2.TabIndex = 63;
             this.button2.Text = "Off";
+            this.toolTip1.SetToolTip(this.button2, "Turn Amp Power Off");
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.Button2_Click);
             // 
@@ -3444,6 +3449,7 @@
             this.button1.Size = new System.Drawing.Size(42, 23);
             this.button1.TabIndex = 62;
             this.button1.Text = "On";
+            this.toolTip1.SetToolTip(this.button1, "Turn Amp Power On");
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.Button1_Click_1);
             // 
@@ -5307,6 +5313,30 @@
             // 
             this.timerFreqWalk.Tick += new System.EventHandler(this.TimerFreqWalk_Tick);
             // 
+            // radioButtonBankA
+            // 
+            this.radioButtonBankA.AutoSize = true;
+            this.radioButtonBankA.Location = new System.Drawing.Point(310, 63);
+            this.radioButtonBankA.Name = "radioButtonBankA";
+            this.radioButtonBankA.Size = new System.Drawing.Size(57, 17);
+            this.radioButtonBankA.TabIndex = 66;
+            this.radioButtonBankA.TabStop = true;
+            this.radioButtonBankA.Text = "BankA";
+            this.radioButtonBankA.UseVisualStyleBackColor = true;
+            this.radioButtonBankA.CheckedChanged += new System.EventHandler(this.radioButtonBankA_CheckedChanged);
+            // 
+            // radioButtonBankB
+            // 
+            this.radioButtonBankB.AutoSize = true;
+            this.radioButtonBankB.Location = new System.Drawing.Point(310, 86);
+            this.radioButtonBankB.Name = "radioButtonBankB";
+            this.radioButtonBankB.Size = new System.Drawing.Size(57, 17);
+            this.radioButtonBankB.TabIndex = 67;
+            this.radioButtonBankB.TabStop = true;
+            this.radioButtonBankB.Text = "BankB";
+            this.radioButtonBankB.UseVisualStyleBackColor = true;
+            this.radioButtonBankB.CheckedChanged += new System.EventHandler(this.radioButtonBankB_CheckedChanged);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -5763,6 +5793,8 @@
         private System.Windows.Forms.Label labelSPE_L;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.RadioButton radioButtonBankB;
+        private System.Windows.Forms.RadioButton radioButtonBankA;
     }
 }
 

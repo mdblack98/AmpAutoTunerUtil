@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Security.Permissions;
 using System.Security.Policy;
 using static AmpAutoTunerUtility.DebugMsg;
 
@@ -8,6 +9,7 @@ namespace AmpAutoTunerUtility
     {
         private bool _disposed = false;
         private double sWR;
+        public char bank;
         //public enum TunerState
         //{
         //    Unknown,
@@ -63,7 +65,11 @@ namespace AmpAutoTunerUtility
         public ulong cIndex;
         public ulong lIndex;
         public int band; // 0=160M...11=4M 160,80,60,40,30,20,17,15,12,10,6,4
-        public bool isOn = false;
+        public bool isOn
+        {
+            get;
+            set;
+        }
         public Tuner()
         {
             model = null;
