@@ -846,7 +846,7 @@ namespace AmpAutoTunerUtility
                     tuner1 = new TunerMFJ928(comboBoxTunerModel.Text, comboBoxComTuner.Text, comboBoxBaudTuner.Text, out errorMsg);
                     // We don't need any command information
                 }
-                else if (comboBoxTunerModel.Text.Equals(EXPERTLINEARS, StringComparison.InvariantCulture))
+                else if (comboBoxTunerModel.Text.Contains(EXPERTLINEARS))
                 {
                     comboBoxBaudTuner.Text = "115200";
                     tuner1 = new TunerExpertLinears(comboBoxTunerModel.Text, comboBoxComTuner.Text, comboBoxBaudTuner.Text, out errorMsg);
@@ -1544,7 +1544,7 @@ namespace AmpAutoTunerUtility
                 xml = FLRigXML("rig.cat_string", "<params><param><value>ZZTU0;</value></param></params");
                 if (FLRigSend(xml) == false) return false; // Abort if FLRig is giving an error
             }
-            else if (tuner1.GetModel().Equals(EXPERTLINEARS))
+            else if (tuner1.GetModel().Contains(EXPERTLINEARS))
             {
                 // nothing to do
                 return true;
@@ -1852,7 +1852,7 @@ namespace AmpAutoTunerUtility
                     // don't do anything here...just catching the parse errors from blank boxes
                 }
             }
-            else if (tuner1.GetModel().Contains("SPE"))
+            else if (tuner1 != null && tuner1.GetModel().Contains("SPE"))
             {
                 labelAntennaSelected.Text = "SPE Ant#" + tuner1.GetAntenna();
             }
@@ -1861,12 +1861,14 @@ namespace AmpAutoTunerUtility
                 if (comboBoxFreqWalkAntenna.SelectedIndex >= 0)
                 {
                     var s = (string)comboBoxFreqWalkAntenna.Items[comboBoxFreqWalkAntenna.SelectedIndex];
-                    tuner1?.SetAntenna(int.Parse(s)); 
+                    if (tuner1 != null && !comboBoxAntenna1Controller.Text.Contains(EXPERTLINEARS))
+                        tuner1.SetAntenna(int.Parse(s)); 
                 }
                 else
                 {
                     MessageBox.Show("Need to select walk antenna in FreqWalk tab, defaulting to antenna#1", "FreqWalk", MessageBoxButtons.OK);
-                    tuner1?.SetAntenna(1);
+                    if (tuner1 != null && !comboBoxAntenna1Controller.Text.Contains(EXPERTLINEARS))
+                    tuner1.SetAntenna(1);
                     return;
                 }
             }
@@ -1944,7 +1946,7 @@ namespace AmpAutoTunerUtility
             switch(antennaNumber)
             {
                 case 1:
-                    if (comboBoxAntenna1Controller.Text.Equals(EXPERTLINEARS))
+                    if (comboBoxAntenna1Controller.Text.Contains(EXPERTLINEARS))
                     {
                         //tuner1.SetAntenna(antennaNumber, false);
                     }
@@ -1954,7 +1956,7 @@ namespace AmpAutoTunerUtility
                     }
                     break;
                 case 2:
-                    if (comboBoxAntenna2Controller.Text.Equals(EXPERTLINEARS))
+                    if (comboBoxAntenna2Controller.Text.Contains(EXPERTLINEARS))
                     {
                         tuner1.SetAntenna(antennaNumber, false);
                     }
@@ -1964,7 +1966,7 @@ namespace AmpAutoTunerUtility
                     }
                     break;
                 case 3:
-                    if (comboBoxAntenna3Controller.Text.Equals(EXPERTLINEARS))
+                    if (comboBoxAntenna3Controller.Text.Contains(EXPERTLINEARS))
                     {
                         tuner1.SetAntenna(antennaNumber, false);
                     }
@@ -1974,7 +1976,7 @@ namespace AmpAutoTunerUtility
                     }
                     break;
                 case 4:
-                    if (comboBoxAntenna4Controller.Text.Equals(EXPERTLINEARS))
+                    if (comboBoxAntenna4Controller.Text.Contains(EXPERTLINEARS))
                     {
                         tuner1.SetAntenna(antennaNumber, false);
                     }
@@ -1984,7 +1986,7 @@ namespace AmpAutoTunerUtility
                     }
                     break;
                 case 5:
-                    if (comboBoxAntenna5Controller.Text.Equals(EXPERTLINEARS))
+                    if (comboBoxAntenna5Controller.Text.Contains(EXPERTLINEARS))
                     {
                         tuner1.SetAntenna(antennaNumber, false);
                     }
@@ -1994,7 +1996,7 @@ namespace AmpAutoTunerUtility
                     }
                     break;
                 case 6:
-                    if (comboBoxAntenna6Controller.Text.Equals(EXPERTLINEARS))
+                    if (comboBoxAntenna6Controller.Text.Contains(EXPERTLINEARS))
                     {
                         tuner1.SetAntenna(antennaNumber, false);
                     }
@@ -2004,7 +2006,7 @@ namespace AmpAutoTunerUtility
                     }
                     break;
                 case 7:
-                    if (comboBoxAntenna7Controller.Text.Equals(EXPERTLINEARS))
+                    if (comboBoxAntenna7Controller.Text.Contains(EXPERTLINEARS))
                     {
                         tuner1.SetAntenna(antennaNumber, false);
                     }
@@ -2014,7 +2016,7 @@ namespace AmpAutoTunerUtility
                     }
                     break;
                 case 8:
-                    if (comboBoxAntenna8Controller.Text.Equals(EXPERTLINEARS))
+                    if (comboBoxAntenna8Controller.Text.Contains(EXPERTLINEARS))
                     {
                         tuner1.SetAntenna(antennaNumber, false);
                     }
@@ -2592,7 +2594,7 @@ namespace AmpAutoTunerUtility
             if (tuner1 != null)
             {
                 string SWR = tuner1.GetSWRString();
-                if (tuner1.GetModel().Equals(EXPERTLINEARS))
+                if (tuner1.GetModel().Contains(EXPERTLINEARS))
                     labelSWR.Text = SWR;
                 if (tuner1.GetModel().Equals(MFJ928, StringComparison.InvariantCulture))
                 {
@@ -2653,7 +2655,7 @@ namespace AmpAutoTunerUtility
                     groupBoxOptions.Enabled = true;
                     groupBoxOptions.Visible = true;
                 }
-                else if (comboBoxTunerModel.Text.Equals(EXPERTLINEARS))
+                else if (comboBoxTunerModel.Text.Contains(EXPERTLINEARS))
                 {
                     numericUpDownCapacitance.Visible = true;
                     numericUpDownInductance.Visible = true;
@@ -4197,7 +4199,7 @@ namespace AmpAutoTunerUtility
                     frequenciesToWalk.Add((int)(double.Parse(s) * 1000000));
             }
             */
-            if (comboBoxTunerModel.Text.Equals(EXPERTLINEARS, StringComparison.InvariantCulture))
+            if (comboBoxTunerModel.Text.Contains(EXPERTLINEARS))
             {
                 //  We need to disable the Icom ANT transceive
                 //  Then set the antenna to the receive antenna
@@ -5251,9 +5253,11 @@ namespace AmpAutoTunerUtility
 
         void TabPageExpertLinears_Init(object sender)
         {
-            TabPage myPage = (TabPage)sender;
-            myPage.SuspendLayout();
-            myPage.Refresh();
+            //TabPage myPage = (TabPage)sender;
+            //myPage.SuspendLayout();
+            //myPage.Refresh();
+            tabPageExpertLinears.SuspendLayout();
+            tabPageExpertLinears.Refresh();
             if (tuner1 == null)
             {
                 return;
@@ -5526,6 +5530,7 @@ namespace AmpAutoTunerUtility
                 tuner1.SendCmd(set);
                 Thread.Sleep(1000);
                 tuner1.SelectDisplayPage();
+                TabPageExpertLinears_Init(tabPageAntenna);
                 //radioButtonBankB.Checked = false;
             }
             else
@@ -5555,6 +5560,7 @@ Set
                 tuner1.SendCmd(set);
                 Thread.Sleep(1000);
                 tuner1.SelectDisplayPage();
+                TabPageExpertLinears_Init(tabPage);
             }
         }
 
@@ -5574,7 +5580,7 @@ Set
             // Seems we must be on display page to change antennas
             tuner1.SelectDisplayPage();
             buttonSPEAnt.Text = "Ant "+tuner1.GetAntenna();
-            tuner1.SetAntenna(0); // it's just a toggle for now
+            tuner1.SetAntenna(-1); // it's just a toggle for now
         }
     }
 

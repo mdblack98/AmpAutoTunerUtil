@@ -58,6 +58,9 @@ namespace AmpAutoTunerUtility
             };
             SerialPortTuner.Open();
             Thread.Sleep(500);
+            //Byte[] cmd = { 0x55, 0x55, 0x55, 0x01, 0x80, 0x80 };
+            //Byte[] response = new Byte[512];
+            //SerialPortTuner.Write(cmd, 0, 6);
             myThread = new Thread(new ThreadStart(this.ThreadTask))
             {
                 IsBackground = true
@@ -463,6 +466,11 @@ namespace AmpAutoTunerUtility
             return true;
         }
 
+        void PacketStatus()
+        {
+
+        }
+
         readonly Thread myThread;
         private void ThreadTask()
         {
@@ -523,6 +531,8 @@ namespace AmpAutoTunerUtility
                 //    DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.VERBOSE, "antennaNumberRequested " + antennaNumberRequested + " != freqWalkAntenna " + freqWalkAntenna)
                 //    return;
                 //}
+                if (antennaNumberRequested == 0)
+                    return;
                 DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.TRACE, "SetAntenna " + antennaNumberRequested + " getting amp status\n");
                 if (!antenna.Equals("?")) DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.LOG, "antenna=" + int.Parse(antenna.Substring(0, 1)) + ", antennaNumberRequest=" + antennaNumberRequested + "\n");
                 Byte[] cmd = { 0x55, 0x55, 0x55, 0x01, 0x04, 0x04 };

@@ -851,6 +851,7 @@
             // 
             this.comboBoxAntSelect1.FormattingEnabled = true;
             this.comboBoxAntSelect1.Items.AddRange(new object[] {
+            "0",
             "1",
             "2",
             "3",
@@ -867,6 +868,7 @@
             // 
             this.comboBoxAntSelect2.FormattingEnabled = true;
             this.comboBoxAntSelect2.Items.AddRange(new object[] {
+            "0",
             "1",
             "2",
             "3",
@@ -883,6 +885,7 @@
             // 
             this.comboBoxAntSelect3.FormattingEnabled = true;
             this.comboBoxAntSelect3.Items.AddRange(new object[] {
+            "0",
             "1",
             "2",
             "3",
@@ -899,6 +902,7 @@
             // 
             this.comboBoxAntSelect4.FormattingEnabled = true;
             this.comboBoxAntSelect4.Items.AddRange(new object[] {
+            "0",
             "1",
             "2",
             "3",
@@ -915,6 +919,7 @@
             // 
             this.comboBoxAntSelect5.FormattingEnabled = true;
             this.comboBoxAntSelect5.Items.AddRange(new object[] {
+            "0",
             "1",
             "2",
             "3",
@@ -931,6 +936,7 @@
             // 
             this.comboBoxAntSelect6.FormattingEnabled = true;
             this.comboBoxAntSelect6.Items.AddRange(new object[] {
+            "0",
             "1",
             "2",
             "3",
@@ -947,6 +953,7 @@
             // 
             this.comboBoxAntSelect7.FormattingEnabled = true;
             this.comboBoxAntSelect7.Items.AddRange(new object[] {
+            "0",
             "1",
             "2",
             "3",
@@ -963,6 +970,7 @@
             // 
             this.comboBoxAntSelect8.FormattingEnabled = true;
             this.comboBoxAntSelect8.Items.AddRange(new object[] {
+            "0",
             "1",
             "2",
             "3",
@@ -5364,7 +5372,7 @@
             this.Margin = new System.Windows.Forms.Padding(2);
             this.MaximumSize = new System.Drawing.Size(417, 310);
             this.Name = "Form1";
-            this.Text = "AmpAutoTunerUtility 230510";
+            this.Text = "AmpAutoTunerUtility 230512";
             this.HelpButtonClicked += new System.ComponentModel.CancelEventHandler(this.Form1_HelpButtonClicked);
             this.Activated += new System.EventHandler(this.Form1_Activated);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
