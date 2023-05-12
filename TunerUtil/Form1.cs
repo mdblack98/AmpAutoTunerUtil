@@ -813,6 +813,20 @@ namespace AmpAutoTunerUtility
             tuner1 = null;
         }
 
+        void TunerSetAntennaSPE()
+        {
+            buttonSPEAnt.Text = "Ant " + tuner1.GetAntenna();
+            /*
+            if (tuner1.GetAntenna() == 1)
+            {
+                buttonSPEAnt.Text = "Ant 1";
+            }
+            else
+            {
+                buttonSPEAnt.Text = "Ant 2";
+            }
+            */
+        }
         private void TunerOpen()
         {
             if (checkBoxTunerEnabled.Checked == false) return;
@@ -848,6 +862,7 @@ namespace AmpAutoTunerUtility
                         buttonTunerPwr.ForeColor = Color.Black;
                     }
                     tabPageExpertLinears.Text = tuner1.GetModel();
+                    TunerSetAntennaSPE();
                     // We don't need any command information
                 }
 
@@ -1361,7 +1376,7 @@ namespace AmpAutoTunerUtility
 
         private void DisconnectFLRig()
         {
-            myRig.Close();
+            if (myRig != null) myRig.Close();
             // Nothing to do
             // If we let it close naturally we don't get the TIME_WAIT 
             try
@@ -2504,6 +2519,7 @@ namespace AmpAutoTunerUtility
             }
             if (tuner1 != null && tuner1.GetModel().Contains(EXPERTLINEARS))
             {
+                TunerSetAntennaSPE();
                 radioButtonBankA.CheckedChanged -= radioButtonBankA_CheckedChanged;
                 radioButtonBankB.CheckedChanged -= radioButtonBankB_CheckedChanged;
                 if (tuner1.bank == 'A')
@@ -5494,7 +5510,6 @@ namespace AmpAutoTunerUtility
         {
             if (radioButtonBankA.Checked)
             {
-                radioButtonBankB.Checked = false;
                 tuner1.SelectDisplayPage();
                 byte right = 0x10;
                 byte left = 0x0f;
@@ -5509,6 +5524,9 @@ namespace AmpAutoTunerUtility
                 tuner1.SendCmd(right);
                 tuner1.SendCmd(right);
                 tuner1.SendCmd(set);
+                Thread.Sleep(1000);
+                tuner1.SelectDisplayPage();
+                //radioButtonBankB.Checked = false;
             }
             else
             {
@@ -5535,6 +5553,8 @@ Set
                 tuner1.SendCmd(right);
                 tuner1.SendCmd(right);
                 tuner1.SendCmd(set);
+                Thread.Sleep(1000);
+                tuner1.SelectDisplayPage();
             }
         }
 
@@ -5547,6 +5567,14 @@ Set
             else { 
                 radioButtonBankA.Checked = true;
             }
+        }
+
+        private void buttonSPEAnt_Click(object sender, EventArgs e)
+        {
+            // Seems we must be on display page to change antennas
+            tuner1.SelectDisplayPage();
+            buttonSPEAnt.Text = "Ant "+tuner1.GetAntenna();
+            tuner1.SetAntenna(0); // it's just a toggle for now
         }
     }
 

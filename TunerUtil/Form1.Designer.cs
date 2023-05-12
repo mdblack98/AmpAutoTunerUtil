@@ -181,6 +181,9 @@
             this.checkedListBoxWalk1 = new System.Windows.Forms.CheckedListBox();
             this.labelInterval = new System.Windows.Forms.Label();
             this.tabPageExpertLinears = new System.Windows.Forms.TabPage();
+            this.buttonSPEAnt = new System.Windows.Forms.Button();
+            this.radioButtonBankB = new System.Windows.Forms.RadioButton();
+            this.radioButtonBankA = new System.Windows.Forms.RadioButton();
             this.labelSPE_C = new System.Windows.Forms.Label();
             this.labelSPE_L = new System.Windows.Forms.Label();
             this.labelExpertLinearsInfo = new System.Windows.Forms.Label();
@@ -403,8 +406,6 @@
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.timerFreqWalk = new System.Windows.Forms.Timer(this.components);
-            this.radioButtonBankA = new System.Windows.Forms.RadioButton();
-            this.radioButtonBankB = new System.Windows.Forms.RadioButton();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCapacitance)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownInductance)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPostPttDelay)).BeginInit();
@@ -2594,6 +2595,7 @@
             // 
             // tabPageExpertLinears
             // 
+            this.tabPageExpertLinears.Controls.Add(this.buttonSPEAnt);
             this.tabPageExpertLinears.Controls.Add(this.radioButtonBankB);
             this.tabPageExpertLinears.Controls.Add(this.radioButtonBankA);
             this.tabPageExpertLinears.Controls.Add(this.labelSPE_C);
@@ -2675,6 +2677,40 @@
             this.tabPageExpertLinears.Enter += new System.EventHandler(this.TabPageExpertLinears_Enter);
             this.tabPageExpertLinears.Validating += new System.ComponentModel.CancelEventHandler(this.TabPageExpertLinears_Validating);
             this.tabPageExpertLinears.Validated += new System.EventHandler(this.TabPageExpertLinears_Validated);
+            // 
+            // buttonSPEAnt
+            // 
+            this.buttonSPEAnt.Location = new System.Drawing.Point(317, 54);
+            this.buttonSPEAnt.Name = "buttonSPEAnt";
+            this.buttonSPEAnt.Size = new System.Drawing.Size(41, 23);
+            this.buttonSPEAnt.TabIndex = 68;
+            this.buttonSPEAnt.Text = "Ant";
+            this.buttonSPEAnt.UseVisualStyleBackColor = true;
+            this.buttonSPEAnt.Click += new System.EventHandler(this.buttonSPEAnt_Click);
+            // 
+            // radioButtonBankB
+            // 
+            this.radioButtonBankB.AutoSize = true;
+            this.radioButtonBankB.Location = new System.Drawing.Point(310, 108);
+            this.radioButtonBankB.Name = "radioButtonBankB";
+            this.radioButtonBankB.Size = new System.Drawing.Size(57, 17);
+            this.radioButtonBankB.TabIndex = 67;
+            this.radioButtonBankB.TabStop = true;
+            this.radioButtonBankB.Text = "BankB";
+            this.radioButtonBankB.UseVisualStyleBackColor = true;
+            this.radioButtonBankB.CheckedChanged += new System.EventHandler(this.radioButtonBankB_CheckedChanged);
+            // 
+            // radioButtonBankA
+            // 
+            this.radioButtonBankA.AutoSize = true;
+            this.radioButtonBankA.Location = new System.Drawing.Point(310, 85);
+            this.radioButtonBankA.Name = "radioButtonBankA";
+            this.radioButtonBankA.Size = new System.Drawing.Size(57, 17);
+            this.radioButtonBankA.TabIndex = 66;
+            this.radioButtonBankA.TabStop = true;
+            this.radioButtonBankA.Text = "BankA";
+            this.radioButtonBankA.UseVisualStyleBackColor = true;
+            this.radioButtonBankA.CheckedChanged += new System.EventHandler(this.radioButtonBankA_CheckedChanged);
             // 
             // labelSPE_C
             // 
@@ -5313,30 +5349,6 @@
             // 
             this.timerFreqWalk.Tick += new System.EventHandler(this.TimerFreqWalk_Tick);
             // 
-            // radioButtonBankA
-            // 
-            this.radioButtonBankA.AutoSize = true;
-            this.radioButtonBankA.Location = new System.Drawing.Point(310, 63);
-            this.radioButtonBankA.Name = "radioButtonBankA";
-            this.radioButtonBankA.Size = new System.Drawing.Size(57, 17);
-            this.radioButtonBankA.TabIndex = 66;
-            this.radioButtonBankA.TabStop = true;
-            this.radioButtonBankA.Text = "BankA";
-            this.radioButtonBankA.UseVisualStyleBackColor = true;
-            this.radioButtonBankA.CheckedChanged += new System.EventHandler(this.radioButtonBankA_CheckedChanged);
-            // 
-            // radioButtonBankB
-            // 
-            this.radioButtonBankB.AutoSize = true;
-            this.radioButtonBankB.Location = new System.Drawing.Point(310, 86);
-            this.radioButtonBankB.Name = "radioButtonBankB";
-            this.radioButtonBankB.Size = new System.Drawing.Size(57, 17);
-            this.radioButtonBankB.TabIndex = 67;
-            this.radioButtonBankB.TabStop = true;
-            this.radioButtonBankB.Text = "BankB";
-            this.radioButtonBankB.UseVisualStyleBackColor = true;
-            this.radioButtonBankB.CheckedChanged += new System.EventHandler(this.radioButtonBankB_CheckedChanged);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -5795,6 +5807,7 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.RadioButton radioButtonBankB;
         private System.Windows.Forms.RadioButton radioButtonBankA;
+        private System.Windows.Forms.Button buttonSPEAnt;
     }
 }
 

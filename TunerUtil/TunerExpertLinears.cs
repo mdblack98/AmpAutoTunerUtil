@@ -118,6 +118,7 @@ namespace AmpAutoTunerUtility
             Byte[] cmdDisplay = { 0x55, 0x55, 0x55, 0x01, 0x0c, 0x0c };
             SerialLock.WaitOne();
             SerialPortTuner.Write(cmdDisplay, 0, 6);
+            SerialLock.ReleaseMutex();
             Thread.Sleep(200);
         }
 
@@ -218,7 +219,7 @@ namespace AmpAutoTunerUtility
             if (response[1] != 0xaa) { SerialLock.ReleaseMutex(); return false; }
             response[2] = (byte)SerialPortTuner.ReadByte();
             if (response[2] != 0xaa) { SerialLock.ReleaseMutex(); return false; }
-            response[3] = (byte)SerialPortTuner.ReadByte(); // shouold be 6a
+            response[3] = (byte)SerialPortTuner.ReadByte(); // should be 6a
             int n = 4;
             int count = 0;
             //DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.LOG, "bytes=" + response[3]);
@@ -267,6 +268,7 @@ namespace AmpAutoTunerUtility
                 {
                     while (response[160] != 0x0e)
                     {
+                        SerialLock.ReleaseMutex();
                         return false;
                     };
                     string value = lookup[(int)response[156]].ToString();
@@ -469,12 +471,9 @@ namespace AmpAutoTunerUtility
             {
                 try
                 {
-                    while (runThread)
-                    {
-                        isOn = GetStatus();
-                        //DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.LOG, "Expert Linears thread got status\n");
-                        Thread.Sleep(1000);
-                    };
+                    isOn = GetStatus();
+                    //DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.LOG, "Expert Linears thread got status\n");
+                    Thread.Sleep(1000);
                 }
                 catch (Exception e)
                 {
@@ -515,31 +514,22 @@ namespace AmpAutoTunerUtility
         }
         public override void SetAntenna(int antennaNumberRequested, bool tuneIsRunning = false)
         {
-            return;
+            //return;
             try
             {
+                //if (antennaNumberRequested != GetAntenna())
                 //if (antennaNumberRequested != freqWalkAntenna)
                 //{
                 //    DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.VERBOSE, "antennaNumberRequested " + antennaNumberRequested + " != freqWalkAntenna " + freqWalkAntenna)
                 //    return;
                 //}
-                Thread.Sleep(1000);
                 DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.TRACE, "SetAntenna " + antennaNumberRequested + " getting amp status\n");
-                while (GetStatus() == false) ;
-                if (int.TryParse(antenna.Substring(0, 1), out int tmp) == false)
-                    Thread.Sleep(2000);
-                if (int.Parse(antenna.Substring(0, 1)) == antennaNumberRequested)
-                {
-                    DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.LOG, "Antenna already set to " + antennaNumberRequested + "\n");
-                    return;
-                }
                 if (!antenna.Equals("?")) DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.LOG, "antenna=" + int.Parse(antenna.Substring(0, 1)) + ", antennaNumberRequest=" + antennaNumberRequested + "\n");
                 Byte[] cmd = { 0x55, 0x55, 0x55, 0x01, 0x04, 0x04 };
-                Byte[] response = new Byte[128];
                 DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.LOG, "Setting antenna to other antenna\n");
                 SerialPortTuner.Write(cmd, 0, 6);
-                Thread.Sleep(500);
-                while (GetStatus()) ;
+                //Thread.Sleep(500);
+                //while (GetStatus()) ;
             }
             catch (Exception ex)
             {
