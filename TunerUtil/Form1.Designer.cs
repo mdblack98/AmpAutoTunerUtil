@@ -250,6 +250,8 @@
             this.comboBoxExpertLinears160_1 = new System.Windows.Forms.ComboBox();
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
+            this.numericUpDownFLRigBeforeWalk = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDownFLRigAfterWalk = new System.Windows.Forms.NumericUpDown();
             this.tabPage = new System.Windows.Forms.TabControl();
             this.tabPageControl = new System.Windows.Forms.TabPage();
             this.labelControlLog2 = new System.Windows.Forms.Label();
@@ -412,6 +414,8 @@
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFreqWalkDelay)).BeginInit();
             this.tabPageExpertLinears.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFLRigBeforeWalk)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFLRigAfterWalk)).BeginInit();
             this.tabPage.SuspendLayout();
             this.tabPageControl.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -3497,6 +3501,32 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.Button1_Click_1);
             // 
+            // numericUpDownFLRigBeforeWalk
+            // 
+            this.numericUpDownFLRigBeforeWalk.Location = new System.Drawing.Point(80, 2);
+            this.numericUpDownFLRigBeforeWalk.Maximum = new decimal(new int[] {
+            48,
+            0,
+            0,
+            0});
+            this.numericUpDownFLRigBeforeWalk.Name = "numericUpDownFLRigBeforeWalk";
+            this.numericUpDownFLRigBeforeWalk.Size = new System.Drawing.Size(34, 20);
+            this.numericUpDownFLRigBeforeWalk.TabIndex = 75;
+            this.toolTip1.SetToolTip(this.numericUpDownFLRigBeforeWalk, "FLRig cmd before walk");
+            // 
+            // numericUpDownFLRigAfterWalk
+            // 
+            this.numericUpDownFLRigAfterWalk.Location = new System.Drawing.Point(120, 2);
+            this.numericUpDownFLRigAfterWalk.Maximum = new decimal(new int[] {
+            48,
+            0,
+            0,
+            0});
+            this.numericUpDownFLRigAfterWalk.Name = "numericUpDownFLRigAfterWalk";
+            this.numericUpDownFLRigAfterWalk.Size = new System.Drawing.Size(34, 20);
+            this.numericUpDownFLRigAfterWalk.TabIndex = 76;
+            this.toolTip1.SetToolTip(this.numericUpDownFLRigAfterWalk, "FLRig cmd after walk");
+            // 
             // tabPage
             // 
             this.tabPage.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -3708,6 +3738,8 @@
             // panel2
             // 
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel2.Controls.Add(this.numericUpDownFLRigAfterWalk);
+            this.panel2.Controls.Add(this.numericUpDownFLRigBeforeWalk);
             this.panel2.Controls.Add(this.label11);
             this.panel2.Controls.Add(this.comboBoxAmpBits);
             this.panel2.Controls.Add(this.checkBoxToneEnabled);
@@ -5372,7 +5404,7 @@
             this.Margin = new System.Windows.Forms.Padding(2);
             this.MaximumSize = new System.Drawing.Size(417, 310);
             this.Name = "Form1";
-            this.Text = "AmpAutoTunerUtility 230512";
+            this.Text = "AmpAutoTunerUtility 230618";
             this.HelpButtonClicked += new System.ComponentModel.CancelEventHandler(this.Form1_HelpButtonClicked);
             this.Activated += new System.EventHandler(this.Form1_Activated);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
@@ -5385,6 +5417,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFreqWalkDelay)).EndInit();
             this.tabPageExpertLinears.ResumeLayout(false);
             this.tabPageExpertLinears.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFLRigBeforeWalk)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFLRigAfterWalk)).EndInit();
             this.tabPage.ResumeLayout(false);
             this.tabPageControl.ResumeLayout(false);
             this.tabPageControl.PerformLayout();
@@ -5816,6 +5850,8 @@
         private System.Windows.Forms.RadioButton radioButtonBankB;
         private System.Windows.Forms.RadioButton radioButtonBankA;
         private System.Windows.Forms.Button buttonSPEAnt;
+        private System.Windows.Forms.NumericUpDown numericUpDownFLRigAfterWalk;
+        private System.Windows.Forms.NumericUpDown numericUpDownFLRigBeforeWalk;
     }
 }
 

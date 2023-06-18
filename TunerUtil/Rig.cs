@@ -15,6 +15,12 @@ namespace AmpAutoTunerUtility
         public abstract string ModeB { get; set; }
         public abstract bool PTT { get; set; }
         public abstract int Power { get; set; }
+        /// <summary>
+        /// public abstract void SendCommand(byte[] command);
+        /// </summary>
+        /// <param name="command"></param>
+        //public abstract void SendCommand(string command);
+        public abstract void SendCommand(int command);
         public Rig()
         {
             //Model = "Unknown";

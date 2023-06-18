@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Net.NetworkInformation;
 using System.Net.Sockets;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -98,6 +99,7 @@ namespace AmpAutoTunerUtility
         }
         private string FLRigGetXcvr()
         {
+            FLRigLock.WaitOne();
             string xcvr = null;
             //if (!checkBoxRig.Checked) return null;
             if (rigClient == null || rigStream == null) { Open(); }
@@ -203,10 +205,36 @@ namespace AmpAutoTunerUtility
             }
         }
 
+        public override void SendCommand(int command)
+        {
+            if (command == 0) return;
+            try
+            {
+                FLRigLock.WaitOne();
+                var myparam = "<params><param><value><i4>" + command + "</i4></value></param></params";
+                string xml = FLRigXML("rig.cmd", myparam);
+                Byte[] data = System.Text.Encoding.ASCII.GetBytes(xml);
+                rigStream.Write(data, 0, data.Length);
+                Byte[] data2 = new byte[4096];
+                Int32 bytes = rigStream.Read(data2, 0, data2.Length);
+                FLRigLock.ReleaseMutex();
+                string responseData = Encoding.ASCII.GetString(data2, 0, bytes);
+                if (!responseData.Contains("200 OK"))
+                {
+                    DebugAddMsg(DebugEnum.ERR, "FLRig rig.cmd response != 200 OK\n" + responseData + "\n");
+                }
+            }
+            catch (Exception ex)
+            {
+                DebugAddMsg(DebugEnum.ERR, "SetVFO error: " + ex.Message + "\n" + ex.StackTrace);
+                Thread.Sleep(2000);
+            }
+        }
         private void FLRigSetVFO(char vfo)
         {
             try
             {
+                FLRigLock.WaitOne();
                 var myparam = "<params><param><value>" + vfo + "</value></param></params";
                 string xml = FLRigXML("rig.set_AB", myparam);
                 Byte[] data = System.Text.Encoding.ASCII.GetBytes(xml);

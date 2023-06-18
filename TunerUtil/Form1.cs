@@ -246,6 +246,9 @@ namespace AmpAutoTunerUtility
                 checkBoxToneEnabled.Checked = Properties.Settings.Default.checkBoxToneEnabled;
                 string myAudio = Properties.Settings.Default.comboBoxAudioOut;
                 checkBoxPowerSDR.Checked = Properties.Settings.Default.powerSDR;
+                numericUpDownFLRigBeforeWalk.Value = Properties.Settings.Default.FLRigStartCmd;
+                numericUpDownFLRigAfterWalk.Value = Properties.Settings.Default.FLRigStopCmd;
+
 
                 //Set selected items
                 //comboBoxTunerModel.SelectedIndex = comboBoxTunerModel.FindStringExact(Properties.Settings.Default.TunerModel);
@@ -1038,6 +1041,9 @@ namespace AmpAutoTunerUtility
             Properties.Settings.Default.checkBoxPTTEnabled = checkBoxPTTEnabled.Checked;
             Properties.Settings.Default.checkBoxToneEnabled = checkBoxToneEnabled.Checked;
             Properties.Settings.Default.powerSDR = checkBoxPowerSDR.Checked;
+            Properties.Settings.Default.FLRigStartCmd = numericUpDownFLRigBeforeWalk.Value;
+            Properties.Settings.Default.FLRigStopCmd = numericUpDownFLRigAfterWalk.Value;
+
 
             Properties.Settings.Default.Relay1Enabled = checkBoxRelay1Enabled.Checked;
             Properties.Settings.Default.Relay2Enabled = checkBoxRelay2Enabled.Checked;
@@ -4097,7 +4103,9 @@ namespace AmpAutoTunerUtility
                     FreqWalkSetFreq(frequencyIndex);
                 }
                 else {
-                    double mySecond = ((double)DateTime.Now.Second + DateTime.Now.Millisecond / 1000.0);
+                    //TimeSpan t = DateTime.UtcNow - new DateTime(1970, 1, 1); // this is for epoch seconds
+                    TimeSpan t = DateTime.UtcNow - new DateTime(2023, 1, 1);
+                    double mySecond = t.TotalSeconds + t.Milliseconds / 1000.0;
                     double triggerTime = timerFreqWalkSeconds;
                     int interval = (int)((mySecond - (mySecond % timerFreqWalkSeconds)) / timerFreqWalkSeconds);
                     triggerTime += interval * timerFreqWalkSeconds;
@@ -4239,6 +4247,7 @@ namespace AmpAutoTunerUtility
             }
             if (freqWalkIsRunning == false)
             {
+                myRig.SendCommand((int)numericUpDownFLRigBeforeWalk.Value);
                 FreqWalkStart();
             }
             else 
@@ -4246,6 +4255,7 @@ namespace AmpAutoTunerUtility
                 timerGetFreq.Stop();
                 Thread.Sleep(200);
                 FreqWalkStop();
+                myRig.SendCommand((int)numericUpDownFLRigAfterWalk.Value);
                 timerGetFreq.Start();
             }
         }
