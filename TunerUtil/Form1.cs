@@ -3692,8 +3692,11 @@ namespace AmpAutoTunerUtility
         {
             if (activatedHasExecuted && checkBoxTunerEnabled.Checked)
             {
+                Cursor.Current = Cursors.WaitCursor;
+                checkBoxTunerEnabled.Refresh();
                 Application.DoEvents();
                 TunerOpen();
+                Cursor.Current = Cursors.Default;
             }
             else if (!checkBoxTunerEnabled.Checked) TunerClose();
         }
