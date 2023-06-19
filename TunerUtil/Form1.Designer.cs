@@ -121,7 +121,6 @@
             this.panel3 = new System.Windows.Forms.Panel();
             this.button4 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
-            this.checkBoxTuneStartup = new System.Windows.Forms.CheckBox();
             this.checkBoxTunerEnabled = new System.Windows.Forms.CheckBox();
             this.comboBoxTunerModel = new System.Windows.Forms.ComboBox();
             this.comboBoxBaudTuner = new System.Windows.Forms.ComboBox();
@@ -1222,7 +1221,7 @@
             // 
             // textBoxFreqTol
             // 
-            this.textBoxFreqTol.Location = new System.Drawing.Point(8, 81);
+            this.textBoxFreqTol.Location = new System.Drawing.Point(8, 82);
             this.textBoxFreqTol.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxFreqTol.Name = "textBoxFreqTol";
             this.textBoxFreqTol.Size = new System.Drawing.Size(76, 20);
@@ -1233,7 +1232,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(88, 83);
+            this.label2.Location = new System.Drawing.Point(88, 84);
             this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(62, 13);
@@ -1243,25 +1242,25 @@
             // 
             // textBoxTuneOffset
             // 
-            this.textBoxTuneOffset.Location = new System.Drawing.Point(8, 104);
+            this.textBoxTuneOffset.Location = new System.Drawing.Point(8, 107);
             this.textBoxTuneOffset.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxTuneOffset.Name = "textBoxTuneOffset";
             this.textBoxTuneOffset.Size = new System.Drawing.Size(76, 20);
             this.textBoxTuneOffset.TabIndex = 13;
             this.textBoxTuneOffset.Text = "700";
-            this.toolTip1.SetToolTip(this.textBoxTuneOffset, "If last-tuned frequency is off by more then this autotune will happen");
+            this.toolTip1.SetToolTip(this.textBoxTuneOffset, "Negavtive freq offset to use for tuning");
             // 
             // label9
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(88, 106);
+            this.label9.Location = new System.Drawing.Point(88, 107);
             this.label9.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(61, 13);
             this.label9.TabIndex = 14;
             this.label9.Text = "Tune offset";
-            this.toolTip1.SetToolTip(this.label9, "If last-tuned frequency is off by more then this autotune will happen");
+            this.toolTip1.SetToolTip(this.label9, "Negavtive freq offset to use for tuning");
             // 
             // radioButtonVFOA
             // 
@@ -1400,7 +1399,7 @@
             this.numericUpDownPostPttDelay.Name = "numericUpDownPostPttDelay";
             this.numericUpDownPostPttDelay.Size = new System.Drawing.Size(50, 20);
             this.numericUpDownPostPttDelay.TabIndex = 15;
-            this.toolTip1.SetToolTip(this.numericUpDownPostPttDelay, "msec delay after PTT");
+            this.toolTip1.SetToolTip(this.numericUpDownPostPttDelay, "msec delay after PTT if needed");
             this.numericUpDownPostPttDelay.Value = global::AmpAutoTunerUtility.Properties.Settings.Default.PostPttDelay;
             this.numericUpDownPostPttDelay.ValueChanged += new System.EventHandler(this.NumericUpDownPostPttDelay_ValueChanged);
             // 
@@ -1699,7 +1698,6 @@
             this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel3.Controls.Add(this.button4);
             this.panel3.Controls.Add(this.button3);
-            this.panel3.Controls.Add(this.checkBoxTuneStartup);
             this.panel3.Controls.Add(this.label9);
             this.panel3.Controls.Add(this.textBoxTuneOffset);
             this.panel3.Controls.Add(this.checkBoxTunerEnabled);
@@ -1717,35 +1715,25 @@
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(109, 62);
+            this.button4.Location = new System.Drawing.Point(109, 56);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(48, 23);
             this.button4.TabIndex = 17;
             this.button4.Text = "Off";
+            this.toolTip1.SetToolTip(this.button4, "Tuner Power Off");
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.Button4_Click);
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(109, 41);
+            this.button3.Location = new System.Drawing.Point(109, 31);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(48, 23);
             this.button3.TabIndex = 16;
             this.button3.Text = "On";
+            this.toolTip1.SetToolTip(this.button3, "Tuner Power On");
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.Button3_Click);
-            // 
-            // checkBoxTuneStartup
-            // 
-            this.checkBoxTuneStartup.AutoSize = true;
-            this.checkBoxTuneStartup.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxTuneStartup.Location = new System.Drawing.Point(102, 27);
-            this.checkBoxTuneStartup.Margin = new System.Windows.Forms.Padding(2);
-            this.checkBoxTuneStartup.Name = "checkBoxTuneStartup";
-            this.checkBoxTuneStartup.Size = new System.Drawing.Size(60, 17);
-            this.checkBoxTuneStartup.TabIndex = 15;
-            this.checkBoxTuneStartup.Text = "Startup";
-            this.checkBoxTuneStartup.UseVisualStyleBackColor = true;
             // 
             // checkBoxTunerEnabled
             // 
@@ -1780,7 +1768,7 @@
             // 
             this.comboBoxBaudTuner.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxBaudTuner.FormattingEnabled = true;
-            this.comboBoxBaudTuner.Location = new System.Drawing.Point(8, 56);
+            this.comboBoxBaudTuner.Location = new System.Drawing.Point(8, 57);
             this.comboBoxBaudTuner.Margin = new System.Windows.Forms.Padding(2);
             this.comboBoxBaudTuner.Name = "comboBoxBaudTuner";
             this.comboBoxBaudTuner.Size = new System.Drawing.Size(92, 21);
@@ -2470,7 +2458,7 @@
             0,
             0,
             0});
-            this.numericUpDownFreqWalkDelay.Location = new System.Drawing.Point(79, 4);
+            this.numericUpDownFreqWalkDelay.Location = new System.Drawing.Point(89, 4);
             this.numericUpDownFreqWalkDelay.Maximum = new decimal(new int[] {
             700,
             0,
@@ -2482,7 +2470,7 @@
             0,
             -2147483648});
             this.numericUpDownFreqWalkDelay.Name = "numericUpDownFreqWalkDelay";
-            this.numericUpDownFreqWalkDelay.Size = new System.Drawing.Size(52, 20);
+            this.numericUpDownFreqWalkDelay.Size = new System.Drawing.Size(43, 20);
             this.numericUpDownFreqWalkDelay.TabIndex = 9;
             this.toolTip1.SetToolTip(this.numericUpDownFreqWalkDelay, "Time(ms) to change band before interval");
             this.numericUpDownFreqWalkDelay.Value = new decimal(new int[] {
@@ -2598,9 +2586,9 @@
             this.labelInterval.AutoSize = true;
             this.labelInterval.Location = new System.Drawing.Point(9, 6);
             this.labelInterval.Name = "labelInterval";
-            this.labelInterval.Size = new System.Drawing.Size(67, 13);
+            this.labelInterval.Size = new System.Drawing.Size(77, 13);
             this.labelInterval.TabIndex = 2;
-            this.labelInterval.Text = "WalkInterval";
+            this.labelInterval.Text = "Interval 60 sec";
             this.labelInterval.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.toolTip1.SetToolTip(this.labelInterval, "Click to change interval");
             this.labelInterval.Click += new System.EventHandler(this.LabelInterval_Click);
@@ -5404,7 +5392,7 @@
             this.Margin = new System.Windows.Forms.Padding(2);
             this.MaximumSize = new System.Drawing.Size(417, 310);
             this.Name = "Form1";
-            this.Text = "AmpAutoTunerUtility 230618";
+            this.Text = "AmpAutoTunerUtility 230619";
             this.HelpButtonClicked += new System.ComponentModel.CancelEventHandler(this.Form1_HelpButtonClicked);
             this.Activated += new System.EventHandler(this.Form1_Activated);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
@@ -5771,7 +5759,6 @@
         private System.Windows.Forms.Label labelFreqWalk2;
         private System.Windows.Forms.Label labelFreqWalk1;
         private System.Windows.Forms.NumericUpDown numericUpDownFreqWalkDelay;
-        private System.Windows.Forms.CheckBox checkBoxTuneStartup;
         private System.Windows.Forms.CheckBox checkBoxWalk3;
         private System.Windows.Forms.CheckBox checkBoxWalk2;
         private System.Windows.Forms.CheckBox checkBoxWalk1;

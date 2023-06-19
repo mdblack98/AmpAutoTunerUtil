@@ -2649,7 +2649,7 @@ namespace AmpAutoTunerUtility
                 string FwdPwr = tuner1.GetPower();
                 if (FwdPwr != null) labelPower.Text = FwdPwr;
             }
-
+            /*
             if (checkBoxTunerEnabled.Checked)
             {
                 if (comboBoxTunerModel.Text.Equals(MFJ928))
@@ -2663,14 +2663,14 @@ namespace AmpAutoTunerUtility
                 }
                 else if (comboBoxTunerModel.Text.Contains(EXPERTLINEARS))
                 {
-                    numericUpDownCapacitance.Visible = true;
-                    numericUpDownInductance.Visible = true;
+                    numericUpDownCapacitance.Visible = false;
+                    numericUpDownInductance.Visible = false;
                     buttonTunerSave.Visible = false;
                     checkBox1.Visible = false;
                     groupBoxOptions.Visible = true;
                 }
 
-            }
+            }*/
             if (checkBoxRig.Checked)
             {
                 FLRigGetFreq();
@@ -3527,6 +3527,24 @@ namespace AmpAutoTunerUtility
 
         private void ComboBoxTunerModel_SelectedIndexChanged_1(object sender, EventArgs e)
         {
+            if (comboBoxTunerModel.Text.Equals(MFJ928))
+            {
+                numericUpDownCapacitance.Visible = true;
+                numericUpDownInductance.Visible = true;
+                buttonTunerSave.Visible = true;
+                checkBox1.Visible = false;
+                groupBoxOptions.Enabled = true;
+                groupBoxOptions.Visible = true;
+            }
+            else //if (comboBoxTunerModel.Text.Contains(EXPERTLINEARS))
+            {
+                numericUpDownCapacitance.Visible = false;
+                numericUpDownInductance.Visible = false;
+                buttonTunerSave.Visible = false;
+                checkBox1.Visible = false;
+                groupBoxOptions.Enabled = true;
+                groupBoxOptions.Visible = true;
+            }
         }
 
         private void CheckBoxRelay3Enabled_CheckedChanged(object sender, EventArgs e)
@@ -3674,6 +3692,7 @@ namespace AmpAutoTunerUtility
         {
             if (activatedHasExecuted && checkBoxTunerEnabled.Checked)
             {
+                Application.DoEvents();
                 TunerOpen();
             }
             else if (!checkBoxTunerEnabled.Checked) TunerClose();
@@ -4553,7 +4572,7 @@ namespace AmpAutoTunerUtility
 
         private void FreqWalkSetIntervalDisplay()
         {
-            labelInterval.Text = "Interval " + timerFreqWalkSeconds + " secs";
+            labelInterval.Text = "Interval " + timerFreqWalkSeconds + " sec";
         }
         private void RichTextBox1_KeyUp(object sender, KeyEventArgs e)
         {
@@ -4717,7 +4736,7 @@ namespace AmpAutoTunerUtility
                 case 240: timerFreqWalkSeconds = 300; break;
                 case 300: timerFreqWalkSeconds = 15; break;
             }
-            labelInterval.Text = "Interval " + timerFreqWalkSeconds.ToString() + " seconds";
+            labelInterval.Text = "Interval " + timerFreqWalkSeconds.ToString() + " sec";
         }
 
         private void ComboBoxAmpBits_SelectedIndexChanged(object sender, EventArgs e)

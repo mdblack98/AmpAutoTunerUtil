@@ -128,6 +128,7 @@ namespace AmpAutoTunerUtility
             try
             {
                 Int32 bytes = rigStream.Read(data, 0, data.Length);
+                FLRigLock.ReleaseMutex();
                 String responseData = Encoding.ASCII.GetString(data, 0, bytes);
                 //richTextBoxRig.AppendText(responseData + "\n");
                 try
@@ -189,7 +190,7 @@ namespace AmpAutoTunerUtility
             int n = 0;
             while (myThread.IsAlive == true)
             {
-                FLRigLock.WaitOne();
+                //FLRigLock.WaitOne();
                 FLRigGetVFO();
                 frequencyA = FLRigGetFrequency('A');
                 frequencyB = FLRigGetFrequency('B');
@@ -200,7 +201,7 @@ namespace AmpAutoTunerUtility
                     modeA = FLRigGetMode('A');
                     modeB = FLRigGetMode('B');
                 }
-                FLRigLock.ReleaseMutex();
+                //FLRigLock.ReleaseMutex();
                 Thread.Sleep(500);
             }
         }
@@ -241,6 +242,7 @@ namespace AmpAutoTunerUtility
                 rigStream.Write(data, 0, data.Length);
                 Byte[] data2 = new byte[4096];
                 Int32 bytes = rigStream.Read(data2, 0, data2.Length);
+                FLRigLock.ReleaseMutex();
                 string responseData = Encoding.ASCII.GetString(data2, 0, bytes);
                 if (!responseData.Contains("200 OK"))
                 {
