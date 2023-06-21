@@ -533,11 +533,15 @@ namespace AmpAutoTunerUtility
                 //}
                 if (antennaNumberRequested == 0)
                     return;
-                DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.TRACE, "SetAntenna " + antennaNumberRequested + " getting amp status\n");
-                if (!antenna.Equals("?")) DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.LOG, "antenna=" + int.Parse(antenna.Substring(0, 1)) + ", antennaNumberRequest=" + antennaNumberRequested + "\n");
-                Byte[] cmd = { 0x55, 0x55, 0x55, 0x01, 0x04, 0x04 };
-                DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.LOG, "Setting antenna to other antenna\n");
-                SerialPortTuner.Write(cmd, 0, 6);
+                if (!antenna.Equals(antennaNumberRequested.ToString()))
+                {
+                    DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.TRACE, "SetAntenna " + antennaNumberRequested + " getting amp status\n");
+                    if (!antenna.Equals("?")) DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.LOG, "antenna=" + int.Parse(antenna.Substring(0, 1)) + ", antennaNumberRequest=" + antennaNumberRequested + "\n");
+                    Byte[] cmd = { 0x55, 0x55, 0x55, 0x01, 0x04, 0x04 };
+                    DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.LOG, "Setting antenna to other antenna\n");
+                    SerialPortTuner.Write(cmd, 0, 6);
+                    antenna = antennaNumberRequested.ToString();
+                }
                 //Thread.Sleep(500);
                 //while (GetStatus()) ;
             }
