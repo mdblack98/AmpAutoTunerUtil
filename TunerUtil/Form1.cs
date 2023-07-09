@@ -739,7 +739,7 @@ namespace AmpAutoTunerUtility
                     .ToList()
                     .ForEach(item =>
                     {
-                            index = this.checkedListBoxWalk3.Items.IndexOf(item);
+                        index = this.checkedListBoxWalk3.Items.IndexOf(item);
                         if (index >= 0)
                             this.checkedListBoxWalk3.SetItemChecked(index, true);
                     });
@@ -766,6 +766,7 @@ namespace AmpAutoTunerUtility
             {
                 index = 0;
                 var xxx = Properties.Settings.Default.FrequenciesToWalk2List;
+                var myList = Properties.Settings.Default.FrequenciesToWalk2List.Split(',').ToList();
                 Properties.Settings.Default.FrequenciesToWalk2List.Split(',')
                     .ToList()
                     .ForEach(item =>
@@ -777,6 +778,7 @@ namespace AmpAutoTunerUtility
             {
                 index = 0;
                 var xxx = Properties.Settings.Default.FrequenciesToWalk3List;
+                var myList = Properties.Settings.Default.FrequenciesToWalk3List.Split(',').ToList();
                 Properties.Settings.Default.FrequenciesToWalk3List.Split(',')
                     .ToList()
                     .ForEach(item =>
