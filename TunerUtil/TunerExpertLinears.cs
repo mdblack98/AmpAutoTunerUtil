@@ -330,7 +330,7 @@ namespace AmpAutoTunerUtility
         {
             if (SerialPortTuner == null) 
                 return false;
-            SerialLock.WaitOne();
+            SerialLock.WaitOne(2000);
         writeagain:
             SerialPortTuner.DiscardInBuffer();
             Byte[] cmd = { 0x55, 0x55, 0x55, 0x01, 0x90, 0x90 };
@@ -356,7 +356,7 @@ namespace AmpAutoTunerUtility
                 try
                 {
                     myByte = (byte)SerialPortTuner.ReadByte();
-                    if (myByte == 0 && watch.ElapsedMilliseconds > 10000)
+                    if (myByte == 0 && watch.ElapsedMilliseconds > 1000)
                     {
                         watch.Restart();
                         SerialLock.ReleaseMutex();
