@@ -874,7 +874,15 @@ namespace AmpAutoTunerUtility
                 //bool transceiveFlag = false;
                 //if (transceiveFlag == true) transceiveFlag = true;
                 FLRigLock.WaitOne();
-                var xml = FLRigXML("rig.cat_string", "<params><param><value>xfe xfe x94 xe0 x1a x05 x00 x73 x01 xfd</value></param></params");
+                string xml;
+                if (transceive) 
+                { 
+                    xml = FLRigXML("rig.cat_string", "<params><param><value>xfe xfe x94 xe0 x1a x05 x00 x73 x01 xfd</value></param></params");
+                }
+                else
+                {
+                    xml = FLRigXML("rig.cat_string", "<params><param><value>xfe xfe x94 xe0 x1a x05 x00 x73 x00 xfd</value></param></params");
+                }
                 Thread.Sleep(500);
 
                 Byte[] data = System.Text.Encoding.ASCII.GetBytes(xml);
