@@ -2522,7 +2522,7 @@ namespace AmpAutoTunerUtility
         private void TimerGetFreq_Tick(object sender, EventArgs e)
         {
             if (labelFreq != null && myRig != null)
-                labelFreq.Text = (myRig.FrequencyA / 1e6).ToString(CultureInfo.InvariantCulture) + "MHz" + " " + modeCurrent;
+                labelFreq.Text = (myRig.FrequencyA / 1e6).ToString(CultureInfo.InvariantCulture) + "MHz" + " " + myRig.ModeA;
 
             if (tuner1 != null && tuner1.isOn)
             {
