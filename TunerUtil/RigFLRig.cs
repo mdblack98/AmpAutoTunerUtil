@@ -21,12 +21,13 @@ namespace AmpAutoTunerUtility
         private Thread myThread;
         private string model;
         private char vfo = '?';
-        private double frequencyA = 0;
-        private double frequencyB = 0;
-        private string modeA = "CW";
-        private string modeB = "CW";
-        private bool ptt;
-        private int power;
+        public double frequencyA = 0;
+        public double frequencyB = 0;
+        public string modeA = "CW";
+        public string modeB = "CW";
+        public bool ptt;
+        public int power;
+        public bool transceive;
         readonly Mutex FLRigLock = new Mutex(false, "RigFLRig");
         public override bool Open()
         {
@@ -476,7 +477,7 @@ namespace AmpAutoTunerUtility
         {
             try
             {
-                FLRigLock.WaitOne();
+                if (FLRigLock.WaitOne(1000) == false) return;
                 var myparam = "<params><param><value><double>" + frequency + "</double></value></param></params";
                 string xml = FLRigXML("rig.set_vfo" + vfo, myparam);
                 Byte[] data = System.Text.Encoding.ASCII.GetBytes(xml);
@@ -717,6 +718,14 @@ namespace AmpAutoTunerUtility
             }
         }
 
+        public override bool Transceive 
+        { 
+            get { return transceive; }
+            set {
+                SetTransceive(value);
+            } 
+        }
+
         protected virtual void Dispose(bool disposing)
         {
             if (!disposedValue)
@@ -805,7 +814,7 @@ namespace AmpAutoTunerUtility
         private bool FLRigGetPTT()
         {
             FLRigLock.WaitOne();
-            var xml = FLRigXML("get_ptt", null);
+            var xml = FLRigXML("rig.get_ptt", null);
             Byte[] data = System.Text.Encoding.ASCII.GetBytes(xml);
             try
             {
@@ -856,6 +865,35 @@ namespace AmpAutoTunerUtility
         public override bool GetPTT()
         {
             return FLRigGetPTT();
+        }
+
+        public override void SetTransceive(bool transceive)
+        {
+            try
+            {
+                //bool transceiveFlag = false;
+                //if (transceiveFlag == true) transceiveFlag = true;
+                FLRigLock.WaitOne();
+                var xml = FLRigXML("rig.cat_string", "<params><param><value>xfe xfe x94 xe0 x1a x05 x00 x73 x01 xfd</value></param></params");
+                Thread.Sleep(500);
+
+                Byte[] data = System.Text.Encoding.ASCII.GetBytes(xml);
+                rigStream.Write(data, 0, data.Length);
+                Byte[] data2 = new byte[4096];
+                Int32 bytes = rigStream.Read(data2, 0, data2.Length);
+                FLRigLock.ReleaseMutex();
+                string responseData = Encoding.ASCII.GetString(data2, 0, bytes);
+                if (!responseData.Contains("200 OK"))
+                {
+                    DebugAddMsg(DebugEnum.ERR, "FLRigSetTransceive response != 200 OK\n" + responseData + "\n");
+                }
+            }
+            catch (Exception ex)
+            {
+                DebugAddMsg(DebugEnum.ERR, "SetTransceive error: " + ex.Message + "\n" + ex.StackTrace);
+                Thread.Sleep(2000);
+            }
+
         }
         #endregion
     }

@@ -10,6 +10,8 @@ namespace AmpAutoTunerUtility
         private bool _disposed = false;
         private double sWR;
         public char bank;
+        public bool freqWalkIsRunning = false;
+
         //public enum TunerState
         //{
         //    Unknown,

@@ -15,6 +15,7 @@ namespace AmpAutoTunerUtility
         public abstract string ModeB { get; set; }
         public abstract bool PTT { get; set; }
         public abstract int Power { get; set; }
+        public abstract bool Transceive { get; set; }
         /// <summary>
         /// public abstract void SendCommand(byte[] command);
         /// </summary>
@@ -47,6 +48,8 @@ namespace AmpAutoTunerUtility
         public abstract void SetFrequency(char vfo, double frequency);
         public abstract void SetPTT(bool ptt);
         public abstract bool GetPTT();
+
+        public abstract void SetTransceive(bool transceive);
 
     }
 }

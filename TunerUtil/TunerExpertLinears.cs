@@ -166,7 +166,7 @@ namespace AmpAutoTunerUtility
         public override void SendCmd(byte cmd)
         {
             Byte[] cmdBuf = { 0x55, 0x55, 0x55, 0x01, cmd, cmd };
-            SerialLock.WaitOne();
+            if (SerialLock.WaitOne(2000) == false) return;
             SerialPortTuner.Write(cmdBuf, 0, 6);
             Thread.Sleep(150);
             SerialLock.ReleaseMutex();
@@ -178,7 +178,7 @@ namespace AmpAutoTunerUtility
         public override bool GetStatus2(Screen myScreen = Screen.Unknown)
         {
             int loop = 10;
-            SerialLock.WaitOne();
+            if (SerialLock.WaitOne(2000) == false) return false;
             if (screenLast != myScreen)
             {
                 if (myScreen == Screen.Unknown) MessageBox.Show("Where are we?\n");
@@ -330,7 +330,8 @@ namespace AmpAutoTunerUtility
         {
             if (SerialPortTuner == null) 
                 return false;
-            SerialLock.WaitOne(2000);
+            if (freqWalkIsRunning == true) return false;
+            if (SerialLock.WaitOne(2000) == false) return false;
         writeagain:
             SerialPortTuner.DiscardInBuffer();
             Byte[] cmd = { 0x55, 0x55, 0x55, 0x01, 0x90, 0x90 };
@@ -479,7 +480,8 @@ namespace AmpAutoTunerUtility
             {
                 try
                 {
-                    isOn = GetStatus();
+                    if (!freqWalkIsRunning)
+                        isOn = GetStatus();
                     //DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.LOG, "Expert Linears thread got status\n");
                     Thread.Sleep(1000);
                 }
@@ -591,9 +593,9 @@ namespace AmpAutoTunerUtility
         public override void Poll()
         {
             //return; //MDB
-            while (!GetStatus()) ;
+            GetStatus();
             //this.SelectAntennaPage();
-            while (!GetStatus2(Screen.Antenna)) ;
+            GetStatus2(Screen.Antenna);
         }
 #pragma warning disable IDE0052 // Remove unread private members
         private Dictionary <int, double> lDict;
@@ -603,8 +605,8 @@ namespace AmpAutoTunerUtility
         private void InitArrays()
         {
             return;
-            cDict?.Clear();
-            lDict?.Clear();
+            //cDict?.Clear();
+            //lDict?.Clear();
             try
             {
                 cDict = new Dictionary<int, double>
