@@ -723,6 +723,7 @@ namespace AmpAutoTunerUtility
             get { return transceive; }
             set {
                 SetTransceive(value);
+                transceive = value;
             } 
         }
 
