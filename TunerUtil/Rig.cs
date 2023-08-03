@@ -7,7 +7,7 @@ namespace AmpAutoTunerUtility
     public abstract class Rig
     {
         //protected private string model = null;
-        public abstract string Model { get; set; }
+        public abstract string Model { get; }
         public abstract char VFO { get; set; }
         public abstract double FrequencyA { get; set; }
         public abstract double FrequencyB { get; set; } 
@@ -50,6 +50,8 @@ namespace AmpAutoTunerUtility
         public abstract bool GetPTT();
 
         public abstract void SetTransceive(bool transceive);
+
+        public abstract string GetModel();
 
     }
 }

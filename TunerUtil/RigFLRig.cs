@@ -64,6 +64,7 @@ namespace AmpAutoTunerUtility
             }
             // Prime a few things
             FLRigGetVFO();
+            model = FLRigGetModel();
             myThread = new Thread(new ThreadStart(Poll))
             {
                 IsBackground = true
@@ -420,13 +421,6 @@ namespace AmpAutoTunerUtility
             {
                 return this.model;
             }
-            set
-            {
-                if (value != null)
-                    this.model = value;
-                else
-                    this.model = "Unknown";
-            }
         }
 
         private double FLRigGetFrequency(char vfo)
@@ -531,6 +525,57 @@ namespace AmpAutoTunerUtility
             }
         }
 
+        private  string FLRigGetModel()
+        {
+            FLRigLock.WaitOne();
+            string xml = FLRigXML("rig.get_info", null);
+            Byte[] data = System.Text.Encoding.ASCII.GetBytes(xml);
+            try
+            {
+                if (rigStream == null) return "";
+                rigStream.Write(data, 0, data.Length);
+            }
+            catch (Exception ex)
+            {
+                if (rigStream == null || ex.Message.Contains("Unable to write"))
+                {
+                    DebugAddMsg(DebugEnum.ERR, "Error...Did FLRig shut down?\n");
+                }
+                else
+                {
+                    DebugAddMsg(DebugEnum.ERR, "FLRig unexpected error:\n" + ex.Message + "\n");
+                }
+                return "";
+            }
+            data = new Byte[4096];
+            rigStream.ReadTimeout = 5000;
+            try
+            {
+                Int32 bytes = rigStream.Read(data, 0, data.Length);
+                FLRigLock.ReleaseMutex();
+                String responseData = Encoding.ASCII.GetString(data, 0, bytes);
+                //richTextBoxRig.AppendText(responseData + "\n");
+                try
+                {
+                    if (responseData.Contains("<value>")) // then we have a frequency
+                    {
+                        int offset1 = responseData.IndexOf("<value>", StringComparison.InvariantCulture) + "<value>".Length;
+                        int offset2 = responseData.IndexOf("</value>", StringComparison.InvariantCulture);
+                        string info = responseData.Substring(offset1, offset2 - offset1);
+                        string[] tokens = info.Split(new char[] { '\n' });
+                    }
+                }
+                catch (Exception)
+                {
+
+                }
+            }
+            catch (Exception)
+            {
+
+            }
+            return model;
+        }
         private string FLRigGetMode(char vfo)
         {
             FLRigLock.WaitOne();
@@ -877,8 +922,18 @@ namespace AmpAutoTunerUtility
             return FLRigGetPTT();
         }
 
+        public override string GetModel()
+        {
+            string model = "unknown";
+            model = FLRigGetModel();
+            return model;
+        }
         public override void SetTransceive(bool transceive)
         {
+            // Implemented for Expert Linear amplifier
+            // Using transceive to sync frequency
+            // We turn if off when walking and back on when walk stops
+            if (!model.Equals("IC-7300")) return;
             try
             {
                 //bool transceiveFlag = false;
