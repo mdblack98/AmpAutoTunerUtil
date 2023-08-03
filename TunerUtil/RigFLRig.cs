@@ -28,7 +28,7 @@ namespace AmpAutoTunerUtility
         public bool ptt;
         public int power;
         public bool transceive;
-        readonly Mutex FLRigLock = new Mutex(false, "RigFLRig");
+        readonly Mutex FLRigLock = new Mutex(true, "RigFLRig");
         public override bool Open()
         {
             model = "Unknown";
@@ -100,7 +100,14 @@ namespace AmpAutoTunerUtility
         }
         private string FLRigGetXcvr()
         {
-            FLRigLock.WaitOne();
+            try
+            {
+                FLRigLock.WaitOne(1000);
+            }
+            catch(Exception)
+            {
+                return "Unknown";
+            }
             string xcvr = null;
             //if (!checkBoxRig.Checked) return null;
             if (rigClient == null || rigStream == null) { Open(); }
@@ -121,6 +128,7 @@ namespace AmpAutoTunerUtility
                     rigClient = null;
                 }
                 //tabPage.SelectedTab = tabPageDebug;
+                FLRigLock.ReleaseMutex();
                 return null;
             }
             data = new Byte[4096];
@@ -162,6 +170,7 @@ namespace AmpAutoTunerUtility
                 ModeA = ModeB = "?";
             }
             rigStream.ReadTimeout = timeoutSave;
+            FLRigLock.ReleaseMutex();
             return xcvr;
         }
         private string FLRigXML(string cmd, string value)

@@ -66,7 +66,8 @@ namespace AmpAutoTunerUtility
                 IsBackground = true
             };
             myThread.Start();
-            isOn = GetStatus();
+            Thread.Sleep(1000);
+            //isOn = GetStatus();
             if (isOn == false)
             {
                 isOn = isOn;
@@ -166,7 +167,16 @@ namespace AmpAutoTunerUtility
         public override void SendCmd(byte cmd)
         {
             Byte[] cmdBuf = { 0x55, 0x55, 0x55, 0x01, cmd, cmd };
-            if (SerialLock.WaitOne(2000) == false) return;
+            try
+            {
+                SerialLock.WaitOne(2000);
+            }
+            catch (Exception)
+            {
+                DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.WARN,"Can't send tuner cmd????");
+                return;
+            }
+
             SerialPortTuner.Write(cmdBuf, 0, 6);
             Thread.Sleep(150);
             SerialLock.ReleaseMutex();
@@ -178,7 +188,14 @@ namespace AmpAutoTunerUtility
         public override bool GetStatus2(Screen myScreen = Screen.Unknown)
         {
             int loop = 10;
-            if (SerialLock.WaitOne(2000) == false) return false;
+            try
+            {
+                SerialLock.WaitOne(2000);
+            }
+            catch (Exception)
+            {
+                return false;
+            }
             if (screenLast != myScreen)
             {
                 if (myScreen == Screen.Unknown) MessageBox.Show("Where are we?\n");
@@ -331,7 +348,14 @@ namespace AmpAutoTunerUtility
             if (SerialPortTuner == null) 
                 return false;
             if (freqWalkIsRunning == true) return false;
-            if (SerialLock.WaitOne(2000) == false) return false;
+            try
+            {
+                SerialLock.WaitOne(2000);
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         writeagain:
             SerialPortTuner.DiscardInBuffer();
             Byte[] cmd = { 0x55, 0x55, 0x55, 0x01, 0x90, 0x90 };
@@ -580,6 +604,7 @@ namespace AmpAutoTunerUtility
             if (tuning == false)
             {
                 DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.ERR, "Tuning did not start!!\n");
+                SerialLock.ReleaseMutex();
                 return;
             }
             while (tuning == true)
@@ -588,6 +613,8 @@ namespace AmpAutoTunerUtility
                 Thread.Sleep(100);
             }
             //SelectDisplayPage();
+            SerialLock.ReleaseMutex();
+
         }
 
         public override void Poll()

@@ -855,7 +855,7 @@ namespace AmpAutoTunerUtility
                 {
                     comboBoxBaudTuner.Text = "115200";
                     tuner1 = new TunerExpertLinears(comboBoxTunerModel.Text, comboBoxComTuner.Text, comboBoxBaudTuner.Text, out errorMsg);
-                    tuner1.GetStatus();
+                    //tuner1.GetStatus();
                     if (tuner1 != null && tuner1.isOn)
                     {
                         buttonTunerPwr.BackColor = Color.Green;
@@ -5505,39 +5505,49 @@ namespace AmpAutoTunerUtility
 
         private void Button5_Click(object sender, EventArgs e)
         {
-            if (buttonTunerPwr.BackColor == Color.Yellow) 
-                return;
+            try
+            {
+                if (buttonTunerPwr.BackColor == Color.Yellow)
+                    return;
+                Cursor = Cursors.WaitCursor;
 
-            if (buttonTunerPwr.BackColor != Color.Green)
-            {
-                buttonTunerPwr.BackColor = Color.Yellow;
-                buttonTunerPwr.ForeColor = Color.Black;
-                buttonTunerPwr.Enabled = false;
-                Application.DoEvents();
-                tuner1.On();
-                Thread.Sleep(100);
-                tuner1.On();
-                Thread.Sleep(3000);
-                Application.DoEvents();
-                buttonTunerPwr.BackColor = Color.Green;
-                buttonTunerPwr.ForeColor = Color.White;
-                buttonTunerPwr.Enabled = true;
+                if (buttonTunerPwr.BackColor != Color.Green)
+                {
+                    buttonTunerPwr.BackColor = Color.Yellow;
+                    buttonTunerPwr.ForeColor = Color.Black;
+                    buttonTunerPwr.Enabled = false;
+                    buttonTunerPwr.Refresh();
+                    tuner1.On();
+                    Thread.Sleep(100);
+                    tuner1.On();
+                    Thread.Sleep(3000);
+                    buttonTunerPwr.Refresh();
+                    buttonTunerPwr.BackColor = Color.Green;
+                    buttonTunerPwr.ForeColor = Color.White;
+                    buttonTunerPwr.Enabled = true;
+                }
+                else
+                {
+                    buttonTunerPwr.BackColor = Color.Yellow;
+                    buttonTunerPwr.ForeColor = Color.Black;
+                    buttonTunerPwr.Enabled = false;
+                    buttonTunerPwr.Refresh() ;
+                    //Application.DoEvents();
+                    tuner1.Off();
+                    Thread.Sleep(100);
+                    tuner1.Off();
+                    Thread.Sleep(6000);
+                    buttonTunerPwr.Refresh();
+                    buttonTunerPwr.BackColor = Color.LightGray;
+                    buttonTunerPwr.ForeColor = Color.Black;
+                    buttonTunerPwr.Enabled = true;
+                }
             }
-            else
+            catch (Exception ex)
             {
-                buttonTunerPwr.BackColor = Color.Yellow;
-                buttonTunerPwr.ForeColor = Color.Black;
-                buttonTunerPwr.Enabled = false;
-                Application.DoEvents();
-                tuner1.Off();
-                Thread.Sleep(100);
-                tuner1.Off();
-                Thread.Sleep(6000);
-                Application.DoEvents();
-                buttonTunerPwr.BackColor = Color.LightGray;
-                buttonTunerPwr.ForeColor = Color.Black;
-                buttonTunerPwr.Enabled = true;
+                MyMessageBox("Tuner power on error: " + ex.Message + "\n" + ex.StackTrace);
             }
+            Cursor = Cursors.Default;
         }
 
         private void TabPageExpertLinears_Click(object sender, EventArgs e)
