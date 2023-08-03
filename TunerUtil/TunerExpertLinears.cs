@@ -1808,11 +1808,13 @@ namespace AmpAutoTunerUtility
             Thread.Sleep(1000);
             SerialPortTuner.DtrEnable = true;
             SerialPortTuner.RtsEnable = false;
+            isOn = true;
             return true;
         }
         public override bool Off()
         {
             SendCmd(0x0a);
+            isOn = false;
             return true;
         }
 

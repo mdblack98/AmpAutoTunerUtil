@@ -5521,10 +5521,10 @@ namespace AmpAutoTunerUtility
                     Thread.Sleep(100);
                     tuner1.On();
                     Thread.Sleep(3000);
+                    buttonTunerPwr.Enabled = true;
                     buttonTunerPwr.Refresh();
                     buttonTunerPwr.BackColor = Color.Green;
                     buttonTunerPwr.ForeColor = Color.White;
-                    buttonTunerPwr.Enabled = true;
                 }
                 else
                 {
@@ -5532,15 +5532,14 @@ namespace AmpAutoTunerUtility
                     buttonTunerPwr.ForeColor = Color.Black;
                     buttonTunerPwr.Enabled = false;
                     buttonTunerPwr.Refresh() ;
-                    //Application.DoEvents();
                     tuner1.Off();
                     Thread.Sleep(100);
                     tuner1.Off();
                     Thread.Sleep(6000);
+                    buttonTunerPwr.Enabled = true;
                     buttonTunerPwr.Refresh();
                     buttonTunerPwr.BackColor = Color.LightGray;
                     buttonTunerPwr.ForeColor = Color.Black;
-                    buttonTunerPwr.Enabled = true;
                 }
             }
             catch (Exception ex)
