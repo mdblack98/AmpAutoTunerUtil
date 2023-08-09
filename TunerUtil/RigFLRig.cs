@@ -563,6 +563,7 @@ namespace AmpAutoTunerUtility
                         int offset2 = responseData.IndexOf("</value>", StringComparison.InvariantCulture);
                         string info = responseData.Substring(offset1, offset2 - offset1);
                         string[] tokens = info.Split(new char[] { '\n' });
+                        model = tokens[0].Substring(2);
                     }
                 }
                 catch (Exception)
