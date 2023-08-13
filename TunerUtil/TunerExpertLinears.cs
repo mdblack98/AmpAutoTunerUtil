@@ -448,44 +448,51 @@ namespace AmpAutoTunerUtility
             // SYNC,ID,Operate(S/O),Rx/Tx,Bank,Input,Band,TXAnt and ATU, RxAnt,PwrLevel,PwrOut,SWRATU,SWRANT,VPA, IPA, TempUpper, TempLower,
             string[] mytokens = sresponse.Split(',');
             DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.LOG, mytokens.Length + ":" + sresponse + "\n");
-            if (mytokens.Length > 20)
+            try
             {
-                var newBand = mytokens[6];
-                var newAntenna = mytokens[7];
-                if (!bandstr.Equals(newBand))
+                if (mytokens.Length > 20)
                 {
-                    DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.LOG, "Expert Linears changed band " + bandstr + " to " + newBand + "\n");
-                    Application.DoEvents();
-                    bandstr = newBand;
-                    band = int.Parse(bandstr);
-                }
-                //DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.VERBOSE, "antenna=" + antenna + ", newAntenna=" + newAntenna + "\n");
-
-                if (!antenna.Equals(newAntenna))
-                {
-                    DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.LOG, "Expert Linears changed antenna " + antenna + " to " + newAntenna + "\n");
-                    Application.DoEvents();
-                    antenna = newAntenna;
-                }
-                AntennaNumber = int.Parse(antenna.Substring(0, 1));
-                model = "SPE " + mytokens[1];
-                bank = mytokens[4][0];
-                power = mytokens[10];
-                swr1 = mytokens[11];
-                SetSWR(Double.Parse(swr1));
-                swr2 = mytokens[12];
-                if (temp1.Equals("?")) DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.LOG, "Expert Linears connected\n");
-                temp1 = mytokens[15];
-                if (mytokens.Length >= 21)
-                {
-                    response[0] = (byte)mytokens[18][0];
-                    response[1] = 0;
-                    if (mytokens[18].Length > 0 && !mytokens[18].Equals("N"))
+                    var newBand = mytokens[6];
+                    var newAntenna = mytokens[7];
+                    if (!bandstr.Equals(newBand))
                     {
-                        DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.LOG, "MSG: " + mytokens[18] + "\n");
+                        DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.LOG, "Expert Linears changed band " + bandstr + " to " + newBand + "\n");
+                        Application.DoEvents();
+                        bandstr = newBand;
+                        band = int.Parse(bandstr);
                     }
+                    //DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.VERBOSE, "antenna=" + antenna + ", newAntenna=" + newAntenna + "\n");
+
+                    if (!antenna.Equals(newAntenna))
+                    {
+                        DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.LOG, "Expert Linears changed antenna " + antenna + " to " + newAntenna + "\n");
+                        Application.DoEvents();
+                        antenna = newAntenna;
+                    }
+                    AntennaNumber = int.Parse(antenna.Substring(0, 1));
+                    model = "SPE " + mytokens[1];
+                    bank = mytokens[4][0];
+                    power = mytokens[10];
+                    swr1 = mytokens[11];
+                    SetSWR(Double.Parse(swr1));
+                    swr2 = mytokens[12];
+                    if (temp1.Equals("?")) DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.LOG, "Expert Linears connected\n");
+                    temp1 = mytokens[15];
+                    if (mytokens.Length >= 21)
+                    {
+                        response[0] = (byte)mytokens[18][0];
+                        response[1] = 0;
+                        if (mytokens[18].Length > 0 && !mytokens[18].Equals("N"))
+                        {
+                            DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.LOG, "MSG: " + mytokens[18] + "\n");
+                        }
+                    }
+                    Application.DoEvents();
                 }
-                Application.DoEvents();
+            }
+            catch (Exception ex)
+            {
+                DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.ERR, "MSG: " + ex.Message + "\n" +ex.StackTrace);
             }
             SerialLock.ReleaseMutex();
             return true;
@@ -1803,12 +1810,14 @@ namespace AmpAutoTunerUtility
         }
         public override bool On()
         {
+            SerialLock.WaitOne();
             SerialPortTuner.DtrEnable = false;
             SerialPortTuner.RtsEnable = true;
             Thread.Sleep(1000);
             SerialPortTuner.DtrEnable = true;
             SerialPortTuner.RtsEnable = false;
             isOn = true;
+            SerialLock.ReleaseMutex();
             return true;
         }
         public override bool Off()

@@ -5521,6 +5521,8 @@ namespace AmpAutoTunerUtility
                     Thread.Sleep(100);
                     tuner1.On();
                     Thread.Sleep(3000);
+                    myRig.FrequencyA = myRig.FrequencyA;
+                    myRig.FrequencyB = myRig.FrequencyB;
                     buttonTunerPwr.Enabled = true;
                     buttonTunerPwr.Refresh();
                     buttonTunerPwr.BackColor = Color.Green;

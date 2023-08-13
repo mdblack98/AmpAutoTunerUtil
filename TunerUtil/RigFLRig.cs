@@ -222,7 +222,7 @@ namespace AmpAutoTunerUtility
             if (command == 0) return;
             try
             {
-                FLRigLock.WaitOne();
+                if(FLRigLock.WaitOne(2000) == false) return;
                 var myparam = "<params><param><value><i4>" + command + "</i4></value></param></params";
                 string xml = FLRigXML("rig.cmd", myparam);
                 Byte[] data = System.Text.Encoding.ASCII.GetBytes(xml);
@@ -246,7 +246,7 @@ namespace AmpAutoTunerUtility
         {
             try
             {
-                FLRigLock.WaitOne();
+                if(FLRigLock.WaitOne(2000)==false) return;
                 var myparam = "<params><param><value>" + vfo + "</value></param></params";
                 string xml = FLRigXML("rig.set_AB", myparam);
                 Byte[] data = System.Text.Encoding.ASCII.GetBytes(xml);
@@ -274,7 +274,7 @@ namespace AmpAutoTunerUtility
             {
                 try
                 {
-                    FLRigLock.WaitOne();
+                    if (FLRigLock.WaitOne() == false) return 'A';
                     string xml = FLRigXML("rig.get_AB", null);
                     Byte[] data = System.Text.Encoding.ASCII.GetBytes(xml);
                     rigStream.Write(data, 0, data.Length);
@@ -340,7 +340,7 @@ namespace AmpAutoTunerUtility
         // Return a list of all available modes
         public override List<string> GetModes()
         {
-            FLRigLock.WaitOne();
+            if (FLRigLock.WaitOne(2000)==false) return null;
             rigStream.Flush();
             var xml = FLRigXML("rig.get_modes", null);
             Byte[] data = System.Text.Encoding.ASCII.GetBytes(xml);
@@ -426,7 +426,7 @@ namespace AmpAutoTunerUtility
         private double FLRigGetFrequency(char vfo)
         {
             double frequency = 0;
-            FLRigLock.WaitOne();
+            if (FLRigLock.WaitOne(2000)==false) return frequencyA;
             string xml = FLRigXML("rig.get_vfo" + vfo, null);
             Byte[] data = System.Text.Encoding.ASCII.GetBytes(xml);
             try
@@ -527,7 +527,7 @@ namespace AmpAutoTunerUtility
 
         private  string FLRigGetModel()
         {
-            FLRigLock.WaitOne();
+            if (FLRigLock.WaitOne(2000)==false) return "Unknown";
             string xml = FLRigXML("rig.get_info", null);
             Byte[] data = System.Text.Encoding.ASCII.GetBytes(xml);
             try
@@ -579,7 +579,7 @@ namespace AmpAutoTunerUtility
         }
         private string FLRigGetMode(char vfo)
         {
-            FLRigLock.WaitOne();
+            if (FLRigLock.WaitOne(2000) == false) return modeA;
             string xml = FLRigXML("rig.get_mode" + vfo, null);
             Byte[] data = System.Text.Encoding.ASCII.GetBytes(xml);
             try
@@ -635,7 +635,7 @@ namespace AmpAutoTunerUtility
 
         private void FLRigSetMode(char vfo, string mode)
         {
-            FLRigLock.WaitOne();
+            if (FLRigLock.WaitOne(2000) == false) return;
             try
             {
                 var myparam = "<params><param><value>" + mode + "</value></param></params";
@@ -690,7 +690,7 @@ namespace AmpAutoTunerUtility
 
         private int FLRigGetPower()
         {
-            FLRigLock.WaitOne();
+            if (FLRigLock.WaitOne(2000) == false) return 0;
             string xml = FLRigXML("rig.get_power", null);
             Byte[] data = System.Text.Encoding.ASCII.GetBytes(xml);
             try
@@ -744,7 +744,7 @@ namespace AmpAutoTunerUtility
         {
             try
             {
-                FLRigLock.WaitOne();
+                if (FLRigLock.WaitOne(2000)==false) return;
                 var myparam = "<params><param><value><i4>" + value + "</i4></value></param></params";
                 string xml = FLRigXML("rig.set_power", myparam);
                 Byte[] data = System.Text.Encoding.ASCII.GetBytes(xml);
@@ -840,7 +840,7 @@ namespace AmpAutoTunerUtility
             {
                 int pttFlag = 0;
                 if (ptt == true) pttFlag = 1;
-                FLRigLock.WaitOne();
+                if (FLRigLock.WaitOne(1000) == false) return;
                 var myparam = "<params><param><value><i4>" + pttFlag + "</i4></value></param></params";
                 string xml = FLRigXML("rig.set_ptt", myparam);
                 Byte[] data = System.Text.Encoding.ASCII.GetBytes(xml);
@@ -869,7 +869,7 @@ namespace AmpAutoTunerUtility
 
         private bool FLRigGetPTT()
         {
-            FLRigLock.WaitOne();
+            if (FLRigLock.WaitOne(2000) == false) return false;
             var xml = FLRigXML("rig.get_ptt", null);
             Byte[] data = System.Text.Encoding.ASCII.GetBytes(xml);
             try
@@ -939,7 +939,7 @@ namespace AmpAutoTunerUtility
             {
                 //bool transceiveFlag = false;
                 //if (transceiveFlag == true) transceiveFlag = true;
-                FLRigLock.WaitOne();
+                if (FLRigLock.WaitOne(2000)==false) return;
                 string xml;
                 if (transceive) 
                 { 
