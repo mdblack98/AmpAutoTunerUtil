@@ -2456,6 +2456,7 @@ namespace AmpAutoTunerUtility
                                     timerGetFreq.Start();
                                 }
                                 // Reset VFOB to same freq as VFOA
+                                Debug(DebugEnum.LOG, "Set VFOB=" + frequencyHz+"\n");
                                 myRig.FrequencyB = frequencyHz;
                             }
                             else if (!pausedTuning && !pauseButtonClicked)

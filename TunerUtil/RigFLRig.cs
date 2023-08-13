@@ -520,7 +520,7 @@ namespace AmpAutoTunerUtility
             }
             set
             {
-                frequencyA = value;
+                frequencyB = value;
                 FLRigSetFrequency('B', value);
             }
         }
