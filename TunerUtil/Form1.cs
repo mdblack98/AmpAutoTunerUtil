@@ -2160,6 +2160,7 @@ namespace AmpAutoTunerUtility
             Byte[] data = System.Text.Encoding.ASCII.GetBytes(xml2);
             try
             {
+                if (rigStream == null) return;
                 rigStream.Write(data, 0, data.Length);
                 // Ignore the response for now
                 Byte[] data2 = new byte[4096];
@@ -2381,7 +2382,12 @@ namespace AmpAutoTunerUtility
                     //if (responseData.Contains("<value>")) // then we have a frequency
                     {
                         frequencyHz = cvfo == 'A'? this.myRig.FrequencyA : this.myRig.FrequencyB;
-                        if (frequencyLast != 0 && Math.Abs(frequencyHz - frequencyLast) > tolTune)
+                        // if our frequency changes by more than 10KHz make VFOB match VFOA
+                        if (frequencyHz < 60000000 && frequencyLast != 0 && Math.Abs(frequencyHz - frequencyLast) > 200)
+                        {
+                            this.myRig.FrequencyB = this.myRig.FrequencyA;
+                        }
+                            if (frequencyLast != 0 && Math.Abs(frequencyHz - frequencyLast) > tolTune)
                         {
                             DebugAddMsg(DebugEnum.LOG, "Freq change from " + frequencyLast + " to " + frequencyHz + "\n");
                             //if (frequencyLast == 0) frequencyLast = frequencyLastTunedHz = frequencyHz;
@@ -2422,6 +2428,7 @@ namespace AmpAutoTunerUtility
                             {
                                 frequencyHzVFOB = frequencyHz + 1000;
                             }
+                            Debug(DebugEnum.LOG, "VFOB freq change from " + this.myRig.FrequencyB + " to " + frequencyHzVFOB);
                             this.myRig.FrequencyB = frequencyHzVFOB;
                             Thread.Sleep(1000);  // give the rig a chance to restore it's band memory
                             myRig.GetMode('A');
