@@ -8,6 +8,7 @@ using System.Diagnostics;
 using System.Diagnostics.Contracts;
 using System.Drawing;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Management;
@@ -151,13 +152,24 @@ namespace AmpAutoTunerUtility
         private void Application_ThreadException(object sender, ThreadExceptionEventArgs e)
         {
             // Log the exception, display it, etc
-            MyMessageBox(e.Exception.Message + "\n" + e.Exception.StackTrace);
+            string path = System.IO.Path.GetTempPath() + "AmpAutoTunerUtility.log";
+            using (FileStream fs = File.Create(path))
+            {
+                Byte[] info = new System.Text.UTF8Encoding(true).GetBytes(e.Exception.Message + "\n" + e.Exception.StackTrace);
+                fs.Write(info, 0, info.Length);
+            }
         }
 
         private void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
             // Log the exception, display it, etc
-            MessageBox.Show((e.ExceptionObject as Exception).Message + "\n" + (e.ExceptionObject as Exception).StackTrace);
+            //MessageBox.Show((e.ExceptionObject as Exception).Message + "\n" + (e.ExceptionObject as Exception).StackTrace);
+            string path = System.IO.Path.GetTempPath() + "AmpAutoTunerUtility.log";
+            using (FileStream fs = File.Create(path))
+            {
+                Byte[] info = new System.Text.UTF8Encoding(true).GetBytes((e.ExceptionObject as Exception).Message + "\n" + (e.ExceptionObject as Exception).StackTrace);
+                fs.Write(info, 0, info.Length);
+            }
         }
 
         private void AntennaAddRelay(string name)
@@ -2373,6 +2385,7 @@ namespace AmpAutoTunerUtility
 
             char cvfo = 'A';
             string mode = this.myRig.VFO=='A' ? this.myRig.ModeA : this.myRig.ModeB;
+            labelFreq.Text = (frequencyHz / 1e6).ToString(CultureInfo.InvariantCulture) + "MHz" + " " + mode;
             //Debug(DebugEnum.VERBOSE, "VFOA mode is " + mode + "\n");
             if (radioButtonVFOB.Checked) cvfo = 'B';
             try

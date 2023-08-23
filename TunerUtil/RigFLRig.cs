@@ -195,7 +195,6 @@ namespace AmpAutoTunerUtility
             return xml;
         }
 
-
         public override void Poll()
         {
             int n = 0;

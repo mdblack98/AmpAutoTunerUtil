@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Windows.Forms;
 
 namespace AmpAutoTunerUtility
@@ -26,8 +27,9 @@ namespace AmpAutoTunerUtility
         }
 
         static void HandleExceptionGracefully(Exception ex)
-        {
-            MessageBox.Show(ex.Message + "\n" + ex.StackTrace);
+        {   
+            string path = System.IO.Path.GetTempPath() + "AmpAutoTunerUtility.log";
+            File.AppendAllText(path, ex.Message + "\n" + ex.StackTrace);
         }
     }
 }

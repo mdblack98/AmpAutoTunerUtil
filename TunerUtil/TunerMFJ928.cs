@@ -3,6 +3,7 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using System.IO.Ports;
 using System.Threading;
 using System.Windows.Forms;
@@ -70,7 +71,12 @@ namespace AmpAutoTunerUtility
             {
                 //while (true)
                 {
-                    if (!SerialPortTuner.BaseStream.CanRead) return;
+                    if (!SerialPortTuner.BaseStream.CanRead)
+                    {
+                        string path = System.IO.Path.GetTempPath() + "AmpAutoTunerUtility.log";
+                        File.AppendAllText(path, "SerialPortTuner.BaseStream.CanRead == false\n");
+                        return;
+                    }
                     SerialPortTuner.BaseStream.BeginRead(buffer, 0, buffer.Length, delegate (IAsyncResult ar)
                     {
                         try
@@ -404,7 +410,9 @@ namespace AmpAutoTunerUtility
 
         private void HandleAppSerialError(Exception ex)
         {
-            SetText(DebugEnum.ERR, "Serial err: " + ex.Message+"\n"+ex.StackTrace);
+            string path = System.IO.Path.GetTempPath() + "AmpAutoTunerUtility.log";
+            File.AppendAllText(path, ex.Message + "\n" + ex.StackTrace);    
+            //SetText(DebugEnum.ERR, "Serial err: " + ex.Message+"\n"+ex.StackTrace);
         }
 
         public override void Close()
