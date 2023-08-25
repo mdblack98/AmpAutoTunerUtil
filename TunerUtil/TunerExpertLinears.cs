@@ -167,20 +167,21 @@ namespace AmpAutoTunerUtility
         }
         public override void SendCmd(byte cmd)
         {
-            Byte[] cmdBuf = { 0x55, 0x55, 0x55, 0x01, cmd, cmd };
             try
             {
+                Byte[] cmdBuf = { 0x55, 0x55, 0x55, 0x01, cmd, cmd };
                 SerialLock.WaitOne(2000);
+
+
+                SerialPortTuner.Write(cmdBuf, 0, 6);
+                Thread.Sleep(150);
+                SerialLock.ReleaseMutex();
             }
             catch (Exception)
             {
-                DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.WARN,"Can't send tuner cmd????");
+                DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.WARN, "Can't send tuner cmd????");
                 return;
             }
-
-            SerialPortTuner.Write(cmdBuf, 0, 6);
-            Thread.Sleep(150);
-            SerialLock.ReleaseMutex();
         }
 
         readonly char[] lookup = { ' ', '!', '"', '#','$', '%', '&', '\\', '(', ')', '*', '+', ',', '-','.', '/','0','1','2','3','4','5','6','7','8','9',':',';','<','=','>','?','@','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','Z','[','\\','^','_','?','a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z','{','|','}','?' };
@@ -369,6 +370,7 @@ namespace AmpAutoTunerUtility
                     return false;
                 }
             writeagain:
+                if (SerialPortTuner == null) return false;
                 SerialPortTuner.DiscardInBuffer();
                 Byte[] cmd = { 0x55, 0x55, 0x55, 0x01, 0x90, 0x90 };
                 Byte[] response = new Byte[128];
@@ -515,6 +517,8 @@ namespace AmpAutoTunerUtility
                 catch (Exception ex)
                 {
                     DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.ERR, "MSG: " + ex.Message + "\n" + ex.StackTrace);
+                    SerialLock.ReleaseMutex();
+                    return false;
                 }
                 SerialLock.ReleaseMutex();
             }

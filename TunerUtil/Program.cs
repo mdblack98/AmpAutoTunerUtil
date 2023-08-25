@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Reflection.Emit;
 using System.Windows.Forms;
 
 namespace AmpAutoTunerUtility
@@ -14,10 +15,11 @@ namespace AmpAutoTunerUtility
         {
             try
             {
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            Form1 myForm = new Form1();
-            Application.Run(myForm);
+                AppDomain currentDomain = AppDomain.CurrentDomain;
+                currentDomain.UnhandledException += new UnhandledExceptionEventHandler(UnhandledExceptions); Application.EnableVisualStyles();
+                Application.SetCompatibleTextRenderingDefault(false);
+                Form1 myForm = new Form1();
+                Application.Run(myForm);
                 //myForm.Dispose();
             }
             catch (Exception ex)
@@ -30,6 +32,17 @@ namespace AmpAutoTunerUtility
         {   
             string path = System.IO.Path.GetTempPath() + "AmpAutoTunerUtility.log";
             File.AppendAllText(path, ex.Message + "\n" + ex.StackTrace);
+        }
+        static private void UnhandledExceptions(object sender, UnhandledExceptionEventArgs e)
+        {
+            // An unhandled Exception occurred!
+            if (e.IsTerminating)
+            {
+                // The Runtime is terminating now, so log some error details
+                string path = System.IO.Path.GetTempPath() + "AmpAutoTunerUtility.log";
+                Exception ex = (Exception)e.ExceptionObject;
+                File.AppendAllText(path, ex.Message + "\n" + ex.StackTrace);
+            }
         }
     }
 }
