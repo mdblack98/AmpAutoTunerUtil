@@ -179,6 +179,7 @@ namespace AmpAutoTunerUtility
             }
             catch (Exception)
             {
+                SerialLock.ReleaseMutex();
                 DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.WARN, "Can't send tuner cmd????");
                 return;
             }
@@ -228,7 +229,7 @@ namespace AmpAutoTunerUtility
                     try
                     {
                         myByte = (byte)SerialPortTuner.ReadByte();
-                        if (myByte == 0 && --loop == 0) return false;
+                        if (myByte == 0 && --loop == 0) { SerialLock.ReleaseMutex(); return false; }
                         //DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.LOG, "Got " + String.Format("{0:X}", myByte));
                     }
                     catch (Exception ex)
@@ -351,7 +352,8 @@ namespace AmpAutoTunerUtility
                     DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.ERR, "GetStatus error: " + ex.Message + "\n" + ex.StackTrace);
                     SerialLock.ReleaseMutex();
                     return false;
-                }   
+                }
+            SerialLock.ReleaseMutex();
             return true;
         }
         public override bool GetStatus()
@@ -370,7 +372,7 @@ namespace AmpAutoTunerUtility
                     return false;
                 }
             writeagain:
-                if (SerialPortTuner == null) return false;
+                if (SerialPortTuner == null) { SerialLock.ReleaseMutex(); return false; }
                 SerialPortTuner.DiscardInBuffer();
                 Byte[] cmd = { 0x55, 0x55, 0x55, 0x01, 0x90, 0x90 };
                 Byte[] response = new Byte[128];
@@ -520,7 +522,6 @@ namespace AmpAutoTunerUtility
                     SerialLock.ReleaseMutex();
                     return false;
                 }
-                SerialLock.ReleaseMutex();
             }
             catch (Exception ex)
             {
@@ -528,6 +529,7 @@ namespace AmpAutoTunerUtility
                 SerialLock.ReleaseMutex();
                 return false;
             }
+            SerialLock.ReleaseMutex();
             return true;
         }
 
@@ -544,10 +546,10 @@ namespace AmpAutoTunerUtility
             {
                 try
                 {
+                    Thread.Sleep(1000);
                     if (!freqWalkIsRunning)
                         isOn = GetStatus();
                     //DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.LOG, "Expert Linears thread got status\n");
-                    Thread.Sleep(1000);
                 }
                 catch (Exception ex)
                 {
