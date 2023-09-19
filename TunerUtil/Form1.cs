@@ -4302,7 +4302,10 @@ namespace AmpAutoTunerUtility
         {
             myRig.ModeA = "USB-D";
             myRig.ModeB = "USB-D";
+            timerFreqWalk.Stop();
+            Thread.Sleep(500);
             FrequenciesToWalk();
+            FreqWalkSetFreq(0);
             if (frequenciesToWalk == null || (freqWalkIsRunning == false && frequenciesToWalk.Count == 0))
             {
                 MessageBox.Show("No walk frequencies selected in FreqWalk tab!!");
