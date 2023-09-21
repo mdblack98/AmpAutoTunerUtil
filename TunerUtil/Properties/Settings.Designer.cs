@@ -2198,42 +2198,6 @@ namespace AmpAutoTunerUtility.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string FrequenciesToWalk1 {
-            get {
-                return ((string)(this["FrequenciesToWalk1"]));
-            }
-            set {
-                this["FrequenciesToWalk1"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string FrequenciesToWalk2 {
-            get {
-                return ((string)(this["FrequenciesToWalk2"]));
-            }
-            set {
-                this["FrequenciesToWalk2"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string FrequenciesToWalk3 {
-            get {
-                return ((string)(this["FrequenciesToWalk3"]));
-            }
-            set {
-                this["FrequenciesToWalk3"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string FrequenciesToWalk1List {
             get {
                 return ((string)(this["FrequenciesToWalk1List"]));

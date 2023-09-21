@@ -545,15 +545,6 @@
     <Setting Name="ClockIsZulu" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="FrequenciesToWalk1" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
-    <Setting Name="FrequenciesToWalk2" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
-    <Setting Name="FrequenciesToWalk3" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
     <Setting Name="FrequenciesToWalk1List" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>

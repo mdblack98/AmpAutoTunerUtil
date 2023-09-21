@@ -723,9 +723,9 @@ namespace AmpAutoTunerUtility
             clockIsZulu = Properties.Settings.Default.ClockIsZulu;
             int index = 0;
 
-            if (!string.IsNullOrEmpty(Properties.Settings.Default.FrequenciesToWalk1))
+            if (!string.IsNullOrEmpty(Properties.Settings.Default.FrequenciesToWalk1List))
             {
-                Properties.Settings.Default.FrequenciesToWalk1.Split(',')
+                Properties.Settings.Default.FrequenciesToWalk1List.Split(',')
                     .ToList()
                     .ForEach(item =>
                     {
@@ -734,9 +734,9 @@ namespace AmpAutoTunerUtility
                             this.checkedListBoxWalk1.SetItemChecked(index, true);
                     });
             }
-            if (!string.IsNullOrEmpty(Properties.Settings.Default.FrequenciesToWalk2))
+            if (!string.IsNullOrEmpty(Properties.Settings.Default.FrequenciesToWalk2List))
             {
-                Properties.Settings.Default.FrequenciesToWalk2.Split(',')
+                Properties.Settings.Default.FrequenciesToWalk2List.Split(',')
                     .ToList()
                     .ForEach(item =>
                     {
@@ -745,9 +745,9 @@ namespace AmpAutoTunerUtility
                             this.checkedListBoxWalk2.SetItemChecked(index, true);
                     });
             }
-            if (!string.IsNullOrEmpty(Properties.Settings.Default.FrequenciesToWalk3))
+            if (!string.IsNullOrEmpty(Properties.Settings.Default.FrequenciesToWalk3List))
             {
-                Properties.Settings.Default.FrequenciesToWalk3.Split(',')
+                Properties.Settings.Default.FrequenciesToWalk3List.Split(',')
                     .ToList()
                     .ForEach(item =>
                     {
@@ -1216,13 +1216,6 @@ namespace AmpAutoTunerUtility
             Properties.Settings.Default.labelFreqWalk1 = labelFreqWalk1.Text;
             Properties.Settings.Default.labelFreqWalk2 = labelFreqWalk2.Text;
             Properties.Settings.Default.labelFreqWalk3 = labelFreqWalk3.Text;
-
-            var indices = checkedListBoxWalk1.CheckedItems.Cast<string>().ToArray();
-            Properties.Settings.Default.FrequenciesToWalk1 = string.Join(",", indices);
-            indices = checkedListBoxWalk2.CheckedItems.Cast<string>().ToArray();
-            Properties.Settings.Default.FrequenciesToWalk2 = string.Join(",", indices);
-            indices = checkedListBoxWalk3.CheckedItems.Cast<string>().ToArray();
-            Properties.Settings.Default.FrequenciesToWalk3 = string.Join(",", indices);
 
             var items = checkedListBoxWalk1.Items.Cast<string>().ToArray();
             Properties.Settings.Default.FrequenciesToWalk1List = string.Join(",", items);
