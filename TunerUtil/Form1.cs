@@ -4141,6 +4141,8 @@ namespace AmpAutoTunerUtility
                 //richTextBox1.AppendText(MyTime() + "Tick\n");
                 FLRigGetFreq(false);
                 //var freq = frequenciesToWalk[(int)frequencyIndex];
+                if (frequenciesToWalk.Count == 0) return;
+                if (frequencyIndex >= frequenciesToWalk.Count) frequencyIndex = 0;
                 if (frequencyIndex >= 0 && !frequenciesToWalk.Contains((long)frequencyHz))
                 {
                     FreqWalkStop();
