@@ -4121,10 +4121,10 @@ namespace AmpAutoTunerUtility
         private void FreqWalkSetFreq(int index)
         {
             //if (index == 0) richTextBoxFreqWalk.Clear();
-            if (index < 0 || index > frequenciesToWalk.Count)
+            if (index < 0 || index >= frequenciesToWalk.Count)
             {
-                MessageBox.Show("walk index " + index + " outside " + frequenciesToWalk.Count + "walk entries");
-                return;
+                //MessageBox.Show("walk index " + index + " outside " + frequenciesToWalk.Count + "walk entries");
+                index = 0;
             }
             Debug(DebugEnum.TRACE, "Set VFOA " + frequenciesToWalk[index] / 1e6 + "MHz\n");
             myRig.FrequencyA = frequenciesToWalk[index];
@@ -4764,6 +4764,7 @@ namespace AmpAutoTunerUtility
             {
                 myBox.SetItemChecked(index, false);
             }
+            FrequenciesToWalk();
         }
 
         private void LabelInterval_Click(object sender, EventArgs e)
@@ -4826,17 +4827,19 @@ namespace AmpAutoTunerUtility
         private void CheckBoxWalkFT8_CheckedChanged(object sender, EventArgs e)
         {
             checkedListBoxWalk1.Enabled = checkBoxWalk1.Checked;
+            FrequenciesToWalk();
         }
 
         private void CheckBoxWalkFT4_CheckedChanged(object sender, EventArgs e)
         {
             checkedListBoxWalk2.Enabled = checkBoxWalk2.Checked;
+            FrequenciesToWalk();
         }
 
         private void CheckBoxWalkCustom_CheckedChanged(object sender, EventArgs e)
         {
             checkedListBoxWalk3.Enabled = checkBoxWalk3.Checked;
-
+            FrequenciesToWalk();
         }
 
         private void LabelFreqWalk1_Click(object sender, EventArgs e)
