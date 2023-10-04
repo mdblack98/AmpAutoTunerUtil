@@ -72,6 +72,12 @@ namespace AmpAutoTunerUtility
             get;
             set;
         }
+
+        public bool isOperate
+        {
+            get;
+            set;
+        }
         public Tuner()
         {
             model = null;
@@ -255,6 +261,11 @@ namespace AmpAutoTunerUtility
             throw new NotImplementedException();
         }
         public virtual bool Off()
+        {
+            throw new NotImplementedException();
+        }
+
+        public virtual void Operate(bool on) // Enable amplifier
         {
             throw new NotImplementedException();
         }

@@ -536,6 +536,7 @@ namespace AmpAutoTunerUtility
                         swr1 = mytokens[11];
                         SetSWR(Double.Parse(swr1));
                         swr2 = mytokens[12];
+                        isOperate = mytokens[2] == "S"?false:true;
                         if (temp1.Equals("?")) DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.LOG, "Expert Linears connected\n");
                         temp1 = mytokens[15];
                         if (mytokens.Length >= 21)
@@ -1911,6 +1912,10 @@ namespace AmpAutoTunerUtility
             return true;
         }
 
+        public override void Operate(bool on)
+        {
+            SendCmd(0x0d);
+        }
         public override double GetInductance()
         {
             bool ok = GetStatus2(Tuner.Screen.ManualTune);

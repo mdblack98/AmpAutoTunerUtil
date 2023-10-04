@@ -2393,7 +2393,7 @@ namespace AmpAutoTunerUtility
 
             char cvfo = 'A';
             string mode = this.myRig.VFO == 'A' ? this.myRig.ModeA : this.myRig.ModeB;
-            labelFreq.Text = (frequencyHz / 1e6).ToString(CultureInfo.InvariantCulture) + "MHz" + " " + mode;
+            labelFreq.Text = (frequencyHz / 1e6).ToString(CultureInfo.InvariantCulture) + " " + mode;
             //Debug(DebugEnum.VERBOSE, "VFOA mode is " + mode + "\n");
             if (radioButtonVFOB.Checked) cvfo = 'B';
             try
@@ -2418,7 +2418,7 @@ namespace AmpAutoTunerUtility
                         }
                         string modeOld = modeCurrent;
                         modeCurrent = this.myRig.ModeA; // FLRigGetMode(); // get our current mode now
-                        labelFreq.Text = (frequencyHz / 1e6).ToString(CultureInfo.InvariantCulture) + "MHz" + " " + modeCurrent;
+                        labelFreq.Text = (frequencyHz / 1e6).ToString(CultureInfo.InvariantCulture) + " " + modeCurrent;
                         if (comboBoxPower1Mode.SelectedItem != null && !modeCurrent.Equals(modeOld, StringComparison.InvariantCulture))
                             PowerSelect(frequencyHz, modeCurrent, tuneIsRunning);
                         if (frequencyLast == 0)
@@ -2550,8 +2550,18 @@ namespace AmpAutoTunerUtility
         }
         private void TimerGetFreq_Tick(object sender, EventArgs e)
         {
+            if (tuner1!.isOperate)
+            {
+                buttonOperate.BackColor = Color.Green;
+                buttonOperate.ForeColor = Color.White;
+            }
+            else 
+            {
+                buttonOperate.BackColor = Color.LightGray;
+                buttonOperate.ForeColor = Color.Black;
+            }
             if (labelFreq != null && myRig != null)
-                labelFreq.Text = (myRig.FrequencyA / 1e6).ToString(CultureInfo.InvariantCulture) + "MHz" + " " + myRig.ModeA;
+                labelFreq.Text = (myRig.FrequencyA / 1e6).ToString(CultureInfo.InvariantCulture) + " " + myRig.ModeA;
 
             if (tuner1 != null && tuner1.isOn)
             {
@@ -4174,8 +4184,8 @@ namespace AmpAutoTunerUtility
             Debug(DebugEnum.TRACE, "Set VFOA " + frequenciesToWalk[index] / 1e6 + "MHz\n");
             myRig.FrequencyA = frequenciesToWalk[index];
             myRig.FrequencyB = frequenciesToWalk[index];
-            //labelFreq.Text = frequenciesToWalk[index] / 1e6 + "MHz";
-            labelFreq.Text = (frequenciesToWalk[index] / 1e6).ToString(CultureInfo.InvariantCulture) + "MHz" + " " + modeCurrent;
+            //labelFreq.Text = frequenciesToWalk[index] / 1e6;
+            labelFreq.Text = (frequenciesToWalk[index] / 1e6).ToString(CultureInfo.InvariantCulture) + " " + modeCurrent;
         }
         private void TimerFreqWalk_Tick(object sender, EventArgs e)
         {
@@ -5778,6 +5788,61 @@ Set
         {
             FrequenciesToWalk();
             FreqWalkSetFreq(0);
+        }
+
+        private void buttonOperate_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                tuner1!.Operate(!tuner1.isOperate);
+            }
+
+            /*
+            if (buttonOperate.BackColor == Color.Yellow)
+                return;
+            Cursor = Cursors.WaitCursor;
+
+            if (buttonOperate.BackColor != Color.Green)
+            {
+                buttonOperate.BackColor = Color.Yellow;
+                buttonOperate.ForeColor = Color.Black;
+                buttonOperate.Enabled = false;
+                buttonOperate.Refresh();
+                if (tuner1 == null) return;
+                tuner1.Operate(true);
+                Thread.Sleep(100);
+                tuner1.Operate(true);
+                Thread.Sleep(3000);
+                myRig!.FrequencyA = myRig!.FrequencyA;
+                myRig!.FrequencyB = myRig!.FrequencyB;
+                buttonOperate.Enabled = true;
+                buttonOperate.Refresh();
+                buttonOperate.BackColor = Color.Green;
+                buttonOperate.ForeColor = Color.White;
+            }
+            else
+            {
+                buttonOperate.BackColor = Color.Yellow;
+                buttonOperate.ForeColor = Color.Black;
+                buttonOperate.Enabled = false;
+                buttonOperate.Refresh();
+                tuner1!.Operate(false);
+                Thread.Sleep(100);
+                tuner1!.Operate(false);
+                Thread.Sleep(6000);
+                buttonOperate.Enabled = true;
+                buttonOperate.Refresh();
+                buttonOperate.BackColor = Color.LightGray;
+                buttonOperate.ForeColor = Color.Black;
+            }
+        }
+        */
+            catch (Exception ex)
+            {
+                MyMessageBox("Tuner power on error: " + ex.Message + "\n" + ex.StackTrace);
+            }
+            Cursor = Cursors.Default;
+
         }
     }
 
