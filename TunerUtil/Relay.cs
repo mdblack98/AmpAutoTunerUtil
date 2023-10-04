@@ -10,7 +10,7 @@ namespace AmpAutoTunerUtility
 {
     class Relay
     {
-        public FTDI ftdi = new FTDI();
+        public FTDI ?ftdi = new FTDI();
         readonly List<string> comList = new List<string>();
         readonly List<uint> comIndex = new List<uint>();
         readonly uint devcount = 0;
@@ -18,7 +18,7 @@ namespace AmpAutoTunerUtility
         int relayNum = 0;
         string serialNumber = "";
         readonly List<string> serialNums = new List<string>();
-        public string errMsg = null;
+        public string ?errMsg = null;
         public bool relayError;
         private byte ampRelay = 1; // 1-based number of the relay used for the amplifier on/off
 
@@ -197,6 +197,7 @@ namespace AmpAutoTunerUtility
 
         public bool Status(int nRelay)
         {
+            if (ftdi == null) return false;
             Monitor.Enter(ftdi);
             //Open();
             errMsg = null;
@@ -237,6 +238,11 @@ namespace AmpAutoTunerUtility
                 Open();
                 local = true;
             }
+            else
+            {
+                errMsg = "FTID not open?";
+                return 0x0;
+            }
             errMsg = null;
             byte bitModes = 0x00;
             try
@@ -274,7 +280,7 @@ namespace AmpAutoTunerUtility
             try
             {
                 byte bitModes = 0;
-                ftdi.GetPinStates(ref bitModes);
+                ftdi!.GetPinStates(ref bitModes);
             }
             catch (Exception ex)
             {

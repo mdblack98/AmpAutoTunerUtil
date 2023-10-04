@@ -15,7 +15,7 @@ namespace AmpAutoTunerUtility
     {
         enum TunerStateEnum { UNKNOWN, SLEEP, AWAKE, TUNING, TUNEDONE, ERR}
         TunerStateEnum TunerState = TunerStateEnum.UNKNOWN;
-        private SerialPort SerialPortTuner = null;
+        private SerialPort ?SerialPortTuner = null;
         public double FwdPwr { get; set; }
         public double RefPwr { get; set; }
         //public new int Inductance { get; set; }
@@ -24,7 +24,7 @@ namespace AmpAutoTunerUtility
         volatile bool Tuning = false;
         volatile bool dataReceived = false;
 
-        public TunerMFJ928(string model, string comport, string baud, out string error)
+        public TunerMFJ928(string model, string comport, string baud, out string ?error)
         {
             this.model = model;
             this.comport = comport;
@@ -63,7 +63,7 @@ namespace AmpAutoTunerUtility
 
             byte[] buffer = new byte[4096];
             byte[] buffer1 = new byte[1];
-            Action kickoffRead = null;
+            Action ?kickoffRead = null;
             SerialPortTuner.BaseStream.ReadTimeout = 100;
             Queue<byte> myQueue = new Queue<byte>();
             GetAntenna();
@@ -86,7 +86,7 @@ namespace AmpAutoTunerUtility
                             byte[] received = new byte[actualLength];
                             Buffer.BlockCopy(buffer, 0, received, 0, actualLength);
                             foreach (byte b in received) myQueue.Enqueue(b);
-                            byte[] cmd;
+                            byte[] ?cmd;
                             while ((cmd = GetCmd(myQueue)) != null)
                             {
                                 if (cmd[0] == 0xfe && cmd.Length != 8)
@@ -108,7 +108,7 @@ namespace AmpAutoTunerUtility
                             //MessageBox.Show(ex.Message + "\n", ex.StackTrace);
                             //throw;
                         }
-                    kickoffRead();
+                    if (kickoffRead is not null) kickoffRead();
                     }, null);
                 }
             };
@@ -124,7 +124,7 @@ namespace AmpAutoTunerUtility
             }
         }
 
-        byte[] GetCmd(Queue<byte> q)
+        byte[] ?GetCmd(Queue<byte> q)
         {
             byte[] cmd;
             int nbytes;
@@ -238,6 +238,11 @@ namespace AmpAutoTunerUtility
 
         private void MsgFF(byte[] received)
         {
+            if (SerialPortTuner is null)
+            {
+                MessageBox.Show("SerialPortTuner=null in" + System.Reflection.MethodBase.GetCurrentMethod().Name);
+                return;
+            }
             byte[] data = new byte[5];
             int i = 0;
             for (; i < received.Length - 1 && i < data.Length; ++i)
@@ -428,11 +433,11 @@ namespace AmpAutoTunerUtility
             }
         }
 
-        public override string GetSerialPortTuner()
+        public override string ?GetSerialPortTuner()
         {
             if (SerialPortTuner == null)
             {
-                return (string)null;
+                return null;
             }
             return SerialPortTuner.PortName;
         }

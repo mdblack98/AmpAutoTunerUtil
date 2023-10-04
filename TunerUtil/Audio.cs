@@ -21,28 +21,27 @@ namespace AmpAutoTunerUtility
         public List<DirectSoundDeviceInfo> DeviceInfo { get; }
 
         readonly SignalGenerator sg;
-        private string errMsg = null;
+        private string errMsg = "";
 
         public Audio()
         {
-            try
+            DeviceNumber = 0;
+            DeviceInfo = new List<DirectSoundDeviceInfo>();
+            driverOut = new WaveOutEvent
             {
-                SampleRate = 8000;
-                DeviceNumber = 0;
-                MyFrequency = 1500;
-                Volume = .95f;
-                DeviceInfo = new List<DirectSoundDeviceInfo>();
-                EnumerateAudioOutputDevices();
-                sg = new SignalGenerator(SampleRate, 2)
-                {
-                    Frequency = MyFrequency,
-                    Gain = Volume,
-                    Type = SignalGeneratorType.Sin
-                };
-                driverOut = new WaveOutEvent
-                {
-                    DeviceNumber = DeviceNumber
-                };
+                DeviceNumber = DeviceNumber
+            };
+            SampleRate = 8000;
+            MyFrequency = 1500;
+            Volume = .95f;
+            EnumerateAudioOutputDevices();
+            sg = new SignalGenerator(SampleRate, 2)
+            {
+                Frequency = MyFrequency,
+                Gain = Volume,
+                Type = SignalGeneratorType.Sin
+            };
+            try { 
                 driverOut.Init(sg);
             }
 #pragma warning disable CA1031 // Do not catch general exception types
@@ -56,7 +55,7 @@ namespace AmpAutoTunerUtility
         }
         public void StartStopSineWave()
         {
-            errMsg = null;
+            errMsg = "";
             try
             {
                 if (driverOut.PlaybackState == PlaybackState.Playing)
@@ -85,7 +84,7 @@ namespace AmpAutoTunerUtility
 
         private void EnumerateAudioOutputDevices()
         {
-            errMsg = null;
+            errMsg = "";
             try
             {
                 int waveOutDevices = WaveOut.DeviceCount;

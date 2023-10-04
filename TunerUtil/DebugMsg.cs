@@ -34,8 +34,8 @@ namespace AmpAutoTunerUtility
             return time;
         }
 
-        public string Text { get; set; }
-            public DebugEnum Level { get; set; }
+        public string ?Text { get; set; }
+        public DebugEnum Level { get; set; }
         public static void DebugAddMsg(DebugEnum level, string msg)
         {
             if (msg == null) return;
@@ -57,7 +57,7 @@ namespace AmpAutoTunerUtility
         {
             msgQueue.Enqueue(msg);
         }
-        public static DebugMsg DebugGetMsg()
+        public static DebugMsg ?DebugGetMsg()
         {
             if (msgQueue.TryDequeue(out DebugMsg mymsg))
             {

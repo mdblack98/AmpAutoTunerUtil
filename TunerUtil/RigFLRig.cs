@@ -8,18 +8,20 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
+using System.Xml.Linq;
 using static AmpAutoTunerUtility.DebugMsg;
+
 
 namespace AmpAutoTunerUtility
 {
     class RigFLRig : Rig, IDisposable
     {
         readonly string rig = "FLRig";
-        TcpClient rigClient;
-        NetworkStream rigStream;
+        TcpClient ?rigClient;
+        NetworkStream ?rigStream;
         public string errorMessage = "None";
-        private Thread myThread;
-        private string model;
+        private Thread ?myThread;
+        private string ?model;
         private char vfo = '?';
         public double frequencyA = 0;
         public double frequencyB = 0;
@@ -28,7 +30,6 @@ namespace AmpAutoTunerUtility
         public bool ptt;
         public int power;
         public bool transceive;
-        readonly Mutex FLRigLock = new Mutex(true, "RigFLRig");
         public override bool Open()
         {
             model = "Unknown";
@@ -72,6 +73,7 @@ namespace AmpAutoTunerUtility
             myThread.Start();
             return true;
         }
+
         public override void Close()
         {
             rigStream?.Close();
@@ -79,7 +81,7 @@ namespace AmpAutoTunerUtility
         }
         private bool FLRigWait()
         {
-            String xcvr;
+            String ?xcvr;
             int n = 16;
             while ((xcvr = FLRigGetXcvr()) == null && --n > 0)
             {
@@ -99,20 +101,24 @@ namespace AmpAutoTunerUtility
             DebugAddMsg(DebugEnum.LOG, "Rig is " + xcvr + "\n");
             return true;
         }
-        private string FLRigGetXcvr()
+        private string ?FLRigGetXcvr()
         {
             try
             {
-                FLRigLock.WaitOne(1000);
+                Monitor.Enter(12345);
             }
             catch(Exception)
             {
                 return "Unknown";
             }
-            string xcvr = null;
+            string ?xcvr = null;
             //if (!checkBoxRig.Checked) return null;
             if (rigClient == null || rigStream == null) { Open(); }
-            string xml2 = FLRigXML("rig.get_xcvr", null);
+            if (rigClient == null || rigStream == null)
+            {
+                return "Unknown error during Open"; 
+            }
+            string ?xml2 = FLRigXML("rig.get_xcvr", null);
             Byte[] data = System.Text.Encoding.ASCII.GetBytes(xml2);
             try
             {
@@ -129,7 +135,6 @@ namespace AmpAutoTunerUtility
                     rigClient = null;
                 }
                 //tabPage.SelectedTab = tabPageDebug;
-                FLRigLock.ReleaseMutex();
                 return null;
             }
             data = new Byte[4096];
@@ -138,7 +143,6 @@ namespace AmpAutoTunerUtility
             try
             {
                 Int32 bytes = rigStream.Read(data, 0, data.Length);
-                FLRigLock.ReleaseMutex();
                 String responseData = Encoding.ASCII.GetString(data, 0, bytes);
                 //richTextBoxRig.AppendText(responseData + "\n");
                 try
@@ -171,10 +175,9 @@ namespace AmpAutoTunerUtility
                 ModeA = ModeB = "?";
             }
             rigStream.ReadTimeout = timeoutSave;
-            FLRigLock.ReleaseMutex();
             return xcvr;
         }
-        private string FLRigXML(string cmd, string value)
+        private string FLRigXML(string cmd, string ?value)
         {
             //Debug(DebugEnum.LOG, "FLRig cmd=" + cmd + " value=" + value +"\n");
             string xmlHeader = "POST / RPC2 HTTP / 1.1\n";
@@ -198,9 +201,13 @@ namespace AmpAutoTunerUtility
         public override void Poll()
         {
             int n = 0;
+            if (myThread is null)
+            {
+                MessageBox.Show("myThead=null in " + System.Reflection.MethodBase.GetCurrentMethod().Name);
+                return;
+            }
             while (myThread.IsAlive == true)
             {
-                //FLRigLock.WaitOne();
                 FLRigGetVFO();
                 frequencyA = FLRigGetFrequency('A');
                 frequencyB = FLRigGetFrequency('B');
@@ -211,7 +218,6 @@ namespace AmpAutoTunerUtility
                     modeA = FLRigGetMode('A');
                     modeB = FLRigGetMode('B');
                 }
-                //FLRigLock.ReleaseMutex();
                 Thread.Sleep(500);
             }
         }
@@ -219,16 +225,20 @@ namespace AmpAutoTunerUtility
         public override void SendCommand(int command)
         {
             if (command == 0) return;
+            if (rigStream is null)
+            {
+                MessageBox.Show("Error in SendCommand rigstream is null");
+                return;
+            }
             try
             {
-                if(FLRigLock.WaitOne(2000) == false) return;
+                Monitor.Enter(12345);
                 var myparam = "<params><param><value><i4>" + command + "</i4></value></param></params";
                 string xml = FLRigXML("rig.cmd", myparam);
                 Byte[] data = System.Text.Encoding.ASCII.GetBytes(xml);
                 rigStream.Write(data, 0, data.Length);
                 Byte[] data2 = new byte[4096];
                 Int32 bytes = rigStream.Read(data2, 0, data2.Length);
-                FLRigLock.ReleaseMutex();
                 string responseData = Encoding.ASCII.GetString(data2, 0, bytes);
                 if (!responseData.Contains("200 OK"))
                 {
@@ -243,16 +253,20 @@ namespace AmpAutoTunerUtility
         }
         private void FLRigSetVFO(char vfo)
         {
+            if (rigStream is null)
+            {
+                MessageBox.Show("rigstream is null in FLRigSetVFO");
+                return;
+            }
             try
             {
-                if(FLRigLock.WaitOne(2000)==false) return;
+                Monitor.Enter(12345);
                 var myparam = "<params><param><value>" + vfo + "</value></param></params";
                 string xml = FLRigXML("rig.set_AB", myparam);
                 Byte[] data = System.Text.Encoding.ASCII.GetBytes(xml);
                 rigStream.Write(data, 0, data.Length);
                 Byte[] data2 = new byte[4096];
                 Int32 bytes = rigStream.Read(data2, 0, data2.Length);
-                FLRigLock.ReleaseMutex();
                 string responseData = Encoding.ASCII.GetString(data2, 0, bytes);
                 if (!responseData.Contains("200 OK"))
                 {
@@ -269,17 +283,21 @@ namespace AmpAutoTunerUtility
         {
             bool retry = true;
             int retryCount = 0;
+            if (rigStream is null)
+            {
+                MessageBox.Show("rigstream is null in FLRigGetVFO");
+                return 'A';
+            }
             do
             {
                 try
                 {
-                    if (FLRigLock.WaitOne() == false) return 'A';
+                    Monitor.Enter(12345);
                     string xml = FLRigXML("rig.get_AB", null);
                     Byte[] data = System.Text.Encoding.ASCII.GetBytes(xml);
                     rigStream.Write(data, 0, data.Length);
                     Byte[] data2 = new byte[4096];
                     Int32 bytes = rigStream.Read(data2, 0, data2.Length);
-                    FLRigLock.ReleaseMutex();
                     string responseData = Encoding.ASCII.GetString(data2, 0, bytes);
                     if (responseData.Contains("<value>B"))
                     {
@@ -337,9 +355,14 @@ namespace AmpAutoTunerUtility
         }
 
         // Return a list of all available modes
-        public override List<string> GetModes()
+        public override List<string> ?GetModes()
         {
-            if (FLRigLock.WaitOne(2000)==false) return null;
+            if (rigStream is null)
+            {
+                MessageBox.Show("rigstream is null in GetModes");
+                return null;
+            }
+            Monitor.Enter(12345);
             rigStream.Flush();
             var xml = FLRigXML("rig.get_modes", null);
             Byte[] data = System.Text.Encoding.ASCII.GetBytes(xml);
@@ -366,7 +389,6 @@ namespace AmpAutoTunerUtility
             try
             {
                 Int32 bytes = rigStream.Read(data, 0, data.Length);
-                FLRigLock.ReleaseMutex();
                 String responseData = Encoding.ASCII.GetString(data, 0, bytes);
                 //richTextBoxRig.AppendText(responseData + "\n");
                 try
@@ -414,7 +436,7 @@ namespace AmpAutoTunerUtility
         #region IDisposable Support
         private bool disposedValue = false; // To detect redundant calls
 
-        public override string Model
+        public override string ?Model
         {
             get
             {
@@ -425,7 +447,7 @@ namespace AmpAutoTunerUtility
         private double FLRigGetFrequency(char vfo)
         {
             double frequency = 0;
-            if (FLRigLock.WaitOne(2000)==false) return frequencyA;
+            Monitor.Enter(12345);
             string xml = FLRigXML("rig.get_vfo" + vfo, null);
             Byte[] data = System.Text.Encoding.ASCII.GetBytes(xml);
             try
@@ -450,7 +472,6 @@ namespace AmpAutoTunerUtility
             try
             {
                 Int32 bytes = rigStream.Read(data, 0, data.Length);
-                FLRigLock.ReleaseMutex();
                 String responseData = Encoding.ASCII.GetString(data, 0, bytes);
                 //richTextBoxRig.AppendText(responseData + "\n");
                 try
@@ -477,16 +498,20 @@ namespace AmpAutoTunerUtility
 
         private void FLRigSetFrequency(char vfo, double frequency)
         {
+            if (rigStream is null)
+            {
+                MessageBox.Show("rigstream is null in FLRigSetFrequency");
+                return;
+            }
             try
             {
-                if (FLRigLock.WaitOne(1000) == false) return;
+                Monitor.Enter(12345);
                 var myparam = "<params><param><value><double>" + frequency + "</double></value></param></params";
                 string xml = FLRigXML("rig.set_vfo" + vfo, myparam);
                 Byte[] data = System.Text.Encoding.ASCII.GetBytes(xml);
                 rigStream.Write(data, 0, data.Length);
                 Byte[] data2 = new byte[4096];
                 Int32 bytes = rigStream.Read(data2, 0, data2.Length);
-                FLRigLock.ReleaseMutex();
                 string responseData = Encoding.ASCII.GetString(data2, 0, bytes);
                 if (!responseData.Contains("200 OK"))
                 {
@@ -524,14 +549,17 @@ namespace AmpAutoTunerUtility
             }
         }
 
-        private  string FLRigGetModel()
+        private  string ?FLRigGetModel()
         {
-            if (FLRigLock.WaitOne(2000)==false) return "Unknown";
+            Monitor.Enter(12345);
             string xml = FLRigXML("rig.get_info", null);
             Byte[] data = System.Text.Encoding.ASCII.GetBytes(xml);
             try
             {
-                if (rigStream == null) return "";
+                if (rigStream == null)
+                {
+                    return "";
+                }
                 rigStream.Write(data, 0, data.Length);
             }
             catch (Exception ex)
@@ -551,7 +579,6 @@ namespace AmpAutoTunerUtility
             try
             {
                 Int32 bytes = rigStream.Read(data, 0, data.Length);
-                FLRigLock.ReleaseMutex();
                 String responseData = Encoding.ASCII.GetString(data, 0, bytes);
                 //richTextBoxRig.AppendText(responseData + "\n");
                 try
@@ -578,7 +605,7 @@ namespace AmpAutoTunerUtility
         }
         private string FLRigGetMode(char vfo)
         {
-            if (FLRigLock.WaitOne(2000) == false) return modeA;
+            Monitor.Enter(12345);
             string xml = FLRigXML("rig.get_mode" + vfo, null);
             Byte[] data = System.Text.Encoding.ASCII.GetBytes(xml);
             try
@@ -604,7 +631,6 @@ namespace AmpAutoTunerUtility
             try
             {
                 Int32 bytes = rigStream.Read(data, 0, data.Length);
-                FLRigLock.ReleaseMutex();
                 String responseData = Encoding.ASCII.GetString(data, 0, bytes);
                 //richTextBoxRig.AppendText(responseData + "\n");
                 try
@@ -634,7 +660,12 @@ namespace AmpAutoTunerUtility
 
         private void FLRigSetMode(char vfo, string mode)
         {
-            if (FLRigLock.WaitOne(2000) == false) return;
+            if (rigStream is null)
+            {
+                MessageBox.Show("rigstream is null in FLRigSetMode");
+                return;
+            }
+            Monitor.Enter(12345);
             try
             {
                 var myparam = "<params><param><value>" + mode + "</value></param></params";
@@ -654,7 +685,6 @@ namespace AmpAutoTunerUtility
                 DebugAddMsg(DebugEnum.ERR, "SetVFO error: " + ex.Message + "\n" + ex.StackTrace);
                 Thread.Sleep(2000);
             }
-            FLRigLock.ReleaseMutex();
         }
         public override string ModeA 
         {
@@ -689,7 +719,7 @@ namespace AmpAutoTunerUtility
 
         private int FLRigGetPower()
         {
-            if (FLRigLock.WaitOne(2000) == false) return 0;
+            Monitor.Enter(12345);
             string xml = FLRigXML("rig.get_power", null);
             Byte[] data = System.Text.Encoding.ASCII.GetBytes(xml);
             try
@@ -715,7 +745,6 @@ namespace AmpAutoTunerUtility
             try
             {
                 Int32 bytes = rigStream.Read(data, 0, data.Length);
-                FLRigLock.ReleaseMutex();
                 String responseData = Encoding.ASCII.GetString(data, 0, bytes);
                 //richTextBoxRig.AppendText(responseData + "\n");
                 try
@@ -741,16 +770,20 @@ namespace AmpAutoTunerUtility
         }
         void FLRigSetPower(int value)
         {
+            if (rigStream is null)
+            {
+                MessageBox.Show("rigstream is null in FLRigSetPower");
+                return;
+            }
             try
             {
-                if (FLRigLock.WaitOne(2000)==false) return;
+                Monitor.Enter(12345);
                 var myparam = "<params><param><value><i4>" + value + "</i4></value></param></params";
                 string xml = FLRigXML("rig.set_power", myparam);
                 Byte[] data = System.Text.Encoding.ASCII.GetBytes(xml);
                 rigStream.Write(data, 0, data.Length);
                 Byte[] data2 = new byte[4096];
                 Int32 bytes = rigStream.Read(data2, 0, data2.Length);
-                FLRigLock.ReleaseMutex();
                 string responseData = Encoding.ASCII.GetString(data2, 0, bytes);
                 if (!responseData.Contains("200 OK"))
                 {
@@ -788,9 +821,9 @@ namespace AmpAutoTunerUtility
                 if (disposing)
                 {
                     // TODO: dispose managed state (managed objects).
-                    rigStream.Close();
-                    rigStream.Dispose();
-                    rigClient.Dispose();
+                    rigStream!.Close();
+                    rigStream!.Dispose();
+                    rigClient!.Dispose();
                 }
 
                 // TODO: free unmanaged resources (unmanaged objects) and override a finalizer below.
@@ -835,18 +868,22 @@ namespace AmpAutoTunerUtility
 
         private void FLRigSetPTT(bool ptt)
         {
+            if (rigStream is null)
+            {
+                MessageBox.Show("rigstream is null in FLRigSetPTT");
+                return;
+            }
             try
             {
                 int pttFlag = 0;
                 if (ptt == true) pttFlag = 1;
-                if (FLRigLock.WaitOne(1000) == false) return;
+                Monitor.Enter(12345);
                 var myparam = "<params><param><value><i4>" + pttFlag + "</i4></value></param></params";
                 string xml = FLRigXML("rig.set_ptt", myparam);
                 Byte[] data = System.Text.Encoding.ASCII.GetBytes(xml);
                 rigStream.Write(data, 0, data.Length);
                 Byte[] data2 = new byte[4096];
                 Int32 bytes = rigStream.Read(data2, 0, data2.Length);
-                FLRigLock.ReleaseMutex();
                 string responseData = Encoding.ASCII.GetString(data2, 0, bytes);
                 if (!responseData.Contains("200 OK"))
                 {
@@ -858,7 +895,6 @@ namespace AmpAutoTunerUtility
                 DebugAddMsg(DebugEnum.ERR, "SetPTT error: " + ex.Message + "\n" + ex.StackTrace);
                 Thread.Sleep(2000);
             }
-
         }
         public override void SetPTT(bool ptt)
         {
@@ -868,7 +904,7 @@ namespace AmpAutoTunerUtility
 
         private bool FLRigGetPTT()
         {
-            if (FLRigLock.WaitOne(2000) == false) return false;
+            Monitor.Enter(12345);
             var xml = FLRigXML("rig.get_ptt", null);
             Byte[] data = System.Text.Encoding.ASCII.GetBytes(xml);
             try
@@ -893,7 +929,6 @@ namespace AmpAutoTunerUtility
             try
             {
                 Int32 bytes = rigStream.Read(data, 0, data.Length);
-                FLRigLock.ReleaseMutex();
                 String responseData = Encoding.ASCII.GetString(data, 0, bytes);
                 //richTextBoxRig.AppendText(responseData + "\n");
                 try
@@ -924,21 +959,32 @@ namespace AmpAutoTunerUtility
 
         public override string GetModel()
         {
-            string model = "unknown";
+            string ?model = "unknown";
             model = FLRigGetModel();
+            if (model == null) { model = "unknown"; }
             return model;
         }
         public override void SetTransceive(bool transceive)
         {
+            if (rigStream is null)
+            {
+                MessageBox.Show("rigstream is null in SetTransceive");
+                return;
+            }
             // Implemented for Expert Linear amplifier
             // Using transceive to sync frequency
             // We turn if off when walking and back on when walk stops
+            if (model is null)
+            {
+                MessageBox.Show("model=null at " + System.Reflection.MethodBase.GetCurrentMethod().Name);
+                return;
+            }
             if (!model.Equals("IC-7300")) return;
             try
             {
                 //bool transceiveFlag = false;
                 //if (transceiveFlag == true) transceiveFlag = true;
-                if (FLRigLock.WaitOne(2000)==false) return;
+                Monitor.Enter(12345);
                 string xml;
                 if (transceive) 
                 { 
@@ -954,7 +1000,6 @@ namespace AmpAutoTunerUtility
                 rigStream.Write(data, 0, data.Length);
                 Byte[] data2 = new byte[4096];
                 Int32 bytes = rigStream.Read(data2, 0, data2.Length);
-                FLRigLock.ReleaseMutex();
                 string responseData = Encoding.ASCII.GetString(data2, 0, bytes);
                 if (!responseData.Contains("200 OK"))
                 {
@@ -966,7 +1011,6 @@ namespace AmpAutoTunerUtility
                 DebugAddMsg(DebugEnum.ERR, "SetTransceive error: " + ex.Message + "\n" + ex.StackTrace);
                 Thread.Sleep(2000);
             }
-
         }
         #endregion
     }

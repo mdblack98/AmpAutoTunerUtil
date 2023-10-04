@@ -54,16 +54,16 @@ namespace AmpAutoTunerUtility
             sWR = value;
         }
 
-        protected private string model = null;
-        protected private string comport = null;
-        protected private string baud = null;
+        protected private string ?model = null;
+        protected private string ?comport = null;
+        protected private string ?baud = null;
         protected private DebugEnum DebugLevel = DebugEnum.WARN;
         protected private double Inductance { get; set; } // pF
         protected private double Capacitance { get; set; } // uH
         public int AntennaNumber { get; set; }
         public bool TuneFull { get; set; }
-        public string[,] antennas;
-        public int[,] tuneFrequencies;
+        public string[,] ?antennas;
+        public int[,] ?tuneFrequencies;
         public ulong cIndex;
         public ulong lIndex;
         public int band; // 0=160M...11=4M 160,80,60,40,30,20,17,15,12,10,6,4
@@ -85,7 +85,7 @@ namespace AmpAutoTunerUtility
             Dispose(false);
         }
 
-        public string GetComPort() { return comport; }
+        public string ?GetComPort() { return comport; }
         //public Tuner(string model, string comport, string baud)
         //{
         //    this.model = model;
@@ -135,7 +135,7 @@ namespace AmpAutoTunerUtility
 
         public virtual string GetModel()
         {
-            return model;
+            return model is null? "NULL" : model;
         }
 
         public virtual void Poll()
@@ -155,7 +155,7 @@ namespace AmpAutoTunerUtility
         }
 
 
-        public virtual string GetSerialPortTuner()
+        public virtual string ?GetSerialPortTuner()
         {
             return this.comport;
         }
@@ -242,7 +242,7 @@ namespace AmpAutoTunerUtility
         {
             throw new NotImplementedException();
         }
-        public virtual bool GetStatus2(Screen myScreen)
+        public virtual bool GetStatus2(Screen ?myScreen)
         {
             throw new NotImplementedException();
         }

@@ -18,7 +18,7 @@ namespace AmpAutoTunerUtility
 {
     class TunerExpertLinears : Tuner
     {
-        private SerialPort SerialPortTuner = null;
+        private SerialPort ?SerialPortTuner = null;
         private bool runThread = false;
         char response = 'X';
         private string swr1 = "?";
@@ -30,7 +30,7 @@ namespace AmpAutoTunerUtility
         private string bandstr = "?";
         public bool tuning = false;
         //Byte[] responseOld = new byte[512];
-        public TunerExpertLinears(string model, string comport, string baud, out string errmsg)
+        public TunerExpertLinears(string model, string comport, string baud, out string ?errmsg)
         {
             InitArrays();
             antennas = new string[12, 2];
@@ -122,13 +122,18 @@ namespace AmpAutoTunerUtility
         {
             Byte[] cmdDisplay = { 0x55, 0x55, 0x55, 0x01, 0x0c, 0x0c };
             SerialLock.WaitOne();
-            SerialPortTuner.Write(cmdDisplay, 0, 6);
+            SerialPortTuner!.Write(cmdDisplay, 0, 6);
             SerialLock.ReleaseMutex();
             Thread.Sleep(200);
         }
 
         public override void SelectManualTunePage()
         {
+            if (SerialPortTuner is null)
+            {
+                MessageBox.Show("SelectManualTunePage tuner not open?");
+                return;
+            }
             // display, set, forward, set, when done display again
             Byte[] cmdSet = { 0x55, 0x55, 0x55, 0x01, 0x11, 0x11 };
             Byte[] cmdRight = { 0x55, 0x55, 0x55, 0x01, 0x10, 0x10 };
@@ -150,6 +155,11 @@ namespace AmpAutoTunerUtility
         }
         public override void SelectAntennaPage()
         {
+            if (SerialPortTuner is null)
+            {
+                MessageBox.Show("SelectManualTunePage tuner not open?");
+                return;
+            }
             // display, set, forward, set, when done display again
             Byte[] cmdSet = { 0x55, 0x55, 0x55, 0x01, 0x11, 0x11 };
             Byte[] cmdRight = { 0x55, 0x55, 0x55, 0x01, 0x10, 0x10 };
@@ -167,6 +177,11 @@ namespace AmpAutoTunerUtility
         }
         public override void SendCmd(byte cmd)
         {
+            if (SerialPortTuner is null)
+            {
+                MessageBox.Show("SendCmd tuner not open?");
+                return;
+            }
             try
             {
                 Byte[] cmdBuf = { 0x55, 0x55, 0x55, 0x01, cmd, cmd };
@@ -188,8 +203,21 @@ namespace AmpAutoTunerUtility
         readonly char[] lookup = { ' ', '!', '"', '#','$', '%', '&', '\\', '(', ')', '*', '+', ',', '-','.', '/','0','1','2','3','4','5','6','7','8','9',':',';','<','=','>','?','@','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','Z','[','\\','^','_','?','a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z','{','|','}','?' };
         private Screen screenLast = Screen.Unknown;
         //public override bool GetStatus2(screen myScreen)
-        public override bool GetStatus2(Screen myScreen = Screen.Unknown)
+        public override bool GetStatus2(Screen ?myScreen = Screen.Unknown)
         {
+            if (myScreen is null)
+            {
+                MessageBox.Show("GetStatus2 myScreen=null!");
+                return false; 
+            }
+
+            if (SerialPortTuner is null)
+            {
+                MessageBox.Show("GetStatus2 SerialPortTuner=null!");
+                return false; 
+            }
+
+
             try
             {
                 int loop = 10;
@@ -207,7 +235,7 @@ namespace AmpAutoTunerUtility
                     if (myScreen == Screen.Antenna) SelectAntennaPage();
                     else if (myScreen == Screen.ManualTune) SelectManualTunePage();
                     else SelectDisplayPage();
-                    screenLast = myScreen;
+                    screenLast = (Screen)myScreen;
                 }
                 SerialPortTuner.DiscardInBuffer();
                 Byte[] cmd = { 0x55, 0x55, 0x55, 0x01, 0x80, 0x80 };
@@ -332,6 +360,12 @@ namespace AmpAutoTunerUtility
                 tuning = response[8] == 0xb8;
                 int indexBytes = 56;
                 int[] bandLookup = { 0, 4, 8, 1, 5, 9, 2, 6, 10, 3, 7, 11 };
+                if (antennas is null)
+                {
+                    MessageBox.Show("tuner1.antennas=null in" + System.Reflection.MethodBase.GetCurrentMethod().Name);
+                    SerialLock.ReleaseMutex();
+                    return false;
+                }
                 if (myScreen == Screen.Antenna)
                 {
                     for (int i = 0; i < 12; ++i)
@@ -538,7 +572,7 @@ namespace AmpAutoTunerUtility
 
         }
 
-        readonly Thread myThread;
+        readonly Thread ?myThread;
         private void ThreadTask()
         {
             runThread = true;
@@ -564,11 +598,11 @@ namespace AmpAutoTunerUtility
         {
             return "SWR ATU/ANT" + swr1 + "/" + swr2;
         }
-        public override string GetSerialPortTuner()
+        public override string ?GetSerialPortTuner()
         {
             if (SerialPortTuner == null)
             {
-                return (string)null;
+                return null;
             }
             return SerialPortTuner.PortName;
         }
@@ -592,6 +626,11 @@ namespace AmpAutoTunerUtility
         public override void SetAntenna(int antennaNumberRequested, bool tuneIsRunning = false)
         {
             //return;
+            if (SerialPortTuner is null)
+            {
+                MessageBox.Show("SetAntenna SerialPortTuner=null!");
+                return;
+            }
             try
             {
                 //if (antennaNumberRequested != GetAntenna())
@@ -630,7 +669,11 @@ namespace AmpAutoTunerUtility
         public override void Tune()
         {
             //SelectAntennaPage();
-
+            if (SerialPortTuner is null)
+            {
+                MessageBox.Show("SerialPortTuner=null in" + System.Reflection.MethodBase.GetCurrentMethod().Name);
+                return;
+            }
             SerialLock.WaitOne();
             Byte[] cmd = { 0x55, 0x55, 0x55, 0x01, 0x09, 0x09 };
             Byte[] cmdMsg = { 0x55, 0x55, 0x55, 0x01, 0x80, 0x80 };
@@ -668,8 +711,8 @@ namespace AmpAutoTunerUtility
             GetStatus2(Screen.Antenna);
         }
 #pragma warning disable IDE0052 // Remove unread private members
-        private Dictionary <int, double> lDict;
-        private Dictionary<int, double> cDict;
+        private Dictionary <int, double> ?lDict;
+        private Dictionary<int, double> ?cDict;
 #pragma warning restore IDE0052 // Remove unread private members
 
         private void InitArrays()
@@ -1846,6 +1889,11 @@ namespace AmpAutoTunerUtility
         }
         public override bool On()
         {
+            if (SerialPortTuner is null)
+            {
+                MessageBox.Show("SerialPortTuner=null in" + System.Reflection.MethodBase.GetCurrentMethod().Name);
+                return false;
+            }
             SerialLock.WaitOne();
             SerialPortTuner.DtrEnable = false;
             SerialPortTuner.RtsEnable = true;

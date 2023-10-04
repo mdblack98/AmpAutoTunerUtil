@@ -5282,7 +5282,7 @@
             this.antennaToolStripMenuItem.Checked = global::AmpAutoTunerUtility.Properties.Settings.Default.checkBoxAntennaTab;
             this.antennaToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.antennaToolStripMenuItem.Name = "antennaToolStripMenuItem";
-            this.antennaToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
+            this.antennaToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
             this.antennaToolStripMenuItem.Text = "Antenna";
             this.antennaToolStripMenuItem.Click += new System.EventHandler(this.AntennaToolStripMenuItem_Click);
             // 
@@ -5291,7 +5291,7 @@
             this.debugToolStripMenuItem.Checked = global::AmpAutoTunerUtility.Properties.Settings.Default.checkBoxDebugTab;
             this.debugToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.debugToolStripMenuItem.Name = "debugToolStripMenuItem";
-            this.debugToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
+            this.debugToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
             this.debugToolStripMenuItem.Text = "Debug";
             this.debugToolStripMenuItem.Click += new System.EventHandler(this.DebugToolStripMenuItem_Click);
             // 
@@ -5300,7 +5300,7 @@
             this.powerToolStripMenuItem.Checked = global::AmpAutoTunerUtility.Properties.Settings.Default.checkBoxPowerTab;
             this.powerToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.powerToolStripMenuItem.Name = "powerToolStripMenuItem";
-            this.powerToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
+            this.powerToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
             this.powerToolStripMenuItem.Text = "Power";
             // 
             // tunerToolStripMenuItem
@@ -5308,14 +5308,14 @@
             this.tunerToolStripMenuItem.Checked = global::AmpAutoTunerUtility.Properties.Settings.Default.checkBoxTunerTab;
             this.tunerToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.tunerToolStripMenuItem.Name = "tunerToolStripMenuItem";
-            this.tunerToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
+            this.tunerToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
             this.tunerToolStripMenuItem.Text = "Tuner";
             this.tunerToolStripMenuItem.Click += new System.EventHandler(this.TunerToolStripMenuItem_Click);
             // 
             // expertLinearsToolStripMenuItem
             // 
             this.expertLinearsToolStripMenuItem.Name = "expertLinearsToolStripMenuItem";
-            this.expertLinearsToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
+            this.expertLinearsToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
             this.expertLinearsToolStripMenuItem.Text = "Expert Linears";
             this.expertLinearsToolStripMenuItem.Click += new System.EventHandler(this.ExpertLinearsToolStripMenuItem_Click);
             // 
@@ -5324,7 +5324,7 @@
             this.relay1ToolStripMenuItem.Checked = global::AmpAutoTunerUtility.Properties.Settings.Default.checkedMenuRelay1;
             this.relay1ToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.relay1ToolStripMenuItem.Name = "relay1ToolStripMenuItem";
-            this.relay1ToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
+            this.relay1ToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
             this.relay1ToolStripMenuItem.Text = "Relay1";
             this.relay1ToolStripMenuItem.Click += new System.EventHandler(this.Relay1ToolStripMenuItem_Click);
             // 
@@ -5332,7 +5332,7 @@
             // 
             this.relay2ToolStripMenuItem.Checked = global::AmpAutoTunerUtility.Properties.Settings.Default.checkedMenuRelay2;
             this.relay2ToolStripMenuItem.Name = "relay2ToolStripMenuItem";
-            this.relay2ToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
+            this.relay2ToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
             this.relay2ToolStripMenuItem.Text = "Relay2";
             this.relay2ToolStripMenuItem.Click += new System.EventHandler(this.Relay2ToolStripMenuItem_Click);
             // 
@@ -5340,7 +5340,7 @@
             // 
             this.relay3ToolStripMenuItem.Checked = global::AmpAutoTunerUtility.Properties.Settings.Default.checkedMenuRelay3;
             this.relay3ToolStripMenuItem.Name = "relay3ToolStripMenuItem";
-            this.relay3ToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
+            this.relay3ToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
             this.relay3ToolStripMenuItem.Text = "Relay3";
             this.relay3ToolStripMenuItem.Click += new System.EventHandler(this.Relay3ToolStripMenuItem_Click);
             // 
@@ -5348,7 +5348,7 @@
             // 
             this.relay4ToolStripMenuItem.Checked = global::AmpAutoTunerUtility.Properties.Settings.Default.checkedMenuRelay4;
             this.relay4ToolStripMenuItem.Name = "relay4ToolStripMenuItem";
-            this.relay4ToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
+            this.relay4ToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
             this.relay4ToolStripMenuItem.Text = "Relay4";
             this.relay4ToolStripMenuItem.Click += new System.EventHandler(this.Relay4ToolStripMenuItem_Click);
             // 
@@ -5394,7 +5394,7 @@
             this.Margin = new System.Windows.Forms.Padding(2);
             this.MaximumSize = new System.Drawing.Size(417, 310);
             this.Name = "Form1";
-            this.Text = "AmpAutoTunerUtility 230924";
+            this.Text = "AmpAutoTunerUtility 231004";
             this.HelpButtonClicked += new System.ComponentModel.CancelEventHandler(this.Form1_HelpButtonClicked);
             this.Activated += new System.EventHandler(this.Form1_Activated);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);

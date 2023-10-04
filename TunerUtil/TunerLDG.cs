@@ -9,7 +9,7 @@ namespace AmpAutoTunerUtility
 {
     class TunerLDG : Tuner
     {
-        private SerialPort SerialPortTuner = null;
+        private SerialPort ?SerialPortTuner = null;
         char response = 'X';
 
         public TunerLDG(string model, string comport, string baud)
@@ -61,11 +61,11 @@ namespace AmpAutoTunerUtility
             }
         }
 
-        public override string GetSerialPortTuner()
+        public override string ?GetSerialPortTuner()
         {
             if (SerialPortTuner == null)
             {
-                return (string)null;
+                return null;
             }
             return SerialPortTuner.PortName;
         }
@@ -79,7 +79,7 @@ namespace AmpAutoTunerUtility
         {
             // Can't get power from the LDG tuner
             // So will have to use the rig power level instead elsewhere
-            return null;
+            return "0";
         }
         public override void Tune()
         {
@@ -88,6 +88,12 @@ namespace AmpAutoTunerUtility
             // M 1.5-3.1
             // F Failed
             //byte[] buf = new byte[19];
+            if (SerialPortTuner is null)
+            {
+                MessageBox.Show("SerialPortTuner=null in" + System.Reflection.MethodBase.GetCurrentMethod().Name);
+                return;
+            }
+
             SerialPortTuner.ReadTimeout = 30000;
             try
             {

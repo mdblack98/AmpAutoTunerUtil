@@ -7,7 +7,7 @@ namespace AmpAutoTunerUtility
     public abstract class Rig
     {
         //protected private string model = null;
-        public abstract string Model { get; }
+        public abstract string ?Model { get; }
         public abstract char VFO { get; set; }
         public abstract double FrequencyA { get; set; }
         public abstract double FrequencyB { get; set; } 
@@ -43,7 +43,7 @@ namespace AmpAutoTunerUtility
 
         public abstract void SetMode(char vfo, string mode);
 
-        public abstract List<string> GetModes();
+        public abstract List<string> ?GetModes();
 
         public abstract void SetFrequency(char vfo, double frequency);
         public abstract void SetPTT(bool ptt);

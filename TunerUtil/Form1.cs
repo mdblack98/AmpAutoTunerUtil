@@ -41,20 +41,20 @@ namespace AmpAutoTunerUtility
         //int baudTuner;
         //string comPortRelay = "";
         //string comPortTuner = "";
-        HelpForm helpForm;
-        AboutForm aboutForm;
-        TcpClient rigClient;
-        NetworkStream rigStream;
-        private Rig myRig;
+        HelpForm? helpForm;
+        AboutForm? aboutForm;
+        TcpClient? rigClient;
+        NetworkStream? rigStream;
+        private Rig? myRig;
         double frequencyHz = 0;
         double frequencyLast = 0;
         double frequencyLastTunedHz = 0;
         int tolTune = 0;
-        Tuner tuner1 = null;
-        Relay relay1 = null;
-        Relay relay2 = null;
-        Relay relay3 = null;
-        Relay relay4 = null;
+        Tuner? tuner1 = null;
+        Relay? relay1 = null;
+        Relay? relay2 = null;
+        Relay? relay3 = null;
+        Relay? relay4 = null;
         bool formLoading = true;
         readonly Stopwatch stopWatchTuner = new Stopwatch();
         int freqStableCount = 0; // 
@@ -62,7 +62,7 @@ namespace AmpAutoTunerUtility
         bool pausedTuning = false;
         public bool freqWalkIsRunning;
         private bool pauseButtonClicked;
-        private Audio audio;
+        private Audio? audio;
         bool formClosing = false; // use this to detect shutdown condition
         bool getFreqIsRunning = false;
         private string modeCurrent = "UNK";
@@ -160,15 +160,22 @@ namespace AmpAutoTunerUtility
             }
         }
 
-        private void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+        private void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs? e)
         {
             // Log the exception, display it, etc
             //MessageBox.Show((e.ExceptionObject as Exception).Message + "\n" + (e.ExceptionObject as Exception).StackTrace);
             string path = System.IO.Path.GetTempPath() + "AmpAutoTunerUtility.log";
             using (FileStream fs = File.Create(path))
             {
-                Byte[] info = new System.Text.UTF8Encoding(true).GetBytes((e.ExceptionObject as Exception).Message + "\n" + (e.ExceptionObject as Exception).StackTrace);
-                fs.Write(info, 0, info.Length);
+                if (e != null && e.ExceptionObject != null)
+                {
+                    Exception? ex = (e.ExceptionObject as Exception);
+                    if (ex != null && ex.Message != null && ex.StackTrace != null)
+                    {
+                        Byte[] info = new System.Text.UTF8Encoding(true).GetBytes(ex.Message + "\n" + ex.StackTrace);
+                        fs.Write(info, 0, info.Length);
+                    }
+                }
             }
         }
 
@@ -566,9 +573,12 @@ namespace AmpAutoTunerUtility
                 //MyMessageBox("Please set up Relay1 if not using PowerSDR");
             }
             if (relay1 == null) checkBoxRelay1Enabled.Checked = false;
-            if (checkBoxRelay1Enabled.Checked && relay1.SerialNumber().Length == 0)
+            else
             {
-                MyMessageBox("No serial#?  Relay1 is not responding!");
+                if (checkBoxRelay1Enabled.Checked && relay1.SerialNumber().Length == 0)
+                {
+                    MyMessageBox("No serial#?  Relay1 is not responding!");
+                }
             }
             if (relay2 == null) checkBoxRelay2Enabled.Checked = false;
             if (checkBoxRelay2Enabled.Checked && comboBoxComRelay2.Text.Length > 0)
@@ -832,6 +842,7 @@ namespace AmpAutoTunerUtility
 
         void TunerSetAntennaSPE()
         {
+            if (tuner1 == null) return;
             buttonSPEAnt.Text = "Ant " + tuner1.GetAntenna();
             /*
             if (tuner1.GetAntenna() == 1)
@@ -850,7 +861,7 @@ namespace AmpAutoTunerUtility
             Application.DoEvents();
             try
             {
-                string errorMsg = null;
+                string? errorMsg = null;
                 TunerClose();
                 if (comboBoxTunerModel.Text.Equals("LDG", StringComparison.InvariantCulture))
                 {
@@ -878,12 +889,12 @@ namespace AmpAutoTunerUtility
                         buttonTunerPwr.BackColor = Color.LightGray;
                         buttonTunerPwr.ForeColor = Color.Black;
                     }
-                    tabPageExpertLinears.Text = tuner1.GetModel();
+                    tabPageExpertLinears.Text = tuner1!.GetModel();
                     TunerSetAntennaSPE();
                     // We don't need any command information
                 }
 
-                if (checkBoxTunerEnabled.Checked && tuner1 == null || tuner1.GetSerialPortTuner() == null || errorMsg != null)
+                if (checkBoxTunerEnabled.Checked && tuner1 == null || tuner1!.GetSerialPortTuner() == null || errorMsg != null)
                 {
                     if (errorMsg != null && !errorMsg.Equals("OK"))
                     {
@@ -909,7 +920,7 @@ namespace AmpAutoTunerUtility
                 checkBoxTunerEnabled.Checked = false;
 
             }
-            if (tuner1 != null && tuner1.GetModel().Equals("20K"))
+            if (tuner1 != null && (tuner1.GetModel() is not null) && tuner1.GetModel().Equals("20K"))
             {
                 comboBoxExpertLinears4_1.Items.Add("5");
                 comboBoxExpertLinears4_1.Items.Add("6");
@@ -1405,6 +1416,7 @@ namespace AmpAutoTunerUtility
             {
 
             }
+            myRig = null;
         }
 
         // Returns true if send is OK
@@ -1528,16 +1540,16 @@ namespace AmpAutoTunerUtility
             if (ptt && !powerSDR) // we turn on PTT and send the audio tone before starting tune
             {
                 Debug(DebugEnum.LOG, "Audio tune started\n");
-                audio.MyFrequency = 1000;
-                audio.Volume = 1;
-                audio.StartStopSineWave();
+                audio!.MyFrequency = 1000;
+                audio!.Volume = 1;
+                audio!.StartStopSineWave();
                 Thread.Sleep(300); // give ptt a chance to crank up
                 xml = FLRigXML("rig.set_ptt", "<params><param><value><i4>1</i4></value></param></params");
                 if (FLRigSend(xml) == false) return false; // Abort if FLRig is giving an error
                 Thread.Sleep(Convert.ToInt32(numericUpDownPostPttDelay.Value)); // give ptt a chance to crank up
                 Debug(DebugEnum.LOG, "Set ptt on\n");
                 tuneIsRunning = true;
-                tuner1.Tune();
+                tuner1!.Tune();
                 tuneIsRunning = false;
             }
             else if (powerSDR)
@@ -1550,14 +1562,14 @@ namespace AmpAutoTunerUtility
                 Thread.Sleep(Convert.ToInt32(numericUpDownPostPttDelay.Value));
                 Debug(DebugEnum.LOG, "PowerSDR Tune start tune\n");
                 tuneIsRunning = true;
-                tuner1.Tune();
+                tuner1!.Tune();
                 Thread.Sleep(2000);
                 tuneIsRunning = false;
                 Debug(DebugEnum.LOG, "PowerSDR Tune stop tone\n");
                 xml = FLRigXML("rig.cat_string", "<params><param><value>ZZTU0;</value></param></params");
                 if (FLRigSend(xml) == false) return false; // Abort if FLRig is giving an error
             }
-            else if (tuner1.GetModel().Contains(EXPERTLINEARS))
+            else if (tuner1 is not null && tuner1.GetModel() is not null && tuner1.GetModel().Contains(EXPERTLINEARS))
             {
                 // nothing to do
                 return true;
@@ -1565,7 +1577,7 @@ namespace AmpAutoTunerUtility
             else
             {
                 Debug(DebugEnum.LOG, "Generic tuner started\n");
-                tuner1.Tune();
+                tuner1!.Tune();
             }
             Thread.Sleep(200);
             char response = tuner1.ReadResponse();
@@ -1574,7 +1586,7 @@ namespace AmpAutoTunerUtility
             Application.DoEvents();
             if (ptt && !powerSDR) // we turn off PTT now
             {
-                audio.StartStopSineWave();
+                audio!.StartStopSineWave();
                 xml = FLRigXML("rig.set_ptt", "<params><param><value><i4>0</i4></value></param></params");
                 if (FLRigSend(xml) == false) return false; // Abort if FLRig is giving an error
                 Debug(DebugEnum.LOG, "ptt off\n");
@@ -1705,7 +1717,7 @@ namespace AmpAutoTunerUtility
 
         private void SetAntennaInUseByTuner()
         {
-            switch (tuner1.AntennaNumber)
+            switch (tuner1!.AntennaNumber)
             {
                 case 1:
                     break;
@@ -1971,7 +1983,7 @@ namespace AmpAutoTunerUtility
                 case 2:
                     if (comboBoxAntenna2Controller.Text.Contains(EXPERTLINEARS))
                     {
-                        tuner1.SetAntenna(antennaNumber, false);
+                        tuner1!.SetAntenna(antennaNumber, false);
                     }
                     else if (comboBoxAntenna1Controller.Text.Contains("relay"))
                     {
@@ -1981,7 +1993,7 @@ namespace AmpAutoTunerUtility
                 case 3:
                     if (comboBoxAntenna3Controller.Text.Contains(EXPERTLINEARS))
                     {
-                        tuner1.SetAntenna(antennaNumber, false);
+                        tuner1!.SetAntenna(antennaNumber, false);
                     }
                     else if (comboBoxAntenna1Controller.Text.Contains("relay"))
                     {
@@ -1991,7 +2003,7 @@ namespace AmpAutoTunerUtility
                 case 4:
                     if (comboBoxAntenna4Controller.Text.Contains(EXPERTLINEARS))
                     {
-                        tuner1.SetAntenna(antennaNumber, false);
+                        tuner1!.SetAntenna(antennaNumber, false);
                     }
                     else if (comboBoxAntenna1Controller.Text.Contains("relay"))
                     {
@@ -2001,7 +2013,7 @@ namespace AmpAutoTunerUtility
                 case 5:
                     if (comboBoxAntenna5Controller.Text.Contains(EXPERTLINEARS))
                     {
-                        tuner1.SetAntenna(antennaNumber, false);
+                        tuner1!.SetAntenna(antennaNumber, false);
                     }
                     else if (comboBoxAntenna5Controller.Text.Contains("relay"))
                     {
@@ -2011,7 +2023,7 @@ namespace AmpAutoTunerUtility
                 case 6:
                     if (comboBoxAntenna6Controller.Text.Contains(EXPERTLINEARS))
                     {
-                        tuner1.SetAntenna(antennaNumber, false);
+                        tuner1!.SetAntenna(antennaNumber, false);
                     }
                     else if (comboBoxAntenna6Controller.Text.Contains("relay"))
                     {
@@ -2021,7 +2033,7 @@ namespace AmpAutoTunerUtility
                 case 7:
                     if (comboBoxAntenna7Controller.Text.Contains(EXPERTLINEARS))
                     {
-                        tuner1.SetAntenna(antennaNumber, false);
+                        tuner1!.SetAntenna(antennaNumber, false);
                     }
                     else if (comboBoxAntenna7Controller.Text.Contains("relay"))
                     {
@@ -2031,7 +2043,7 @@ namespace AmpAutoTunerUtility
                 case 8:
                     if (comboBoxAntenna8Controller.Text.Contains(EXPERTLINEARS))
                     {
-                        tuner1.SetAntenna(antennaNumber, false);
+                        tuner1!.SetAntenna(antennaNumber, false);
                     }
                     else if (comboBoxAntenna8Controller.Text.Contains("relay"))
                     {
@@ -2074,7 +2086,7 @@ namespace AmpAutoTunerUtility
             else if (relayBits.Equals("4/6")) relayValue = 6;
             else if (relayBits.Equals("4/7")) relayValue = 7;
             else if (relayBits.Equals("4/8")) relayValue = 8;
-            relay1.Set(1, (byte)relayValue);
+            relay1!.Set(1, (byte)relayValue);
         }
         void SetAntennaRelayOn(int antennaNumber, bool needTuning = true)
         {
@@ -2126,7 +2138,7 @@ namespace AmpAutoTunerUtility
             else if (relayBits.Equals("4/8")) relayValue = 8;
 
             //MessageBox.Show("Relay " + myRelayChosen);
-            Relay myRelay = relay1;
+            Relay? myRelay = relay1;
             if (myRelay == null) return;
             if (myRelayChosen.Equals("Relay2")) myRelay = relay2;
             else if (myRelayChosen.Equals("Relay3")) myRelay = relay3;
@@ -2137,14 +2149,14 @@ namespace AmpAutoTunerUtility
             if (tuner1 != null)
             {
                 //myRelay.AllOff();
-                myRelay.Set(relayValue, 1);
-                RelaySetButtons(button1_1, relay1.Status());
+                myRelay!.Set(relayValue, 1);
+                RelaySetButtons(button1_1, relay1!.Status());
                 AntennaUpdateSelected(antennaNumber);
                 if (lastAntennaNumber >= 0 && needTuning && lastAntennaNumber != antennaNumber & !antennaLocked)
                 {
                     //Cursor.Current = Cursors.WaitCursor;
                     timerGetFreq.Stop();
-                    if (!tuner1.GetModel().Contains(EXPERTLINEARS))
+                    if (tuner1.GetModel() is not null && !tuner1.GetModel().Contains(EXPERTLINEARS))
                         TuneSequence();
                     timerGetFreq.Start();
                     //Cursor.Current = Cursors.Default;
@@ -2180,7 +2192,7 @@ namespace AmpAutoTunerUtility
             {
                 try
                 {
-                    rigStream.Close();
+                    rigStream!.Close();
                     FLRigConnect();
                 }
                 catch (Exception)
@@ -2196,7 +2208,7 @@ namespace AmpAutoTunerUtility
             int power = 0;
             try
             {
-                string xml2 = FLRigXML("rig.get_power", null);
+                string? xml2 = FLRigXML("rig.get_power", "");
                 Byte[] data = System.Text.Encoding.ASCII.GetBytes(xml2);
                 if (rigStream == null) return 0;
                 rigStream.Write(data, 0, data.Length);
@@ -2242,7 +2254,7 @@ namespace AmpAutoTunerUtility
                 {
                     richTextBoxDebug.AppendText(ex.Message + "\n" + ex.StackTrace);
                     Thread.Sleep(500);
-                    rigStream.Close();
+                    rigStream!.Close();
                     FLRigConnect();
                 }
                 power = FLRigGetPower();
@@ -2464,7 +2476,7 @@ namespace AmpAutoTunerUtility
                                 if (needTuning)
                                 {
                                     timerGetFreq.Stop();
-                                    if (!tuner1.GetModel().Contains(EXPERTLINEARS))
+                                    if (!tuner1!.GetModel().Contains(EXPERTLINEARS))
                                         TuneSequence();
                                     timerGetFreq.Start();
                                 }
@@ -2512,7 +2524,7 @@ namespace AmpAutoTunerUtility
         {
             Contract.Requires(process != null);
             ManagementObjectSearcher commandLineSearcher = new ManagementObjectSearcher(
-                "SELECT CommandLine FROM Win32_Process WHERE ProcessId = " + process.Id);
+                "SELECT CommandLine FROM Win32_Process WHERE ProcessId = " + process!.Id);
             String commandLine = "";
             foreach (ManagementObject commandLineObject in commandLineSearcher.Get().Cast<ManagementObject>())
             {
@@ -2585,7 +2597,7 @@ namespace AmpAutoTunerUtility
                     checkBoxRelay1Enabled.Checked = false;
                 }
             }
-            if (checkBoxRelay2Enabled.Checked && relay2 != null && relay1.Status() == 0xff)
+            if (checkBoxRelay2Enabled.Checked && relay2 != null && relay1!.Status() == 0xff)
             {
                 if (RelayOops("Relay2 closed unexpectedly...RFI??\n") == DialogResult.Retry)
                 {
@@ -2596,7 +2608,7 @@ namespace AmpAutoTunerUtility
                     checkBoxRelay2Enabled.Checked = false;
                 }
             }
-            if (checkBoxRelay3Enabled.Checked && relay3 != null && relay1.Status() == 0xff)
+            if (checkBoxRelay3Enabled.Checked && relay3 != null && relay1!.Status() == 0xff)
             {
                 if (RelayOops("Relay3 closed unexpectedly...RFI??\n") == DialogResult.Retry)
                 {
@@ -2607,7 +2619,7 @@ namespace AmpAutoTunerUtility
                     checkBoxRelay3Enabled.Checked = false;
                 }
             }
-            if (checkBoxRelay4Enabled.Checked && relay4 != null && relay1.Status() == 0xff)
+            if (checkBoxRelay4Enabled.Checked && relay4 != null && relay1!.Status() == 0xff)
             {
                 if (RelayOops("Relay4 closed unexpectedly...RFI??\n") == DialogResult.Retry)
                 {
@@ -2702,7 +2714,7 @@ namespace AmpAutoTunerUtility
             }
             else
             {
-                labelFreq.Text = "?";
+                labelFreq!.Text = "?";
             }
         }
 
@@ -2738,7 +2750,6 @@ namespace AmpAutoTunerUtility
             string[] tokens = s.Split(sep);
             int i = 0;
             List<byte> dataList = new List<byte>();
-            data = null;
             foreach (string t in tokens)
             {
                 try
@@ -2748,6 +2759,7 @@ namespace AmpAutoTunerUtility
                 }
                 catch (Exception)
                 {
+                    data = dataList.ToArray();
                     return false;
                 }
             }
@@ -2784,7 +2796,8 @@ namespace AmpAutoTunerUtility
             {
                 Debug(DebugEnum.LOG, i + " On\n");
                 //relay1.Set(i, 1);
-                RelaySet(relay1, i, 1);
+                if (relay1 != null)
+                    RelaySet(relay1, i, 1);
                 Application.DoEvents();
                 Thread.Sleep(1000);
             }
@@ -2792,7 +2805,8 @@ namespace AmpAutoTunerUtility
             {
                 Debug(DebugEnum.LOG, i + " Off\n");
                 //relay1.Set(i, 0);
-                RelaySet(relay1, i, 0);
+                if (relay1 != null)
+                    RelaySet(relay1, i, 0);
                 Application.DoEvents();
                 Thread.Sleep(1000);
             }
@@ -3021,7 +3035,7 @@ namespace AmpAutoTunerUtility
             {
                 Debug(DebugEnum.LOG, "Relay1 closed\n");
                 //checkBoxRelay1Enabled.Enabled = false;
-                relay1.Close();
+                relay1?.Close();
             }
             checkBoxRelay1Enabled.Enabled = true;
         }
@@ -3036,13 +3050,13 @@ namespace AmpAutoTunerUtility
             {
                 //relay2 = new Relay();
                 //Debug(DebugEnum.LOG, "Relay2 open\n");
-                relay2.Open(comboBoxComRelay2.Text);
-                Debug(DebugEnum.LOG, "Serial #" + relay2.SerialNumber() + "\n");
+                relay2?.Open(comboBoxComRelay2.Text);
+                Debug(DebugEnum.LOG, "Serial #" + relay2?.SerialNumber() + "\n");
             }
             else if (!checkBoxRelay2Enabled.Checked && comboBoxComRelay2.SelectedIndex >= 0)
             {
                 Debug(DebugEnum.LOG, "Relay2 closed\n");
-                relay2.Close();
+                relay2?.Close();
             }
             else if (checkBoxRelay2Enabled.Checked && comboBoxComRelay2.SelectedIndex < 0)
             {
@@ -3074,83 +3088,99 @@ namespace AmpAutoTunerUtility
 
         private void Button1_1_Click(object sender, EventArgs e)
         {
-            RelayToggle((Button)sender, relay1, 1);
+            if (relay1 != null)
+                RelayToggle((Button)sender, relay1, 1);
         }
 
         private void Button1_2_Click(object sender, EventArgs e)
         {
-            RelayToggle((Button)sender, relay1, 2);
+            if (relay1 != null)
+                RelayToggle((Button)sender, relay1, 2);
         }
 
         private void Button1_3_Click(object sender, EventArgs e)
         {
-            RelayToggle((Button)sender, relay1, 3);
+            if (relay1 != null)
+                RelayToggle((Button)sender, relay1, 3);
         }
 
         private void Button1_4_Click(object sender, EventArgs e)
         {
-            RelayToggle((Button)sender, relay1, 4);
+            if (relay1 != null)
+                RelayToggle((Button)sender, relay1, 4);
         }
 
         private void Button1_5_Click(object sender, EventArgs e)
         {
-            RelayToggle((Button)sender, relay1, 5);
+            if (relay1 != null)
+                RelayToggle((Button)sender, relay1, 5);
         }
 
         private void Button1_6_Click(object sender, EventArgs e)
         {
-            RelayToggle((Button)sender, relay1, 6);
+            if (relay1 != null)
+                RelayToggle((Button)sender, relay1, 6);
         }
 
         private void Button1_7_Click(object sender, EventArgs e)
         {
-            RelayToggle((Button)sender, relay1, 7);
+            if (relay1 != null)
+                RelayToggle((Button)sender, relay1, 7);
         }
 
         private void Button1_8_Click(object sender, EventArgs e)
         {
-            RelayToggle((Button)sender, relay1, 8);
+            if (relay1 != null)
+                RelayToggle((Button)sender, relay1, 8);
         }
 
 
         private void Button25_Click(object sender, EventArgs e)
         {
-            RelayToggle((Button)sender, relay2, 1);
+            if (relay2 != null)
+                RelayToggle((Button)sender, relay2, 1);
         }
 
         private void Button24_Click(object sender, EventArgs e)
         {
-            RelayToggle((Button)sender, relay2, 2);
+            if (relay2 != null)
+                RelayToggle((Button)sender, relay2, 2);
         }
 
         private void Button23_Click(object sender, EventArgs e)
         {
-            RelayToggle((Button)sender, relay2, 3);
+            if (relay2 != null)
+                RelayToggle((Button)sender, relay2, 3);
         }
 
         private void Button22_Click(object sender, EventArgs e)
         {
-            RelayToggle((Button)sender, relay2, 4);
+            if (relay2 != null)
+                RelayToggle((Button)sender, relay2, 4);
         }
 
         private void Button21_Click(object sender, EventArgs e)
         {
-            RelayToggle((Button)sender, relay2, 5);
+            if (relay2 != null)
+                RelayToggle((Button)sender, relay2, 5);
         }
 
         private void Button20_Click(object sender, EventArgs e)
         {
-            RelayToggle((Button)sender, relay2, 6);
+            if (relay2 != null)
+                RelayToggle((Button)sender, relay2, 6);
         }
 
         private void Button19_Click(object sender, EventArgs e)
         {
-            RelayToggle((Button)sender, relay2, 7);
+            if (relay2 != null)
+                RelayToggle((Button)sender, relay2, 7);
         }
 
         private void Button18_Click(object sender, EventArgs e)
         {
-            RelayToggle((Button)sender, relay2, 8);
+            if (relay2 != null)
+                RelayToggle((Button)sender, relay2, 8);
         }
 
         private void ButtonTune_Click_2(object sender, EventArgs e)
@@ -3188,7 +3218,7 @@ namespace AmpAutoTunerUtility
                 labelSWR.Text = "SWR";
                 timerGetFreq.Stop();
                 FLRigGetFreq(false);
-                if (!tuner1.GetModel().Contains(EXPERTLINEARS))
+                if (tuner1 != null && !tuner1.GetModel().Contains(EXPERTLINEARS))
                     TuneSequence();
                 timerGetFreq.Start();
                 Debug(DebugEnum.LOG, "Tuning resumed\n");
@@ -3235,7 +3265,7 @@ namespace AmpAutoTunerUtility
 
         }
 
-        private void CheckEnable(ComboBox box1, ComboBox box2, CheckBox check1)
+        private void CheckEnable(ComboBox box1, ComboBox? box2, CheckBox check1)
         {
             if (formLoading || formClosing) return;
             bool ok = box1.Text.Length > 0;
@@ -3309,13 +3339,13 @@ namespace AmpAutoTunerUtility
             {
                 //relay4 = new Relay();
                 //Debug(DebugEnum.LOG, "Relay4 open\n");
-                relay4.Open(comboBoxComRelay4.Text);
-                Debug(DebugEnum.LOG, "Serial #" + relay4.SerialNumber() + "\n");
+                relay4?.Open(comboBoxComRelay4.Text);
+                Debug(DebugEnum.LOG, "Serial #" + relay4?.SerialNumber() + "\n");
             }
             else if (!checkBoxRelay4Enabled.Checked && comboBoxComRelay4.SelectedIndex >= 0)
             {
                 Debug(DebugEnum.LOG, "Relay4 closed\n");
-                relay4.Close();
+                relay4?.Close();
             }
             else if (checkBoxRelay4Enabled.Checked && comboBoxComRelay4.SelectedIndex < 0)
             {
@@ -3428,7 +3458,7 @@ namespace AmpAutoTunerUtility
             if (tuner1 == null) { timerDebug.Enabled = true; return; }
             relay1?.Status();
             if (checkBoxPause.Checked) { timerDebug.Enabled = true; return; }
-            DebugMsg msg = DebugGetMsg();
+            DebugMsg? msg = DebugGetMsg();
             debugLevel = (DebugEnum)comboBoxDebugLevel.SelectedIndex + 1;
             if (debugLevel < 0) debugLevel = DebugEnum.WARN;
             tuner1?.SetDebugLevel(debugLevel);
@@ -3582,13 +3612,13 @@ namespace AmpAutoTunerUtility
             {
                 //relay3 = new Relay();
                 //Debug(DebugEnum.LOG, "Relay3 open\n");
-                relay3.Open(comboBoxComRelay3.Text);
-                Debug(DebugEnum.LOG, "Serial #" + relay3.SerialNumber() + "\n");
+                relay3?.Open(comboBoxComRelay3.Text);
+                Debug(DebugEnum.LOG, "Serial #" + relay3?.SerialNumber() + "\n");
             }
             else if (!checkBoxRelay3Enabled.Checked && comboBoxComRelay3.SelectedIndex >= 0)
             {
                 Debug(DebugEnum.LOG, "Relay3 closed\n");
-                relay3.Close();
+                relay3?.Close();
             }
             else if (checkBoxRelay3Enabled.Checked && comboBoxComRelay3.SelectedIndex < 0)
             {
@@ -3830,7 +3860,7 @@ namespace AmpAutoTunerUtility
 
         private void CheckBoxAntenna1_CheckedChanged(object sender, EventArgs e)
         {
-            Relay relay = null;
+            Relay? relay = null;
             if (comboBoxAntenna1Controller.Text.Equals("Relay1", StringComparison.OrdinalIgnoreCase))
             {
                 relay = relay1;
@@ -3889,7 +3919,7 @@ namespace AmpAutoTunerUtility
 
         private void ButtonTunerSave_Click(object sender, EventArgs e)
         {
-            tuner1.Save();
+            tuner1?.Save();
         }
 
         private void NumericUpDownCapacitance_ValueChanged(object sender, EventArgs e)
@@ -3902,7 +3932,7 @@ namespace AmpAutoTunerUtility
             NumericUpDown obj = (NumericUpDown)sender;
             if (obj.Enabled)
             {
-                tuner1.SetCapacitance(Convert.ToInt32(obj.Value));
+                tuner1?.SetCapacitance(Convert.ToInt32(obj.Value));
             }
 
         }
@@ -3915,13 +3945,15 @@ namespace AmpAutoTunerUtility
             NumericUpDown obj = (NumericUpDown)sender;
             if (obj.Enabled)
             {
-                tuner1.SetInductance(obj.Value);
+                tuner1?.SetInductance(obj.Value);
             }
         }
 
         private void TabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            TabPage current = (sender as TabControl).SelectedTab;
+            if (sender is null) return;
+            if (sender is not TabControl tabControl) return;
+            TabPage current = tabControl.SelectedTab;
             if (current.Text.Equals("Relay1")) Relay1_LoadComPorts();
             if (current.Text.Equals("Debug"))
                 richTextBoxDebug.Refresh();
@@ -3936,6 +3968,10 @@ namespace AmpAutoTunerUtility
 
         private void CheckBox1_CheckedChanged_1(object sender, EventArgs e)
         {
+            if (tuner1 == null)
+            {
+                return;
+            }
             tuner1.TuneFull = checkBox1.Checked;
         }
 
@@ -3967,7 +4003,9 @@ namespace AmpAutoTunerUtility
         private void TabPageRelay2_Click(object sender, EventArgs e)
         {
             comboBoxComRelay2.Items.Clear();
+            if (relay2 == null) return;
             List<string> comPorts = relay2.ComList();
+            if (comPorts == null) return;
             foreach (string comPort in comPorts)
             {
                 comboBoxComRelay2.Items.Add(comPort);
@@ -3977,6 +4015,7 @@ namespace AmpAutoTunerUtility
         private void TabPageRelay3_Click(object sender, EventArgs e)
         {
             comboBoxComRelay3.Items.Clear();
+            if (relay3 == null) return;
             List<string> comPorts = relay3.ComList();
             foreach (string comPort in comPorts)
             {
@@ -3988,6 +4027,7 @@ namespace AmpAutoTunerUtility
         private void TabPageRelay4_Click(object sender, EventArgs e)
         {
             comboBoxComRelay4.Items.Clear();
+            if (relay4 == null) return;
             List<string> comPorts = relay4.ComList();
             foreach (string comPort in comPorts)
             {
@@ -4112,7 +4152,7 @@ namespace AmpAutoTunerUtility
         //readonly int[] frequenciesToWalk = { 50313000, 28074000, 24915000, 21074000, 18100000, 14074000, 10136000, 7074000, 3573000   };
         //readonly string frequenciesToWalkFT8 = "1.840 3.573 7.074 10.136 14.074 18.100 21.074  24.915 28.074 50.313";
         //readonly string frequenciesToWalkFT4 = "3.575 7.0475 10.14 14.08 18.104 21.140 24.919 28.180 50.318";
-        List<long> frequenciesToWalk;
+        List<long>? frequenciesToWalk;
         int frequencyIndex = 0;
         private bool dummyLoad;
         private int timerFreqWalkSeconds;
@@ -4120,6 +4160,8 @@ namespace AmpAutoTunerUtility
 
         private void FreqWalkSetFreq(int index)
         {
+            if (frequenciesToWalk == null) return;
+            if (myRig == null) return;
             //if (index == 0) richTextBoxFreqWalk.Clear();
             if (index < 0 || index >= frequenciesToWalk.Count)
             {
@@ -4135,6 +4177,7 @@ namespace AmpAutoTunerUtility
         private void TimerFreqWalk_Tick(object sender, EventArgs e)
         {
             //DebugAddMsg(DebugEnum.LOG, "FreqWalkTick\n");
+            if (frequenciesToWalk == null) return;
             try
             {
                 timerFreqWalk.Stop();
@@ -4253,6 +4296,7 @@ namespace AmpAutoTunerUtility
             }
             var tokens = textBoxFrequencyWalkList.Text.Split(' ');
             if (frequenciesToWalk == null) frequenciesToWalk = new List<int>();
+            if (frequenciesToWalk == null) return;
             frequenciesToWalk.Clear();
             foreach (string s in tokens)
             {
@@ -4264,7 +4308,7 @@ namespace AmpAutoTunerUtility
             {
                 //  We need to disable the Icom ANT transceive
                 //  Then set the antenna to the receive antenna
-                myRig.Transceive = false;
+                myRig!.Transceive = false;
                 //var xml = FLRigXML("rig.cat_string", "<params><param><value>xfe xfe x94 xe0 x1a x05 x00 x73 x00 xfd</value></param></params");
                 //FLRigSend(xml);
             }
@@ -4284,7 +4328,7 @@ namespace AmpAutoTunerUtility
             pausedTuning = false;
             //richTextBoxFreqWalk.AppendText(MyTime() + "Walking stopped\n");
             // Turn ANT transceive on
-            myRig.Transceive = true;
+            myRig!.Transceive = true;
             //var xml = FLRigXML("rig.cat_string", "<params><param><value>xfe xfe x94 xe0 x1a x05 x00 x73 x01 xfd</value></param></params");
             //FLRigSend(xml);
             Thread.Sleep(500);
@@ -4295,8 +4339,8 @@ namespace AmpAutoTunerUtility
         }
         private void ButtonWalk_Click_1(object sender, EventArgs e)
         {
-            myRig.ModeA = "USB-D";
-            myRig.ModeB = "USB-D";
+            myRig!.ModeA = "USB-D";
+            myRig!.ModeB = "USB-D";
             timerFreqWalk.Stop();
             Thread.Sleep(500);
             FrequenciesToWalk();
@@ -4982,9 +5026,14 @@ namespace AmpAutoTunerUtility
         private void TuneAll(int band, int antennaNumber, string antennaSelected)
         {
             {
-                int freqN = tuner1.tuneFrequencies[band, 0];
-                int freqStep = tuner1.tuneFrequencies[band, 1];
-                int freqStart = tuner1.tuneFrequencies[band, 2];
+                if  (tuner1 is null || tuner1.tuneFrequencies is null)
+                {
+                    MessageBox.Show("tuner1 problem in " + System.Reflection.MethodBase.GetCurrentMethod().Name);
+                    return;
+                }
+                int freqN = tuner1!.tuneFrequencies[band, 0];
+                int freqStep = tuner1!.tuneFrequencies[band, 1];
+                int freqStart = tuner1!.tuneFrequencies[band, 2];
                 for (int step = 0; step < freqN; ++step)
                 {
                     int freq = freqStart + (step * freqStep);
@@ -5001,7 +5050,7 @@ namespace AmpAutoTunerUtility
                     { // Abort if FLRig is giving an error
                         Debug(DebugEnum.ERR, "FLRigSend got an error??\n");
                     }
-                    tuner1.Tune();
+                    tuner1!.Tune();
                     Application.DoEvents();
                     Thread.Sleep(500);
                 }
@@ -5023,11 +5072,11 @@ namespace AmpAutoTunerUtility
         {
             labelExpertLinearsInfo.Text = "Tuning Expert Linears";
             Application.DoEvents();
-            string saveMode = myRig.ModeA;
+            string saveMode = myRig!.ModeA;
             string desiredMode = "AM";
             if (!saveMode.Equals(desiredMode))
             {
-                myRig.ModeA = desiredMode;
+                myRig!.ModeA = desiredMode;
                 //string myparam = "<params><param><value>" + desiredMode + "</value></param></params>";
                 //var xml = FLRigXML("rig.set_modeA", myparam);
                 //if (FLRigSend(xml) == false)
@@ -5059,7 +5108,7 @@ namespace AmpAutoTunerUtility
                 return;
             }
             */
-            tuner1.SelectDisplayPage();
+            tuner1!.SelectDisplayPage();
             if (checkBoxExpertLinears160_1.Checked) TuneAll(0, 1, comboBoxExpertLinears160_1.SelectedItem.ToString());
             if (checkBoxExpertLinears160_2.Checked) TuneAll(0, 2, comboBoxExpertLinears160_2.SelectedItem.ToString());
             if (checkBoxExpertLinears80_1.Checked) TuneAll(1, 1, comboBoxExpertLinears80_1.SelectedItem.ToString());
@@ -5131,7 +5180,7 @@ namespace AmpAutoTunerUtility
                 }
                 DebugAddMsg(DebugEnum.LOG, myStuff);
                 */
-                tuner1.SetInductance(5.0);
+                tuner1!.SetInductance(5.0);
             }
             else
             {
@@ -5142,8 +5191,8 @@ namespace AmpAutoTunerUtility
         {
             byte cmdTune = 0x09;
             labelExpertLinearsInfo.Text = "Tuning " + frequencyHz;
-            tuner1.GetStatus();
-            tuner1.GetStatus2(Tuner.Screen.ManualTune);
+            tuner1!.GetStatus();
+            tuner1!.GetStatus2(Tuner.Screen.ManualTune);
             double l = tuner1.GetInductance();
             double c = tuner1.GetCapacitance();
             DebugMsg.DebugAddMsg(DebugEnum.LOG, "L=" + l.ToString("0.0") + "C=" + c.ToString("0,0"));
@@ -5162,6 +5211,11 @@ namespace AmpAutoTunerUtility
             // Ready for finding min SWR test
             double SWRStart;
             // need the band
+            if (tuner1 is null || tuner1.tuneFrequencies is null)
+            {
+                MessageBox.Show("tuner problem ins ", System.Reflection.MethodBase.GetCurrentMethod().Name);
+                return;
+            }
             var nFreqs = tuner1.tuneFrequencies[tuner1.band, 0];
             var step = tuner1.tuneFrequencies[tuner1.band, 1];
             var freq = tuner1.tuneFrequencies[tuner1.band, 2];
@@ -5240,53 +5294,53 @@ namespace AmpAutoTunerUtility
 
         void FindMinSWR_L()
         {
-            tuner1.GetStatus2(Tuner.Screen.ManualTune);
-            tuner1.GetStatus();
-            double l = tuner1.GetInductance();
-            var SWRMin = tuner1.GetSWR();
+            tuner1!.GetStatus2(Tuner.Screen.ManualTune);
+            tuner1!.GetStatus();
+            double l = tuner1!.GetInductance();
+            var SWRMin = tuner1!.GetSWR();
             byte cmdDownL = 0x05; // L Down
             byte cmdUpL = 0x06; // L Up
             double minSWR_L = l;
-            while (tuner1.GetSWR() <= SWRMin && SWRMin > 1 && l > 0 && l < 269)
+            while (tuner1!.GetSWR() <= SWRMin && SWRMin > 1 && l > 0 && l < 269)
             {
                 // Step L up
-                tuner1.SendCmd(cmdUpL);
-                tuner1.SendCmd(cmdUpL);
+                tuner1!.SendCmd(cmdUpL);
+                tuner1!.SendCmd(cmdUpL);
                 Thread.Sleep(100);
-                tuner1.GetStatus();
-                if (tuner1.GetSWR() < SWRMin)
+                tuner1!.GetStatus();
+                if (tuner1!.GetSWR() < SWRMin)
                 {
-                    SWRMin = tuner1.GetSWR();
-                    minSWR_L = tuner1.GetInductance();
+                    SWRMin = tuner1!.GetSWR();
+                    minSWR_L = tuner1!.GetInductance();
                 }
-                l = tuner1.GetInductance();
+                l = tuner1!.GetInductance();
             }
             // Move to last best one
-            tuner1.SetInductance(minSWR_L);
-            tuner1.GetStatus();
-            SWRMin = tuner1.GetSWR();
-            while (tuner1.GetSWR() <= SWRMin && SWRMin > 1 && l > 0 && l < 269)
+            tuner1!.SetInductance(minSWR_L);
+            tuner1!.GetStatus();
+            SWRMin = tuner1!.GetSWR();
+            while (tuner1!.GetSWR() <= SWRMin && SWRMin > 1 && l > 0 && l < 269)
             {
                 // Step L down
-                tuner1.SendCmd(cmdDownL);
-                tuner1.SendCmd(cmdDownL);
+                tuner1!.SendCmd(cmdDownL);
+                tuner1!.SendCmd(cmdDownL);
                 Thread.Sleep(100);
-                tuner1.GetStatus();
-                if (tuner1.GetSWR() < SWRMin)
+                tuner1!.GetStatus();
+                if (tuner1!.GetSWR() < SWRMin)
                 {
-                    SWRMin = tuner1.GetSWR();
-                    minSWR_L = tuner1.GetInductance();
+                    SWRMin = tuner1!.GetSWR();
+                    minSWR_L = tuner1!.GetInductance();
                 }
-                l = tuner1.GetInductance();
+                l = tuner1!.GetInductance();
             }
             // Move to last best one
-            tuner1.SetInductance(minSWR_L);
-            tuner1.GetStatus2(Tuner.Screen.ManualTune);
+            tuner1!.SetInductance(minSWR_L);
+            tuner1!.GetStatus2(Tuner.Screen.ManualTune);
         }
         void FindMinSWR_C()
         {
-            tuner1.GetStatus2(Tuner.Screen.ManualTune);
-            tuner1.GetStatus();
+            tuner1!.GetStatus2(Tuner.Screen.ManualTune);
+            tuner1!.GetStatus();
             double c = tuner1.GetCapacitance();
             var SWRMin = tuner1.GetSWR();
             byte cmdDownC = 0x07; // C Down
@@ -5338,7 +5392,7 @@ namespace AmpAutoTunerUtility
             //myPage.Refresh();
             tabPageExpertLinears.SuspendLayout();
             tabPageExpertLinears.Refresh();
-            if (tuner1 == null)
+            if (tuner1 is null)
             {
                 return;
             }
@@ -5353,6 +5407,11 @@ namespace AmpAutoTunerUtility
             labelSPE_C.Text = tuner1.GetCapacitance() + "pF";
             tuner1.GetStatus2(Tuner.Screen.Antenna);
             Application.DoEvents();
+            if (tuner1.antennas is null)
+            {
+                MessageBox.Show("tuner1.antennas=null in" + System.Reflection.MethodBase.GetCurrentMethod().Name);
+                return;
+            }
             comboBoxExpertLinears160_1.SelectedIndex = comboBoxExpertLinears160_1.FindStringExact(tuner1.antennas[0, 0]);
             if (comboBoxExpertLinears160_1.SelectedIndex < 0) comboBoxExpertLinears160_1.SelectedIndex = 0;
             comboBoxExpertLinears160_2.SelectedIndex = comboBoxExpertLinears160_1.FindStringExact(tuner1.antennas[0, 1]);
@@ -5512,22 +5571,22 @@ namespace AmpAutoTunerUtility
 
         private void Button1_Click_1(object sender, EventArgs e)
         {
-            tuner1.On();
+            tuner1!.On();
         }
 
         private void Button2_Click(object sender, EventArgs e)
         {
-            tuner1.Off();
+            tuner1!.Off();
         }
 
         private void Button3_Click(object sender, EventArgs e)
         {
-            tuner1.On();
+            tuner1!.On();
         }
 
         private void Button4_Click(object sender, EventArgs e)
         {
-            tuner1.Off();
+            tuner1!.Off();
         }
 
         private void Button5_Click(object sender, EventArgs e)
@@ -5549,8 +5608,8 @@ namespace AmpAutoTunerUtility
                     Thread.Sleep(100);
                     tuner1.On();
                     Thread.Sleep(3000);
-                    myRig.FrequencyA = myRig.FrequencyA;
-                    myRig.FrequencyB = myRig.FrequencyB;
+                    myRig!.FrequencyA = myRig!.FrequencyA;
+                    myRig!.FrequencyB = myRig!.FrequencyB;
                     buttonTunerPwr.Enabled = true;
                     buttonTunerPwr.Refresh();
                     buttonTunerPwr.BackColor = Color.Green;
@@ -5562,9 +5621,9 @@ namespace AmpAutoTunerUtility
                     buttonTunerPwr.ForeColor = Color.Black;
                     buttonTunerPwr.Enabled = false;
                     buttonTunerPwr.Refresh();
-                    tuner1.Off();
+                    tuner1!.Off();
                     Thread.Sleep(100);
-                    tuner1.Off();
+                    tuner1!.Off();
                     Thread.Sleep(6000);
                     buttonTunerPwr.Enabled = true;
                     buttonTunerPwr.Refresh();
@@ -5629,22 +5688,22 @@ namespace AmpAutoTunerUtility
         {
             if (radioButtonBankA.Checked)
             {
-                tuner1.SelectDisplayPage();
+                tuner1!.SelectDisplayPage();
                 byte right = 0x10;
                 byte left = 0x0f;
                 byte set = 0x11;
-                tuner1.SendCmd(set);
-                tuner1.SendCmd(set);
-                tuner1.SendCmd(left);
-                tuner1.SendCmd(set);
-                tuner1.SendCmd(right);
-                tuner1.SendCmd(right);
-                tuner1.SendCmd(right);
-                tuner1.SendCmd(right);
-                tuner1.SendCmd(right);
-                tuner1.SendCmd(set);
+                tuner1!.SendCmd(set);
+                tuner1!.SendCmd(set);
+                tuner1!.SendCmd(left);
+                tuner1!.SendCmd(set);
+                tuner1!.SendCmd(right);
+                tuner1!.SendCmd(right);
+                tuner1!.SendCmd(right);
+                tuner1!.SendCmd(right);
+                tuner1!.SendCmd(right);
+                tuner1!.SendCmd(set);
                 Thread.Sleep(1000);
-                tuner1.SelectDisplayPage();
+                tuner1!.SelectDisplayPage();
                 TabPageExpertLinears_Init(tabPageAntenna);
                 //radioButtonBankB.Checked = false;
             }
@@ -5661,20 +5720,20 @@ Right 4
 Set
 
                  */
-                tuner1.SelectDisplayPage();
+                tuner1!.SelectDisplayPage();
                 byte right = 0x10;
                 byte set = 0x11;
-                tuner1.SendCmd(set);
-                tuner1.SendCmd(set);
-                tuner1.SendCmd(right);
-                tuner1.SendCmd(set);
-                tuner1.SendCmd(right);
-                tuner1.SendCmd(right);
-                tuner1.SendCmd(right);
-                tuner1.SendCmd(right);
-                tuner1.SendCmd(set);
+                tuner1!.SendCmd(set);
+                tuner1!.SendCmd(set);
+                tuner1!.SendCmd(right);
+                tuner1!.SendCmd(set);
+                tuner1!.SendCmd(right);
+                tuner1!.SendCmd(right);
+                tuner1!.SendCmd(right);
+                tuner1!.SendCmd(right);
+                tuner1!.SendCmd(set);
                 Thread.Sleep(1000);
-                tuner1.SelectDisplayPage();
+                tuner1!.SelectDisplayPage();
                 TabPageExpertLinears_Init(tabPage);
             }
         }
@@ -5694,9 +5753,9 @@ Set
         private void buttonSPEAnt_Click(object sender, EventArgs e)
         {
             // Seems we must be on display page to change antennas
-            tuner1.SelectDisplayPage();
+            tuner1!.SelectDisplayPage();
             buttonSPEAnt.Text = "Ant " + tuner1.GetAntenna();
-            tuner1.SetAntenna(-1); // it's just a toggle for now
+            tuner1!.SetAntenna(-1); // it's just a toggle for now
         }
 
         private void checkedListBoxWalk1_ItemCheck(object sender, ItemCheckEventArgs e)
@@ -5719,46 +5778,37 @@ Set
 
     public class ComboBoxItem
     {
-        public string Text { get; set; }
-        public object MyGUID { get; set; }
+        public string? Text { get; set; }
+        public object? MyGUID { get; set; }
 
-        public override string ToString()
+        public override string? ToString()
         {
             return Text;
         }
 
-        public static bool operator ==(ComboBoxItem obj1, ComboBoxItem obj2)
+        public override bool Equals(object obj)
         {
-            if (obj1 != null && obj2 != null && obj1.MyGUID.Equals(obj2.MyGUID))
+            if (obj is ComboBoxItem other)
             {
-                return true;
+                if (ReferenceEquals(this, other)) return true;
+                if (this.MyGUID != null && other.MyGUID != null)
+                {
+                    return this.MyGUID.Equals(other.MyGUID);
+                }
             }
             return false;
+        }
+    
+        public static bool operator ==(ComboBoxItem obj1, ComboBoxItem obj2)
+        {
+            if (ReferenceEquals (obj1, obj2)) return true;
+            if (ReferenceEquals(obj1, null) || ReferenceEquals(obj2, null)) return false;
+            return obj1.Equals(obj2);
         }
 
         public static bool operator !=(ComboBoxItem obj1, ComboBoxItem obj2)
         {
-            if (obj1 != null && obj2 != null && obj1.MyGUID.Equals(obj2.MyGUID))
-            {
-                return false;
-            }
-            return true;
-        }
-
-        public override bool Equals(object obj)
-        {
-            if (this.MyGUID.ToString().Equals(obj))
-            //string val1 = GUID.ToString();
-            //ComboBoxItem mybox = (obj as ComboBoxItem);
-            //string val2 = (obj as ComboBoxItem).GUID.ToString();
-            //if (val1.Equals(val2))
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return !(obj1 == obj2);
         }
 
         public override int GetHashCode()
@@ -5770,7 +5820,7 @@ Set
     [Serializable]
     public class AmpAutoTunerUtilException : System.Exception
     {
-        readonly Exception Inner;
+        readonly Exception ?Inner;
         public AmpAutoTunerUtilException() : base() { }
         public AmpAutoTunerUtilException(string message) : base(message)
         {
@@ -5778,7 +5828,12 @@ Set
         }
         public AmpAutoTunerUtilException(string message, System.Exception inner) : base(message, inner)
         {
-            this.Inner = inner;
+            if (string.IsNullOrEmpty(message))
+            {
+                throw new ArgumentException($"'{nameof(message)}' cannot be null or empty.", nameof(message));
+            }
+
+            this.Inner = inner ?? throw new ArgumentNullException(nameof(inner));
             if (Inner != null)
             {
                 MessageBox.Show(message + "\n" + Inner.Message + "\n" + Inner.StackTrace);
