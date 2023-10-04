@@ -2550,7 +2550,7 @@ namespace AmpAutoTunerUtility
         }
         private void TimerGetFreq_Tick(object sender, EventArgs e)
         {
-            if (tuner1!.isOperate)
+            if (tuner1 is not null && tuner1.isOperate)
             {
                 buttonOperate.BackColor = Color.Green;
                 buttonOperate.ForeColor = Color.White;
