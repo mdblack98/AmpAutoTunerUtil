@@ -733,9 +733,9 @@ namespace AmpAutoTunerUtility
             clockIsZulu = Properties.Settings.Default.ClockIsZulu;
             int index = 0;
 
-            if (!string.IsNullOrEmpty(Properties.Settings.Default.FrequenciesToWalk1List))
+            if (!string.IsNullOrEmpty(Properties.Settings.Default.FrequenciesToWalk1))
             {
-                Properties.Settings.Default.FrequenciesToWalk1List.Split(',')
+                Properties.Settings.Default.FrequenciesToWalk1.Split(',')
                     .ToList()
                     .ForEach(item =>
                     {
@@ -746,7 +746,7 @@ namespace AmpAutoTunerUtility
             }
             if (!string.IsNullOrEmpty(Properties.Settings.Default.FrequenciesToWalk2List))
             {
-                Properties.Settings.Default.FrequenciesToWalk2List.Split(',')
+                Properties.Settings.Default.FrequenciesToWalk2.Split(',')
                     .ToList()
                     .ForEach(item =>
                     {
@@ -757,7 +757,7 @@ namespace AmpAutoTunerUtility
             }
             if (!string.IsNullOrEmpty(Properties.Settings.Default.FrequenciesToWalk3List))
             {
-                Properties.Settings.Default.FrequenciesToWalk3List.Split(',')
+                Properties.Settings.Default.FrequenciesToWalk3.Split(',')
                     .ToList()
                     .ForEach(item =>
                     {
@@ -787,8 +787,6 @@ namespace AmpAutoTunerUtility
             if (!string.IsNullOrEmpty(Properties.Settings.Default.FrequenciesToWalk2List))
             {
                 index = 0;
-                var xxx = Properties.Settings.Default.FrequenciesToWalk2List;
-                var myList = Properties.Settings.Default.FrequenciesToWalk2List.Split(',').ToList();
                 Properties.Settings.Default.FrequenciesToWalk2List.Split(',')
                     .ToList()
                     .ForEach(item =>
@@ -799,8 +797,6 @@ namespace AmpAutoTunerUtility
             if (!string.IsNullOrEmpty(Properties.Settings.Default.FrequenciesToWalk3List))
             {
                 index = 0;
-                var xxx = Properties.Settings.Default.FrequenciesToWalk3List;
-                var myList = Properties.Settings.Default.FrequenciesToWalk3List.Split(',').ToList();
                 Properties.Settings.Default.FrequenciesToWalk3List.Split(',')
                     .ToList()
                     .ForEach(item =>
@@ -1234,6 +1230,13 @@ namespace AmpAutoTunerUtility
             Properties.Settings.Default.FrequenciesToWalk2List = string.Join(",", items);
             items = checkedListBoxWalk3.Items.Cast<string>().ToArray();
             Properties.Settings.Default.FrequenciesToWalk3List = string.Join(",", items);
+
+            items = checkedListBoxWalk1.CheckedItems.Cast<string>().ToArray();
+            Properties.Settings.Default.FrequenciesToWalk1 = string.Join(",", items);
+            items = checkedListBoxWalk2.CheckedItems.Cast<string>().ToArray();
+            Properties.Settings.Default.FrequenciesToWalk2 = string.Join(",", items);
+            items = checkedListBoxWalk3.CheckedItems.Cast<string>().ToArray();
+            Properties.Settings.Default.FrequenciesToWalk3 = string.Join(",", items);
 
             Properties.Settings.Default.FreqWalkDelay = numericUpDownFreqWalkDelay.Value;
             Properties.Settings.Default.FreqWalkAntenna = (string)comboBoxFreqWalkAntenna.SelectedItem;
@@ -4824,8 +4827,10 @@ namespace AmpAutoTunerUtility
                 case 180: timerFreqWalkSeconds = 240; break;
                 case 240: timerFreqWalkSeconds = 300; break;
                 case 300: timerFreqWalkSeconds = 15; break;
+
             }
             labelInterval.Text = "Interval " + timerFreqWalkSeconds.ToString() + " sec";
+            Properties.Settings.Default.TimerFreqWalkSeconds = timerFreqWalkSeconds;
         }
 
         private void ComboBoxAmpBits_SelectedIndexChanged(object sender, EventArgs e)
