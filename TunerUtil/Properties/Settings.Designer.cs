@@ -2494,5 +2494,41 @@ namespace AmpAutoTunerUtility.Properties {
                 this["FrequenciesToWalk3"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool checkBoxWalk1 {
+            get {
+                return ((bool)(this["checkBoxWalk1"]));
+            }
+            set {
+                this["checkBoxWalk1"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool checkBoxWalk2 {
+            get {
+                return ((bool)(this["checkBoxWalk2"]));
+            }
+            set {
+                this["checkBoxWalk2"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool checkBoxWalk3 {
+            get {
+                return ((bool)(this["checkBoxWalk3"]));
+            }
+            set {
+                this["checkBoxWalk3"] = value;
+            }
+        }
     }
 }

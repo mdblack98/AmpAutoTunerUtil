@@ -733,6 +733,10 @@ namespace AmpAutoTunerUtility
             clockIsZulu = Properties.Settings.Default.ClockIsZulu;
             int index = 0;
 
+            checkedListBoxWalk1.Enabled = checkBoxWalk1.Checked = Properties.Settings.Default.checkBoxWalk1;
+            checkedListBoxWalk2.Enabled = checkBoxWalk2.Checked = Properties.Settings.Default.checkBoxWalk2;
+            checkedListBoxWalk3.Enabled = checkBoxWalk3.Checked = Properties.Settings.Default.checkBoxWalk3;
+
             if (!string.IsNullOrEmpty(Properties.Settings.Default.FrequenciesToWalk1))
             {
                 Properties.Settings.Default.FrequenciesToWalk1.Split(',')
@@ -766,9 +770,9 @@ namespace AmpAutoTunerUtility
                             this.checkedListBoxWalk3.SetItemChecked(index, true);
                     });
             }
-            checkedListBoxWalk1.Enabled = checkBoxWalk1.Checked = Properties.Settings.Default.FrequenciesToWalk1Enabled;
-            checkedListBoxWalk2.Enabled = checkBoxWalk2.Checked = Properties.Settings.Default.FrequenciesToWalk2Enabled;
-            checkedListBoxWalk3.Enabled = checkBoxWalk3.Checked = Properties.Settings.Default.FrequenciesToWalk3Enabled;
+            checkedListBoxWalk1.Enabled = Properties.Settings.Default.FrequenciesToWalk1Enabled;
+            checkedListBoxWalk2.Enabled = Properties.Settings.Default.FrequenciesToWalk2Enabled;
+            checkedListBoxWalk3.Enabled = Properties.Settings.Default.FrequenciesToWalk3Enabled;
 
             labelFreqWalk1.Text = Properties.Settings.Default.labelFreqWalk1;
             labelFreqWalk2.Text = Properties.Settings.Default.labelFreqWalk2;
@@ -1241,9 +1245,9 @@ namespace AmpAutoTunerUtility
             Properties.Settings.Default.FreqWalkDelay = numericUpDownFreqWalkDelay.Value;
             Properties.Settings.Default.FreqWalkAntenna = (string)comboBoxFreqWalkAntenna.SelectedItem;
 
-            Properties.Settings.Default.FrequenciesToWalk1Enabled = checkBoxWalk1.Checked;
-            Properties.Settings.Default.FrequenciesToWalk2Enabled = checkBoxWalk2.Checked;
-            Properties.Settings.Default.FrequenciesToWalk3Enabled = checkBoxWalk3.Checked;
+            Properties.Settings.Default.checkBoxWalk1 = checkBoxWalk1.Checked;
+            Properties.Settings.Default.checkBoxWalk2 = checkBoxWalk2.Checked;
+            Properties.Settings.Default.checkBoxWalk3 = checkBoxWalk3.Checked;
 
             Properties.Settings.Default.ViewAntenna = antennaToolStripMenuItem.Checked;
             Properties.Settings.Default.ViewRelay1 = relay1ToolStripMenuItem.Checked;
@@ -2372,6 +2376,8 @@ namespace AmpAutoTunerUtility
             }
             if (this.myRig == null)
                 return;
+            this.myRig.GetFrequency('A');
+            this.myRig.GetFrequency('B');
             char currVFO = this.myRig.VFO;
             if (currVFO == 'B')
             {// could be rigctl temp change to VFOB so should be done in < 1 second
@@ -2719,9 +2725,15 @@ namespace AmpAutoTunerUtility
                 }
 
             }*/
-            if (checkBoxRig.Checked)
+            if (checkBoxRig.Checked && myRig is not null)
             {
+                var myFreq = myRig.FrequencyA;
                 FLRigGetFreq();
+                if (myFreq != myRig.FrequencyA)
+                {
+                    timerFreqWalk.Stop();
+                }
+
                 //timerGetFreq.Interval = 200;
                 //DebugAddMsg(DebugEnum.LOG, "Get freq");
             }
@@ -4352,10 +4364,10 @@ namespace AmpAutoTunerUtility
         }
         private void ButtonWalk_Click_1(object sender, EventArgs e)
         {
-            myRig!.ModeA = "USB-D";
-            myRig!.ModeB = "USB-D";
             timerFreqWalk.Stop();
             Thread.Sleep(500);
+            myRig!.ModeA = "USB-D";
+            myRig!.ModeB = "USB-D";
             FrequenciesToWalk();
             FreqWalkSetFreq(0);
             if (frequenciesToWalk == null || (freqWalkIsRunning == false && frequenciesToWalk.Count == 0))

@@ -532,8 +532,8 @@ namespace AmpAutoTunerUtility
             }
             set
             {
-                frequencyA = value;
                 FLRigSetFrequency('A', value);
+                frequencyA = value;
             }
         }
         public override double FrequencyB
@@ -544,8 +544,8 @@ namespace AmpAutoTunerUtility
             }
             set
             {
-                frequencyB = value;
                 FLRigSetFrequency('B', value);
+                frequencyB = value;
             }
         }
 

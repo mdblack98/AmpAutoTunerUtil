@@ -2422,7 +2422,7 @@
             // checkBoxWalk3
             // 
             this.checkBoxWalk3.AutoSize = true;
-            this.checkBoxWalk3.Location = new System.Drawing.Point(257, 20);
+            this.checkBoxWalk3.Location = new System.Drawing.Point(257, 23);
             this.checkBoxWalk3.Name = "checkBoxWalk3";
             this.checkBoxWalk3.Size = new System.Drawing.Size(15, 14);
             this.checkBoxWalk3.TabIndex = 12;
@@ -2433,7 +2433,7 @@
             // checkBoxWalk2
             // 
             this.checkBoxWalk2.AutoSize = true;
-            this.checkBoxWalk2.Location = new System.Drawing.Point(135, 20);
+            this.checkBoxWalk2.Location = new System.Drawing.Point(135, 23);
             this.checkBoxWalk2.Name = "checkBoxWalk2";
             this.checkBoxWalk2.Size = new System.Drawing.Size(15, 14);
             this.checkBoxWalk2.TabIndex = 11;
@@ -2444,7 +2444,7 @@
             // checkBoxWalk1
             // 
             this.checkBoxWalk1.AutoSize = true;
-            this.checkBoxWalk1.Location = new System.Drawing.Point(12, 21);
+            this.checkBoxWalk1.Location = new System.Drawing.Point(12, 24);
             this.checkBoxWalk1.Name = "checkBoxWalk1";
             this.checkBoxWalk1.Size = new System.Drawing.Size(15, 14);
             this.checkBoxWalk1.TabIndex = 10;
@@ -2459,7 +2459,7 @@
             0,
             0,
             0});
-            this.numericUpDownFreqWalkDelay.Location = new System.Drawing.Point(89, 4);
+            this.numericUpDownFreqWalkDelay.Location = new System.Drawing.Point(91, 4);
             this.numericUpDownFreqWalkDelay.Maximum = new decimal(new int[] {
             700,
             0,
@@ -2483,7 +2483,7 @@
             // labelFreqWalk3
             // 
             this.labelFreqWalk3.AutoSize = true;
-            this.labelFreqWalk3.Location = new System.Drawing.Point(272, 20);
+            this.labelFreqWalk3.Location = new System.Drawing.Point(272, 23);
             this.labelFreqWalk3.Name = "labelFreqWalk3";
             this.labelFreqWalk3.Size = new System.Drawing.Size(42, 13);
             this.labelFreqWalk3.TabIndex = 8;
@@ -2495,7 +2495,7 @@
             // labelFreqWalk2
             // 
             this.labelFreqWalk2.AutoSize = true;
-            this.labelFreqWalk2.Location = new System.Drawing.Point(150, 20);
+            this.labelFreqWalk2.Location = new System.Drawing.Point(150, 23);
             this.labelFreqWalk2.Name = "labelFreqWalk2";
             this.labelFreqWalk2.Size = new System.Drawing.Size(26, 13);
             this.labelFreqWalk2.TabIndex = 7;
@@ -2507,7 +2507,7 @@
             // labelFreqWalk1
             // 
             this.labelFreqWalk1.AutoSize = true;
-            this.labelFreqWalk1.Location = new System.Drawing.Point(27, 20);
+            this.labelFreqWalk1.Location = new System.Drawing.Point(27, 23);
             this.labelFreqWalk1.Name = "labelFreqWalk1";
             this.labelFreqWalk1.Size = new System.Drawing.Size(26, 13);
             this.labelFreqWalk1.TabIndex = 6;
@@ -2530,7 +2530,7 @@
             "0",
             "0",
             "0"});
-            this.checkedListBoxWalk3.Location = new System.Drawing.Point(254, 34);
+            this.checkedListBoxWalk3.Location = new System.Drawing.Point(254, 37);
             this.checkedListBoxWalk3.Name = "checkedListBoxWalk3";
             this.checkedListBoxWalk3.Size = new System.Drawing.Size(103, 154);
             this.checkedListBoxWalk3.TabIndex = 5;
@@ -2552,7 +2552,7 @@
             "7.0475",
             "3.575",
             "0"});
-            this.checkedListBoxWalk2.Location = new System.Drawing.Point(132, 34);
+            this.checkedListBoxWalk2.Location = new System.Drawing.Point(132, 37);
             this.checkedListBoxWalk2.Name = "checkedListBoxWalk2";
             this.checkedListBoxWalk2.Size = new System.Drawing.Size(103, 154);
             this.checkedListBoxWalk2.TabIndex = 4;
@@ -2574,7 +2574,7 @@
             "7.074",
             "3.573",
             "1.840"});
-            this.checkedListBoxWalk1.Location = new System.Drawing.Point(9, 34);
+            this.checkedListBoxWalk1.Location = new System.Drawing.Point(9, 37);
             this.checkedListBoxWalk1.Name = "checkedListBoxWalk1";
             this.checkedListBoxWalk1.Size = new System.Drawing.Size(103, 154);
             this.checkedListBoxWalk1.TabIndex = 3;
@@ -5410,7 +5410,7 @@
             this.Margin = new System.Windows.Forms.Padding(2);
             this.MaximumSize = new System.Drawing.Size(417, 310);
             this.Name = "Form1";
-            this.Text = "AmpAutoTunerUtility 231004";
+            this.Text = "AmpAutoTunerUtility 231005";
             this.HelpButtonClicked += new System.ComponentModel.CancelEventHandler(this.Form1_HelpButtonClicked);
             this.Activated += new System.EventHandler(this.Form1_Activated);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
