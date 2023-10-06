@@ -116,14 +116,13 @@ namespace AmpAutoTunerUtility
                 SerialPortTuner = null;
             }
         }
-        static readonly Mutex SerialLock = new Mutex(false, "AmpSerial");
+        //static readonly Mutex SerialLock = new Mutex(false, "AmpSerial");
 
         public override void SelectDisplayPage()
         {
             Byte[] cmdDisplay = { 0x55, 0x55, 0x55, 0x01, 0x0c, 0x0c };
-            SerialLock.WaitOne();
+            Monitor.Enter("ExpertLinear");
             SerialPortTuner!.Write(cmdDisplay, 0, 6);
-            SerialLock.ReleaseMutex();
             Thread.Sleep(200);
         }
 
@@ -137,7 +136,7 @@ namespace AmpAutoTunerUtility
             // display, set, forward, set, when done display again
             Byte[] cmdSet = { 0x55, 0x55, 0x55, 0x01, 0x11, 0x11 };
             Byte[] cmdRight = { 0x55, 0x55, 0x55, 0x01, 0x10, 0x10 };
-            SerialLock.WaitOne();
+            Monitor.Enter("ExpertLinear");
             // Have to go to home display page and display again
             SelectDisplayPage();
             //SelectDisplayPage();
@@ -151,7 +150,6 @@ namespace AmpAutoTunerUtility
             Thread.Sleep(200);
             SerialPortTuner.Write(cmdSet, 0, 6);
             Thread.Sleep(200);
-            SerialLock.ReleaseMutex();
         }
         public override void SelectAntennaPage()
         {
@@ -163,7 +161,7 @@ namespace AmpAutoTunerUtility
             // display, set, forward, set, when done display again
             Byte[] cmdSet = { 0x55, 0x55, 0x55, 0x01, 0x11, 0x11 };
             Byte[] cmdRight = { 0x55, 0x55, 0x55, 0x01, 0x10, 0x10 };
-            SerialLock.WaitOne();
+            Monitor.Enter("ExpertLinear");
             // Have to go to home display page and display again
             SelectDisplayPage();
             SelectDisplayPage();
@@ -173,7 +171,6 @@ namespace AmpAutoTunerUtility
             Thread.Sleep(200);
             SerialPortTuner.Write(cmdSet, 0, 6);
             Thread.Sleep(200);
-            SerialLock.ReleaseMutex();
         }
         public override void SendCmd(byte cmd)
         {
@@ -185,16 +182,12 @@ namespace AmpAutoTunerUtility
             try
             {
                 Byte[] cmdBuf = { 0x55, 0x55, 0x55, 0x01, cmd, cmd };
-                SerialLock.WaitOne(2000);
-
-
+                Monitor.Enter("ExpertLinear");
                 SerialPortTuner.Write(cmdBuf, 0, 6);
                 Thread.Sleep(150);
-                SerialLock.ReleaseMutex();
             }
             catch (Exception)
             {
-                SerialLock.ReleaseMutex();
                 DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.WARN, "Can't send tuner cmd????");
                 return;
             }
@@ -223,7 +216,7 @@ namespace AmpAutoTunerUtility
                 int loop = 10;
                 try
                 {
-                    SerialLock.WaitOne(2000);
+                    Monitor.Enter("ExpertLinear");
                 }
                 catch (Exception)
                 {
@@ -250,28 +243,26 @@ namespace AmpAutoTunerUtility
                 }
                 catch (Exception)
                 {
-                    SerialLock.ReleaseMutex();
                     return false;
                 }
                 while (myByte != 0xaa)
                     try
                     {
                         myByte = (byte)SerialPortTuner.ReadByte();
-                        if (myByte == 0 && --loop == 0) { SerialLock.ReleaseMutex(); return false; }
+                        if (myByte == 0 && --loop == 0) { return false; }
                         //DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.LOG, "Got " + String.Format("{0:X}", myByte));
                     }
                     catch (Exception ex)
                     {
                         if (ex.HResult != -2146233083)
                             DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.LOG, "timeout\n");
-                        SerialLock.ReleaseMutex();
                         return false;
                     }
                 response[0] = myByte;
                 response[1] = (byte)SerialPortTuner.ReadByte();
-                if (response[1] != 0xaa) { SerialLock.ReleaseMutex(); return false; }
+                if (response[1] != 0xaa) { return false; }
                 response[2] = (byte)SerialPortTuner.ReadByte();
-                if (response[2] != 0xaa) { SerialLock.ReleaseMutex(); return false; }
+                if (response[2] != 0xaa) { return false; }
                 response[3] = (byte)SerialPortTuner.ReadByte(); // should be 6a
                 int n = 4;
                 int count = 0;
@@ -286,7 +277,6 @@ namespace AmpAutoTunerUtility
                     catch (TimeoutException)
                     {
                         DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.ERR, "GetStatus serial timeout\n");
-                        SerialLock.ReleaseMutex();
                         return false;
                     }
                     ++n;
@@ -300,17 +290,15 @@ namespace AmpAutoTunerUtility
                 long chkByte1 = sum / 256;
                 long resByte0 = response[369];
                 long resByte1 = response[370];
-                if (chkByte0 != resByte0) { SerialLock.ReleaseMutex(); return false; }
-                if (chkByte1 != resByte1) { SerialLock.ReleaseMutex(); return false; }
+                if (chkByte0 != resByte0) { return false; }
+                if (chkByte1 != resByte1) { return false; }
                 // check for M in MANUAL
                 if (myScreen == Screen.Antenna && response[17] != 0x33)
                 {
-                    SerialLock.ReleaseMutex();
                     return false;
                 }
                 else if (myScreen == Screen.ManualTune && response[17] != 0x2d)
                 {
-                    SerialLock.ReleaseMutex();
                     return false;
                 }
                 byte ledStatus = response[8];
@@ -321,7 +309,6 @@ namespace AmpAutoTunerUtility
                     {
                         while (response[160] != 0x0e)
                         {
-                            SerialLock.ReleaseMutex();
                             return false;
                         };
                         string value = lookup[(int)response[156]].ToString();
@@ -363,7 +350,6 @@ namespace AmpAutoTunerUtility
                 if (antennas is null)
                 {
                     MessageBox.Show("tuner1.antennas=null in" + System.Reflection.MethodBase.GetCurrentMethod().Name);
-                    SerialLock.ReleaseMutex();
                     return false;
                 }
                 if (myScreen == Screen.Antenna)
@@ -379,15 +365,12 @@ namespace AmpAutoTunerUtility
                         if (i == 2 || i == 5 || i == 8) indexBytes++;
                     }
                 }
-                SerialLock.ReleaseMutex();
                 }
                 catch (Exception ex)
                 {
                     DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.ERR, "GetStatus error: " + ex.Message + "\n" + ex.StackTrace);
-                    SerialLock.ReleaseMutex();
                     return false;
                 }
-            SerialLock.ReleaseMutex();
             return true;
         }
         public override bool GetStatus()
@@ -399,14 +382,14 @@ namespace AmpAutoTunerUtility
                 if (freqWalkIsRunning == true) return false;
                 try
                 {
-                    SerialLock.WaitOne(2000);
+                    Monitor.Enter("ExpertLinear");
                 }
                 catch (Exception)
                 {
                     return false;
                 }
             writeagain:
-                if (SerialPortTuner == null) { SerialLock.ReleaseMutex(); return false; }
+                if (SerialPortTuner == null) { return false; }
                 SerialPortTuner.DiscardInBuffer();
                 Byte[] cmd = { 0x55, 0x55, 0x55, 0x01, 0x90, 0x90 };
                 Byte[] response = new Byte[128];
@@ -420,7 +403,6 @@ namespace AmpAutoTunerUtility
                 }
                 catch (Exception)
                 {
-                    SerialLock.ReleaseMutex();
                     return false;
                 }
             //int zeroCount = 0;
@@ -434,12 +416,10 @@ namespace AmpAutoTunerUtility
                         if (myByte == 0 && watch.ElapsedMilliseconds > 1000)
                         {
                             watch.Restart();
-                            SerialLock.ReleaseMutex();
                             return false;
                         }
                         if (myByte == -1)
                         {
-                            SerialLock.ReleaseMutex();
                             return false;
                         }
                         //DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.LOG, "Got " + String.Format("{0:X}", myByte));
@@ -448,7 +428,6 @@ namespace AmpAutoTunerUtility
                     {
                         if (ex.HResult != -2146233083)
                             DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.LOG, "timeout\n");
-                        SerialLock.ReleaseMutex();
                         return false;
                     }
                 }
@@ -475,7 +454,6 @@ namespace AmpAutoTunerUtility
                     catch (TimeoutException)
                     {
                         DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.ERR, "GetStatus serial timeout\n");
-                        SerialLock.ReleaseMutex();
                         return false;
                     }
                     ++n;
@@ -494,12 +472,10 @@ namespace AmpAutoTunerUtility
                 var sresponse = System.Text.Encoding.Default.GetString(response, 0, n - 5);
                 if (chkByte0 != resByte0)
                 {
-                    SerialLock.ReleaseMutex();
                     return false;
                 }
                 if (chkByte1 != resByte1)
                 {
-                    SerialLock.ReleaseMutex();
                     return false;
                 }
 
@@ -554,17 +530,14 @@ namespace AmpAutoTunerUtility
                 catch (Exception ex)
                 {
                     DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.ERR, "MSG: " + ex.Message + "\n" + ex.StackTrace);
-                    SerialLock.ReleaseMutex();
                     return false;
                 }
             }
             catch (Exception ex)
             {
                 DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.ERR, "GetStatus: " + ex.Message + "\n" + ex.StackTrace);
-                SerialLock.ReleaseMutex();
                 return false;
             }
-            SerialLock.ReleaseMutex();
             return true;
         }
 
@@ -675,7 +648,7 @@ namespace AmpAutoTunerUtility
                 MessageBox.Show("SerialPortTuner=null in" + System.Reflection.MethodBase.GetCurrentMethod().Name);
                 return;
             }
-            SerialLock.WaitOne();
+            Monitor.Enter("ExpertLinear");
             Byte[] cmd = { 0x55, 0x55, 0x55, 0x01, 0x09, 0x09 };
             Byte[] cmdMsg = { 0x55, 0x55, 0x55, 0x01, 0x80, 0x80 };
             SerialPortTuner.DiscardInBuffer();
@@ -691,7 +664,6 @@ namespace AmpAutoTunerUtility
             if (tuning == false)
             {
                 DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.ERR, "Tuning did not start!!\n");
-                SerialLock.ReleaseMutex();
                 return;
             }
             while (tuning == true)
@@ -700,7 +672,6 @@ namespace AmpAutoTunerUtility
                 Thread.Sleep(100);
             }
             //SelectDisplayPage();
-            SerialLock.ReleaseMutex();
 
         }
 
@@ -1895,14 +1866,13 @@ namespace AmpAutoTunerUtility
                 MessageBox.Show("SerialPortTuner=null in" + System.Reflection.MethodBase.GetCurrentMethod().Name);
                 return false;
             }
-            SerialLock.WaitOne();
+            Monitor.Enter("ExpertLinear");
             SerialPortTuner.DtrEnable = false;
             SerialPortTuner.RtsEnable = true;
             Thread.Sleep(1000);
             SerialPortTuner.DtrEnable = true;
             SerialPortTuner.RtsEnable = false;
             isOn = true;
-            SerialLock.ReleaseMutex();
             return true;
         }
         public override bool Off()
