@@ -409,12 +409,6 @@ namespace AmpAutoTunerUtility
                 }
                 //textBoxFrequencyWalkList.Text = Properties.Settings.Default.FrequencyWalkList;
 
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error loading TunerUtil:\n" + ex.Message + "\n" + ex.StackTrace);
-                throw;
-            }
             //relay1 = new Relay(comboBoxComRelay1.SelectedText, comboBoxBaudRelay1.SelectedText);
             relay1 = new Relay();
             List<string> comPorts = new List<string>();
@@ -736,48 +730,6 @@ namespace AmpAutoTunerUtility
             checkedListBoxWalk1.Enabled = checkBoxWalk1.Checked = Properties.Settings.Default.checkBoxWalk1;
             checkedListBoxWalk2.Enabled = checkBoxWalk2.Checked = Properties.Settings.Default.checkBoxWalk2;
             checkedListBoxWalk3.Enabled = checkBoxWalk3.Checked = Properties.Settings.Default.checkBoxWalk3;
-
-            if (!string.IsNullOrEmpty(Properties.Settings.Default.FrequenciesToWalk1))
-            {
-                Properties.Settings.Default.FrequenciesToWalk1.Split(',')
-                    .ToList()
-                    .ForEach(item =>
-                    {
-                        index = this.checkedListBoxWalk1.Items.IndexOf(item);
-                        if (index >= 0)
-                            this.checkedListBoxWalk1.SetItemChecked(index, true);
-                    });
-            }
-            if (!string.IsNullOrEmpty(Properties.Settings.Default.FrequenciesToWalk2List))
-            {
-                Properties.Settings.Default.FrequenciesToWalk2.Split(',')
-                    .ToList()
-                    .ForEach(item =>
-                    {
-                        index = this.checkedListBoxWalk2.Items.IndexOf(item);
-                        if (index >= 0)
-                            this.checkedListBoxWalk2.SetItemChecked(index, true);
-                    });
-            }
-            if (!string.IsNullOrEmpty(Properties.Settings.Default.FrequenciesToWalk3List))
-            {
-                Properties.Settings.Default.FrequenciesToWalk3.Split(',')
-                    .ToList()
-                    .ForEach(item =>
-                    {
-                        index = this.checkedListBoxWalk3.Items.IndexOf(item);
-                        if (index >= 0)
-                            this.checkedListBoxWalk3.SetItemChecked(index, true);
-                    });
-            }
-            checkedListBoxWalk1.Enabled = Properties.Settings.Default.FrequenciesToWalk1Enabled;
-            checkedListBoxWalk2.Enabled = Properties.Settings.Default.FrequenciesToWalk2Enabled;
-            checkedListBoxWalk3.Enabled = Properties.Settings.Default.FrequenciesToWalk3Enabled;
-
-            labelFreqWalk1.Text = Properties.Settings.Default.labelFreqWalk1;
-            labelFreqWalk2.Text = Properties.Settings.Default.labelFreqWalk2;
-            labelFreqWalk3.Text = Properties.Settings.Default.labelFreqWalk3;
-
             if (!string.IsNullOrEmpty(Properties.Settings.Default.FrequenciesToWalk1List))
             {
                 index = 0;
@@ -809,6 +761,50 @@ namespace AmpAutoTunerUtility
                     });
             }
 
+            if (!string.IsNullOrEmpty(Properties.Settings.Default.FrequenciesToWalk1))
+            {
+                Properties.Settings.Default.FrequenciesToWalk1.Split(',')
+                    .ToList()
+                    .ForEach(item =>
+                    {
+                        index = this.checkedListBoxWalk1.Items.IndexOf(item);
+                        if (index >= 0)
+                            this.checkedListBoxWalk1.SetItemChecked(index, true);
+                    });
+            }
+            if (!string.IsNullOrEmpty(Properties.Settings.Default.FrequenciesToWalk2List))
+            {
+                Properties.Settings.Default.FrequenciesToWalk2.Split(',')
+                    .ToList()
+                    .ForEach(item =>
+                    {
+                        index = this.checkedListBoxWalk2.Items.IndexOf(item);
+                        if (index >= 0)
+                            this.checkedListBoxWalk2.SetItemChecked(index, true);
+                    });
+            }
+            var stest = Properties.Settings.Default.FrequenciesToWalk3List;
+            if (!string.IsNullOrEmpty(Properties.Settings.Default.FrequenciesToWalk3List))
+            {
+                stest = Properties.Settings.Default.FrequenciesToWalk3;
+                Properties.Settings.Default.FrequenciesToWalk3.Split(',')
+                    .ToList()
+                    .ForEach(item =>
+                    {
+                        index = this.checkedListBoxWalk3.Items.IndexOf(item);
+                        if (index >= 0)
+                            this.checkedListBoxWalk3.SetItemChecked(index, true);
+                    });
+            }
+            checkedListBoxWalk1.Enabled = Properties.Settings.Default.FrequenciesToWalk1Enabled;
+            checkedListBoxWalk2.Enabled = Properties.Settings.Default.FrequenciesToWalk2Enabled;
+            checkedListBoxWalk3.Enabled = Properties.Settings.Default.FrequenciesToWalk3Enabled;
+
+            labelFreqWalk1.Text = Properties.Settings.Default.labelFreqWalk1;
+            labelFreqWalk2.Text = Properties.Settings.Default.labelFreqWalk2;
+            labelFreqWalk3.Text = Properties.Settings.Default.labelFreqWalk3;
+
+
             numericUpDownFreqWalkDelay.Value = Properties.Settings.Default.FreqWalkDelay;
             //comboBoxFreqWalkAntenna.SelectedIndex = comboBoxFreqWalkAntenna.FindStringExact(Properties.Settings.Default.FreqWalkAntenna);
 
@@ -832,6 +828,12 @@ namespace AmpAutoTunerUtility
             timerDebug.Enabled = true;
             timerDebug.Start();
             Cursor = Cursors.Default;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error loading TunerUtil:\n" + ex.Message + "\n" + ex.StackTrace);
+                throw;
+            }
         }
 
         private void TunerClose()
