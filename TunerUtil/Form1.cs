@@ -4186,6 +4186,11 @@ namespace AmpAutoTunerUtility
         private void FreqWalkSetFreq(int index)
         {
             if (frequenciesToWalk == null) return;
+            if (frequenciesToWalk.Count == 0)
+            {
+                MessageBox.Show("There are no frequencies to walk");
+                return;
+            }
             if (myRig == null) return;
             //if (index == 0) richTextBoxFreqWalk.Clear();
             if (index < 0 || index >= frequenciesToWalk.Count)
@@ -4358,35 +4363,42 @@ namespace AmpAutoTunerUtility
             //FLRigSend(xml);
             Thread.Sleep(500);
             // MDB
-            FreqWalkSetFreq(frequencyIndex); // we send frequency so transceive can update other shack equipment
+            myRig!.FrequencyA = myRig!.FrequencyA;
             SetAntennaInUseForGUI(true);
             //TuneSequence();  // disabling as don't want tune when we may want to change band to chase DX
         }
         private void ButtonWalk_Click_1(object sender, EventArgs e)
         {
-            timerFreqWalk.Stop();
-            Thread.Sleep(500);
-            myRig!.ModeA = "USB-D";
-            myRig!.ModeB = "USB-D";
-            FrequenciesToWalk();
-            FreqWalkSetFreq(0);
-            if (frequenciesToWalk == null || (freqWalkIsRunning == false && frequenciesToWalk.Count == 0))
+            try
             {
-                MessageBox.Show("No walk frequencies selected in FreqWalk tab!!");
-                return;
+                timerFreqWalk.Stop();
+                Thread.Sleep(500);
+                myRig!.ModeA = "USB-D";
+                myRig!.ModeB = "USB-D";
+                FrequenciesToWalk();
+                //FreqWalkSetFreq(0);
+                if (frequenciesToWalk == null || (freqWalkIsRunning == false && frequenciesToWalk.Count == 0))
+                {
+                    MessageBox.Show("No walk frequencies selected in FreqWalk tab!!");
+                    return;
+                }
+                if (freqWalkIsRunning == false)
+                {
+                    myRig.SendCommand((int)numericUpDownFLRigBeforeWalk.Value);
+                    FreqWalkStart();
+                }
+                else
+                {
+                    timerGetFreq.Stop();
+                    Thread.Sleep(200);
+                    FreqWalkStop();
+                    myRig.SendCommand((int)numericUpDownFLRigAfterWalk.Value);
+                    timerGetFreq.Start();
+                }
             }
-            if (freqWalkIsRunning == false)
+            catch (Exception ex)
             {
-                myRig.SendCommand((int)numericUpDownFLRigBeforeWalk.Value);
-                FreqWalkStart();
-            }
-            else
-            {
-                timerGetFreq.Stop();
-                Thread.Sleep(200);
-                FreqWalkStop();
-                myRig.SendCommand((int)numericUpDownFLRigAfterWalk.Value);
-                timerGetFreq.Start();
+                MessageBox.Show("Error: "+ ex.Message + ex.StackTrace);
             }
         }
 
@@ -5414,6 +5426,7 @@ namespace AmpAutoTunerUtility
 
         void TabPageExpertLinears_Init(object sender)
         {
+            if (!tuner1.isOn) return;
             //TabPage myPage = (TabPage)sender;
             //myPage.SuspendLayout();
             //myPage.Refresh();
@@ -5799,7 +5812,7 @@ Set
         private void checkedListBoxWalk1_Validated(object sender, EventArgs e)
         {
             FrequenciesToWalk();
-            FreqWalkSetFreq(0);
+            //FreqWalkSetFreq(0);
         }
 
         private void buttonOperate_Click(object sender, EventArgs e)

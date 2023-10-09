@@ -121,7 +121,7 @@ namespace AmpAutoTunerUtility
         public override void SelectDisplayPage()
         {
             Byte[] cmdDisplay = { 0x55, 0x55, 0x55, 0x01, 0x0c, 0x0c };
-            Monitor.Enter("ExpertLinear");
+            //Monitor.Enter("ExpertLinear");
             SerialPortTuner!.Write(cmdDisplay, 0, 6);
             Thread.Sleep(200);
         }
@@ -136,7 +136,7 @@ namespace AmpAutoTunerUtility
             // display, set, forward, set, when done display again
             Byte[] cmdSet = { 0x55, 0x55, 0x55, 0x01, 0x11, 0x11 };
             Byte[] cmdRight = { 0x55, 0x55, 0x55, 0x01, 0x10, 0x10 };
-            Monitor.Enter("ExpertLinear");
+            //Monitor.Enter("ExpertLinear");
             // Have to go to home display page and display again
             SelectDisplayPage();
             //SelectDisplayPage();
@@ -161,7 +161,7 @@ namespace AmpAutoTunerUtility
             // display, set, forward, set, when done display again
             Byte[] cmdSet = { 0x55, 0x55, 0x55, 0x01, 0x11, 0x11 };
             Byte[] cmdRight = { 0x55, 0x55, 0x55, 0x01, 0x10, 0x10 };
-            Monitor.Enter("ExpertLinear");
+            //Monitor.Enter("ExpertLinear");
             // Have to go to home display page and display again
             SelectDisplayPage();
             SelectDisplayPage();
@@ -182,7 +182,7 @@ namespace AmpAutoTunerUtility
             try
             {
                 Byte[] cmdBuf = { 0x55, 0x55, 0x55, 0x01, cmd, cmd };
-                Monitor.Enter("ExpertLinear");
+                //Monitor.Enter("ExpertLinear");
                 SerialPortTuner.Write(cmdBuf, 0, 6);
                 Thread.Sleep(150);
             }
@@ -210,18 +210,12 @@ namespace AmpAutoTunerUtility
                 return false; 
             }
 
+            //Monitor.Enter("ExpertLinear");
+
 
             try
             {
                 int loop = 10;
-                try
-                {
-                    Monitor.Enter("ExpertLinear");
-                }
-                catch (Exception)
-                {
-                    return false;
-                }
                 if (screenLast != myScreen)
                 {
                     if (myScreen == Screen.Unknown) MessageBox.Show("Where are we?\n");
@@ -380,6 +374,7 @@ namespace AmpAutoTunerUtility
                 if (SerialPortTuner == null)
                     return false;
                 if (freqWalkIsRunning == true) return false;
+                /*
                 try
                 {
                     Monitor.Enter("ExpertLinear");
@@ -388,6 +383,7 @@ namespace AmpAutoTunerUtility
                 {
                     return false;
                 }
+                */
             writeagain:
                 if (SerialPortTuner == null) { return false; }
                 SerialPortTuner.DiscardInBuffer();
@@ -648,7 +644,7 @@ namespace AmpAutoTunerUtility
                 MessageBox.Show("SerialPortTuner=null in" + System.Reflection.MethodBase.GetCurrentMethod().Name);
                 return;
             }
-            Monitor.Enter("ExpertLinear");
+            //Monitor.Enter("ExpertLinear");
             Byte[] cmd = { 0x55, 0x55, 0x55, 0x01, 0x09, 0x09 };
             Byte[] cmdMsg = { 0x55, 0x55, 0x55, 0x01, 0x80, 0x80 };
             SerialPortTuner.DiscardInBuffer();
@@ -1866,7 +1862,7 @@ namespace AmpAutoTunerUtility
                 MessageBox.Show("SerialPortTuner=null in" + System.Reflection.MethodBase.GetCurrentMethod().Name);
                 return false;
             }
-            Monitor.Enter("ExpertLinear");
+            //Monitor.Enter("ExpertLinear");
             SerialPortTuner.DtrEnable = false;
             SerialPortTuner.RtsEnable = true;
             Thread.Sleep(1000);
