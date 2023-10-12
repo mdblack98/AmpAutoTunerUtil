@@ -373,7 +373,7 @@ namespace AmpAutoTunerUtility
             {
                 if (SerialPortTuner == null)
                     return false;
-                if (freqWalkIsRunning == true) return false;
+                if (freqWalkIsRunning == true && !isOn) return false;
                 /*
                 try
                 {
@@ -551,7 +551,7 @@ namespace AmpAutoTunerUtility
                 try
                 {
                     Thread.Sleep(1000);
-                    if (!freqWalkIsRunning)
+                    //if (!freqWalkIsRunning)
                         isOn = GetStatus();
                     //DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.LOG, "Expert Linears thread got status\n");
                 }
