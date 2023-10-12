@@ -2433,6 +2433,13 @@ namespace AmpAutoTunerUtility
                     //if (responseData.Contains("<value>")) // then we have a frequency
                     {
                         frequencyHz = cvfo == 'A' ? this.myRig.FrequencyA : this.myRig.FrequencyB;
+                        if (frequencyHz == 0)
+                        {
+                            DebugAddMsg(DebugEnum.ERR, "frequencyHz==0, A=" + this.myRig.FrequencyA + ", B=" + this.myRig.FrequencyB);
+                            this.myRig.GetFrequency(cvfo);
+                            frequencyHz = cvfo == 'A' ? this.myRig.FrequencyA : this.myRig.FrequencyB;
+                            DebugAddMsg(DebugEnum.ERR, "retrying A=" + this.myRig.FrequencyA + ", B=" + this.myRig.FrequencyB);
+                        }
                         // if our frequency changes by more than 10KHz make VFOB match VFOA
                         if (frequencyHz < 60000000 && frequencyLast != 0 && Math.Abs(frequencyHz - frequencyLast) > 200)
                         {
@@ -5633,6 +5640,11 @@ namespace AmpAutoTunerUtility
             {
                 MessageBox.Show("tuner1.antennas=null in" + System.Reflection.MethodBase.GetCurrentMethod().Name);
                 return;
+            }
+            if (comboBoxExpertLinears160_1.Items.Count == 0)
+            {
+                MessageBox.Show("SPE tab must be selected 1st with amp on");
+                return
             }
             comboBoxExpertLinears160_1.SelectedIndex = comboBoxExpertLinears160_1.FindStringExact(tuner1.antennas[0, 0]);
             if (comboBoxExpertLinears160_1.SelectedIndex < 0) comboBoxExpertLinears160_1.SelectedIndex = 0;
