@@ -71,7 +71,7 @@ namespace AmpAutoTunerUtility
             //isOn = GetStatus();
             if (isOn == false)
             {
-                isOn = isOn;
+                isOn = true;
             }
             //}
             //catch (Exception ex)
@@ -289,11 +289,11 @@ namespace AmpAutoTunerUtility
                 // check for M in MANUAL
                 if (myScreen == Screen.Antenna && response[17] != 0x33)
                 {
-                    return false;
+                    return true;
                 }
                 else if (myScreen == Screen.ManualTune && response[17] != 0x2d)
                 {
-                    return false;
+                    return true;
                 }
                 byte ledStatus = response[8];
                 DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.LOG, "LED status: " + ledStatus.ToString("X2") + "\n");
@@ -303,7 +303,7 @@ namespace AmpAutoTunerUtility
                     {
                         while (response[160] != 0x0e)
                         {
-                            return false;
+                            return true;
                         };
                         string value = lookup[(int)response[156]].ToString();
                         value += lookup[(int)response[157]].ToString();
@@ -363,7 +363,7 @@ namespace AmpAutoTunerUtility
                 catch (Exception ex)
                 {
                     DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.ERR, "GetStatus error: " + ex.Message + "\n" + ex.StackTrace);
-                    return false;
+                    return true;
                 }
             return true;
         }
@@ -372,8 +372,16 @@ namespace AmpAutoTunerUtility
             try
             {
                 if (SerialPortTuner == null)
+                {
+                    DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.ERR, "SerialPortTuner==null");
                     return false;
-                if (freqWalkIsRunning == true && !isOn) return false;
+                }
+                if (freqWalkIsRunning == true || !isOn)
+                {
+                    //DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.ERR, "freqWalkIsRunning " + freqWalkIsRunning + ", isOn=" + isOn);;
+                    if (!isOn) return false;
+                    return true;
+                }
                 /*
                 try
                 {
@@ -384,6 +392,7 @@ namespace AmpAutoTunerUtility
                     return false;
                 }
                 */
+                int repeat = 1;
             writeagain:
                 if (SerialPortTuner == null) { return false; }
                 SerialPortTuner.DiscardInBuffer();
@@ -397,8 +406,9 @@ namespace AmpAutoTunerUtility
                 {
                     SerialPortTuner.Write(cmd, 0, 6);
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
+                    DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.ERR, ex.Message + "\n" + ex.StackTrace);
                     return false;
                 }
             //int zeroCount = 0;
@@ -412,17 +422,24 @@ namespace AmpAutoTunerUtility
                         if (myByte == 0 && watch.ElapsedMilliseconds > 1000)
                         {
                             watch.Restart();
+                            DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.ERR, "Elapsed expired\n");
+                            if (repeat>0)
+                            {
+                                --repeat;
+                                goto writeagain;
+                            }
                             return false;
                         }
                         if (myByte == -1)
                         {
+                            DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.ERR, "myByte == -1\n");
                             return false;
                         }
                         //DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.LOG, "Got " + String.Format("{0:X}", myByte));
                     }
                     catch (Exception ex)
                     {
-                        if (ex.HResult != -2146233083)
+                        //if (ex.HResult != -2146233083)
                             DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.LOG, "timeout\n");
                         return false;
                     }
@@ -450,7 +467,7 @@ namespace AmpAutoTunerUtility
                     catch (TimeoutException)
                     {
                         DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.ERR, "GetStatus serial timeout\n");
-                        return false;
+                        return true;
                     }
                     ++n;
                 }
@@ -468,18 +485,20 @@ namespace AmpAutoTunerUtility
                 var sresponse = System.Text.Encoding.Default.GetString(response, 0, n - 5);
                 if (chkByte0 != resByte0)
                 {
-                    return false;
+                    DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.ERR, "chkByte0\n");
+                    return true; // return true since we are still connected
                 }
                 if (chkByte1 != resByte1)
                 {
-                    return false;
+                    DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.ERR, "chkByte1\n");
+                    return true; // return true since we are still connected
                 }
 
                 //DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.LOG, sresponse);
                 // "ªªªC,13K,S,R,A,1,10,1a,0r,L,00\00, 0.00, 0.00, 0.0, 0.0,081,000,000,N,N,
                 // SYNC,ID,Operate(S/O),Rx/Tx,Bank,Input,Band,TXAnt and ATU, RxAnt,PwrLevel,PwrOut,SWRATU,SWRANT,VPA, IPA, TempUpper, TempLower,
                 string[] mytokens = sresponse.Split(',');
-                DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.LOG, mytokens.Length + ":" + sresponse + "\n");
+                //DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.LOG, mytokens.Length + ":" + sresponse + "\n");
                 try
                 {
                     if (mytokens.Length > 20)
@@ -517,7 +536,7 @@ namespace AmpAutoTunerUtility
                             response[1] = 0;
                             if (mytokens[18].Length > 0 && !mytokens[18].Equals("N"))
                             {
-                                DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.LOG, "MSG: " + mytokens[18] + "\n");
+                                //DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.LOG, "MSG: " + mytokens[18] + "\n");
                             }
                         }
                         Application.DoEvents();
@@ -534,6 +553,7 @@ namespace AmpAutoTunerUtility
                 DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.ERR, "GetStatus: " + ex.Message + "\n" + ex.StackTrace);
                 return false;
             }
+            isOn = true;
             return true;
         }
 
@@ -546,6 +566,7 @@ namespace AmpAutoTunerUtility
         private void ThreadTask()
         {
             runThread = true;
+            DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.VERBOSE, "Expert Linears thread started\n");
             while (runThread)
             {
                 try
@@ -553,6 +574,10 @@ namespace AmpAutoTunerUtility
                     Thread.Sleep(1000);
                     //if (!freqWalkIsRunning)
                         isOn = GetStatus();
+                    if (isOn==false)
+                    {
+                        continue;
+                    }
                     //DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.LOG, "Expert Linears thread got status\n");
                 }
                 catch (Exception ex)
@@ -1873,8 +1898,8 @@ namespace AmpAutoTunerUtility
         }
         public override bool Off()
         {
-            SendCmd(0x0a);
             isOn = false;
+            SendCmd(0x0a);
             return true;
         }
 

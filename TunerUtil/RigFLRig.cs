@@ -26,7 +26,9 @@ namespace AmpAutoTunerUtility
         public double frequencyA = 0;
         public double frequencyB = 0;
         public string modeA = "CW";
+        public string modeAKeep = "CW";
         public string modeB = "CW";
+        public string modeBKeep = "CW";
         public bool ptt;
         public int power;
         public bool transceive;
@@ -215,8 +217,18 @@ namespace AmpAutoTunerUtility
                 power = FLRigGetPower();
                 if (++n % 2 == 0)  // do every other one
                 {
-                    modeA = FLRigGetMode('A');
-                    modeB = FLRigGetMode('B');
+                    do
+                    {
+                        modeA = FLRigGetMode('A');
+                        if (modeA.Length == 0)
+                            DebugAddMsg(DebugEnum.ERR, "FlRigGetMode A length==0\n");
+                    } while (modeA.Length == 0);
+                    do
+                    { 
+                        modeB = FLRigGetMode('B');
+                        if (modeB.Length == 0)
+                            DebugAddMsg(DebugEnum.ERR, "FlRigGetMode B length==0\n");
+                    } while (modeB.Length == 0);
                 }
                 Thread.Sleep(500);
             }
@@ -346,7 +358,16 @@ namespace AmpAutoTunerUtility
         //}
         public override string GetMode(char vfo)
         {
-            return FLRigGetMode(vfo);
+            string mode;
+            do
+            {
+                mode = FLRigGetMode(vfo);
+                if (mode.Length == 0)
+                    DebugAddMsg(DebugEnum.ERR, "GetMode length==0\n");
+            } while(mode.Length == 0);
+            if (vfo == 'A') modeA = mode;
+            else modeB = mode;
+            return mode;
         }
 
         public override string GetRig()
@@ -446,7 +467,7 @@ namespace AmpAutoTunerUtility
 
         private double FLRigGetFrequency(char vfo)
         {
-            double frequency = 0;
+            double frequency = vfo == 'A'? frequencyA : frequencyB;
             Monitor.Enter(12345);
             string xml = FLRigXML("rig.get_vfo" + vfo, null);
             Byte[] data = System.Text.Encoding.ASCII.GetBytes(xml);
@@ -469,10 +490,11 @@ namespace AmpAutoTunerUtility
             }
             data = new Byte[4096];
             rigStream.ReadTimeout = 5000;
+            String responseData = "no response";
             try
             {
                 Int32 bytes = rigStream.Read(data, 0, data.Length);
-                String responseData = Encoding.ASCII.GetString(data, 0, bytes);
+                responseData = Encoding.ASCII.GetString(data, 0, bytes);
                 //richTextBoxRig.AppendText(responseData + "\n");
                 try
                 {
@@ -482,16 +504,18 @@ namespace AmpAutoTunerUtility
                         int offset2 = responseData.IndexOf("</value>", StringComparison.InvariantCulture);
                         string freqString = responseData.Substring(offset1, offset2 - offset1);
                         frequency = Double.Parse(freqString, CultureInfo.InvariantCulture);
+                        if (frequency < 1000) DebugMsg.DebugAddMsg(DebugEnum.ERR, "Frequency==0\n" + responseData);
+                        //DebugMsg.DebugAddMsg(DebugEnum.ERR, "Frequency==0\n" + responseData);
                     }
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-
+                    DebugMsg.DebugAddMsg(DebugEnum.ERR, "FLRigGetFrequency Exception#1\n"+ex.Message+"\n"+responseData);
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
+                DebugMsg.DebugAddMsg(DebugEnum.ERR, "FLRigGetFrequency Exception#2\n"+ex.Message+"\n" + responseData);
             }
             return frequency;
         }
@@ -651,8 +675,24 @@ namespace AmpAutoTunerUtility
             {
 
             }
-            if (vfo == 'A') modeA = mode;
-            else modeB = mode;
+            if (vfo == 'A')
+            {
+                modeA = mode;
+                if (modeA != modeAKeep)
+                {
+                    DebugAddMsg(DebugEnum.VERBOSE, "FLRigGetMode(" + vfo + ") modeA =" + modeA);
+                    modeAKeep = modeA;
+                }
+            }
+            else
+            {
+
+                modeB = mode;
+                if (modeB != modeBKeep) {
+                    DebugAddMsg(DebugEnum.VERBOSE, "FLRigGetMode(" + vfo + ") modeB =" + modeB);
+                    modeBKeep = modeB;
+                }
+            }
             return mode;
         }
 
@@ -679,6 +719,11 @@ namespace AmpAutoTunerUtility
                 {
                     DebugAddMsg(DebugEnum.ERR, "FLRigSetVFO response != 200 OK\n" + responseData + "\n");
                 }
+                else
+                {
+                    if (vfo == 'A') modeA = mode;
+                    else modeB = mode;
+                }
             }
             catch (Exception ex)
             {
@@ -692,7 +737,12 @@ namespace AmpAutoTunerUtility
             set 
             {
                 FLRigSetMode('A', value);
-                modeA = FLRigGetMode('A');
+                do
+                {
+                    modeA = FLRigGetMode('A');
+                    if (modeA.Length == 0)
+                        DebugAddMsg(DebugEnum.ERR, "FlRigGetMode A length==0\n");
+                } while (modeA.Length == 0);
             } 
         }
         public override string ModeB 
@@ -701,7 +751,12 @@ namespace AmpAutoTunerUtility
             set 
             {
                 FLRigSetMode('B', value);
-                modeB = FLRigGetMode('B');
+                do
+                {
+                    modeB = FLRigGetMode('B');
+                    if (modeB.Length == 0)
+                        DebugAddMsg(DebugEnum.ERR, "FlRigGetMode B length==0\n");
+                } while (modeB.Length == 0);
             }
         }
         public override bool PTT

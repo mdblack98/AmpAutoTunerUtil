@@ -2443,6 +2443,7 @@ namespace AmpAutoTunerUtility
                         // if our frequency changes by more than 10KHz make VFOB match VFOA
                         if (frequencyHz < 60000000 && frequencyLast != 0 && Math.Abs(frequencyHz - frequencyLast) > 200)
                         {
+                            DebugAddMsg(DebugEnum.LOG, "Changing VFOB to match freq="+frequencyHz+"\n");
                             this.myRig.FrequencyB = this.myRig.FrequencyA;
                         }
                         if (frequencyLast != 0 && Math.Abs(frequencyHz - frequencyLast) > tolTune)
@@ -2957,7 +2958,11 @@ namespace AmpAutoTunerUtility
                 MyMessageBox("Tuner not enabled");
                 return;
             }
-            if (freqWalkIsRunning) FreqWalkStop();
+            if (freqWalkIsRunning)
+            {
+                DebugMsg.DebugAddMsg(DebugEnum.LOG, "FrequencyWalk Stop Request#1");
+                FreqWalkStop();
+            }
             //if (!relay1.IsOK())
             //{
             //    MyMessageBox("Relay1 is not communicating?");
@@ -3532,7 +3537,7 @@ namespace AmpAutoTunerUtility
                     if (richTextBoxDebug.Disposing) return;
                     richTextBoxDebug.SelectionStart = 0;
                     richTextBoxDebug.ScrollToCaret();
-                    while (richTextBoxDebug.Lines.Length > 2000)
+                    while (richTextBoxDebug.Lines.Length > 5000)
                     {
                         richTextBoxDebug.Select(0, richTextBoxDebug.GetFirstCharIndexFromLine(1));
                         richTextBoxDebug.SelectedText = "";
@@ -4228,7 +4233,7 @@ namespace AmpAutoTunerUtility
                 if (frequenciesToWalk == null) return;
                 if (frequenciesToWalk.Count == 0)
                 {
-                    MessageBox.Show("There are no frequencies to walk");
+                    DebugMsg.DebugAddMsg(DebugEnum.LOG,"There are no frequencies to walk");
                     return;
                 }
                 if (myRig == null) return;
@@ -4253,17 +4258,29 @@ namespace AmpAutoTunerUtility
         private void TimerFreqWalk_Tick(object sender, EventArgs e)
         {
             //DebugAddMsg(DebugEnum.LOG, "FreqWalkTick\n");
-            if (frequenciesToWalk == null) return;
+            if (frequenciesToWalk == null)
+            {
+                DebugMsg.DebugAddMsg(DebugEnum.ERR, "No frequencies to walk...disabling");
+                timerFreqWalk.Stop();
+                FreqWalkStop();
+                return;
+            }
             try
             {
                 timerFreqWalk.Stop();
                 //richTextBox1.AppendText(MyTime() + "Tick\n");
                 FLRigGetFreq(false);
+                if (frequencyHz == 0)
+                {
+                    DebugMsg.DebugAddMsg(DebugEnum.ERR, "Frequency == 0");
+                    return;
+                }
                 //var freq = frequenciesToWalk[(int)frequencyIndex];
                 if (frequenciesToWalk.Count == 0) return;
                 if (frequencyIndex >= frequenciesToWalk.Count) frequencyIndex = 0;
                 if (frequencyIndex >= 0 && !frequenciesToWalk.Contains((long)frequencyHz))
                 {
+                    DebugMsg.DebugAddMsg(DebugEnum.LOG, "FrequencyWalk Stop Request#2 frequencyHz="+ frequencyHz);
                     FreqWalkStop();
                     return;
                 }
@@ -4308,9 +4325,9 @@ namespace AmpAutoTunerUtility
 
         List<long> FrequenciesToWalk()
         {
+            if (frequenciesToWalk is null) frequenciesToWalk = new List<long>();
             try
             {
-                if (frequenciesToWalk == null) frequenciesToWalk = new List<long>();
                 frequenciesToWalk.Clear();
                 CheckedListBox.CheckedItemCollection items;
                 checkedListBoxWalk1.Enabled = false;
@@ -4447,18 +4464,20 @@ namespace AmpAutoTunerUtility
                 //FreqWalkSetFreq(0);
                 if (frequenciesToWalk == null || (freqWalkIsRunning == false && frequenciesToWalk.Count == 0))
                 {
-                    MessageBox.Show("No walk frequencies selected in FreqWalk tab!!");
+                    DebugMsg.DebugAddMsg(DebugEnum.LOG,"No walk frequencies selected in FreqWalk tab!!");
                     return;
                 }
                 if (freqWalkIsRunning == false)
                 {
                     myRig.SendCommand((int)numericUpDownFLRigBeforeWalk.Value);
                     FreqWalkStart();
+                    DebugMsg.DebugAddMsg(DebugEnum.LOG, "FrequencyWalk Started");
                 }
                 else
                 {
                     timerGetFreq.Stop();
                     Thread.Sleep(200);
+                    DebugMsg.DebugAddMsg(DebugEnum.LOG, "FrequencyWalk Stop Request#3");
                     FreqWalkStop();
                     myRig.SendCommand((int)numericUpDownFLRigAfterWalk.Value);
                     timerGetFreq.Start();
@@ -5615,7 +5634,7 @@ namespace AmpAutoTunerUtility
 
         void TabPageExpertLinears_Init(object sender)
         {
-            if (!tuner1.isOn) return;
+            if (tuner1 is not null && !tuner1.isOn) return;
             //TabPage myPage = (TabPage)sender;
             //myPage.SuspendLayout();
             //myPage.Refresh();
@@ -5644,7 +5663,7 @@ namespace AmpAutoTunerUtility
             if (comboBoxExpertLinears160_1.Items.Count == 0)
             {
                 MessageBox.Show("SPE tab must be selected 1st with amp on");
-                return
+                return;
             }
             comboBoxExpertLinears160_1.SelectedIndex = comboBoxExpertLinears160_1.FindStringExact(tuner1.antennas[0, 0]);
             if (comboBoxExpertLinears160_1.SelectedIndex < 0) comboBoxExpertLinears160_1.SelectedIndex = 0;
@@ -5823,7 +5842,7 @@ namespace AmpAutoTunerUtility
             tuner1!.Off();
         }
 
-        private void Button5_Click(object sender, EventArgs e)
+        private void ButtonTunePwr_Click(object sender, EventArgs e)
         {
             try
             {

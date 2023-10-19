@@ -34,7 +34,7 @@ namespace AmpAutoTunerUtility
             return time;
         }
 
-        public string ?Text { get; set; }
+        public string? Text { get; set; }
         public DebugEnum Level { get; set; }
         public static void DebugAddMsg(DebugEnum level, string msg)
         {

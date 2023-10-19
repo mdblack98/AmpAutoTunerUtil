@@ -1531,7 +1531,7 @@
             this.buttonTunerPwr.Text = "Pwr";
             this.toolTip1.SetToolTip(this.buttonTunerPwr, "Power On/Off");
             this.buttonTunerPwr.UseVisualStyleBackColor = false;
-            this.buttonTunerPwr.Click += new System.EventHandler(this.Button5_Click);
+            this.buttonTunerPwr.Click += new System.EventHandler(this.ButtonTunePwr_Click);
             // 
             // labelClock
             // 
@@ -2489,7 +2489,7 @@
             this.labelFreqWalk3.TabIndex = 8;
             this.labelFreqWalk3.Text = "Custom";
             this.labelFreqWalk3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.toolTip1.SetToolTip(this.labelFreqWalk3, "Ctrl-click to edit freq");
+            this.toolTip1.SetToolTip(this.labelFreqWalk3, "Ctrl-click to edit label");
             this.labelFreqWalk3.Click += new System.EventHandler(this.LabelFreqWalk3_Click);
             // 
             // labelFreqWalk2
@@ -2501,7 +2501,7 @@
             this.labelFreqWalk2.TabIndex = 7;
             this.labelFreqWalk2.Text = "FT4";
             this.labelFreqWalk2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.toolTip1.SetToolTip(this.labelFreqWalk2, "Ctrl-click to edit freq");
+            this.toolTip1.SetToolTip(this.labelFreqWalk2, "Ctrl-click to edit label");
             this.labelFreqWalk2.Click += new System.EventHandler(this.LabelFreqWalk2_Click);
             // 
             // labelFreqWalk1
@@ -2513,7 +2513,7 @@
             this.labelFreqWalk1.TabIndex = 6;
             this.labelFreqWalk1.Text = "FT8";
             this.labelFreqWalk1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.toolTip1.SetToolTip(this.labelFreqWalk1, "Ctrl-click to edit freq");
+            this.toolTip1.SetToolTip(this.labelFreqWalk1, "Ctrl-click to edit label");
             this.labelFreqWalk1.Click += new System.EventHandler(this.LabelFreqWalk1_Click);
             // 
             // checkedListBoxWalk3
@@ -5410,7 +5410,7 @@
             this.Margin = new System.Windows.Forms.Padding(2);
             this.MaximumSize = new System.Drawing.Size(417, 310);
             this.Name = "Form1";
-            this.Text = "AmpAutoTunerUtility 231011";
+            this.Text = "AmpAutoTunerUtility 231018";
             this.HelpButtonClicked += new System.ComponentModel.CancelEventHandler(this.Form1_HelpButtonClicked);
             this.Activated += new System.EventHandler(this.Form1_Activated);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
