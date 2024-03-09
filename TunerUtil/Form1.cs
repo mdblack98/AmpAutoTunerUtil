@@ -255,6 +255,9 @@ namespace AmpAutoTunerUtility
                 LoadComPorts();
                 LoadBaudRates();
 
+                // Not currently used
+                tabPage.TabPages.Remove(tabPageExpertLinears);
+
                 // Tuner Properties
                 textBoxFreqTol.Text = Properties.Settings.Default.tolTune;
                 checkBoxRig.Checked = Properties.Settings.Default.rigEnabled;
@@ -6014,15 +6017,20 @@ namespace AmpAutoTunerUtility
                     Thread.Sleep(100);
                     tuner1.On();
                     Thread.Sleep(3000);
+                    tuner1.SetPowerLevel("Mid");
                     myRig!.FrequencyA = myRig!.FrequencyA;
                     myRig!.FrequencyB = myRig!.FrequencyB;
                     buttonTunerPwr.Enabled = true;
+                    buttonOperate.Enabled = true;
+                    buttonPowerLevel.Enabled = true;
                     buttonTunerPwr.Refresh();
                     buttonTunerPwr.BackColor = System.Drawing.Color.Green;
                     buttonTunerPwr.ForeColor = System.Drawing.Color.White;
                 }
                 else
                 {
+                    buttonOperate.Enabled = false;
+                    buttonPowerLevel.Enabled= false;
                     buttonTunerPwr.BackColor = System.Drawing.Color.Yellow;
                     buttonTunerPwr.ForeColor = System.Drawing.Color.Black;
                     buttonTunerPwr.Enabled = false;

@@ -619,6 +619,25 @@ namespace AmpAutoTunerUtility
             else tmp = "???";
             return tmp;
         }
+        public override void SetPowerLevel(string value)
+        {
+            if (powerLevel == value) return;
+            string current = GetPowerLevel();
+            if ((current == "Max" || current == "Low") && value == "Mid")
+            {
+                SendCmd(0x0b);
+            }
+            if (current == "Max" && value == "Low")
+            {
+                SendCmd(0x0b);
+                SendCmd(0x0b);
+            }
+            if (current == "Low" && value == "Max")
+            {
+                SendCmd(0x0b);
+                SendCmd(0x0b);
+            }
+        }
         public override string GetPower()
         {
             // Can't get power from the LDG tuner

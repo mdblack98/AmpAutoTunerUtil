@@ -159,6 +159,11 @@ namespace AmpAutoTunerUtility
         {
             return "LMM";
         }
+
+        public virtual void SetPowerLevel(string value)
+        {
+            return;
+        }
         public virtual string GetPower()
         {
             return "POW";
