@@ -23,6 +23,7 @@ namespace AmpAutoTunerUtility
         char response = 'X';
         private string swr1 = "?";
         private string swr2 = "?";
+        private string powerLevel = "?";
         private string power = "?";
         //public char bank = "?";
         private string temp1 = "?";
@@ -375,12 +376,11 @@ namespace AmpAutoTunerUtility
                     DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.ERR, "SerialPortTuner==null");
                     return false;
                 }
-                if (freqWalkIsRunning == true || !isOn)
+                //if (freqWalkIsRunning == true || !isOn)
+                if (!isOn)
                 {
+                    return false;
                     //DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.ERR, "freqWalkIsRunning " + freqWalkIsRunning + ", isOn=" + isOn);;
-                    if (!isOn) 
-                        return false;
-                    return true;
                 }
                 /*
                 try
@@ -525,6 +525,7 @@ namespace AmpAutoTunerUtility
                         AntennaNumber = int.Parse(antenna.Substring(0, 1));
                         model = "SPE " + mytokens[1];
                         bank = mytokens[4][0];
+                        powerLevel = mytokens[9];
                         power = mytokens[10];
                         swr1 = mytokens[11];
                         SetSWR(Double.Parse(swr1));
@@ -609,6 +610,15 @@ namespace AmpAutoTunerUtility
             return response;
         }
 
+        public override string GetPowerLevel()
+        {
+            string tmp = "";
+            if (powerLevel == "H") tmp = "Max";
+            else if (powerLevel == "M") tmp = "Mid";
+            else if (powerLevel == "L") tmp = "Low";
+            else tmp = "???";
+            return tmp;
+        }
         public override string GetPower()
         {
             // Can't get power from the LDG tuner

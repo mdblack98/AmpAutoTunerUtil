@@ -250,6 +250,7 @@
             this.numericUpDownFLRigBeforeWalk = new System.Windows.Forms.NumericUpDown();
             this.numericUpDownFLRigAfterWalk = new System.Windows.Forms.NumericUpDown();
             this.buttonOperate = new System.Windows.Forms.Button();
+            this.buttonPowerLevel = new System.Windows.Forms.Button();
             this.tabPage = new System.Windows.Forms.TabControl();
             this.tabPageControl = new System.Windows.Forms.TabPage();
             this.labelControlLog2 = new System.Windows.Forms.Label();
@@ -3507,6 +3508,20 @@
             this.buttonOperate.UseVisualStyleBackColor = false;
             this.buttonOperate.Click += new System.EventHandler(this.buttonOperate_Click);
             // 
+            // buttonPowerLevel
+            // 
+            this.buttonPowerLevel.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.buttonPowerLevel.FlatAppearance.BorderSize = 2;
+            this.buttonPowerLevel.Location = new System.Drawing.Point(192, 40);
+            this.buttonPowerLevel.Margin = new System.Windows.Forms.Padding(2);
+            this.buttonPowerLevel.Name = "buttonPowerLevel";
+            this.buttonPowerLevel.Size = new System.Drawing.Size(39, 20);
+            this.buttonPowerLevel.TabIndex = 25;
+            this.buttonPowerLevel.Text = "?";
+            this.toolTip1.SetToolTip(this.buttonPowerLevel, "Pick amp Lo/Mid/Max power level");
+            this.buttonPowerLevel.UseVisualStyleBackColor = false;
+            this.buttonPowerLevel.Click += new System.EventHandler(this.buttonPowerLevel_Click);
+            // 
             // tabPage
             // 
             this.tabPage.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -3575,6 +3590,7 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.buttonPowerLevel);
             this.groupBox2.Controls.Add(this.buttonOperate);
             this.groupBox2.Controls.Add(this.buttonTunerPwr);
             this.groupBox2.Controls.Add(this.labelClock);
@@ -5385,7 +5401,7 @@
             this.Margin = new System.Windows.Forms.Padding(2);
             this.MaximumSize = new System.Drawing.Size(417, 310);
             this.Name = "Form1";
-            this.Text = "AmpAutoTunerUtility 231026";
+            this.Text = "AmpAutoTunerUtility 240309";
             this.HelpButtonClicked += new System.ComponentModel.CancelEventHandler(this.Form1_HelpButtonClicked);
             this.Activated += new System.EventHandler(this.Form1_Activated);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
@@ -5831,6 +5847,7 @@
         private System.Windows.Forms.NumericUpDown numericUpDownFLRigAfterWalk;
         private System.Windows.Forms.NumericUpDown numericUpDownFLRigBeforeWalk;
         private System.Windows.Forms.Button buttonOperate;
+        private System.Windows.Forms.Button buttonPowerLevel;
     }
 }
 

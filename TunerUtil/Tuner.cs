@@ -155,6 +155,10 @@ namespace AmpAutoTunerUtility
             return "SWR.XX";
         }
 
+        public virtual string GetPowerLevel()
+        {
+            return "LMM";
+        }
         public virtual string GetPower()
         {
             return "POW";

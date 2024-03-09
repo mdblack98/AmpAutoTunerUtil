@@ -2598,6 +2598,7 @@ namespace AmpAutoTunerUtility
         private void TimerGetFreq_Tick(object sender, EventArgs e)
         {
             timerGetFreq.Stop();
+
             if (tuner1 is not null && tuner1.isOperate && tuner1.isOn)
             {
                 buttonOperate.BackColor = System.Drawing.Color.Green;
@@ -2624,7 +2625,27 @@ namespace AmpAutoTunerUtility
             if (tuner1 != null && tuner1.GetModel().Contains(EXPERTLINEARS))
             {
                 TunerSetAntennaSPE();
-                radioButtonBankA.CheckedChanged -= radioButtonBankA_CheckedChanged;
+                if (buttonPowerLevel.Visible == false)
+                {
+                    buttonPowerLevel.Visible = true;
+                }
+                buttonPowerLevel.Text = tuner1.GetPowerLevel();
+                buttonPowerLevel.ForeColor = System.Drawing.Color.White;
+                buttonPowerLevel.BackColor = System.Drawing.Color.Green;
+                if (buttonPowerLevel.Text == "Max")
+                {
+                    buttonPowerLevel.ForeColor = System.Drawing.Color.Black;
+                    buttonPowerLevel.BackColor = System.Drawing.Color.Red;
+                }
+                else if (buttonPowerLevel.Text == "Mid")
+                {
+                    buttonPowerLevel.ForeColor = System.Drawing.Color.Black;
+                    buttonPowerLevel.BackColor = System.Drawing.Color.Yellow;
+                }
+                {
+
+                    radioButtonBankA.CheckedChanged -= radioButtonBankA_CheckedChanged;
+                }
                 radioButtonBankB.CheckedChanged -= radioButtonBankB_CheckedChanged;
                 if (tuner1.bank == 'A')
                 {
@@ -4472,6 +4493,11 @@ namespace AmpAutoTunerUtility
         {
             try
             {
+                Cursor = Cursors.WaitCursor;
+                if (tuner1 != null)
+                {
+                    if (tuner1.isOn) tuner1.Off();
+                }
                 timerGetFreq.Stop();
                 timerFreqWalk.Stop();
                 Thread.Sleep(500);
@@ -4483,6 +4509,7 @@ namespace AmpAutoTunerUtility
                 {
                     DebugMsg.DebugAddMsg(DebugEnum.LOG,"No walk frequencies selected in FreqWalk tab!!");
                     timerGetFreq.Start();
+                    Cursor = Cursors.Default;
                     return;
                 }
                 if (freqWalkIsRunning == false)
@@ -4506,6 +4533,7 @@ namespace AmpAutoTunerUtility
                 MessageBox.Show("Error: " + ex.Message + ex.StackTrace);
             }
             timerGetFreq.Start();
+            Cursor = Cursors.Default;
         }
 
         private void ButtonDummyLoad_Click(object sender, EventArgs e)
@@ -6213,6 +6241,11 @@ Set
             }
             Cursor = Cursors.Default;
 
+        }
+
+        private void buttonPowerLevel_Click(object sender, EventArgs e)
+        {
+            tuner1.SendCmd(0x0b);
         }
     }
 
