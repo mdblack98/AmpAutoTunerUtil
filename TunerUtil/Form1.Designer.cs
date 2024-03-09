@@ -183,8 +183,6 @@
             this.buttonSPEAnt = new System.Windows.Forms.Button();
             this.radioButtonBankB = new System.Windows.Forms.RadioButton();
             this.radioButtonBankA = new System.Windows.Forms.RadioButton();
-            this.labelSPE_C = new System.Windows.Forms.Label();
-            this.labelSPE_L = new System.Windows.Forms.Label();
             this.labelExpertLinearsInfo = new System.Windows.Forms.Label();
             this.checkBoxExpertLinears4_2 = new System.Windows.Forms.CheckBox();
             this.checkBoxExpertLinears6_2 = new System.Windows.Forms.CheckBox();
@@ -2601,8 +2599,6 @@
             this.tabPageExpertLinears.Controls.Add(this.buttonSPEAnt);
             this.tabPageExpertLinears.Controls.Add(this.radioButtonBankB);
             this.tabPageExpertLinears.Controls.Add(this.radioButtonBankA);
-            this.tabPageExpertLinears.Controls.Add(this.labelSPE_C);
-            this.tabPageExpertLinears.Controls.Add(this.labelSPE_L);
             this.tabPageExpertLinears.Controls.Add(this.labelExpertLinearsInfo);
             this.tabPageExpertLinears.Controls.Add(this.checkBoxExpertLinears4_2);
             this.tabPageExpertLinears.Controls.Add(this.checkBoxExpertLinears6_2);
@@ -2715,33 +2711,11 @@
             this.radioButtonBankA.UseVisualStyleBackColor = true;
             this.radioButtonBankA.CheckedChanged += new System.EventHandler(this.radioButtonBankA_CheckedChanged);
             // 
-            // labelSPE_C
-            // 
-            this.labelSPE_C.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelSPE_C.Location = new System.Drawing.Point(227, 179);
-            this.labelSPE_C.Name = "labelSPE_C";
-            this.labelSPE_C.Size = new System.Drawing.Size(50, 13);
-            this.labelSPE_C.TabIndex = 65;
-            this.labelSPE_C.Text = "? pF";
-            this.labelSPE_C.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            // 
-            // labelSPE_L
-            // 
-            this.labelSPE_L.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelSPE_L.Location = new System.Drawing.Point(227, 162);
-            this.labelSPE_L.Name = "labelSPE_L";
-            this.labelSPE_L.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.labelSPE_L.Size = new System.Drawing.Size(50, 13);
-            this.labelSPE_L.TabIndex = 64;
-            this.labelSPE_L.Text = "? uH";
-            this.labelSPE_L.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            // 
             // labelExpertLinearsInfo
             // 
-            this.labelExpertLinearsInfo.AutoSize = true;
-            this.labelExpertLinearsInfo.Location = new System.Drawing.Point(36, 169);
+            this.labelExpertLinearsInfo.Location = new System.Drawing.Point(11, 169);
             this.labelExpertLinearsInfo.Name = "labelExpertLinearsInfo";
-            this.labelExpertLinearsInfo.Size = new System.Drawing.Size(59, 13);
+            this.labelExpertLinearsInfo.Size = new System.Drawing.Size(233, 16);
             this.labelExpertLinearsInfo.TabIndex = 61;
             this.labelExpertLinearsInfo.Text = "Information";
             // 
@@ -3018,8 +2992,9 @@
             this.buttonExpertLinearsTune.Name = "buttonExpertLinearsTune";
             this.buttonExpertLinearsTune.Size = new System.Drawing.Size(75, 23);
             this.buttonExpertLinearsTune.TabIndex = 36;
-            this.buttonExpertLinearsTune.Text = "Tune";
-            this.toolTip1.SetToolTip(this.buttonExpertLinearsTune, "Tune selected antennas");
+            this.buttonExpertLinearsTune.Text = "SWR/L/C";
+            this.toolTip1.SetToolTip(this.buttonExpertLinearsTune, "Click - SWR,L,C to clipboard for current band\r\nCtrl-Click set L,C for lowest SWR " +
+        "in current band\r\n");
             this.buttonExpertLinearsTune.UseVisualStyleBackColor = true;
             this.buttonExpertLinearsTune.Click += new System.EventHandler(this.ButtonExpertLinearsTune_Click);
             // 
@@ -5410,7 +5385,7 @@
             this.Margin = new System.Windows.Forms.Padding(2);
             this.MaximumSize = new System.Drawing.Size(417, 310);
             this.Name = "Form1";
-            this.Text = "AmpAutoTunerUtility 231018";
+            this.Text = "AmpAutoTunerUtility 231026";
             this.HelpButtonClicked += new System.ComponentModel.CancelEventHandler(this.Form1_HelpButtonClicked);
             this.Activated += new System.EventHandler(this.Form1_Activated);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
@@ -5848,8 +5823,6 @@
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button buttonTunerPwr;
-        private System.Windows.Forms.Label labelSPE_C;
-        private System.Windows.Forms.Label labelSPE_L;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.RadioButton radioButtonBankB;

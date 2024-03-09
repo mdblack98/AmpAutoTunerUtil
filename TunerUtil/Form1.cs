@@ -20,6 +20,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
+using System.Windows.Media;
 using static AmpAutoTunerUtility.DebugMsg;
 // Todo list
 // Add CW tuning
@@ -195,47 +196,46 @@ namespace AmpAutoTunerUtility
         {
             if (button == button1_1)
             {
-                button1_1.BackColor = (status & 0x01) == 0 ? Color.Gray : Color.Green;
-                button1_2.BackColor = (status & 0x02) == 0 ? Color.Gray : Color.Green;
-                button1_3.BackColor = (status & 0x04) == 0 ? Color.Gray : Color.Green;
-                button1_4.BackColor = (status & 0x08) == 0 ? Color.Gray : Color.Green;
-                button1_5.BackColor = (status & 0x10) == 0 ? Color.Gray : Color.Green;
-                button1_6.BackColor = (status & 0x20) == 0 ? Color.Gray : Color.Green;
-                button1_7.BackColor = (status & 0x40) == 0 ? Color.Gray : Color.Green;
-                button1_8.BackColor = (status & 0x80) == 0 ? Color.Gray : Color.Green;
+                button1_1.BackColor = (status & 0x01) == 0 ? System.Drawing.Color.Gray : System.Drawing.Color.Green;
+                button1_2.BackColor = (status & 0x02) == 0 ? System.Drawing.Color.Gray : System.Drawing.Color.Green;
+                button1_3.BackColor = (status & 0x04) == 0 ? System.Drawing.Color.Gray : System.Drawing.Color.Green;
+                button1_4.BackColor = (status & 0x08) == 0 ? System.Drawing.Color.Gray : System.Drawing.Color.Green;
+                button1_5.BackColor = (status & 0x10) == 0 ? System.Drawing.Color.Gray : System.Drawing.Color.Green;
+                button1_6.BackColor = (status & 0x20) == 0 ? System.Drawing.Color.Gray : System.Drawing.Color.Green;
+                button1_7.BackColor = (status & 0x40) == 0 ? System.Drawing.Color.Gray : System.Drawing.Color.Green;
+                button1_8.BackColor = (status & 0x80) == 0 ? System.Drawing.Color.Gray : System.Drawing.Color.Green;
             }
             else if (button == button2_1)
             {
-                button2_1.BackColor = (status & 0x01) == 0 ? Color.Gray : Color.Green;
-                button2_2.BackColor = (status & 0x02) == 0 ? Color.Gray : Color.Green;
-                button2_3.BackColor = (status & 0x04) == 0 ? Color.Gray : Color.Green;
-                button2_4.BackColor = (status & 0x08) == 0 ? Color.Gray : Color.Green;
-                button2_5.BackColor = (status & 0x10) == 0 ? Color.Gray : Color.Green;
-                button2_6.BackColor = (status & 0x20) == 0 ? Color.Gray : Color.Green;
-                button2_7.BackColor = (status & 0x40) == 0 ? Color.Gray : Color.Green;
-                button2_8.BackColor = (status & 0x80) == 0 ? Color.Gray : Color.Green;
+                button2_1.BackColor = (status & 0x01) == 0 ? System.Drawing.Color.Gray : System.Drawing.Color.Green;
+                button2_2.BackColor = (status & 0x02) == 0 ? System.Drawing.Color.Gray : System.Drawing.Color.Green;
+                button2_3.BackColor = (status & 0x04) == 0 ? System.Drawing.Color.Gray : System.Drawing.Color.Green;
+                button2_4.BackColor = (status & 0x08) == 0 ? System.Drawing.Color.Gray : System.Drawing.Color.Green;
+                button2_5.BackColor = (status & 0x10) == 0 ? System.Drawing.Color.Gray : System.Drawing.Color.Green;
+                button2_6.BackColor = (status & 0x20) == 0 ? System.Drawing.Color.Gray : System.Drawing.Color.Green;
+                button2_7.BackColor = (status & 0x40) == 0 ? System.Drawing.Color.Gray : System.Drawing.Color.Green;
+                button2_8.BackColor = (status & 0x80) == 0 ? System.Drawing.Color.Gray : System.Drawing.Color.Green;
             }
             else if (button == button3_1)
             {
-                button3_1.BackColor = (status & 0x01) == 0 ? Color.Gray : Color.Green;
-                button3_2.BackColor = (status & 0x02) == 0 ? Color.Gray : Color.Green;
-                button3_3.BackColor = (status & 0x04) == 0 ? Color.Gray : Color.Green;
-                button3_4.BackColor = (status & 0x08) == 0 ? Color.Gray : Color.Green;
-                button3_5.BackColor = (status & 0x10) == 0 ? Color.Gray : Color.Green;
-                button3_6.BackColor = (status & 0x20) == 0 ? Color.Gray : Color.Green;
-                button3_7.BackColor = (status & 0x40) == 0 ? Color.Gray : Color.Green;
-                button3_8.BackColor = (status & 0x80) == 0 ? Color.Gray : Color.Green;
+                button3_1.BackColor = (status & 0x01) == 0 ? System.Drawing.Color.Gray : System.Drawing.Color.Green;
+                button3_2.BackColor = (status & 0x02) == 0 ? System.Drawing.Color.Gray : System.Drawing.Color.Green;
+                button3_3.BackColor = (status & 0x04) == 0 ? System.Drawing.Color.Gray : System.Drawing.Color.Green;
+                button3_4.BackColor = (status & 0x08) == 0 ? System.Drawing.Color.Gray : System.Drawing.Color.Green;
+                button3_5.BackColor = (status & 0x10) == 0 ? System.Drawing.Color.Gray : System.Drawing.Color.Green;
+                button3_6.BackColor = (status & 0x20) == 0 ? System.Drawing.Color.Gray : System.Drawing.Color.Green;
+                button3_7.BackColor = (status & 0x40) == 0 ? System.Drawing.Color.Gray : System.Drawing.Color.Green;
+                button3_8.BackColor = (status & 0x80) == 0 ? System.Drawing.Color.Gray : System.Drawing.Color.Green;
             }
             else if (button == button4_1)
             {
-                button4_1.BackColor = (status & 0x01) == 0 ? Color.Gray : Color.Green;
-                button4_2.BackColor = (status & 0x02) == 0 ? Color.Gray : Color.Green;
-                button4_3.BackColor = (status & 0x04) == 0 ? Color.Gray : Color.Green;
-                button4_4.BackColor = (status & 0x08) == 0 ? Color.Gray : Color.Green;
-                button4_5.BackColor = (status & 0x10) == 0 ? Color.Gray : Color.Green;
-                button4_6.BackColor = (status & 0x20) == 0 ? Color.Gray : Color.Green;
-                button4_7.BackColor = (status & 0x40) == 0 ? Color.Gray : Color.Green;
-                button4_8.BackColor = (status & 0x80) == 0 ? Color.Gray : Color.Green;
+                button4_1.BackColor = (status & 0x01) == 0 ? System.Drawing.Color.Gray : System.Drawing.Color.Green;
+                button4_2.BackColor = (status & 0x02) == 0 ? System.Drawing.Color.Gray : System.Drawing.Color.Green;
+                button4_3.BackColor = (status & 0x04) == 0 ? System.Drawing.Color.Gray : System.Drawing.Color.Green;
+                button4_4.BackColor = (status & 0x08) == 0 ? System.Drawing.Color.Gray : System.Drawing.Color.Green;
+                button4_5.BackColor = (status & 0x10) == 0 ? System.Drawing.Color.Gray : System.Drawing.Color.Green;
+                button4_6.BackColor = (status & 0x20) == 0 ? System.Drawing.Color.Gray : System.Drawing.Color.Green;
+                button4_8.BackColor = (status & 0x80) == 0 ? System.Drawing.Color.Gray : System.Drawing.Color.Green;
             }
         }
         private void Form1_Load(object sender, EventArgs e)
@@ -883,13 +883,13 @@ namespace AmpAutoTunerUtility
                     //tuner1.GetStatus();
                     if (tuner1 != null && tuner1.isOn)
                     {
-                        buttonTunerPwr.BackColor = Color.Green;
-                        buttonTunerPwr.ForeColor = Color.White;
+                        buttonTunerPwr.BackColor = System.Drawing.Color.Green;
+                        buttonTunerPwr.ForeColor = System.Drawing.Color.White;
                     }
                     else
                     {
-                        buttonTunerPwr.BackColor = Color.LightGray;
-                        buttonTunerPwr.ForeColor = Color.Black;
+                        buttonTunerPwr.BackColor = System.Drawing.Color.LightGray;
+                        buttonTunerPwr.ForeColor = System.Drawing.Color.Black;
                     }
                     tabPageExpertLinears.Text = tuner1!.GetModel();
                     TunerSetAntennaSPE();
@@ -1435,6 +1435,8 @@ namespace AmpAutoTunerUtility
             {
                 return false;
             }
+            Monitor.Enter("FlRigSend");
+            rigStream.Flush();
             Byte[] data = System.Text.Encoding.ASCII.GetBytes(xml);
             try
             {
@@ -1546,7 +1548,7 @@ namespace AmpAutoTunerUtility
                 Thread.Sleep(500);
                 Debug(DebugEnum.LOG, "Tuning to " + frequencyHzTune + "\n");
 
-                buttonTunerStatus.BackColor = Color.LightGray;
+                buttonTunerStatus.BackColor = System.Drawing.Color.LightGray;
                 Application.DoEvents();
                 if (ptt && !powerSDR) // we turn on PTT and send the audio tone before starting tune
                 {
@@ -1612,14 +1614,14 @@ namespace AmpAutoTunerUtility
                 Application.DoEvents();
                 if (response == 'T')
                 {
-                    buttonTunerStatus.BackColor = Color.Green;
+                    buttonTunerStatus.BackColor = System.Drawing.Color.Green;
                     labelSWR.Text = "SWR < 1.5";
                 }
                 else if (response == 'M')
                 {
                     SoundPlayer simpleSound = new SoundPlayer("swr.wav");
                     simpleSound.Play();
-                    buttonTunerStatus.BackColor = Color.Yellow;
+                    buttonTunerStatus.BackColor = System.Drawing.Color.Yellow;
                     labelSWR.Text = "SWR 1.5-3.0";
                     simpleSound.Dispose();
                 }
@@ -1627,7 +1629,7 @@ namespace AmpAutoTunerUtility
                 {
                     SoundPlayer simpleSound = new SoundPlayer("swr.wav");
                     simpleSound.Play();
-                    buttonTunerStatus.BackColor = Color.Red;
+                    buttonTunerStatus.BackColor = System.Drawing.Color.Red;
                     labelSWR.Text = "SWR > 3.0";
                     simpleSound.Dispose();
                 }
@@ -1636,7 +1638,7 @@ namespace AmpAutoTunerUtility
                     if (this.WindowState == FormWindowState.Minimized)
                         this.WindowState = FormWindowState.Normal;
                     tabPage.SelectedTab = tabPageDebug;
-                    buttonTunerStatus.BackColor = Color.Transparent;
+                    buttonTunerStatus.BackColor = System.Drawing.Color.Transparent;
                     MyMessageBox("Unknown response from tuner = '" + response + "'");
                     Debug(DebugEnum.ERR, "Unknown response from tuner = '" + response + "'\n");
                 }
@@ -1669,56 +1671,56 @@ namespace AmpAutoTunerUtility
                 {
                     checkBoxAntenna1.Checked = true;
                     antennaNumberNew = "1";
-                    buttonAntenna1.BackColor = Color.Green;
+                    buttonAntenna1.BackColor = System.Drawing.Color.Green;
                     antennaAmpChecked = checkBoxAntenna1Amp.Checked;
                 }
                 else if (textBoxAntenna2.Text.ToLower().Contains(dummy))
                 {
                     checkBoxAntenna2.Checked = true;
                     antennaNumberNew = "2";
-                    buttonAntenna2.BackColor = Color.Green;
+                    buttonAntenna2.BackColor = System.Drawing.Color.Green;
                     antennaAmpChecked = checkBoxAntenna2Amp.Checked;
                 }
                 else if (textBoxAntenna3.Text.ToLower().Contains(dummy))
                 {
                     checkBoxAntenna3.Checked = true;
                     antennaNumberNew = "3";
-                    buttonAntenna3.BackColor = Color.Green;
+                    buttonAntenna3.BackColor = System.Drawing.Color.Green;
                     antennaAmpChecked = checkBoxAntenna3Amp.Checked;
                 }
                 else if (textBoxAntenna4.Text.ToLower().Contains(dummy))
                 {
                     checkBoxAntenna4.Checked = true;
                     antennaNumberNew = "4";
-                    buttonAntenna4.BackColor = Color.Green;
+                    buttonAntenna4.BackColor = System.Drawing.Color.Green;
                     antennaAmpChecked = checkBoxAntenna4Amp.Checked;
                 }
                 else if (textBoxAntenna5.Text.ToLower().Contains(dummy))
                 {
                     checkBoxAntenna5.Checked = true;
                     antennaNumberNew = "5";
-                    buttonAntenna5.BackColor = Color.Green;
+                    buttonAntenna5.BackColor = System.Drawing.Color.Green;
                     antennaAmpChecked = checkBoxAntenna5Amp.Checked;
                 }
                 else if (textBoxAntenna6.Text.ToLower().Contains(dummy))
                 {
                     checkBoxAntenna6.Checked = true;
                     antennaNumberNew = "6";
-                    buttonAntenna6.BackColor = Color.Green;
+                    buttonAntenna6.BackColor = System.Drawing.Color.Green;
                     antennaAmpChecked = checkBoxAntenna6Amp.Checked;
                 }
                 else if (textBoxAntenna7.Text.ToLower().Contains(dummy))
                 {
                     checkBoxAntenna7.Checked = true;
                     antennaNumberNew = "7";
-                    buttonAntenna7.BackColor = Color.Green;
+                    buttonAntenna7.BackColor = System.Drawing.Color.Green;
                     antennaAmpChecked = checkBoxAntenna7Amp.Checked;
                 }
                 else if (textBoxAntenna8.Text.ToLower().Contains(dummy))
                 {
                     checkBoxAntenna8.Checked = true;
                     antennaNumberNew = "8";
-                    buttonAntenna8.BackColor = Color.Green;
+                    buttonAntenna8.BackColor = System.Drawing.Color.Green;
                     antennaAmpChecked = checkBoxAntenna8Amp.Checked;
                 }
                 else
@@ -1773,14 +1775,14 @@ namespace AmpAutoTunerUtility
                 double frequencyMHz = frequencyHz / 1000000;
                 if (frequencyHz == 0) return;
 
-                buttonAntenna1.BackColor = Color.LightGray;
-                buttonAntenna2.BackColor = Color.LightGray;
-                buttonAntenna3.BackColor = Color.LightGray;
-                buttonAntenna4.BackColor = Color.LightGray;
-                buttonAntenna5.BackColor = Color.LightGray;
-                buttonAntenna6.BackColor = Color.LightGray;
-                buttonAntenna7.BackColor = Color.LightGray;
-                buttonAntenna8.BackColor = Color.LightGray;
+                buttonAntenna1.BackColor = System.Drawing.Color.LightGray;
+                buttonAntenna2.BackColor = System.Drawing.Color.LightGray;
+                buttonAntenna3.BackColor = System.Drawing.Color.LightGray;
+                buttonAntenna4.BackColor = System.Drawing.Color.LightGray;
+                buttonAntenna5.BackColor = System.Drawing.Color.LightGray;
+                buttonAntenna6.BackColor = System.Drawing.Color.LightGray;
+                buttonAntenna7.BackColor = System.Drawing.Color.LightGray;
+                buttonAntenna8.BackColor = System.Drawing.Color.LightGray;
                 if (dummyLoad == true)
                 {
                     SetDummyLoad();
@@ -1793,11 +1795,11 @@ namespace AmpAutoTunerUtility
                     {
                         if (checkBoxAntenna1.Checked == true &&
                             ((!freqWalkIsRunning && frequencyMHz >= Convert.ToDouble(textBoxAntennaFreq1From.Text, CultureInfo.InvariantCulture) && frequencyMHz <= Convert.ToDouble(textBoxAntennaFreq1To.Text, CultureInfo.InvariantCulture)
-                            ) || (freqWalkIsRunning && textBoxAntenna1.BackColor == Color.LightYellow))
+                            ) || (freqWalkIsRunning && textBoxAntenna1.BackColor == System.Drawing.Color.LightYellow))
                             || tunerAntenna == 1)
                         {
                             checkBoxAntenna1.Checked = true;
-                            buttonAntenna1.BackColor = Color.Green;
+                            buttonAntenna1.BackColor = System.Drawing.Color.Green;
                             labelAntennaSelected.Text = textBoxAntenna1.Text;
                             ButtonAntennaPickSet(buttonAntennaPick1);
                             antennaNumberNew = "1";
@@ -1806,11 +1808,11 @@ namespace AmpAutoTunerUtility
                         }
                         else if (checkBoxAntenna2.Checked == true &&
                             ((!freqWalkIsRunning && frequencyMHz >= Convert.ToDouble(textBoxAntennaFreq2From.Text, CultureInfo.InvariantCulture) && frequencyMHz <= Convert.ToDouble(textBoxAntennaFreq2To.Text, CultureInfo.InvariantCulture)
-                            ) || (freqWalkIsRunning && textBoxAntenna2.BackColor == Color.Yellow))
+                            ) || (freqWalkIsRunning && textBoxAntenna2.BackColor == System.Drawing.Color.Yellow))
                             || tunerAntenna == 2)
                         {
                             checkBoxAntenna2.Checked = true;
-                            buttonAntenna2.BackColor = Color.Green;
+                            buttonAntenna2.BackColor = System.Drawing.Color.Green;
                             labelAntennaSelected.Text = textBoxAntenna2.Text;
                             ButtonAntennaPickSet(buttonAntennaPick2);
                             antennaNumberNew = "2";
@@ -1819,11 +1821,11 @@ namespace AmpAutoTunerUtility
                         }
                         else if (checkBoxAntenna3.Checked == true &&
                             ((!freqWalkIsRunning && frequencyMHz >= Convert.ToDouble(textBoxAntennaFreq3From.Text, CultureInfo.InvariantCulture) && frequencyMHz <= Convert.ToDouble(textBoxAntennaFreq3To.Text, CultureInfo.InvariantCulture)
-                            ) || (freqWalkIsRunning && textBoxAntenna3.BackColor == Color.Yellow))
+                            ) || (freqWalkIsRunning && textBoxAntenna3.BackColor == System.Drawing.Color.Yellow))
                             || tunerAntenna == 3)
                         {
                             checkBoxAntenna3.Checked = true;
-                            buttonAntenna3.BackColor = Color.Green;
+                            buttonAntenna3.BackColor = System.Drawing.Color.Green;
                             ButtonAntennaPickSet(buttonAntennaPick3);
                             labelAntennaSelected.Text = textBoxAntenna3.Text;
                             antennaNumberNew = "3";
@@ -1832,11 +1834,11 @@ namespace AmpAutoTunerUtility
                         }
                         else if (checkBoxAntenna4.Checked == true &&
                             ((!freqWalkIsRunning && frequencyMHz >= Convert.ToDouble(textBoxAntennaFreq4From.Text, CultureInfo.InvariantCulture) && frequencyMHz <= Convert.ToDouble(textBoxAntennaFreq4To.Text, CultureInfo.InvariantCulture)
-                            ) || (freqWalkIsRunning && textBoxAntenna4.BackColor == Color.Yellow))
+                            ) || (freqWalkIsRunning && textBoxAntenna4.BackColor == System.Drawing.Color.Yellow))
                             || tunerAntenna == 4)
                         {
                             checkBoxAntenna4.Checked = true;
-                            buttonAntenna4.BackColor = Color.Green;
+                            buttonAntenna4.BackColor = System.Drawing.Color.Green;
                             ButtonAntennaPickSet(buttonAntennaPick4);
                             labelAntennaSelected.Text = textBoxAntenna4.Text;
                             antennaNumberNew = "4";
@@ -1845,11 +1847,11 @@ namespace AmpAutoTunerUtility
                         }
                         else if (checkBoxAntenna5.Checked == true &&
                             ((!freqWalkIsRunning && frequencyMHz >= Convert.ToDouble(textBoxAntennaFreq5From.Text, CultureInfo.InvariantCulture) && frequencyMHz <= Convert.ToDouble(textBoxAntennaFreq5To.Text, CultureInfo.InvariantCulture)
-                            ) || (freqWalkIsRunning && textBoxAntenna5.BackColor == Color.Yellow))
+                            ) || (freqWalkIsRunning && textBoxAntenna5.BackColor == System.Drawing.Color.Yellow))
                             || tunerAntenna == 5)
                         {
                             checkBoxAntenna5.Checked = true;
-                            buttonAntenna5.BackColor = Color.Green;
+                            buttonAntenna5.BackColor = System.Drawing.Color.Green;
                             ButtonAntennaPickSet(buttonAntennaPick5);
                             labelAntennaSelected.Text = textBoxAntenna5.Text;
                             antennaNumberNew = "5";
@@ -1858,11 +1860,11 @@ namespace AmpAutoTunerUtility
                         }
                         else if (checkBoxAntenna6.Checked == true &&
                             ((!freqWalkIsRunning && frequencyMHz >= Convert.ToDouble(textBoxAntennaFreq6From.Text, CultureInfo.InvariantCulture) && frequencyMHz <= Convert.ToDouble(textBoxAntennaFreq6To.Text, CultureInfo.InvariantCulture)
-                            ) || (freqWalkIsRunning && textBoxAntenna6.BackColor == Color.Yellow))
+                            ) || (freqWalkIsRunning && textBoxAntenna6.BackColor == System.Drawing.Color.Yellow))
                             || tunerAntenna == 6)
                         {
                             checkBoxAntenna6.Checked = true;
-                            buttonAntenna6.BackColor = Color.Green;
+                            buttonAntenna6.BackColor = System.Drawing.Color.Green;
                             ButtonAntennaPickSet(buttonAntennaPick6);
                             labelAntennaSelected.Text = textBoxAntenna6.Text;
                             antennaNumberNew = "6";
@@ -1871,11 +1873,11 @@ namespace AmpAutoTunerUtility
                         }
                         else if (checkBoxAntenna7.Checked == true &&
                             ((!freqWalkIsRunning && frequencyMHz >= Convert.ToDouble(textBoxAntennaFreq7From.Text, CultureInfo.InvariantCulture) && frequencyMHz <= Convert.ToDouble(textBoxAntennaFreq7To.Text, CultureInfo.InvariantCulture)
-                            ) || (freqWalkIsRunning && textBoxAntenna7.BackColor == Color.Yellow))
+                            ) || (freqWalkIsRunning && textBoxAntenna7.BackColor == System.Drawing.Color.Yellow))
                             || tunerAntenna == 7)
                         {
                             checkBoxAntenna7.Checked = true;
-                            buttonAntenna7.BackColor = Color.Green;
+                            buttonAntenna7.BackColor = System.Drawing.Color.Green;
                             ButtonAntennaPickSet(buttonAntennaPick7);
                             labelAntennaSelected.Text = textBoxAntenna7.Text;
                             antennaNumberNew = "7";
@@ -1884,11 +1886,11 @@ namespace AmpAutoTunerUtility
                         }
                         else if (checkBoxAntenna8.Checked == true &&
                             ((!freqWalkIsRunning && frequencyMHz >= Convert.ToDouble(textBoxAntennaFreq8From.Text, CultureInfo.InvariantCulture) && frequencyMHz <= Convert.ToDouble(textBoxAntennaFreq8To.Text, CultureInfo.InvariantCulture)
-                            ) || (freqWalkIsRunning && textBoxAntenna8.BackColor == Color.Yellow))
+                            ) || (freqWalkIsRunning && textBoxAntenna8.BackColor == System.Drawing.Color.Yellow))
                             || tunerAntenna == 8)
                         {
                             checkBoxAntenna8.Checked = true;
-                            buttonAntenna8.BackColor = Color.Green;
+                            buttonAntenna8.BackColor = System.Drawing.Color.Green;
                             ButtonAntennaPickSet(buttonAntennaPick8);
                             labelAntennaSelected.Text = textBoxAntenna8.Text;
                             antennaNumberNew = "8";
@@ -2200,6 +2202,7 @@ namespace AmpAutoTunerUtility
 
         private void FLRigSetActiveVFO(string mode)
         {
+            Monitor.Enter(12345);
             bool errFlag = false;
             Debug(DebugEnum.LOG, "FLRigSetActiveVFO=" + mode + "\n");
 
@@ -2239,6 +2242,7 @@ namespace AmpAutoTunerUtility
             int power = 0;
             try
             {
+                Monitor.Enter(12345);
                 string? xml2 = FLRigXML("rig.get_power", "");
                 Byte[] data = System.Text.Encoding.ASCII.GetBytes(xml2);
                 if (rigStream == null) return 0;
@@ -2400,6 +2404,9 @@ namespace AmpAutoTunerUtility
             }
             if (this.myRig == null)
                 return;
+            //if (rigStream == null) 
+            //    return;
+            //rigStream.Flush();
             this.myRig.GetFrequency('A');
             this.myRig.GetFrequency('B');
             char currVFO = this.myRig.VFO;
@@ -2424,7 +2431,10 @@ namespace AmpAutoTunerUtility
             char cvfo = 'A';
             string mode = this.myRig.VFO == 'A' ? this.myRig.ModeA : this.myRig.ModeB;
             labelFreq.Text = (frequencyHz / 1e6).ToString(CultureInfo.InvariantCulture) + " " + mode;
-            //Debug(DebugEnum.VERBOSE, "VFOA mode is " + mode + "\n");
+            mode = myRig.ModeA;
+            if (lastmode != mode)
+                DebugAddMsg(DebugEnum.LOG, "VFOA mode is " + mode + "\n");
+            lastmode = mode;
             if (radioButtonVFOB.Checked) cvfo = 'B';
             try
             {
@@ -2494,7 +2504,6 @@ namespace AmpAutoTunerUtility
                             // Need to check for split and ignore VFOB if not in split
                             if (!myRig.ModeA.Equals("FM"))
                             {
-                                this.myRig.ModeB = myRig.ModeA;
                                 Debug(DebugEnum.LOG, "Rig mode VFOB=VFOA set to " + mode + "\n");
                             }
                             stopWatchTuner.Restart();
@@ -2588,28 +2597,29 @@ namespace AmpAutoTunerUtility
         }
         private void TimerGetFreq_Tick(object sender, EventArgs e)
         {
-            if (tuner1 is not null && tuner1.isOperate)
+            timerGetFreq.Stop();
+            if (tuner1 is not null && tuner1.isOperate && tuner1.isOn)
             {
-                buttonOperate.BackColor = Color.Green;
-                buttonOperate.ForeColor = Color.White;
+                buttonOperate.BackColor = System.Drawing.Color.Green;
+                buttonOperate.ForeColor = System.Drawing.Color.White;
             }
             else
             {
-                buttonOperate.BackColor = Color.LightGray;
-                buttonOperate.ForeColor = Color.Black;
+                buttonOperate.BackColor = System.Drawing.Color.LightGray;
+                buttonOperate.ForeColor = System.Drawing.Color.Black;
             }
             if (labelFreq != null && myRig != null)
                 labelFreq.Text = (myRig.FrequencyA / 1e6).ToString(CultureInfo.InvariantCulture) + " " + myRig.ModeA;
 
             if (tuner1 != null && tuner1.isOn)
             {
-                buttonTunerPwr.BackColor = Color.Green;
-                buttonTunerPwr.ForeColor = Color.White;
+                buttonTunerPwr.BackColor = System.Drawing.Color.Green;
+                buttonTunerPwr.ForeColor = System.Drawing.Color.White;
             }
             else
             {
-                buttonTunerPwr.BackColor = Color.LightGray;
-                buttonTunerPwr.ForeColor = Color.Black;
+                buttonTunerPwr.BackColor = System.Drawing.Color.LightGray;
+                buttonTunerPwr.ForeColor = System.Drawing.Color.Black;
             }
             if (tuner1 != null && tuner1.GetModel().Contains(EXPERTLINEARS))
             {
@@ -2633,7 +2643,10 @@ namespace AmpAutoTunerUtility
             ClockSetGUI();
             if (tuner1 != null) SetAntennaInUseForGUI(false, tuner1.AntennaNumber);
             if (pausedTuning)
+            {
+                timerGetFreq.Start();
                 return;
+            }
             //DebugAddMsg(DebugEnum.VERBOSE, "Timer tick\n");
             if (checkBoxRelay1Enabled.Checked && relay1 != null && relay1.relayError == true)
             {
@@ -2714,19 +2727,19 @@ namespace AmpAutoTunerUtility
                     if (tuner1.GetSWR() == 0)
                     {
                         labelSWR.Text = "SWR Unknown";
-                        buttonTunerStatus.BackColor = Color.Gray;
+                        buttonTunerStatus.BackColor = System.Drawing.Color.Gray;
                     }
                     else if (tuner1.GetSWR() < 2.0)
                     {
-                        buttonTunerStatus.BackColor = Color.Green;
+                        buttonTunerStatus.BackColor = System.Drawing.Color.Green;
                     }
                     else if (tuner1.GetSWR() < 3)
                     {
-                        buttonTunerStatus.BackColor = Color.Yellow;
+                        buttonTunerStatus.BackColor = System.Drawing.Color.Yellow;
                     }
                     else
                     {
-                        buttonTunerStatus.BackColor = Color.Red;
+                        buttonTunerStatus.BackColor = System.Drawing.Color.Red;
                     }
                 }
             }
@@ -2757,6 +2770,7 @@ namespace AmpAutoTunerUtility
                 }
 
             }*/
+            timerGetFreq.Start();
             if (checkBoxRig.Checked && myRig is not null)
             {
                 var myFreq = myRig.FrequencyA;
@@ -2936,10 +2950,10 @@ namespace AmpAutoTunerUtility
                 return false;
             }
             button = buttons[nRelay - 1];
-            if (flag == 0) button.BackColor = Color.Gray;
-            else button.BackColor = Color.Green;
+            if (flag == 0) button.BackColor = System.Drawing.Color.Gray;
+            else button.BackColor = System.Drawing.Color.Green;
             relay.Set(nRelay, (byte)flag);
-            if (nRelay == 1) buttonAmp.BackColor = flag == 1 ? Color.Green : Color.Yellow;
+            if (nRelay == 1) buttonAmp.BackColor = flag == 1 ? System.Drawing.Color.Green : System.Drawing.Color.Yellow;
             if (relay.errMsg != null)
             {
                 MyMessageBox(relay.errMsg);
@@ -3137,7 +3151,7 @@ namespace AmpAutoTunerUtility
 
         private void RelayToggle(Button relayButton, Relay relay, int nRelay)
         {
-            if (relayButton.BackColor == Color.Gray)
+            if (relayButton.BackColor == System.Drawing.Color.Gray)
             {
                 RelaySet(relay, nRelay, 1);
             }
@@ -3261,8 +3275,8 @@ namespace AmpAutoTunerUtility
             if (pausedTuning)
             {
                 buttonTunePause.Text = "Resume";
-                buttonTunePause.BackColor = Color.Red;
-                buttonTunePause.ForeColor = Color.White;
+                buttonTunePause.BackColor = System.Drawing.Color.Red;
+                buttonTunePause.ForeColor = System.Drawing.Color.White;
                 buttonTunePause.Enabled = true;
                 //buttonTune.Enabled = false;
                 //labelSWR.Text = "SWR Paused";
@@ -3273,8 +3287,8 @@ namespace AmpAutoTunerUtility
             else if (!pauseButtonClicked)
             {
                 buttonTunePause.Text = "Pause";
-                buttonTunePause.BackColor = Color.Green;
-                buttonTunePause.ForeColor = Color.White;
+                buttonTunePause.BackColor = System.Drawing.Color.Green;
+                buttonTunePause.ForeColor = System.Drawing.Color.White;
                 //buttonTune.Enabled = true;
                 labelSWR.Text = "SWR";
                 timerGetFreq.Stop();
@@ -3837,13 +3851,13 @@ namespace AmpAutoTunerUtility
         {
             if (ampIsOn)
             {
-                buttonAmp.BackColor = Color.Green;
-                buttonAmp.ForeColor = Color.White;
+                buttonAmp.BackColor = System.Drawing.Color.Green;
+                buttonAmp.ForeColor = System.Drawing.Color.White;
             }
             else
             {
-                buttonAmp.BackColor = Color.Yellow;
-                buttonAmp.ForeColor = Color.Black;
+                buttonAmp.BackColor = System.Drawing.Color.Yellow;
+                buttonAmp.ForeColor = System.Drawing.Color.Black;
             }
         }
 
@@ -4173,39 +4187,39 @@ namespace AmpAutoTunerUtility
         {
             try
             {
-                textBoxAntenna1.BackColor = Color.White;
-                textBoxAntenna2.BackColor = Color.White;
-                textBoxAntenna3.BackColor = Color.White;
-                textBoxAntenna4.BackColor = Color.White;
-                textBoxAntenna5.BackColor = Color.White;
-                textBoxAntenna6.BackColor = Color.White;
-                textBoxAntenna7.BackColor = Color.White;
-                textBoxAntenna8.BackColor = Color.White;
+                textBoxAntenna1.BackColor = System.Drawing.Color.White;
+                textBoxAntenna2.BackColor = System.Drawing.Color.White;
+                textBoxAntenna3.BackColor = System.Drawing.Color.White;
+                textBoxAntenna4.BackColor = System.Drawing.Color.White;
+                textBoxAntenna5.BackColor = System.Drawing.Color.White;
+                textBoxAntenna6.BackColor = System.Drawing.Color.White;
+                textBoxAntenna7.BackColor = System.Drawing.Color.White;
+                textBoxAntenna8.BackColor = System.Drawing.Color.White;
                 switch (antennaNumber)
                 {
                     case 1:
-                        textBoxAntenna1.BackColor = Color.Yellow;
+                        textBoxAntenna1.BackColor = System.Drawing.Color.Yellow;
                         break;
                     case 2:
-                        textBoxAntenna2.BackColor = Color.Yellow;
+                        textBoxAntenna2.BackColor = System.Drawing.Color.Yellow;
                         break;
                     case 3:
-                        textBoxAntenna3.BackColor = Color.Yellow;
+                        textBoxAntenna3.BackColor = System.Drawing.Color.Yellow;
                         break;
                     case 4:
-                        textBoxAntenna4.BackColor = Color.Yellow;
+                        textBoxAntenna4.BackColor = System.Drawing.Color.Yellow;
                         break;
                     case 5:
-                        textBoxAntenna5.BackColor = Color.Yellow;
+                        textBoxAntenna5.BackColor = System.Drawing.Color.Yellow;
                         break;
                     case 6:
-                        textBoxAntenna6.BackColor = Color.Yellow;
+                        textBoxAntenna6.BackColor = System.Drawing.Color.Yellow;
                         break;
                     case 7:
-                        textBoxAntenna7.BackColor = Color.Yellow;
+                        textBoxAntenna7.BackColor = System.Drawing.Color.Yellow;
                         break;
                     case 8:
-                        textBoxAntenna8.BackColor = Color.Yellow;
+                        textBoxAntenna8.BackColor = System.Drawing.Color.Yellow;
                         break;
                 }
                 Properties.Settings.Default.WalkAntenna = antennaNumber;
@@ -4225,6 +4239,7 @@ namespace AmpAutoTunerUtility
         private bool dummyLoad;
         private int timerFreqWalkSeconds;
         private bool antennaLocked;
+        private string lastmode = "";
 
         private void FreqWalkSetFreq(int index)
         {
@@ -4269,10 +4284,11 @@ namespace AmpAutoTunerUtility
             {
                 timerFreqWalk.Stop();
                 //richTextBox1.AppendText(MyTime() + "Tick\n");
-                FLRigGetFreq(false);
+               FLRigGetFreq(false);
                 if (frequencyHz == 0)
                 {
                     DebugMsg.DebugAddMsg(DebugEnum.ERR, "Frequency == 0");
+                    timerFreqWalk.Start();
                     return;
                 }
                 //var freq = frequenciesToWalk[(int)frequencyIndex];
@@ -4388,7 +4404,7 @@ namespace AmpAutoTunerUtility
                 if (tuner1 != null) tuner1.freqWalkIsRunning = true;
                 SetWalkAntennaAsActive();
                 buttonWalk.Text = "Walking";
-                buttonWalk.BackColor = Color.LightGreen;
+                buttonWalk.BackColor = System.Drawing.Color.LightGreen;
                 pausedTuning = true;
                 FrequenciesToWalk();
                 /*
@@ -4430,7 +4446,7 @@ namespace AmpAutoTunerUtility
             try
             {
                 buttonWalk.Text = "Walk";
-                buttonWalk.BackColor = Color.LightGray;
+                buttonWalk.BackColor = System.Drawing.Color.LightGray;
                 timerFreqWalk.Stop();
                 Thread.Sleep(500);
                 freqWalkIsRunning = false;
@@ -4442,7 +4458,7 @@ namespace AmpAutoTunerUtility
                 //var xml = FLRigXML("rig.cat_string", "<params><param><value>xfe xfe x94 xe0 x1a x05 x00 x73 x01 xfd</value></param></params");
                 //FLRigSend(xml);
                 Thread.Sleep(500);
-                // MDB
+                // Assign freq so that SPE amp gets the frequency we're on
                 myRig!.FrequencyA = myRig!.FrequencyA;
                 SetAntennaInUseForGUI(true);
                 //TuneSequence();  // disabling as don't want tune when we may want to change band to chase DX
@@ -4456,6 +4472,7 @@ namespace AmpAutoTunerUtility
         {
             try
             {
+                timerGetFreq.Stop();
                 timerFreqWalk.Stop();
                 Thread.Sleep(500);
                 myRig!.ModeA = "USB-D";
@@ -4465,6 +4482,7 @@ namespace AmpAutoTunerUtility
                 if (frequenciesToWalk == null || (freqWalkIsRunning == false && frequenciesToWalk.Count == 0))
                 {
                     DebugMsg.DebugAddMsg(DebugEnum.LOG,"No walk frequencies selected in FreqWalk tab!!");
+                    timerGetFreq.Start();
                     return;
                 }
                 if (freqWalkIsRunning == false)
@@ -4487,6 +4505,7 @@ namespace AmpAutoTunerUtility
             {
                 MessageBox.Show("Error: " + ex.Message + ex.StackTrace);
             }
+            timerGetFreq.Start();
         }
 
         private void ButtonDummyLoad_Click(object sender, EventArgs e)
@@ -4541,53 +4560,53 @@ namespace AmpAutoTunerUtility
         }
         private void AntennaUpdateSelected(int antennaNumber)
         {
-            buttonAntenna1.BackColor = Color.LightGray;
-            buttonAntenna2.BackColor = Color.LightGray;
-            buttonAntenna3.BackColor = Color.LightGray;
-            buttonAntenna4.BackColor = Color.LightGray;
-            buttonAntenna5.BackColor = Color.LightGray;
-            buttonAntenna6.BackColor = Color.LightGray;
-            buttonAntenna7.BackColor = Color.LightGray;
-            buttonAntenna8.BackColor = Color.LightGray;
+            buttonAntenna1.BackColor = System.Drawing.Color.LightGray;
+            buttonAntenna2.BackColor = System.Drawing.Color.LightGray;
+            buttonAntenna3.BackColor = System.Drawing.Color.LightGray;
+            buttonAntenna4.BackColor = System.Drawing.Color.LightGray;
+            buttonAntenna5.BackColor = System.Drawing.Color.LightGray;
+            buttonAntenna6.BackColor = System.Drawing.Color.LightGray;
+            buttonAntenna7.BackColor = System.Drawing.Color.LightGray;
+            buttonAntenna8.BackColor = System.Drawing.Color.LightGray;
             switch (antennaNumber)
             {
                 case 1:
-                    buttonAntenna1.BackColor = Color.Green;
+                    buttonAntenna1.BackColor = System.Drawing.Color.Green;
                     ButtonAntennaPickSet(buttonAntennaPick1);
                     labelAntennaSelected.Text = textBoxAntenna1.Text;
                     break;
                 case 2:
-                    buttonAntenna2.BackColor = Color.Green;
+                    buttonAntenna2.BackColor = System.Drawing.Color.Green;
                     ButtonAntennaPickSet(buttonAntennaPick2);
                     labelAntennaSelected.Text = textBoxAntenna2.Text;
                     break;
                 case 3:
-                    buttonAntenna3.BackColor = Color.Green;
+                    buttonAntenna3.BackColor = System.Drawing.Color.Green;
                     ButtonAntennaPickSet(buttonAntennaPick3);
                     labelAntennaSelected.Text = textBoxAntenna3.Text;
                     break;
                 case 4:
-                    buttonAntenna4.BackColor = Color.Green;
+                    buttonAntenna4.BackColor = System.Drawing.Color.Green;
                     ButtonAntennaPickSet(buttonAntennaPick4);
                     labelAntennaSelected.Text = textBoxAntenna4.Text;
                     break;
                 case 5:
-                    buttonAntenna5.BackColor = Color.Green;
+                    buttonAntenna5.BackColor = System.Drawing.Color.Green;
                     ButtonAntennaPickSet(buttonAntennaPick5);
                     labelAntennaSelected.Text = textBoxAntenna5.Text;
                     break;
                 case 6:
-                    buttonAntenna6.BackColor = Color.Green;
+                    buttonAntenna6.BackColor = System.Drawing.Color.Green;
                     ButtonAntennaPickSet(buttonAntennaPick6);
                     labelAntennaSelected.Text = textBoxAntenna6.Text;
                     break;
                 case 7:
-                    buttonAntenna7.BackColor = Color.Green;
+                    buttonAntenna7.BackColor = System.Drawing.Color.Green;
                     ButtonAntennaPickSet(buttonAntennaPick7);
                     labelAntennaSelected.Text = textBoxAntenna7.Text;
                     break;
                 case 8:
-                    buttonAntenna8.BackColor = Color.Green;
+                    buttonAntenna8.BackColor = System.Drawing.Color.Green;
                     ButtonAntennaPickSet(buttonAntennaPick8);
                     labelAntennaSelected.Text = textBoxAntenna8.Text;
                     break;
@@ -4653,23 +4672,23 @@ namespace AmpAutoTunerUtility
         {
             try
             {
-                buttonAntennaPick1.BackColor = Color.WhiteSmoke;
-                buttonAntennaPick2.BackColor = Color.WhiteSmoke;
-                buttonAntennaPick3.BackColor = Color.WhiteSmoke;
-                buttonAntennaPick4.BackColor = Color.WhiteSmoke;
-                buttonAntennaPick5.BackColor = Color.WhiteSmoke;
-                buttonAntennaPick6.BackColor = Color.WhiteSmoke;
-                buttonAntennaPick7.BackColor = Color.WhiteSmoke;
-                buttonAntennaPick8.BackColor = Color.WhiteSmoke;
+                buttonAntennaPick1.BackColor = System.Drawing.Color.WhiteSmoke;
+                buttonAntennaPick2.BackColor = System.Drawing.Color.WhiteSmoke;
+                buttonAntennaPick3.BackColor = System.Drawing.Color.WhiteSmoke;
+                buttonAntennaPick4.BackColor = System.Drawing.Color.WhiteSmoke;
+                buttonAntennaPick5.BackColor = System.Drawing.Color.WhiteSmoke;
+                buttonAntennaPick6.BackColor = System.Drawing.Color.WhiteSmoke;
+                buttonAntennaPick7.BackColor = System.Drawing.Color.WhiteSmoke;
+                buttonAntennaPick8.BackColor = System.Drawing.Color.WhiteSmoke;
 
-                buttonAntennaPick1.ForeColor = Color.Black;
-                buttonAntennaPick2.ForeColor = Color.Black;
-                buttonAntennaPick3.ForeColor = Color.Black;
-                buttonAntennaPick4.ForeColor = Color.Black;
-                buttonAntennaPick5.ForeColor = Color.Black;
-                buttonAntennaPick6.ForeColor = Color.Black;
-                buttonAntennaPick7.ForeColor = Color.Black;
-                buttonAntennaPick8.ForeColor = Color.Black;
+                buttonAntennaPick1.ForeColor = System.Drawing.Color.Black;
+                buttonAntennaPick2.ForeColor = System.Drawing.Color.Black;
+                buttonAntennaPick3.ForeColor = System.Drawing.Color.Black;
+                buttonAntennaPick4.ForeColor = System.Drawing.Color.Black;
+                buttonAntennaPick5.ForeColor = System.Drawing.Color.Black;
+                buttonAntennaPick6.ForeColor = System.Drawing.Color.Black;
+                buttonAntennaPick7.ForeColor = System.Drawing.Color.Black;
+                buttonAntennaPick8.ForeColor = System.Drawing.Color.Black;
             }
             catch (Exception ex)
             {
@@ -4684,7 +4703,7 @@ namespace AmpAutoTunerUtility
         {
             try
             {
-                if (myButton.BackColor == Color.Green)
+                if (myButton.BackColor == System.Drawing.Color.Green)
                 {
                     // we just unlock so the other routines can set the antenna
                     antennaLocked = false;
@@ -4692,8 +4711,8 @@ namespace AmpAutoTunerUtility
                     return false;
                 }
                 ButtonAntennaPickReset();
-                myButton.BackColor = Color.Green;
-                myButton.ForeColor = Color.White;
+                myButton.BackColor = System.Drawing.Color.Green;
+                myButton.ForeColor = System.Drawing.Color.White;
             }
             catch (Exception ex)
             {
@@ -5091,11 +5110,11 @@ namespace AmpAutoTunerUtility
 
         private void LabelAntennaSelected_Click(object sender, EventArgs e)
         {
-            if (labelAntennaSelected.ForeColor == Color.Red)
-                labelAntennaSelected.ForeColor = Color.Black;
+            if (labelAntennaSelected.ForeColor == System.Drawing.Color.Red)
+                labelAntennaSelected.ForeColor = System.Drawing.Color.Black;
             else
-                labelAntennaSelected.ForeColor = Color.Red;
-            antennaLocked = labelAntennaSelected.ForeColor == Color.Red;
+                labelAntennaSelected.ForeColor = System.Drawing.Color.Red;
+            antennaLocked = labelAntennaSelected.ForeColor == System.Drawing.Color.Red;
         }
 
         private void CheckBoxWalkFT8_CheckedChanged(object sender, EventArgs e)
@@ -5266,8 +5285,8 @@ namespace AmpAutoTunerUtility
                 for (int step = 0; step < freqN; ++step)
                 {
                     int freq = freqStart + (step * freqStep);
-                    labelExpertLinearsInfo.Text = "Tuning " + bandList[band] + " antenna#" + antennaNumber + "/" + antennaSelected + " " + freq;
-                    // MDB
+                    labelExpertLinearsInfo.Text = "Tuning " + freq;
+                    Application.DoEvents();
                     var myparam = "<params><param><value><double>" + freq * 1000 + "</double></value></param></params";
                     var xml = FLRigXML("rig.set_vfo" + 'A', myparam);
                     if (FLRigSend(xml) == false)
@@ -5395,7 +5414,8 @@ namespace AmpAutoTunerUtility
         private void ButtonExpertLinearsTune_Click(object sender, EventArgs e)
         {
             //string myStuff = "";
-
+            var oldBackColor = buttonExpertLinearsTune.BackColor;
+            buttonExpertLinearsTune.BackColor = System.Drawing.Color.Red;
             if (ModifierKeys == Keys.Control)
             {
                 /*
@@ -5420,12 +5440,14 @@ namespace AmpAutoTunerUtility
                 }
                 DebugAddMsg(DebugEnum.LOG, myStuff);
                 */
-                tuner1!.SetInductance(5.0);
+                //tuner1!.SetInductance(5.0);
+                TuneManual();
             }
             else
             {
-                TuneManual();
+                TuneGetLC();
             }
+            buttonExpertLinearsTune.BackColor = oldBackColor;
         }
         private void TuneManual()
         {
@@ -5537,6 +5559,111 @@ namespace AmpAutoTunerUtility
             {
                 MessageBox.Show(ex.Message + ex.StackTrace);
             }
+        }
+        private void TuneGetLC()
+        {
+            MessageBox.Show("This will get the L/C values and SWR (if transmitting) for the current band\nResults will be in the clipboard for pasting into Excel for example", "SPE SWR/L/C");
+            try
+            {
+                UseWaitCursor = true;
+                Application.DoEvents();
+                Clipboard.Clear();
+                //byte cmdTune = 0x09;
+                tuner1!.GetStatus();
+                tuner1!.GetStatus2(Tuner.Screen.ManualTune);
+                double l = tuner1.GetInductance();
+                double c = tuner1.GetCapacitance();
+                //DebugMsg.DebugAddMsg(DebugEnum.LOG, "L=" + l.ToString("0.0") + "C=" + c.ToString("0,0"));
+                string myparam = "<params><param><value>" + "AM" + "</value></param></params>";
+                var xml = FLRigXML("rig.set_modeA", myparam);
+                if (FLRigSend(xml) == false)
+                { // Abort if FLRig is giving an error
+                    Debug(DebugEnum.ERR, "FLRig set_modeA got an error #1??\n");
+                }
+                xml = FLRigXML("rig.set_modeB", myparam);
+                if (FLRigSend(xml) == false)
+                { // Abort if FLRig is giving an error
+                    Debug(DebugEnum.ERR, "FLRig set_modeB got an error #1??\n");
+                }
+
+                // Ready for finding min SWR test
+                double SWRStart;
+                // need the band
+                if (tuner1 is null || tuner1.tuneFrequencies is null)
+                {
+                    UseWaitCursor = false;
+                    MessageBox.Show("tuner problem ins ", System.Reflection.MethodBase.GetCurrentMethod().Name);
+                    return;
+                }
+                Monitor.Enter("ExpertLinear");
+                var myBand = tuner1.band;
+                var nFreqs = tuner1.tuneFrequencies[myBand, 0];
+                var step = tuner1.tuneFrequencies[myBand, 1];
+                var freq = tuner1.tuneFrequencies[myBand, 2];
+                // build freq table
+                int[] freqTable = new int[nFreqs];
+                for (int i = 0; i < nFreqs; i++)
+                {
+                    //if (tuner1.band == 1 && i != 0 && i != 1 && i != 27 && i != 28)
+                        freqTable[i] = (freq + (step * i)) * 1000;
+                }
+                myRig.FrequencyA = freqTable[0];
+                //myRig.VFO = 'B';
+                tuner1.SelectManualTunePage();
+                Thread.Sleep(500);
+                tuner1.GetStatus2(Tuner.Screen.ManualTune);
+                var lastL = tuner1.GetInductance();
+                var lastC = tuner1.GetCapacitance();
+                bool firstFlag = true;
+                // loop freq table
+                foreach (int freq2Tune in freqTable)
+                {
+                    if (freq2Tune == 0) continue;
+                    myRig.FrequencyA = freq2Tune;
+                    myRig.FrequencyB = freq2Tune;
+                    Thread.Sleep(2000);
+                    //if (!firstFlag)
+                    //{
+                    //    Thread.Sleep(500);
+                    //    tuner1.SetCapacitance(lastC);
+                    //    tuner1.SetInductance(lastL);
+                    //}
+                    firstFlag = false;
+                    /*
+                    do
+                    {
+                        SWRStart = tuner1.GetSWR();
+                        FindMinSWR_L();
+                        FindMinSWR_C();
+                        var logmsg = frequencyHz + "\t" + tuner1.GetSWR() + "\t" + tuner1.GetInductance().ToString("{.0}") + "\t" + tuner1.GetCapacitance().ToString("{.0}") + "\n";
+                        labelExpertLinearsInfo.Text = logmsg;
+                        DebugMsg.DebugAddMsg(DebugEnum.LOG, logmsg);
+                    } while (tuner1.GetSWR() < SWRStart && tuner1.GetSWR() > 1);
+                    */
+                    lastC = tuner1.GetCapacitance();
+                    lastL = tuner1.GetInductance();
+                    var swr = tuner1.GetSWR();
+                    var logmsg = freq2Tune.ToString("N0") + "\t" + tuner1.GetSWR() + "\t" + tuner1.GetInductance().ToString("N2") + "\t" + tuner1.GetCapacitance().ToString("N2") + "\n";
+                    labelExpertLinearsInfo.Text = logmsg;
+                    DebugMsg.DebugAddMsg(DebugEnum.LOG, "\t" + logmsg);
+                    Clipboard.SetText(Clipboard.GetText() + logmsg);
+                    Application.DoEvents();
+                    if (lastC == 0 || lastL == 0)
+                    {
+                        lastC = 0;
+                    }
+                    //tuner1.SendCmd(cmdTune);  // remember out tuning values
+                    Thread.Sleep(200);
+                }
+                //xml = FLRigXML("rig.set_ptt", "<params><param><value><i4>0</i4></value></param></params");
+                //if (FLRigSend(xml) == false) return; // Abort if FLRig is giving an error
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message + ex.StackTrace);
+            }
+            UseWaitCursor = false;
+            labelExpertLinearsInfo.Text = "Results are in clipboard";
         }
 
         void FindMinSWR_L()
@@ -5651,8 +5778,6 @@ namespace AmpAutoTunerUtility
             tuner1.GetStatus2(Tuner.Screen.Antenna);
 
             Application.DoEvents();
-            labelSPE_L.Text = tuner1.GetInductance() + "uH";
-            labelSPE_C.Text = tuner1.GetCapacitance() + "pF";
             tuner1.GetStatus2(Tuner.Screen.Antenna);
             Application.DoEvents();
             if (tuner1.antennas is null)
@@ -5846,14 +5971,14 @@ namespace AmpAutoTunerUtility
         {
             try
             {
-                if (buttonTunerPwr.BackColor == Color.Yellow)
+                if (buttonTunerPwr.BackColor == System.Drawing.Color.Yellow)
                     return;
                 Cursor = Cursors.WaitCursor;
 
-                if (buttonTunerPwr.BackColor != Color.Green)
+                if (buttonTunerPwr.BackColor != System.Drawing.Color.Green)
                 {
-                    buttonTunerPwr.BackColor = Color.Yellow;
-                    buttonTunerPwr.ForeColor = Color.Black;
+                    buttonTunerPwr.BackColor = System.Drawing.Color.Yellow;
+                    buttonTunerPwr.ForeColor = System.Drawing.Color.Black;
                     buttonTunerPwr.Enabled = false;
                     buttonTunerPwr.Refresh();
                     if (tuner1 == null) return;
@@ -5865,13 +5990,13 @@ namespace AmpAutoTunerUtility
                     myRig!.FrequencyB = myRig!.FrequencyB;
                     buttonTunerPwr.Enabled = true;
                     buttonTunerPwr.Refresh();
-                    buttonTunerPwr.BackColor = Color.Green;
-                    buttonTunerPwr.ForeColor = Color.White;
+                    buttonTunerPwr.BackColor = System.Drawing.Color.Green;
+                    buttonTunerPwr.ForeColor = System.Drawing.Color.White;
                 }
                 else
                 {
-                    buttonTunerPwr.BackColor = Color.Yellow;
-                    buttonTunerPwr.ForeColor = Color.Black;
+                    buttonTunerPwr.BackColor = System.Drawing.Color.Yellow;
+                    buttonTunerPwr.ForeColor = System.Drawing.Color.Black;
                     buttonTunerPwr.Enabled = false;
                     buttonTunerPwr.Refresh();
                     tuner1!.Off();
@@ -5880,8 +6005,8 @@ namespace AmpAutoTunerUtility
                     Thread.Sleep(6000);
                     buttonTunerPwr.Enabled = true;
                     buttonTunerPwr.Refresh();
-                    buttonTunerPwr.BackColor = Color.LightGray;
-                    buttonTunerPwr.ForeColor = Color.Black;
+                    buttonTunerPwr.BackColor = System.Drawing.Color.LightGray;
+                    buttonTunerPwr.ForeColor = System.Drawing.Color.Black;
                 }
             }
             catch (Exception ex)

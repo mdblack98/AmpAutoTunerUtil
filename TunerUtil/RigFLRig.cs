@@ -205,7 +205,7 @@ namespace AmpAutoTunerUtility
             int n = 0;
             if (myThread is null)
             {
-                MessageBox.Show("myThead=null in " + System.Reflection.MethodBase.GetCurrentMethod().Name);
+                MessageBox.Show("myThread=null in " + System.Reflection.MethodBase.GetCurrentMethod().Name);
                 return;
             }
             while (myThread.IsAlive == true)
@@ -300,15 +300,16 @@ namespace AmpAutoTunerUtility
                 MessageBox.Show("rigstream is null in FLRigGetVFO");
                 return 'A';
             }
+            Monitor.Enter(12345);
             do
             {
                 try
                 {
-                    Monitor.Enter(12345);
                     string xml = FLRigXML("rig.get_AB", null);
                     Byte[] data = System.Text.Encoding.ASCII.GetBytes(xml);
                     rigStream.Write(data, 0, data.Length);
                     Byte[] data2 = new byte[4096];
+                    rigStream.ReadTimeout = 5000;
                     Int32 bytes = rigStream.Read(data2, 0, data2.Length);
                     string responseData = Encoding.ASCII.GetString(data2, 0, bytes);
                     if (responseData.Contains("<value>B"))
@@ -467,13 +468,14 @@ namespace AmpAutoTunerUtility
 
         private double FLRigGetFrequency(char vfo)
         {
-            double frequency = vfo == 'A'? frequencyA : frequencyB;
             Monitor.Enter(12345);
+            double frequency = vfo == 'A'? frequencyA : frequencyB;
             string xml = FLRigXML("rig.get_vfo" + vfo, null);
             Byte[] data = System.Text.Encoding.ASCII.GetBytes(xml);
             try
             {
                 if (rigStream == null) return 0.0;
+                rigStream.Flush();
                 rigStream.Write(data, 0, data.Length);
             }
             catch (Exception ex)
@@ -635,6 +637,7 @@ namespace AmpAutoTunerUtility
             try
             {
                 if (rigStream == null) return "";
+                rigStream.Flush();
                 rigStream.Write(data, 0, data.Length);
             }
             catch (Exception ex)
@@ -677,7 +680,7 @@ namespace AmpAutoTunerUtility
             }
             if (vfo == 'A')
             {
-                modeA = mode;
+                //modeA = mode;
                 if (modeA != modeAKeep)
                 {
                     DebugAddMsg(DebugEnum.VERBOSE, "FLRigGetMode(" + vfo + ") modeA =" + modeA);
@@ -687,7 +690,7 @@ namespace AmpAutoTunerUtility
             else
             {
 
-                modeB = mode;
+                //modeB = mode;
                 if (modeB != modeBKeep) {
                     DebugAddMsg(DebugEnum.VERBOSE, "FLRigGetMode(" + vfo + ") modeB =" + modeB);
                     modeBKeep = modeB;
@@ -708,6 +711,8 @@ namespace AmpAutoTunerUtility
             Monitor.Enter(12345);
             try
             {
+                if (vfo == 'A' & mode == modeA) return;
+                if (vfo == 'B' && mode == modeB) return;
                 var myparam = "<params><param><value>" + mode + "</value></param></params";
                 string xml = FLRigXML("rig.set_mode" + vfo, myparam);
                 Byte[] data = System.Text.Encoding.ASCII.GetBytes(xml);
