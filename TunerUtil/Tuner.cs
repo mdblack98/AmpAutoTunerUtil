@@ -9,6 +9,8 @@ namespace AmpAutoTunerUtility
     {
         private bool _disposed = false;
         private double sWR;
+        public double SWRATU;
+        public double SWRAnt;
         public char bank;
         public bool freqWalkIsRunning = false;
 

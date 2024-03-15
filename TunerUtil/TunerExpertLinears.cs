@@ -21,6 +21,8 @@ namespace AmpAutoTunerUtility
         private SerialPort ?SerialPortTuner = null;
         private bool runThread = false;
         char response = 'X';
+        public double SWR1 = 0;
+        public double SWR2 = 0;
         private string swr1 = "?";
         private string swr2 = "?";
         private string powerLevel = "?";
@@ -377,11 +379,11 @@ namespace AmpAutoTunerUtility
                     return false;
                 }
                 //if (freqWalkIsRunning == true || !isOn)
-                if (!isOn)
-                {
-                    return false;
-                    //DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.ERR, "freqWalkIsRunning " + freqWalkIsRunning + ", isOn=" + isOn);;
-                }
+                //if (!isOn)
+                //{
+                //    return false;
+                //    //DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.ERR, "freqWalkIsRunning " + freqWalkIsRunning + ", isOn=" + isOn);;
+                //}
                 /*
                 try
                 {
@@ -429,6 +431,7 @@ namespace AmpAutoTunerUtility
                                 --repeat;
                                 goto writeagain;
                             }
+                            isOn = false;
                             return false;
                         }
                         if (myByte == -1)
@@ -441,7 +444,7 @@ namespace AmpAutoTunerUtility
                     catch (Exception ex)
                     {
                         //if (ex.HResult != -2146233083)
-                            DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.LOG, "timeout\n");
+                            DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.LOG, ex.Message+ex.StackTrace);
                         isOn = false;
                         return false;
                     }
@@ -528,8 +531,12 @@ namespace AmpAutoTunerUtility
                         powerLevel = mytokens[9];
                         power = mytokens[10];
                         swr1 = mytokens[11];
+                        if (!swr1.Equals("0.00)"))
+                            SWRATU = Convert.ToDouble(swr1); // ATU SWR
                         SetSWR(Double.Parse(swr1));
                         swr2 = mytokens[12];
+                        if (!swr2.Equals("0.00"))
+                            SWRAnt = Convert.ToDouble(swr2);
                         isOperate = mytokens[2] == "S"?false:true;
                         if (temp1.Equals("?")) DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.LOG, "Expert Linears connected\n");
                         temp1 = mytokens[15];
@@ -735,8 +742,8 @@ namespace AmpAutoTunerUtility
             GetStatus2(Screen.Antenna);
         }
 #pragma warning disable IDE0052 // Remove unread private members
-        private Dictionary <int, double> ?lDict;
-        private Dictionary<int, double> ?cDict;
+        //private Dictionary <int, double> ?lDict;
+        //private Dictionary<int, double> ?cDict;
 #pragma warning restore IDE0052 // Remove unread private members
 
         public override bool On()
