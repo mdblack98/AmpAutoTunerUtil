@@ -4464,9 +4464,9 @@ namespace AmpAutoTunerUtility
             {
                 buttonWalk.Text = "Walk";
                 buttonWalk.BackColor = System.Drawing.Color.LightGray;
+                freqWalkIsRunning = false;
                 timerFreqWalk.Stop();
                 Thread.Sleep(500);
-                freqWalkIsRunning = false;
                 if (tuner1 != null) tuner1.freqWalkIsRunning = false;
                 pausedTuning = false;
                 //richTextBoxFreqWalk.AppendText(MyTime() + "Walking stopped\n");
@@ -4492,7 +4492,8 @@ namespace AmpAutoTunerUtility
                 Cursor = Cursors.WaitCursor;
                 if (tuner1 != null)
                 {
-                    if (tuner1.isOn) tuner1.Off();
+                    // Decided we want the tuner on for antenna selection during walk
+                    //if (tuner1.isOn) tuner1.Off();
                 }
                 timerGetFreq.Stop();
                 timerFreqWalk.Stop();
