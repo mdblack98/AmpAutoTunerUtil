@@ -487,12 +487,12 @@ namespace AmpAutoTunerUtility
                 var sresponse = System.Text.Encoding.Default.GetString(response, 0, n - 5);
                 if (chkByte0 != resByte0)
                 {
-                    DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.ERR, "chkByte0\n");
+                    DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.ERR, "chkByte0 data frame error\n");
                     return true; // return true since we are still connected
                 }
                 if (chkByte1 != resByte1)
                 {
-                    DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.ERR, "chkByte1\n");
+                    DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.ERR, "chkByte1 data frame error\n");
                     return true; // return true since we are still connected
                 }
 
