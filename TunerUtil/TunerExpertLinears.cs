@@ -71,10 +71,10 @@ namespace AmpAutoTunerUtility
             myThread.Start();
             Thread.Sleep(1000);
             //isOn = GetStatus();
-            if (isOn == false)
-            {
-                isOn = true;
-            }
+            //if (isOn == false)
+            //{
+            //    isOn = true;
+            //}
             //}
             //catch (Exception ex)
             //{
@@ -444,6 +444,7 @@ namespace AmpAutoTunerUtility
                     catch (Exception ex)
                     {
                         //if (ex.HResult != -2146233083)
+                        if (isOn) // only show timeout if tuner is on
                             DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.LOG, ex.Message+ex.StackTrace);
                         isOn = false;
                         return false;
