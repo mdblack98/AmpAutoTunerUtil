@@ -71,10 +71,10 @@ namespace AmpAutoTunerUtility
             myThread.Start();
             Thread.Sleep(1000);
             //isOn = GetStatus();
-            if (isOn == false)
-            {
-                isOn = true;
-            }
+            //if (isOn == false)
+            //{
+            //    isOn = true;
+            //}
             //}
             //catch (Exception ex)
             //{
@@ -197,6 +197,7 @@ namespace AmpAutoTunerUtility
 
         readonly char[] lookup = { ' ', '!', '"', '#','$', '%', '&', '\\', '(', ')', '*', '+', ',', '-','.', '/','0','1','2','3','4','5','6','7','8','9',':',';','<','=','>','?','@','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','Z','[','\\','^','_','?','a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z','{','|','}','?' };
         private Screen screenLast = Screen.Unknown;
+
         //public override bool GetStatus2(screen myScreen)
         public override bool GetStatus2(Screen ?myScreen = Screen.Unknown)
         {
@@ -425,7 +426,8 @@ namespace AmpAutoTunerUtility
                         if (myByte == 0 && watch.ElapsedMilliseconds > 1000)
                         {
                             watch.Restart();
-                            DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.ERR, "Elapsed expired\n");
+                            if (isOn)
+                                DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.ERR, "Elapsed expired\n");
                             if (repeat>0)
                             {
                                 --repeat;
@@ -444,6 +446,7 @@ namespace AmpAutoTunerUtility
                     catch (Exception ex)
                     {
                         //if (ex.HResult != -2146233083)
+                        if (isOn) // only show timeout if tuner is on
                             DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.LOG, ex.Message+ex.StackTrace);
                         isOn = false;
                         return false;
@@ -583,6 +586,7 @@ namespace AmpAutoTunerUtility
                 {
                     Thread.Sleep(1000);
                     //if (!freqWalkIsRunning)
+                    if (!poweringDown)
                         isOn = GetStatus();
                     if (isOn==false)
                     {

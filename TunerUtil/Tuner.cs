@@ -13,6 +13,7 @@ namespace AmpAutoTunerUtility
         public double SWRAnt;
         public char bank;
         public bool freqWalkIsRunning = false;
+        public bool poweringDown = false;
 
         //public enum TunerState
         //{

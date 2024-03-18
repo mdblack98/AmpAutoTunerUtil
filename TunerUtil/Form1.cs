@@ -43,28 +43,28 @@ namespace AmpAutoTunerUtility
         //int baudTuner;
         //string comPortRelay = "";
         //string comPortTuner = "";
-        HelpForm? helpForm;
-        AboutForm? aboutForm;
-        TcpClient? rigClient;
-        NetworkStream? rigStream;
-        private Rig? myRig;
+        HelpForm helpForm;
+        AboutForm aboutForm;
+        TcpClient rigClient;
+        NetworkStream rigStream;
+        private Rig myRig;
         double frequencyHz = 0;
         double frequencyLast = 0;
         double frequencyLastTunedHz = 0;
         int tolTune = 0;
-        Tuner? tuner1 = null;
-        Relay? relay1 = null;
-        Relay? relay2 = null;
-        Relay? relay3 = null;
-        Relay? relay4 = null;
+        Tuner tuner1 = null;
+        Relay relay1 = null;
+        Relay relay2 = null;
+        Relay relay3 = null;
+        Relay relay4 = null;
         bool formLoading = true;
-        readonly Stopwatch stopWatchTuner = new Stopwatch();
+        readonly Stopwatch stopWatchTuner = new();
         int freqStableCount = 0; // 
         readonly int freqStableCountNeeded = 2; //need this number of repeat freqs before tuning starts
         bool pausedTuning = false;
         public bool freqWalkIsRunning;
         private bool pauseButtonClicked;
-        private Audio? audio;
+        private Audio audio;
         bool formClosing = false; // use this to detect shutdown condition
         bool getFreqIsRunning = false;
         private string modeCurrent = "UNK";
@@ -155,28 +155,24 @@ namespace AmpAutoTunerUtility
         {
             // Log the exception, display it, etc
             string path = System.IO.Path.GetTempPath() + "AmpAutoTunerUtility.log";
-            using (FileStream fs = File.Create(path))
-            {
-                Byte[] info = new System.Text.UTF8Encoding(true).GetBytes(e.Exception.Message + "\n" + e.Exception.StackTrace);
-                fs.Write(info, 0, info.Length);
-            }
+            using FileStream fs = File.Create(path);
+            Byte[] info = new System.Text.UTF8Encoding(true).GetBytes(e.Exception.Message + "\n" + e.Exception.StackTrace);
+            fs.Write(info, 0, info.Length);
         }
 
-        private void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs? e)
+        private void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
             // Log the exception, display it, etc
             //MessageBox.Show((e.ExceptionObject as Exception).Message + "\n" + (e.ExceptionObject as Exception).StackTrace);
             string path = System.IO.Path.GetTempPath() + "AmpAutoTunerUtility.log";
-            using (FileStream fs = File.Create(path))
+            using FileStream fs = File.Create(path);
+            if (e != null && e.ExceptionObject != null)
             {
-                if (e != null && e.ExceptionObject != null)
+                Exception ex = (e.ExceptionObject as Exception);
+                if (ex != null && ex.Message != null && ex.StackTrace != null)
                 {
-                    Exception? ex = (e.ExceptionObject as Exception);
-                    if (ex != null && ex.Message != null && ex.StackTrace != null)
-                    {
-                        Byte[] info = new System.Text.UTF8Encoding(true).GetBytes(ex.Message + "\n" + ex.StackTrace);
-                        fs.Write(info, 0, info.Length);
-                    }
+                    Byte[] info = new System.Text.UTF8Encoding(true).GetBytes(ex.Message + "\n" + ex.StackTrace);
+                    fs.Write(info, 0, info.Length);
                 }
             }
         }
@@ -415,7 +411,7 @@ namespace AmpAutoTunerUtility
 
                 //relay1 = new Relay(comboBoxComRelay1.SelectedText, comboBoxBaudRelay1.SelectedText);
                 relay1 = new Relay();
-                List<string> comPorts = new List<string>();
+                List<string> comPorts = [];
                 if (relay1.DevCount() == 0 || !relay1ToolStripMenuItem.Checked)
                 {
                     if (!relay1ToolStripMenuItem.Checked) tabPage.TabPages.Remove(tabPageRelay1);
@@ -867,7 +863,7 @@ namespace AmpAutoTunerUtility
             Application.DoEvents();
             try
             {
-                string? errorMsg = null;
+                string errorMsg = null;
                 TunerClose();
                 if (comboBoxTunerModel.Text.Equals("LDG", StringComparison.InvariantCulture))
                 {
@@ -896,6 +892,7 @@ namespace AmpAutoTunerUtility
                         buttonTunerPwr.ForeColor = System.Drawing.Color.Black;
                     }
                     tabPageExpertLinears.Text = tuner1!.GetModel();
+                    buttonAmp.Visible = false;
                     TunerSetAntennaSPE();
                     // We don't need any command information
                 }
@@ -1623,7 +1620,7 @@ namespace AmpAutoTunerUtility
                 }
                 else if (response == 'M')
                 {
-                    SoundPlayer simpleSound = new SoundPlayer("swr.wav");
+                    SoundPlayer simpleSound = new("swr.wav");
                     simpleSound.Play();
                     buttonTunerStatus.BackColor = System.Drawing.Color.Yellow;
                     labelSWR.Text = "SWR 1.5-3.0";
@@ -1631,7 +1628,7 @@ namespace AmpAutoTunerUtility
                 }
                 else if (response == 'F')
                 {
-                    SoundPlayer simpleSound = new SoundPlayer("swr.wav");
+                    SoundPlayer simpleSound = new("swr.wav");
                     simpleSound.Play();
                     buttonTunerStatus.BackColor = System.Drawing.Color.Red;
                     labelSWR.Text = "SWR > 3.0";
@@ -2091,19 +2088,18 @@ namespace AmpAutoTunerUtility
         }
         private void SetRelayFromAntenna(int antennaNumber)
         {
-            ComboBox bits;
-            switch (antennaNumber)
+            ComboBox bits = antennaNumber switch
             {
-                case 1: bits = ComboBoxAntenna1Bits; break;
-                case 2: bits = ComboBoxAntenna2Bits; break;
-                case 3: bits = ComboBoxAntenna3Bits; break;
-                case 4: bits = ComboBoxAntenna4Bits; break;
-                case 5: bits = ComboBoxAntenna5Bits; break;
-                case 6: bits = ComboBoxAntenna6Bits; break;
-                case 7: bits = ComboBoxAntenna7Bits; break;
-                case 8: bits = ComboBoxAntenna8Bits; break;
-                default: bits = ComboBoxAntenna1Bits; break;
-            }
+                1 => ComboBoxAntenna1Bits,
+                2 => ComboBoxAntenna2Bits,
+                3 => ComboBoxAntenna3Bits,
+                4 => ComboBoxAntenna4Bits,
+                5 => ComboBoxAntenna5Bits,
+                6 => ComboBoxAntenna6Bits,
+                7 => ComboBoxAntenna7Bits,
+                8 => ComboBoxAntenna8Bits,
+                _ => ComboBoxAntenna1Bits,
+            };
             string relayBits = bits.Text;
             int relayValue = 1;
             if (relayBits.Equals("8/0")) relayValue = 0;
@@ -2141,19 +2137,19 @@ namespace AmpAutoTunerUtility
                 }
                 comboBoxAntenna1Controller.SelectedIndex = 0;
             }
-            ComboBox bits;
-            switch (antennaNumber)
+
+            ComboBox bits = antennaNumber switch
             {
-                case 1: bits = ComboBoxAntenna1Bits; break;
-                case 2: bits = ComboBoxAntenna2Bits; break;
-                case 3: bits = ComboBoxAntenna3Bits; break;
-                case 4: bits = ComboBoxAntenna4Bits; break;
-                case 5: bits = ComboBoxAntenna5Bits; break;
-                case 6: bits = ComboBoxAntenna6Bits; break;
-                case 7: bits = ComboBoxAntenna7Bits; break;
-                case 8: bits = ComboBoxAntenna8Bits; break;
-                default: bits = ComboBoxAntenna1Bits; break;
-            }
+                1 => ComboBoxAntenna1Bits,
+                2 => ComboBoxAntenna2Bits,
+                3 => ComboBoxAntenna3Bits,
+                4 => ComboBoxAntenna4Bits,
+                5 => ComboBoxAntenna5Bits,
+                6 => ComboBoxAntenna6Bits,
+                7 => ComboBoxAntenna7Bits,
+                8 => ComboBoxAntenna8Bits,
+                _ => ComboBoxAntenna1Bits,
+            };
             string relayBits = bits.Text;
             int relayValue = 1;
             if (relayBits.Equals("8/0")) relayValue = 0;
@@ -2175,7 +2171,7 @@ namespace AmpAutoTunerUtility
             else if (relayBits.Equals("4/8")) relayValue = 8;
 
             //MessageBox.Show("Relay " + myRelayChosen);
-            Relay? myRelay = relay1;
+            Relay myRelay = relay1;
             if (myRelay == null) return;
             if (myRelayChosen.Equals("Relay2")) myRelay = relay2;
             else if (myRelayChosen.Equals("Relay3")) myRelay = relay3;
@@ -2265,7 +2261,7 @@ namespace AmpAutoTunerUtility
             Thread.Sleep(100);
             DebugAddMsg(DebugEnum.VERBOSE, "Power needs changing to " + value + "\n");
             
-            string xml = FLRigXML("rig.set_power", "<params><param><value><i4>" + value + "</i4></value></param></params");
+            //string xml = FLRigXML("rig.set_power", "<params><param><value><i4>" + value + "</i4></value></param></params");
             int ntry = 0;
             do
             {
@@ -2291,11 +2287,13 @@ namespace AmpAutoTunerUtility
         }
 
 #pragma warning disable IDE0060 // Remove unused parameter
-        private bool PowerSelectOp(double frequencyMHz, CheckBox enabled, TextBox from, TextBox to, TextBox powerLevel, ComboBox mode, string modeChk, CheckBox amp, bool ampFlag, int passNum)
+        private bool PowerSelectOp(double frequencyMHz, CheckBox enabled, TextBox from, TextBox to, TextBox powerLevel, ComboBox mode, string modeChk, CheckBox amp, bool ampFlag, int passNum, TextBox tunePower)
 #pragma warning restore IDE0060 // Remove unused parameter
         {
             // On passNum=0 we check for specific mode matches
             // On passNum>0 we check for "Any" matches
+            if (tunePower.Text.Equals("0")) buttonTune.Enabled = false;
+            else buttonTune.Enabled = true;
             DebugAddMsg(DebugEnum.VERBOSE, "PowerSelectOp\n");
             try
             {
@@ -2324,6 +2322,14 @@ namespace AmpAutoTunerUtility
                                 Debug(DebugEnum.TRACE, "Set Power=" + powerLevel.Text + "\n");
                                 Application.DoEvents();
                                 int powerset = Convert.ToInt32(powerLevel.Text, CultureInfo.InvariantCulture);
+                                if (powerset == 0)
+                                {
+                                    buttonTune.Enabled = false;
+                                }
+                                else
+                                {
+                                    buttonTune.Enabled = true;
+                                }
                                 //if (tuneIsRunning)
                                 {
                                     FLRigSetPower(powerset);
@@ -2357,31 +2363,31 @@ namespace AmpAutoTunerUtility
             double frequencyMHz = frequencyHz / 1e6;
             for (int passNum = 0; passNum < 2; ++passNum)
             {
-                Debug(DebugEnum.TRACE, "1\n");
-                if (PowerSelectOp(frequencyMHz, checkBoxPower1Enabled, textBoxPower1From, textBoxPower1To, tuning ? textBoxTune1Power : textBoxPower1Watts, comboBoxPower1Mode, modeChk, checkBoxAmp1, checkBoxAmp1.Checked, passNum))
+                //Debug(DebugEnum.TRACE, "1\n");
+                if (PowerSelectOp(frequencyMHz, checkBoxPower1Enabled, textBoxPower1From, textBoxPower1To, tuning ? textBoxTune1Power : textBoxPower1Watts, comboBoxPower1Mode, modeChk, checkBoxAmp1, checkBoxAmp1.Checked, passNum, textBoxTune1Power))
                     return;
-                Debug(DebugEnum.TRACE, "2\n");
-                if (PowerSelectOp(frequencyMHz, checkBoxPower2Enabled, textBoxPower2From, textBoxPower2To, tuning ? textBoxTune2Power : textBoxPower2Watts, comboBoxPower2Mode, modeChk, checkBoxAmp2, checkBoxAmp2.Checked, passNum))
+                //Debug(DebugEnum.TRACE, "2\n");
+                if (PowerSelectOp(frequencyMHz, checkBoxPower2Enabled, textBoxPower2From, textBoxPower2To, tuning ? textBoxTune2Power : textBoxPower2Watts, comboBoxPower2Mode, modeChk, checkBoxAmp2, checkBoxAmp2.Checked, passNum, textBoxTune2Power))
                     return;
-                Debug(DebugEnum.TRACE, "3\n");
-                if (PowerSelectOp(frequencyMHz, checkBoxPower3Enabled, textBoxPower3From, textBoxPower3To, tuning ? textBoxTune3Power : textBoxPower3Watts, comboBoxPower3Mode, modeChk, checkBoxAmp3, checkBoxAmp3.Checked, passNum))
+                //Debug(DebugEnum.TRACE, "3\n");
+                if (PowerSelectOp(frequencyMHz, checkBoxPower3Enabled, textBoxPower3From, textBoxPower3To, tuning ? textBoxTune3Power : textBoxPower3Watts, comboBoxPower3Mode, modeChk, checkBoxAmp3, checkBoxAmp3.Checked, passNum, textBoxTune3Power))
                     return;
-                Debug(DebugEnum.TRACE, "4\n");
-                if (PowerSelectOp(frequencyMHz, checkBoxPower4Enabled, textBoxPower4From, textBoxPower4To, tuning ? textBoxTune4Power : textBoxPower4Watts, comboBoxPower4Mode, modeChk, checkBoxAmp4, checkBoxAmp4.Checked, passNum))
+                //Debug(DebugEnum.TRACE, "4\n");
+                if (PowerSelectOp(frequencyMHz, checkBoxPower4Enabled, textBoxPower4From, textBoxPower4To, tuning ? textBoxTune4Power : textBoxPower4Watts, comboBoxPower4Mode, modeChk, checkBoxAmp4, checkBoxAmp4.Checked, passNum, textBoxTune4Power))
                     return;
-                Debug(DebugEnum.TRACE, "5\n");
-                if (PowerSelectOp(frequencyMHz, checkBoxPower5Enabled, textBoxPower5From, textBoxPower5To, tuning ? textBoxTune5Power : textBoxPower5Watts, comboBoxPower5Mode, modeChk, checkBoxAmp5, checkBoxAmp5.Checked, passNum))
+                //Debug(DebugEnum.TRACE, "5\n");
+                if (PowerSelectOp(frequencyMHz, checkBoxPower5Enabled, textBoxPower5From, textBoxPower5To, tuning ? textBoxTune5Power : textBoxPower5Watts, comboBoxPower5Mode, modeChk, checkBoxAmp5, checkBoxAmp5.Checked, passNum, textBoxTune5Power))
                     return;
-                Debug(DebugEnum.TRACE, "6\n");
-                if (PowerSelectOp(frequencyMHz, checkBoxPower6Enabled, textBoxPower6From, textBoxPower6To, tuning ? textBoxTune6Power : textBoxPower6Watts, comboBoxPower6Mode, modeChk, checkBoxAmp6, checkBoxAmp6.Checked, passNum))
+                //Debug(DebugEnum.TRACE, "6\n");
+                if (PowerSelectOp(frequencyMHz, checkBoxPower6Enabled, textBoxPower6From, textBoxPower6To, tuning ? textBoxTune6Power : textBoxPower6Watts, comboBoxPower6Mode, modeChk, checkBoxAmp6, checkBoxAmp6.Checked, passNum, textBoxTune6Power))
                     return;
-                Debug(DebugEnum.TRACE, "7\n");
-                if (PowerSelectOp(frequencyMHz, checkBoxPower7Enabled, textBoxPower7From, textBoxPower7To, tuning ? textBoxTune7Power : textBoxPower7Watts, comboBoxPower7Mode, modeChk, checkBoxAmp7, checkBoxAmp7.Checked, passNum))
+                //Debug(DebugEnum.TRACE, "7\n");
+                if (PowerSelectOp(frequencyMHz, checkBoxPower7Enabled, textBoxPower7From, textBoxPower7To, tuning ? textBoxTune7Power : textBoxPower7Watts, comboBoxPower7Mode, modeChk, checkBoxAmp7, checkBoxAmp7.Checked, passNum, textBoxTune7Power))
                     return;
-                Debug(DebugEnum.TRACE, "8\n");
-                if (PowerSelectOp(frequencyMHz, checkBoxPower8Enabled, textBoxPower8From, textBoxPower8To, tuning ? textBoxTune8Power : textBoxPower8Watts, comboBoxPower8Mode, modeChk, checkBoxAmp8, checkBoxAmp8.Checked, passNum))
+                //Debug(DebugEnum.TRACE, "8\n");
+                if (PowerSelectOp(frequencyMHz, checkBoxPower8Enabled, textBoxPower8From, textBoxPower8To, tuning ? textBoxTune8Power : textBoxPower8Watts, comboBoxPower8Mode, modeChk, checkBoxAmp8, checkBoxAmp8.Checked, passNum, textBoxTune8Power))
                     return;
-                Debug(DebugEnum.TRACE, "9\n");
+                //Debug(DebugEnum.TRACE, "9\n");
                 labelPower.Text = "Power not set";
             }
         }
@@ -2565,7 +2571,7 @@ namespace AmpAutoTunerUtility
         public static String GetCommandLines(Process process)
         {
             Contract.Requires(process != null);
-            ManagementObjectSearcher commandLineSearcher = new ManagementObjectSearcher(
+            ManagementObjectSearcher commandLineSearcher = new(
                 "SELECT CommandLine FROM Win32_Process WHERE ProcessId = " + process!.Id);
             String commandLine = "";
             foreach (ManagementObject commandLineObject in commandLineSearcher.Get().Cast<ManagementObject>())
@@ -2832,10 +2838,11 @@ namespace AmpAutoTunerUtility
 
         bool ToHex(string s, out byte[] data)
         {
-            char[] sep = { ' ' };
+            char[] sep = [' '];
             string[] tokens = s.Split(sep);
             int i = 0;
-            List<byte> dataList = new List<byte>();
+            List<byte> value = [];
+            List<byte> dataList = value;
             foreach (string t in tokens)
             {
                 try
@@ -2915,7 +2922,7 @@ namespace AmpAutoTunerUtility
                 return false;
             }
             Button button; // the button we will mess with here to change color
-            List<Button> buttons = new List<Button>();
+            List<Button> buttons = new();
             switch (relay.RelayNumber())
             {
                 case 1:
@@ -3357,7 +3364,7 @@ namespace AmpAutoTunerUtility
 
         }
 
-        private void CheckEnable(ComboBox box1, ComboBox? box2, CheckBox check1)
+        private void CheckEnable(ComboBox box1, ComboBox box2, CheckBox check1)
         {
             if (formLoading || formClosing) return;
             bool ok = box1.Text.Length > 0;
@@ -3550,7 +3557,7 @@ namespace AmpAutoTunerUtility
             if (tuner1 == null) { timerDebug.Enabled = true; return; }
             relay1?.Status();
             if (checkBoxPause.Checked) { timerDebug.Enabled = true; return; }
-            DebugMsg? msg = DebugGetMsg();
+            DebugMsg msg = DebugGetMsg();
             debugLevel = (DebugEnum)comboBoxDebugLevel.SelectedIndex + 1;
             if (debugLevel < 0) debugLevel = DebugEnum.WARN;
             tuner1?.SetDebugLevel(debugLevel);
@@ -3776,8 +3783,7 @@ namespace AmpAutoTunerUtility
         {
             try
             {
-                if (aboutForm == null)
-                    aboutForm = new AboutForm();
+                aboutForm ??= new AboutForm();
                 aboutForm.Show();
                 aboutForm.WindowState = FormWindowState.Normal;
             }
@@ -3792,8 +3798,7 @@ namespace AmpAutoTunerUtility
         {
             try
             {
-                if (helpForm == null)
-                    helpForm = new HelpForm();
+                helpForm ??= new HelpForm();
                 helpForm.Show();
                 helpForm.WindowState = FormWindowState.Normal;
             }
@@ -3952,7 +3957,7 @@ namespace AmpAutoTunerUtility
 
         private void CheckBoxAntenna1_CheckedChanged(object sender, EventArgs e)
         {
-            Relay? relay = null;
+            Relay relay = null;
             if (comboBoxAntenna1Controller.Text.Equals("Relay1", StringComparison.OrdinalIgnoreCase))
             {
                 relay = relay1;
@@ -4251,7 +4256,7 @@ namespace AmpAutoTunerUtility
         //readonly int[] frequenciesToWalk = { 50313000, 28074000, 24915000, 21074000, 18100000, 14074000, 10136000, 7074000, 3573000   };
         //readonly string frequenciesToWalkFT8 = "1.840 3.573 7.074 10.136 14.074 18.100 21.074  24.915 28.074 50.313";
         //readonly string frequenciesToWalkFT4 = "3.575 7.0475 10.14 14.08 18.104 21.140 24.919 28.180 50.318";
-        List<long>? frequenciesToWalk;
+        List<long> frequenciesToWalk;
         int frequencyIndex = 0;
         private bool dummyLoad;
         private int timerFreqWalkSeconds;
@@ -4358,7 +4363,7 @@ namespace AmpAutoTunerUtility
 
         List<long> FrequenciesToWalk()
         {
-            if (frequenciesToWalk is null) frequenciesToWalk = new List<long>();
+            frequenciesToWalk ??= [];
             try
             {
                 frequenciesToWalk.Clear();
@@ -5294,7 +5299,7 @@ namespace AmpAutoTunerUtility
 
         // band = 0-11 (160-4) and antennaNumber is 1 or 2
 
-        private readonly string[] bandList = { "160M", "80M", "60M", "40M", "30M", "20M", "17M", "15M", "12M", "10M", "6M", "4M" };
+        private readonly string[] bandList = ["160M", "80M", "60M", "40M", "30M", "20M", "17M", "15M", "12M", "10M", "6M", "4M"];
         private void TuneAll(int band, int antennaNumber, string antennaSelected)
         {
             try
@@ -5969,6 +5974,8 @@ namespace AmpAutoTunerUtility
         {
             try
             {
+                tuner1!.Operate(false);
+                Thread.Sleep(500);
                 if (buttonTunerPwr.BackColor == System.Drawing.Color.Yellow)
                     return;
                 Cursor = Cursors.WaitCursor;
@@ -5997,7 +6004,8 @@ namespace AmpAutoTunerUtility
                 else
                 {
                     tuner1!.SetPowerLevel("Mid");
-                    Thread.Sleep(1000);
+                    tuner1!.poweringDown = true;
+                    Thread.Sleep(200);
                     Application.DoEvents();
                     buttonOperate.Enabled = false;
                     buttonPowerLevel.Enabled= false;
@@ -6005,10 +6013,12 @@ namespace AmpAutoTunerUtility
                     buttonTunerPwr.ForeColor = System.Drawing.Color.Black;
                     buttonTunerPwr.Enabled = false;
                     buttonTunerPwr.Refresh();
+                    tuner1!.isOn = false;
                     tuner1!.Off();
                     Thread.Sleep(100);
                     tuner1!.Off();
-                    Thread.Sleep(6000);
+                    Thread.Sleep(15000);
+                    tuner1!.poweringDown = false;
                     buttonTunerPwr.Enabled = true;
                     buttonTunerPwr.Refresh();
                     buttonTunerPwr.BackColor = System.Drawing.Color.LightGray;
@@ -6204,10 +6214,10 @@ Set
 
     public class ComboBoxItem
     {
-        public string? Text { get; set; }
-        public object? MyGUID { get; set; }
+        public string Text { get; set; }
+        public object MyGUID { get; set; }
 
-        public override string? ToString()
+        public override string ToString()
         {
             return Text;
         }
@@ -6246,7 +6256,7 @@ Set
     [Serializable]
     public class AmpAutoTunerUtilException : System.Exception
     {
-        readonly Exception? Inner;
+        readonly Exception Inner;
         public AmpAutoTunerUtilException() : base() { }
         public AmpAutoTunerUtilException(string message) : base(message)
         {
