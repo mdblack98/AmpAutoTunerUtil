@@ -1114,7 +1114,7 @@
             this.label6.Size = new System.Drawing.Size(32, 13);
             this.label6.TabIndex = 91;
             this.label6.Text = "Tune";
-            this.toolTip1.SetToolTip(this.label6, "Power setting for tuning cycle\r\nValue of 0 means use Power column value\r\n");
+            this.toolTip1.SetToolTip(this.label6, "Power settting for Tune -- if 0 then tune not performed");
             // 
             // textBoxPower1From
             // 
@@ -1124,6 +1124,7 @@
             this.textBoxPower1From.Size = new System.Drawing.Size(55, 20);
             this.textBoxPower1From.TabIndex = 46;
             this.toolTip1.SetToolTip(this.textBoxPower1From, "0");
+            this.textBoxPower1From.TextChanged += new System.EventHandler(this.textBoxPower1From_TextChanged);
             // 
             // textBoxTune1Power
             // 
@@ -1132,7 +1133,8 @@
             this.textBoxTune1Power.Name = "textBoxTune1Power";
             this.textBoxTune1Power.Size = new System.Drawing.Size(32, 20);
             this.textBoxTune1Power.TabIndex = 90;
-            this.toolTip1.SetToolTip(this.textBoxTune1Power, "Power setting for tuning cycle\r\nValue of 0 means use Power column value\r\n");
+            this.toolTip1.SetToolTip(this.textBoxTune1Power, "Power settting for Tune -- if 0 then tune not performed");
+            this.textBoxTune1Power.TextChanged += new System.EventHandler(this.textBoxTune1Power_TextChanged);
             // 
             // textBoxTune2Power
             // 
@@ -1141,7 +1143,7 @@
             this.textBoxTune2Power.Name = "textBoxTune2Power";
             this.textBoxTune2Power.Size = new System.Drawing.Size(32, 20);
             this.textBoxTune2Power.TabIndex = 92;
-            this.toolTip1.SetToolTip(this.textBoxTune2Power, "Power setting for tuning cycle\r\nValue of 0 means use Power column value\r\n");
+            this.toolTip1.SetToolTip(this.textBoxTune2Power, "Power settting for Tune -- if 0 then tune not performed");
             // 
             // textBoxTune3Power
             // 
@@ -1150,7 +1152,7 @@
             this.textBoxTune3Power.Name = "textBoxTune3Power";
             this.textBoxTune3Power.Size = new System.Drawing.Size(32, 20);
             this.textBoxTune3Power.TabIndex = 93;
-            this.toolTip1.SetToolTip(this.textBoxTune3Power, "Power setting for tuning cycle\r\nValue of 0 means use Power column value\r\n");
+            this.toolTip1.SetToolTip(this.textBoxTune3Power, "Power settting for Tune -- if 0 then tune not performed");
             // 
             // textBoxTune4Power
             // 
@@ -1159,7 +1161,7 @@
             this.textBoxTune4Power.Name = "textBoxTune4Power";
             this.textBoxTune4Power.Size = new System.Drawing.Size(32, 20);
             this.textBoxTune4Power.TabIndex = 94;
-            this.toolTip1.SetToolTip(this.textBoxTune4Power, "Power setting for tuning cycle\r\nValue of 0 means use Power column value\r\n");
+            this.toolTip1.SetToolTip(this.textBoxTune4Power, "Power settting for Tune -- if 0 then tune not performed");
             // 
             // textBoxTune5Power
             // 
@@ -1168,7 +1170,7 @@
             this.textBoxTune5Power.Name = "textBoxTune5Power";
             this.textBoxTune5Power.Size = new System.Drawing.Size(32, 20);
             this.textBoxTune5Power.TabIndex = 95;
-            this.toolTip1.SetToolTip(this.textBoxTune5Power, "Power setting for tuning cycle\r\nValue of 0 means use Power column value\r\n");
+            this.toolTip1.SetToolTip(this.textBoxTune5Power, "Power settting for Tune -- if 0 then tune not performed");
             // 
             // textBoxTune6Power
             // 
@@ -1177,7 +1179,7 @@
             this.textBoxTune6Power.Name = "textBoxTune6Power";
             this.textBoxTune6Power.Size = new System.Drawing.Size(32, 20);
             this.textBoxTune6Power.TabIndex = 96;
-            this.toolTip1.SetToolTip(this.textBoxTune6Power, "Power setting for tuning cycle\r\nValue of 0 means use Power column value\r\n");
+            this.toolTip1.SetToolTip(this.textBoxTune6Power, "Power settting for Tune -- if 0 then tune not performed");
             // 
             // textBoxTune7Power
             // 
@@ -1186,7 +1188,7 @@
             this.textBoxTune7Power.Name = "textBoxTune7Power";
             this.textBoxTune7Power.Size = new System.Drawing.Size(32, 20);
             this.textBoxTune7Power.TabIndex = 97;
-            this.toolTip1.SetToolTip(this.textBoxTune7Power, "Power setting for tuning cycle\r\nValue of 0 means use Power column value\r\n");
+            this.toolTip1.SetToolTip(this.textBoxTune7Power, "Power settting for Tune -- if 0 then tune not performed");
             // 
             // textBoxTune8Power
             // 
@@ -1195,7 +1197,7 @@
             this.textBoxTune8Power.Name = "textBoxTune8Power";
             this.textBoxTune8Power.Size = new System.Drawing.Size(32, 20);
             this.textBoxTune8Power.TabIndex = 98;
-            this.toolTip1.SetToolTip(this.textBoxTune8Power, "Power setting for tuning cycle\r\nValue of 0 means use Power column value\r\n");
+            this.toolTip1.SetToolTip(this.textBoxTune8Power, "Power settting for Tune -- if 0 then tune not performed");
             // 
             // label7
             // 
@@ -1437,7 +1439,7 @@
             this.buttonTune.Size = new System.Drawing.Size(56, 22);
             this.buttonTune.TabIndex = 9;
             this.buttonTune.Text = "Tune";
-            this.toolTip1.SetToolTip(this.buttonTune, "Start a tune cycle");
+            this.toolTip1.SetToolTip(this.buttonTune, "Start a tune cycle\r\nSPE -- Disabled during operate");
             this.buttonTune.UseVisualStyleBackColor = false;
             this.buttonTune.Click += new System.EventHandler(this.ButtonTune_Click_1);
             // 
@@ -1789,7 +1791,6 @@
             // checkBoxAmp8
             // 
             this.checkBoxAmp8.AutoSize = true;
-            this.checkBoxAmp8.Enabled = false;
             this.checkBoxAmp8.Location = new System.Drawing.Point(158, 168);
             this.checkBoxAmp8.Name = "checkBoxAmp8";
             this.checkBoxAmp8.Size = new System.Drawing.Size(15, 14);
@@ -1800,7 +1801,6 @@
             // checkBoxAmp7
             // 
             this.checkBoxAmp7.AutoSize = true;
-            this.checkBoxAmp7.Enabled = false;
             this.checkBoxAmp7.Location = new System.Drawing.Point(158, 147);
             this.checkBoxAmp7.Name = "checkBoxAmp7";
             this.checkBoxAmp7.Size = new System.Drawing.Size(15, 14);
@@ -1811,7 +1811,6 @@
             // checkBoxAmp6
             // 
             this.checkBoxAmp6.AutoSize = true;
-            this.checkBoxAmp6.Enabled = false;
             this.checkBoxAmp6.Location = new System.Drawing.Point(158, 126);
             this.checkBoxAmp6.Name = "checkBoxAmp6";
             this.checkBoxAmp6.Size = new System.Drawing.Size(15, 14);
@@ -1822,7 +1821,6 @@
             // checkBoxAmp5
             // 
             this.checkBoxAmp5.AutoSize = true;
-            this.checkBoxAmp5.Enabled = false;
             this.checkBoxAmp5.Location = new System.Drawing.Point(158, 106);
             this.checkBoxAmp5.Name = "checkBoxAmp5";
             this.checkBoxAmp5.Size = new System.Drawing.Size(15, 14);
@@ -1833,7 +1831,6 @@
             // checkBoxAmp4
             // 
             this.checkBoxAmp4.AutoSize = true;
-            this.checkBoxAmp4.Enabled = false;
             this.checkBoxAmp4.Location = new System.Drawing.Point(158, 85);
             this.checkBoxAmp4.Name = "checkBoxAmp4";
             this.checkBoxAmp4.Size = new System.Drawing.Size(15, 14);
@@ -1844,7 +1841,6 @@
             // checkBoxAmp3
             // 
             this.checkBoxAmp3.AutoSize = true;
-            this.checkBoxAmp3.Enabled = false;
             this.checkBoxAmp3.Location = new System.Drawing.Point(158, 64);
             this.checkBoxAmp3.Name = "checkBoxAmp3";
             this.checkBoxAmp3.Size = new System.Drawing.Size(15, 14);
@@ -1855,7 +1851,6 @@
             // checkBoxAmp2
             // 
             this.checkBoxAmp2.AutoSize = true;
-            this.checkBoxAmp2.Enabled = false;
             this.checkBoxAmp2.Location = new System.Drawing.Point(158, 42);
             this.checkBoxAmp2.Name = "checkBoxAmp2";
             this.checkBoxAmp2.Size = new System.Drawing.Size(15, 14);
@@ -1866,13 +1861,13 @@
             // checkBoxAmp1
             // 
             this.checkBoxAmp1.AutoSize = true;
-            this.checkBoxAmp1.Enabled = false;
             this.checkBoxAmp1.Location = new System.Drawing.Point(158, 22);
             this.checkBoxAmp1.Name = "checkBoxAmp1";
             this.checkBoxAmp1.Size = new System.Drawing.Size(15, 14);
             this.checkBoxAmp1.TabIndex = 100;
             this.toolTip1.SetToolTip(this.checkBoxAmp1, "Enable Amplifier");
             this.checkBoxAmp1.UseVisualStyleBackColor = true;
+            this.checkBoxAmp1.CheckedChanged += new System.EventHandler(this.checkBoxAmp1_CheckedChanged);
             // 
             // checkBoxPower8Enabled
             // 
@@ -5401,7 +5396,7 @@
             this.Margin = new System.Windows.Forms.Padding(2);
             this.MaximumSize = new System.Drawing.Size(417, 310);
             this.Name = "Form1";
-            this.Text = "AmpAutoTunerUtility 240309";
+            this.Text = "AmpAutoTunerUtility 240317";
             this.HelpButtonClicked += new System.ComponentModel.CancelEventHandler(this.Form1_HelpButtonClicked);
             this.Activated += new System.EventHandler(this.Form1_Activated);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);

@@ -5,6 +5,7 @@ using System.Globalization;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
 using System.Runtime.CompilerServices;
+using System.Security.Permissions;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
@@ -32,6 +33,7 @@ namespace AmpAutoTunerUtility
         public bool ptt;
         public int power;
         public bool transceive;
+        public double swr=0;
         public override bool Open()
         {
             model = "Unknown";
@@ -200,6 +202,58 @@ namespace AmpAutoTunerUtility
             return xml;
         }
 
+        public double FLRigGetSWR()
+        {
+            double swr = 9;
+            Monitor.Enter(12345);
+            string xml = FLRigXML("rig.get_SWR", null);
+            Byte[] data = System.Text.Encoding.ASCII.GetBytes(xml);
+            try
+            {
+                if (rigStream == null) return 0;
+                rigStream.Write(data, 0, data.Length);
+            }
+            catch (Exception ex)
+            {
+                if (rigStream == null || ex.Message.Contains("Unable to write"))
+                {
+                    DebugAddMsg(DebugEnum.ERR, "Error...Did FLRig shut down?\n");
+                }
+                else
+                {
+                    DebugAddMsg(DebugEnum.ERR, "FLRig unexpected error:\n" + ex.Message + "\n");
+                }
+                return 0;
+            }
+            data = new Byte[4096];
+            rigStream.ReadTimeout = 1000;
+            //int power = 0;
+            try
+            {
+                Int32 bytes = rigStream.Read(data, 0, data.Length);
+                String responseData = Encoding.ASCII.GetString(data, 0, bytes);
+                //richTextBoxRig.AppendText(responseData + "\n");
+                try
+                {
+                    if (responseData.Contains("<value>")) // then we have a frequency
+                    {
+                        int offset1 = responseData.IndexOf("<value>", StringComparison.InvariantCulture) + "<value>".Length;
+                        int offset2 = responseData.IndexOf("</value>", StringComparison.InvariantCulture);
+                        var s = responseData.Substring(offset1, offset2 - offset1);
+                        swr = int.Parse(s);
+                    }
+                }
+                catch (Exception)
+                {
+
+                }
+            }
+            catch (Exception)
+            {
+
+            }
+            return swr;
+        }
         public override void Poll()
         {
             int n = 0;
@@ -214,7 +268,9 @@ namespace AmpAutoTunerUtility
                 frequencyA = FLRigGetFrequency('A');
                 frequencyB = FLRigGetFrequency('B');
                 ptt = FLRigGetPTT();
-                power = FLRigGetPower();
+                if (ptt)
+                    swr = FLRigGetSWR();
+                power = GetPower();
                 if (++n % 2 == 0)  // do every other one
                 {
                     do
@@ -541,7 +597,7 @@ namespace AmpAutoTunerUtility
                 string responseData = Encoding.ASCII.GetString(data2, 0, bytes);
                 if (!responseData.Contains("200 OK"))
                 {
-                    DebugAddMsg(DebugEnum.ERR, "FLRigSetVFOA/B response != 200 OK\n" + responseData + "\n");
+                    DebugAddMsg(DebugEnum.ERR, "FLRigSetFrequency response != 200 OK\n" + responseData + "\n");
                 }
             }
             catch (Exception ex)
@@ -574,8 +630,50 @@ namespace AmpAutoTunerUtility
                 frequencyB = value;
             }
         }
+        public override int SetPower(int pow)
+        {
+            if (rigStream is null)
+            {
+                MessageBox.Show("rigstream is null in FLRigSetPower");
+                return 0;
+            }
+            try
+            {
+                Monitor.Enter(12345);
+                var myparam = "<params><param><value><double>" + pow + "</double></value></param></params";
+                string xml = FLRigXML("rig.set_power" + vfo, myparam);
+                Byte[] data = System.Text.Encoding.ASCII.GetBytes(xml);
+                rigStream.Write(data, 0, data.Length);
+                Byte[] data2 = new byte[4096];
+                Int32 bytes = rigStream.Read(data2, 0, data2.Length);
+                string responseData = Encoding.ASCII.GetString(data2, 0, bytes);
+                if (!responseData.Contains("200 OK"))
+                {
+                    DebugAddMsg(DebugEnum.ERR, "FLRigSetPower response != 200 OK\n" + responseData + "\n");
+                }
+                power = pow;
+            }
+            catch (Exception ex)
+            {
+                DebugAddMsg(DebugEnum.ERR, "SetPower error: " + ex.Message + "\n" + ex.StackTrace);
+                Thread.Sleep(2000);
+            }
+            return power;
+        }
+        public override int Power
+        {
+            get
+            {
+                return power;
+            }
+            set
+            {
+                FLRigSetPower(value);
+                power = value;
+            }
+        }
 
-        private  string ?FLRigGetModel()
+        private string ?FLRigGetModel()
         {
             Monitor.Enter(12345);
             string xml = FLRigXML("rig.get_info", null);
@@ -777,7 +875,7 @@ namespace AmpAutoTunerUtility
             }
         }
 
-        private int FLRigGetPower()
+        public override int GetPower()
         {
             Monitor.Enter(12345);
             string xml = FLRigXML("rig.get_power", null);
@@ -856,14 +954,7 @@ namespace AmpAutoTunerUtility
                 Thread.Sleep(2000);
             }
         }
-        public override int Power
-        {
-            get { return power;  }
-            set 
-            {
-                FLRigSetPower(value);
-            }
-        }
+        
 
         public override bool Transceive 
         { 
