@@ -425,7 +425,8 @@ namespace AmpAutoTunerUtility
                         if (myByte == 0 && watch.ElapsedMilliseconds > 1000)
                         {
                             watch.Restart();
-                            DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.ERR, "Elapsed expired\n");
+                            if (isOn)
+                                DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.ERR, "Elapsed expired\n");
                             if (repeat>0)
                             {
                                 --repeat;
