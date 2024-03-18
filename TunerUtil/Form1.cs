@@ -5970,6 +5970,8 @@ namespace AmpAutoTunerUtility
         {
             try
             {
+                tuner1!.Operate(false);
+                Thread.Sleep(500);
                 if (buttonTunerPwr.BackColor == System.Drawing.Color.Yellow)
                     return;
                 Cursor = Cursors.WaitCursor;
@@ -5998,7 +6000,8 @@ namespace AmpAutoTunerUtility
                 else
                 {
                     tuner1!.SetPowerLevel("Mid");
-                    Thread.Sleep(1000);
+                    tuner1!.poweringDown = true;
+                    Thread.Sleep(200);
                     Application.DoEvents();
                     buttonOperate.Enabled = false;
                     buttonPowerLevel.Enabled= false;
@@ -6006,10 +6009,12 @@ namespace AmpAutoTunerUtility
                     buttonTunerPwr.ForeColor = System.Drawing.Color.Black;
                     buttonTunerPwr.Enabled = false;
                     buttonTunerPwr.Refresh();
+                    tuner1!.isOn = false;
                     tuner1!.Off();
                     Thread.Sleep(100);
                     tuner1!.Off();
-                    Thread.Sleep(6000);
+                    Thread.Sleep(15000);
+                    tuner1!.poweringDown = false;
                     buttonTunerPwr.Enabled = true;
                     buttonTunerPwr.Refresh();
                     buttonTunerPwr.BackColor = System.Drawing.Color.LightGray;
