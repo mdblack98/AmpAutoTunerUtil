@@ -896,6 +896,7 @@ namespace AmpAutoTunerUtility
                         buttonTunerPwr.ForeColor = System.Drawing.Color.Black;
                     }
                     tabPageExpertLinears.Text = tuner1!.GetModel();
+                    buttonAmp.Visible = false;
                     TunerSetAntennaSPE();
                     // We don't need any command information
                 }
