@@ -86,11 +86,12 @@ namespace AmpAutoTunerUtility
         private bool FLRigWait()
         {
             String ?xcvr;
-            int n = 16;
-            while ((xcvr = FLRigGetXcvr()) == null && --n > 0)
+            int n = 0;
+            //while ((xcvr = FLRigGetXcvr()) == null && --n > 0)
+            while ((xcvr = FLRigGetXcvr()) == null)
             {
                 Thread.Sleep(1000);
-                //DebugAddMsg(DebugEnum.LOG, "Waiting for FLRig " + n + "\n");
+                DebugAddMsg(DebugEnum.LOG, "Waiting for FLRig " + ++n + "\n");
                 Application.DoEvents();
             }
             if (xcvr == null)
@@ -273,18 +274,12 @@ namespace AmpAutoTunerUtility
                 power = GetPower();
                 if (++n % 2 == 0)  // do every other one
                 {
-                    do
-                    {
-                        modeA = FLRigGetMode('A');
-                        if (modeA.Length == 0)
-                            DebugAddMsg(DebugEnum.ERR, "FlRigGetMode A length==0\n");
-                    } while (modeA.Length == 0);
-                    do
-                    { 
-                        modeB = FLRigGetMode('B');
-                        if (modeB.Length == 0)
-                            DebugAddMsg(DebugEnum.ERR, "FlRigGetMode B length==0\n");
-                    } while (modeB.Length == 0);
+                     modeA = FLRigGetMode('A');
+                     if (modeA.Length == 0)
+                         DebugAddMsg(DebugEnum.ERR, "FlRigGetMode A failing length==0\n");
+                     modeB = FLRigGetMode('B');
+                     if (modeB.Length == 0)
+                         DebugAddMsg(DebugEnum.ERR, "FlRigGetMode B failing length==0\n");
                 }
                 Thread.Sleep(500);
             }
@@ -381,7 +376,8 @@ namespace AmpAutoTunerUtility
                 catch (Exception)
                 {
                     DebugAddMsg(DebugEnum.ERR, "GetActiveVFO error #" + ++retryCount + "\n");
-                    Thread.Sleep(2000);
+                    //Thread.Sleep(2000);
+                    retry = false;
                     //if (rigStream != null) rigStream.Close();
                     //FLRigConnect();
                 }
@@ -416,12 +412,9 @@ namespace AmpAutoTunerUtility
         public override string GetMode(char vfo)
         {
             string mode;
-            do
-            {
-                mode = FLRigGetMode(vfo);
-                if (mode.Length == 0)
-                    DebugAddMsg(DebugEnum.ERR, "GetMode length==0\n");
-            } while(mode.Length == 0);
+            mode = FLRigGetMode(vfo);
+            if (mode.Length == 0)
+                DebugAddMsg(DebugEnum.ERR, "GetMode length==0\n");
             if (vfo == 'A') modeA = mode;
             else modeB = mode;
             return mode;
@@ -840,12 +833,9 @@ namespace AmpAutoTunerUtility
             set 
             {
                 FLRigSetMode('A', value);
-                do
-                {
-                    modeA = FLRigGetMode('A');
-                    if (modeA.Length == 0)
-                        DebugAddMsg(DebugEnum.ERR, "FlRigGetMode A length==0\n");
-                } while (modeA.Length == 0);
+                modeA = FLRigGetMode('A');
+                if (modeA.Length == 0)
+                        DebugAddMsg(DebugEnum.ERR, "FlRigGetMode A failed length==0\n");
             } 
         }
         public override string ModeB 
@@ -854,12 +844,9 @@ namespace AmpAutoTunerUtility
             set 
             {
                 FLRigSetMode('B', value);
-                do
-                {
-                    modeB = FLRigGetMode('B');
-                    if (modeB.Length == 0)
-                        DebugAddMsg(DebugEnum.ERR, "FlRigGetMode B length==0\n");
-                } while (modeB.Length == 0);
+                modeB = FLRigGetMode('B');
+                if (modeB.Length == 0)
+                    DebugAddMsg(DebugEnum.ERR, "FlRigGetMode B failed length==0\n");
             }
         }
         public override bool PTT

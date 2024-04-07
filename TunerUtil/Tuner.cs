@@ -35,7 +35,7 @@ namespace AmpAutoTunerUtility
         //}
         //public TunerState State { get; set; }
 
-        double[] swrHistory = new double[4];
+        readonly double[] swrHistory = new double[4];
         int swrIndex;
         public void SetSWR(double value)
         {
@@ -57,26 +57,26 @@ namespace AmpAutoTunerUtility
             sWR = value;
         }
 
-        protected private string ?model = null;
-        protected private string ?comport = null;
-        protected private string ?baud = null;
+        protected private string model = null;
+        protected private string comport = null;
+        protected private string baud = null;
         protected private DebugEnum DebugLevel = DebugEnum.WARN;
         protected private double Inductance { get; set; } // pF
         protected private double Capacitance { get; set; } // uH
         public int AntennaNumber { get; set; }
         public bool TuneFull { get; set; }
-        public string[,] ?antennas;
-        public int[,] ?tuneFrequencies;
+        public string[,] antennas;
+        public int[,] tuneFrequencies;
         public ulong cIndex;
         public ulong lIndex;
         public int band; // 0=160M...11=4M 160,80,60,40,30,20,17,15,12,10,6,4
-        public bool isOn
+        public bool IsOn
         {
             get;
             set;
         }
 
-        public bool isOperate
+        public bool IsOperate
         {
             get;
             set;
@@ -94,7 +94,7 @@ namespace AmpAutoTunerUtility
             Dispose(false);
         }
 
-        public string ?GetComPort() { return comport; }
+        public string GetComPort() { return comport; }
         //public Tuner(string model, string comport, string baud)
         //{
         //    this.model = model;
@@ -173,7 +173,7 @@ namespace AmpAutoTunerUtility
         }
 
 
-        public virtual string ?GetSerialPortTuner()
+        public virtual string GetSerialPortTuner()
         {
             return this.comport;
         }
@@ -249,7 +249,7 @@ namespace AmpAutoTunerUtility
 
         public virtual void SelectDisplayPage()
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
         public virtual void SelectManualTunePage()
         {
@@ -278,6 +278,12 @@ namespace AmpAutoTunerUtility
         }
 
         public virtual void Operate(bool on) // Enable amplifier
+        {
+            throw new NotImplementedException();
+        }
+
+        // if ATU is true then we let the ATU do it's own tuning
+        public virtual void TuneCurrentBand(bool ATU = false)
         {
             throw new NotImplementedException();
         }

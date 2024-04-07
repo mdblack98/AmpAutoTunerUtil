@@ -251,6 +251,7 @@
             this.numericUpDownFLRigAfterWalk = new System.Windows.Forms.NumericUpDown();
             this.buttonOperate = new System.Windows.Forms.Button();
             this.buttonPowerLevel = new System.Windows.Forms.Button();
+            this.checkBoxTunePwr = new System.Windows.Forms.CheckBox();
             this.tabPage = new System.Windows.Forms.TabControl();
             this.tabPageControl = new System.Windows.Forms.TabPage();
             this.labelControlLog2 = new System.Windows.Forms.Label();
@@ -1124,7 +1125,7 @@
             this.textBoxPower1From.Size = new System.Drawing.Size(55, 20);
             this.textBoxPower1From.TabIndex = 46;
             this.toolTip1.SetToolTip(this.textBoxPower1From, "0");
-            this.textBoxPower1From.TextChanged += new System.EventHandler(this.textBoxPower1From_TextChanged);
+            this.textBoxPower1From.TextChanged += new System.EventHandler(this.TextBoxPower1From_TextChanged);
             // 
             // textBoxTune1Power
             // 
@@ -1134,7 +1135,7 @@
             this.textBoxTune1Power.Size = new System.Drawing.Size(32, 20);
             this.textBoxTune1Power.TabIndex = 90;
             this.toolTip1.SetToolTip(this.textBoxTune1Power, "Power settting for Tune -- if 0 then tune not performed");
-            this.textBoxTune1Power.TextChanged += new System.EventHandler(this.textBoxTune1Power_TextChanged);
+            this.textBoxTune1Power.TextChanged += new System.EventHandler(this.TextBoxTune1Power_TextChanged);
             // 
             // textBoxTune2Power
             // 
@@ -1439,7 +1440,8 @@
             this.buttonTune.Size = new System.Drawing.Size(56, 22);
             this.buttonTune.TabIndex = 9;
             this.buttonTune.Text = "Tune";
-            this.toolTip1.SetToolTip(this.buttonTune, "Start a tune cycle\r\nSPE -- Disabled during operate");
+            this.toolTip1.SetToolTip(this.buttonTune, "Click -- Start a tune cycle\r\nSPE -- Alt-Click tweaks the entire current band on t" +
+        "he amplifier\r\nSPE -- Ctrl-Click reruns the ATU for current band\r\n");
             this.buttonTune.UseVisualStyleBackColor = false;
             this.buttonTune.Click += new System.EventHandler(this.ButtonTune_Click_1);
             // 
@@ -1867,7 +1869,7 @@
             this.checkBoxAmp1.TabIndex = 100;
             this.toolTip1.SetToolTip(this.checkBoxAmp1, "Enable Amplifier");
             this.checkBoxAmp1.UseVisualStyleBackColor = true;
-            this.checkBoxAmp1.CheckedChanged += new System.EventHandler(this.checkBoxAmp1_CheckedChanged);
+            this.checkBoxAmp1.CheckedChanged += new System.EventHandler(this.CheckBoxAmp1_CheckedChanged);
             // 
             // checkBoxPower8Enabled
             // 
@@ -2574,9 +2576,9 @@
             this.checkedListBoxWalk1.TabIndex = 3;
             this.toolTip1.SetToolTip(this.checkedListBoxWalk1, "Click to enable\r\nDouble-Click to disable\r\nCtrl-click to edit freq\r\nShift-click to" +
         " select all\r\nCtrl-Shift-click to deselect all\r\n");
-            this.checkedListBoxWalk1.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.checkedListBoxWalk1_ItemCheck);
+            this.checkedListBoxWalk1.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.CheckedListBoxWalk1_ItemCheck);
             this.checkedListBoxWalk1.SelectedIndexChanged += new System.EventHandler(this.CheckedListBoxWalk_SelectedIndexChanged);
-            this.checkedListBoxWalk1.Validated += new System.EventHandler(this.checkedListBoxWalk1_Validated);
+            this.checkedListBoxWalk1.Validated += new System.EventHandler(this.CheckedListBoxWalk1_Validated);
             // 
             // labelInterval
             // 
@@ -2681,7 +2683,7 @@
             this.buttonSPEAnt.TabIndex = 68;
             this.buttonSPEAnt.Text = "Ant";
             this.buttonSPEAnt.UseVisualStyleBackColor = true;
-            this.buttonSPEAnt.Click += new System.EventHandler(this.buttonSPEAnt_Click);
+            this.buttonSPEAnt.Click += new System.EventHandler(this.ButtonSPEAnt_Click);
             // 
             // radioButtonBankB
             // 
@@ -2693,7 +2695,7 @@
             this.radioButtonBankB.TabStop = true;
             this.radioButtonBankB.Text = "BankB";
             this.radioButtonBankB.UseVisualStyleBackColor = true;
-            this.radioButtonBankB.CheckedChanged += new System.EventHandler(this.radioButtonBankB_CheckedChanged);
+            this.radioButtonBankB.CheckedChanged += new System.EventHandler(this.RadioButtonBankB_CheckedChanged);
             // 
             // radioButtonBankA
             // 
@@ -2705,7 +2707,7 @@
             this.radioButtonBankA.TabStop = true;
             this.radioButtonBankA.Text = "BankA";
             this.radioButtonBankA.UseVisualStyleBackColor = true;
-            this.radioButtonBankA.CheckedChanged += new System.EventHandler(this.radioButtonBankA_CheckedChanged);
+            this.radioButtonBankA.CheckedChanged += new System.EventHandler(this.RadioButtonBankA_CheckedChanged);
             // 
             // labelExpertLinearsInfo
             // 
@@ -3499,9 +3501,9 @@
             this.buttonOperate.Size = new System.Drawing.Size(56, 22);
             this.buttonOperate.TabIndex = 24;
             this.buttonOperate.Text = "Operate";
-            this.toolTip1.SetToolTip(this.buttonOperate, "Power On/Off");
+            this.toolTip1.SetToolTip(this.buttonOperate, "Operate On/Off");
             this.buttonOperate.UseVisualStyleBackColor = false;
-            this.buttonOperate.Click += new System.EventHandler(this.buttonOperate_Click);
+            this.buttonOperate.Click += new System.EventHandler(this.ButtonOperate_Click);
             // 
             // buttonPowerLevel
             // 
@@ -3515,7 +3517,18 @@
             this.buttonPowerLevel.Text = "?";
             this.toolTip1.SetToolTip(this.buttonPowerLevel, "Pick amp Lo/Mid/Max power level");
             this.buttonPowerLevel.UseVisualStyleBackColor = false;
-            this.buttonPowerLevel.Click += new System.EventHandler(this.buttonPowerLevel_Click);
+            this.buttonPowerLevel.Click += new System.EventHandler(this.ButtonPowerLevel_Click);
+            // 
+            // checkBoxTunePwr
+            // 
+            this.checkBoxTunePwr.AutoSize = true;
+            this.checkBoxTunePwr.Location = new System.Drawing.Point(91, 17);
+            this.checkBoxTunePwr.Name = "checkBoxTunePwr";
+            this.checkBoxTunePwr.Size = new System.Drawing.Size(15, 14);
+            this.checkBoxTunePwr.TabIndex = 14;
+            this.checkBoxTunePwr.TextAlign = System.Drawing.ContentAlignment.BottomRight;
+            this.toolTip1.SetToolTip(this.checkBoxTunePwr, "If checked use Tune Power column otherwise Pwr Column");
+            this.checkBoxTunePwr.UseVisualStyleBackColor = true;
             // 
             // tabPage
             // 
@@ -3613,6 +3626,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.checkBoxTunePwr);
             this.groupBox1.Controls.Add(this.buttonWalk);
             this.groupBox1.Controls.Add(this.buttonAmp);
             this.groupBox1.Controls.Add(this.buttonTunePause);
@@ -5396,7 +5410,9 @@
             this.Margin = new System.Windows.Forms.Padding(2);
             this.MaximumSize = new System.Drawing.Size(417, 310);
             this.Name = "Form1";
-            this.Text = "AmpAutoTunerUtility 240318";
+            this.Text = "AmpAutoTunerUtility 240407";
+            this.toolTip1.SetToolTip(this, "Click to Tune\r\nSPE -- Ctrl-Click to tune across band\r\nSPE -- Disabled during Oper" +
+        "ate");
             this.HelpButtonClicked += new System.ComponentModel.CancelEventHandler(this.Form1_HelpButtonClicked);
             this.Activated += new System.EventHandler(this.Form1_Activated);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
@@ -5417,6 +5433,7 @@
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.tabPageDebug.ResumeLayout(false);
             this.tabPageDebug.PerformLayout();
             this.tabPageTuner.ResumeLayout(false);
@@ -5843,6 +5860,7 @@
         private System.Windows.Forms.NumericUpDown numericUpDownFLRigBeforeWalk;
         private System.Windows.Forms.Button buttonOperate;
         private System.Windows.Forms.Button buttonPowerLevel;
+        private System.Windows.Forms.CheckBox checkBoxTunePwr;
     }
 }
 
