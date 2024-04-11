@@ -825,9 +825,9 @@ namespace AmpAutoTunerUtility
 
                 timerFreqWalkSeconds = Properties.Settings.Default.TimerFreqWalkSeconds;
                 FreqWalkSetIntervalDisplay();
-                timerGetFreq.Interval = 200;
+                timerGetFreq.Interval = 500;
                 timerGetFreq.Enabled = true;
-                timerDebug.Interval = 100;
+                timerDebug.Interval = 500;
                 timerDebug.Enabled = true;
                 timerDebug.Start();
                 Cursor = Cursors.Default;
@@ -2323,7 +2323,7 @@ namespace AmpAutoTunerUtility
                                 Debug(DebugEnum.TRACE, "Set Power=" + powerLevel.Text + "\n");
                                 Application.DoEvents();
                                 int powerset = Convert.ToInt32(powerLevel.Text, CultureInfo.InvariantCulture);
-                                if (powerset == 0)
+                                if (powerset == 0 || tuner1.IsOperate)
                                 {
                                     buttonTune.Enabled = false;
                                 }
@@ -2448,6 +2448,7 @@ namespace AmpAutoTunerUtility
                             myRig.GetFrequency(cvfo);
                             frequencyHz = cvfo == 'A' ? myRig.FrequencyA : myRig.FrequencyB;
                             DebugAddMsg(DebugEnum.ERR, "retrying A=" + myRig.FrequencyA + ", B=" + myRig.FrequencyB);
+                            //myRig.Open();
                         }
                         // if our frequency changes by more than 10KHz make VFOB match VFOA
                         if (frequencyHz < 60000000 && frequencyLast != 0 && Math.Abs(frequencyHz - frequencyLast) > 200)
@@ -2596,219 +2597,223 @@ namespace AmpAutoTunerUtility
         }
         private void TimerGetFreq_Tick(object sender, EventArgs e)
         {
-            timerGetFreq.Stop();
-
-            if (tuner1 is not null && tuner1.IsOperate && tuner1.IsOn)
+            //timerGetFreq.Enabled = false;
+            if (Monitor.TryEnter(timerGetFreqMutex))
             {
-                //buttonTune.Enabled = false;
-                buttonOperate.BackColor = System.Drawing.Color.Green;
-                buttonOperate.ForeColor = System.Drawing.Color.White;
-            }
-            else
-            {
-                //buttonTune.Enabled = true;
-                buttonOperate.BackColor = System.Drawing.Color.LightGray;
-                buttonOperate.ForeColor = System.Drawing.Color.Black;
-            }
-            if (labelFreq != null && myRig != null)
-                labelFreq.Text = (myRig.FrequencyA / 1e6).ToString(CultureInfo.InvariantCulture) + " " + myRig.ModeA;
-
-            if (tuner1 != null && tuner1.IsOn)
-            {
-                buttonTunerPwr.BackColor = System.Drawing.Color.Green;
-                buttonTunerPwr.ForeColor = System.Drawing.Color.White;
-            }
-            else
-            {
-                buttonTunerPwr.BackColor = System.Drawing.Color.LightGray;
-                buttonTunerPwr.ForeColor = System.Drawing.Color.Black;
-            }
-            if (tuner1 != null && tuner1.GetModel().Contains(EXPERTLINEARS))
-            {
-                TunerSetAntennaSPE();
-                if (buttonPowerLevel.Visible == false)
+                if (tuner1 is not null && tuner1.IsOperate && tuner1.IsOn)
                 {
-                    buttonPowerLevel.Visible = true;
-                }
-                buttonPowerLevel.Text = tuner1.GetPowerLevel();
-                buttonPowerLevel.ForeColor = System.Drawing.Color.White;
-                buttonPowerLevel.BackColor = System.Drawing.Color.Green;
-                if (buttonPowerLevel.Text == "Max")
-                {
-                    buttonPowerLevel.ForeColor = System.Drawing.Color.Black;
-                    buttonPowerLevel.BackColor = System.Drawing.Color.Red;
-                }
-                else if (buttonPowerLevel.Text == "Mid")
-                {
-                    buttonPowerLevel.ForeColor = System.Drawing.Color.Black;
-                    buttonPowerLevel.BackColor = System.Drawing.Color.Yellow;
-                }
-                {
-
-                    radioButtonBankA.CheckedChanged -= RadioButtonBankA_CheckedChanged;
-                }
-                radioButtonBankB.CheckedChanged -= RadioButtonBankB_CheckedChanged;
-                if (tuner1.bank == 'A')
-                {
-                    radioButtonBankA.Checked = true;
-                    radioButtonBankB.Checked = false;
-                }
-                else if (tuner1.bank == 'B')
-                {
-                    radioButtonBankA.Checked = false;
-                    radioButtonBankB.Checked = true;
-                }
-                radioButtonBankA.CheckedChanged += RadioButtonBankA_CheckedChanged;
-                radioButtonBankB.CheckedChanged += RadioButtonBankB_CheckedChanged;
-
-            }
-            ClockSetGUI();
-            if (tuner1 != null) SetAntennaInUseForGUI(false, tuner1.AntennaNumber);
-            if (pausedTuning)
-            {
-                timerGetFreq.Start();
-                return;
-            }
-            //DebugAddMsg(DebugEnum.VERBOSE, "Timer tick\n");
-            if (checkBoxRelay1Enabled.Checked && relay1 != null && relay1.relayError == true)
-            {
-                if (RelayOops("Relay1 closed unexpectedly...RFI??\n") == DialogResult.Retry)
-                {
-                    relay1.Open();
-                    RelaySetButtons(button1_1, relay1.Status());
-
+                    buttonTune.Enabled = false;
+                    buttonOperate.BackColor = System.Drawing.Color.Green;
+                    buttonOperate.ForeColor = System.Drawing.Color.White;
                 }
                 else
                 {
-                    checkBoxRelay1Enabled.Checked = false;
+                    buttonTune.Enabled = true;
+                    buttonOperate.BackColor = System.Drawing.Color.LightGray;
+                    buttonOperate.ForeColor = System.Drawing.Color.Black;
                 }
-            }
-            if (checkBoxRelay2Enabled.Checked && relay2 != null && relay1!.Status() == 0xff)
-            {
-                if (RelayOops("Relay2 closed unexpectedly...RFI??\n") == DialogResult.Retry)
-                {
-                    relay2.Open();
-                }
-                else
-                {
-                    checkBoxRelay2Enabled.Checked = false;
-                }
-            }
-            if (checkBoxRelay3Enabled.Checked && relay3 != null && relay1!.Status() == 0xff)
-            {
-                if (RelayOops("Relay3 closed unexpectedly...RFI??\n") == DialogResult.Retry)
-                {
-                    relay3.Open();
-                }
-                else
-                {
-                    checkBoxRelay3Enabled.Checked = false;
-                }
-            }
-            if (checkBoxRelay4Enabled.Checked && relay4 != null && relay1!.Status() == 0xff)
-            {
-                if (RelayOops("Relay4 closed unexpectedly...RFI??\n") == DialogResult.Retry)
-                {
-                    relay4.Open();
-                }
-                else
-                {
-                    checkBoxRelay4Enabled.Checked = false;
-                }
-            }
+                if (labelFreq != null && myRig != null)
+                    labelFreq.Text = (myRig.FrequencyA / 1e6).ToString(CultureInfo.InvariantCulture) + " " + myRig.ModeA;
 
-            //if (tuner1 == null || tuner1.GetComPort() == null) return;
-            if (tuner1 != null)
-            {
-                string SWR = tuner1.GetSWRString();
-                if (tuner1.GetModel().Contains(EXPERTLINEARS))
-                    if (tuner1.SWRATU > 0) labelSWR.Text = "SWR " + tuner1.SWRATU.ToString();
-                if (tuner1.GetModel().Equals(MFJ928, StringComparison.InvariantCulture))
+                if (tuner1 != null && tuner1.IsOn)
                 {
-                    /*
-                    decimal Inductance = tuner1.GetInductance();
-                    int Capacitance = tuner1.GetCapacitance();
-                    if (numericUpDownCapacitance.Value != Capacitance)
+                    buttonTunerPwr.BackColor = System.Drawing.Color.Green;
+                    buttonTunerPwr.ForeColor = System.Drawing.Color.White;
+                }
+                else
+                {
+                    buttonTunerPwr.BackColor = System.Drawing.Color.LightGray;
+                    buttonTunerPwr.ForeColor = System.Drawing.Color.Black;
+                }
+                if (tuner1 != null && tuner1.GetModel().Contains(EXPERTLINEARS))
+                {
+                    TunerSetAntennaSPE();
+                    if (buttonPowerLevel.Visible == false)
                     {
-                        numericUpDownCapacitance.Enabled = false;
-                        numericUpDownCapacitance.Value = Capacitance;
-                        Application.DoEvents();
-                        numericUpDownCapacitance.Enabled = true;
+                        buttonPowerLevel.Visible = true;
                     }
-                    if (numericUpDownInductance.Value != Inductance)
+                    buttonPowerLevel.Text = tuner1.GetPowerLevel();
+                    buttonPowerLevel.ForeColor = System.Drawing.Color.White;
+                    buttonPowerLevel.BackColor = System.Drawing.Color.Green;
+                    if (buttonPowerLevel.Text == "Max")
                     {
-                        numericUpDownInductance.Enabled = false;
-                        numericUpDownInductance.Value = Convert.ToDecimal(Inductance) / 10;
-                        Application.DoEvents();
-                        numericUpDownInductance.Enabled = true;
+                        buttonPowerLevel.ForeColor = System.Drawing.Color.Black;
+                        buttonPowerLevel.BackColor = System.Drawing.Color.Red;
                     }
-                    */
-                    Application.DoEvents();
-                    if (_disposed) return;
-                    labelSWR.Text = SWR;
-                    if (tuner1.GetSWR() == 0)
+                    else if (buttonPowerLevel.Text == "Mid")
                     {
-                        labelSWR.Text = "SWR Unknown";
-                        buttonTunerStatus.BackColor = System.Drawing.Color.Gray;
+                        buttonPowerLevel.ForeColor = System.Drawing.Color.Black;
+                        buttonPowerLevel.BackColor = System.Drawing.Color.Yellow;
                     }
-                    else if (tuner1.GetSWR() < 2.0)
                     {
-                        buttonTunerStatus.BackColor = System.Drawing.Color.Green;
+
+                        radioButtonBankA.CheckedChanged -= RadioButtonBankA_CheckedChanged;
                     }
-                    else if (tuner1.GetSWR() < 3)
+                    radioButtonBankB.CheckedChanged -= RadioButtonBankB_CheckedChanged;
+                    if (tuner1.bank == 'A')
                     {
-                        buttonTunerStatus.BackColor = System.Drawing.Color.Yellow;
+                        radioButtonBankA.Checked = true;
+                        radioButtonBankB.Checked = false;
+                    }
+                    else if (tuner1.bank == 'B')
+                    {
+                        radioButtonBankA.Checked = false;
+                        radioButtonBankB.Checked = true;
+                    }
+                    radioButtonBankA.CheckedChanged += RadioButtonBankA_CheckedChanged;
+                    radioButtonBankB.CheckedChanged += RadioButtonBankB_CheckedChanged;
+
+                }
+                ClockSetGUI();
+                if (tuner1 != null) SetAntennaInUseForGUI(false, tuner1.AntennaNumber);
+                if (pausedTuning)
+                {
+                    //timerGetFreq.Enabled = true;
+                    Monitor.Exit(timerGetFreqMutex);
+                    return;
+                }
+                //DebugAddMsg(DebugEnum.VERBOSE, "Timer tick\n");
+                if (checkBoxRelay1Enabled.Checked && relay1 != null && relay1.relayError == true)
+                {
+                    if (RelayOops("Relay1 closed unexpectedly...RFI??\n") == DialogResult.Retry)
+                    {
+                        relay1.Open();
+                        RelaySetButtons(button1_1, relay1.Status());
+
                     }
                     else
                     {
-                        buttonTunerStatus.BackColor = System.Drawing.Color.Red;
+                        checkBoxRelay1Enabled.Checked = false;
                     }
                 }
-            }
-            if (tuner1 != null)
-            {
-                string FwdPwr = tuner1.GetPower();
-                if (FwdPwr != null) labelPower.Text = FwdPwr;
-            }
-            /*
-            if (checkBoxTunerEnabled.Checked)
-            {
-                if (comboBoxTunerModel.Text.Equals(MFJ928))
+                if (checkBoxRelay2Enabled.Checked && relay2 != null && relay1!.Status() == 0xff)
                 {
-                    numericUpDownCapacitance.Visible = true;
-                    numericUpDownInductance.Visible = true;
-                    buttonTunerSave.Visible = true;
-                    checkBox1.Visible = false;
-                    groupBoxOptions.Enabled = true;
-                    groupBoxOptions.Visible = true;
+                    if (RelayOops("Relay2 closed unexpectedly...RFI??\n") == DialogResult.Retry)
+                    {
+                        relay2.Open();
+                    }
+                    else
+                    {
+                        checkBoxRelay2Enabled.Checked = false;
+                    }
                 }
-                else if (comboBoxTunerModel.Text.Contains(EXPERTLINEARS))
+                if (checkBoxRelay3Enabled.Checked && relay3 != null && relay1!.Status() == 0xff)
                 {
-                    numericUpDownCapacitance.Visible = false;
-                    numericUpDownInductance.Visible = false;
-                    buttonTunerSave.Visible = false;
-                    checkBox1.Visible = false;
-                    groupBoxOptions.Visible = true;
+                    if (RelayOops("Relay3 closed unexpectedly...RFI??\n") == DialogResult.Retry)
+                    {
+                        relay3.Open();
+                    }
+                    else
+                    {
+                        checkBoxRelay3Enabled.Checked = false;
+                    }
                 }
-
-            }*/
-            timerGetFreq.Start();
-            if (checkBoxRig.Checked && myRig is not null)
-            {
-                var myFreq = myRig.FrequencyA;
-                FLRigGetFreq();
-                if (myFreq != myRig.FrequencyA)
+                if (checkBoxRelay4Enabled.Checked && relay4 != null && relay1!.Status() == 0xff)
                 {
-                    timerFreqWalk.Stop();
+                    if (RelayOops("Relay4 closed unexpectedly...RFI??\n") == DialogResult.Retry)
+                    {
+                        relay4.Open();
+                    }
+                    else
+                    {
+                        checkBoxRelay4Enabled.Checked = false;
+                    }
                 }
 
-                //timerGetFreq.Interval = 200;
-                //DebugAddMsg(DebugEnum.LOG, "Get freq");
+                //if (tuner1 == null || tuner1.GetComPort() == null) return;
+                if (tuner1 != null)
+                {
+                    string SWR = tuner1.GetSWRString();
+                    if (tuner1.GetModel().Contains(EXPERTLINEARS))
+                        if (tuner1.SWRATU > 0) labelSWR.Text = "SWR " + tuner1.SWRATU.ToString();
+                    if (tuner1.GetModel().Equals(MFJ928, StringComparison.InvariantCulture))
+                    {
+                        /*
+                        decimal Inductance = tuner1.GetInductance();
+                        int Capacitance = tuner1.GetCapacitance();
+                        if (numericUpDownCapacitance.Value != Capacitance)
+                        {
+                            numericUpDownCapacitance.Enabled = false;
+                            numericUpDownCapacitance.Value = Capacitance;
+                            Application.DoEvents();
+                            numericUpDownCapacitance.Enabled = true;
+                        }
+                        if (numericUpDownInductance.Value != Inductance)
+                        {
+                            numericUpDownInductance.Enabled = false;
+                            numericUpDownInductance.Value = Convert.ToDecimal(Inductance) / 10;
+                            Application.DoEvents();
+                            numericUpDownInductance.Enabled = true;
+                        }
+                        */
+                        Application.DoEvents();
+                        if (_disposed) return;
+                        labelSWR.Text = SWR;
+                        if (tuner1.GetSWR() == 0)
+                        {
+                            labelSWR.Text = "SWR Unknown";
+                            buttonTunerStatus.BackColor = System.Drawing.Color.Gray;
+                        }
+                        else if (tuner1.GetSWR() < 2.0)
+                        {
+                            buttonTunerStatus.BackColor = System.Drawing.Color.Green;
+                        }
+                        else if (tuner1.GetSWR() < 3)
+                        {
+                            buttonTunerStatus.BackColor = System.Drawing.Color.Yellow;
+                        }
+                        else
+                        {
+                            buttonTunerStatus.BackColor = System.Drawing.Color.Red;
+                        }
+                    }
+                }
+                if (tuner1 != null)
+                {
+                    string FwdPwr = tuner1.GetPower();
+                    if (FwdPwr != null) labelPower.Text = FwdPwr;
+                }
+                /*
+                if (checkBoxTunerEnabled.Checked)
+                {
+                    if (comboBoxTunerModel.Text.Equals(MFJ928))
+                    {
+                        numericUpDownCapacitance.Visible = true;
+                        numericUpDownInductance.Visible = true;
+                        buttonTunerSave.Visible = true;
+                        checkBox1.Visible = false;
+                        groupBoxOptions.Enabled = true;
+                        groupBoxOptions.Visible = true;
+                    }
+                    else if (comboBoxTunerModel.Text.Contains(EXPERTLINEARS))
+                    {
+                        numericUpDownCapacitance.Visible = false;
+                        numericUpDownInductance.Visible = false;
+                        buttonTunerSave.Visible = false;
+                        checkBox1.Visible = false;
+                        groupBoxOptions.Visible = true;
+                    }
+
+                }*/
+                //timerGetFreq.Enabled = true;
+                if (checkBoxRig.Checked && myRig is not null)
+                {
+                    var myFreq = myRig.FrequencyA;
+                    FLRigGetFreq();
+                    //if (myFreq != myRig.FrequencyA)
+                    //{
+                    //    timerFreqWalk.Enabled = false;
+                    //}
+
+                    //timerGetFreq.Interval = 200;
+                    //DebugAddMsg(DebugEnum.LOG, "Get freq");
+                }
+                else
+                {
+                    labelFreq!.Text = "?";
+                }
             }
-            else
-            {
-                labelFreq!.Text = "?";
-            }
+            Monitor.Exit(timerGetFreqMutex);
         }
 
         private void CheckBox1_CheckedChanged(object sender, EventArgs e)
@@ -4297,6 +4302,8 @@ namespace AmpAutoTunerUtility
         private int timerFreqWalkSeconds;
         private bool antennaLocked;
         private string lastmode = "";
+        private object timerFreqWalkMutex = new object();
+        private object timerGetFreqMutex = new object();
 
         private void FreqWalkSetFreq(int index)
         {
@@ -4330,70 +4337,77 @@ namespace AmpAutoTunerUtility
         private void TimerFreqWalk_Tick(object sender, EventArgs e)
         {
             //DebugAddMsg(DebugEnum.LOG, "FreqWalkTick\n");
-            if (frequenciesToWalk == null)
+            if (Monitor.TryEnter(timerFreqWalkMutex))
             {
-                DebugMsg.DebugAddMsg(DebugEnum.ERR, "No frequencies to walk...disabling");
-                timerFreqWalk.Stop();
-                FreqWalkStop();
-                return;
-            }
-            try
-            {
-                timerFreqWalk.Stop();
-                //richTextBox1.AppendText(MyTime() + "Tick\n");
-               FLRigGetFreq(false);
-                if (frequencyHz == 0)
+                if (frequenciesToWalk == null)
                 {
-                    DebugMsg.DebugAddMsg(DebugEnum.ERR, "Frequency == 0");
-                    timerFreqWalk.Start();
-                    return;
-                }
-                //var freq = frequenciesToWalk[(int)frequencyIndex];
-                if (frequenciesToWalk.Count == 0) return;
-                if (frequencyIndex >= frequenciesToWalk.Count) frequencyIndex = 0;
-                if (frequencyIndex >= 0 && !frequenciesToWalk.Contains((long)frequencyHz))
-                {
-                    DebugMsg.DebugAddMsg(DebugEnum.LOG, "FrequencyWalk Stop Request#2 frequencyHz="+ frequencyHz);
+                    DebugMsg.DebugAddMsg(DebugEnum.ERR, "No frequencies to walk...disabling");
+                    timerFreqWalk.Stop();
                     FreqWalkStop();
+                    Monitor.Exit(timerFreqWalkMutex);
                     return;
                 }
-                if (frequencyIndex < 0)
+                try
                 {
-                    frequencyIndex = 0;
-                    FreqWalkSetFreq(frequencyIndex);
-                }
-                else
-                {
-                    //TimeSpan t = DateTime.UtcNow - new DateTime(1970, 1, 1); // this is for epoch seconds
-                    TimeSpan t = DateTime.UtcNow - new DateTime(2023, 1, 1);
-                    double mySecond = t.TotalSeconds + t.Milliseconds / 1000.0;
-                    double triggerTime = timerFreqWalkSeconds;
-                    int interval = (int)((mySecond - (mySecond % timerFreqWalkSeconds)) / timerFreqWalkSeconds);
-                    triggerTime += interval * timerFreqWalkSeconds;
-                    // this should be 60 30 15 seconds
-                    // we do our thing 700ms before the end of period
-                    // this gives JTDX/WSJTX a chance to get the band correct on the decode window
-                    // triggerTime -= 0.7;
-                    triggerTime += (double)numericUpDownFreqWalkDelay.Value / 1000.0;
-                    //richTextBoxFreqWalk.AppendText("Debug: " + mySecond + ">" + triggerTime + "\n");
-                    if (mySecond > triggerTime)
+                    //timerFreqWalk.Enabled = false;
+                    //richTextBox1.AppendText(MyTime() + "Tick\n");
+                    FLRigGetFreq(false);
+                    if (frequencyHz == 0)
                     {
-                        frequencyIndex++;
-                        if (frequencyIndex >= frequenciesToWalk.Count)
-                        {
-                            frequencyIndex = 0;
-                        }
-                        FreqWalkSetFreq(frequencyIndex);
-                        Thread.Sleep(800);
-                        FLRigGetFreq(false);
+                        DebugMsg.DebugAddMsg(DebugEnum.ERR, "Frequency == 0");
+                        //timerFreqWalk.Enabled = true;
+                        Monitor.Exit(timerFreqWalkMutex);
+                        return;
                     }
+                    //var freq = frequenciesToWalk[(int)frequencyIndex];
+                    if (frequenciesToWalk.Count == 0) return;
+                    if (frequencyIndex >= frequenciesToWalk.Count) frequencyIndex = 0;
+                    if (frequencyIndex >= 0 && !frequenciesToWalk.Contains((long)frequencyHz))
+                    {
+                        DebugMsg.DebugAddMsg(DebugEnum.LOG, "FrequencyWalk Stop Request#2 frequencyHz=" + frequencyHz);
+                        FreqWalkStop();
+                        Monitor.Exit(timerFreqWalkMutex);
+                        return;
+                    }
+                    if (frequencyIndex < 0)
+                    {
+                        frequencyIndex = 0;
+                        FreqWalkSetFreq(frequencyIndex);
+                    }
+                    else
+                    {
+                        //TimeSpan t = DateTime.UtcNow - new DateTime(1970, 1, 1); // this is for epoch seconds
+                        TimeSpan t = DateTime.UtcNow - new DateTime(2023, 1, 1);
+                        double mySecond = t.TotalSeconds + t.Milliseconds / 1000.0;
+                        double triggerTime = timerFreqWalkSeconds;
+                        int interval = (int)((mySecond - (mySecond % timerFreqWalkSeconds)) / timerFreqWalkSeconds);
+                        triggerTime += interval * timerFreqWalkSeconds;
+                        // this should be 60 30 15 seconds
+                        // we do our thing 700ms before the end of period
+                        // this gives JTDX/WSJTX a chance to get the band correct on the decode window
+                        // triggerTime -= 0.7;
+                        triggerTime += (double)numericUpDownFreqWalkDelay.Value / 1000.0;
+                        //richTextBoxFreqWalk.AppendText("Debug: " + mySecond + ">" + triggerTime + "\n");
+                        if (mySecond > triggerTime)
+                        {
+                            frequencyIndex++;
+                            if (frequencyIndex >= frequenciesToWalk.Count)
+                            {
+                                frequencyIndex = 0;
+                            }
+                            FreqWalkSetFreq(frequencyIndex);
+                            Thread.Sleep(800);
+                            FLRigGetFreq(false);
+                        }
+                    }
+                    //timerFreqWalk.Enabled = true;
                 }
-                timerFreqWalk.Start();
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message + "\n" + ex.StackTrace);
+                }
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message + "\n" + ex.StackTrace);
-            }
+            Monitor.Exit(timerFreqWalkMutex);   
         }
 
         List<long> FrequenciesToWalk()
@@ -6114,7 +6128,7 @@ Set
         {
             try
             {
-                tuner1!.SelectDisplayPage();
+                //tuner1!.SelectDisplayPage();
                 tuner1!.Operate(!tuner1.IsOperate);
             }
 
