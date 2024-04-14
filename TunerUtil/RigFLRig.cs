@@ -37,20 +37,24 @@ namespace AmpAutoTunerUtility
         public int power;
         public bool transceive;
         public double swr=0;
-        private object rigLock = new object();
-        private bool locked = false;
+        private volatile object rigLock = new object();
+        private volatile bool locked = false;
         int lastLine = 0;
 
-        private int LineNumber()
+        private int LineNumber(int stack = 2)
         {
-            StackFrame CallStack = new StackFrame(2, true);
+            StackFrame CallStack = new StackFrame(stack, true);
             return CallStack.GetFileLineNumber();
         }
 
         private void Lock()
         {
+            if (Monitor.TryEnter(rigLock) == false)
+            {
+                Thread.Sleep(100);
+            }
             if (locked)
-                MessageBox.Show("Locked!!");
+                MessageBox.Show("Locked @"+lastLine);
             Monitor.Enter(rigLock);
             locked = true;
             lastLine = LineNumber();
@@ -58,7 +62,7 @@ namespace AmpAutoTunerUtility
         private void UnLock()
         {
             if (!locked)
-                MessageBox.Show("Not locked!!");
+                MessageBox.Show("Not locked @" + LineNumber(1) + "/" + LineNumber());
             Monitor.Exit(rigLock);
             locked = false;
         }
@@ -99,8 +103,8 @@ namespace AmpAutoTunerUtility
                 return false;
             }
             // Prime a few things
-            FLRigGetVFO();
-            model = FLRigGetModel();
+            //FLRigGetVFO();
+            //model = FLRigGetModel();
             myThread = new Thread(new ThreadStart(Poll))
             {
                 IsBackground = true
@@ -139,81 +143,82 @@ namespace AmpAutoTunerUtility
         }
         private string ?FLRigGetXcvr()
         {
+            string xcvr = "Rig??";
             try
             {
-                Lock();
-            }
-            catch(Exception)
-            {
-                UnLock();
-                return "Unknown";
-            }
-            string ?xcvr = null;
-            //if (!checkBoxRig.Checked) return null;
-            if (rigClient == null || rigStream == null) { Open(); }
-            if (rigClient == null || rigStream == null)
-            {
-                return "Unknown error during Open"; 
-            }
-            string ?xml2 = FLRigXML("rig.get_xcvr", null);
-            Byte[] data = System.Text.Encoding.ASCII.GetBytes(xml2);
-            try
-            {
-                rigStream.Write(data, 0, data.Length);
-            }
-            catch (Exception ex)
-            {
-                DebugAddMsg(DebugEnum.ERR, "FLRigGetXcvr error:\n" + ex.Message + "\n");
-                if (rigClient != null)
+                //if (!checkBoxRig.Checked) return null;
+                if (rigClient == null || rigStream == null) { Open(); }
+                if (rigClient == null || rigStream == null)
                 {
-                    rigStream.Close();
-                    rigClient.Close();
-                    rigStream = null;
-                    rigClient = null;
+                    return "Unknown error during Open";
                 }
-                //tabPage.SelectedTab = tabPageDebug;
-                UnLock();
-                return null;
-            }
-            data = new Byte[4096];
-            int timeoutSave = rigStream.ReadTimeout;
-            rigStream.ReadTimeout = 2000;
-            try
-            {
-                Int32 bytes = rigStream.Read(data, 0, data.Length);
-                String responseData = Encoding.ASCII.GetString(data, 0, bytes);
-                //richTextBoxRig.AppendText(responseData + "\n");
+                //Lock();
+                string? xml2 = FLRigXML("rig.get_xcvr", null);
+                Byte[] data = System.Text.Encoding.ASCII.GetBytes(xml2);
                 try
                 {
-                    if (responseData.Contains("<value>")) // then we have a frequency
+                    rigStream.Write(data, 0, data.Length);
+                }
+                catch (Exception ex)
+                {
+                    DebugAddMsg(DebugEnum.ERR, "FLRigGetXcvr error:\n" + ex.Message + "\n");
+                    if (rigClient != null)
                     {
-                        int offset1 = responseData.IndexOf("<value>", StringComparison.InvariantCulture) + "<value>".Length;
-                        int offset2 = responseData.IndexOf("</value>", StringComparison.InvariantCulture);
-                        xcvr = responseData.Substring(offset1, offset2 - offset1);
-                        if (xcvr.Length == 0) xcvr = null;
+                        rigStream.Close();
+                        rigClient.Close();
+                        rigStream = null;
+                        rigClient = null;
                     }
-                    else
+                    //tabPage.SelectedTab = tabPageDebug;
+                    return null;
+                }
+                data = new Byte[4096];
+                int timeoutSave = rigStream.ReadTimeout;
+                rigStream.ReadTimeout = 2000;
+                try
+                {
+                    Int32 bytes = rigStream.Read(data, 0, data.Length);
+                    String responseData = Encoding.ASCII.GetString(data, 0, bytes);
+                    //richTextBoxRig.AppendText(responseData + "\n");
+                    try
                     {
-                        //labelFreq.Text = "?";
-                        DebugAddMsg(DebugEnum.ERR, responseData + "\n");
-                        //tabPage.SelectedTab = tabPageDebug;
+                        if (responseData.Contains("<value>")) // then we have a frequency
+                        {
+                            int offset1 = responseData.IndexOf("<value>", StringComparison.InvariantCulture) + "<value>".Length;
+                            int offset2 = responseData.IndexOf("</value>", StringComparison.InvariantCulture);
+                            xcvr = responseData.Substring(offset1, offset2 - offset1);
+                            if (xcvr.Length == 0) xcvr = null;
+                        }
+                        else
+                        {
+                            //labelFreq.Text = "?";
+                            DebugAddMsg(DebugEnum.ERR, responseData + "\n");
+                            //tabPage.SelectedTab = tabPageDebug;
+                        }
+                    }
+                    catch (Exception)
+                    {
+                        DebugAddMsg(DebugEnum.ERR, "Error parsing freq from answer:\n" + responseData + "\n");
+                        frequencyA = frequencyB = 0;
+                        ModeA = ModeB = "?";
                     }
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    DebugAddMsg(DebugEnum.ERR, "Error parsing freq from answer:\n" + responseData + "\n");
+                    DebugAddMsg(DebugEnum.ERR, "Rig not responding\n" + ex.Message + "\n");
                     frequencyA = frequencyB = 0;
                     ModeA = ModeB = "?";
                 }
+                rigStream.ReadTimeout = timeoutSave;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                DebugAddMsg(DebugEnum.ERR, "Rig not responding\n" + ex.Message + "\n");
-                frequencyA = frequencyB = 0;
-                ModeA = ModeB = "?";
+                return "Unknown";
             }
-            rigStream.ReadTimeout = timeoutSave;
-            UnLock();
+            finally
+            {
+                //UnLock();
+            }
             return xcvr;
         }
         private string FLRigXML(string cmd, string ?value)
@@ -299,6 +304,7 @@ namespace AmpAutoTunerUtility
                 MessageBox.Show("myThread=null in " + System.Reflection.MethodBase.GetCurrentMethod().Name);
                 return;
             }
+            model = FLRigGetModel();
             while (myThread.IsAlive == true)
             {
                 FLRigGetVFO();
@@ -650,9 +656,12 @@ namespace AmpAutoTunerUtility
             catch (Exception ex)
             {
                 DebugAddMsg(DebugEnum.ERR, "SetVFO error: " + ex.Message + "\n" + ex.StackTrace);
-                Thread.Sleep(2000);
+                //Thread.Sleep(2000);
             }
-            UnLock();
+            finally
+            {
+                UnLock();
+            }
         }
         public override double FrequencyA
         {
@@ -724,47 +733,53 @@ namespace AmpAutoTunerUtility
 
         private string ?FLRigGetModel()
         {
-            Lock();
-            string xml = FLRigXML("rig.get_info", null);
-            Byte[] data = System.Text.Encoding.ASCII.GetBytes(xml);
+            string model = "?";
             try
             {
-                if (rigStream == null)
-                {
-                    UnLock();
-                    return "";
-                }
-                rigStream.Write(data, 0, data.Length);
-            }
-            catch (Exception ex)
-            {
-                if (rigStream == null || ex.Message.Contains("Unable to write"))
-                {
-                    DebugAddMsg(DebugEnum.ERR, "Error...Did FLRig shut down?\n");
-                }
-                else
-                {
-                    DebugAddMsg(DebugEnum.ERR, "FLRig unexpected error:\n" + ex.Message + "\n");
-                }
-                UnLock();
-                return "";
-            }
-            data = new Byte[4096];
-            rigStream.ReadTimeout = 5000;
-            try
-            {
-                Int32 bytes = rigStream.Read(data, 0, data.Length);
-                String responseData = Encoding.ASCII.GetString(data, 0, bytes);
-                //richTextBoxRig.AppendText(responseData + "\n");
+                Lock();
+                string xml = FLRigXML("rig.get_info", null);
+                Byte[] data = System.Text.Encoding.ASCII.GetBytes(xml);
                 try
                 {
-                    if (responseData.Contains("<value>")) // then we have a frequency
+                    if (rigStream == null)
                     {
-                        int offset1 = responseData.IndexOf("<value>", StringComparison.InvariantCulture) + "<value>".Length;
-                        int offset2 = responseData.IndexOf("</value>", StringComparison.InvariantCulture);
-                        string info = responseData.Substring(offset1, offset2 - offset1);
-                        string[] tokens = info.Split(new char[] { '\n' });
-                        model = tokens[0].Substring(2);
+                        return "";
+                    }
+                    rigStream.Write(data, 0, data.Length);
+                }
+                catch (Exception ex)
+                {
+                    if (rigStream == null || ex.Message.Contains("Unable to write"))
+                    {
+                        DebugAddMsg(DebugEnum.ERR, "Error...Did FLRig shut down?\n");
+                    }
+                    else
+                    {
+                        DebugAddMsg(DebugEnum.ERR, "FLRig unexpected error:\n" + ex.Message + "\n");
+                    }
+                    return "";
+                }
+                data = new Byte[4096];
+                rigStream.ReadTimeout = 5000;
+                try
+                {
+                    Int32 bytes = rigStream.Read(data, 0, data.Length);
+                    String responseData = Encoding.ASCII.GetString(data, 0, bytes);
+                    //richTextBoxRig.AppendText(responseData + "\n");
+                    try
+                    {
+                        if (responseData.Contains("<value>")) // then we have a frequency
+                        {
+                            int offset1 = responseData.IndexOf("<value>", StringComparison.InvariantCulture) + "<value>".Length;
+                            int offset2 = responseData.IndexOf("</value>", StringComparison.InvariantCulture);
+                            string info = responseData.Substring(offset1, offset2 - offset1);
+                            string[] tokens = info.Split(new char[] { '\n' });
+                            model = tokens[0].Substring(2);
+                        }
+                    }
+                    catch (Exception)
+                    {
+
                     }
                 }
                 catch (Exception)
@@ -772,80 +787,85 @@ namespace AmpAutoTunerUtility
 
                 }
             }
-            catch (Exception)
+            finally
             {
-
+                UnLock();
             }
-            UnLock();
             return model;
         }
         private string FLRigGetMode(char vfo)
         {
-            string xml = FLRigXML("rig.get_mode" + vfo, null);
-            Byte[] data = System.Text.Encoding.ASCII.GetBytes(xml);
-            try
-            {
-                if (rigStream == null) return "";
-                Lock();
-                rigStream.Flush();
-                rigStream.Write(data, 0, data.Length);
-            }
-            catch (Exception ex)
-            {
-                if (rigStream == null || ex.Message.Contains("Unable to write"))
-                {
-                    DebugAddMsg(DebugEnum.ERR, "Error...Did FLRig shut down?\n");
-                }
-                else
-                {
-                    DebugAddMsg(DebugEnum.ERR, "FLRig unexpected error:\n" + ex.Message + "\n");
-                }
-                UnLock();
-                return "";
-            }
-            data = new Byte[4096];
-            rigStream.ReadTimeout = 5000;
             string mode = "?";
             try
             {
-                Int32 bytes = rigStream.Read(data, 0, data.Length);
-                String responseData = Encoding.ASCII.GetString(data, 0, bytes);
-                //richTextBoxRig.AppendText(responseData + "\n");
+                Lock();
+                string xml = FLRigXML("rig.get_mode" + vfo, null);
+                Byte[] data = System.Text.Encoding.ASCII.GetBytes(xml);
                 try
                 {
-                    if (responseData.Contains("<value>")) // then we have a frequency
+                    if (rigStream == null) return "";
+                    rigStream.Flush();
+                    rigStream.Write(data, 0, data.Length);
+                }
+                catch (Exception ex)
+                {
+                    if (rigStream == null || ex.Message.Contains("Unable to write"))
                     {
-                        int offset1 = responseData.IndexOf("<value>", StringComparison.InvariantCulture) + "<value>".Length;
-                        int offset2 = responseData.IndexOf("</value>", StringComparison.InvariantCulture);
-                        mode = responseData.Substring(offset1, offset2 - offset1);
+                        DebugAddMsg(DebugEnum.ERR, "Error...Did FLRig shut down?\n");
+                    }
+                    else
+                    {
+                        DebugAddMsg(DebugEnum.ERR, "FLRig unexpected error:\n" + ex.Message + "\n");
+                    }
+                    return "";
+                }
+                data = new Byte[4096];
+                rigStream.ReadTimeout = 5000;
+                try
+                {
+                    Int32 bytes = rigStream.Read(data, 0, data.Length);
+                    String responseData = Encoding.ASCII.GetString(data, 0, bytes);
+                    //richTextBoxRig.AppendText(responseData + "\n");
+                    try
+                    {
+                        if (responseData.Contains("<value>")) // then we have a frequency
+                        {
+                            int offset1 = responseData.IndexOf("<value>", StringComparison.InvariantCulture) + "<value>".Length;
+                            int offset2 = responseData.IndexOf("</value>", StringComparison.InvariantCulture);
+                            mode = responseData.Substring(offset1, offset2 - offset1);
+                        }
+                    }
+                    catch (Exception)
+                    {
+
                     }
                 }
                 catch (Exception)
                 {
 
                 }
-            }
-            catch (Exception)
-            {
-
-            }
-            if (vfo == 'A')
-            {
-                if (mode != modeAKeep)
+                if (vfo == 'A')
                 {
-                    DebugAddMsg(DebugEnum.VERBOSE, "FLRigGetMode(" + vfo + ") modeA =" + modeA);
-                    modeAKeep = mode;
+                    if (mode != modeAKeep)
+                    {
+                        DebugAddMsg(DebugEnum.VERBOSE, "FLRigGetMode(" + vfo + ") modeA =" + modeA);
+                        modeAKeep = mode;
+                    }
                 }
-            }
-            else
-            {
+                else
+                {
 
-                if (mode != modeBKeep) {
-                    DebugAddMsg(DebugEnum.VERBOSE, "FLRigGetMode(" + vfo + ") modeB =" + modeB);
-                    modeBKeep = mode;
+                    if (mode != modeBKeep)
+                    {
+                        DebugAddMsg(DebugEnum.VERBOSE, "FLRigGetMode(" + vfo + ") modeB =" + modeB);
+                        modeBKeep = mode;
+                    }
                 }
             }
-            UnLock();
+            finally
+            {
+                UnLock();
+            }
             return mode;
         }
 
@@ -925,46 +945,53 @@ namespace AmpAutoTunerUtility
 
         public override int GetPower()
         {
-            string xml = FLRigXML("rig.get_power", null);
-            Byte[] data = System.Text.Encoding.ASCII.GetBytes(xml);
+            return 0;
             try
             {
-                if (rigStream == null)
-                {
-                    return 0;
-                }
                 Lock();
-                rigStream.Write(data, 0, data.Length);
-            }
-            catch (Exception ex)
-            {
-                if (rigStream == null || ex.Message.Contains("Unable to write"))
-                {
-                    DebugAddMsg(DebugEnum.ERR, "Error...Did FLRig shut down?\n");
-                }
-                else
-                {
-                    DebugAddMsg(DebugEnum.ERR, "FLRig unexpected error:\n" + ex.Message + "\n");
-                }
-                UnLock();
-                return 0;
-            }
-            data = new Byte[4096];
-            rigStream.ReadTimeout = 5000;
-            int power = 0;
-            try
-            {
-                Int32 bytes = rigStream.Read(data, 0, data.Length);
-                String responseData = Encoding.ASCII.GetString(data, 0, bytes);
-                //richTextBoxRig.AppendText(responseData + "\n");
+                string xml = FLRigXML("rig.get_power", null);
+                Byte[] data = System.Text.Encoding.ASCII.GetBytes(xml);
                 try
                 {
-                    if (responseData.Contains("<value>")) // then we have a frequency
+                    if (rigStream == null)
                     {
-                        int offset1 = responseData.IndexOf("<i4>", StringComparison.InvariantCulture) + "<i4>".Length;
-                        int offset2 = responseData.IndexOf("</i4>", StringComparison.InvariantCulture);
-                        var s = responseData.Substring(offset1, offset2 - offset1);
-                        power = int.Parse(s);
+                        return 0;
+                    }
+                    rigStream.Write(data, 0, data.Length);
+                }
+                catch (Exception ex)
+                {
+                    if (rigStream == null || ex.Message.Contains("Unable to write"))
+                    {
+                        DebugAddMsg(DebugEnum.ERR, "Error...Did FLRig shut down?\n");
+                    }
+                    else
+                    {
+                        DebugAddMsg(DebugEnum.ERR, "FLRig unexpected error:\n" + ex.Message + "\n");
+                    }
+                    return 0;
+                }
+                data = new Byte[4096];
+                rigStream.ReadTimeout = 5000;
+                int power = 0;
+                try
+                {
+                    Int32 bytes = rigStream.Read(data, 0, data.Length);
+                    String responseData = Encoding.ASCII.GetString(data, 0, bytes);
+                    //richTextBoxRig.AppendText(responseData + "\n");
+                    try
+                    {
+                        if (responseData.Contains("<value>")) // then we have a frequency
+                        {
+                            int offset1 = responseData.IndexOf("<i4>", StringComparison.InvariantCulture) + "<i4>".Length;
+                            int offset2 = responseData.IndexOf("</i4>", StringComparison.InvariantCulture);
+                            var s = responseData.Substring(offset1, offset2 - offset1);
+                            power = int.Parse(s);
+                        }
+                    }
+                    catch (Exception)
+                    {
+
                     }
                 }
                 catch (Exception)
@@ -972,11 +999,10 @@ namespace AmpAutoTunerUtility
 
                 }
             }
-            catch (Exception)
+            finally
             {
-
+                UnLock();
             }
-            UnLock();
             return power;
         }
         void FLRigSetPower(int value)
@@ -1083,9 +1109,9 @@ namespace AmpAutoTunerUtility
             }
             try
             {
+                Lock();
                 int pttFlag = 0;
                 if (ptt == true) pttFlag = 1;
-                Lock();
                 var myparam = "<params><param><value><i4>" + pttFlag + "</i4></value></param></params";
                 string xml = FLRigXML("rig.set_ptt", myparam);
                 Byte[] data = System.Text.Encoding.ASCII.GetBytes(xml);
@@ -1103,8 +1129,10 @@ namespace AmpAutoTunerUtility
                 DebugAddMsg(DebugEnum.ERR, "SetPTT error: " + ex.Message + "\n" + ex.StackTrace);
                 Thread.Sleep(2000);
             }
-            UnLock();
-
+            finally
+            {
+                UnLock();
+            }
         }
         public override void SetPTT(bool ptt)
         {
@@ -1114,42 +1142,48 @@ namespace AmpAutoTunerUtility
 
         private bool FLRigGetPTT()
         {
-            var xml = FLRigXML("rig.get_ptt", null);
-            Byte[] data = System.Text.Encoding.ASCII.GetBytes(xml);
             try
             {
-                if (rigStream == null) return false;
                 Lock();
-                rigStream.Write(data, 0, data.Length);
-            }
-            catch (Exception ex)
-            {
-                if (rigStream == null || ex.Message.Contains("Unable to write"))
-                {
-                    DebugAddMsg(DebugEnum.ERR, "Error...Did FLRig shut down?\n");
-                }
-                else
-                {
-                    DebugAddMsg(DebugEnum.ERR, "FLRig unexpected error:\n" + ex.Message + "\n");
-                }
-                UnLock();
-                return false;
-            }
-            data = new Byte[4096];
-            rigStream.ReadTimeout = 5000;
-            try
-            {
-                Int32 bytes = rigStream.Read(data, 0, data.Length);
-                String responseData = Encoding.ASCII.GetString(data, 0, bytes);
-                //richTextBoxRig.AppendText(responseData + "\n");
+                if (rigStream == null) return false;
+                var xml = FLRigXML("rig.get_ptt", null);
+                Byte[] data = System.Text.Encoding.ASCII.GetBytes(xml);
                 try
                 {
-                    if (responseData.Contains("<value>")) // then we have a frequency
+                    rigStream.Write(data, 0, data.Length);
+                }
+                catch (Exception ex)
+                {
+                    if (rigStream == null || ex.Message.Contains("Unable to write"))
                     {
-                        int offset1 = responseData.IndexOf("<value>", StringComparison.InvariantCulture) + "<value>".Length;
-                        int offset2 = responseData.IndexOf("</value>", StringComparison.InvariantCulture);
-                        string freqString = responseData.Substring(offset1, offset2 - offset1);
-                        ptt = Boolean.Parse(freqString);
+                        DebugAddMsg(DebugEnum.ERR, "Error...Did FLRig shut down?\n");
+                    }
+                    else
+                    {
+                        DebugAddMsg(DebugEnum.ERR, "FLRig unexpected error:\n" + ex.Message + "\n");
+                    }
+                    return false;
+                }
+                data = new Byte[4096];
+                rigStream.ReadTimeout = 5000;
+                try
+                {
+                    Int32 bytes = rigStream.Read(data, 0, data.Length);
+                    String responseData = Encoding.ASCII.GetString(data, 0, bytes);
+                    //richTextBoxRig.AppendText(responseData + "\n");
+                    try
+                    {
+                        if (responseData.Contains("<value>")) // then we have a frequency
+                        {
+                            int offset1 = responseData.IndexOf("<value>", StringComparison.InvariantCulture) + "<value>".Length;
+                            int offset2 = responseData.IndexOf("</value>", StringComparison.InvariantCulture);
+                            string freqString = responseData.Substring(offset1, offset2 - offset1);
+                            ptt = Boolean.Parse(freqString);
+                        }
+                    }
+                    catch (Exception)
+                    {
+
                     }
                 }
                 catch (Exception)
@@ -1157,16 +1191,15 @@ namespace AmpAutoTunerUtility
 
                 }
             }
-            catch (Exception)
+            finally
             {
-
+                UnLock();
             }
-            UnLock();
             return ptt;
         }
         public override bool GetPTT()
         {
-            return FLRigGetPTT();
+            return ptt;
         }
 
         public override string GetModel()
