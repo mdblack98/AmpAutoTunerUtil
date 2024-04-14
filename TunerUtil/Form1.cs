@@ -79,6 +79,7 @@ namespace AmpAutoTunerUtility
         private bool ampIsOn;
         private bool _disposed;
         private int lastAntennaNumber = -1;
+        object expertLock = new object();
         //private int lastRelayUsed = -1;
         //bool tuning;
 
@@ -2395,6 +2396,7 @@ namespace AmpAutoTunerUtility
 
         private void FLRigGetFreq(bool needTuning = true)
         {
+            bool isExpertSPE = tuner1!.GetModel().Contains(EXPERTLINEARS);
             getFreqIsRunning = true;
             if (!checkBoxRig.Checked || formClosing)
             {
@@ -2406,7 +2408,7 @@ namespace AmpAutoTunerUtility
             //if (rigStream == null) 
             //    return;
             //rigStream.Flush();
-            myRig.GetFrequency('A');
+            frequencyHz = myRig.GetFrequency('A');
             myRig.GetFrequency('B');
             char currVFO = myRig.VFO;
             if (currVFO == 'B')
@@ -2441,6 +2443,7 @@ namespace AmpAutoTunerUtility
                 {
                     //if (responseData.Contains("<value>")) // then we have a frequency
                     {
+                        myRig.GetFrequency(cvfo);
                         frequencyHz = cvfo == 'A' ? myRig.FrequencyA : myRig.FrequencyB;
                         if (frequencyHz == 0)
                         {
@@ -2453,7 +2456,7 @@ namespace AmpAutoTunerUtility
                         // if our frequency changes by more than 10KHz make VFOB match VFOA
                         if (frequencyHz < 60000000 && frequencyLast != 0 && Math.Abs(frequencyHz - frequencyLast) > 200)
                         {
-                            DebugAddMsg(DebugEnum.LOG, "Changing VFOB to match freq="+frequencyHz+"\n");
+                            DebugAddMsg(DebugEnum.LOG, "Changing VFOB to match last freq " + frequencyLast + " to " + frequencyHz + "\n");
                             myRig.FrequencyB = myRig.FrequencyA;
                         }
                         if (frequencyLast != 0 && Math.Abs(frequencyHz - frequencyLast) > tolTune)
@@ -2482,7 +2485,7 @@ namespace AmpAutoTunerUtility
                         if (freqStableCount >= freqStableCountNeeded && Math.Abs(frequencyHz - frequencyLastTunedHz) > tolTune && !pausedTuning & !pauseButtonClicked)
                         {
                             DebugAddMsg(DebugEnum.LOG, "Freq diff = " + Math.Abs(frequencyHz - frequencyLastTunedHz) + " tolTune=" + tolTune + "\n");
-                            if (stopWatchTuner.IsRunning && stopWatchTuner.ElapsedMilliseconds < 1 * 1000)
+                            if (!isExpertSPE && stopWatchTuner.IsRunning && stopWatchTuner.ElapsedMilliseconds < 1 * 1000)
                             {
                                 stopWatchTuner.Stop();
                                 //MyMessageBox("Rapid frequency changes...click OK when ready to tune");
@@ -2597,9 +2600,10 @@ namespace AmpAutoTunerUtility
         }
         private void TimerGetFreq_Tick(object sender, EventArgs e)
         {
-            //timerGetFreq.Enabled = false;
+            if (myRig is null) return;
             if (Monitor.TryEnter(timerGetFreqMutex))
             {
+                frequencyHz = myRig.GetFrequency('A');
                 if (tuner1 is not null && tuner1.IsOperate && tuner1.IsOn)
                 {
                     buttonTune.Enabled = false;
@@ -2812,8 +2816,8 @@ namespace AmpAutoTunerUtility
                 {
                     labelFreq!.Text = "?";
                 }
+                Monitor.Exit(timerGetFreqMutex);
             }
-            Monitor.Exit(timerGetFreqMutex);
         }
 
         private void CheckBox1_CheckedChanged(object sender, EventArgs e)
@@ -4349,13 +4353,13 @@ namespace AmpAutoTunerUtility
                 }
                 try
                 {
-                    //timerFreqWalk.Enabled = false;
+                    timerFreqWalk.Enabled = false;
                     //richTextBox1.AppendText(MyTime() + "Tick\n");
                     FLRigGetFreq(false);
                     if (frequencyHz == 0)
                     {
                         DebugMsg.DebugAddMsg(DebugEnum.ERR, "Frequency == 0");
-                        //timerFreqWalk.Enabled = true;
+                        timerFreqWalk.Enabled = true;
                         Monitor.Exit(timerFreqWalkMutex);
                         return;
                     }
@@ -4366,6 +4370,7 @@ namespace AmpAutoTunerUtility
                     {
                         DebugMsg.DebugAddMsg(DebugEnum.LOG, "FrequencyWalk Stop Request#2 frequencyHz=" + frequencyHz);
                         FreqWalkStop();
+                        timerFreqWalk.Enabled = true;
                         Monitor.Exit(timerFreqWalkMutex);
                         return;
                     }
@@ -4400,13 +4405,13 @@ namespace AmpAutoTunerUtility
                             FLRigGetFreq(false);
                         }
                     }
-                    //timerFreqWalk.Enabled = true;
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message + "\n" + ex.StackTrace);
                 }
             }
+            timerFreqWalk.Enabled = true;
             Monitor.Exit(timerFreqWalkMutex);   
         }
 
@@ -4549,7 +4554,7 @@ namespace AmpAutoTunerUtility
                     // Decided we want the tuner on for antenna selection during walk
                     //if (tuner1.isOn) tuner1.Off();
                 }
-                timerGetFreq.Stop();
+                //timerGetFreq.Stop();
                 timerFreqWalk.Stop();
                 Thread.Sleep(500);
                 myRig!.ModeA = "USB-D";
@@ -4559,7 +4564,7 @@ namespace AmpAutoTunerUtility
                 if (frequenciesToWalk == null || (freqWalkIsRunning == false && frequenciesToWalk.Count == 0))
                 {
                     DebugMsg.DebugAddMsg(DebugEnum.LOG,"No walk frequencies selected in FreqWalk tab!!");
-                    timerGetFreq.Start();
+                    //timerGetFreq.Start();
                     Cursor = Cursors.Default;
                     return;
                 }
@@ -4571,19 +4576,22 @@ namespace AmpAutoTunerUtility
                 }
                 else
                 {
-                    timerGetFreq.Stop();
+                    //timerGetFreq.Stop();
                     Thread.Sleep(200);
                     DebugMsg.DebugAddMsg(DebugEnum.LOG, "FrequencyWalk Stop Request#3");
                     FreqWalkStop();
                     myRig.SendCommand((int)numericUpDownFLRigAfterWalk.Value);
-                    timerGetFreq.Start();
+                    //timerGetFreq.Start();
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Error: " + ex.Message + ex.StackTrace);
             }
-            timerGetFreq.Start();
+            //timerGetFreq.Start();
+            //{
+            //    timerGetFreq.Enabled = true;
+            //}
             Cursor = Cursors.Default;
         }
 
@@ -5631,7 +5639,7 @@ namespace AmpAutoTunerUtility
                     MessageBox.Show("tuner problem ins ", System.Reflection.MethodBase.GetCurrentMethod().Name);
                     return;
                 }
-                Monitor.Enter("ExpertLinear");
+                Monitor.Enter(expertLock);
                 var myBand = tuner1.band;
                 var nFreqs = tuner1.tuneFrequencies[myBand, 0];
                 var step = tuner1.tuneFrequencies[myBand, 1];
@@ -5700,6 +5708,7 @@ namespace AmpAutoTunerUtility
             }
             UseWaitCursor = false;
             labelExpertLinearsInfo.Text = "Results are in clipboard";
+            Monitor.Exit(expertLock);
         }
 
         private void ComboBoxExpertLinears4_2_Enter(object sender, EventArgs e)
@@ -6156,6 +6165,11 @@ Set
         }
 
         private void TextBoxTune1Power_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void numericUpDownFLRigBeforeWalk_ValueChanged(object sender, EventArgs e)
         {
 
         }
