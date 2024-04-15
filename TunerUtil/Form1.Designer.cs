@@ -83,7 +83,6 @@
             this.textBoxTune7Power = new System.Windows.Forms.TextBox();
             this.textBoxTune8Power = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
             this.textBoxFreqTol = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.textBoxTuneOffset = new System.Windows.Forms.TextBox();
@@ -125,14 +124,6 @@
             this.comboBoxTunerModel = new System.Windows.Forms.ComboBox();
             this.comboBoxBaudTuner = new System.Windows.Forms.ComboBox();
             this.comboBoxComTuner = new System.Windows.Forms.ComboBox();
-            this.checkBoxAmp8 = new System.Windows.Forms.CheckBox();
-            this.checkBoxAmp7 = new System.Windows.Forms.CheckBox();
-            this.checkBoxAmp6 = new System.Windows.Forms.CheckBox();
-            this.checkBoxAmp5 = new System.Windows.Forms.CheckBox();
-            this.checkBoxAmp4 = new System.Windows.Forms.CheckBox();
-            this.checkBoxAmp3 = new System.Windows.Forms.CheckBox();
-            this.checkBoxAmp2 = new System.Windows.Forms.CheckBox();
-            this.checkBoxAmp1 = new System.Windows.Forms.CheckBox();
             this.checkBoxPower8Enabled = new System.Windows.Forms.CheckBox();
             this.checkBoxPower7Enabled = new System.Windows.Forms.CheckBox();
             this.checkBoxPower6Enabled = new System.Windows.Forms.CheckBox();
@@ -141,14 +132,6 @@
             this.checkBoxPower3Enabled = new System.Windows.Forms.CheckBox();
             this.checkBoxPower2Enabled = new System.Windows.Forms.CheckBox();
             this.checkBoxPower1Enabled = new System.Windows.Forms.CheckBox();
-            this.checkBoxAntenna8Amp = new System.Windows.Forms.CheckBox();
-            this.checkBoxAntenna7Amp = new System.Windows.Forms.CheckBox();
-            this.checkBoxAntenna6Amp = new System.Windows.Forms.CheckBox();
-            this.checkBoxAntenna5Amp = new System.Windows.Forms.CheckBox();
-            this.checkBoxAntenna4Amp = new System.Windows.Forms.CheckBox();
-            this.checkBoxAntenna3Amp = new System.Windows.Forms.CheckBox();
-            this.checkBoxAntenna2Amp = new System.Windows.Forms.CheckBox();
-            this.checkBoxAntenna1Amp = new System.Windows.Forms.CheckBox();
             this.ComboBoxAntenna8Bits = new System.Windows.Forms.ComboBox();
             this.ComboBoxAntenna7Bits = new System.Windows.Forms.ComboBox();
             this.ComboBoxAntenna6Bits = new System.Windows.Forms.ComboBox();
@@ -408,6 +391,15 @@
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.timerFreqWalk = new System.Windows.Forms.Timer(this.components);
+            this.label8 = new System.Windows.Forms.Label();
+            this.checkBoxAmp8 = new System.Windows.Forms.CheckBox();
+            this.checkBoxAmp7 = new System.Windows.Forms.CheckBox();
+            this.checkBoxAmp6 = new System.Windows.Forms.CheckBox();
+            this.checkBoxAmp5 = new System.Windows.Forms.CheckBox();
+            this.checkBoxAmp4 = new System.Windows.Forms.CheckBox();
+            this.checkBoxAmp3 = new System.Windows.Forms.CheckBox();
+            this.checkBoxAmp2 = new System.Windows.Forms.CheckBox();
+            this.checkBoxAmp1 = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCapacitance)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownInductance)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPostPttDelay)).BeginInit();
@@ -565,7 +557,7 @@
             // comboBoxAntenna1Controller
             // 
             this.comboBoxAntenna1Controller.FormattingEnabled = true;
-            this.comboBoxAntenna1Controller.Location = new System.Drawing.Point(251, 17);
+            this.comboBoxAntenna1Controller.Location = new System.Drawing.Point(236, 17);
             this.comboBoxAntenna1Controller.Margin = new System.Windows.Forms.Padding(2);
             this.comboBoxAntenna1Controller.Name = "comboBoxAntenna1Controller";
             this.comboBoxAntenna1Controller.Size = new System.Drawing.Size(77, 21);
@@ -576,7 +568,7 @@
             // label16
             // 
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(256, 0);
+            this.label16.Location = new System.Drawing.Point(241, 0);
             this.label16.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(51, 13);
@@ -588,7 +580,7 @@
             // comboBoxAntenna2Controller
             // 
             this.comboBoxAntenna2Controller.FormattingEnabled = true;
-            this.comboBoxAntenna2Controller.Location = new System.Drawing.Point(251, 39);
+            this.comboBoxAntenna2Controller.Location = new System.Drawing.Point(236, 39);
             this.comboBoxAntenna2Controller.Margin = new System.Windows.Forms.Padding(2);
             this.comboBoxAntenna2Controller.Name = "comboBoxAntenna2Controller";
             this.comboBoxAntenna2Controller.Size = new System.Drawing.Size(77, 21);
@@ -599,7 +591,7 @@
             // comboBoxAntenna3Controller
             // 
             this.comboBoxAntenna3Controller.FormattingEnabled = true;
-            this.comboBoxAntenna3Controller.Location = new System.Drawing.Point(251, 61);
+            this.comboBoxAntenna3Controller.Location = new System.Drawing.Point(236, 61);
             this.comboBoxAntenna3Controller.Margin = new System.Windows.Forms.Padding(2);
             this.comboBoxAntenna3Controller.Name = "comboBoxAntenna3Controller";
             this.comboBoxAntenna3Controller.Size = new System.Drawing.Size(77, 21);
@@ -610,7 +602,7 @@
             // comboBoxAntenna4Controller
             // 
             this.comboBoxAntenna4Controller.FormattingEnabled = true;
-            this.comboBoxAntenna4Controller.Location = new System.Drawing.Point(251, 83);
+            this.comboBoxAntenna4Controller.Location = new System.Drawing.Point(236, 83);
             this.comboBoxAntenna4Controller.Margin = new System.Windows.Forms.Padding(2);
             this.comboBoxAntenna4Controller.Name = "comboBoxAntenna4Controller";
             this.comboBoxAntenna4Controller.Size = new System.Drawing.Size(77, 21);
@@ -621,7 +613,7 @@
             // comboBoxAntenna5Controller
             // 
             this.comboBoxAntenna5Controller.FormattingEnabled = true;
-            this.comboBoxAntenna5Controller.Location = new System.Drawing.Point(251, 105);
+            this.comboBoxAntenna5Controller.Location = new System.Drawing.Point(236, 105);
             this.comboBoxAntenna5Controller.Margin = new System.Windows.Forms.Padding(2);
             this.comboBoxAntenna5Controller.Name = "comboBoxAntenna5Controller";
             this.comboBoxAntenna5Controller.Size = new System.Drawing.Size(77, 21);
@@ -632,7 +624,7 @@
             // comboBoxAntenna6Controller
             // 
             this.comboBoxAntenna6Controller.FormattingEnabled = true;
-            this.comboBoxAntenna6Controller.Location = new System.Drawing.Point(251, 127);
+            this.comboBoxAntenna6Controller.Location = new System.Drawing.Point(236, 127);
             this.comboBoxAntenna6Controller.Margin = new System.Windows.Forms.Padding(2);
             this.comboBoxAntenna6Controller.Name = "comboBoxAntenna6Controller";
             this.comboBoxAntenna6Controller.Size = new System.Drawing.Size(77, 21);
@@ -643,7 +635,7 @@
             // comboBoxAntenna7Controller
             // 
             this.comboBoxAntenna7Controller.FormattingEnabled = true;
-            this.comboBoxAntenna7Controller.Location = new System.Drawing.Point(251, 149);
+            this.comboBoxAntenna7Controller.Location = new System.Drawing.Point(236, 149);
             this.comboBoxAntenna7Controller.Margin = new System.Windows.Forms.Padding(2);
             this.comboBoxAntenna7Controller.Name = "comboBoxAntenna7Controller";
             this.comboBoxAntenna7Controller.Size = new System.Drawing.Size(77, 21);
@@ -654,7 +646,7 @@
             // comboBoxAntenna8Controller
             // 
             this.comboBoxAntenna8Controller.FormattingEnabled = true;
-            this.comboBoxAntenna8Controller.Location = new System.Drawing.Point(251, 171);
+            this.comboBoxAntenna8Controller.Location = new System.Drawing.Point(236, 171);
             this.comboBoxAntenna8Controller.Margin = new System.Windows.Forms.Padding(2);
             this.comboBoxAntenna8Controller.Name = "comboBoxAntenna8Controller";
             this.comboBoxAntenna8Controller.Size = new System.Drawing.Size(77, 21);
@@ -675,7 +667,7 @@
             // 
             // textBoxAntenna1
             // 
-            this.textBoxAntenna1.Location = new System.Drawing.Point(176, 18);
+            this.textBoxAntenna1.Location = new System.Drawing.Point(161, 18);
             this.textBoxAntenna1.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxAntenna1.Name = "textBoxAntenna1";
             this.textBoxAntenna1.Size = new System.Drawing.Size(76, 20);
@@ -687,7 +679,7 @@
             // 
             // textBoxAntenna2
             // 
-            this.textBoxAntenna2.Location = new System.Drawing.Point(176, 40);
+            this.textBoxAntenna2.Location = new System.Drawing.Point(161, 40);
             this.textBoxAntenna2.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxAntenna2.Name = "textBoxAntenna2";
             this.textBoxAntenna2.Size = new System.Drawing.Size(76, 20);
@@ -698,7 +690,7 @@
             // 
             // textBoxAntenna3
             // 
-            this.textBoxAntenna3.Location = new System.Drawing.Point(176, 62);
+            this.textBoxAntenna3.Location = new System.Drawing.Point(161, 62);
             this.textBoxAntenna3.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxAntenna3.Name = "textBoxAntenna3";
             this.textBoxAntenna3.Size = new System.Drawing.Size(76, 20);
@@ -709,7 +701,7 @@
             // 
             // textBoxAntenna4
             // 
-            this.textBoxAntenna4.Location = new System.Drawing.Point(176, 84);
+            this.textBoxAntenna4.Location = new System.Drawing.Point(161, 84);
             this.textBoxAntenna4.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxAntenna4.Name = "textBoxAntenna4";
             this.textBoxAntenna4.Size = new System.Drawing.Size(76, 20);
@@ -720,7 +712,7 @@
             // 
             // textBoxAntenna5
             // 
-            this.textBoxAntenna5.Location = new System.Drawing.Point(176, 106);
+            this.textBoxAntenna5.Location = new System.Drawing.Point(161, 106);
             this.textBoxAntenna5.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxAntenna5.Name = "textBoxAntenna5";
             this.textBoxAntenna5.Size = new System.Drawing.Size(76, 20);
@@ -731,7 +723,7 @@
             // 
             // textBoxAntenna6
             // 
-            this.textBoxAntenna6.Location = new System.Drawing.Point(176, 128);
+            this.textBoxAntenna6.Location = new System.Drawing.Point(161, 128);
             this.textBoxAntenna6.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxAntenna6.Name = "textBoxAntenna6";
             this.textBoxAntenna6.Size = new System.Drawing.Size(76, 20);
@@ -742,7 +734,7 @@
             // 
             // textBoxAntenna7
             // 
-            this.textBoxAntenna7.Location = new System.Drawing.Point(176, 150);
+            this.textBoxAntenna7.Location = new System.Drawing.Point(161, 150);
             this.textBoxAntenna7.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxAntenna7.Name = "textBoxAntenna7";
             this.textBoxAntenna7.Size = new System.Drawing.Size(76, 20);
@@ -753,7 +745,7 @@
             // 
             // textBoxAntenna8
             // 
-            this.textBoxAntenna8.Location = new System.Drawing.Point(176, 172);
+            this.textBoxAntenna8.Location = new System.Drawing.Point(161, 172);
             this.textBoxAntenna8.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxAntenna8.Name = "textBoxAntenna8";
             this.textBoxAntenna8.Size = new System.Drawing.Size(76, 20);
@@ -860,7 +852,7 @@
             "2",
             "3",
             "4"});
-            this.comboBoxAntSelect1.Location = new System.Drawing.Point(143, 17);
+            this.comboBoxAntSelect1.Location = new System.Drawing.Point(128, 17);
             this.comboBoxAntSelect1.Margin = new System.Windows.Forms.Padding(2);
             this.comboBoxAntSelect1.Name = "comboBoxAntSelect1";
             this.comboBoxAntSelect1.Size = new System.Drawing.Size(35, 21);
@@ -877,7 +869,7 @@
             "2",
             "3",
             "4"});
-            this.comboBoxAntSelect2.Location = new System.Drawing.Point(143, 39);
+            this.comboBoxAntSelect2.Location = new System.Drawing.Point(128, 39);
             this.comboBoxAntSelect2.Margin = new System.Windows.Forms.Padding(2);
             this.comboBoxAntSelect2.Name = "comboBoxAntSelect2";
             this.comboBoxAntSelect2.Size = new System.Drawing.Size(35, 21);
@@ -894,7 +886,7 @@
             "2",
             "3",
             "4"});
-            this.comboBoxAntSelect3.Location = new System.Drawing.Point(143, 61);
+            this.comboBoxAntSelect3.Location = new System.Drawing.Point(128, 61);
             this.comboBoxAntSelect3.Margin = new System.Windows.Forms.Padding(2);
             this.comboBoxAntSelect3.Name = "comboBoxAntSelect3";
             this.comboBoxAntSelect3.Size = new System.Drawing.Size(35, 21);
@@ -911,7 +903,7 @@
             "2",
             "3",
             "4"});
-            this.comboBoxAntSelect4.Location = new System.Drawing.Point(143, 83);
+            this.comboBoxAntSelect4.Location = new System.Drawing.Point(128, 83);
             this.comboBoxAntSelect4.Margin = new System.Windows.Forms.Padding(2);
             this.comboBoxAntSelect4.Name = "comboBoxAntSelect4";
             this.comboBoxAntSelect4.Size = new System.Drawing.Size(35, 21);
@@ -928,7 +920,7 @@
             "2",
             "3",
             "4"});
-            this.comboBoxAntSelect5.Location = new System.Drawing.Point(143, 105);
+            this.comboBoxAntSelect5.Location = new System.Drawing.Point(128, 105);
             this.comboBoxAntSelect5.Margin = new System.Windows.Forms.Padding(2);
             this.comboBoxAntSelect5.Name = "comboBoxAntSelect5";
             this.comboBoxAntSelect5.Size = new System.Drawing.Size(35, 21);
@@ -945,7 +937,7 @@
             "2",
             "3",
             "4"});
-            this.comboBoxAntSelect6.Location = new System.Drawing.Point(143, 127);
+            this.comboBoxAntSelect6.Location = new System.Drawing.Point(128, 127);
             this.comboBoxAntSelect6.Margin = new System.Windows.Forms.Padding(2);
             this.comboBoxAntSelect6.Name = "comboBoxAntSelect6";
             this.comboBoxAntSelect6.Size = new System.Drawing.Size(35, 21);
@@ -962,7 +954,7 @@
             "2",
             "3",
             "4"});
-            this.comboBoxAntSelect7.Location = new System.Drawing.Point(143, 149);
+            this.comboBoxAntSelect7.Location = new System.Drawing.Point(128, 149);
             this.comboBoxAntSelect7.Margin = new System.Windows.Forms.Padding(2);
             this.comboBoxAntSelect7.Name = "comboBoxAntSelect7";
             this.comboBoxAntSelect7.Size = new System.Drawing.Size(35, 21);
@@ -979,7 +971,7 @@
             "2",
             "3",
             "4"});
-            this.comboBoxAntSelect8.Location = new System.Drawing.Point(143, 171);
+            this.comboBoxAntSelect8.Location = new System.Drawing.Point(128, 171);
             this.comboBoxAntSelect8.Margin = new System.Windows.Forms.Padding(2);
             this.comboBoxAntSelect8.Name = "comboBoxAntSelect8";
             this.comboBoxAntSelect8.Size = new System.Drawing.Size(35, 21);
@@ -990,7 +982,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(144, 2);
+            this.label10.Location = new System.Drawing.Point(129, 2);
             this.label10.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(30, 13);
@@ -1129,7 +1121,7 @@
             // 
             // textBoxTune1Power
             // 
-            this.textBoxTune1Power.Location = new System.Drawing.Point(173, 18);
+            this.textBoxTune1Power.Location = new System.Drawing.Point(173, 19);
             this.textBoxTune1Power.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxTune1Power.Name = "textBoxTune1Power";
             this.textBoxTune1Power.Size = new System.Drawing.Size(32, 20);
@@ -1139,7 +1131,7 @@
             // 
             // textBoxTune2Power
             // 
-            this.textBoxTune2Power.Location = new System.Drawing.Point(173, 39);
+            this.textBoxTune2Power.Location = new System.Drawing.Point(173, 40);
             this.textBoxTune2Power.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxTune2Power.Name = "textBoxTune2Power";
             this.textBoxTune2Power.Size = new System.Drawing.Size(32, 20);
@@ -1148,7 +1140,7 @@
             // 
             // textBoxTune3Power
             // 
-            this.textBoxTune3Power.Location = new System.Drawing.Point(173, 60);
+            this.textBoxTune3Power.Location = new System.Drawing.Point(173, 61);
             this.textBoxTune3Power.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxTune3Power.Name = "textBoxTune3Power";
             this.textBoxTune3Power.Size = new System.Drawing.Size(32, 20);
@@ -1157,7 +1149,7 @@
             // 
             // textBoxTune4Power
             // 
-            this.textBoxTune4Power.Location = new System.Drawing.Point(173, 81);
+            this.textBoxTune4Power.Location = new System.Drawing.Point(173, 82);
             this.textBoxTune4Power.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxTune4Power.Name = "textBoxTune4Power";
             this.textBoxTune4Power.Size = new System.Drawing.Size(32, 20);
@@ -1166,7 +1158,7 @@
             // 
             // textBoxTune5Power
             // 
-            this.textBoxTune5Power.Location = new System.Drawing.Point(173, 102);
+            this.textBoxTune5Power.Location = new System.Drawing.Point(173, 103);
             this.textBoxTune5Power.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxTune5Power.Name = "textBoxTune5Power";
             this.textBoxTune5Power.Size = new System.Drawing.Size(32, 20);
@@ -1175,7 +1167,7 @@
             // 
             // textBoxTune6Power
             // 
-            this.textBoxTune6Power.Location = new System.Drawing.Point(173, 123);
+            this.textBoxTune6Power.Location = new System.Drawing.Point(173, 124);
             this.textBoxTune6Power.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxTune6Power.Name = "textBoxTune6Power";
             this.textBoxTune6Power.Size = new System.Drawing.Size(32, 20);
@@ -1184,7 +1176,7 @@
             // 
             // textBoxTune7Power
             // 
-            this.textBoxTune7Power.Location = new System.Drawing.Point(173, 144);
+            this.textBoxTune7Power.Location = new System.Drawing.Point(173, 145);
             this.textBoxTune7Power.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxTune7Power.Name = "textBoxTune7Power";
             this.textBoxTune7Power.Size = new System.Drawing.Size(32, 20);
@@ -1193,7 +1185,7 @@
             // 
             // textBoxTune8Power
             // 
-            this.textBoxTune8Power.Location = new System.Drawing.Point(173, 165);
+            this.textBoxTune8Power.Location = new System.Drawing.Point(173, 166);
             this.textBoxTune8Power.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxTune8Power.Name = "textBoxTune8Power";
             this.textBoxTune8Power.Size = new System.Drawing.Size(32, 20);
@@ -1210,17 +1202,6 @@
             this.label7.TabIndex = 99;
             this.label7.Text = "Mode";
             this.toolTip1.SetToolTip(this.label7, "Power setting for rig control program");
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(151, 3);
-            this.label8.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(28, 13);
-            this.label8.TabIndex = 108;
-            this.label8.Text = "Amp";
-            this.toolTip1.SetToolTip(this.label8, "Enable Amplifier");
             // 
             // textBoxFreqTol
             // 
@@ -1790,87 +1771,6 @@
             this.comboBoxComTuner.TabIndex = 0;
             this.comboBoxComTuner.SelectedIndexChanged += new System.EventHandler(this.ComboBoxComTuner_SelectedIndexChanged_1);
             // 
-            // checkBoxAmp8
-            // 
-            this.checkBoxAmp8.AutoSize = true;
-            this.checkBoxAmp8.Location = new System.Drawing.Point(158, 168);
-            this.checkBoxAmp8.Name = "checkBoxAmp8";
-            this.checkBoxAmp8.Size = new System.Drawing.Size(15, 14);
-            this.checkBoxAmp8.TabIndex = 107;
-            this.toolTip1.SetToolTip(this.checkBoxAmp8, "Enable Amplifier");
-            this.checkBoxAmp8.UseVisualStyleBackColor = true;
-            // 
-            // checkBoxAmp7
-            // 
-            this.checkBoxAmp7.AutoSize = true;
-            this.checkBoxAmp7.Location = new System.Drawing.Point(158, 147);
-            this.checkBoxAmp7.Name = "checkBoxAmp7";
-            this.checkBoxAmp7.Size = new System.Drawing.Size(15, 14);
-            this.checkBoxAmp7.TabIndex = 106;
-            this.toolTip1.SetToolTip(this.checkBoxAmp7, "Enable Amplifier");
-            this.checkBoxAmp7.UseVisualStyleBackColor = true;
-            // 
-            // checkBoxAmp6
-            // 
-            this.checkBoxAmp6.AutoSize = true;
-            this.checkBoxAmp6.Location = new System.Drawing.Point(158, 126);
-            this.checkBoxAmp6.Name = "checkBoxAmp6";
-            this.checkBoxAmp6.Size = new System.Drawing.Size(15, 14);
-            this.checkBoxAmp6.TabIndex = 105;
-            this.toolTip1.SetToolTip(this.checkBoxAmp6, "Enable Amplifier");
-            this.checkBoxAmp6.UseVisualStyleBackColor = true;
-            // 
-            // checkBoxAmp5
-            // 
-            this.checkBoxAmp5.AutoSize = true;
-            this.checkBoxAmp5.Location = new System.Drawing.Point(158, 106);
-            this.checkBoxAmp5.Name = "checkBoxAmp5";
-            this.checkBoxAmp5.Size = new System.Drawing.Size(15, 14);
-            this.checkBoxAmp5.TabIndex = 104;
-            this.toolTip1.SetToolTip(this.checkBoxAmp5, "Enable Amplifier");
-            this.checkBoxAmp5.UseVisualStyleBackColor = true;
-            // 
-            // checkBoxAmp4
-            // 
-            this.checkBoxAmp4.AutoSize = true;
-            this.checkBoxAmp4.Location = new System.Drawing.Point(158, 85);
-            this.checkBoxAmp4.Name = "checkBoxAmp4";
-            this.checkBoxAmp4.Size = new System.Drawing.Size(15, 14);
-            this.checkBoxAmp4.TabIndex = 103;
-            this.toolTip1.SetToolTip(this.checkBoxAmp4, "Enable Amplifier");
-            this.checkBoxAmp4.UseVisualStyleBackColor = true;
-            // 
-            // checkBoxAmp3
-            // 
-            this.checkBoxAmp3.AutoSize = true;
-            this.checkBoxAmp3.Location = new System.Drawing.Point(158, 64);
-            this.checkBoxAmp3.Name = "checkBoxAmp3";
-            this.checkBoxAmp3.Size = new System.Drawing.Size(15, 14);
-            this.checkBoxAmp3.TabIndex = 102;
-            this.toolTip1.SetToolTip(this.checkBoxAmp3, "Enable Amplifier");
-            this.checkBoxAmp3.UseVisualStyleBackColor = true;
-            // 
-            // checkBoxAmp2
-            // 
-            this.checkBoxAmp2.AutoSize = true;
-            this.checkBoxAmp2.Location = new System.Drawing.Point(158, 42);
-            this.checkBoxAmp2.Name = "checkBoxAmp2";
-            this.checkBoxAmp2.Size = new System.Drawing.Size(15, 14);
-            this.checkBoxAmp2.TabIndex = 101;
-            this.toolTip1.SetToolTip(this.checkBoxAmp2, "Enable Amplifier");
-            this.checkBoxAmp2.UseVisualStyleBackColor = true;
-            // 
-            // checkBoxAmp1
-            // 
-            this.checkBoxAmp1.AutoSize = true;
-            this.checkBoxAmp1.Location = new System.Drawing.Point(158, 22);
-            this.checkBoxAmp1.Name = "checkBoxAmp1";
-            this.checkBoxAmp1.Size = new System.Drawing.Size(15, 14);
-            this.checkBoxAmp1.TabIndex = 100;
-            this.toolTip1.SetToolTip(this.checkBoxAmp1, "Enable Amplifier");
-            this.checkBoxAmp1.UseVisualStyleBackColor = true;
-            this.checkBoxAmp1.CheckedChanged += new System.EventHandler(this.CheckBoxAmp1_CheckedChanged);
-            // 
             // checkBoxPower8Enabled
             // 
             this.checkBoxPower8Enabled.AutoSize = true;
@@ -1959,102 +1859,6 @@
             this.toolTip1.SetToolTip(this.checkBoxPower1Enabled, "Enable this line");
             this.checkBoxPower1Enabled.UseVisualStyleBackColor = true;
             // 
-            // checkBoxAntenna8Amp
-            // 
-            this.checkBoxAntenna8Amp.AutoSize = true;
-            this.checkBoxAntenna8Amp.Location = new System.Drawing.Point(129, 175);
-            this.checkBoxAntenna8Amp.Margin = new System.Windows.Forms.Padding(2);
-            this.checkBoxAntenna8Amp.Name = "checkBoxAntenna8Amp";
-            this.checkBoxAntenna8Amp.Size = new System.Drawing.Size(15, 14);
-            this.checkBoxAntenna8Amp.TabIndex = 87;
-            this.toolTip1.SetToolTip(this.checkBoxAntenna8Amp, "Check to enable amp on this antenna");
-            this.checkBoxAntenna8Amp.UseVisualStyleBackColor = true;
-            this.checkBoxAntenna8Amp.CheckedChanged += new System.EventHandler(this.CheckBoxAntennaAmp_CheckedChange);
-            // 
-            // checkBoxAntenna7Amp
-            // 
-            this.checkBoxAntenna7Amp.AutoSize = true;
-            this.checkBoxAntenna7Amp.Location = new System.Drawing.Point(129, 153);
-            this.checkBoxAntenna7Amp.Margin = new System.Windows.Forms.Padding(2);
-            this.checkBoxAntenna7Amp.Name = "checkBoxAntenna7Amp";
-            this.checkBoxAntenna7Amp.Size = new System.Drawing.Size(15, 14);
-            this.checkBoxAntenna7Amp.TabIndex = 86;
-            this.toolTip1.SetToolTip(this.checkBoxAntenna7Amp, "Check to enable amp on this antenna");
-            this.checkBoxAntenna7Amp.UseVisualStyleBackColor = true;
-            this.checkBoxAntenna7Amp.CheckedChanged += new System.EventHandler(this.CheckBoxAntennaAmp_CheckedChange);
-            // 
-            // checkBoxAntenna6Amp
-            // 
-            this.checkBoxAntenna6Amp.AutoSize = true;
-            this.checkBoxAntenna6Amp.Location = new System.Drawing.Point(129, 131);
-            this.checkBoxAntenna6Amp.Margin = new System.Windows.Forms.Padding(2);
-            this.checkBoxAntenna6Amp.Name = "checkBoxAntenna6Amp";
-            this.checkBoxAntenna6Amp.Size = new System.Drawing.Size(15, 14);
-            this.checkBoxAntenna6Amp.TabIndex = 85;
-            this.toolTip1.SetToolTip(this.checkBoxAntenna6Amp, "Check to enable amp on this antenna");
-            this.checkBoxAntenna6Amp.UseVisualStyleBackColor = true;
-            this.checkBoxAntenna6Amp.CheckedChanged += new System.EventHandler(this.CheckBoxAntennaAmp_CheckedChange);
-            // 
-            // checkBoxAntenna5Amp
-            // 
-            this.checkBoxAntenna5Amp.AutoSize = true;
-            this.checkBoxAntenna5Amp.Location = new System.Drawing.Point(129, 109);
-            this.checkBoxAntenna5Amp.Margin = new System.Windows.Forms.Padding(2);
-            this.checkBoxAntenna5Amp.Name = "checkBoxAntenna5Amp";
-            this.checkBoxAntenna5Amp.Size = new System.Drawing.Size(15, 14);
-            this.checkBoxAntenna5Amp.TabIndex = 84;
-            this.toolTip1.SetToolTip(this.checkBoxAntenna5Amp, "Check to enable amp on this antenna");
-            this.checkBoxAntenna5Amp.UseVisualStyleBackColor = true;
-            this.checkBoxAntenna5Amp.CheckedChanged += new System.EventHandler(this.CheckBoxAntennaAmp_CheckedChange);
-            // 
-            // checkBoxAntenna4Amp
-            // 
-            this.checkBoxAntenna4Amp.AutoSize = true;
-            this.checkBoxAntenna4Amp.Location = new System.Drawing.Point(129, 87);
-            this.checkBoxAntenna4Amp.Margin = new System.Windows.Forms.Padding(2);
-            this.checkBoxAntenna4Amp.Name = "checkBoxAntenna4Amp";
-            this.checkBoxAntenna4Amp.Size = new System.Drawing.Size(15, 14);
-            this.checkBoxAntenna4Amp.TabIndex = 83;
-            this.toolTip1.SetToolTip(this.checkBoxAntenna4Amp, "Check to enable amp on this antenna");
-            this.checkBoxAntenna4Amp.UseVisualStyleBackColor = true;
-            this.checkBoxAntenna4Amp.CheckedChanged += new System.EventHandler(this.CheckBoxAntennaAmp_CheckedChange);
-            // 
-            // checkBoxAntenna3Amp
-            // 
-            this.checkBoxAntenna3Amp.AutoSize = true;
-            this.checkBoxAntenna3Amp.Location = new System.Drawing.Point(129, 65);
-            this.checkBoxAntenna3Amp.Margin = new System.Windows.Forms.Padding(2);
-            this.checkBoxAntenna3Amp.Name = "checkBoxAntenna3Amp";
-            this.checkBoxAntenna3Amp.Size = new System.Drawing.Size(15, 14);
-            this.checkBoxAntenna3Amp.TabIndex = 82;
-            this.toolTip1.SetToolTip(this.checkBoxAntenna3Amp, "Check to enable amp on this antenna");
-            this.checkBoxAntenna3Amp.UseVisualStyleBackColor = true;
-            this.checkBoxAntenna3Amp.CheckedChanged += new System.EventHandler(this.CheckBoxAntennaAmp_CheckedChange);
-            // 
-            // checkBoxAntenna2Amp
-            // 
-            this.checkBoxAntenna2Amp.AutoSize = true;
-            this.checkBoxAntenna2Amp.Location = new System.Drawing.Point(129, 43);
-            this.checkBoxAntenna2Amp.Margin = new System.Windows.Forms.Padding(2);
-            this.checkBoxAntenna2Amp.Name = "checkBoxAntenna2Amp";
-            this.checkBoxAntenna2Amp.Size = new System.Drawing.Size(15, 14);
-            this.checkBoxAntenna2Amp.TabIndex = 81;
-            this.toolTip1.SetToolTip(this.checkBoxAntenna2Amp, "Check to enable amp on this antenna");
-            this.checkBoxAntenna2Amp.UseVisualStyleBackColor = true;
-            this.checkBoxAntenna2Amp.CheckedChanged += new System.EventHandler(this.CheckBoxAntennaAmp_CheckedChange);
-            // 
-            // checkBoxAntenna1Amp
-            // 
-            this.checkBoxAntenna1Amp.AutoSize = true;
-            this.checkBoxAntenna1Amp.Location = new System.Drawing.Point(129, 21);
-            this.checkBoxAntenna1Amp.Margin = new System.Windows.Forms.Padding(2);
-            this.checkBoxAntenna1Amp.Name = "checkBoxAntenna1Amp";
-            this.checkBoxAntenna1Amp.Size = new System.Drawing.Size(15, 14);
-            this.checkBoxAntenna1Amp.TabIndex = 80;
-            this.toolTip1.SetToolTip(this.checkBoxAntenna1Amp, "Check to enable amp on this antenna");
-            this.checkBoxAntenna1Amp.UseVisualStyleBackColor = true;
-            this.checkBoxAntenna1Amp.CheckedChanged += new System.EventHandler(this.CheckBoxAntennaAmp_CheckedChange);
-            // 
             // ComboBoxAntenna8Bits
             // 
             this.ComboBoxAntenna8Bits.FormattingEnabled = true;
@@ -2077,7 +1881,7 @@
             "8/6",
             "8/7",
             "8/8"});
-            this.ComboBoxAntenna8Bits.Location = new System.Drawing.Point(325, 171);
+            this.ComboBoxAntenna8Bits.Location = new System.Drawing.Point(310, 171);
             this.ComboBoxAntenna8Bits.Name = "ComboBoxAntenna8Bits";
             this.ComboBoxAntenna8Bits.Size = new System.Drawing.Size(43, 21);
             this.ComboBoxAntenna8Bits.TabIndex = 79;
@@ -2106,7 +1910,7 @@
             "8/6",
             "8/7",
             "8/8"});
-            this.ComboBoxAntenna7Bits.Location = new System.Drawing.Point(325, 149);
+            this.ComboBoxAntenna7Bits.Location = new System.Drawing.Point(310, 149);
             this.ComboBoxAntenna7Bits.Name = "ComboBoxAntenna7Bits";
             this.ComboBoxAntenna7Bits.Size = new System.Drawing.Size(43, 21);
             this.ComboBoxAntenna7Bits.TabIndex = 78;
@@ -2135,7 +1939,7 @@
             "8/6",
             "8/7",
             "8/8"});
-            this.ComboBoxAntenna6Bits.Location = new System.Drawing.Point(325, 127);
+            this.ComboBoxAntenna6Bits.Location = new System.Drawing.Point(310, 127);
             this.ComboBoxAntenna6Bits.Name = "ComboBoxAntenna6Bits";
             this.ComboBoxAntenna6Bits.Size = new System.Drawing.Size(43, 21);
             this.ComboBoxAntenna6Bits.TabIndex = 77;
@@ -2164,7 +1968,7 @@
             "8/6",
             "8/7",
             "8/8"});
-            this.ComboBoxAntenna5Bits.Location = new System.Drawing.Point(325, 105);
+            this.ComboBoxAntenna5Bits.Location = new System.Drawing.Point(310, 105);
             this.ComboBoxAntenna5Bits.Name = "ComboBoxAntenna5Bits";
             this.ComboBoxAntenna5Bits.Size = new System.Drawing.Size(43, 21);
             this.ComboBoxAntenna5Bits.TabIndex = 76;
@@ -2193,7 +1997,7 @@
             "8/6",
             "8/7",
             "8/8"});
-            this.ComboBoxAntenna4Bits.Location = new System.Drawing.Point(325, 83);
+            this.ComboBoxAntenna4Bits.Location = new System.Drawing.Point(310, 83);
             this.ComboBoxAntenna4Bits.Name = "ComboBoxAntenna4Bits";
             this.ComboBoxAntenna4Bits.Size = new System.Drawing.Size(43, 21);
             this.ComboBoxAntenna4Bits.TabIndex = 75;
@@ -2222,7 +2026,7 @@
             "8/6",
             "8/7",
             "8/8"});
-            this.ComboBoxAntenna3Bits.Location = new System.Drawing.Point(325, 61);
+            this.ComboBoxAntenna3Bits.Location = new System.Drawing.Point(310, 61);
             this.ComboBoxAntenna3Bits.Name = "ComboBoxAntenna3Bits";
             this.ComboBoxAntenna3Bits.Size = new System.Drawing.Size(43, 21);
             this.ComboBoxAntenna3Bits.TabIndex = 74;
@@ -2251,7 +2055,7 @@
             "8/6",
             "8/7",
             "8/8"});
-            this.ComboBoxAntenna2Bits.Location = new System.Drawing.Point(325, 39);
+            this.ComboBoxAntenna2Bits.Location = new System.Drawing.Point(310, 39);
             this.ComboBoxAntenna2Bits.Name = "ComboBoxAntenna2Bits";
             this.ComboBoxAntenna2Bits.Size = new System.Drawing.Size(43, 21);
             this.ComboBoxAntenna2Bits.TabIndex = 73;
@@ -2280,7 +2084,7 @@
             "8/6",
             "8/7",
             "8/8"});
-            this.ComboBoxAntenna1Bits.Location = new System.Drawing.Point(325, 17);
+            this.ComboBoxAntenna1Bits.Location = new System.Drawing.Point(310, 17);
             this.ComboBoxAntenna1Bits.Name = "ComboBoxAntenna1Bits";
             this.ComboBoxAntenna1Bits.Size = new System.Drawing.Size(43, 21);
             this.ComboBoxAntenna1Bits.TabIndex = 72;
@@ -2290,7 +2094,7 @@
             // label18
             // 
             this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(181, 2);
+            this.label18.Location = new System.Drawing.Point(166, 2);
             this.label18.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(35, 13);
@@ -2392,7 +2196,7 @@
             // label17
             // 
             this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(319, 1);
+            this.label17.Location = new System.Drawing.Point(304, 1);
             this.label17.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(24, 13);
@@ -4081,14 +3885,6 @@
             // tabPageAntenna
             // 
             this.tabPageAntenna.BackColor = System.Drawing.Color.LightGray;
-            this.tabPageAntenna.Controls.Add(this.checkBoxAntenna8Amp);
-            this.tabPageAntenna.Controls.Add(this.checkBoxAntenna7Amp);
-            this.tabPageAntenna.Controls.Add(this.checkBoxAntenna6Amp);
-            this.tabPageAntenna.Controls.Add(this.checkBoxAntenna5Amp);
-            this.tabPageAntenna.Controls.Add(this.checkBoxAntenna4Amp);
-            this.tabPageAntenna.Controls.Add(this.checkBoxAntenna3Amp);
-            this.tabPageAntenna.Controls.Add(this.checkBoxAntenna2Amp);
-            this.tabPageAntenna.Controls.Add(this.checkBoxAntenna1Amp);
             this.tabPageAntenna.Controls.Add(this.ComboBoxAntenna8Bits);
             this.tabPageAntenna.Controls.Add(this.ComboBoxAntenna7Bits);
             this.tabPageAntenna.Controls.Add(this.ComboBoxAntenna6Bits);
@@ -5396,6 +5192,98 @@
             // 
             this.timerFreqWalk.Tick += new System.EventHandler(this.TimerFreqWalk_Tick);
             // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(151, 3);
+            this.label8.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(28, 13);
+            this.label8.TabIndex = 108;
+            this.label8.Text = "Amp";
+            this.toolTip1.SetToolTip(this.label8, "Enable Amplifier");
+            // 
+            // checkBoxAmp8
+            // 
+            this.checkBoxAmp8.AutoSize = true;
+            this.checkBoxAmp8.Location = new System.Drawing.Point(158, 168);
+            this.checkBoxAmp8.Name = "checkBoxAmp8";
+            this.checkBoxAmp8.Size = new System.Drawing.Size(15, 14);
+            this.checkBoxAmp8.TabIndex = 107;
+            this.toolTip1.SetToolTip(this.checkBoxAmp8, "Enable Amplifier");
+            this.checkBoxAmp8.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxAmp7
+            // 
+            this.checkBoxAmp7.AutoSize = true;
+            this.checkBoxAmp7.Location = new System.Drawing.Point(158, 147);
+            this.checkBoxAmp7.Name = "checkBoxAmp7";
+            this.checkBoxAmp7.Size = new System.Drawing.Size(15, 14);
+            this.checkBoxAmp7.TabIndex = 106;
+            this.toolTip1.SetToolTip(this.checkBoxAmp7, "Enable Amplifier");
+            this.checkBoxAmp7.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxAmp6
+            // 
+            this.checkBoxAmp6.AutoSize = true;
+            this.checkBoxAmp6.Location = new System.Drawing.Point(158, 126);
+            this.checkBoxAmp6.Name = "checkBoxAmp6";
+            this.checkBoxAmp6.Size = new System.Drawing.Size(15, 14);
+            this.checkBoxAmp6.TabIndex = 105;
+            this.toolTip1.SetToolTip(this.checkBoxAmp6, "Enable Amplifier");
+            this.checkBoxAmp6.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxAmp5
+            // 
+            this.checkBoxAmp5.AutoSize = true;
+            this.checkBoxAmp5.Location = new System.Drawing.Point(158, 106);
+            this.checkBoxAmp5.Name = "checkBoxAmp5";
+            this.checkBoxAmp5.Size = new System.Drawing.Size(15, 14);
+            this.checkBoxAmp5.TabIndex = 104;
+            this.toolTip1.SetToolTip(this.checkBoxAmp5, "Enable Amplifier");
+            this.checkBoxAmp5.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxAmp4
+            // 
+            this.checkBoxAmp4.AutoSize = true;
+            this.checkBoxAmp4.Location = new System.Drawing.Point(158, 85);
+            this.checkBoxAmp4.Name = "checkBoxAmp4";
+            this.checkBoxAmp4.Size = new System.Drawing.Size(15, 14);
+            this.checkBoxAmp4.TabIndex = 103;
+            this.toolTip1.SetToolTip(this.checkBoxAmp4, "Enable Amplifier");
+            this.checkBoxAmp4.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxAmp3
+            // 
+            this.checkBoxAmp3.AutoSize = true;
+            this.checkBoxAmp3.Location = new System.Drawing.Point(158, 64);
+            this.checkBoxAmp3.Name = "checkBoxAmp3";
+            this.checkBoxAmp3.Size = new System.Drawing.Size(15, 14);
+            this.checkBoxAmp3.TabIndex = 102;
+            this.toolTip1.SetToolTip(this.checkBoxAmp3, "Enable Amplifier");
+            this.checkBoxAmp3.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxAmp2
+            // 
+            this.checkBoxAmp2.AutoSize = true;
+            this.checkBoxAmp2.Location = new System.Drawing.Point(158, 42);
+            this.checkBoxAmp2.Name = "checkBoxAmp2";
+            this.checkBoxAmp2.Size = new System.Drawing.Size(15, 14);
+            this.checkBoxAmp2.TabIndex = 101;
+            this.toolTip1.SetToolTip(this.checkBoxAmp2, "Enable Amplifier");
+            this.checkBoxAmp2.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxAmp1
+            // 
+            this.checkBoxAmp1.AutoSize = true;
+            this.checkBoxAmp1.Location = new System.Drawing.Point(158, 22);
+            this.checkBoxAmp1.Name = "checkBoxAmp1";
+            this.checkBoxAmp1.Size = new System.Drawing.Size(15, 14);
+            this.checkBoxAmp1.TabIndex = 100;
+            this.toolTip1.SetToolTip(this.checkBoxAmp1, "Enable Amplifier");
+            this.checkBoxAmp1.UseVisualStyleBackColor = true;
+            this.checkBoxAmp1.CheckedChanged += new System.EventHandler(this.CheckBoxAmp1_CheckedChanged);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -5647,15 +5535,6 @@
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.TabPage tabPagePower;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.CheckBox checkBoxAmp8;
-        private System.Windows.Forms.CheckBox checkBoxAmp7;
-        private System.Windows.Forms.CheckBox checkBoxAmp6;
-        private System.Windows.Forms.CheckBox checkBoxAmp5;
-        private System.Windows.Forms.CheckBox checkBoxAmp4;
-        private System.Windows.Forms.CheckBox checkBoxAmp3;
-        private System.Windows.Forms.CheckBox checkBoxAmp2;
-        private System.Windows.Forms.CheckBox checkBoxAmp1;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox textBoxTune8Power;
         private System.Windows.Forms.TextBox textBoxTune7Power;
@@ -5764,14 +5643,6 @@
         private System.Windows.Forms.Button buttonAntennaPick8;
         private System.Windows.Forms.ComboBox comboBoxAmpBits;
         private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.CheckBox checkBoxAntenna8Amp;
-        private System.Windows.Forms.CheckBox checkBoxAntenna7Amp;
-        private System.Windows.Forms.CheckBox checkBoxAntenna6Amp;
-        private System.Windows.Forms.CheckBox checkBoxAntenna5Amp;
-        private System.Windows.Forms.CheckBox checkBoxAntenna4Amp;
-        private System.Windows.Forms.CheckBox checkBoxAntenna3Amp;
-        private System.Windows.Forms.CheckBox checkBoxAntenna2Amp;
-        private System.Windows.Forms.CheckBox checkBoxAntenna1Amp;
         private System.Windows.Forms.Label labelInterval;
         private System.Windows.Forms.Label labelClock;
         private System.Windows.Forms.CheckedListBox checkedListBoxWalk3;
@@ -5862,6 +5733,15 @@
         private System.Windows.Forms.Button buttonOperate;
         private System.Windows.Forms.Button buttonPowerLevel;
         private System.Windows.Forms.CheckBox checkBoxTunePwr;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.CheckBox checkBoxAmp8;
+        private System.Windows.Forms.CheckBox checkBoxAmp7;
+        private System.Windows.Forms.CheckBox checkBoxAmp6;
+        private System.Windows.Forms.CheckBox checkBoxAmp5;
+        private System.Windows.Forms.CheckBox checkBoxAmp4;
+        private System.Windows.Forms.CheckBox checkBoxAmp3;
+        private System.Windows.Forms.CheckBox checkBoxAmp2;
+        private System.Windows.Forms.CheckBox checkBoxAmp1;
     }
 }
 

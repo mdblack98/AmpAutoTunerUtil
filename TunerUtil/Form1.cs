@@ -48,7 +48,7 @@ namespace AmpAutoTunerUtility
         AboutForm aboutForm;
         static TcpClient rigClient;
         //static NetworkStream rigStream;
-        public static Rig ?myRig;
+        public static Rig myRig;
         static public double frequencyHz = 0;
         double frequencyLast = 0;
         double frequencyLastTunedHz = 0;
@@ -716,14 +716,6 @@ namespace AmpAutoTunerUtility
                 //tabControl1.SelectTab(tabPageControl);
                 tabPage.SelectTab(tabPageControl);
                 //buttonAmp.BackColor = Color.Green;
-                checkBoxAntenna1Amp.Checked = Properties.Settings.Default.AntennaAmp1;
-                checkBoxAntenna2Amp.Checked = Properties.Settings.Default.AntennaAmp2;
-                checkBoxAntenna3Amp.Checked = Properties.Settings.Default.AntennaAmp3;
-                checkBoxAntenna4Amp.Checked = Properties.Settings.Default.AntennaAmp4;
-                checkBoxAntenna5Amp.Checked = Properties.Settings.Default.AntennaAmp5;
-                checkBoxAntenna6Amp.Checked = Properties.Settings.Default.AntennaAmp6;
-                checkBoxAntenna7Amp.Checked = Properties.Settings.Default.AntennaAmp7;
-                checkBoxAntenna8Amp.Checked = Properties.Settings.Default.AntennaAmp8;
 
                 Properties.Settings.Default.Save();
 
@@ -1219,15 +1211,6 @@ namespace AmpAutoTunerUtility
             Properties.Settings.Default.textBoxAntenna7Bits = ComboBoxAntenna7Bits.Text;
             Properties.Settings.Default.textBoxAntenna8Bits = ComboBoxAntenna8Bits.Text;
 
-            Properties.Settings.Default.AntennaAmp1 = checkBoxAntenna1Amp.Checked;
-            Properties.Settings.Default.AntennaAmp2 = checkBoxAntenna2Amp.Checked;
-            Properties.Settings.Default.AntennaAmp3 = checkBoxAntenna3Amp.Checked;
-            Properties.Settings.Default.AntennaAmp4 = checkBoxAntenna4Amp.Checked;
-            Properties.Settings.Default.AntennaAmp5 = checkBoxAntenna5Amp.Checked;
-            Properties.Settings.Default.AntennaAmp6 = checkBoxAntenna6Amp.Checked;
-            Properties.Settings.Default.AntennaAmp7 = checkBoxAntenna7Amp.Checked;
-            Properties.Settings.Default.AntennaAmp8 = checkBoxAntenna8Amp.Checked;
-
             Properties.Settings.Default.AmpBits = comboBoxAmpBits.Text;
 
             //Properties.Settings.Default.FrequencyWalkList = textBoxFrequencyWalkList.Text;
@@ -1670,56 +1653,48 @@ namespace AmpAutoTunerUtility
                     checkBoxAntenna1.Checked = true;
                     antennaNumberNew = "1";
                     buttonAntenna1.BackColor = System.Drawing.Color.Green;
-                    antennaAmpChecked = checkBoxAntenna1Amp.Checked;
                 }
                 else if (textBoxAntenna2.Text.ToLower().Contains(dummy))
                 {
                     checkBoxAntenna2.Checked = true;
                     antennaNumberNew = "2";
                     buttonAntenna2.BackColor = System.Drawing.Color.Green;
-                    antennaAmpChecked = checkBoxAntenna2Amp.Checked;
                 }
                 else if (textBoxAntenna3.Text.ToLower().Contains(dummy))
                 {
                     checkBoxAntenna3.Checked = true;
                     antennaNumberNew = "3";
                     buttonAntenna3.BackColor = System.Drawing.Color.Green;
-                    antennaAmpChecked = checkBoxAntenna3Amp.Checked;
                 }
                 else if (textBoxAntenna4.Text.ToLower().Contains(dummy))
                 {
                     checkBoxAntenna4.Checked = true;
                     antennaNumberNew = "4";
                     buttonAntenna4.BackColor = System.Drawing.Color.Green;
-                    antennaAmpChecked = checkBoxAntenna4Amp.Checked;
                 }
                 else if (textBoxAntenna5.Text.ToLower().Contains(dummy))
                 {
                     checkBoxAntenna5.Checked = true;
                     antennaNumberNew = "5";
                     buttonAntenna5.BackColor = System.Drawing.Color.Green;
-                    antennaAmpChecked = checkBoxAntenna5Amp.Checked;
                 }
                 else if (textBoxAntenna6.Text.ToLower().Contains(dummy))
                 {
                     checkBoxAntenna6.Checked = true;
                     antennaNumberNew = "6";
                     buttonAntenna6.BackColor = System.Drawing.Color.Green;
-                    antennaAmpChecked = checkBoxAntenna6Amp.Checked;
                 }
                 else if (textBoxAntenna7.Text.ToLower().Contains(dummy))
                 {
                     checkBoxAntenna7.Checked = true;
                     antennaNumberNew = "7";
                     buttonAntenna7.BackColor = System.Drawing.Color.Green;
-                    antennaAmpChecked = checkBoxAntenna7Amp.Checked;
                 }
                 else if (textBoxAntenna8.Text.ToLower().Contains(dummy))
                 {
                     checkBoxAntenna8.Checked = true;
                     antennaNumberNew = "8";
                     buttonAntenna8.BackColor = System.Drawing.Color.Green;
-                    antennaAmpChecked = checkBoxAntenna8Amp.Checked;
                 }
                 else
                 {
@@ -1729,7 +1704,7 @@ namespace AmpAutoTunerUtility
                 labelAntennaSelected.Text = "Dummy Load";
                 var tmp = Convert.ToInt32(antennaNumberNew, CultureInfo.InvariantCulture);
                 SetAntennaRelayOn(tmp, true);
-                AmpSet(antennaAmpChecked);
+                //AmpSet(antennaAmpChecked);
             }
             catch (Exception ex)
             {
@@ -1801,7 +1776,7 @@ namespace AmpAutoTunerUtility
                             labelAntennaSelected.Text = textBoxAntenna1.Text;
                             ButtonAntennaPickSet(buttonAntennaPick1);
                             antennaNumberNew = "1";
-                            antennaAmpChecked = checkBoxAntenna1Amp.Checked;
+                            //antennaAmpChecked = checkBoxAntenna1Amp.Checked;
                             Int32.TryParse(comboBoxAntSelect1.Text, out antennaOnTuner);
                         }
                         else if (checkBoxAntenna2.Checked == true &&
@@ -1814,7 +1789,7 @@ namespace AmpAutoTunerUtility
                             labelAntennaSelected.Text = textBoxAntenna2.Text;
                             ButtonAntennaPickSet(buttonAntennaPick2);
                             antennaNumberNew = "2";
-                            antennaAmpChecked = checkBoxAntenna2Amp.Checked;
+                            //antennaAmpChecked = checkBoxAntenna2Amp.Checked;
                             Int32.TryParse(comboBoxAntSelect2.Text, out antennaOnTuner);
                         }
                         else if (checkBoxAntenna3.Checked == true &&
@@ -1827,7 +1802,7 @@ namespace AmpAutoTunerUtility
                             ButtonAntennaPickSet(buttonAntennaPick3);
                             labelAntennaSelected.Text = textBoxAntenna3.Text;
                             antennaNumberNew = "3";
-                            antennaAmpChecked = checkBoxAntenna3Amp.Checked;
+                            //antennaAmpChecked = checkBoxAntenna3Amp.Checked;
                             Int32.TryParse(comboBoxAntSelect3.Text, out antennaOnTuner);
                         }
                         else if (checkBoxAntenna4.Checked == true &&
@@ -1840,7 +1815,7 @@ namespace AmpAutoTunerUtility
                             ButtonAntennaPickSet(buttonAntennaPick4);
                             labelAntennaSelected.Text = textBoxAntenna4.Text;
                             antennaNumberNew = "4";
-                            antennaAmpChecked = checkBoxAntenna4Amp.Checked;
+                            //antennaAmpChecked = checkBoxAntenna4Amp.Checked;
                             Int32.TryParse(comboBoxAntSelect4.Text, out antennaOnTuner);
                         }
                         else if (checkBoxAntenna5.Checked == true &&
@@ -1853,7 +1828,7 @@ namespace AmpAutoTunerUtility
                             ButtonAntennaPickSet(buttonAntennaPick5);
                             labelAntennaSelected.Text = textBoxAntenna5.Text;
                             antennaNumberNew = "5";
-                            antennaAmpChecked = checkBoxAntenna5Amp.Checked;
+                            //antennaAmpChecked = checkBoxAntenna5Amp.Checked;
                             Int32.TryParse(comboBoxAntSelect5.Text, out antennaOnTuner);
                         }
                         else if (checkBoxAntenna6.Checked == true &&
@@ -1866,7 +1841,7 @@ namespace AmpAutoTunerUtility
                             ButtonAntennaPickSet(buttonAntennaPick6);
                             labelAntennaSelected.Text = textBoxAntenna6.Text;
                             antennaNumberNew = "6";
-                            antennaAmpChecked = checkBoxAntenna6Amp.Checked;
+                            //antennaAmpChecked = checkBoxAntenna6Amp.Checked;
                             Int32.TryParse(comboBoxAntSelect6.Text, out antennaOnTuner);
                         }
                         else if (checkBoxAntenna7.Checked == true &&
@@ -1879,7 +1854,7 @@ namespace AmpAutoTunerUtility
                             ButtonAntennaPickSet(buttonAntennaPick7);
                             labelAntennaSelected.Text = textBoxAntenna7.Text;
                             antennaNumberNew = "7";
-                            antennaAmpChecked = checkBoxAntenna7Amp.Checked;
+                            //antennaAmpChecked = checkBoxAntenna7Amp.Checked;
                             Int32.TryParse(comboBoxAntSelect7.Text, out antennaOnTuner);
                         }
                         else if (checkBoxAntenna8.Checked == true &&
@@ -1892,7 +1867,7 @@ namespace AmpAutoTunerUtility
                             ButtonAntennaPickSet(buttonAntennaPick8);
                             labelAntennaSelected.Text = textBoxAntenna8.Text;
                             antennaNumberNew = "8";
-                            antennaAmpChecked = checkBoxAntenna8Amp.Checked;
+                            //antennaAmpChecked = checkBoxAntenna8Amp.Checked;
                             Int32.TryParse(comboBoxAntSelect8.Text, out antennaOnTuner);
                         }
                     }
@@ -1963,36 +1938,36 @@ namespace AmpAutoTunerUtility
             switch (antennaNumber)
             {
                 case 1:
-                    AmpSet(checkBoxAntenna1Amp.Checked);
-                    buttonAmp.Enabled = checkBoxAntenna1Amp.Checked;
+                    //AmpSet(checkBoxAntenna1Amp.Checked);
+                    //buttonAmp.Enabled = checkBoxAntenna1Amp.Checked;
                     break;
                 case 2:
-                    AmpSet(checkBoxAntenna2Amp.Checked);
-                    buttonAmp.Enabled = checkBoxAntenna2Amp.Checked;
+                    //AmpSet(checkBoxAntenna2Amp.Checked);
+                    //buttonAmp.Enabled = checkBoxAntenna2Amp.Checked;
                     break;
                 case 3:
-                    AmpSet(checkBoxAntenna3Amp.Checked);
-                    buttonAmp.Enabled = checkBoxAntenna3Amp.Checked;
+                    //AmpSet(checkBoxAntenna3Amp.Checked);
+                    //buttonAmp.Enabled = checkBoxAntenna3Amp.Checked;
                     break;
                 case 4:
-                    AmpSet(checkBoxAntenna4Amp.Checked);
-                    buttonAmp.Enabled = checkBoxAntenna4Amp.Checked;
+                    //AmpSet(checkBoxAntenna4Amp.Checked);
+                    //buttonAmp.Enabled = checkBoxAntenna4Amp.Checked;
                     break;
                 case 5:
-                    AmpSet(checkBoxAntenna5Amp.Checked);
-                    buttonAmp.Enabled = checkBoxAntenna5Amp.Checked;
+                    //AmpSet(checkBoxAntenna5Amp.Checked);
+                    //buttonAmp.Enabled = checkBoxAntenna5Amp.Checked;
                     break;
                 case 6:
-                    AmpSet(checkBoxAntenna6Amp.Checked);
-                    buttonAmp.Enabled = checkBoxAntenna6Amp.Checked;
+                    //AmpSet(checkBoxAntenna6Amp.Checked);
+                    //buttonAmp.Enabled = checkBoxAntenna6Amp.Checked;
                     break;
                 case 7:
-                    AmpSet(checkBoxAntenna7Amp.Checked);
-                    buttonAmp.Enabled = checkBoxAntenna7Amp.Checked;
+                    //AmpSet(checkBoxAntenna7Amp.Checked);
+                    //buttonAmp.Enabled = checkBoxAntenna7Amp.Checked;
                     break;
                 case 8:
-                    AmpSet(checkBoxAntenna8Amp.Checked);
-                    buttonAmp.Enabled = checkBoxAntenna8Amp.Checked;
+                    //AmpSet(checkBoxAntenna8Amp.Checked);
+                    //buttonAmp.Enabled = checkBoxAntenna8Amp.Checked;
                     break;
             }
         }
@@ -4815,7 +4790,7 @@ namespace AmpAutoTunerUtility
             {
                 if (ButtonAntennaPickSet(buttonAntennaPick1))
                 {
-                    AmpSet(checkBoxAntenna1Amp.Checked);
+                    //AmpSet(checkBoxAntenna1Amp.Checked);
                     //SetAntennaRelayOn(1);
                     SetControllerFromAntenna(1);
                     antennaLocked = true;
@@ -4834,7 +4809,7 @@ namespace AmpAutoTunerUtility
             {
                 if (ButtonAntennaPickSet(buttonAntennaPick2))
                 {
-                    AmpSet(checkBoxAntenna2Amp.Checked);
+                    //AmpSet(checkBoxAntenna2Amp.Checked);
                     //SetAntennaRelayOn(2);
                     SetControllerFromAntenna(2);
                     antennaLocked = true;
@@ -4853,7 +4828,7 @@ namespace AmpAutoTunerUtility
             {
                 if (ButtonAntennaPickSet(buttonAntennaPick3))
                 {
-                    AmpSet(checkBoxAntenna3Amp.Checked);
+                    //AmpSet(checkBoxAntenna3Amp.Checked);
                     //SetAntennaRelayOn(3);
                     SetControllerFromAntenna(3);
                     antennaLocked = true;
@@ -4871,7 +4846,7 @@ namespace AmpAutoTunerUtility
             {
                 if (ButtonAntennaPickSet(buttonAntennaPick4))
                 {
-                    AmpSet(checkBoxAntenna4Amp.Checked);
+                    //AmpSet(checkBoxAntenna4Amp.Checked);
                     //SetAntennaRelayOn(4);
                     SetControllerFromAntenna(4);
                     antennaLocked = true;
@@ -4890,7 +4865,7 @@ namespace AmpAutoTunerUtility
             {
                 if (ButtonAntennaPickSet(buttonAntennaPick5))
                 {
-                    AmpSet(checkBoxAntenna5Amp.Checked);
+                   // AmpSet(checkBoxAntenna5Amp.Checked);
                     //SetAntennaRelayOn(5);
                     SetControllerFromAntenna(5);
                     antennaLocked = true;
@@ -4909,7 +4884,7 @@ namespace AmpAutoTunerUtility
             {
                 if (ButtonAntennaPickSet(buttonAntennaPick6))
                 {
-                    AmpSet(checkBoxAntenna6Amp.Checked);
+                    //AmpSet(checkBoxAntenna6Amp.Checked);
                     //SetAntennaRelayOn(6);
                     SetControllerFromAntenna(6);
                     antennaLocked = true;
@@ -4928,7 +4903,7 @@ namespace AmpAutoTunerUtility
             {
                 if (ButtonAntennaPickSet(buttonAntennaPick7))
                 {
-                    AmpSet(checkBoxAntenna7Amp.Checked);
+                    //AmpSet(checkBoxAntenna7Amp.Checked);
                     //SetAntennaRelayOn(7);
                     SetControllerFromAntenna(7);
                     antennaLocked = true;
@@ -4947,7 +4922,7 @@ namespace AmpAutoTunerUtility
             {
                 if (ButtonAntennaPickSet(buttonAntennaPick8))
                 {
-                    AmpSet(checkBoxAntenna8Amp.Checked);
+                    //AmpSet(checkBoxAntenna8Amp.Checked);
                     //SetAntennaRelayOn(8);
                     SetControllerFromAntenna(8);
                     antennaLocked = true;
@@ -6219,7 +6194,7 @@ Set
     [Serializable]
     public class AmpAutoTunerUtilException : System.Exception
     {
-        readonly Exception Inner;
+        private readonly Exception Inner;
         public AmpAutoTunerUtilException() : base() { }
         public AmpAutoTunerUtilException(string message) : base(message)
         {

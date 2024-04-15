@@ -10,6 +10,7 @@ using System.Runtime.CompilerServices;
 using System.Security.Permissions;
 using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
 using static AmpAutoTunerUtility.DebugMsg;
@@ -38,6 +39,7 @@ namespace AmpAutoTunerUtility
         public bool transceive;
         public double swr=0;
         private volatile object rigLock = new object();
+        private SemaphoreSlim semaphore;
         private volatile bool locked = false;
         int lastLine = 0;
 
@@ -49,25 +51,37 @@ namespace AmpAutoTunerUtility
 
         private void Lock()
         {
+            //if (semaphore.CurrentCount != 1)
+            //{
+            //MessageBox.Show("Semaphore oops!! count="+semaphore.CurrentCount);
+            //}
+            //semaphore.Wait(1);
+            semaphore.Wait();
             if (Monitor.TryEnter(rigLock) == false)
             {
                 Thread.Sleep(100);
             }
             if (locked)
                 MessageBox.Show("Locked @"+lastLine);
-            Monitor.Enter(rigLock);
+            //Monitor.Enter(rigLock);
             locked = true;
             lastLine = LineNumber();
         }
         private void UnLock()
         {
+            if (semaphore.CurrentCount != 0)
+            {
+                MessageBox.Show("Semaphore count != 0!!");
+            }
             if (!locked)
                 MessageBox.Show("Not locked @" + LineNumber(1) + "/" + LineNumber());
-            Monitor.Exit(rigLock);
+            //.Exit(rigLock);
+            semaphore.Release(1);
             locked = false;
         }
         public override bool Open()
         {
+            semaphore = new SemaphoreSlim(1, 1);
             model = "Unknown";
             int port = 12345;
             if (rigStream != null) { rigStream.Close(); rigStream.Dispose(); }
@@ -577,55 +591,61 @@ namespace AmpAutoTunerUtility
             double frequency = vfo == 'A'? frequencyA : frequencyB;
             string xml = FLRigXML("rig.get_vfo" + vfo, null);
             Byte[] data = System.Text.Encoding.ASCII.GetBytes(xml);
-            Lock();
             try
             {
-                if (rigStream == null) return 0.0;
-                rigStream.Flush();
-                rigStream.Write(data, 0, data.Length);
-            }
-            catch (Exception ex)
-            {
-                if (rigStream == null || ex.Message.Contains("Unable to write"))
-                {
-                    DebugAddMsg(DebugEnum.ERR, "Error...Did FLRig shut down?\n");
-                }
-                else
-                {
-                    DebugAddMsg(DebugEnum.ERR, "FLRig unexpected error:\n" + ex.Message + "\n");
-                }
-                return 0.0;
-            }
-            data = new Byte[4096];
-            rigStream.ReadTimeout = 5000;
-            String responseData = "no response";
-            try
-            {
-                Int32 bytes = rigStream.Read(data, 0, data.Length);
-                responseData = Encoding.ASCII.GetString(data, 0, bytes);
-                //richTextBoxRig.AppendText(responseData + "\n");
+                Lock();
                 try
                 {
-                    if (responseData.Contains("<value>")) // then we have a frequency
+                    if (rigStream == null) return 0.0;
+                    rigStream.Flush();
+                    rigStream.Write(data, 0, data.Length);
+                }
+                catch (Exception ex)
+                {
+                    if (rigStream == null || ex.Message.Contains("Unable to write"))
                     {
-                        int offset1 = responseData.IndexOf("<value>", StringComparison.InvariantCulture) + "<value>".Length;
-                        int offset2 = responseData.IndexOf("</value>", StringComparison.InvariantCulture);
-                        string freqString = responseData.Substring(offset1, offset2 - offset1);
-                        frequency = Double.Parse(freqString, CultureInfo.InvariantCulture);
-                        if (frequency < 1000) DebugMsg.DebugAddMsg(DebugEnum.ERR, "Frequency==0\n" + responseData);
-                        //DebugMsg.DebugAddMsg(DebugEnum.ERR, "Frequency==0\n" + responseData);
+                        DebugAddMsg(DebugEnum.ERR, "Error...Did FLRig shut down?\n");
+                    }
+                    else
+                    {
+                        DebugAddMsg(DebugEnum.ERR, "FLRig unexpected error:\n" + ex.Message + "\n");
+                    }
+                    return 0.0;
+                }
+                data = new Byte[4096];
+                rigStream.ReadTimeout = 5000;
+                String responseData = "no response";
+                try
+                {
+                    Int32 bytes = rigStream.Read(data, 0, data.Length);
+                    responseData = Encoding.ASCII.GetString(data, 0, bytes);
+                    //richTextBoxRig.AppendText(responseData + "\n");
+                    try
+                    {
+                        if (responseData.Contains("<value>")) // then we have a frequency
+                        {
+                            int offset1 = responseData.IndexOf("<value>", StringComparison.InvariantCulture) + "<value>".Length;
+                            int offset2 = responseData.IndexOf("</value>", StringComparison.InvariantCulture);
+                            string freqString = responseData.Substring(offset1, offset2 - offset1);
+                            frequency = Double.Parse(freqString, CultureInfo.InvariantCulture);
+                            if (frequency < 1000) DebugMsg.DebugAddMsg(DebugEnum.ERR, "Frequency==0\n" + responseData);
+                            //DebugMsg.DebugAddMsg(DebugEnum.ERR, "Frequency==0\n" + responseData);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        DebugMsg.DebugAddMsg(DebugEnum.ERR, "FLRigGetFrequency Exception#1\n" + ex.Message + "\n" + responseData);
                     }
                 }
                 catch (Exception ex)
                 {
-                    DebugMsg.DebugAddMsg(DebugEnum.ERR, "FLRigGetFrequency Exception#1\n"+ex.Message+"\n"+responseData);
+                    DebugMsg.DebugAddMsg(DebugEnum.ERR, "FLRigGetFrequency Exception#2\n" + ex.Message + "\n" + responseData);
                 }
             }
-            catch (Exception ex)
+            finally
             {
-                DebugMsg.DebugAddMsg(DebugEnum.ERR, "FLRigGetFrequency Exception#2\n"+ex.Message+"\n" + responseData);
+                UnLock();
             }
-            UnLock();
             return frequency;
         }
 
