@@ -56,7 +56,11 @@ namespace AmpAutoTunerUtility
             //MessageBox.Show("Semaphore oops!! count="+semaphore.CurrentCount);
             //}
             //semaphore.Wait(1);
-            semaphore.Wait();
+            bool gotIt = semaphore.Wait(5000); // if we have to wait 5 seconds something is wrong
+            if (!gotIt)
+            {
+                MessageBox.Show("Unable to get semaphore for FLRig...last Wait was from line#" + lastLine);
+            }
             if (Monitor.TryEnter(rigLock) == false)
             {
                 Thread.Sleep(100);
