@@ -2446,5 +2446,101 @@ namespace AmpAutoTunerUtility.Properties {
                 this["checkBoxTunePwr"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("20")]
+        public string Power1MaxWatts {
+            get {
+                return ((string)(this["Power1MaxWatts"]));
+            }
+            set {
+                this["Power1MaxWatts"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("20")]
+        public string Power2MaxWatts {
+            get {
+                return ((string)(this["Power2MaxWatts"]));
+            }
+            set {
+                this["Power2MaxWatts"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("20")]
+        public string Power3MaxWatts {
+            get {
+                return ((string)(this["Power3MaxWatts"]));
+            }
+            set {
+                this["Power3MaxWatts"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("20")]
+        public string Power4MaxWatts {
+            get {
+                return ((string)(this["Power4MaxWatts"]));
+            }
+            set {
+                this["Power4MaxWatts"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("20")]
+        public string Power5MaxWatts {
+            get {
+                return ((string)(this["Power5MaxWatts"]));
+            }
+            set {
+                this["Power5MaxWatts"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("20")]
+        public string Power6MaxWatts {
+            get {
+                return ((string)(this["Power6MaxWatts"]));
+            }
+            set {
+                this["Power6MaxWatts"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("20")]
+        public string Power7MaxWatts {
+            get {
+                return ((string)(this["Power7MaxWatts"]));
+            }
+            set {
+                this["Power7MaxWatts"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("20")]
+        public string Power8MaxWatts {
+            get {
+                return ((string)(this["Power8MaxWatts"]));
+            }
+            set {
+                this["Power8MaxWatts"] = value;
+            }
+        }
     }
 }

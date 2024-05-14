@@ -654,12 +654,12 @@ namespace AmpAutoTunerUtility
             {
                 SendCmd(0x0b);
             }
-            if (current == "Max" && value == "Low")
+            else if (current == "Max" && value == "Low")
             {
                 SendCmd(0x0b);
                 SendCmd(0x0b);
             }
-            if (current == "Low" && value == "Max")
+            else if (current == "Low" && value == "Max")
             {
                 SendCmd(0x0b);
                 SendCmd(0x0b);

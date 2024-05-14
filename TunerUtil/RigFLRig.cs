@@ -38,10 +38,11 @@ namespace AmpAutoTunerUtility
         public int power;
         public bool transceive;
         public double swr=0;
-        private volatile object rigLock = new object();
-        private SemaphoreSlim semaphore;
+        //private volatile object rigLock = new object();
+        private SemaphoreSlim semaphore = new SemaphoreSlim(1,1);
         private volatile bool locked = false;
         int lastLine = 0;
+        int maxPower = 20;
 
         private int LineNumber(int stack = 2)
         {
@@ -55,20 +56,11 @@ namespace AmpAutoTunerUtility
             //{
             //MessageBox.Show("Semaphore oops!! count="+semaphore.CurrentCount);
             //}
-            //semaphore.Wait(1);
             bool gotIt = semaphore.Wait(5000); // if we have to wait 5 seconds something is wrong
             if (!gotIt)
             {
                 MessageBox.Show("Unable to get semaphore for FLRig...last Wait was from line#" + lastLine);
             }
-            if (Monitor.TryEnter(rigLock) == false)
-            {
-                Thread.Sleep(100);
-            }
-            if (locked)
-                MessageBox.Show("Locked @"+lastLine);
-            //Monitor.Enter(rigLock);
-            locked = true;
             lastLine = LineNumber();
         }
         private void UnLock()
@@ -77,15 +69,10 @@ namespace AmpAutoTunerUtility
             {
                 MessageBox.Show("Semaphore count != 0!!");
             }
-            if (!locked)
-                MessageBox.Show("Not locked @" + LineNumber(1) + "/" + LineNumber());
-            //.Exit(rigLock);
             semaphore.Release(1);
-            locked = false;
         }
         public override bool Open()
         {
-            semaphore = new SemaphoreSlim(1, 1);
             model = "Unknown";
             int port = 12345;
             if (rigStream != null) { rigStream.Close(); rigStream.Dispose(); }
@@ -331,7 +318,12 @@ namespace AmpAutoTunerUtility
                 ptt = FLRigGetPTT();
                 if (ptt)
                     swr = FLRigGetSWR();
-                power = GetPower();
+                var rigPower = GetPower();
+                if (rigPower > maxPower)
+                {
+                    DebugAddMsg(DebugEnum.LOG, "Power limited to " + maxPower + ".  See Power tab Max");
+                    SetPower(maxPower);
+                }
                 if (++n % 2 == 0)  // do every other one
                 {
                      modeA = FLRigGetMode('A');
@@ -425,7 +417,7 @@ namespace AmpAutoTunerUtility
                     Byte[] data = System.Text.Encoding.ASCII.GetBytes(xml);
                     rigStream.Write(data, 0, data.Length);
                     Byte[] data2 = new byte[4096];
-                    rigStream.ReadTimeout = 5000;
+                    rigStream.ReadTimeout = 1000;
                     Int32 bytes = rigStream.Read(data2, 0, data2.Length);
                     string responseData = Encoding.ASCII.GetString(data2, 0, bytes);
                     if (responseData.Contains("<value>B"))
@@ -609,6 +601,9 @@ namespace AmpAutoTunerUtility
                     if (rigStream == null || ex.Message.Contains("Unable to write"))
                     {
                         DebugAddMsg(DebugEnum.ERR, "Error...Did FLRig shut down?\n");
+                        UnLock();
+                        Thread.Sleep(2000);
+                        return 0;
                     }
                     else
                     {
@@ -721,8 +716,8 @@ namespace AmpAutoTunerUtility
             try
             {
                 Lock();
-                var myparam = "<params><param><value><double>" + pow + "</double></value></param></params";
-                string xml = FLRigXML("rig.set_power" + vfo, myparam);
+                var myparam = "<params><param><value><i4>" + pow + "</i4></value></param></params";
+                string xml = FLRigXML("rig.set_power", myparam);
                 Byte[] data = System.Text.Encoding.ASCII.GetBytes(xml);
                 rigStream.Write(data, 0, data.Length);
                 Byte[] data2 = new byte[4096];
@@ -750,7 +745,7 @@ namespace AmpAutoTunerUtility
             }
             set
             {
-                FLRigSetPower(value);
+                SetPower(value);
                 power = value;
             }
         }
@@ -767,6 +762,7 @@ namespace AmpAutoTunerUtility
                 {
                     if (rigStream == null)
                     {
+                        UnLock();
                         return "";
                     }
                     rigStream.Write(data, 0, data.Length);
@@ -781,6 +777,7 @@ namespace AmpAutoTunerUtility
                     {
                         DebugAddMsg(DebugEnum.ERR, "FLRig unexpected error:\n" + ex.Message + "\n");
                     }
+                    //UnLock();
                     return "";
                 }
                 data = new Byte[4096];
@@ -841,6 +838,7 @@ namespace AmpAutoTunerUtility
                     {
                         DebugAddMsg(DebugEnum.ERR, "FLRig unexpected error:\n" + ex.Message + "\n");
                     }
+                    UnLock();
                     return "";
                 }
                 data = new Byte[4096];
@@ -969,7 +967,7 @@ namespace AmpAutoTunerUtility
 
         public override int GetPower()
         {
-            return 0;
+            int power = 0;
             try
             {
                 Lock();
@@ -997,7 +995,6 @@ namespace AmpAutoTunerUtility
                 }
                 data = new Byte[4096];
                 rigStream.ReadTimeout = 5000;
-                int power = 0;
                 try
                 {
                     Int32 bytes = rigStream.Read(data, 0, data.Length);

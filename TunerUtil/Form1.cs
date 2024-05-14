@@ -361,6 +361,14 @@ namespace AmpAutoTunerUtility
                 textBoxPower6Watts.Text = Properties.Settings.Default.Power6Watts;
                 textBoxPower7Watts.Text = Properties.Settings.Default.Power7Watts;
                 textBoxPower8Watts.Text = Properties.Settings.Default.Power8Watts;
+                textBoxPower1MaxWatts.Text = Properties.Settings.Default.Power1MaxWatts;
+                textBoxPower2MaxWatts.Text = Properties.Settings.Default.Power2MaxWatts;
+                textBoxPower3MaxWatts.Text = Properties.Settings.Default.Power3MaxWatts;
+                textBoxPower4MaxWatts.Text = Properties.Settings.Default.Power4MaxWatts;
+                textBoxPower5MaxWatts.Text = Properties.Settings.Default.Power5MaxWatts;
+                textBoxPower6MaxWatts.Text = Properties.Settings.Default.Power6MaxWatts;
+                textBoxPower7MaxWatts.Text = Properties.Settings.Default.Power7MaxWatts;
+                textBoxPower8MaxWatts.Text = Properties.Settings.Default.Power8MaxWatts;
                 textBoxTune1Power.Text = Properties.Settings.Default.Tune1Power;
                 textBoxTune2Power.Text = Properties.Settings.Default.Tune2Power;
                 textBoxTune3Power.Text = Properties.Settings.Default.Tune3Power;
@@ -1184,6 +1192,14 @@ namespace AmpAutoTunerUtility
             Properties.Settings.Default.Power6Watts = textBoxPower6Watts.Text;
             Properties.Settings.Default.Power7Watts = textBoxPower7Watts.Text;
             Properties.Settings.Default.Power8Watts = textBoxPower8Watts.Text;
+            Properties.Settings.Default.Power1MaxWatts = textBoxPower1MaxWatts.Text;
+            Properties.Settings.Default.Power2MaxWatts = textBoxPower2MaxWatts.Text;
+            Properties.Settings.Default.Power3MaxWatts = textBoxPower3MaxWatts.Text;
+            Properties.Settings.Default.Power4MaxWatts = textBoxPower4MaxWatts.Text;
+            Properties.Settings.Default.Power5MaxWatts = textBoxPower5MaxWatts.Text;
+            Properties.Settings.Default.Power6MaxWatts = textBoxPower6MaxWatts.Text;
+            Properties.Settings.Default.Power7MaxWatts = textBoxPower7MaxWatts.Text;
+            Properties.Settings.Default.Power8MaxWatts = textBoxPower8MaxWatts.Text;
             Properties.Settings.Default.Tune1Power = textBoxTune1Power.Text;
             Properties.Settings.Default.Tune2Power = textBoxTune2Power.Text;
             Properties.Settings.Default.Tune3Power = textBoxTune3Power.Text;
@@ -1532,9 +1548,14 @@ namespace AmpAutoTunerUtility
                 {
                     frequencyHzTune = frequencyHz + 1000;
                 }
-                myRig.VFO = 'B';
+                var modeaSave = myRig.ModeA;
+                var modebSave = myRig.ModeB;
+                myRig.ModeA = "FM";
+                myRig.ModeB = "FM";
+                myRig.FrequencyA += 1000;
+                myRig.FrequencyB += 1000;
                 Thread.Sleep(500);
-                Debug(DebugEnum.LOG, "Tuning to " + frequencyHzTune + "\n");
+                Debug(DebugEnum.LOG, "Tuning to 1000+ offset\n");
 
                 buttonTunerStatus.BackColor = System.Drawing.Color.LightGray;
                 Application.DoEvents();
@@ -1629,6 +1650,10 @@ namespace AmpAutoTunerUtility
                     Debug(DebugEnum.ERR, "Unknown response from tuner = '" + response + "'\n");
                 }
                 tuneIsRunning = false;
+                myRig.FrequencyA -= 1000;
+                myRig.FrequencyB -= 1000;
+                myRig.ModeA = modeaSave;
+                myRig.ModeB = modebSave;
                 //richTextBoxRig.AppendText("Tuning done SWR="+tuner1.SWR+"\n");
                 //richTextBoxRig.AppendText("Tuning done\n");
                 Debug(DebugEnum.TRACE, "Setting Tx power\n");
@@ -2288,10 +2313,25 @@ namespace AmpAutoTunerUtility
                         to.Text = "1000";
                         return false;
                     }
+                    if (ampFlag)
+                    {
+                        buttonOperate.Enabled = true;
+                    }
+                    else
+                    {
+                        buttonOperate.Enabled = false;
+                        tuner1.Operate(false);
+                    }
                     double frequencyFrom = Convert.ToDouble(from.Text, CultureInfo.InvariantCulture);
                     double frequencyTo = Convert.ToDouble(to.Text, CultureInfo.InvariantCulture);
                     if (frequencyMHz >= frequencyFrom && frequencyMHz <= frequencyTo)
                     {
+                        // Any more other than CW we make power MID
+                        if (!myRig.ModeA.Contains("CW") && tuner1.GetPowerLevel().Equals("MAX"))
+                        {
+                            DebugAddMsg(DebugEnum.VERBOSE, "Power limited to Mid for non-CW mode");
+                            tuner1.SetPowerLevel("Mid");
+                        }
                         if (mode.SelectedItem == null || mode.SelectedItem.Equals(modeChk) || (passNum > 0 && mode.SelectedItem.Equals("Any")))
                         {
                             if (!pausedTuning && !tuneIsRunning && powerLevel.Text.Length > 0)
@@ -2408,8 +2448,17 @@ namespace AmpAutoTunerUtility
             string mode = myRig.VFO == 'A' ? myRig.ModeA : myRig.ModeB;
             labelFreq.Text = (frequencyHz / 1e6).ToString(CultureInfo.InvariantCulture) + " " + mode;
             mode = myRig.ModeA;
+            // Any more other than CW we make power MID
+            var pwrLevel = tuner1.GetPowerLevel();
             if (lastmode != mode)
+            {
                 DebugAddMsg(DebugEnum.LOG, "VFOA mode is " + mode + "\n");
+                if (!mode.Contains("CW") && tuner1.GetPowerLevel().Equals("Max"))
+                {
+                    DebugAddMsg(DebugEnum.VERBOSE, "Power limited to Mid for non-CW mode");
+                    tuner1.SetPowerLevel("Mid");
+                }
+            }
             lastmode = mode;
             if (radioButtonVFOB.Checked) cvfo = 'B';
             try
@@ -2422,11 +2471,14 @@ namespace AmpAutoTunerUtility
                         frequencyHz = cvfo == 'A' ? myRig.FrequencyA : myRig.FrequencyB;
                         if (frequencyHz == 0)
                         {
-                            DebugAddMsg(DebugEnum.ERR, "frequencyHz==0, A=" + myRig.FrequencyA + ", B=" + myRig.FrequencyB);
+                            DebugAddMsg(DebugEnum.ERR, "FLRig disconnected?");
+                            Application.DoEvents();
+                            Thread.Sleep(1000);
                             myRig.GetFrequency(cvfo);
                             frequencyHz = cvfo == 'A' ? myRig.FrequencyA : myRig.FrequencyB;
-                            DebugAddMsg(DebugEnum.ERR, "retrying A=" + myRig.FrequencyA + ", B=" + myRig.FrequencyB);
-                            //myRig.Open();
+                            //DebugAddMsg(DebugEnum.ERR, "retrying A=" + myRig.FrequencyA + ", B=" + myRig.FrequencyB);
+                            myRig.Open();
+                            return;
                         }
                         // if our frequency changes by more than 10KHz make VFOB match VFOA
                         if (frequencyHz < 60000000 && frequencyLast != 0 && Math.Abs(frequencyHz - frequencyLast) > 200)
@@ -4345,7 +4397,7 @@ namespace AmpAutoTunerUtility
                     {
                         DebugMsg.DebugAddMsg(DebugEnum.LOG, "FrequencyWalk Stop Request#2 frequencyHz=" + frequencyHz);
                         FreqWalkStop();
-                        timerFreqWalk.Enabled = true;
+                        //timerFreqWalk.Enabled = false;
                         Monitor.Exit(timerFreqWalkMutex);
                         return;
                     }
@@ -6131,7 +6183,7 @@ Set
 
         private void CheckBoxAmp1_CheckedChanged(object sender, EventArgs e)
         {
-
+            buttonOperate.Enabled = checkBoxAmp1.Checked;
         }
 
         private void TextBoxPower1From_TextChanged(object sender, EventArgs e)
@@ -6146,6 +6198,48 @@ Set
 
         private void numericUpDownFLRigBeforeWalk_ValueChanged(object sender, EventArgs e)
         {
+
+        }
+
+        private void checkBoxAmp2_CheckedChanged(object sender, EventArgs e)
+        {
+            buttonOperate.Enabled = checkBoxAmp2.Checked;
+
+        }
+
+        private void checkBoxAmp3_CheckedChanged(object sender, EventArgs e)
+        {
+            buttonOperate.Enabled = checkBoxAmp3.Checked;
+
+        }
+
+        private void checkBoxAmp4_CheckedChanged(object sender, EventArgs e)
+        {
+            buttonOperate.Enabled = checkBoxAmp4.Checked;
+
+        }
+
+        private void checkBoxAmp5_CheckedChanged(object sender, EventArgs e)
+        {
+            buttonOperate.Enabled = checkBoxAmp5.Checked;
+
+        }
+
+        private void checkBoxAmp6_CheckedChanged(object sender, EventArgs e)
+        {
+            buttonOperate.Enabled = checkBoxAmp6.Checked;
+
+        }
+
+        private void checkBoxAmp7_CheckedChanged(object sender, EventArgs e)
+        {
+            buttonOperate.Enabled = checkBoxAmp7.Checked;
+
+        }
+
+        private void checkBoxAmp8_CheckedChanged(object sender, EventArgs e)
+        {
+            buttonOperate.Enabled = checkBoxAmp8.Checked;
 
         }
     }
