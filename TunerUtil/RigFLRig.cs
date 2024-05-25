@@ -41,7 +41,8 @@ namespace AmpAutoTunerUtility
         //private volatile object rigLock = new object();
         private SemaphoreSlim semaphore = new SemaphoreSlim(1,1);
         private volatile bool locked = false;
-        int lastLine = 0;
+        int lastLineLock = 0;
+        int lastLineUnLock = 0;
         int maxPower = 20;
 
         private int LineNumber(int stack = 2)
@@ -52,23 +53,26 @@ namespace AmpAutoTunerUtility
 
         private void Lock()
         {
-            //if (semaphore.CurrentCount != 1)
-            //{
-            //MessageBox.Show("Semaphore oops!! count="+semaphore.CurrentCount);
-            //}
             bool gotIt = semaphore.Wait(5000); // if we have to wait 5 seconds something is wrong
+            //if (!gotIt && semaphore.CurrentCount != 1)
             if (!gotIt)
             {
-                MessageBox.Show("Unable to get semaphore for FLRig...last Wait was from line#" + lastLine);
+                MessageBox.Show("Semaphore timeout!! remaining=" + semaphore.CurrentCount);
             }
-            lastLine = LineNumber();
+            if (!gotIt)
+            {
+                MessageBox.Show("Unable to get semaphore for FLRig...last Wait was from line#" + lastLineLock);
+            }
+            lastLineLock = LineNumber();
         }
         private void UnLock()
         {
             if (semaphore.CurrentCount != 0)
             {
-                MessageBox.Show("Semaphore count != 0!!");
+                int i = 1;
+               //MessageBox.Show("Semaphore count != 1!!");
             }
+            lastLineUnLock = LineNumber();
             semaphore.Release(1);
         }
         public override bool Open()
@@ -233,7 +237,8 @@ namespace AmpAutoTunerUtility
             xmlHeader += "User - Agent: XMLRPC++ 0.8\n";
             xmlHeader += "Host: 127.0.0.1:12345\n";
             xmlHeader += "Content-type: text/xml\n";
-            string xmlContent = "<?xml version=\"1.0\"?>\n<?clientid=\"AmpAutoTunerUtil "+ ++transactionNumber+"\">\n";
+            string xmlContent = "<?xml version=\"1.0\"?>\n<?clientid=\"AmpAutoTunerUtil("+ ++transactionNumber+"\")?>\n";
+            if (transactionNumber >= 999999) transactionNumber = 0;
             xmlContent += "<methodCall><methodName>";
             xmlContent += cmd;
             xmlContent += "</methodName>\n";
@@ -601,14 +606,15 @@ namespace AmpAutoTunerUtility
                     if (rigStream == null || ex.Message.Contains("Unable to write"))
                     {
                         DebugAddMsg(DebugEnum.ERR, "Error...Did FLRig shut down?\n");
-                        UnLock();
                         Thread.Sleep(2000);
+                        //UnLock();
                         return 0;
                     }
                     else
                     {
                         DebugAddMsg(DebugEnum.ERR, "FLRig unexpected error:\n" + ex.Message + "\n");
                     }
+                    //UnLock();
                     return 0.0;
                 }
                 data = new Byte[4096];
@@ -762,7 +768,7 @@ namespace AmpAutoTunerUtility
                 {
                     if (rigStream == null)
                     {
-                        UnLock();
+                        //UnLock();
                         return "";
                     }
                     rigStream.Write(data, 0, data.Length);
@@ -838,7 +844,7 @@ namespace AmpAutoTunerUtility
                     {
                         DebugAddMsg(DebugEnum.ERR, "FLRig unexpected error:\n" + ex.Message + "\n");
                     }
-                    UnLock();
+                    //UnLock();
                     return "";
                 }
                 data = new Byte[4096];
@@ -977,6 +983,7 @@ namespace AmpAutoTunerUtility
                 {
                     if (rigStream == null)
                     {
+                        //UnLock();
                         return 0;
                     }
                     rigStream.Write(data, 0, data.Length);
@@ -991,6 +998,7 @@ namespace AmpAutoTunerUtility
                     {
                         DebugAddMsg(DebugEnum.ERR, "FLRig unexpected error:\n" + ex.Message + "\n");
                     }
+                    //UnLock();
                     return 0;
                 }
                 data = new Byte[4096];
@@ -1183,6 +1191,7 @@ namespace AmpAutoTunerUtility
                     {
                         DebugAddMsg(DebugEnum.ERR, "FLRig unexpected error:\n" + ex.Message + "\n");
                     }
+                    //UnLock();
                     return false;
                 }
                 data = new Byte[4096];
