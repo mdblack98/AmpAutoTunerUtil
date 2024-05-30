@@ -9,7 +9,7 @@ namespace AmpAutoTunerUtility
 {
     class TunerLDG : Tuner
     {
-        private SerialPort ?SerialPortTuner = null;
+        private SerialPort SerialPortTuner = null;
         char response = 'X';
 
         public TunerLDG(string model, string comport, string baud)
@@ -48,7 +48,7 @@ namespace AmpAutoTunerUtility
         {
             if (disposing)
             {
-                if (SerialPortTuner != null) SerialPortTuner.Dispose();
+                SerialPortTuner?.Dispose();
             }
         }
         public override void Close()
@@ -61,11 +61,11 @@ namespace AmpAutoTunerUtility
             }
         }
 
-        public override string ?GetSerialPortTuner()
+        public override string GetSerialPortTuner()
         {
             if (SerialPortTuner == null)
             {
-                return null;
+                return "Unknown";
             }
             return SerialPortTuner.PortName;
         }

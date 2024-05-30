@@ -15,7 +15,7 @@ namespace AmpAutoTunerUtility
     {
         enum TunerStateEnum { UNKNOWN, SLEEP, AWAKE, TUNING, TUNEDONE, ERR}
         TunerStateEnum TunerState = TunerStateEnum.UNKNOWN;
-        private SerialPort ?SerialPortTuner = null;
+        private SerialPort SerialPortTuner = null;
         public double FwdPwr { get; set; }
         public double RefPwr { get; set; }
         //public new int Inductance { get; set; }
@@ -24,7 +24,7 @@ namespace AmpAutoTunerUtility
         volatile bool Tuning = false;
         volatile bool dataReceived = false;
 
-        public TunerMFJ928(string model, string comport, string baud, out string ?error)
+        public TunerMFJ928(string model, string comport, string baud, out string error)
         {
             this.model = model;
             this.comport = comport;
@@ -63,9 +63,9 @@ namespace AmpAutoTunerUtility
 
             byte[] buffer = new byte[4096];
             byte[] buffer1 = new byte[1];
-            Action ?kickoffRead = null;
+            Action kickoffRead = null;
             SerialPortTuner.BaseStream.ReadTimeout = 100;
-            Queue<byte> myQueue = new Queue<byte>();
+            Queue<byte> myQueue = new();
             GetAntenna();
             kickoffRead = delegate
             {
@@ -86,12 +86,12 @@ namespace AmpAutoTunerUtility
                             byte[] received = new byte[actualLength];
                             Buffer.BlockCopy(buffer, 0, received, 0, actualLength);
                             foreach (byte b in received) myQueue.Enqueue(b);
-                            byte[] ?cmd;
+                            byte[] cmd;
                             while ((cmd = GetCmd(myQueue)) != null)
                             {
                                 if (cmd[0] == 0xfe && cmd.Length != 8)
                                 {
-                                    isOn = true;
+                                    IsOn = true;
                                     continue;
                                 }
                                 RaiseAppSerialDataEvent(cmd);
@@ -124,7 +124,7 @@ namespace AmpAutoTunerUtility
             }
         }
 
-        byte[] ?GetCmd(Queue<byte> q)
+        byte[] GetCmd(Queue<byte> q)
         {
             byte[] cmd;
             int nbytes;
@@ -175,7 +175,7 @@ namespace AmpAutoTunerUtility
         public override void SetInductance(double value)
         {
             byte[] bcdValue = IntToBCD5((uint)value, 2);
-            byte[] cmdSetInductance = { 0xfe, 0xfe, 0x21, 0x01, bcdValue[0], bcdValue[1], 0x00, 0xfd };
+            byte[] cmdSetInductance = [0xfe, 0xfe, 0x21, 0x01, bcdValue[0], bcdValue[1], 0x00, 0xfd];
             SendCmd(cmdSetInductance);
         }
 
@@ -197,7 +197,7 @@ namespace AmpAutoTunerUtility
                 */
                 default:
                     byte[] bcdValue = IntToBCD5((uint)value, 2);
-                    byte[] cmdSetCapacitance = { 0xfe, 0xfe, 0x21, 0x00, bcdValue[1], bcdValue[0], 0x00, 0xfd };
+                    byte[] cmdSetCapacitance = [0xfe, 0xfe, 0x21, 0x00, bcdValue[1], bcdValue[0], 0x00, 0xfd];
                     SendCmd(cmdSetCapacitance);
                     break;
             }
@@ -220,7 +220,7 @@ namespace AmpAutoTunerUtility
         {
             if (debugLevel <= DebugLevel || debugLevel == DebugEnum.LOG || Tuning)
             {
-                DebugMsg myMsg = new DebugMsg
+                DebugMsg myMsg = new()
                 {
                     Text = MyTime() + " " + v,
                     Level = debugLevel
@@ -433,7 +433,7 @@ namespace AmpAutoTunerUtility
             }
         }
 
-        public override string ?GetSerialPortTuner()
+        public override string GetSerialPortTuner()
         {
             if (SerialPortTuner == null)
             {
@@ -483,9 +483,7 @@ namespace AmpAutoTunerUtility
         private void CMD_GetAutoStatus(byte[] data)
         {
             //SetText(DebugEnum.VERBOSE, "AutoStatus=" + data + "\n");
-            byte[] b2 = new byte[2];
-            b2[0] = data[1];
-            b2[1] = data[0];
+            byte[] b2 = [data[1], data[0]];
             double fwd = BCD5ToInt(b2, 2) / 10.0;
             b2[0] = data[3];
             b2[1] = data[2];
@@ -531,7 +529,7 @@ namespace AmpAutoTunerUtility
             try
             {
                 //SerialPortTuner.ReadTimeout = 2000;  // do we need longer for tuning?
-                byte[] wakeup = { 0x00 };
+                byte[] wakeup = [0x00];
                 SerialPortTuner.Write(wakeup, 0, wakeup.Length);
                 Thread.Sleep(3); // Manual says sleep 3ms before sending cmd
                 //Flush();
@@ -548,13 +546,13 @@ namespace AmpAutoTunerUtility
 
         override public void CMDAmp(byte on)
         {
-            byte[] cmdamp = { 0xfe, 0xfe, 0x21, 0x06, on, 0x00, 0x00, 0xfd };
+            byte[] cmdamp = [0xfe, 0xfe, 0x21, 0x06, on, 0x00, 0x00, 0xfd];
             SendCmd(cmdamp);
         }
 
         public void CMDAmp()
         {
-            byte[] cmdampoff = { 0xfe, 0xfe, 0x11, 0x06, 0x00, 0x00, 0x00, 0xfd };
+            byte[] cmdampoff = [0xfe, 0xfe, 0x11, 0x06, 0x00, 0x00, 0x00, 0xfd];
             SendCmd(cmdampoff);
             //return response[4] == 0x01;
         }
@@ -563,7 +561,7 @@ namespace AmpAutoTunerUtility
         {
             SetText(DebugEnum.TRACE, "CMD_Tune()\n");
             Tuning = true;
-            byte[] tune = { 0xfe, 0xfe, 0x06, 0x01, 0x00, 0x00, 0xf9, 0xfd };
+            byte[] tune = [0xfe, 0xfe, 0x06, 0x01, 0x00, 0x00, 0xf9, 0xfd];
             SendCmd(tune);
             TunerState = TunerStateEnum.TUNING;
         }
@@ -598,7 +596,7 @@ namespace AmpAutoTunerUtility
 
         private void MemoryWriteCurrentFreq()
         {
-            byte[] writeMemory = { 0xfe, 0xfe, 0x30, 0x00, 0x00, 0x00, 0xf9, 0xfd };
+            byte[] writeMemory = [0xfe, 0xfe, 0x30, 0x00, 0x00, 0x00, 0xf9, 0xfd];
             SendCmd(writeMemory);
         }
         private static string Dumphex(byte[] data)
@@ -609,7 +607,7 @@ namespace AmpAutoTunerUtility
         public override bool GetAmpStatus()
         {
             SetText(DebugEnum.TRACE, "GetAmpStatus()\n");
-            byte[] cmd = { 0xfe, 0xfe, 0x06, 0x00, 0x00, 0x00, 0xf9, 0xfd };
+            byte[] cmd = [0xfe, 0xfe, 0x06, 0x00, 0x00, 0x00, 0xf9, 0xfd];
             SendCmd(cmd);
             return false;
         }
@@ -637,7 +635,7 @@ namespace AmpAutoTunerUtility
         {
             SetText(DebugEnum.TRACE, "SaveInductance()\n");
             var b = IntToBCD5(Convert.ToUInt32(v * 100), 2);
-            byte[] cmd = { 0xfe, 0xfe, 0x22, 0x01, b[1], b[0], 0xf9, 0xfd };
+            byte[] cmd = [0xfe, 0xfe, 0x22, 0x01, b[1], b[0], 0xf9, 0xfd];
             SendCmd(cmd);
         }
         public override void Save()
@@ -647,7 +645,7 @@ namespace AmpAutoTunerUtility
 
         public override int GetAntenna()
         {
-            byte[] cmd = { 0xfe, 0xfe, 0x11, 0x03, 0x00, 0x00, 0x00, 0xfd };
+            byte[] cmd = [0xfe, 0xfe, 0x11, 0x03, 0x00, 0x00, 0x00, 0xfd];
             SendCmd(cmd);
             Thread.Sleep(200);
             SetText(DebugEnum.TRACE, "GetAntenna()=" + AntennaNumber + "\n");
@@ -656,7 +654,7 @@ namespace AmpAutoTunerUtility
         public override void SetAntenna(int antennaNumberRequested, bool tuneIsRunning = false)
         {
             //SetText(DebugEnum.TRACE, "SetAntenna() requested=" + antennaNumberRequested + "\n");
-            byte[] cmd = { 0xfe, 0xfe, 0x21, 0x03, (byte)(antennaNumberRequested - 1), 0x00, 0x00, 0xfd };
+            byte[] cmd = [0xfe, 0xfe, 0x21, 0x03, (byte)(antennaNumberRequested - 1), 0x00, 0x00, 0xfd];
             SendCmd(cmd);
             Thread.Sleep(200);
             //SetText(DebugEnum.TRACE, "SetAntenna() result=" + AntennaNumber + "\n");

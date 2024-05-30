@@ -12,7 +12,7 @@ namespace AmpAutoTunerUtility.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.7.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.9.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -2077,102 +2077,6 @@ namespace AmpAutoTunerUtility.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool AntennaAmp1 {
-            get {
-                return ((bool)(this["AntennaAmp1"]));
-            }
-            set {
-                this["AntennaAmp1"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool AntennaAmp2 {
-            get {
-                return ((bool)(this["AntennaAmp2"]));
-            }
-            set {
-                this["AntennaAmp2"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool AntennaAmp3 {
-            get {
-                return ((bool)(this["AntennaAmp3"]));
-            }
-            set {
-                this["AntennaAmp3"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool AntennaAmp4 {
-            get {
-                return ((bool)(this["AntennaAmp4"]));
-            }
-            set {
-                this["AntennaAmp4"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool AntennaAmp5 {
-            get {
-                return ((bool)(this["AntennaAmp5"]));
-            }
-            set {
-                this["AntennaAmp5"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool AntennaAmp6 {
-            get {
-                return ((bool)(this["AntennaAmp6"]));
-            }
-            set {
-                this["AntennaAmp6"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool AntennaAmp7 {
-            get {
-                return ((bool)(this["AntennaAmp7"]));
-            }
-            set {
-                this["AntennaAmp7"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool AntennaAmp8 {
-            get {
-                return ((bool)(this["AntennaAmp8"]));
-            }
-            set {
-                this["AntennaAmp8"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("60")]
         public int TimerFreqWalkSeconds {
             get {
@@ -2528,6 +2432,114 @@ namespace AmpAutoTunerUtility.Properties {
             }
             set {
                 this["checkBoxWalk3"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool checkBoxTunePwr {
+            get {
+                return ((bool)(this["checkBoxTunePwr"]));
+            }
+            set {
+                this["checkBoxTunePwr"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("20")]
+        public string Power1MaxWatts {
+            get {
+                return ((string)(this["Power1MaxWatts"]));
+            }
+            set {
+                this["Power1MaxWatts"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("20")]
+        public string Power2MaxWatts {
+            get {
+                return ((string)(this["Power2MaxWatts"]));
+            }
+            set {
+                this["Power2MaxWatts"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("20")]
+        public string Power3MaxWatts {
+            get {
+                return ((string)(this["Power3MaxWatts"]));
+            }
+            set {
+                this["Power3MaxWatts"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("20")]
+        public string Power4MaxWatts {
+            get {
+                return ((string)(this["Power4MaxWatts"]));
+            }
+            set {
+                this["Power4MaxWatts"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("20")]
+        public string Power5MaxWatts {
+            get {
+                return ((string)(this["Power5MaxWatts"]));
+            }
+            set {
+                this["Power5MaxWatts"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("20")]
+        public string Power6MaxWatts {
+            get {
+                return ((string)(this["Power6MaxWatts"]));
+            }
+            set {
+                this["Power6MaxWatts"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("20")]
+        public string Power7MaxWatts {
+            get {
+                return ((string)(this["Power7MaxWatts"]));
+            }
+            set {
+                this["Power7MaxWatts"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("20")]
+        public string Power8MaxWatts {
+            get {
+                return ((string)(this["Power8MaxWatts"]));
+            }
+            set {
+                this["Power8MaxWatts"] = value;
             }
         }
     }
