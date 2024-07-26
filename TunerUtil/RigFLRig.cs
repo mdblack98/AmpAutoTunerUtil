@@ -39,7 +39,7 @@ namespace AmpAutoTunerUtility
         public bool transceive;
         public double swr=0;
         //private volatile object rigLock = new object();
-        private SemaphoreSlim semaphore = new SemaphoreSlim(1,1);
+        private Semaphore semaphore = new Semaphore(1,1);
         private volatile bool locked = false;
         int lastLineLock = 0;
         int lastLineUnLock = 0;
@@ -53,27 +53,31 @@ namespace AmpAutoTunerUtility
 
         private void Lock()
         {
-            bool gotIt = semaphore.Wait(5000); // if we have to wait 5 seconds something is wrong
+            bool gotIt = semaphore.WaitOne(5000); // if we have to wait 5 seconds something is wrong
             //if (!gotIt && semaphore.CurrentCount != 1)
             if (!gotIt)
             {
-                MessageBox.Show("Semaphore timeout!! remaining=" + semaphore.CurrentCount);
-            }
-            if (!gotIt)
-            {
-                MessageBox.Show("Unable to get semaphore for FLRig...last Wait was from line#" + lastLineLock);
+//                MessageBox.Show("Semaphore 5sec timeout!! remaining=" + semaphore.CurrentCount + "...last Wait was from line#" + lastLineLock);
+                MessageBox.Show("Semaphore 5sec timeout!! remaining=" + "...last Wait was from " + lastLineLock);
             }
             lastLineLock = LineNumber();
         }
         private void UnLock()
         {
+            /*
+            if (semaphore.CurrentCount == 0)
+            
+                DebugAddMsg(DebugEnum.WARN, "UnLock when not locked...last lock was " + lastLineLock);
+                return;
+            }
             if (semaphore.CurrentCount != 0)
             {
                 int i = 1;
                //MessageBox.Show("Semaphore count != 1!!");
             }
+            */
             lastLineUnLock = LineNumber();
-            semaphore.Release(1);
+            semaphore.Release();
         }
         public override bool Open()
         {
@@ -844,7 +848,7 @@ namespace AmpAutoTunerUtility
                     {
                         DebugAddMsg(DebugEnum.ERR, "FLRig unexpected error:\n" + ex.Message + "\n");
                     }
-                    //UnLock();
+                    UnLock();
                     return "";
                 }
                 data = new Byte[4096];
@@ -983,7 +987,7 @@ namespace AmpAutoTunerUtility
                 {
                     if (rigStream == null)
                     {
-                        //UnLock();
+                        //UnLock();  taken care of in finally
                         return 0;
                     }
                     rigStream.Write(data, 0, data.Length);
@@ -998,7 +1002,7 @@ namespace AmpAutoTunerUtility
                     {
                         DebugAddMsg(DebugEnum.ERR, "FLRig unexpected error:\n" + ex.Message + "\n");
                     }
-                    //UnLock();
+                    //UnLock();  taken care of in finally.
                     return 0;
                 }
                 data = new Byte[4096];
