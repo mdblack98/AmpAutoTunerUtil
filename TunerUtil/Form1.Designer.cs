@@ -3679,8 +3679,8 @@
             this.comboBoxDebugLevel.Name = "comboBoxDebugLevel";
             this.comboBoxDebugLevel.Size = new System.Drawing.Size(92, 21);
             this.comboBoxDebugLevel.TabIndex = 9;
-            this.comboBoxDebugLevel.Text = global::AmpAutoTunerUtility.Properties.Settings.Default.DebugLevel;
-            this.comboBoxDebugLevel.ValueMember = global::AmpAutoTunerUtility.Properties.Settings.Default.Tune5Power;
+            //this.comboBoxDebugLevel.Text = global::AmpAutoTunerUtility.Properties.Settings.Default.DebugLevel;
+            //this.comboBoxDebugLevel.ValueMember = global::AmpAutoTunerUtility.Properties.Settings.Default.Tune5Power;
             this.comboBoxDebugLevel.SelectedIndexChanged += new System.EventHandler(this.ComboBoxDebugLevel_SelectedIndexChanged);
             // 
             // richTextBoxDebug

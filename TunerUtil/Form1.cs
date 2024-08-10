@@ -254,6 +254,7 @@ namespace AmpAutoTunerUtility
                 LoadComPorts();
                 LoadBaudRates();
 
+                comboBoxDebugLevel.SelectedIndex = comboBoxDebugLevel.FindStringExact(Properties.Settings.Default.DebugLevel);
                 // Not currently used
                 tabPage.TabPages.Remove(tabPageExpertLinears);
 
@@ -269,7 +270,6 @@ namespace AmpAutoTunerUtility
                 checkBoxPowerSDR.Checked = Properties.Settings.Default.powerSDR;
                 numericUpDownFLRigBeforeWalk.Value = Properties.Settings.Default.FLRigStartCmd;
                 numericUpDownFLRigAfterWalk.Value = Properties.Settings.Default.FLRigStopCmd;
-
 
                 //Set selected items
                 //comboBoxTunerModel.SelectedIndex = comboBoxTunerModel.FindStringExact(Properties.Settings.Default.TunerModel);
@@ -1062,6 +1062,7 @@ namespace AmpAutoTunerUtility
             //if (relay3 != null) relay3.Close();
             //if (relay4 != null) relay4.Close();
             //Thread.Sleep(1000);  // was getting memory overflow during shutdown under debug -- this seems to have fixed it
+            Properties.Settings.Default.DebugLevel = comboBoxDebugLevel.Text;
             Properties.Settings.Default.tolTune = textBoxFreqTol.Text;
             Properties.Settings.Default.rigEnabled = checkBoxRig.Checked;
             Properties.Settings.Default.TunerEnabled = checkBoxTunerEnabled.Checked;
@@ -2758,8 +2759,10 @@ namespace AmpAutoTunerUtility
                     if (tuner1.GetModel().Contains(EXPERTLINEARS))
                     {
                         string myswr = "SWR " + myRig.SWR;
-                        if (!tuner1.IsOn) labelSWR.Text = "SWR " + myRig.SWR.ToString("F1");
-                        if (tuner1.SWRATU > 0) labelSWR.Text = "SWR " + tuner1.SWRATU.ToString("F1");
+                        if (!tuner1.IsOn) 
+                            labelSWR.Text = "SWR " + myRig.SWR.ToString("F2");
+                        if (tuner1.SWRATU > 0) 
+                            labelSWR.Text = "SWR " + tuner1.SWRATU.ToString("F2");
                     }
                     if (tuner1.GetModel().Equals(MFJ928, StringComparison.InvariantCulture))
                     {
@@ -3039,6 +3042,7 @@ namespace AmpAutoTunerUtility
             Cursor.Current = Cursors.WaitCursor;
             if (ModifierKeys == Keys.Control && comboBoxTunerModel.Text.Contains(EXPERTLINEARS))
             {
+                
                 tuner1!.Operate(false);
                 tuner1!.GetStatus();
                 timerGetFreq.Enabled = false;

@@ -959,6 +959,7 @@ namespace AmpAutoTunerUtility
             {
                 FLRigSetMode('A', value);
                 modeA = FLRigGetMode('A');
+                DebugAddMsg(DebugEnum.VERBOSE, "SetModeA=" + value + " Got " + modeA + "\n");
                 if (modeA.Length == 0)
                         DebugAddMsg(DebugEnum.ERR, "FlRigGetMode A failed length==0\n");
             } 
@@ -970,6 +971,7 @@ namespace AmpAutoTunerUtility
             {
                 FLRigSetMode('B', value);
                 modeB = FLRigGetMode('B');
+                DebugAddMsg(DebugEnum.VERBOSE, "SetModeB=" + value + " Got " + modeB + "\n");
                 if (modeB.Length == 0)
                     DebugAddMsg(DebugEnum.ERR, "FlRigGetMode B failed length==0\n");
             }
