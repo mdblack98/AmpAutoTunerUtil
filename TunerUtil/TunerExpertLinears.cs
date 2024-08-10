@@ -6,6 +6,7 @@ using System.Globalization;
 using System.IO;
 using System.IO.Ports;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Runtime.Remoting.Channels;
 using System.Security.Cryptography;
 using System.Threading;
@@ -553,12 +554,27 @@ namespace AmpAutoTunerUtility
                         powerLevel = mytokens[9];
                         power = mytokens[10];
                         swr1 = mytokens[11];
-                        if (!swr1.Equals("0.00)"))
-                            SWRATU = Convert.ToDouble(swr1); // ATU SWR
+                        if (!swr1.Equals(" 0.00"))
+                            try
+                            {
+                                SWRATU = Convert.ToDouble(swr1); // ATU SWR
+                            }
+                            catch
+                            {
+                                DebugMsg.DebugAddMsg(DebugEnum.VERBOSE, "Can't convert swr of " + swr1 + "\n");
+                            }
                         SetSWR(Double.Parse(swr1));
                         swr2 = mytokens[12];
-                        if (!swr2.Equals("0.00"))
-                            SWRAnt = Convert.ToDouble(swr2);
+                        if (!swr2.Equals(" 0.00"))
+                            try
+                            {
+                                SWRAnt = Convert.ToDouble(swr2);
+                            }
+                            catch
+                            {
+                                DebugMsg.DebugAddMsg(DebugEnum.VERBOSE, "Can't convert swr of " + swr1 + "\n");
+                            }
+
                         IsOperate = mytokens[2] != "S";
                         if (temp1.Equals("?")) DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.LOG, "Expert Linears connected\n");
                         temp1 = mytokens[15];

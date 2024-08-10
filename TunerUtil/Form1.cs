@@ -2756,7 +2756,11 @@ namespace AmpAutoTunerUtility
                 {
                     string SWR = tuner1.GetSWRString();
                     if (tuner1.GetModel().Contains(EXPERTLINEARS))
-                        if (tuner1.SWRATU > 0) labelSWR.Text = "SWR " + tuner1.SWRATU.ToString();
+                    {
+                        string myswr = "SWR " + myRig.SWR;
+                        if (!tuner1.IsOn) labelSWR.Text = "SWR " + myRig.SWR.ToString("F1");
+                        if (tuner1.SWRATU > 0) labelSWR.Text = "SWR " + tuner1.SWRATU.ToString("F1");
+                    }
                     if (tuner1.GetModel().Equals(MFJ928, StringComparison.InvariantCulture))
                     {
                         /*
@@ -3031,6 +3035,7 @@ namespace AmpAutoTunerUtility
                 MyMessageBox("Tuner not enabled");
                 return;
             }
+            DebugAddMsg(DebugEnum.TRACE, "Tune started\n");
             Cursor.Current = Cursors.WaitCursor;
             if (ModifierKeys == Keys.Control && comboBoxTunerModel.Text.Contains(EXPERTLINEARS))
             {
@@ -5434,25 +5439,42 @@ namespace AmpAutoTunerUtility
                 string saveModeA = myRig!.ModeA;
                 string saveModeB = myRig!.ModeB;
                 string desiredMode = "FM";
-                if (!saveModeA.Equals(desiredMode) || !saveModeB.Equals(desiredMode))
-                {
+                //if (!saveModeA.Equals(desiredMode) || !saveModeB.Equals(desiredMode))
+                //{
                     myRig!.ModeA = desiredMode;
                     myRig!.ModeB = desiredMode;
-                }
+                //}
                 PowerSelect(myRig!.FrequencyA, desiredMode, true, checkBoxTunePwr.Checked);
                 myRig!.PTT = true;
-                int nloop = 5;
+                Thread.Sleep(500); // let amp get started
+                int nloop = 40;
                 double swr = 0;
+                double swrsave = -1;
+                int stable = 0;
                 do
                 {
-                    Thread.Sleep(1000);
+                    Thread.Sleep(500);
                     if (comboBoxTunerModel.Text.Contains(EXPERTLINEARS))
                     {
+                        swrsave = swr;
                         swr = tuner1!.SWRATU;
+                        if (swrsave == swr) stable++;
+                        else stable = 0;
                     }
-                } while (--nloop > 0 && (swr > 1.7));
-                Thread.Sleep(1000);
+                } while (--nloop > 0  && stable < 3);
+                if (nloop==0)
+                {
+                    DebugAddMsg(DebugEnum.VERBOSE, "Tune stopped loops exceeded\n");
+                }
+                DebugAddMsg(DebugEnum.VERBOSE, "nloop=" + nloop + ", swr=" + swr + ", swrsave=" + swrsave + ", stable=" + stable + "\n");
+
+                Thread.Sleep(500);
                 myRig!.PTT = false;
+                Thread.Sleep(100);
+                if (swr >= 1.7)
+                {
+                    MessageBox.Show("Warning SWR is 1.7 or greater: " + swr + "\n", "Tuner", MessageBoxButtons.OK);
+                }
                 PowerSelect(myRig!.FrequencyA, desiredMode, false);
                 /*
                 tuner1!.SelectDisplayPage();

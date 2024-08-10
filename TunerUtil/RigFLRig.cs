@@ -77,7 +77,7 @@ namespace AmpAutoTunerUtility
             }
             */
             lastLineUnLock = LineNumber();
-            semaphore.Release();
+            semaphore.Release(1);
         }
         public override bool Open()
         {
@@ -258,7 +258,7 @@ namespace AmpAutoTunerUtility
 
         public double FLRigGetSWR()
         {
-            double swr = 9;
+            //double swr = 9;
             Lock();
             string xml = FLRigXML("rig.get_SWR", null);
             Byte[] data = System.Text.Encoding.ASCII.GetBytes(xml);
@@ -295,7 +295,7 @@ namespace AmpAutoTunerUtility
                         int offset1 = responseData.IndexOf("<value>", StringComparison.InvariantCulture) + "<value>".Length;
                         int offset2 = responseData.IndexOf("</value>", StringComparison.InvariantCulture);
                         var s = responseData.Substring(offset1, offset2 - offset1);
-                        swr = int.Parse(s);
+                        SWR = Double.Parse(s);
                     }
                 }
                 catch (Exception)
@@ -325,8 +325,8 @@ namespace AmpAutoTunerUtility
                 frequencyA = FLRigGetFrequency('A');
                 frequencyB = FLRigGetFrequency('B');
                 ptt = FLRigGetPTT();
-                if (ptt)
-                    swr = FLRigGetSWR();
+                //if (ptt)
+                SWR = FLRigGetSWR();
                 var rigPower = GetPower();
                 if (rigPower > maxPower)
                 {
@@ -591,6 +591,17 @@ namespace AmpAutoTunerUtility
             }
         }
 
+        public override double SWR
+        {
+            get
+            {
+                return swr;
+            }
+            set
+            {
+                this.swr = value;
+            }
+        }
         private double FLRigGetFrequency(char vfo)
         {  
             double frequency = vfo == 'A'? frequencyA : frequencyB;
@@ -848,7 +859,7 @@ namespace AmpAutoTunerUtility
                     {
                         DebugAddMsg(DebugEnum.ERR, "FLRig unexpected error:\n" + ex.Message + "\n");
                     }
-                    UnLock();
+                    //UnLock();
                     return "";
                 }
                 data = new Byte[4096];
@@ -913,8 +924,9 @@ namespace AmpAutoTunerUtility
             Lock();
             try
             {
-                if (vfo == 'A' & mode == modeA) { UnLock(); return; }
-                if (vfo == 'B' && mode == modeB) { UnLock(); return; }
+                //if (vfo == 'A' & mode == modeA) { UnLock(); return; }
+                //if (vfo == 'B' && mode == modeB) { UnLock(); return; }
+                DebugAddMsg(DebugEnum.VERBOSE, "FLRigSetVFO " + vfo + " to " + mode + "\n");
                 var myparam = "<params><param><value>" + mode + "</value></param></params";
                 string xml = FLRigXML("rig.set_mode" + vfo, myparam);
                 Byte[] data = System.Text.Encoding.ASCII.GetBytes(xml);
