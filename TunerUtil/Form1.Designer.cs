@@ -409,6 +409,7 @@
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.timerFreqWalk = new System.Windows.Forms.Timer(this.components);
+            this.timerSWR = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCapacitance)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownInductance)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPostPttDelay)).BeginInit();
@@ -3679,8 +3680,6 @@
             this.comboBoxDebugLevel.Name = "comboBoxDebugLevel";
             this.comboBoxDebugLevel.Size = new System.Drawing.Size(92, 21);
             this.comboBoxDebugLevel.TabIndex = 9;
-            this.comboBoxDebugLevel.Text = global::AmpAutoTunerUtility.Properties.Settings.Default.DebugLevel;
-            this.comboBoxDebugLevel.ValueMember = global::AmpAutoTunerUtility.Properties.Settings.Default.Tune5Power;
             this.comboBoxDebugLevel.SelectedIndexChanged += new System.EventHandler(this.ComboBoxDebugLevel_SelectedIndexChanged);
             // 
             // richTextBoxDebug
@@ -5392,6 +5391,11 @@
             // 
             this.timerFreqWalk.Tick += new System.EventHandler(this.TimerFreqWalk_Tick);
             // 
+            // timerSWR
+            // 
+            this.timerSWR.Interval = 200;
+            this.timerSWR.Tick += new System.EventHandler(this.timerSWR_Tick);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -5407,7 +5411,7 @@
             this.Margin = new System.Windows.Forms.Padding(2);
             this.MaximumSize = new System.Drawing.Size(417, 310);
             this.Name = "Form1";
-            this.Text = "AmpAutoTunerUtility 240717";
+            this.Text = "AmpAutoTunerUtility 240812";
             this.toolTip1.SetToolTip(this, "Click to Tune\r\nSPE -- Ctrl-Click to tune across band\r\nSPE -- Disabled during Oper" +
         "ate");
             this.HelpButtonClicked += new System.ComponentModel.CancelEventHandler(this.Form1_HelpButtonClicked);
@@ -5859,6 +5863,7 @@
         private System.Windows.Forms.TextBox textBoxPower2MaxWatts;
         private System.Windows.Forms.TextBox textBoxPower1MaxWatts;
         private System.Windows.Forms.Label label29;
+        private System.Windows.Forms.Timer timerSWR;
     }
 }
 

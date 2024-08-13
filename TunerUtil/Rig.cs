@@ -16,7 +16,7 @@ namespace AmpAutoTunerUtility
         public abstract bool PTT { get; set; }
         public abstract int Power { get; set; }
         public abstract bool Transceive { get; set; }
-        //public abstract double SWR { get; }
+        public abstract double SWR { get; set; }
         /// <summary>
         /// public abstract void SendCommand(byte[] command);
         /// </summary>

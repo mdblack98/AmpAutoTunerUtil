@@ -30,10 +30,10 @@ namespace AmpAutoTunerUtility
         private long transactionNumber = 0;
         public double frequencyA = 0;
         public double frequencyB = 0;
-        public string modeA = "CW";
-        public string modeAKeep = "CW";
-        public string modeB = "CW";
-        public string modeBKeep = "CW";
+        public string modeA = "?";
+        public string modeAKeep = "?";
+        public string modeB = "?";
+        public string modeBKeep = "?";
         public bool ptt;
         public int power;
         public bool transceive;
@@ -77,7 +77,7 @@ namespace AmpAutoTunerUtility
             }
             */
             lastLineUnLock = LineNumber();
-            semaphore.Release();
+            semaphore.Release(1);
         }
         public override bool Open()
         {
@@ -258,7 +258,7 @@ namespace AmpAutoTunerUtility
 
         public double FLRigGetSWR()
         {
-            double swr = 9;
+            //double swr = 9;
             Lock();
             string xml = FLRigXML("rig.get_SWR", null);
             Byte[] data = System.Text.Encoding.ASCII.GetBytes(xml);
@@ -295,7 +295,10 @@ namespace AmpAutoTunerUtility
                         int offset1 = responseData.IndexOf("<value>", StringComparison.InvariantCulture) + "<value>".Length;
                         int offset2 = responseData.IndexOf("</value>", StringComparison.InvariantCulture);
                         var s = responseData.Substring(offset1, offset2 - offset1);
-                        swr = int.Parse(s);
+                        if (ptt)
+                        {
+                            SWR = Double.Parse(s);
+                        }
                     }
                 }
                 catch (Exception)
@@ -325,22 +328,29 @@ namespace AmpAutoTunerUtility
                 frequencyA = FLRigGetFrequency('A');
                 frequencyB = FLRigGetFrequency('B');
                 ptt = FLRigGetPTT();
-                if (ptt)
-                    swr = FLRigGetSWR();
+                //if (ptt)
+                SWR = FLRigGetSWR();
+                //DebugAddMsg(DebugEnum.VERBOSE, "SWR=" + SWR + "\n");
                 var rigPower = GetPower();
                 if (rigPower > maxPower)
                 {
                     DebugAddMsg(DebugEnum.LOG, "Power limited to " + maxPower + ".  See Power tab Max");
                     SetPower(maxPower);
                 }
-                if (++n % 2 == 0)  // do every other one
+                if (n++ % 2 == 0)  // do every other one
                 {
-                     modeA = FLRigGetMode('A');
+                    string modeAsave = modeA;
+                    string modeBsave = modeB;
+                    modeA = FLRigGetMode('A');
                     if (modeA.Length == 0)
                          DebugAddMsg(DebugEnum.ERR, "FlRigGetMode A failing length==0\n");
-                     modeB = FLRigGetMode('B');
+                    modeB = FLRigGetMode('B');
                     if (modeB.Length == 0)
                          DebugAddMsg(DebugEnum.ERR, "FlRigGetMode B failing length==0\n");
+                    if (modeAsave != modeA || modeBsave != modeB)
+                    {
+                        DebugAddMsg(DebugEnum.VERBOSE, "A/B modes = " + modeA + "/" + modeB);
+                    }
                 }
                 Thread.Sleep(500);
             }
@@ -591,6 +601,17 @@ namespace AmpAutoTunerUtility
             }
         }
 
+        public override double SWR
+        {
+            get
+            {
+                return swr;
+            }
+            set
+            {
+                this.swr = value;
+            }
+        }
         private double FLRigGetFrequency(char vfo)
         {  
             double frequency = vfo == 'A'? frequencyA : frequencyB;
@@ -848,7 +869,7 @@ namespace AmpAutoTunerUtility
                     {
                         DebugAddMsg(DebugEnum.ERR, "FLRig unexpected error:\n" + ex.Message + "\n");
                     }
-                    UnLock();
+                    //UnLock();
                     return "";
                 }
                 data = new Byte[4096];
@@ -880,8 +901,8 @@ namespace AmpAutoTunerUtility
                 {
                     if (mode != modeAKeep)
                     {
+                        modeA = modeAKeep = mode;
                         DebugAddMsg(DebugEnum.VERBOSE, "FLRigGetMode(" + vfo + ") modeA =" + modeA);
-                        modeAKeep = mode;
                     }
                 }
                 else
@@ -889,8 +910,8 @@ namespace AmpAutoTunerUtility
 
                     if (mode != modeBKeep)
                     {
+                        modeB = modeBKeep = mode;
                         DebugAddMsg(DebugEnum.VERBOSE, "FLRigGetMode(" + vfo + ") modeB =" + modeB);
-                        modeBKeep = mode;
                     }
                 }
             }
@@ -913,8 +934,9 @@ namespace AmpAutoTunerUtility
             Lock();
             try
             {
-                if (vfo == 'A' & mode == modeA) { UnLock(); return; }
-                if (vfo == 'B' && mode == modeB) { UnLock(); return; }
+                //if (vfo == 'A' & mode == modeA) { UnLock(); return; }
+                //if (vfo == 'B' && mode == modeB) { UnLock(); return; }
+                DebugAddMsg(DebugEnum.VERBOSE, "FLRigSetVFO " + vfo + " to " + mode + "\n");
                 var myparam = "<params><param><value>" + mode + "</value></param></params";
                 string xml = FLRigXML("rig.set_mode" + vfo, myparam);
                 Byte[] data = System.Text.Encoding.ASCII.GetBytes(xml);
@@ -942,22 +964,34 @@ namespace AmpAutoTunerUtility
         }
         public override string ModeA 
         {
-            get { return modeA; }
+            get 
+            {
+                //if (modeA == "?")
+                    modeA = FLRigGetMode('A');
+                return modeA; 
+            }
             set 
             {
                 FLRigSetMode('A', value);
                 modeA = FLRigGetMode('A');
+                DebugAddMsg(DebugEnum.VERBOSE, "SetModeA=" + value + " Got " + modeA + "\n");
                 if (modeA.Length == 0)
                         DebugAddMsg(DebugEnum.ERR, "FlRigGetMode A failed length==0\n");
             } 
         }
         public override string ModeB 
         { 
-            get { return modeB; }
+            get 
+            {
+                //if (modeB == "?")
+                    modeB = FLRigGetMode('A');
+                return modeB; 
+            }
             set 
             {
                 FLRigSetMode('B', value);
                 modeB = FLRigGetMode('B');
+                DebugAddMsg(DebugEnum.VERBOSE, "SetModeB=" + value + " Got " + modeB + "\n");
                 if (modeB.Length == 0)
                     DebugAddMsg(DebugEnum.ERR, "FlRigGetMode B failed length==0\n");
             }
