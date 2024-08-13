@@ -2472,7 +2472,7 @@ namespace AmpAutoTunerUtility
                         frequencyHz = cvfo == 'A' ? myRig.FrequencyA : myRig.FrequencyB;
                         if (frequencyHz == 0)
                         {
-                            DebugAddMsg(DebugEnum.ERR, "FLRig disconnected?");
+                            //DebugAddMsg(DebugEnum.ERR, "FLRig disconnected?");
                             Application.DoEvents();
                             Thread.Sleep(1000);
                             myRig.GetFrequency(cvfo);
@@ -2532,6 +2532,7 @@ namespace AmpAutoTunerUtility
                             myRig.FrequencyB = frequencyHzVFOB;
                             Thread.Sleep(1000);  // give the rig a chance to restore it's band memory
                             myRig.GetMode('A');
+                            myRig.GetMode('B');
                             // Need to check for split and ignore VFOB if not in split
                             if (!myRig.ModeA.Equals("FM"))
                             {
@@ -2620,6 +2621,21 @@ namespace AmpAutoTunerUtility
             return MyMessageBox(message);
         }
 
+        private string SWRUpdate()
+        {
+            string SWR = "0.00";
+            if (tuner1.GetModel().Contains(EXPERTLINEARS))
+            {
+                string myswr = "SWR " + myRig.SWR;
+                if (!tuner1.IsOn)
+                    labelSWR.Text = "SWR " + myRig.SWR.ToString("F2");
+                else if (tuner1.SWRATU > 0)
+                    labelSWR.Text = "SWR " + tuner1.SWRATU.ToString("F2");
+                else  SWR = tuner1.GetSWRString();
+            }
+            Application.DoEvents();
+            return SWR;
+        }
         private void ClockSetGUI()
         {
             var myTime = MyTime();
@@ -2758,11 +2774,13 @@ namespace AmpAutoTunerUtility
                     string SWR = tuner1.GetSWRString();
                     if (tuner1.GetModel().Contains(EXPERTLINEARS))
                     {
-                        string myswr = "SWR " + myRig.SWR;
+                        SWR = SWRUpdate();
+                        /*string myswr = "SWR " + myRig.SWR;
                         if (!tuner1.IsOn) 
                             labelSWR.Text = "SWR " + myRig.SWR.ToString("F2");
-                        if (tuner1.SWRATU > 0) 
+                        else if (tuner1.SWRATU > 0) 
                             labelSWR.Text = "SWR " + tuner1.SWRATU.ToString("F2");
+                        */
                     }
                     if (tuner1.GetModel().Equals(MFJ928, StringComparison.InvariantCulture))
                     {
@@ -3088,8 +3106,10 @@ namespace AmpAutoTunerUtility
             // MDB need to allow for different line in Power tab to check amplifier usage
             //Cursor.Current = Cursors.WaitCursor;
             timerGetFreq.Stop();
+            timerSWR.Start();
             //if (!tuner1.GetModel().Contains(EXPERTLINEARS))
-                TuneSequence();
+            TuneSequence();
+            timerSWR.Stop();
             timerGetFreq.Start();
             //Cursor.Current = Cursors.Default;
             //if (checkBoxAmp1.Checked) relay1.Set(1, 0);
@@ -5442,6 +5462,7 @@ namespace AmpAutoTunerUtility
                 Application.DoEvents();
                 string saveModeA = myRig!.ModeA;
                 string saveModeB = myRig!.ModeB;
+                DebugAddMsg(DebugEnum.VERBOSE, "ModeA=" + saveModeA + ", " + "ModeB=" + saveModeB+"\n");
                 string desiredMode = "FM";
                 //if (!saveModeA.Equals(desiredMode) || !saveModeB.Equals(desiredMode))
                 //{
@@ -5464,13 +5485,14 @@ namespace AmpAutoTunerUtility
                         swr = tuner1!.SWRATU;
                         if (swrsave == swr) stable++;
                         else stable = 0;
+                        Application.DoEvents();
                     }
                 } while (--nloop > 0  && stable < 3);
                 if (nloop==0)
                 {
                     DebugAddMsg(DebugEnum.VERBOSE, "Tune stopped loops exceeded\n");
                 }
-                DebugAddMsg(DebugEnum.VERBOSE, "nloop=" + nloop + ", swr=" + swr + ", swrsave=" + swrsave + ", stable=" + stable + "\n");
+                //DebugAddMsg(DebugEnum.VERBOSE, "nloop=" + nloop + ", swr=" + swr + ", swrsave=" + swrsave + ", stable=" + stable + "\n");
 
                 Thread.Sleep(500);
                 myRig!.PTT = false;
@@ -6267,6 +6289,11 @@ Set
         {
             buttonOperate.Enabled = checkBoxAmp8.Checked;
 
+        }
+
+        private void timerSWR_Tick(object sender, EventArgs e)
+        {
+            SWRUpdate();
         }
     }
 

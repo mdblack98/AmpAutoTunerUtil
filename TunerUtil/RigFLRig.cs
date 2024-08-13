@@ -30,10 +30,10 @@ namespace AmpAutoTunerUtility
         private long transactionNumber = 0;
         public double frequencyA = 0;
         public double frequencyB = 0;
-        public string modeA = "CW";
-        public string modeAKeep = "CW";
-        public string modeB = "CW";
-        public string modeBKeep = "CW";
+        public string modeA = "?";
+        public string modeAKeep = "?";
+        public string modeB = "?";
+        public string modeBKeep = "?";
         public bool ptt;
         public int power;
         public bool transceive;
@@ -295,7 +295,10 @@ namespace AmpAutoTunerUtility
                         int offset1 = responseData.IndexOf("<value>", StringComparison.InvariantCulture) + "<value>".Length;
                         int offset2 = responseData.IndexOf("</value>", StringComparison.InvariantCulture);
                         var s = responseData.Substring(offset1, offset2 - offset1);
-                        SWR = Double.Parse(s);
+                        if (ptt)
+                        {
+                            SWR = Double.Parse(s);
+                        }
                     }
                 }
                 catch (Exception)
@@ -327,20 +330,27 @@ namespace AmpAutoTunerUtility
                 ptt = FLRigGetPTT();
                 //if (ptt)
                 SWR = FLRigGetSWR();
+                //DebugAddMsg(DebugEnum.VERBOSE, "SWR=" + SWR + "\n");
                 var rigPower = GetPower();
                 if (rigPower > maxPower)
                 {
                     DebugAddMsg(DebugEnum.LOG, "Power limited to " + maxPower + ".  See Power tab Max");
                     SetPower(maxPower);
                 }
-                if (++n % 2 == 0)  // do every other one
+                if (n++ % 2 == 0)  // do every other one
                 {
-                     modeA = FLRigGetMode('A');
+                    string modeAsave = modeA;
+                    string modeBsave = modeB;
+                    modeA = FLRigGetMode('A');
                     if (modeA.Length == 0)
                          DebugAddMsg(DebugEnum.ERR, "FlRigGetMode A failing length==0\n");
-                     modeB = FLRigGetMode('B');
+                    modeB = FLRigGetMode('B');
                     if (modeB.Length == 0)
                          DebugAddMsg(DebugEnum.ERR, "FlRigGetMode B failing length==0\n");
+                    if (modeAsave != modeA || modeBsave != modeB)
+                    {
+                        DebugAddMsg(DebugEnum.VERBOSE, "A/B modes = " + modeA + "/" + modeB);
+                    }
                 }
                 Thread.Sleep(500);
             }
@@ -891,8 +901,8 @@ namespace AmpAutoTunerUtility
                 {
                     if (mode != modeAKeep)
                     {
+                        modeA = modeAKeep = mode;
                         DebugAddMsg(DebugEnum.VERBOSE, "FLRigGetMode(" + vfo + ") modeA =" + modeA);
-                        modeAKeep = mode;
                     }
                 }
                 else
@@ -900,8 +910,8 @@ namespace AmpAutoTunerUtility
 
                     if (mode != modeBKeep)
                     {
+                        modeB = modeBKeep = mode;
                         DebugAddMsg(DebugEnum.VERBOSE, "FLRigGetMode(" + vfo + ") modeB =" + modeB);
-                        modeBKeep = mode;
                     }
                 }
             }
@@ -954,7 +964,12 @@ namespace AmpAutoTunerUtility
         }
         public override string ModeA 
         {
-            get { return modeA; }
+            get 
+            {
+                //if (modeA == "?")
+                    modeA = FLRigGetMode('A');
+                return modeA; 
+            }
             set 
             {
                 FLRigSetMode('A', value);
@@ -966,7 +981,12 @@ namespace AmpAutoTunerUtility
         }
         public override string ModeB 
         { 
-            get { return modeB; }
+            get 
+            {
+                //if (modeB == "?")
+                    modeB = FLRigGetMode('A');
+                return modeB; 
+            }
             set 
             {
                 FLRigSetMode('B', value);
