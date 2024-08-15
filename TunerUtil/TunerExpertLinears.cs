@@ -31,7 +31,7 @@ namespace AmpAutoTunerUtility
         private string power = "?";
         //public char bank = "?";
         private string temp1 = "?";
-        private string antenna = "?";
+        public string antenna = "?";
         private string bandstr = "?";
         public bool tuning = false;
         //Byte[] responseOld = new byte[512];
@@ -39,6 +39,8 @@ namespace AmpAutoTunerUtility
         private byte ledStatus = 0;
         public TunerExpertLinears(string model, string comport, string baud, out string errmsg)
         {
+            Bypassed = true;
+            AntennaNumber = 1;
             antennas = new string[12, 2];
             errmsg = null;
             this.comport = comport;
@@ -549,6 +551,7 @@ namespace AmpAutoTunerUtility
                             antenna = newAntenna;
                         }
                         AntennaNumber = int.Parse(antenna.Substring(0, 1));
+                        Bypassed = antenna.Contains("b");
                         model = "SPE " + mytokens[1];
                         bank = mytokens[4][0];
                         powerLevel = mytokens[9];

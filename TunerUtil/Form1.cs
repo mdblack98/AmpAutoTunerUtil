@@ -2775,6 +2775,7 @@ namespace AmpAutoTunerUtility
                     if (tuner1.GetModel().Contains(EXPERTLINEARS))
                     {
                         SWR = SWRUpdate();
+                        AntennaUpdateSelected(tuner1.AntennaNumber);
                         /*string myswr = "SWR " + myRig.SWR;
                         if (!tuner1.IsOn) 
                             labelSWR.Text = "SWR " + myRig.SWR.ToString("F2");
@@ -4756,6 +4757,7 @@ namespace AmpAutoTunerUtility
                     labelAntennaSelected.Text = textBoxAntenna8.Text;
                     break;
             }
+            if (tuner1.Bypassed) labelAntennaSelected.Text += " Bypassed";
         }
         private void ButtonAntenna1_Click(object sender, EventArgs e)
         {
@@ -6057,6 +6059,8 @@ namespace AmpAutoTunerUtility
                     buttonTunerPwr.Refresh();
                     buttonTunerPwr.BackColor = System.Drawing.Color.LightGray;
                     buttonTunerPwr.ForeColor = System.Drawing.Color.Black;
+                    if (comboBoxTunerModel.Text.Contains(EXPERTLINEARS))
+                        AntennaUpdateSelected(1);
                 }
             }
             catch (Exception ex)
