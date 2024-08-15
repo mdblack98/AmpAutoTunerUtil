@@ -3057,6 +3057,8 @@ namespace AmpAutoTunerUtility
                 return;
             }
             DebugAddMsg(DebugEnum.TRACE, "Tune started\n");
+            DebugAddMsg(DebugEnum.VERBOSE, "Tune#1 ModeA=" + myRig.ModeA + ", " + "ModeB=" + myRig.ModeB + "\n");
+
             Cursor.Current = Cursors.WaitCursor;
             if (ModifierKeys == Keys.Control && comboBoxTunerModel.Text.Contains(EXPERTLINEARS))
             {

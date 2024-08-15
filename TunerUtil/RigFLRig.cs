@@ -984,7 +984,7 @@ namespace AmpAutoTunerUtility
             get 
             {
                 //if (modeB == "?")
-                    modeB = FLRigGetMode('A');
+                    modeB = FLRigGetMode('B');
                 return modeB; 
             }
             set 
