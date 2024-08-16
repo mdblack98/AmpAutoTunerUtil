@@ -580,7 +580,7 @@ namespace AmpAutoTunerUtility
 
                         IsOperate = mytokens[2] != "S";
                         if (temp1.Equals("?")) DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.LOG, "Expert Linears connected\n");
-                        temp1 = mytokens[15];
+                        temp1 = int.Parse(mytokens[15]).ToString();
                         if (mytokens.Length >= 21)
                         {
                             response[0] = (byte)mytokens[18][0];
@@ -688,7 +688,7 @@ namespace AmpAutoTunerUtility
         {
             // Can't get power from the LDG tuner
             // So will have to use the rig power level instead elsewhere
-            return "Pwr/Temp " + power + "/" + temp1 + "C";
+            return "Pwr/Temp " + power + "/" + temp1;
         }
         public override int GetAntenna()
         {

@@ -2713,7 +2713,7 @@ namespace AmpAutoTunerUtility
 
                 }
                 ClockSetGUI();
-                if (tuner1 != null) SetAntennaInUseForGUI(false, tuner1.AntennaNumber);
+                if (tuner1 != null && !tuner1.poweringDown && tuner1.IsOn) SetAntennaInUseForGUI(false, tuner1.AntennaNumber);
                 if (pausedTuning)
                 {
                     //timerGetFreq.Enabled = true;
@@ -2772,9 +2772,11 @@ namespace AmpAutoTunerUtility
                 if (tuner1 != null)
                 {
                     string SWR = tuner1.GetSWRString();
-                    if (tuner1.GetModel().Contains(EXPERTLINEARS))
+                    if (!tuner1.IsOn || tuner1.poweringDown) return;
+                    if (tuner1.IsOn && tuner1.GetModel().Contains(EXPERTLINEARS))
                     {
                         SWR = SWRUpdate();
+                        if (!tuner1.IsOn || tuner1.poweringDown) return;
                         AntennaUpdateSelected(tuner1.AntennaNumber);
                         /*string myswr = "SWR " + myRig.SWR;
                         if (!tuner1.IsOn) 
@@ -4704,8 +4706,12 @@ namespace AmpAutoTunerUtility
             buttonAntennaPick7.Text = textBoxAntenna7.Text;
             buttonAntennaPick8.Text = textBoxAntenna8.Text;
         }
+
+        static int lastAntenna;
         private void AntennaUpdateSelected(int antennaNumber)
         {
+            if (antennaNumber == lastAntenna) return;
+            lastAntenna = antennaNumber;
             buttonAntenna1.BackColor = System.Drawing.Color.LightGray;
             buttonAntenna2.BackColor = System.Drawing.Color.LightGray;
             buttonAntenna3.BackColor = System.Drawing.Color.LightGray;
@@ -6023,7 +6029,7 @@ namespace AmpAutoTunerUtility
                     tuner1.On();
                     Thread.Sleep(100);
                     tuner1.On();
-                    Thread.Sleep(3000);
+                    Thread.Sleep(2000);
                     tuner1.SetPowerLevel("Mid");
                     if (myRig != null)
                     {
@@ -6053,7 +6059,7 @@ namespace AmpAutoTunerUtility
                     tuner1!.Off();
                     Thread.Sleep(100);
                     tuner1!.Off();
-                    Thread.Sleep(15000);
+                    Thread.Sleep(3000);
                     tuner1!.poweringDown = false;
                     buttonTunerPwr.Enabled = true;
                     buttonTunerPwr.Refresh();
