@@ -720,7 +720,7 @@ namespace AmpAutoTunerUtility
                     Byte[] cmd = [0x55, 0x55, 0x55, 0x01, 0x04, 0x04];
                     DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.LOG, "Setting antenna to other antenna\n");
                     SerialPortTuner.Write(cmd, 0, 6);
-                    antenna = antennaNumberRequested.ToString();
+                    //antenna = antennaNumberRequested.ToString();
                 }
                 //Thread.Sleep(500);
                 //while (GetStatus()) ;

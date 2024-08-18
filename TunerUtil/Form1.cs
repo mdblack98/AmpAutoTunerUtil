@@ -561,7 +561,7 @@ namespace AmpAutoTunerUtility
                     {
                         checkBoxRelay1Enabled.Checked = false;
                         Debug(DebugEnum.WARN, "Relay 1 not found...disabled\n");
-                        MyMessageBox("Relay 1 not found...disabled");
+                        ShowCustomMessageBox("Relay 1 not found...disabled");
                         return;
                     }
                     relay1.Open(comboBoxComRelay1.Text);
@@ -576,14 +576,14 @@ namespace AmpAutoTunerUtility
                 }
                 if (!checkBoxRelay1Enabled.Checked && checkBoxPowerSDR.Enabled == false)
                 {
-                    //MyMessageBox("Please set up Relay1 if not using PowerSDR");
+                    //ShowCustomMessageBox("Please set up Relay1 if not using PowerSDR");
                 }
                 if (relay1 == null) checkBoxRelay1Enabled.Checked = false;
                 else
                 {
                     if (checkBoxRelay1Enabled.Checked && relay1.SerialNumber().Length == 0)
                     {
-                        MyMessageBox("No serial#?  Relay1 is not responding!");
+                        ShowCustomMessageBox("No serial#?  Relay1 is not responding!");
                     }
                 }
                 if (relay2 == null) checkBoxRelay2Enabled.Checked = false;
@@ -592,7 +592,7 @@ namespace AmpAutoTunerUtility
                     if (relay2 == null)
                     {
                         checkBoxRelay2Enabled.Checked = false;
-                        MyMessageBox("Relay 2 not found...disabled");
+                        ShowCustomMessageBox("Relay 2 not found...disabled");
                         Debug(DebugEnum.WARN, "Relay 2 not found...disabled\n");
                         return;
                     }
@@ -612,7 +612,7 @@ namespace AmpAutoTunerUtility
                     if (relay3 == null)
                     {
                         checkBoxRelay3Enabled.Checked = false;
-                        MyMessageBox("Relay 3 not found...disabled");
+                        ShowCustomMessageBox("Relay 3 not found...disabled");
                         Debug(DebugEnum.WARN, "Relay 3 not found...disabled\n");
                         return;
                     }
@@ -632,7 +632,7 @@ namespace AmpAutoTunerUtility
                     if (relay4 == null)
                     {
                         checkBoxRelay4Enabled.Checked = false;
-                        MyMessageBox("Relay 4 not found...disabled");
+                        ShowCustomMessageBox("Relay 4 not found...disabled");
                         Debug(DebugEnum.WARN, "Relay 4 not found...disabled\n");
                         return;
                     }
@@ -684,7 +684,7 @@ namespace AmpAutoTunerUtility
                 audio = new Audio();
                 //if (audio.errMsg != null)
                 //{
-                //    MyMessageBox("Error opening audio device\n" + audio.errMsg);
+                //    ShowCustomMessageBox("Error opening audio device\n" + audio.errMsg);
                 //}
                 AudioDeviceOutputLoad();
 
@@ -905,13 +905,13 @@ namespace AmpAutoTunerUtility
                 {
                     if (errorMsg != null && !errorMsg.Equals("OK"))
                     {
-                        MyMessageBox(errorMsg);
+                        ShowCustomMessageBox(errorMsg);
                     }
                     else
                     {
                         DebugAddMsg(DebugEnum.ERR, "Tuner not working\n");
                         labelControlLog.Text = "Tuner not working\n";
-                        //MyMessageBox("Error starting tuner!!!");
+                        //ShowCustomMessageBox("Error starting tuner!!!");
                     }
                 }
                 else
@@ -923,7 +923,7 @@ namespace AmpAutoTunerUtility
             }
             catch (Exception ex)
             {
-                MyMessageBox("Error starting tuner\nFix and reenable the Tuner" + ex.Message);
+                ShowCustomMessageBox("Error starting tuner\nFix and reenable the Tuner" + ex.Message);
                 checkBoxTunerEnabled.Checked = false;
 
             }
@@ -1350,11 +1350,11 @@ namespace AmpAutoTunerUtility
             if (on == true)
             {
                 // turn relay on
-                MyMessageBox("Relay On");
+                ShowCustomMessageBox("Relay On");
             }
             else
             {
-                MyMessageBox("Relay Off");
+                ShowCustomMessageBox("Relay Off");
                 // turn relay off
             }
         }
@@ -1461,7 +1461,7 @@ namespace AmpAutoTunerUtility
                     if (!responseData.Contains("200 OK"))
                     {
                         Debug(DebugEnum.ERR, "FLRig error: unknown response=" + responseData + "\n");
-                        //MyMessageBox("Unknown response from FLRig\n" + responseData);
+                        //ShowCustomMessageBox("Unknown response from FLRig\n" + responseData);
                         return false;
                     }
                 }
@@ -1647,7 +1647,7 @@ namespace AmpAutoTunerUtility
                         this.WindowState = FormWindowState.Normal;
                     tabPage.SelectedTab = tabPageDebug;
                     buttonTunerStatus.BackColor = System.Drawing.Color.Transparent;
-                    MyMessageBox("Unknown response from tuner = '" + response + "'");
+                    ShowCustomMessageBox("Unknown response from tuner = '" + response + "'");
                     Debug(DebugEnum.ERR, "Unknown response from tuner = '" + response + "'\n");
                 }
                 tuneIsRunning = false;
@@ -2005,7 +2005,8 @@ namespace AmpAutoTunerUtility
                 case 1:
                     if (comboBoxAntenna1Controller.Text.Contains(EXPERTLINEARS))
                     {
-                        //tuner1.SetAntenna(antennaNumber, false);
+                        if (tuner1.AntennaNumber != antennaNumber)
+                            tuner1.SetAntenna(antennaNumber, false);
                     }
                     else if (comboBoxAntenna1Controller.Text.Contains("relay"))
                     {
@@ -2015,7 +2016,8 @@ namespace AmpAutoTunerUtility
                 case 2:
                     if (comboBoxAntenna2Controller.Text.Contains(EXPERTLINEARS))
                     {
-                        tuner1!.SetAntenna(antennaNumber, false);
+                        if (tuner1.AntennaNumber != antennaNumber)
+                            tuner1!.SetAntenna(antennaNumber, false);
                     }
                     else if (comboBoxAntenna1Controller.Text.Contains("relay"))
                     {
@@ -2025,7 +2027,8 @@ namespace AmpAutoTunerUtility
                 case 3:
                     if (comboBoxAntenna3Controller.Text.Contains(EXPERTLINEARS))
                     {
-                        tuner1!.SetAntenna(antennaNumber, false);
+                        if (tuner1.AntennaNumber != antennaNumber)
+                            tuner1!.SetAntenna(antennaNumber, false);
                     }
                     else if (comboBoxAntenna1Controller.Text.Contains("relay"))
                     {
@@ -2035,7 +2038,8 @@ namespace AmpAutoTunerUtility
                 case 4:
                     if (comboBoxAntenna4Controller.Text.Contains(EXPERTLINEARS))
                     {
-                        tuner1!.SetAntenna(antennaNumber, false);
+                        if (tuner1.AntennaNumber != antennaNumber)
+                            tuner1!.SetAntenna(antennaNumber, false);
                     }
                     else if (comboBoxAntenna1Controller.Text.Contains("relay"))
                     {
@@ -2045,7 +2049,8 @@ namespace AmpAutoTunerUtility
                 case 5:
                     if (comboBoxAntenna5Controller.Text.Contains(EXPERTLINEARS))
                     {
-                        tuner1!.SetAntenna(antennaNumber, false);
+                        if (tuner1.AntennaNumber != antennaNumber)
+                            tuner1!.SetAntenna(antennaNumber, false);
                     }
                     else if (comboBoxAntenna5Controller.Text.Contains("relay"))
                     {
@@ -2055,7 +2060,8 @@ namespace AmpAutoTunerUtility
                 case 6:
                     if (comboBoxAntenna6Controller.Text.Contains(EXPERTLINEARS))
                     {
-                        tuner1!.SetAntenna(antennaNumber, false);
+                        if (tuner1.AntennaNumber != antennaNumber)
+                            tuner1!.SetAntenna(antennaNumber, false);
                     }
                     else if (comboBoxAntenna6Controller.Text.Contains("relay"))
                     {
@@ -2065,7 +2071,8 @@ namespace AmpAutoTunerUtility
                 case 7:
                     if (comboBoxAntenna7Controller.Text.Contains(EXPERTLINEARS))
                     {
-                        tuner1!.SetAntenna(antennaNumber, false);
+                        if (tuner1.AntennaNumber != antennaNumber)
+                            tuner1!.SetAntenna(antennaNumber, false);
                     }
                     else if (comboBoxAntenna7Controller.Text.Contains("relay"))
                     {
@@ -2075,7 +2082,8 @@ namespace AmpAutoTunerUtility
                 case 8:
                     if (comboBoxAntenna8Controller.Text.Contains(EXPERTLINEARS))
                     {
-                        tuner1!.SetAntenna(antennaNumber, false);
+                        if (tuner1.AntennaNumber != antennaNumber)
+                            tuner1!.SetAntenna(antennaNumber, false);
                     }
                     else if (comboBoxAntenna8Controller.Text.Contains("relay"))
                     {
@@ -2083,6 +2091,14 @@ namespace AmpAutoTunerUtility
                     }
                     break;
             }
+            Thread.Sleep(1000);
+            if (tuner1.AntennaNumber != antennaNumber)
+            {
+                // toggle back
+                tuner1!.SetAntenna(antennaNumber, false);
+                ShowCustomMessageBox("Cannot select antenna#"+antennaNumber+"\nIf you want to select this antenna you must change the Antena selectons in the SPE Amp configuration");
+            }
+
         }
         private void SetRelayFromAntenna(int antennaNumber)
         {
@@ -2304,13 +2320,13 @@ namespace AmpAutoTunerUtility
                 {
                     if (from.Text.Length == 0)
                     {
-                        //MyMessageBox("Power tab From MHz is empty");
+                        //ShowCustomMessageBox("Power tab From MHz is empty");
                         from.Text = "0";
                         return false;
                     }
                     if (to.Text.Length == 0)
                     {
-                        //MyMessageBox("Power tab To MHz is empty");
+                        //ShowCustomMessageBox("Power tab To MHz is empty");
                         to.Text = "1000";
                         return false;
                     }
@@ -2371,7 +2387,7 @@ namespace AmpAutoTunerUtility
             }
             catch (Exception)
             {
-                //MyMessageBox("Error parsing frequencies\nFrequencies need to be in Mhz\nPower not set");
+                //ShowCustomMessageBox("Error parsing frequencies\nFrequencies need to be in Mhz\nPower not set");
             }
             return false;
         }
@@ -2436,7 +2452,7 @@ namespace AmpAutoTunerUtility
 
             if (currVFO == 'B')
             {
-                //MyMessageBox("Auto tuning paused because VFOB is active, click OK when you're done", MessageBoxButtons.OK);
+                //ShowCustomMessageBox("Auto tuning paused because VFOB is active, click OK when you're done", MessageBoxButtons.OK);
                 DebugAddMsg(DebugEnum.LOG, "VFOB active...pausing\n");
                 pausedTuning = true;
                 getFreqIsRunning = false;
@@ -2516,7 +2532,7 @@ namespace AmpAutoTunerUtility
                             if (!isExpertSPE && stopWatchTuner.IsRunning && stopWatchTuner.ElapsedMilliseconds < 1 * 1000)
                             {
                                 stopWatchTuner.Stop();
-                                //MyMessageBox("Rapid frequency changes...click OK when ready to tune");
+                                //ShowCustomMessageBox("Rapid frequency changes...click OK when ready to tune");
                                 Debug(DebugEnum.ERR, "Rapid frequency changes\n");
                                 stopWatchTuner.Reset();
                                 stopWatchTuner.Stop();
@@ -2618,7 +2634,7 @@ namespace AmpAutoTunerUtility
         private DialogResult RelayOops(String message)
         {
             //Debug(DebugEnum.ERR, message);
-            return MyMessageBox(message);
+            return ShowCustomMessageBox(message);
         }
 
         private string SWRUpdate()
@@ -2938,7 +2954,7 @@ namespace AmpAutoTunerUtility
             if (!ToHex(s, out byte[] data))
 #pragma warning restore IDE0059 // Value assigned to symbol is never used
             {
-                MyMessageBox("Invalid command format\nExpected string or hex values e.g. 0x08 0x01");
+                ShowCustomMessageBox("Invalid command format\nExpected string or hex values e.g. 0x08 0x01");
             }
         }
 
@@ -2978,12 +2994,12 @@ namespace AmpAutoTunerUtility
             DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.LOG, "RelaySet(" + nRelay + "," + flag + ") called from " + name + "@line(" + line + ")\n");
             //if (!relay.IsOpen())
             //{
-            //    MyMessageBox("Relay is not open");
+            //    ShowCustomMessageBox("Relay is not open");
             //    return false;
             //}
             if (relay == null)
             {
-                MyMessageBox("Relay#" + nRelay + " is not configured!!");
+                ShowCustomMessageBox("Relay#" + nRelay + " is not configured!!");
                 return false;
             }
             Button button; // the button we will mess with here to change color
@@ -3033,7 +3049,7 @@ namespace AmpAutoTunerUtility
             }
             if (buttons.Count == 0)
             {
-                MyMessageBox("No relays open?");
+                ShowCustomMessageBox("No relays open?");
                 return false;
             }
             button = buttons[nRelay - 1];
@@ -3043,7 +3059,7 @@ namespace AmpAutoTunerUtility
             if (nRelay == 1) buttonAmp.BackColor = flag == 1 ? System.Drawing.Color.Green : System.Drawing.Color.Yellow;
             if (relay.errMsg != null)
             {
-                MyMessageBox(relay.errMsg);
+                ShowCustomMessageBox(relay.errMsg);
                 return false;
             }
             //byte status = relay.Status();
@@ -3056,7 +3072,7 @@ namespace AmpAutoTunerUtility
         {
             if (tuner1 == null)
             {
-                MyMessageBox("Tuner not enabled");
+                ShowCustomMessageBox("Tuner not enabled");
                 return;
             }
             DebugAddMsg(DebugEnum.TRACE, "Tune started\n");
@@ -3105,7 +3121,7 @@ namespace AmpAutoTunerUtility
             }
             //if (!relay1.IsOK())
             //{
-            //    MyMessageBox("Relay1 is not communicating?");
+            //    ShowCustomMessageBox("Relay1 is not communicating?");
             //    return;
             //}
             // MDB need to allow for different line in Power tab to check amplifier usage
@@ -3142,11 +3158,19 @@ namespace AmpAutoTunerUtility
             return xml;
         }
 
-        public DialogResult MyMessageBox(string message, MessageBoxButtons buttons = MessageBoxButtons.RetryCancel)
+        private DialogResult ShowCustomMessageBox(string message, string title = "AmpAutoTunerUtil", MessageBoxButtons buttons=MessageBoxButtons.OK)
+        {
+            using (var customMessageBox = new CustomMessageBox(message, title, buttons))
+            {
+                return customMessageBox.ShowDialog(this);
+            }
+        }
+        /*
+        public DialogResult ShowCustomMessageBox(string message, MessageBoxButtons buttons = MessageBoxButtons.RetryCancel)
         {
             if (this.WindowState == FormWindowState.Minimized)
                 this.WindowState = FormWindowState.Normal;
-            MessageBoxHelper.PrepToCenterMessageBoxOnForm(this);
+            //MessageBoxHelper.PrepToCenterMessageBoxOnForm(this);
             DebugAddMsg(DebugEnum.ERR, message);
             Application.DoEvents();
             //MessageBox.Show(message,Application.ProductName);
@@ -3155,7 +3179,7 @@ namespace AmpAutoTunerUtility
             myForm.Dispose();
             return result;
         }
-
+        */
         private void CheckBoxTunerEnabled_CheckedChanged(object sender, EventArgs e)
         {
             if (formLoading) return;
@@ -3169,7 +3193,7 @@ namespace AmpAutoTunerUtility
                     //{
                     //    richTextBoxRig.AppendText(" tuner open failed\n");
                     //    checkBoxTunerEnabled.Checked = false;
-                    //    MyMessageBox("Tuner open failed");
+                    //    ShowCustomMessageBox("Tuner open failed");
                     //    return;
                     //}
                     //richTextBoxRig.AppendText("Tuner opened\n");
@@ -3180,7 +3204,7 @@ namespace AmpAutoTunerUtility
                     checkBoxTunerEnabled.Checked = false;
                     Debug(DebugEnum.ERR, "Tuner error:" + ex.Message + "\n");
                     labelControlLog.Text = "Tuner error";
-                    //MyMessageBox("Error starting tuner\nFix problem and reenable the Tuner" + ex.Message);
+                    //ShowCustomMessageBox("Error starting tuner\nFix problem and reenable the Tuner" + ex.Message);
                 }
             }
             else
@@ -3226,7 +3250,7 @@ namespace AmpAutoTunerUtility
             }
             if (checkBoxRelay1Enabled.Checked && comboBoxComRelay1.Text.Contains("COM") && comboBoxComRelay1.SelectedText == "")
             {
-                //if (relay1 != null) MyMessageBox("Relay1 != null??");
+                //if (relay1 != null) ShowCustomMessageBox("Relay1 != null??");
                 relay1?.Close();
                 relay1 = new Relay();
                 Debug(DebugEnum.LOG, "Relay1 open\n");
@@ -3264,7 +3288,7 @@ namespace AmpAutoTunerUtility
             }
             else if (checkBoxRelay2Enabled.Checked && comboBoxComRelay2.SelectedIndex < 0)
             {
-                MyMessageBox("Select COM port before enabling Relay2");
+                ShowCustomMessageBox("Select COM port before enabling Relay2");
                 checkBoxRelay2Enabled.Checked = false;
             }
         }
@@ -3494,7 +3518,7 @@ namespace AmpAutoTunerUtility
 
         private void ComboBoxBaudRelay1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            MyMessageBox("Baud not implemented");
+            ShowCustomMessageBox("Baud not implemented");
             CheckEnable(comboBoxComRelay1, null, checkBoxRelay1Enabled);
         }
 
@@ -3505,31 +3529,31 @@ namespace AmpAutoTunerUtility
 
         private void ComboBoxBaudRelay2_SelectedIndexChanged(object sender, EventArgs e)
         {
-            MyMessageBox("Baud not implemented");
+            ShowCustomMessageBox("Baud not implemented");
             CheckEnable(comboBoxComRelay2, comboBoxBaudRelay2, checkBoxRelay2Enabled);
         }
 
         private void ComboBoxComRelay3_SelectedIndexChanged(object sender, EventArgs e)
         {
-            MyMessageBox("Check Relay3 implementaion");
+            ShowCustomMessageBox("Check Relay3 implementaion");
             CheckEnable(comboBoxComRelay3, comboBoxBaudRelay3, checkBoxRelay3Enabled);
         }
 
         private void ComboBoxBaudRelay3_SelectedIndexChanged(object sender, EventArgs e)
         {
-            MyMessageBox("Check Relay3 implementaion");
+            ShowCustomMessageBox("Check Relay3 implementaion");
             CheckEnable(comboBoxComRelay3, comboBoxBaudRelay3, checkBoxRelay3Enabled);
         }
 
         private void ComboBoxComRelay4_SelectedIndexChanged(object sender, EventArgs e)
         {
-            MyMessageBox("Check Relay4 implementaion");
+            ShowCustomMessageBox("Check Relay4 implementaion");
             CheckEnable(comboBoxComRelay4, comboBoxBaudRelay4, checkBoxRelay4Enabled);
         }
 
         private void ComboBoxBaudRelay4_SelectedIndexChanged(object sender, EventArgs e)
         {
-            MyMessageBox("Check Relay4 implementaion");
+            ShowCustomMessageBox("Check Relay4 implementaion");
             CheckEnable(comboBoxComRelay4, comboBoxBaudRelay4, checkBoxRelay4Enabled);
         }
 
@@ -3553,7 +3577,7 @@ namespace AmpAutoTunerUtility
             }
             else if (checkBoxRelay4Enabled.Checked && comboBoxComRelay4.SelectedIndex < 0)
             {
-                MyMessageBox("Select COM port before enabling Relay4");
+                ShowCustomMessageBox("Select COM port before enabling Relay4");
                 checkBoxRelay4Enabled.Checked = false;
             }
 
@@ -3579,7 +3603,7 @@ namespace AmpAutoTunerUtility
             if (!((CheckBox)sender).Checked) return;
             if (!AntennaTabCheckValues(textBoxPower1From, textBoxPower1To, textBoxPower1Watts))
             {
-                MyMessageBox("Power tab entry #1 values are not valid");
+                ShowCustomMessageBox("Power tab entry #1 values are not valid");
                 checkBoxPower1Enabled.Checked = false;
             }
         }
@@ -3589,7 +3613,7 @@ namespace AmpAutoTunerUtility
             if (!((CheckBox)sender).Checked) return;
             if (!AntennaTabCheckValues(textBoxPower2From, textBoxPower2To, textBoxPower2Watts))
             {
-                MyMessageBox("Power tab entry #2 values are not valid");
+                ShowCustomMessageBox("Power tab entry #2 values are not valid");
                 checkBoxPower2Enabled.Checked = false;
             }
         }
@@ -3599,7 +3623,7 @@ namespace AmpAutoTunerUtility
             if (!((CheckBox)sender).Checked) return;
             if (!AntennaTabCheckValues(textBoxPower3From, textBoxPower3To, textBoxPower3Watts))
             {
-                MyMessageBox("Power tab entry #3 values are not valid");
+                ShowCustomMessageBox("Power tab entry #3 values are not valid");
                 checkBoxPower3Enabled.Checked = false;
             }
         }
@@ -3609,7 +3633,7 @@ namespace AmpAutoTunerUtility
             if (!((CheckBox)sender).Checked) return;
             if (!AntennaTabCheckValues(textBoxPower4From, textBoxPower4To, textBoxPower4Watts))
             {
-                MyMessageBox("Power tab entry #4 values are not valid");
+                ShowCustomMessageBox("Power tab entry #4 values are not valid");
                 checkBoxPower4Enabled.Checked = false;
             }
         }
@@ -3619,7 +3643,7 @@ namespace AmpAutoTunerUtility
             if (!((CheckBox)sender).Checked) return;
             if (!AntennaTabCheckValues(textBoxPower5From, textBoxPower5To, textBoxPower5Watts))
             {
-                MyMessageBox("Power tab entry #5 values are not valid");
+                ShowCustomMessageBox("Power tab entry #5 values are not valid");
                 checkBoxPower5Enabled.Checked = false;
             }
         }
@@ -3629,7 +3653,7 @@ namespace AmpAutoTunerUtility
             if (!((CheckBox)sender).Checked) return;
             if (!AntennaTabCheckValues(textBoxPower6From, textBoxPower6To, textBoxPower6Watts))
             {
-                MyMessageBox("Power tab entry #6 values are not valid");
+                ShowCustomMessageBox("Power tab entry #6 values are not valid");
                 checkBoxPower6Enabled.Checked = false;
             }
         }
@@ -3639,7 +3663,7 @@ namespace AmpAutoTunerUtility
             if (!((CheckBox)sender).Checked) return;
             if (!AntennaTabCheckValues(textBoxPower7From, textBoxPower7To, textBoxPower7Watts))
             {
-                MyMessageBox("Power tab entry #7 values are not valid");
+                ShowCustomMessageBox("Power tab entry #7 values are not valid");
                 checkBoxPower7Enabled.Checked = false;
             }
         }
@@ -3649,7 +3673,7 @@ namespace AmpAutoTunerUtility
             if (!((CheckBox)sender).Checked) return;
             if (!AntennaTabCheckValues(textBoxPower8From, textBoxPower8To, textBoxPower8Watts))
             {
-                MyMessageBox("Power tab entry #8 values are not valid");
+                ShowCustomMessageBox("Power tab entry #8 values are not valid");
                 checkBoxPower8Enabled.Checked = false;
             }
         }
@@ -3826,7 +3850,7 @@ namespace AmpAutoTunerUtility
             }
             else if (checkBoxRelay3Enabled.Checked && comboBoxComRelay3.SelectedIndex < 0)
             {
-                MyMessageBox("Select COM port before enabling Relay3");
+                ShowCustomMessageBox("Select COM port before enabling Relay3");
                 checkBoxRelay3Enabled.Checked = false;
             }
 
@@ -3881,7 +3905,7 @@ namespace AmpAutoTunerUtility
                 case 1: tuner1.SetDebugLevel(DebugEnum.WARN); break;
                 case 2: tuner1.SetDebugLevel(DebugEnum.TRACE); break;
                 case 3: tuner1.SetDebugLevel(DebugEnum.VERBOSE); break;
-                default: MyMessageBox("Invalid debug level?  level=" + comboBoxDebugLevel.SelectedIndex); break;
+                default: ShowCustomMessageBox("Invalid debug level?  level=" + comboBoxDebugLevel.SelectedIndex); break;
             }
         }
         private void AboutToolStripMenuItem1_Click(object sender, EventArgs e)
@@ -3941,7 +3965,7 @@ namespace AmpAutoTunerUtility
                 checkBoxTunerEnabled.Checked = false;
             }
             //string s = comboBoxTunerModel.SelectedIndex+"\n"+comboBoxBaudTuner.SelectedIndex+"\n";
-            //MyMessageBox(s);
+            //ShowCustomMessageBox(s);
             */
         }
 
@@ -4098,7 +4122,7 @@ namespace AmpAutoTunerUtility
             }
             catch (Exception)
             {
-                MyMessageBox("Unable to open link that was clicked.");
+                ShowCustomMessageBox("Unable to open link that was clicked.");
             }
         }
 
@@ -4672,6 +4696,18 @@ namespace AmpAutoTunerUtility
             }
         }
 
+        private void AntennaEnableButtons(bool enable)
+        {
+            buttonAntennaPick1.Enabled = enable;
+            buttonAntennaPick2.Enabled = enable;
+            buttonAntennaPick3.Enabled = enable;
+            buttonAntennaPick4.Enabled = enable;
+            buttonAntennaPick5.Enabled = enable;
+            buttonAntennaPick6.Enabled = enable;
+            buttonAntennaPick7.Enabled = enable;
+            buttonAntennaPick8.Enabled = enable;
+            Application.DoEvents(); 
+        }
         private void AntennaSetPickButtons()
         {
             if (antennaToolStripMenuItem.Checked == false)
@@ -4877,6 +4913,7 @@ namespace AmpAutoTunerUtility
 
         private void ButtonAntennaPick1_Click(object sender, EventArgs e)
         {
+            AntennaEnableButtons(false);
             try
             {
                 if (ButtonAntennaPickSet(buttonAntennaPick1))
@@ -4884,6 +4921,7 @@ namespace AmpAutoTunerUtility
                     //AmpSet(checkBoxAntenna1Amp.Checked);
                     //SetAntennaRelayOn(1);
                     SetControllerFromAntenna(1);
+                    Thread.Sleep(600);
                     antennaLocked = true;
                 }
             }
@@ -4891,11 +4929,12 @@ namespace AmpAutoTunerUtility
             {
                 MessageBox.Show(ex.Message + "\n" + ex.StackTrace);
             }
-
+            AntennaEnableButtons(true);
         }
 
         private void ButtonAntennaPick2_Click(object sender, EventArgs e)
         {
+            AntennaEnableButtons(false);
             try
             {
                 if (ButtonAntennaPickSet(buttonAntennaPick2))
@@ -4904,17 +4943,19 @@ namespace AmpAutoTunerUtility
                     //SetAntennaRelayOn(2);
                     SetControllerFromAntenna(2);
                     antennaLocked = true;
+                    Thread.Sleep(600);
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message + "\n" + ex.StackTrace);
             }
-
+            AntennaEnableButtons(true);
         }
 
         private void ButtonAntennaPick3_Click(object sender, EventArgs e)
         {
+            AntennaEnableButtons(false);
             try
             {
                 if (ButtonAntennaPickSet(buttonAntennaPick3))
@@ -4923,16 +4964,18 @@ namespace AmpAutoTunerUtility
                     //SetAntennaRelayOn(3);
                     SetControllerFromAntenna(3);
                     antennaLocked = true;
+                    Thread.Sleep(600);
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message + "\n" + ex.StackTrace);
             }
-
+            AntennaEnableButtons(true);
         }
         private void ButtonAntennaPick4_Click(object sender, EventArgs e)
         {
+            AntennaEnableButtons(false);
             try
             {
                 if (ButtonAntennaPickSet(buttonAntennaPick4))
@@ -4941,17 +4984,19 @@ namespace AmpAutoTunerUtility
                     //SetAntennaRelayOn(4);
                     SetControllerFromAntenna(4);
                     antennaLocked = true;
+                    Thread.Sleep(600);
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message + "\n" + ex.StackTrace);
             }
-
+            AntennaEnableButtons(true);
         }
 
         private void ButtonAntennaPick5_Click(object sender, EventArgs e)
         {
+            AntennaEnableButtons(false);
             try
             {
                 if (ButtonAntennaPickSet(buttonAntennaPick5))
@@ -4960,17 +5005,19 @@ namespace AmpAutoTunerUtility
                     //SetAntennaRelayOn(5);
                     SetControllerFromAntenna(5);
                     antennaLocked = true;
+                    Thread.Sleep(600);
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message + "\n" + ex.StackTrace);
             }
-
+            AntennaEnableButtons(true);
         }
 
         private void ButtonAntennaPick6_Click(object sender, EventArgs e)
         {
+            AntennaEnableButtons(false);
             try
             {
                 if (ButtonAntennaPickSet(buttonAntennaPick6))
@@ -4979,17 +5026,19 @@ namespace AmpAutoTunerUtility
                     //SetAntennaRelayOn(6);
                     SetControllerFromAntenna(6);
                     antennaLocked = true;
+                    Thread.Sleep(600);
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message + "\n" + ex.StackTrace);
             }
-
+            AntennaEnableButtons(true);
         }
 
         private void ButtonAntennaPick7_Click(object sender, EventArgs e)
         {
+            AntennaEnableButtons(false);
             try
             {
                 if (ButtonAntennaPickSet(buttonAntennaPick7))
@@ -4998,17 +5047,19 @@ namespace AmpAutoTunerUtility
                     //SetAntennaRelayOn(7);
                     SetControllerFromAntenna(7);
                     antennaLocked = true;
+                    Thread.Sleep(600);
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message + "\n" + ex.StackTrace);
             }
-
+            AntennaEnableButtons(true);
         }
 
         private void ButtonAntennaPick8_Click(object sender, EventArgs e)
         {
+            AntennaEnableButtons(false);
             try
             {
                 if (ButtonAntennaPickSet(buttonAntennaPick8))
@@ -5017,12 +5068,14 @@ namespace AmpAutoTunerUtility
                     //SetAntennaRelayOn(8);
                     SetControllerFromAntenna(8);
                     antennaLocked = true;
+                    Thread.Sleep(600);
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message + "\n" + ex.StackTrace);
             }
+            AntennaEnableButtons(true);
         }
 
         private void CheckBoxAntennaAmp_CheckedChange(object sender, EventArgs e)
@@ -6071,7 +6124,7 @@ namespace AmpAutoTunerUtility
             }
             catch (Exception ex)
             {
-                MyMessageBox("Tuner power on error: " + ex.Message + "\n" + ex.StackTrace);
+                ShowCustomMessageBox("Tuner power on error: " + ex.Message + "\n" + ex.StackTrace);
             }
             Cursor = Cursors.Default;
         }
@@ -6230,7 +6283,7 @@ Set
 
             catch (Exception ex)
             {
-                MyMessageBox("Tuner power on error: " + ex.Message + "\n" + ex.StackTrace);
+                ShowCustomMessageBox("Tuner power on error: " + ex.Message + "\n" + ex.StackTrace);
             }
             Cursor = Cursors.Default;
 
