@@ -1792,6 +1792,23 @@ namespace AmpAutoTunerUtility
                 {
                     try
                     {
+                        double f1From = Convert.ToDouble("0", CultureInfo.InvariantCulture);
+                        double f1To = Convert.ToDouble(textBoxAntennaFreq1To.Text, CultureInfo.InvariantCulture);
+                        //double f2From = Convert.ToDouble(textBoxAntennaFreq2From.Text, CultureInfo.InvariantCulture);
+                        double f2From = Convert.ToDouble(textBoxAntennaFreq2From.Text.ToString(), CultureInfo.InvariantCulture);
+                        //double f2From = Convert.ToDouble(textBoxAntennaFreq2From.Text, CultureInfo.InvariantCulture);)
+                        double f2To = Convert.ToDouble(textBoxAntennaFreq2To.Text, CultureInfo.InvariantCulture);
+                        double f3From = Convert.ToDouble(textBoxAntennaFreq3From.Text, CultureInfo.InvariantCulture);
+                        double f3To = Convert.ToDouble(textBoxAntennaFreq3To.Text, CultureInfo.InvariantCulture);
+                        double f4From = Convert.ToDouble(textBoxAntennaFreq4From.Text, CultureInfo.InvariantCulture);
+                        double f4To = Convert.ToDouble(textBoxAntennaFreq4To.Text, CultureInfo.InvariantCulture);
+                    }
+                    catch (Exception ex)
+                    {
+                        //MessageBox.Show(ex.Message + "\n" + ex.StackTrace);
+                    }
+                    try
+                    {
                         if (checkBoxAntenna1.Checked == true &&
                             ((!freqWalkIsRunning && frequencyMHz >= Convert.ToDouble(textBoxAntennaFreq1From.Text, CultureInfo.InvariantCulture) && frequencyMHz <= Convert.ToDouble(textBoxAntennaFreq1To.Text, CultureInfo.InvariantCulture)
                             ) || (freqWalkIsRunning && textBoxAntenna1.BackColor == System.Drawing.Color.LightYellow))
@@ -1897,8 +1914,9 @@ namespace AmpAutoTunerUtility
                             Int32.TryParse(comboBoxAntSelect8.Text, out antennaOnTuner);
                         }
                     }
-                    catch (Exception)
+                    catch (Exception ex)
                     {
+                        MessageBox.Show(ex.Message + "\n" + ex.StackTrace);
                         // don't do anything here...just catching the parse errors from blank boxes
                     }
                 }
@@ -2549,9 +2567,11 @@ namespace AmpAutoTunerUtility
                             Thread.Sleep(1000);  // give the rig a chance to restore it's band memory
                             myRig.GetMode('A');
                             myRig.GetMode('B');
+                            bool leaveVFOBAlone = false;
                             // Need to check for split and ignore VFOB if not in split
-                            if (!myRig.ModeA.Equals("FM"))
+                            if (!myRig.ModeA.Equals("FM") && !myRig.ModeA.Equals("USB-D"))
                             {
+                                leaveVFOBAlone = true;
                                 Debug(DebugEnum.LOG, "Rig mode VFOB=VFOA set to " + mode + "\n");
                             }
                             stopWatchTuner.Restart();
@@ -2569,7 +2589,8 @@ namespace AmpAutoTunerUtility
                                 }
                                 // Set VFO mode to match primary VFO
                                 //myRig.ModeB = modeCurrent;
-                                frequencyLastTunedHz = frequencyHz;
+                                if (!leaveVFOBAlone) 
+                                    frequencyLastTunedHz = frequencyHz;
                                 //PowerSelect(frequencyHz, modeCurrent);
                                 if (needTuning)
                                 {
@@ -4911,6 +4932,7 @@ namespace AmpAutoTunerUtility
             return true;
         }
 
+        int antennaPickSleep = 1200;
         private void ButtonAntennaPick1_Click(object sender, EventArgs e)
         {
             AntennaEnableButtons(false);
@@ -4921,7 +4943,7 @@ namespace AmpAutoTunerUtility
                     //AmpSet(checkBoxAntenna1Amp.Checked);
                     //SetAntennaRelayOn(1);
                     SetControllerFromAntenna(1);
-                    Thread.Sleep(600);
+                    Thread.Sleep(antennaPickSleep);
                     antennaLocked = true;
                 }
             }
@@ -4943,7 +4965,7 @@ namespace AmpAutoTunerUtility
                     //SetAntennaRelayOn(2);
                     SetControllerFromAntenna(2);
                     antennaLocked = true;
-                    Thread.Sleep(600);
+                    Thread.Sleep(antennaPickSleep);
                 }
             }
             catch (Exception ex)
@@ -4964,7 +4986,7 @@ namespace AmpAutoTunerUtility
                     //SetAntennaRelayOn(3);
                     SetControllerFromAntenna(3);
                     antennaLocked = true;
-                    Thread.Sleep(600);
+                    Thread.Sleep(antennaPickSleep);
                 }
             }
             catch (Exception ex)
@@ -4984,7 +5006,7 @@ namespace AmpAutoTunerUtility
                     //SetAntennaRelayOn(4);
                     SetControllerFromAntenna(4);
                     antennaLocked = true;
-                    Thread.Sleep(600);
+                    Thread.Sleep(antennaPickSleep);
                 }
             }
             catch (Exception ex)
@@ -5005,7 +5027,7 @@ namespace AmpAutoTunerUtility
                     //SetAntennaRelayOn(5);
                     SetControllerFromAntenna(5);
                     antennaLocked = true;
-                    Thread.Sleep(600);
+                    Thread.Sleep(antennaPickSleep);
                 }
             }
             catch (Exception ex)
@@ -5026,7 +5048,7 @@ namespace AmpAutoTunerUtility
                     //SetAntennaRelayOn(6);
                     SetControllerFromAntenna(6);
                     antennaLocked = true;
-                    Thread.Sleep(600);
+                    Thread.Sleep(antennaPickSleep);
                 }
             }
             catch (Exception ex)
@@ -5047,7 +5069,7 @@ namespace AmpAutoTunerUtility
                     //SetAntennaRelayOn(7);
                     SetControllerFromAntenna(7);
                     antennaLocked = true;
-                    Thread.Sleep(600);
+                    Thread.Sleep(antennaPickSleep);
                 }
             }
             catch (Exception ex)
@@ -5068,7 +5090,7 @@ namespace AmpAutoTunerUtility
                     //SetAntennaRelayOn(8);
                     SetControllerFromAntenna(8);
                     antennaLocked = true;
-                    Thread.Sleep(600);
+                    Thread.Sleep(antennaPickSleep);
                 }
             }
             catch (Exception ex)

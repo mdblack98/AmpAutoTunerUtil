@@ -617,7 +617,7 @@ namespace AmpAutoTunerUtility
             {
                 try
                 {
-                    Thread.Sleep(1000);
+                    Thread.Sleep(500);
                     //if (!freqWalkIsRunning)
                     Monitor.Enter(gotTuner);
                     if (!poweringDown)
