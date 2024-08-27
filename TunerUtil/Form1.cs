@@ -2516,7 +2516,7 @@ namespace AmpAutoTunerUtility
                             return;
                         }
                         // if our frequency changes by more than 10KHz make VFOB match VFOA
-                        if (frequencyHz < 60000000 && frequencyLast != 0 && Math.Abs(frequencyHz - frequencyLast) > 200)
+                        if ((myRig.ModeA == "FM" || myRig.ModeA != "CW") && frequencyHz < 60000000 && frequencyLast != 0 && Math.Abs(frequencyHz - frequencyLast) > 200)
                         {
                             DebugAddMsg(DebugEnum.LOG, "Changing VFOB to match last freq " + frequencyLast + " to " + frequencyHz + "\n");
                             myRig.FrequencyB = myRig.FrequencyA;
@@ -2557,22 +2557,25 @@ namespace AmpAutoTunerUtility
                                 getFreqIsRunning = false;
                                 return; // we'll tune on next poll
                             }
-                            double frequencyHzVFOB = frequencyHz - 1000;
-                            if (mode.Contains("LSB") || mode.Contains("-R"))
+                            if (!mode.Equals("USB-D"))
                             {
-                                frequencyHzVFOB = frequencyHz + 1000;
+                                double frequencyHzVFOB = frequencyHz - 1000;
+                                if (mode.Contains("LSB") || mode.Contains("-R"))
+                                {
+                                    frequencyHzVFOB = frequencyHz + 1000;
+                                }
+                                Debug(DebugEnum.LOG, "VFOB freq change from " + myRig.FrequencyB + " to " + frequencyHzVFOB);
+                                myRig.FrequencyB = frequencyHzVFOB;
+                                Thread.Sleep(1000);  // give the rig a chance to restore it's band memory
                             }
-                            Debug(DebugEnum.LOG, "VFOB freq change from " + myRig.FrequencyB + " to " + frequencyHzVFOB);
-                            myRig.FrequencyB = frequencyHzVFOB;
-                            Thread.Sleep(1000);  // give the rig a chance to restore it's band memory
                             myRig.GetMode('A');
                             myRig.GetMode('B');
                             bool leaveVFOBAlone = false;
                             // Need to check for split and ignore VFOB if not in split
-                            if (!myRig.ModeA.Equals("FM") && !myRig.ModeA.Equals("USB-D"))
+                            if (myRig.ModeA.Equals("USB-D"))
                             {
                                 leaveVFOBAlone = true;
-                                Debug(DebugEnum.LOG, "Rig mode VFOB=VFOA set to " + mode + "\n");
+                                Debug(DebugEnum.LOG, "Leaving VFOB alone\n");
                             }
                             stopWatchTuner.Restart();
                             if (checkBoxTunerEnabled.Checked && pausedTuning)
@@ -2589,8 +2592,6 @@ namespace AmpAutoTunerUtility
                                 }
                                 // Set VFO mode to match primary VFO
                                 //myRig.ModeB = modeCurrent;
-                                if (!leaveVFOBAlone) 
-                                    frequencyLastTunedHz = frequencyHz;
                                 //PowerSelect(frequencyHz, modeCurrent);
                                 if (needTuning)
                                 {
@@ -2598,10 +2599,14 @@ namespace AmpAutoTunerUtility
                                     if (!tuner1!.GetModel().Contains(EXPERTLINEARS))
                                         TuneSequence();
                                     timerGetFreq.Start();
+                                    frequencyLastTunedHz = frequencyHz;
                                 }
                                 // Reset VFOB to same freq as VFOA
-                                Debug(DebugEnum.LOG, "Set VFOB=" + frequencyHz + "\n");
-                                myRig.FrequencyB = frequencyHz;
+                                if (!leaveVFOBAlone)
+                                {
+                                    Debug(DebugEnum.LOG, "Set VFOB=" + frequencyHz + "\n");
+                                    myRig.FrequencyB = frequencyHz;
+                                }
                             }
                             else if (!pausedTuning && !pauseButtonClicked)
                             {
