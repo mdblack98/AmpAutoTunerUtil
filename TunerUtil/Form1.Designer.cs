@@ -1136,7 +1136,6 @@
             this.textBoxTune1Power.Name = "textBoxTune1Power";
             this.textBoxTune1Power.Size = new System.Drawing.Size(32, 20);
             this.textBoxTune1Power.TabIndex = 90;
-            this.toolTip1.SetToolTip(this.textBoxTune1Power, "Power settting for Tune -- if 0 then tune not performed");
             this.textBoxTune1Power.TextChanged += new System.EventHandler(this.TextBoxTune1Power_TextChanged);
             // 
             // textBoxTune2Power
@@ -1146,7 +1145,7 @@
             this.textBoxTune2Power.Name = "textBoxTune2Power";
             this.textBoxTune2Power.Size = new System.Drawing.Size(32, 20);
             this.textBoxTune2Power.TabIndex = 92;
-            this.toolTip1.SetToolTip(this.textBoxTune2Power, "Power settting for Tune -- if 0 then tune not performed");
+            this.textBoxTune2Power.TextChanged += new System.EventHandler(this.textBoxTune2Power_TextChanged);
             // 
             // textBoxTune3Power
             // 
@@ -1155,7 +1154,7 @@
             this.textBoxTune3Power.Name = "textBoxTune3Power";
             this.textBoxTune3Power.Size = new System.Drawing.Size(32, 20);
             this.textBoxTune3Power.TabIndex = 93;
-            this.toolTip1.SetToolTip(this.textBoxTune3Power, "Power settting for Tune -- if 0 then tune not performed");
+            this.textBoxTune3Power.TextChanged += new System.EventHandler(this.textBoxTune3Power_TextChanged);
             // 
             // textBoxTune4Power
             // 
@@ -1164,7 +1163,7 @@
             this.textBoxTune4Power.Name = "textBoxTune4Power";
             this.textBoxTune4Power.Size = new System.Drawing.Size(32, 20);
             this.textBoxTune4Power.TabIndex = 94;
-            this.toolTip1.SetToolTip(this.textBoxTune4Power, "Power settting for Tune -- if 0 then tune not performed");
+            this.textBoxTune4Power.TextChanged += new System.EventHandler(this.textBoxTune4Power_TextChanged);
             // 
             // textBoxTune5Power
             // 
@@ -1173,7 +1172,7 @@
             this.textBoxTune5Power.Name = "textBoxTune5Power";
             this.textBoxTune5Power.Size = new System.Drawing.Size(32, 20);
             this.textBoxTune5Power.TabIndex = 95;
-            this.toolTip1.SetToolTip(this.textBoxTune5Power, "Power settting for Tune -- if 0 then tune not performed");
+            this.textBoxTune5Power.TextChanged += new System.EventHandler(this.textBoxTune5Power_TextChanged);
             // 
             // textBoxTune6Power
             // 
@@ -1182,7 +1181,7 @@
             this.textBoxTune6Power.Name = "textBoxTune6Power";
             this.textBoxTune6Power.Size = new System.Drawing.Size(32, 20);
             this.textBoxTune6Power.TabIndex = 96;
-            this.toolTip1.SetToolTip(this.textBoxTune6Power, "Power settting for Tune -- if 0 then tune not performed");
+            this.textBoxTune6Power.TextChanged += new System.EventHandler(this.textBoxTune6Power_TextChanged);
             // 
             // textBoxTune7Power
             // 
@@ -1191,7 +1190,7 @@
             this.textBoxTune7Power.Name = "textBoxTune7Power";
             this.textBoxTune7Power.Size = new System.Drawing.Size(32, 20);
             this.textBoxTune7Power.TabIndex = 97;
-            this.toolTip1.SetToolTip(this.textBoxTune7Power, "Power settting for Tune -- if 0 then tune not performed");
+            this.textBoxTune7Power.TextChanged += new System.EventHandler(this.textBoxTune7Power_TextChanged);
             // 
             // textBoxTune8Power
             // 
@@ -1200,7 +1199,7 @@
             this.textBoxTune8Power.Name = "textBoxTune8Power";
             this.textBoxTune8Power.Size = new System.Drawing.Size(32, 20);
             this.textBoxTune8Power.TabIndex = 98;
-            this.toolTip1.SetToolTip(this.textBoxTune8Power, "Power settting for Tune -- if 0 then tune not performed");
+            this.textBoxTune8Power.TextChanged += new System.EventHandler(this.textBoxTune8Power_TextChanged);
             // 
             // label7
             // 
@@ -5411,7 +5410,7 @@
             this.Margin = new System.Windows.Forms.Padding(2);
             this.MaximumSize = new System.Drawing.Size(417, 310);
             this.Name = "Form1";
-            this.Text = "AmpAutoTunerUtility 240827";
+            this.Text = "AmpAutoTunerUtility 240907";
             this.toolTip1.SetToolTip(this, "Click to Tune\r\nSPE -- Ctrl-Click to tune across band\r\nSPE -- Disabled during Oper" +
         "ate");
             this.HelpButtonClicked += new System.ComponentModel.CancelEventHandler(this.Form1_HelpButtonClicked);

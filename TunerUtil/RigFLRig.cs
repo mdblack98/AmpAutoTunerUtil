@@ -38,12 +38,12 @@ namespace AmpAutoTunerUtility
         public int power;
         public bool transceive;
         public double swr=0;
+        public int maxPower = 5;
         //private volatile object rigLock = new object();
         private Semaphore semaphore = new Semaphore(1,1);
         private volatile bool locked = false;
         int lastLineLock = 0;
         int lastLineUnLock = 0;
-        int maxPower = 20;
 
         private int LineNumber(int stack = 2)
         {
@@ -331,12 +331,12 @@ namespace AmpAutoTunerUtility
                 //if (ptt)
                 SWR = FLRigGetSWR();
                 //DebugAddMsg(DebugEnum.VERBOSE, "SWR=" + SWR + "\n");
-                var rigPower = GetPower();
-                if (rigPower > maxPower)
-                {
-                    DebugAddMsg(DebugEnum.LOG, "Power limited to " + maxPower + ".  See Power tab Max");
-                    SetPower(maxPower);
-                }
+                power = GetPower();
+                //if (rigPower > MaxPower)
+                //{
+                //    DebugAddMsg(DebugEnum.LOG, "Power limited to " + MaxPower + ".  See Power tab Max");
+                //    SetPower(MaxPower);
+                //}
                 if (n++ % 2 == 0)  // do every other one
                 {
                     string modeAsave = modeA;
@@ -611,6 +611,12 @@ namespace AmpAutoTunerUtility
             {
                 this.swr = value;
             }
+        }
+
+        public override int MaxPower
+        {
+            get{ return maxPower; }
+            set { maxPower = value; }
         }
         private double FLRigGetFrequency(char vfo)
         {  
@@ -1265,6 +1271,7 @@ namespace AmpAutoTunerUtility
             }
             return ptt;
         }
+
         public override bool GetPTT()
         {
             return ptt;

@@ -2,6 +2,7 @@
 using AmpAutoTunerUtility.Properties;
 using Microsoft.VisualBasic;
 using System;
+using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data.SqlTypes;
@@ -869,15 +870,33 @@ namespace AmpAutoTunerUtility
             {
                 string errorMsg = null;
                 TunerClose();
+                //toolTip1 = new ToolTip();
+                //toolTip1.ForeColor = System.Drawing.Color.Black;
                 if (comboBoxTunerModel.Text.Equals("LDG", StringComparison.InvariantCulture))
                 {
                     comboBoxBaudTuner.Text = "38400";
                     tuner1 = new TunerLDG(comboBoxTunerModel.Text, comboBoxComTuner.Text, comboBoxBaudTuner.Text);
+                    toolTip1.SetToolTip(textBoxTune1Power, "Power settting for Tune -- if 0 then tune not performed");
+                    toolTip1.SetToolTip(textBoxTune2Power, "Power settting for Tune -- if 0 then tune not performed");
+                    toolTip1.SetToolTip(textBoxTune3Power, "Power settting for Tune -- if 0 then tune not performed");
+                    toolTip1.SetToolTip(textBoxTune4Power, "Power settting for Tune -- if 0 then tune not performed");
+                    toolTip1.SetToolTip(textBoxTune5Power, "Power settting for Tune -- if 0 then tune not performed");
+                    toolTip1.SetToolTip(textBoxTune6Power, "Power settting for Tune -- if 0 then tune not performed");
+                    toolTip1.SetToolTip(textBoxTune7Power, "Power settting for Tune -- if 0 then tune not performed");
+                    toolTip1.SetToolTip(textBoxTune8Power, "Power settting for Tune -- if 0 then tune not performed");
                 }
                 else if (comboBoxTunerModel.Text.Equals(MFJ928, StringComparison.InvariantCulture))
                 {
                     comboBoxBaudTuner.Text = "4800";
                     tuner1 = new TunerMFJ928(comboBoxTunerModel.Text, comboBoxComTuner.Text, comboBoxBaudTuner.Text, out errorMsg);
+                    toolTip1.SetToolTip(textBoxTune1Power, "Power settting for Tune -- if 0 then tune not performed\nSPE recommends 40W max");
+                    toolTip1.SetToolTip(textBoxTune2Power, "Power settting for Tune -- if 0 then tune not performed\nSPE recommends 40W max");
+                    toolTip1.SetToolTip(textBoxTune3Power, "Power settting for Tune -- if 0 then tune not performed\nSPE recommends 40W max");
+                    toolTip1.SetToolTip(textBoxTune4Power, "Power settting for Tune -- if 0 then tune not performed\nSPE recommends 40W max");
+                    toolTip1.SetToolTip(textBoxTune5Power, "Power settting for Tune -- if 0 then tune not performed\nSPE recommends 40W max");
+                    toolTip1.SetToolTip(textBoxTune6Power, "Power settting for Tune -- if 0 then tune not performed\nSPE recommends 40W max");
+                    toolTip1.SetToolTip(textBoxTune7Power, "Power settting for Tune -- if 0 then tune not performed\nSPE recommends 40W max");
+                    toolTip1.SetToolTip(textBoxTune8Power, "Power settting for Tune -- if 0 then tune not performed\nSPE recommends 40W max");
                     // We don't need any command information
                 }
                 else if (comboBoxTunerModel.Text.Contains(EXPERTLINEARS))
@@ -889,6 +908,7 @@ namespace AmpAutoTunerUtility
                     {
                         buttonTunerPwr.BackColor = System.Drawing.Color.Green;
                         buttonTunerPwr.ForeColor = System.Drawing.Color.White;
+                        //toolTip1 = new ToolTip();
                     }
                     else
                     {
@@ -898,6 +918,15 @@ namespace AmpAutoTunerUtility
                     tabPageExpertLinears.Text = tuner1!.GetModel();
                     buttonAmp.Visible = false;
                     TunerSetAntennaSPE();
+                    toolTip1.ForeColor = System.Drawing.Color.Black;
+                    toolTip1.SetToolTip(textBoxTune1Power, "Power settting for Tune -- if 0 then tune not performed\n30-40W recommended by SPE");
+                    toolTip1.SetToolTip(textBoxTune2Power, "Power settting for Tune -- if 0 then tune not performed\n30-40W recommended by SPE");
+                    toolTip1.SetToolTip(textBoxTune3Power, "Power settting for Tune -- if 0 then tune not performed\n30-40W recommended by SPE");
+                    toolTip1.SetToolTip(textBoxTune4Power, "Power settting for Tune -- if 0 then tune not performed\n30-40W recommended by SPE");
+                    toolTip1.SetToolTip(textBoxTune5Power, "Power settting for Tune -- if 0 then tune not performed\n30-40W recommended by SPE");
+                    toolTip1.SetToolTip(textBoxTune6Power, "Power settting for Tune -- if 0 then tune not performed\n30-40W recommended by SPE");
+                    toolTip1.SetToolTip(textBoxTune7Power, "Power settting for Tune -- if 0 then tune not performed\n30-40W recommended by SPE");
+                    toolTip1.SetToolTip(textBoxTune8Power, "Power settting for Tune -- if 0 then tune not performed\n30-40W recommended by SPE");
                     // We don't need any command information
                 }
 
@@ -1948,6 +1977,7 @@ namespace AmpAutoTunerUtility
                 }
                 if (antennaNumberNew.Length == 0) antennaNumberNew = "1";
                 var tmp = Convert.ToInt32(antennaNumberNew, CultureInfo.InvariantCulture);
+                myRig.MaxPower = GetPower(tmp);
                 // if we want to use the Tuner antenna selection then we'll need to add that option
                 //if (!pausedTuning && tuner1 != null && tmp != tuner1.AntennaNumber)
                 //    tuner1.SetAntenna(Convert.ToInt32(antennaNumberNew, CultureInfo.InvariantCulture), tuneIsRunning);
@@ -2298,11 +2328,11 @@ namespace AmpAutoTunerUtility
             do
             {
                 DebugAddMsg(DebugEnum.VERBOSE, "Set power try#" + ntry + "\n");
-                if (tuner1!.GetModel().Contains(EXPERTLINEARS) && value > 30)
-                {
-                    value = 30;
-                    DebugMsg.DebugAddMsg(DebugEnum.LOG,"Power reduced to 20W to avoid overdrive");
-                }
+                //if (tuner1!.GetModel().Contains(EXPERTLINEARS) && value > 30)
+                //{
+                //    value = 30;
+                //    DebugMsg.DebugAddMsg(DebugEnum.LOG,"Power reduced to " + value + "W to avoid overdrive");
+                //}
                 myRig.Power = value;
                 Application.DoEvents();
                 try
@@ -2410,34 +2440,57 @@ namespace AmpAutoTunerUtility
             return false;
         }
 
+        private int GetPower(int antennaNumber)
+        {
+            switch(antennaNumber)
+            {
+                case 1:
+                    return Int32.Parse(textBoxPower1MaxWatts.Text);
+                case 2:
+                    return Int32.Parse(textBoxPower2MaxWatts.Text);
+                case 3:
+                    return Int32.Parse(textBoxPower3MaxWatts.Text);
+                case 4:
+                    return Int32.Parse(textBoxPower4MaxWatts.Text);
+                case 5:
+                    return Int32.Parse(textBoxPower5MaxWatts.Text);
+                case 6:
+                    return Int32.Parse(textBoxPower6MaxWatts.Text);
+                case 7:
+                    return Int32.Parse(textBoxPower7MaxWatts.Text);
+                case 8:
+                    return Int32.Parse(textBoxPower8MaxWatts.Text);
+            }
+            return 5;
+        }
         private void PowerSelect(double frequencyHz, string modeChk, bool tuning = false, bool use_pwr = false)
         {
             double frequencyMHz = frequencyHz / 1e6;
             for (int passNum = 0; passNum < 2; ++passNum)
             {
                 //Debug(DebugEnum.TRACE, "1\n");
-                if (PowerSelectOp(frequencyMHz, checkBoxPower1Enabled, textBoxPower1From, textBoxPower1To, tuning && use_pwr ? textBoxTune1Power : textBoxPower1Watts, comboBoxPower1Mode, modeChk, checkBoxAmp1, checkBoxAmp1.Checked, passNum, textBoxTune1Power))
+                if (PowerSelectOp(frequencyMHz, checkBoxPower1Enabled, textBoxPower1From, textBoxPower1To, tuning && use_pwr ? textBoxTune1Power : textBoxPower1Watts, comboBoxPower1Mode, modeChk, checkBoxAmp1, checkBoxAmp1.Checked, passNum, textBoxPower1MaxWatts))
                     return;
                 //Debug(DebugEnum.TRACE, "2\n");
-                if (PowerSelectOp(frequencyMHz, checkBoxPower2Enabled, textBoxPower2From, textBoxPower2To, tuning && use_pwr ? textBoxTune2Power : textBoxPower2Watts, comboBoxPower2Mode, modeChk, checkBoxAmp2, checkBoxAmp2.Checked, passNum, textBoxTune2Power))
+                if (PowerSelectOp(frequencyMHz, checkBoxPower2Enabled, textBoxPower2From, textBoxPower2To, tuning && use_pwr ? textBoxTune2Power : textBoxPower2Watts, comboBoxPower2Mode, modeChk, checkBoxAmp2, checkBoxAmp2.Checked, passNum, textBoxPower2MaxWatts))
                     return;
                 //Debug(DebugEnum.TRACE, "3\n");
-                if (PowerSelectOp(frequencyMHz, checkBoxPower3Enabled, textBoxPower3From, textBoxPower3To, tuning && use_pwr ? textBoxTune3Power : textBoxPower3Watts, comboBoxPower3Mode, modeChk, checkBoxAmp3, checkBoxAmp3.Checked, passNum, textBoxTune3Power))
+                if (PowerSelectOp(frequencyMHz, checkBoxPower3Enabled, textBoxPower3From, textBoxPower3To, tuning && use_pwr ? textBoxTune3Power : textBoxPower3Watts, comboBoxPower3Mode, modeChk, checkBoxAmp3, checkBoxAmp3.Checked, passNum, textBoxPower3MaxWatts))
                     return;
                 //Debug(DebugEnum.TRACE, "4\n");
-                if (PowerSelectOp(frequencyMHz, checkBoxPower4Enabled, textBoxPower4From, textBoxPower4To, tuning && use_pwr ? textBoxTune4Power : textBoxPower4Watts, comboBoxPower4Mode, modeChk, checkBoxAmp4, checkBoxAmp4.Checked, passNum, textBoxTune4Power))
+                if (PowerSelectOp(frequencyMHz, checkBoxPower4Enabled, textBoxPower4From, textBoxPower4To, tuning && use_pwr ? textBoxTune4Power : textBoxPower4Watts, comboBoxPower4Mode, modeChk, checkBoxAmp4, checkBoxAmp4.Checked, passNum, textBoxPower4MaxWatts))
                     return;
                 //Debug(DebugEnum.TRACE, "5\n");
-                if (PowerSelectOp(frequencyMHz, checkBoxPower5Enabled, textBoxPower5From, textBoxPower5To, tuning && use_pwr ? textBoxTune5Power : textBoxPower5Watts, comboBoxPower5Mode, modeChk, checkBoxAmp5, checkBoxAmp5.Checked, passNum, textBoxTune5Power))
+                if (PowerSelectOp(frequencyMHz, checkBoxPower5Enabled, textBoxPower5From, textBoxPower5To, tuning && use_pwr ? textBoxTune5Power : textBoxPower5Watts, comboBoxPower5Mode, modeChk, checkBoxAmp5, checkBoxAmp5.Checked, passNum, textBoxPower5MaxWatts))
                     return;
                 //Debug(DebugEnum.TRACE, "6\n");
-                if (PowerSelectOp(frequencyMHz, checkBoxPower6Enabled, textBoxPower6From, textBoxPower6To, tuning && use_pwr ? textBoxTune6Power : textBoxPower6Watts, comboBoxPower6Mode, modeChk, checkBoxAmp6, checkBoxAmp6.Checked, passNum, textBoxTune6Power))
+                if (PowerSelectOp(frequencyMHz, checkBoxPower6Enabled, textBoxPower6From, textBoxPower6To, tuning && use_pwr ? textBoxTune6Power : textBoxPower6Watts, comboBoxPower6Mode, modeChk, checkBoxAmp6, checkBoxAmp6.Checked, passNum, textBoxPower6MaxWatts))
                     return;
                 //Debug(DebugEnum.TRACE, "7\n");
-                if (PowerSelectOp(frequencyMHz, checkBoxPower7Enabled, textBoxPower7From, textBoxPower7To, tuning && use_pwr ? textBoxTune7Power : textBoxPower7Watts, comboBoxPower7Mode, modeChk, checkBoxAmp7, checkBoxAmp7.Checked, passNum, textBoxTune7Power))
+                if (PowerSelectOp(frequencyMHz, checkBoxPower7Enabled, textBoxPower7From, textBoxPower7To, tuning && use_pwr ? textBoxTune7Power : textBoxPower7Watts, comboBoxPower7Mode, modeChk, checkBoxAmp7, checkBoxAmp7.Checked, passNum, textBoxPower7MaxWatts))
                     return;
                 //Debug(DebugEnum.TRACE, "8\n");
-                if (PowerSelectOp(frequencyMHz, checkBoxPower8Enabled, textBoxPower8From, textBoxPower8To, tuning && use_pwr ? textBoxTune8Power : textBoxPower8Watts, comboBoxPower8Mode, modeChk, checkBoxAmp8, checkBoxAmp8.Checked, passNum, textBoxTune8Power))
+                if (PowerSelectOp(frequencyMHz, checkBoxPower8Enabled, textBoxPower8From, textBoxPower8To, tuning && use_pwr ? textBoxTune8Power : textBoxPower8Watts, comboBoxPower8Mode, modeChk, checkBoxAmp8, checkBoxAmp8.Checked, passNum, textBoxPower8MaxWatts))
                     return;
                 //Debug(DebugEnum.TRACE, "9\n");
                 labelPower.Text = "Power not set";
@@ -2687,6 +2740,8 @@ namespace AmpAutoTunerUtility
         private void TimerGetFreq_Tick(object sender, EventArgs e)
         {
             if (myRig is null) return;
+            // Do we need to let the use choose what power to show?
+            //labelPower.Text = "";
             if (Monitor.TryEnter(timerGetFreqMutex))
             {
                 frequencyHz = myRig.GetFrequency('A');
@@ -6331,9 +6386,19 @@ Set
 
         }
 
-        private void TextBoxTune1Power_TextChanged(object sender, EventArgs e)
+        private void TunePowerLimitCheck(TextBox textBox)
         {
-
+            if (textBox.Text.Length > 0)
+            {
+                try
+                {
+                    if (Int32.TryParse(textBox.Text, out int power))
+                    {
+                        if (comboBoxTunerModel.Text.Contains(EXPERTLINEARS) && power > 40) textBox.Text = "40";
+                    }
+                }
+                catch { }
+            }
         }
 
         private void numericUpDownFLRigBeforeWalk_ValueChanged(object sender, EventArgs e)
@@ -6386,6 +6451,45 @@ Set
         private void timerSWR_Tick(object sender, EventArgs e)
         {
             SWRUpdate();
+        }
+        private void TextBoxTune1Power_TextChanged(object sender, EventArgs e)
+        {
+            TunePowerLimitCheck(textBoxTune1Power);
+        }
+
+        private void textBoxTune2Power_TextChanged(object sender, EventArgs e)
+        {
+            TunePowerLimitCheck(textBoxTune2Power);
+        }
+
+        private void textBoxTune3Power_TextChanged(object sender, EventArgs e)
+        {
+            TunePowerLimitCheck(textBoxTune3Power);
+        }
+
+        private void textBoxTune4Power_TextChanged(object sender, EventArgs e)
+        {
+            TunePowerLimitCheck(textBoxTune4Power);
+        }
+
+        private void textBoxTune5Power_TextChanged(object sender, EventArgs e)
+        {
+            TunePowerLimitCheck(textBoxTune5Power);
+        }
+
+        private void textBoxTune6Power_TextChanged(object sender, EventArgs e)
+        {
+            TunePowerLimitCheck(textBoxTune6Power);
+        }
+
+        private void textBoxTune7Power_TextChanged(object sender, EventArgs e)
+        {
+            TunePowerLimitCheck(textBoxTune7Power);
+        }
+
+        private void textBoxTune8Power_TextChanged(object sender, EventArgs e)
+        {
+            TunePowerLimitCheck(textBoxTune8Power);
         }
     }
 
