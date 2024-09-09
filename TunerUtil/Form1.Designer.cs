@@ -74,14 +74,6 @@
             this.comboBoxPower8Mode = new System.Windows.Forms.ComboBox();
             this.label6 = new System.Windows.Forms.Label();
             this.textBoxPower1From = new System.Windows.Forms.TextBox();
-            this.textBoxTune1Power = new System.Windows.Forms.TextBox();
-            this.textBoxTune2Power = new System.Windows.Forms.TextBox();
-            this.textBoxTune3Power = new System.Windows.Forms.TextBox();
-            this.textBoxTune4Power = new System.Windows.Forms.TextBox();
-            this.textBoxTune5Power = new System.Windows.Forms.TextBox();
-            this.textBoxTune6Power = new System.Windows.Forms.TextBox();
-            this.textBoxTune7Power = new System.Windows.Forms.TextBox();
-            this.textBoxTune8Power = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.textBoxFreqTol = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -253,6 +245,14 @@
             this.textBoxPower3MaxWatts = new System.Windows.Forms.TextBox();
             this.textBoxPower2MaxWatts = new System.Windows.Forms.TextBox();
             this.textBoxPower1MaxWatts = new System.Windows.Forms.TextBox();
+            this.textBoxTune1Power = new System.Windows.Forms.TextBox();
+            this.textBoxTune2Power = new System.Windows.Forms.TextBox();
+            this.textBoxTune3Power = new System.Windows.Forms.TextBox();
+            this.textBoxTune4Power = new System.Windows.Forms.TextBox();
+            this.textBoxTune5Power = new System.Windows.Forms.TextBox();
+            this.textBoxTune6Power = new System.Windows.Forms.TextBox();
+            this.textBoxTune7Power = new System.Windows.Forms.TextBox();
+            this.textBoxTune8Power = new System.Windows.Forms.TextBox();
             this.tabPage = new System.Windows.Forms.TabControl();
             this.tabPageControl = new System.Windows.Forms.TabPage();
             this.labelControlLog2 = new System.Windows.Forms.Label();
@@ -1128,78 +1128,6 @@
             this.textBoxPower1From.TabIndex = 46;
             this.toolTip1.SetToolTip(this.textBoxPower1From, "0");
             this.textBoxPower1From.TextChanged += new System.EventHandler(this.TextBoxPower1From_TextChanged);
-            // 
-            // textBoxTune1Power
-            // 
-            this.textBoxTune1Power.Location = new System.Drawing.Point(207, 18);
-            this.textBoxTune1Power.Margin = new System.Windows.Forms.Padding(2);
-            this.textBoxTune1Power.Name = "textBoxTune1Power";
-            this.textBoxTune1Power.Size = new System.Drawing.Size(32, 20);
-            this.textBoxTune1Power.TabIndex = 90;
-            this.textBoxTune1Power.TextChanged += new System.EventHandler(this.TextBoxTune1Power_TextChanged);
-            // 
-            // textBoxTune2Power
-            // 
-            this.textBoxTune2Power.Location = new System.Drawing.Point(207, 39);
-            this.textBoxTune2Power.Margin = new System.Windows.Forms.Padding(2);
-            this.textBoxTune2Power.Name = "textBoxTune2Power";
-            this.textBoxTune2Power.Size = new System.Drawing.Size(32, 20);
-            this.textBoxTune2Power.TabIndex = 92;
-            this.textBoxTune2Power.TextChanged += new System.EventHandler(this.textBoxTune2Power_TextChanged);
-            // 
-            // textBoxTune3Power
-            // 
-            this.textBoxTune3Power.Location = new System.Drawing.Point(207, 60);
-            this.textBoxTune3Power.Margin = new System.Windows.Forms.Padding(2);
-            this.textBoxTune3Power.Name = "textBoxTune3Power";
-            this.textBoxTune3Power.Size = new System.Drawing.Size(32, 20);
-            this.textBoxTune3Power.TabIndex = 93;
-            this.textBoxTune3Power.TextChanged += new System.EventHandler(this.textBoxTune3Power_TextChanged);
-            // 
-            // textBoxTune4Power
-            // 
-            this.textBoxTune4Power.Location = new System.Drawing.Point(207, 81);
-            this.textBoxTune4Power.Margin = new System.Windows.Forms.Padding(2);
-            this.textBoxTune4Power.Name = "textBoxTune4Power";
-            this.textBoxTune4Power.Size = new System.Drawing.Size(32, 20);
-            this.textBoxTune4Power.TabIndex = 94;
-            this.textBoxTune4Power.TextChanged += new System.EventHandler(this.textBoxTune4Power_TextChanged);
-            // 
-            // textBoxTune5Power
-            // 
-            this.textBoxTune5Power.Location = new System.Drawing.Point(207, 102);
-            this.textBoxTune5Power.Margin = new System.Windows.Forms.Padding(2);
-            this.textBoxTune5Power.Name = "textBoxTune5Power";
-            this.textBoxTune5Power.Size = new System.Drawing.Size(32, 20);
-            this.textBoxTune5Power.TabIndex = 95;
-            this.textBoxTune5Power.TextChanged += new System.EventHandler(this.textBoxTune5Power_TextChanged);
-            // 
-            // textBoxTune6Power
-            // 
-            this.textBoxTune6Power.Location = new System.Drawing.Point(207, 123);
-            this.textBoxTune6Power.Margin = new System.Windows.Forms.Padding(2);
-            this.textBoxTune6Power.Name = "textBoxTune6Power";
-            this.textBoxTune6Power.Size = new System.Drawing.Size(32, 20);
-            this.textBoxTune6Power.TabIndex = 96;
-            this.textBoxTune6Power.TextChanged += new System.EventHandler(this.textBoxTune6Power_TextChanged);
-            // 
-            // textBoxTune7Power
-            // 
-            this.textBoxTune7Power.Location = new System.Drawing.Point(207, 144);
-            this.textBoxTune7Power.Margin = new System.Windows.Forms.Padding(2);
-            this.textBoxTune7Power.Name = "textBoxTune7Power";
-            this.textBoxTune7Power.Size = new System.Drawing.Size(32, 20);
-            this.textBoxTune7Power.TabIndex = 97;
-            this.textBoxTune7Power.TextChanged += new System.EventHandler(this.textBoxTune7Power_TextChanged);
-            // 
-            // textBoxTune8Power
-            // 
-            this.textBoxTune8Power.Location = new System.Drawing.Point(207, 165);
-            this.textBoxTune8Power.Margin = new System.Windows.Forms.Padding(2);
-            this.textBoxTune8Power.Name = "textBoxTune8Power";
-            this.textBoxTune8Power.Size = new System.Drawing.Size(32, 20);
-            this.textBoxTune8Power.TabIndex = 98;
-            this.textBoxTune8Power.TextChanged += new System.EventHandler(this.textBoxTune8Power_TextChanged);
             // 
             // label7
             // 
@@ -3526,6 +3454,78 @@
             this.textBoxPower1MaxWatts.TabIndex = 109;
             this.toolTip1.SetToolTip(this.textBoxPower1MaxWatts, "Max power allowed on rig");
             // 
+            // textBoxTune1Power
+            // 
+            this.textBoxTune1Power.Location = new System.Drawing.Point(207, 18);
+            this.textBoxTune1Power.Margin = new System.Windows.Forms.Padding(2);
+            this.textBoxTune1Power.Name = "textBoxTune1Power";
+            this.textBoxTune1Power.Size = new System.Drawing.Size(32, 20);
+            this.textBoxTune1Power.TabIndex = 90;
+            this.textBoxTune1Power.TextChanged += new System.EventHandler(this.TextBoxTune1Power_TextChanged);
+            // 
+            // textBoxTune2Power
+            // 
+            this.textBoxTune2Power.Location = new System.Drawing.Point(207, 39);
+            this.textBoxTune2Power.Margin = new System.Windows.Forms.Padding(2);
+            this.textBoxTune2Power.Name = "textBoxTune2Power";
+            this.textBoxTune2Power.Size = new System.Drawing.Size(32, 20);
+            this.textBoxTune2Power.TabIndex = 92;
+            this.textBoxTune2Power.TextChanged += new System.EventHandler(this.textBoxTune2Power_TextChanged);
+            // 
+            // textBoxTune3Power
+            // 
+            this.textBoxTune3Power.Location = new System.Drawing.Point(207, 60);
+            this.textBoxTune3Power.Margin = new System.Windows.Forms.Padding(2);
+            this.textBoxTune3Power.Name = "textBoxTune3Power";
+            this.textBoxTune3Power.Size = new System.Drawing.Size(32, 20);
+            this.textBoxTune3Power.TabIndex = 93;
+            this.textBoxTune3Power.TextChanged += new System.EventHandler(this.textBoxTune3Power_TextChanged);
+            // 
+            // textBoxTune4Power
+            // 
+            this.textBoxTune4Power.Location = new System.Drawing.Point(207, 81);
+            this.textBoxTune4Power.Margin = new System.Windows.Forms.Padding(2);
+            this.textBoxTune4Power.Name = "textBoxTune4Power";
+            this.textBoxTune4Power.Size = new System.Drawing.Size(32, 20);
+            this.textBoxTune4Power.TabIndex = 94;
+            this.textBoxTune4Power.TextChanged += new System.EventHandler(this.textBoxTune4Power_TextChanged);
+            // 
+            // textBoxTune5Power
+            // 
+            this.textBoxTune5Power.Location = new System.Drawing.Point(207, 102);
+            this.textBoxTune5Power.Margin = new System.Windows.Forms.Padding(2);
+            this.textBoxTune5Power.Name = "textBoxTune5Power";
+            this.textBoxTune5Power.Size = new System.Drawing.Size(32, 20);
+            this.textBoxTune5Power.TabIndex = 95;
+            this.textBoxTune5Power.TextChanged += new System.EventHandler(this.textBoxTune5Power_TextChanged);
+            // 
+            // textBoxTune6Power
+            // 
+            this.textBoxTune6Power.Location = new System.Drawing.Point(207, 123);
+            this.textBoxTune6Power.Margin = new System.Windows.Forms.Padding(2);
+            this.textBoxTune6Power.Name = "textBoxTune6Power";
+            this.textBoxTune6Power.Size = new System.Drawing.Size(32, 20);
+            this.textBoxTune6Power.TabIndex = 96;
+            this.textBoxTune6Power.TextChanged += new System.EventHandler(this.textBoxTune6Power_TextChanged);
+            // 
+            // textBoxTune7Power
+            // 
+            this.textBoxTune7Power.Location = new System.Drawing.Point(207, 144);
+            this.textBoxTune7Power.Margin = new System.Windows.Forms.Padding(2);
+            this.textBoxTune7Power.Name = "textBoxTune7Power";
+            this.textBoxTune7Power.Size = new System.Drawing.Size(32, 20);
+            this.textBoxTune7Power.TabIndex = 97;
+            this.textBoxTune7Power.TextChanged += new System.EventHandler(this.textBoxTune7Power_TextChanged);
+            // 
+            // textBoxTune8Power
+            // 
+            this.textBoxTune8Power.Location = new System.Drawing.Point(207, 165);
+            this.textBoxTune8Power.Margin = new System.Windows.Forms.Padding(2);
+            this.textBoxTune8Power.Name = "textBoxTune8Power";
+            this.textBoxTune8Power.Size = new System.Drawing.Size(32, 20);
+            this.textBoxTune8Power.TabIndex = 98;
+            this.textBoxTune8Power.TextChanged += new System.EventHandler(this.textBoxTune8Power_TextChanged);
+            // 
             // tabPage
             // 
             this.tabPage.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -5410,7 +5410,7 @@
             this.Margin = new System.Windows.Forms.Padding(2);
             this.MaximumSize = new System.Drawing.Size(417, 310);
             this.Name = "Form1";
-            this.Text = "AmpAutoTunerUtility 240907";
+            this.Text = "AmpAutoTunerUtility 240909";
             this.toolTip1.SetToolTip(this, "Click to Tune\r\nSPE -- Ctrl-Click to tune across band\r\nSPE -- Disabled during Oper" +
         "ate");
             this.HelpButtonClicked += new System.ComponentModel.CancelEventHandler(this.Form1_HelpButtonClicked);
