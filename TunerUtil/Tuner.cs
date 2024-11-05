@@ -14,7 +14,7 @@ namespace AmpAutoTunerUtility
         public char bank;
         public bool freqWalkIsRunning = false;
         public bool poweringDown = false;
-
+        public bool Bypassed = false;
         //public enum TunerState
         //{
         //    Unknown,

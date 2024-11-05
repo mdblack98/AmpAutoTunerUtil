@@ -31,7 +31,7 @@ namespace AmpAutoTunerUtility
         private string power = "?";
         //public char bank = "?";
         private string temp1 = "?";
-        private string antenna = "?";
+        public string antenna = "?";
         private string bandstr = "?";
         public bool tuning = false;
         //Byte[] responseOld = new byte[512];
@@ -39,6 +39,8 @@ namespace AmpAutoTunerUtility
         private byte ledStatus = 0;
         public TunerExpertLinears(string model, string comport, string baud, out string errmsg)
         {
+            Bypassed = true;
+            AntennaNumber = 1;
             antennas = new string[12, 2];
             errmsg = null;
             this.comport = comport;
@@ -549,6 +551,7 @@ namespace AmpAutoTunerUtility
                             antenna = newAntenna;
                         }
                         AntennaNumber = int.Parse(antenna.Substring(0, 1));
+                        Bypassed = antenna.Contains("b");
                         model = "SPE " + mytokens[1];
                         bank = mytokens[4][0];
                         powerLevel = mytokens[9];
@@ -577,7 +580,7 @@ namespace AmpAutoTunerUtility
 
                         IsOperate = mytokens[2] != "S";
                         if (temp1.Equals("?")) DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.LOG, "Expert Linears connected\n");
-                        temp1 = mytokens[15];
+                        temp1 = int.Parse(mytokens[15]).ToString();
                         if (mytokens.Length >= 21)
                         {
                             response[0] = (byte)mytokens[18][0];
@@ -614,7 +617,7 @@ namespace AmpAutoTunerUtility
             {
                 try
                 {
-                    Thread.Sleep(1000);
+                    Thread.Sleep(500);
                     //if (!freqWalkIsRunning)
                     Monitor.Enter(gotTuner);
                     if (!poweringDown)
@@ -685,7 +688,7 @@ namespace AmpAutoTunerUtility
         {
             // Can't get power from the LDG tuner
             // So will have to use the rig power level instead elsewhere
-            return "Pwr/Temp " + power + "/" + temp1 + "C";
+            return "Pwr/Temp " + power + "/" + temp1;
         }
         public override int GetAntenna()
         {
@@ -717,7 +720,7 @@ namespace AmpAutoTunerUtility
                     Byte[] cmd = [0x55, 0x55, 0x55, 0x01, 0x04, 0x04];
                     DebugMsg.DebugAddMsg(DebugMsg.DebugEnum.LOG, "Setting antenna to other antenna\n");
                     SerialPortTuner.Write(cmd, 0, 6);
-                    antenna = antennaNumberRequested.ToString();
+                    //antenna = antennaNumberRequested.ToString();
                 }
                 //Thread.Sleep(500);
                 //while (GetStatus()) ;
