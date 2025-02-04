@@ -9,7 +9,7 @@ namespace AmpAutoTunerUtility
 {
     class TunerLDG : Tuner
     {
-        private SerialPort SerialPortTuner = null;
+        protected private SerialPort SerialPortTuner = null;
         char response = 'X';
 
         public TunerLDG(string model, string comport, string baud)

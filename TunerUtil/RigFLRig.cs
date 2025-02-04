@@ -14,14 +14,14 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
 using static AmpAutoTunerUtility.DebugMsg;
-
+#nullable enable
 
 namespace AmpAutoTunerUtility
 {
     class RigFLRig : Rig, IDisposable
     {
         readonly string rig = "FLRig";
-        TcpClient ?rigClient;
+        private TcpClient? rigClient;
         NetworkStream ?rigStream;
         public string errorMessage = "None";
         private Thread ?myThread;
@@ -40,14 +40,14 @@ namespace AmpAutoTunerUtility
         public double swr=0;
         public int maxPower = 5;
         //private volatile object rigLock = new object();
-        private Semaphore semaphore = new Semaphore(1,1);
-        private volatile bool locked = false;
+        private readonly Semaphore semaphore = new(1,1);
+        //private volatile bool locked = false;
         int lastLineLock = 0;
-        int lastLineUnLock = 0;
+        //int lastLineUnLock = 0;
 
         private int LineNumber(int stack = 2)
         {
-            StackFrame CallStack = new StackFrame(stack, true);
+            StackFrame CallStack = new(stack, true);
             return CallStack.GetFileLineNumber();
         }
 
@@ -76,7 +76,7 @@ namespace AmpAutoTunerUtility
                //MessageBox.Show("Semaphore count != 1!!");
             }
             */
-            lastLineUnLock = LineNumber();
+            //lastLineUnLock = LineNumber();
             semaphore.Release(1);
         }
         public override bool Open()
@@ -156,7 +156,7 @@ namespace AmpAutoTunerUtility
         }
         private string ?FLRigGetXcvr()
         {
-            string xcvr = "Rig??";
+            string? xcvr = "Rig??";
             try
             {
                 //if (!checkBoxRig.Checked) return null;
@@ -540,7 +540,7 @@ namespace AmpAutoTunerUtility
                 return null;
             }
             data = new Byte[4096];
-            List<string> modes = new List<string>();
+            List<string> modes = [];
             rigStream.ReadTimeout = 5000;
             try
             {
@@ -549,7 +549,7 @@ namespace AmpAutoTunerUtility
                 //richTextBoxRig.AppendText(responseData + "\n");
                 try
                 {
-                    char[] sep = { '<', '>' };
+                    char[] sep = ['<', '>'];
                     if (responseData.Contains("<value>")) // then we have some info
                     {
                         string[] tokens = responseData.Split(sep);
@@ -831,7 +831,7 @@ namespace AmpAutoTunerUtility
                             int offset1 = responseData.IndexOf("<value>", StringComparison.InvariantCulture) + "<value>".Length;
                             int offset2 = responseData.IndexOf("</value>", StringComparison.InvariantCulture);
                             string info = responseData.Substring(offset1, offset2 - offset1);
-                            string[] tokens = info.Split(new char[] { '\n' });
+                            string[] tokens = info.Split(['\n']);
                             model = tokens[0].Substring(2);
                         }
                     }
@@ -1279,9 +1279,9 @@ namespace AmpAutoTunerUtility
 
         public override string GetModel()
         {
-            string ?model = "unknown";
-            model = FLRigGetModel();
-            if (model == null) { model = "unknown"; }
+            //string ?model = "unknown";
+            string? model = FLRigGetModel();
+            model ??= "unknown";
             return model;
         }
         public override void SetTransceive(bool transceive)

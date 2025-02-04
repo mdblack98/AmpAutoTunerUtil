@@ -18,7 +18,7 @@ namespace AmpAutoTunerUtility
                 AppDomain currentDomain = AppDomain.CurrentDomain;
                 currentDomain.UnhandledException += new UnhandledExceptionEventHandler(UnhandledExceptions); Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
-                Form1 myForm = new Form1();
+                Form1 myForm = new();
                 Application.Run(myForm);
                 //myForm.Dispose();
             }

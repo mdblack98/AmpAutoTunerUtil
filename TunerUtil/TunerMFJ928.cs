@@ -8,14 +8,15 @@ using System.IO.Ports;
 using System.Threading;
 using System.Windows.Forms;
 using static AmpAutoTunerUtility.DebugMsg;
+#nullable enable
 
 namespace AmpAutoTunerUtility
 {
     public sealed class TunerMFJ928 : Tuner
     {
         enum TunerStateEnum { UNKNOWN, SLEEP, AWAKE, TUNING, TUNEDONE, ERR}
-        TunerStateEnum TunerState = TunerStateEnum.UNKNOWN;
-        private SerialPort SerialPortTuner = null;
+        TunerStateEnum? TunerState = TunerStateEnum.UNKNOWN;
+        private SerialPort? SerialPortTuner = null;
         public double FwdPwr { get; set; }
         public double RefPwr { get; set; }
         //public new int Inductance { get; set; }
@@ -24,7 +25,7 @@ namespace AmpAutoTunerUtility
         volatile bool Tuning = false;
         volatile bool dataReceived = false;
 
-        public TunerMFJ928(string model, string comport, string baud, out string error)
+        public TunerMFJ928(string model, string comport, string baud, out string? error)
         {
             this.model = model;
             this.comport = comport;
@@ -63,7 +64,7 @@ namespace AmpAutoTunerUtility
 
             byte[] buffer = new byte[4096];
             byte[] buffer1 = new byte[1];
-            Action kickoffRead = null;
+            Action? kickoffRead = null;
             SerialPortTuner.BaseStream.ReadTimeout = 100;
             Queue<byte> myQueue = new();
             GetAntenna();
@@ -86,7 +87,7 @@ namespace AmpAutoTunerUtility
                             byte[] received = new byte[actualLength];
                             Buffer.BlockCopy(buffer, 0, received, 0, actualLength);
                             foreach (byte b in received) myQueue.Enqueue(b);
-                            byte[] cmd;
+                            byte[]? cmd;
                             while ((cmd = GetCmd(myQueue)) != null)
                             {
                                 if (cmd[0] == 0xfe && cmd.Length != 8)
@@ -124,7 +125,7 @@ namespace AmpAutoTunerUtility
             }
         }
 
-        byte[] GetCmd(Queue<byte> q)
+        byte[]? GetCmd(Queue<byte> q)
         {
             byte[] cmd;
             int nbytes;
@@ -433,13 +434,14 @@ namespace AmpAutoTunerUtility
             }
         }
 
-        public override string GetSerialPortTuner()
+        public override string? GetSerialPortTuner()
         {
             if (SerialPortTuner == null)
             {
                 return null;
             }
-            return SerialPortTuner.PortName;
+            string? port = SerialPortTuner.PortName;
+            return port;
         }
 
         /*
@@ -458,7 +460,7 @@ namespace AmpAutoTunerUtility
             if (bcd == null) return 0;
             for (int i = 0; i < len; i++)
             {
-                int mul = (int)Math.Pow(10, (i * 2));
+                int? mul = (int)Math.Pow(10, (i * 2));
                 outInt += (uint)(((bcd[i] & 0xF)) * mul);
                 mul = (int)Math.Pow(10, (i * 2) + 1);
                 outInt += (uint)(((bcd[i] >> 4)) * mul);
@@ -473,7 +475,7 @@ namespace AmpAutoTunerUtility
                 bcd[byteNo] = 0;
             for (int digit = 0; digit < bytesize * 2; ++digit)
             {
-                uint hexpart = numericvalue % 10;
+                uint? hexpart = numericvalue % 10;
                 bcd[digit / 2] |= (byte)(hexpart << ((digit % 2) * 4));
                 numericvalue /= 10;
             }
@@ -505,10 +507,10 @@ namespace AmpAutoTunerUtility
             // Have to handle each response
             //byte[] data = new byte[4096];
             //int i = 0;
-            int nn = 0;
+            int? nn = 0;
             char response;
             //bool GotSWR = false;
-            int nwait = 0;
+            int? nwait = 0;
             while(TunerState != TunerStateEnum.TUNEDONE && nwait++ < 20)
             {
                 SetText(DebugEnum.TRACE, "Tune wait " + ++nn+"\n");
@@ -579,7 +581,7 @@ namespace AmpAutoTunerUtility
             SetText(DebugEnum.TRACE, "Start tune1, Tuning="+Tuning+"\n");
             CMDTune();
             SetText(DebugEnum.TRACE, "Start tune2, Tuning=" + Tuning + "\n");
-            int n = 0;
+            int? n = 0;
             while (Tuning && n++ < 60)
             {
                 SetText(DebugEnum.LOG, "wait for Tuning " + n + "/60\n");

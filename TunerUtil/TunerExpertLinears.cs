@@ -15,12 +15,13 @@ using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
 using System.Windows.Media.Animation;
 using static AmpAutoTunerUtility.DebugMsg;
+#nullable enable
 
 namespace AmpAutoTunerUtility
 {
     class TunerExpertLinears : Tuner
     {
-        private SerialPort SerialPortTuner = null;
+        private SerialPort? SerialPortTuner = null;
         private bool runThread = false;
         readonly char response = 'X';
         public double SWR1 = 0;
@@ -37,7 +38,7 @@ namespace AmpAutoTunerUtility
         //Byte[] responseOld = new byte[512];
         const double swrCutoff = 1.35;
         private byte ledStatus = 0;
-        public TunerExpertLinears(string model, string comport, string baud, out string errmsg)
+        public TunerExpertLinears(string model, string comport, string baud, out string? errmsg)
         {
             Bypassed = true;
             AntennaNumber = 1;
@@ -203,7 +204,7 @@ namespace AmpAutoTunerUtility
 
         readonly char[] lookup = [' ', '!', '"', '#','$', '%', '&', '\\', '(', ')', '*', '+', ',', '-','.', '/','0','1','2','3','4','5','6','7','8','9',':',';','<','=','>','?','@','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','Z','[','\\','^','_','?','a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z','{','|','}','?'];
         private Screen screenLast = Screen.Unknown;
-        private object gotTuner = "gotTuner";
+        private readonly object gotTuner = "gotTuner";
 
         //public override bool GetStatus2(screen myScreen)
         public override bool GetStatus2(Screen ?myScreen = Screen.Unknown)
@@ -608,7 +609,7 @@ namespace AmpAutoTunerUtility
             return true;
         }
 
-        readonly Thread myThread;
+        readonly Thread? myThread;
         private void ThreadTask()
         {
             runThread = true;
@@ -642,13 +643,14 @@ namespace AmpAutoTunerUtility
         {
             return "SWR ATU/ANT" + swr1 + "/" + swr2;
         }
-        public override string GetSerialPortTuner()
+        public override string? GetSerialPortTuner()
         {
             if (SerialPortTuner == null)
             {
                 return null;
             }
-            return SerialPortTuner.PortName;
+            string? port = SerialPortTuner.PortName;
+            return port;
         }
 
         public override char ReadResponse()
@@ -1003,6 +1005,11 @@ namespace AmpAutoTunerUtility
 
         private void TuneCurrentBandWithATU()
         {
+            if (Form1.myRig == null)
+            {
+                MessageBox.Show("myRig is null???");
+                return;
+            }
             Form1.myRig.ModeA = "FM";
             Form1.myRig.ModeB = "FM";
             var nFreqs = tuneFrequencies[band, 0];
@@ -1052,8 +1059,11 @@ namespace AmpAutoTunerUtility
                 double l = GetInductance();
                 double c = GetCapacitance();
                 DebugMsg.DebugAddMsg(DebugEnum.LOG, "L=" + l.ToString("0.0") + "C=" + c.ToString("0,0"));
-                Form1.myRig.ModeA = "FM";
-                Form1.myRig.ModeB = "FM";
+                if (Form1.myRig != null)
+                {
+                    Form1.myRig.ModeA = "FM";
+                    Form1.myRig.ModeB = "FM";
+                }
 
                 // Ready for finding min SWR test
                 double SWRStart;
@@ -1073,10 +1083,12 @@ namespace AmpAutoTunerUtility
                 {
                     freqTable[i] = (freq + (step * i)) * 1000;
                 }
-                Form1.myRig.SetFrequency('A', freqTable[0]);
-                Form1.myRig.SetFrequency('B', freqTable[0]);
+                if (Form1.myRig != null) { 
+                    Form1.myRig.SetFrequency('A', freqTable[0]);
+                    Form1.myRig.SetFrequency('B', freqTable[0]);
+                }
                 SelectManualTunePage();
-                Form1.myRig.SetPTT(true);
+                Form1.myRig?.SetPTT(true);
                 Application.DoEvents();
                 Thread.Sleep(500);
                 Application.DoEvents();
@@ -1091,8 +1103,8 @@ namespace AmpAutoTunerUtility
                 {
                     freq2Tune = thisFreq;
                     if (freq2Tune == 0) continue;
-                    Form1.myRig.SetFrequency('A', freq2Tune);
-                    Form1.myRig.SetFrequency('B', freq2Tune);
+                    Form1.myRig?.SetFrequency('A', freq2Tune);
+                    Form1.myRig?.SetFrequency('B', freq2Tune);
                     Application.DoEvents();
                     double swr;
                     GetStatus2(Tuner.Screen.ManualTune);
@@ -1145,7 +1157,7 @@ namespace AmpAutoTunerUtility
                     }
                     DebugMsg.DebugAddMsg(DebugEnum.LOG, "Freq " + freq2Tune + " SWR " + SWRStart.ToString("0.00"));
                 }
-                Form1.myRig.SetPTT(false);
+                Form1.myRig?.SetPTT(false);
 
             }
             catch (Exception ex)
